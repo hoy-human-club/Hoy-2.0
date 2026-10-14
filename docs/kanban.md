@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Completed · 0061 (v0.24.0 patch · 2026-10-14)
+
+- M-13/C-28: permit distinct guests with the same display name while retaining user-ID/email duplicate protection. [Details](changelog/0061-voucher-guest-identities.md)
+
 ## Completed · 0060 (v0.24.0 · 2026-10-14)
 
 - M-13/C-28: free invitation sandbox with class/COP benefits, guest booking, attendance and traceable domain events. Production fulfillment remains pending the backend integration. [Details](changelog/0060-invitation-vouchers.md)

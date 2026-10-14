@@ -54,5 +54,42 @@ try {
  assert.equal(db.class_sessions[0].booked_count,4);
  const originalName=book.participants[0].name;book.participants[0].name='Tampered';assert.notEqual(db.voucher_bookings[0].participants[0].name,'Tampered');book.participants[0].name=originalName;
  const recordedConsent=db.voucher_events.find(e=>e.kind==='book').payload;assert.equal(recordedConsent.contactConsent,true);assert.equal(recordedConsent.marketingConsent,false);assert.equal(recordedConsent.consentRecordedAt,ctx.now);
+ // Names do not identify people. Each scenario starts with ample independent capacity.
+ const identityScenario=()=>{
+  let state={vouchers:[],voucher_bookings:[],voucher_events:[],users:[{...base,id:'member'},{...base,id:'other-member'}],bookings:[],class_sessions:[{...base,id:'identity-session',starts_at:'2027-01-01',status:'scheduled',capacity:20,booked_count:0}]};
+  const act=cmd=>{const out=run(state,{requestId:`identity-${++requests}`,actorId:'admin',role:'admin',...cmd},{...ctx,usesMats:()=>false});state=out.db;return out.result;};
+  const makeVoucher=()=>{const voucher=act({...issue,benefitTotal:20,participantCap:10}).voucher;act({type:'claim',voucherId:voucher.id,userId:'member',actorId:'member',role:'customer'});return voucher.id;};
+  const firstVoucher=makeVoucher(), secondVoucher=makeVoucher();
+  const reserve=(participants,voucherId=firstVoucher)=>act({type:'book',voucherId,sessionId:'identity-session',participants,contactConsent:true});
+  const reject=(participants,code,voucherId)=>{const before=JSON.stringify(state);assert.throws(()=>reserve(participants,voucherId),new RegExp(code));assert.equal(JSON.stringify(state),before,'identity failure atomic');};
+  return {reserve,reject,secondVoucher};
+ };
+ {
+  const t=identityScenario();
+  t.reserve([{name:'Alex Rivera'},{name:'Alex Rivera'}]);
+  t.reserve([{name:'Alex Rivera'}],t.secondVoucher);
+ }
+ {
+  const t=identityScenario();
+  t.reserve([{name:'Alex Rivera',email:'alex.one@example.test'},{name:'Alex Rivera',email:'alex.two@example.test'}]);
+  t.reserve([{name:'Alex Rivera',email:'alex.three@example.test'}],t.secondVoucher);
+  t.reject([{name:'Changed display name',email:'ALEX.ONE@example.test'}],'booking_exists',t.secondVoucher);
+ }
+ {
+  const t=identityScenario();
+  t.reject([{name:'A',email:'duplicate@example.test'},{name:'B',email:'DUPLICATE@example.test'}],'voucher_duplicate_guest');
+  t.reject([{name:'A',userId:'member'},{name:'B',userId:'member'}],'voucher_duplicate_guest');
+  t.reject([{name:'A',userId:'member',email:'owner@example.test'},{name:'B',email:'OWNER@example.test'}],'voucher_duplicate_guest');
+  t.reserve([{name:'Member',userId:'member',email:'owner@example.test'}]);
+  t.reject([{name:'Renamed',userId:'member'}],'booking_exists',t.secondVoucher);
+  t.reject([{name:'Another label',email:'OWNER@example.test'}],'booking_exists',t.secondVoucher);
+ }
+ {
+  const t=identityScenario();
+  t.reserve([{name:'Guest',email:'owner@example.test'}]);
+  t.reject([{name:'Member',userId:'member',email:'OWNER@example.test'}],'booking_exists',t.secondVoucher);
+  t.reserve([{name:'member'}],t.secondVoucher); // A name matching an ID is still only a label.
+ }
+ console.log('Voucher identity regressions: same-name groups and separate bookings allowed; repeated user IDs and normalized emails rejected atomically');
  console.log('Voucher contract: role guards, explicit terms, atomic failure, idempotency, claim ownership, guest validation, capacity, mats, balance, COP integers, cancellation, attendance, lifetime cap and preview-only audit passed');
 } finally {await rm(scratch,{recursive:true,force:true});}

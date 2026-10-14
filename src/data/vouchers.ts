@@ -43,6 +43,12 @@ export interface VoucherResult { voucher: VoucherRow; booking?: VoucherBookingRo
 export type VoucherDb = Record<string, BaseRow[]>;
 const fail = (code: string): never => { throw new Error(code); };
 const positive = (n: number) => Number.isSafeInteger(n) && n > 0;
+// Display names are labels, never identities. Keep identifier namespaces distinct
+// and consider every supplied identifier so adding a userId cannot hide a matching email.
+const participantIdentities = (p: VoucherParticipant): string[] => [
+  ...(p.userId ? [`user:${p.userId}`] : []),
+  ...(p.email?.trim() ? [`email:${p.email.trim().toLowerCase()}`] : []),
+];
 const staff = (role: string) => ['super_admin', 'admin'].includes(role);
 export const voucherSeats = (db: VoucherDb, sessionId: string) => (db.voucher_bookings ?? []).filter(b => b.sessionId === sessionId && b.status !== 'cancelled').reduce((n, b) => n + (b as VoucherBookingRow).participants.length, 0);
 
@@ -83,7 +89,7 @@ export function executeVoucherCommand(database: VoucherDb, command: VoucherComma
       if (!voucher.claimedBy) fail('voucher_claim_required');
       if (!c.contactConsent || !c.participants.length || c.participants.some(p => !p.name?.trim() || (p.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)))) fail('voucher_guest_details_required');
       if (c.participants.some(p => p.userId && (p.userId !== voucher.claimedBy || !(db.users ?? []).some(u => u.id === p.userId && u.tenant_id === context.tenantId)))) fail('voucher_identity_required');
-      const identities = c.participants.map(p => (p.userId || p.email || p.name).trim().toLowerCase());
+      const identities = c.participants.flatMap(participantIdentities);
       if (new Set(identities).size !== identities.length) fail('voucher_duplicate_guest');
       const priorSeats = voucher.capScope === 'lifetime' ? bookings.filter(b => b.voucherId === voucher.id && b.status !== 'cancelled').reduce((n,b) => n+b.participants.length,0) : 0;
       if (priorSeats + c.participants.length > voucher.participantCap) fail('voucher_participant_cap');
@@ -91,7 +97,7 @@ export function executeVoucherCommand(database: VoucherDb, command: VoucherComma
       if (session.status !== 'scheduled' || Date.parse(session.starts_at) <= Date.parse(now) || (voucher.expiresAt && Date.parse(session.starts_at) > Date.parse(voucher.expiresAt))) fail('session_unavailable');
       const regular = (db.bookings as BookingRow[]).filter(b => b.session_id === session.id && b.status !== 'cancelled' && b.status !== 'late_cancel');
       if (regular.length + voucherSeats(db, session.id) + c.participants.length > session.capacity) fail('session_full');
-      if (bookings.some(b => b.sessionId === session.id && b.status !== 'cancelled' && b.participants.some(p => identities.includes((p.userId || p.email || p.name).trim().toLowerCase()))) || c.participants.some(p => p.userId && regular.some(b => b.user_id === p.userId))) fail('booking_exists');
+      if (bookings.some(b => b.sessionId === session.id && b.status !== 'cancelled' && b.participants.some(p => participantIdentities(p).some(identity => identities.includes(identity)))) || c.participants.some(p => p.userId && regular.some(b => b.user_id === p.userId))) fail('booking_exists');
       if (voucher.benefitKind === 'cop' && !positive(c.costPerPerson ?? 0)) fail('voucher_price_required');
       const cost = voucher.benefitKind === 'cop' ? c.costPerPerson! * c.participants.length : voucher.creditUnit === 'per_person' ? c.participants.length : 1;
       if (!positive(cost) || cost > voucher.balance) fail('voucher_insufficient_balance');
