@@ -591,6 +591,79 @@ _Los momentos que las tablas crudas no guardan: una meta fijada, un hito alcanza
 
 ### Commerce · Comercio
 
+#### `vouchers`
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+_Contrato de demostración; backend transaccional pendiente._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `title` | text |  |
+| `code` | text |  |
+| `source` | text |  |
+| `benefitKind` | text |  |
+| `benefitTotal` | int |  |
+| `balance` | int |  |
+| `participantCap` | int |  |
+| `capScope` | text |  |
+| `creditUnit` | text |  |
+| `expiresAt` | timestamptz, null |  |
+| `cancellationPolicy` | text |  |
+| `recipientName` | text |  |
+| `recipientContact` | text |  |
+| `message` | text |  |
+| `claimedBy` | text, null |  |
+| `status` | text |  |
+| `issuedBy` | text |  |
+
+**Who may read / write**
+- Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+
+#### `voucher_bookings`
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+_Contrato de demostración; backend transaccional pendiente._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `voucherId` | uuid | → `vouchers`  |
+| `sessionId` | uuid | → `class_sessions`  |
+| `participants` | json |  |
+| `cost` | int |  |
+| `status` | text |  |
+| `restored` | bool |  |
+| `mats` | json |  |
+
+**Who may read / write**
+- Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+
+#### `voucher_events`
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+_Contrato de demostración; backend transaccional pendiente._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `voucherId` | uuid | → `vouchers`  |
+| `bookingId` | uuid, null | → `voucher_bookings`  |
+| `kind` | text |  |
+| `actorId` | text |  |
+| `requestId` | text |  |
+| `fingerprint` | text |  |
+| `payload` | json |  |
+
+**Who may read / write**
+- Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+
 #### `plans`
 Launch list (0051): trial class, individual class, 12-class package, private classes and gift cards. Generated from src/tenant/pricing.ts.  
 _Lista de lanzamiento (0051): clase de prueba, clase individual, paquete de 12 clases, clases privadas y tarjetas de regalo. Se genera desde src/tenant/pricing.ts._

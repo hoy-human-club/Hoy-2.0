@@ -1,0 +1,5 @@
+.voucher-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--measure-sm, 22ch)), 1fr)); gap: var(--grid-gap); }
+.voucher-art { padding: var(--card-pad); gap: var(--stack); border-radius: var(--r-lg); background: var(--mat-sand); display: flex; flex-direction: column; align-items: flex-start; color: var(--brand-ink); aspect-ratio: auto; }
+.voucher-art strong { font-size: var(--fs-2xl); white-space: normal; overflow-wrap: anywhere; }
+.voucher-events { display: grid; gap: var(--stack); padding-inline-start: var(--sp-6); }
+.voucher-events time { color: var(--color-text-muted); }

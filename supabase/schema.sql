@@ -23,6 +23,89 @@ $$;
 create or replace function public.touch_updated_at() returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
+-- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
+-- access:
+--   · Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+create table if not exists public.vouchers (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  title text not null,
+  code text not null,
+  source text not null,
+  "benefitKind" text not null,
+  "benefitTotal" integer not null,
+  balance integer not null,
+  "participantCap" integer not null,
+  "capScope" text not null,
+  "creditUnit" text not null,
+  "expiresAt" timestamptz,
+  "cancellationPolicy" text not null,
+  "recipientName" text not null,
+  "recipientContact" text not null,
+  message text not null,
+  "claimedBy" text,
+  status text not null,
+  "issuedBy" text not null
+);
+create index if not exists vouchers_tenant_idx on public.vouchers(tenant_id);
+create trigger vouchers_touch before update on public.vouchers for each row execute function public.touch_updated_at();
+alter table public.vouchers enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+
+-- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
+-- access:
+--   · Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+create table if not exists public.voucher_bookings (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  "voucherId" uuid not null references public.vouchers(id) on delete set null,
+  "sessionId" uuid not null,
+  participants jsonb not null,
+  cost integer not null,
+  status text not null,
+  restored boolean not null default false,
+  mats jsonb not null
+);
+create index if not exists voucher_bookings_tenant_idx on public.voucher_bookings(tenant_id);
+create index if not exists voucher_bookings_voucherId_idx on public.voucher_bookings("voucherId");
+create index if not exists voucher_bookings_sessionId_idx on public.voucher_bookings("sessionId");
+create trigger voucher_bookings_touch before update on public.voucher_bookings for each row execute function public.touch_updated_at();
+alter table public.voucher_bookings enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+
+-- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
+-- access:
+--   · Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
+create table if not exists public.voucher_events (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  "voucherId" uuid not null references public.vouchers(id) on delete set null,
+  "bookingId" uuid references public.voucher_bookings(id) on delete set null,
+  kind text not null,
+  "actorId" text not null,
+  "requestId" text not null,
+  fingerprint text not null,
+  payload jsonb not null
+);
+create index if not exists voucher_events_tenant_idx on public.voucher_events(tenant_id);
+create index if not exists voucher_events_voucherId_idx on public.voucher_events("voucherId");
+create index if not exists voucher_events_bookingId_idx on public.voucher_events("bookingId");
+create trigger voucher_events_touch before update on public.voucher_events for each row execute function public.touch_updated_at();
+alter table public.voucher_events enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+
 -- core · Each studio using HoyOS. Today: HOY.
 create table if not exists public.tenants (
   -- Primary key
@@ -1694,6 +1777,10 @@ create policy "page_layouts: tenant read" on public.page_layouts for select usin
 create policy "page_layouts: staff write" on public.page_layouts for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
 
 -- foreign keys to tables created later in this file (kept out of the create table so the order above stays by group)
+alter table public.vouchers add constraint vouchers_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
+alter table public.voucher_bookings add constraint voucher_bookings_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
+alter table public.voucher_bookings add constraint voucher_bookings_sessionId_fk foreign key ("sessionId") references public.class_sessions(id) on delete set null;
+alter table public.voucher_events add constraint voucher_events_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
 alter table public.deletion_requests add constraint deletion_requests_user_id_fk foreign key (user_id) references public.users(id) on delete set null;
 alter table public.deletion_requests add constraint deletion_requests_resolved_by_fk foreign key (resolved_by) references public.users(id) on delete set null;
 alter table public.consents add constraint consents_user_id_fk foreign key (user_id) references public.users(id) on delete set null;

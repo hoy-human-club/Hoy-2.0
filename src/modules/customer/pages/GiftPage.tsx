@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
@@ -58,7 +59,7 @@ export function GiftPage() {
       if (result.status !== 'approved') return;
       const code = `${tenant.invoicePrefix}-REGALO-${Math.floor(1000 + Math.random() * 9000)}`;
       const deliver = new Date(`${date}T08:00:00`);
-      await data.insert('gift_cards', { code, buyer_user_id: user.id, recipient_name: name.trim(), recipient_contact: contact.trim(), amount, balance: amount, deliver_at: deliver.toISOString(), redeemed_by: null, status: date === today ? 'sent' : 'scheduled' });
+      await data.insert('gift_cards', { code, buyer_user_id: user.id, recipient_name: name.trim(), recipient_contact: contact.trim(), amount, balance: amount, deliver_at: deliver.toISOString(), redeemed_by: null, status: 'draft' });
       setDone(code);
     } finally { setBusy(false); }
   };
@@ -67,6 +68,9 @@ export function GiftPage() {
     <div className="container page cust-page">
       <PageHead back="/app/more" title={t('customer.gift.title')} sub={t('customer.gift.sub')} />
       <div className="stack">
+        <Notice tone="warn" title={t('vouchers.demo')}>{t('vouchers.demoBody')}</Notice>
+        <Link to="/app/vouchers">{t('vouchers.giftLink')}</Link>
+        <p className="small muted">{t('vouchers.giftSeparate')}</p>
         <div className={`cust-giftcard cust-giftcard-${design}`} role="img" aria-label={t('customer.gift.preview')}>
           <Wordmark variant={design === 'blue' ? 'cream' : 'blue'} height={28} />
           <strong>{formatCOP(amount, lang)}</strong>
@@ -75,7 +79,7 @@ export function GiftPage() {
         </div>
 
         {done ? (
-          <Notice tone="success" title={t('customer.gift.done.title')}>{t('customer.gift.done.body', { code: done, name, date })}</Notice>
+          <Notice tone="success" title={t('vouchers.saved')}>{t('vouchers.giftSimulated', { code: done })}</Notice>
         ) : (
           <>
             <Field label={`1 · ${t('customer.gift.amount')}`} error={errors.amount}>{() => (

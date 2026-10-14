@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-05T00:00:00.000Z",
+  "generatedAt": "2026-10-14T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -11,7 +11,7 @@
       "es": "Un solo sistema para cada puesto del estudio: quien practica, quien enseña, quien recibe en la puerta, quien administra y quien lo construye.",
       "en": "One system for every seat at the studio: members, teachers, front desk, admin, and the people who build it."
     },
-    "version": "0.23.2",
+    "version": "0.24.0",
     "baseUrl": "https://imagine-os.github.io/hoy/",
     "hubRoute": "/hub",
     "brand": {
@@ -342,7 +342,8 @@
         "A-03",
         "C-21",
         "E-04",
-        "E-05"
+        "E-05",
+        "C-28"
       ],
       "shots": {
         "thumbs": {
@@ -656,6 +657,7 @@
         "M-12",
         "M-02",
         "M-03",
+        "M-13",
         "M-07",
         "M-08a",
         "M-10",
@@ -5008,6 +5010,84 @@
           "en": "Teach"
         },
         "order": 10
+      }
+    },
+    {
+      "code": "M-13",
+      "route": "/admin/vouchers",
+      "name": {
+        "es": "Invitaciones y bonos",
+        "en": "Invitations and vouchers"
+      },
+      "purpose": {
+        "es": "Crear invitaciones gratuitas de prueba y seguir activación, reserva y asistencia.",
+        "en": "Create free test invitations and follow activation, booking and attendance."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-13/es-390.jpg",
+          "en-390": "hub-map/shots/M-13/en-390.jpg",
+          "es-1280": "hub-map/shots/M-13/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-13/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "C-28",
+      "route": "/app/vouchers",
+      "name": {
+        "es": "Activar invitación",
+        "en": "Activate invitation"
+      },
+      "purpose": {
+        "es": "Activar un bono de prueba y reservar con acompañantes.",
+        "en": "Activate a test voucher and book with guests."
+      },
+      "surface": "customer",
+      "roles": [
+        "super_admin",
+        "admin",
+        "customer",
+        "teacher"
+      ],
+      "experienceId": "app",
+      "device": "phone",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/C-28/es-390.jpg",
+          "en-390": "hub-map/shots/C-28/en-390.jpg",
+          "es-1280": "hub-map/shots/C-28/es-1280.jpg",
+          "en-1280": "hub-map/shots/C-28/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "pay",
+        "label": {
+          "es": "Pagar",
+          "en": "Pay"
+        },
+        "order": 20
       }
     },
     {

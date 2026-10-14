@@ -14,5 +14,5 @@ export default defineMeta({
   states: ['default', 'hint', 'error', 'required'],
   usages: [{ title: { es: 'Con Input', en: 'With Input' }, render: () => h('div', { className: 'stack-sm', style: { maxWidth: 320 } }, h(Field, { label: 'Correo', required: true, hint: 'Usaremos este correo para el recibo.', children: (id: string) => h(Input, { id, placeholder: 'correo@ejemplo.com' }) }), h(Field, { label: 'Teléfono', error: 'Falta el indicativo.', children: (id: string) => h(Input, { id, invalid: true, defaultValue: '300 000 0000' }) })) }],
   a11y: [{ es: 'label[for] enlazado; el error usa role="alert".', en: 'label[for] wired; error uses role="alert".' }],
-  usedBy: ['A-02', 'A-03', 'S-04', 'M-03', 'D-06', 'M-08g', 'D-07'],
+  usedBy: ['M-13', 'C-28', 'A-02', 'A-03', 'S-04', 'M-03', 'D-06', 'M-08g', 'D-07'],
 });

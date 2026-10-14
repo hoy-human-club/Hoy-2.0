@@ -1,5 +1,13 @@
 # HoyOS kanban
 
+## Completed · 0060 (v0.24.0 · 2026-10-14)
+
+- M-13/C-28: free invitation sandbox with class/COP benefits, guest booking, attendance and traceable domain events. Production fulfillment remains pending the backend integration. [Details](changelog/0060-invitation-vouchers.md)
+
+## Backend follow-up · invitation fulfillment
+
+- Authenticated transactional RPCs, secure claim-token delivery, cross-device persistence and purchased-gift settlement. [Readiness contract](voucher-backend-readiness.md)
+
 ## Completed · 0059 (v0.23.2 · 2026-10-05)
 
 - W-11/HUB-01: public Coming Soon root, separate clean /hub testing entry and accessible Login-coming-soon dialog. DNS/custom-domain activation is separate and unchanged. [Details](changelog/0059-public-landing-hub.md)

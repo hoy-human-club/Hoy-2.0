@@ -4,13 +4,14 @@ import { writeFileSync } from 'node:fs';
 const { tables, BASE_COLUMNS, TABLE_GROUPS } = await import('../src/data/schema.ts');
 
 const PG = { uuid: 'uuid', text: 'text', int: 'integer', numeric: 'numeric(12,2)', bool: 'boolean', timestamptz: 'timestamptz', date: 'date', time: 'time', json: 'jsonb', enum: 'text' };
+const columnName = (name) => /[A-Z]/.test(name) ? `"${name}"` : name;
 const col = (c) => {
-  const parts = [`  ${c.name} ${PG[c.type]}`];
+  const parts = [`  ${columnName(c.name)} ${PG[c.type]}`];
   if (c.name === 'id') parts.push('primary key default gen_random_uuid()');
   else if (!c.nullable) parts.push('not null');
   if (c.name === 'created_at' || c.name === 'updated_at') parts.push('default now()');
   if (c.type === 'bool') parts.push('default false');
-  if (c.enum) parts.push(`check (${c.name} in (${c.enum.map((e) => `'${e}'`).join(', ')}))`);
+  if (c.enum) parts.push(`check (${columnName(c.name)} in (${c.enum.map((e) => `'${e}'`).join(', ')}))`);
   // A reference to a table created later (or a circular pair such as special_charges ⇄ space_bookings)
   // cannot be inline: it is emitted as `alter table … add constraint` once every table exists.
   if (c.references && !c.deferFk) parts.push(`references public.${c.references}(id)${c.name === 'tenant_id' ? '' : ' on delete set null'}`);
@@ -49,16 +50,20 @@ const deferred = [];
 for (const t of tables) {
   const cols = [...BASE_COLUMNS, ...t.columns].map((c) => {
     const later = c.references && c.references !== t.name && (order.get(c.references) ?? -1) > order.get(t.name);
-    if (later) deferred.push(`alter table public.${t.name} add constraint ${t.name}_${c.name}_fk foreign key (${c.name}) references public.${c.references}(id) on delete set null;`);
+    if (later) deferred.push(`alter table public.${t.name} add constraint ${t.name}_${c.name}_fk foreign key (${columnName(c.name)}) references public.${c.references}(id) on delete set null;`);
     return col(later ? { ...c, deferFk: true } : c);
   });
   // enum check for tenant reference: tenants.tenant_id references itself; keep as plain uuid
   const rls = (t.rls ?? []).map((n) => `--   · ${n}`).join('\n');
   sql += `-- ${t.group} · ${t.description.en}\n${rls ? `-- access:\n${rls}\n` : ''}create table if not exists public.${t.name} (\n${cols.join(',\n')}\n);\n`;
   sql += `create index if not exists ${t.name}_tenant_idx on public.${t.name}(tenant_id);\n`;
-  for (const c of t.columns.filter((c) => c.references)) sql += `create index if not exists ${t.name}_${c.name}_idx on public.${t.name}(${c.name});\n`;
+  for (const c of t.columns.filter((c) => c.references)) sql += `create index if not exists ${t.name}_${c.name}_idx on public.${t.name}(${columnName(c.name)});\n`;
   sql += `create trigger ${t.name}_touch before update on public.${t.name} for each row execute function public.touch_updated_at();\n`;
   sql += `alter table public.${t.name} enable row level security;\n`;
+  if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(t.name)) {
+    sql += '-- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.\n\n';
+    continue;
+  }
   sql += `create policy "${t.name}: tenant read" on public.${t.name} for select using (tenant_id = public.current_tenant_id());\n`;
   sql += `create policy "${t.name}: staff write" on public.${t.name} for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));\n\n`;
 }

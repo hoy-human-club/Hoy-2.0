@@ -74,6 +74,7 @@ export function MorePage() {
         <ListGroup>
           <ListRow icon="invite" title={t('customer.invite.title')} to="/app/invite" />
           <ListRow icon="gift" title={t('customer.gift.title')} to="/app/gift" />
+          <ListRow icon="ticket" title={t('vouchers.title')} to="/app/vouchers" />
           <ListRow icon="sparkle" title={t('customer.events.title')} to="/app/events" />
           <ListRow icon="users" title={t('customer.teachers.title')} to="/app/teachers" />
           <ListRow icon="help" title={t('customer.faq.title')} to="/app/faq" />

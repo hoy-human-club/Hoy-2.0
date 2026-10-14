@@ -1,0 +1,44 @@
+name: Voucher sandbox QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/modules/vouchers/**'
+      - 'src/modules/customer/pages/GiftPage.tsx'
+      - 'scripts/test-voucher*.mjs'
+      - '.github/workflows/voucher-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: voucher-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  voucher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:vouchers
+      - name: Verify sandbox lifecycle and capture real screens
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5173/ >/dev/null && break; sleep 1; done
+          node scripts/test-voucher-ui.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: voucher-qa-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/M-13/*.jpg
+            docs/screenshots/C-28/*.jpg

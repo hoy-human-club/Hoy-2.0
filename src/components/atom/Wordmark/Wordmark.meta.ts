@@ -34,5 +34,5 @@ export default defineMeta({
     { es: 'Vector: role="img" + aria-label = nombre del tenant; el titular se sigue leyendo “Sobre HOY”. El SVG interno es aria-hidden.', en: 'Vector: role="img" + aria-label = tenant name; the heading still reads “About HOY”. The inner SVG is aria-hidden.' },
     { es: 'Contraste: #35597D sobre el papel claro ≥ 6:1; crema sobre el fondo oscuro ≥ 9:1.', en: 'Contrast: #35597D on the light paper ≥ 6:1; cream on the dark ground ≥ 9:1.' },
   ],
-  usedBy: ['P-HOME', 'TopBar', 'HUB-01', 'W-01', 'W-02', 'W-07', 'W-08'],
+  usedBy: ['M-13', 'C-28', 'P-HOME', 'TopBar', 'HUB-01', 'W-01', 'W-02', 'W-07', 'W-08'],
 });

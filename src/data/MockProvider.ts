@@ -1,3 +1,4 @@
+import { executeVoucherCommand, voucherSeats, type VoucherCommand, type VoucherResult, type VoucherBookingRow } from './vouchers';
 import { chooseMat, occupiesMat, usesMats } from './mats';
 import type { BookingRow, ClassSessionRow, ModalityRow } from './schema';
 import type { BaseRow } from './schema';
@@ -93,7 +94,7 @@ export class MockProvider implements DataProvider {
   private syncCapacity(sessionId: string) {
     const session = (this.db.class_sessions as ClassSessionRow[]).find(s => s.id === sessionId);
     if (!session) return;
-    session.booked_count = (this.db.bookings as BookingRow[]).filter(b => b.session_id === sessionId && b.status !== 'cancelled' && b.status !== 'late_cancel').length;
+    session.booked_count = (this.db.bookings as BookingRow[]).filter(b => b.session_id === sessionId && b.status !== 'cancelled' && b.status !== 'late_cancel').length + voucherSeats(this.db, sessionId);
     this.emit({ table: 'class_sessions', type: 'update', row: session, id: session.id });
   }
   private prepareBooking(row: BookingRow) {
@@ -101,10 +102,10 @@ export class MockProvider implements DataProvider {
     const session = (this.db.class_sessions as ClassSessionRow[]).find(s => s.id === row.session_id);
     if (!session || session.status !== 'scheduled' || new Date(session.starts_at).getTime() <= Date.now()) throw new Error('session_unavailable');
     const others = (this.db.bookings as BookingRow[]).filter(b => b.session_id === row.session_id && b.id !== row.id && occupiesMat(b));
-    if (others.some(b => b.user_id === row.user_id)) throw new Error('booking_exists');
-    if (others.length >= session.capacity) throw new Error('session_full');
+    if (others.some(b => b.user_id === row.user_id) || (this.db.voucher_bookings as VoucherBookingRow[]).some(b => b.sessionId === session.id && b.status !== 'cancelled' && b.participants.some(p => p.userId === row.user_id))) throw new Error('booking_exists');
+    if (others.length + voucherSeats(this.db, session.id) >= session.capacity) throw new Error('session_full');
     const modality = (this.db.modalities as ModalityRow[]).find(m => m.id === session.modality_id);
-    return usesMats(modality) ? { ...row, mat_number: chooseMat(others, Math.min(session.capacity, tenant.studio.mats), row.mat_number) } : { ...row, mat_number: null };
+    return usesMats(modality) ? { ...row, mat_number: chooseMat([...others, ...(this.db.voucher_bookings as VoucherBookingRow[]).filter(b => b.sessionId === session.id && b.status !== 'cancelled').flatMap(b => b.mats.map(mat_number => ({ status: 'booked', mat_number } as BookingRow)))], Math.min(session.capacity, tenant.studio.mats), row.mat_number) } : { ...row, mat_number: null };
   }
 
   private onStorage(e: StorageEvent) {
@@ -150,12 +151,13 @@ export class MockProvider implements DataProvider {
     return this.db[table];
   }
 
-  peek<T extends BaseRow>(table: string, query?: Query): T[] { return applyQuery(this.rows(table) as T[], query); }
-  /** A new array every call (0046): peek() hands out the live table, and a reused reference kept useTable's memos stale after an insert. */
+  peek<T extends BaseRow>(table: string, query?: Query): T[] { return structuredClone(applyQuery(this.rows(table) as T[], query)); }
+  /** Detached snapshots preserve immutable voucher history and keep subscriber memos fresh. */
   async list<T extends BaseRow>(table: string, query?: Query): Promise<T[]> { return [...this.peek<T>(table, query)]; }
-  async get<T extends BaseRow>(table: string, id: string): Promise<T | null> { return (this.rows(table).find((r) => r.id === id) as T) ?? null; }
+  async get<T extends BaseRow>(table: string, id: string): Promise<T | null> { return structuredClone((this.rows(table).find((r) => r.id === id) as T) ?? null); }
 
   async insert<T extends BaseRow>(table: string, row: Partial<T>): Promise<T> {
+    if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     const now = new Date().toISOString();
     let full = { id: newId(table.slice(0, 3)), tenant_id: tenant.id, created_at: now, updated_at: now, ...row } as T;
     if (table === 'bookings') full = this.prepareBooking(full as unknown as BookingRow) as unknown as T;
@@ -166,6 +168,7 @@ export class MockProvider implements DataProvider {
     return full;
   }
   async update<T extends BaseRow>(table: string, id: string, patch: Partial<T>): Promise<T> {
+    if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     const rows = this.rows(table);
     const i = rows.findIndex((r) => r.id === id);
     if (i < 0) throw new Error(`${table}/${id} not found`);
@@ -183,6 +186,7 @@ export class MockProvider implements DataProvider {
     return next;
   }
   async remove(table: string, id: string): Promise<void> {
+    if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     this.db[table] = this.rows(table).filter((r) => r.id !== id);
     this.persist();
     this.emit({ table, type: 'remove', id });
@@ -191,6 +195,14 @@ export class MockProvider implements DataProvider {
     if (!this.listeners.has(table)) this.listeners.set(table, new Set());
     this.listeners.get(table)!.add(cb);
     return () => { this.listeners.get(table)?.delete(cb); };
+  }
+  async voucher(command: VoucherCommand): Promise<VoucherResult> {
+    const transaction = executeVoucherCommand(this.db, command, { tenantId: tenant.id,
+      usesMats: session => usesMats((this.db.modalities as ModalityRow[]).find(m => m.id === session.modality_id)), matCapacity: tenant.studio.mats });
+    this.db = transaction.db;
+    this.persist();
+    for (const table of ['vouchers', 'voucher_bookings', 'voucher_events', 'class_sessions']) this.emit({ table, type: 'reset' });
+    return transaction.result;
   }
   async reset(): Promise<void> {
     this.db = buildSeed();

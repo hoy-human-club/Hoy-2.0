@@ -193,3 +193,10 @@ export const DISCIPLINE = {
   },
   tagline: { es: 'La vida es HOY.', en: 'Life is HOY.' },
 } as const;
+
+/** Free invitation templates. These are benefits, never sale prices or payment requests. */
+export const INVITATION_PRESETS = [
+  { id: 'classes_two', benefitKind: 'classes' as const, benefitTotal: 2, participantCap: 2 },
+  { id: 'cop_two', benefitKind: 'cop' as const, benefitTotal: 60000, participantCap: 2 },
+  { id: 'cop_four', benefitKind: 'cop' as const, benefitTotal: 80000, participantCap: 4 },
+];
