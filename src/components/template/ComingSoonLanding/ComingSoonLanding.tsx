@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Drawer } from '../../organism/Drawer/Drawer';
 import { Button } from '../../atom/Button/Button';
@@ -8,13 +8,11 @@ import { taglines } from '../../../tenant/brand';
 import { Wordmark } from '../../atom/Wordmark/Wordmark';
 import { Icon } from '../../atom/Icon/Icon';
 import { LangToggle } from '../../molecule/LangToggle/LangToggle';
-import { AmbientScene } from '../../organism/AmbientScene/AmbientScene';
 import './ComingSoonLanding.css';
 
 /** An independent launch surface: no website-edition state or mock conversion controls. */
 export function ComingSoonLanding() {
   const { t, bi } = useI18n();
-  const [motion, setMotion] = useState(true);
   const [params, setParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,10 +37,11 @@ export function ComingSoonLanding() {
     else { const next = new URLSearchParams(params); next.delete('login'); setParams(next, { replace: true }); }
   };
   return <><main className="coming-soon">
-    <AmbientScene
-      className="coming-soon-scene" priority motion={motion}
-      poster={`${import.meta.env.BASE_URL}images/sanctuary/hero-sanctuary.webp`}
-      video={`${import.meta.env.BASE_URL}video/living-hero-sanctuary.mp4`}
+    <img
+      className="coming-soon-scene"
+      src={`${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-1600.webp`}
+      srcSet={`${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-480.webp 480w, ${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-960.webp 960w, ${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-1600.webp 1600w`}
+      sizes="(max-aspect-ratio: 3/2) 150vh, 100vw" width={1600} height={1067} loading="eager" fetchPriority="high" decoding="async"
       alt={t('soon.art')}
     />
     <div className="coming-soon-veil" aria-hidden="true" />
@@ -64,9 +63,6 @@ export function ComingSoonLanding() {
       </section>
       <footer className="coming-soon-footer">
         <p>{tenant.city}<span aria-hidden="true"> · </span>{bi(tenant.tagline)}</p>
-        <button type="button" className="coming-soon-motion" onClick={() => setMotion(value => !value)} aria-pressed={!motion}>
-          <span aria-hidden="true">{motion ? 'Ⅱ' : '▷'}</span>{t(motion ? 'soon.pause' : 'soon.play')}
-        </button>
       </footer>
     </div>
   </main><Drawer open={loginOpen} onClose={closeLogin} side="bottom" title={t('soon.loginTitle')} footer={<Button onClick={closeLogin}>{t('core.common.close')}</Button>}>

@@ -10,13 +10,18 @@ const root = new URL('..', import.meta.url).pathname;
 const url = 'http://127.0.0.1:5188';
 const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', ...(process.env.QA_DIST === '1' ? ['preview'] : []), '--host', '127.0.0.1', '--port', '5188', '--strictPort'], { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] });
 let serverLog = ''; server.stdout.on('data', b => serverLog += b); server.stderr.on('data', b => serverLog += b);
-const result = { checks: [], errors: [], media: [], widths: [344, 390, 768, 1280] };
+const result = { checks: [], errors: [], media: [], widths: [344, 390, 768, 1280, 3840] };
 let browser;
 let activePage;
 const check = (name) => { result.checks.push(name); console.log('PASS', name); };
 const archivedTeachers = ['Andrés Quintero', 'Paula Mejía', 'Santiago Vélez', 'Manuela Torres', 'Daniel Ochoa', 'Isabela Cano', 'Felipe Zapata', 'Carolina Pardo'];
 const capture = async (page, code, lang, width, suffix = '') => {
   await mkdir(`${root}/docs/screenshots/${code}`, { recursive: true });
+  if (code === 'W-11') {
+    await page.locator('img.coming-soon-scene').evaluate(async image => { await image.decode(); });
+    assert.ok(await page.locator('img.coming-soon-scene').evaluate(image => { const box = image.getBoundingClientRect(); return image.complete && image.naturalWidth > 0 && box.width > 0 && box.height > 0; }), 'Studio photo is decoded and visible');
+    await page.evaluate(async () => { await document.fonts.ready; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
+  }
   await page.screenshot({ path: `${root}/docs/screenshots/${code}/${lang}-${width}${suffix}.jpg`, type: 'jpeg', quality: 68, fullPage: false, animations: 'disabled' });
 };
 const noOverflow = async (page, label) => {
@@ -116,9 +121,9 @@ try {
       await page.goto(`${url}/#/coming-soon`); await page.waitForSelector('.coming-soon'); await noOverflow(page, `Coming Soon ${lang} ${width}`); await capture(page,'W-11',lang,width);
     }
   }
-  for (const width of [344,768]) {
+  for (const width of [344,768,3840]) {
     await page.setViewportSize({width,height:900});
-    for (const route of ['/site/teachers?version=archive','/site/classes?version=archive','/coming-soon']) { await page.goto(`${url}/#${route}`); await page.waitForSelector(route.includes('coming')?'.coming-soon':'.site'); await noOverflow(page,`${width} ${route}`); }
+    for (const route of ['/site/teachers?version=archive','/site/classes?version=archive','/coming-soon']) { await page.goto(`${url}/#${route}`); await page.waitForSelector(route.includes('coming')?'.coming-soon':'.site'); await noOverflow(page,`${width} ${route}`); if (route === '/coming-soon') await capture(page,'W-11','en',width); }
   }
   await page.setViewportSize({width:344,height:844});
   await page.goto(`${url}/#/site/teachers?version=latest`); await page.waitForSelector('.site-teacher');
@@ -129,9 +134,12 @@ try {
   await page.goto(`${url}/#/coming-soon?version=archive`); await page.waitForSelector('.coming-soon');
   assert.equal(await page.locator('.site-version, .site-archive-notice').count(), 0);
   assert.ok((await page.locator('.coming-soon-follow').getAttribute('href')).startsWith('https://www.instagram.com/'));
-  await page.locator('.coming-soon-motion').click();
-  assert.equal(await page.locator('.coming-soon-motion').getAttribute('aria-pressed'), 'true');
-  await page.waitForFunction(() => document.querySelectorAll('.coming-soon video').length === 0);
+  assert.equal(await page.locator('.coming-soon-motion, .coming-soon video').count(), 0);
+  const studioPhoto = page.locator('img.coming-soon-scene');
+  assert.ok((await studioPhoto.getAttribute('src')).includes('studio-2026/facility-red-studio-1600.webp'));
+  await studioPhoto.evaluate(async image => { await image.decode(); });
+  assert.ok(await studioPhoto.evaluate(image => image.naturalWidth > 0));
+  check('Coming Soon shows the real studio photo with no obsolete concept video or playback control');
   await capture(page, 'W-11', 'en', 344);
   const login = page.getByRole('button', {name:'Login',exact:true});
   const dialog = page.getByRole('dialog', {name:'Coming soon',exact:true});

@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-14T00:00:00.000Z",
+  "generatedAt": "2026-10-15T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -11,7 +11,7 @@
       "es": "Un solo sistema para cada puesto del estudio: quien practica, quien enseña, quien recibe en la puerta, quien administra y quien lo construye.",
       "en": "One system for every seat at the studio: members, teachers, front desk, admin, and the people who build it."
     },
-    "version": "0.24.0",
+    "version": "0.24.2",
     "baseUrl": "https://imagine-os.github.io/hoy/",
     "hubRoute": "/hub",
     "brand": {
@@ -1367,8 +1367,8 @@
         "en": "Content · Media library"
       },
       "purpose": {
-        "es": "La lista de arte que el estudio debe: un cupo por lugar de la app y la web, con proporción, encargo y texto alternativo. Pegar una URL lo publica sin deploy.",
-        "en": "The checklist of art the studio owes: one slot per place in the app and the site, with its ratio, brief and alt text. Pasting a URL publishes it with no deploy."
+        "es": "Inventario de archivos con búsqueda, filtros, variantes y estado por uso. El editor de asignaciones conserva los cambios en este navegador hasta conectar el backend.",
+        "en": "Searchable asset inventory with filters, variants and per-placement state. The assignment editor keeps changes in this browser until the backend is connected."
       },
       "surface": "admin",
       "roles": [

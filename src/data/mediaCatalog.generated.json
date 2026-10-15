@@ -287,12 +287,6 @@
     ],
     "usages": [
       {
-        "label": "Coming soon",
-        "path": "/",
-        "state": "live",
-        "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
-      },
-      {
         "label": "Home",
         "path": "/site",
         "state": "live",
@@ -1062,6 +1056,12 @@
     ],
     "usages": [
       {
+        "label": "Coming soon",
+        "path": "/",
+        "state": "live",
+        "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
         "label": "About",
         "path": "/site/about?version=photos",
         "state": "draft",
@@ -1673,12 +1673,6 @@
       "sanctuary"
     ],
     "usages": [
-      {
-        "label": "Coming soon",
-        "path": "/",
-        "state": "live",
-        "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
-      },
       {
         "label": "Home",
         "path": "/site",

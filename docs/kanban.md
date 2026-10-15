@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Completed · 0066 (v0.24.2 · 2026-10-15)
+
+- W-11: replace the pre-launch concept artwork with the approved real red-lit studio photograph, responsive image variants and bilingual accessible copy. Keep the independent landing and Login-coming-soon behavior. [Details](changelog/0066-coming-soon-studio-photo.md)
+
 ## Implemented · 0063 (2026-10-15; deployment verification pending)
 
 - Apply the owner-selected provisional 30-class timetable and public instructor names; keep reception hours unconfirmed until staff saves them. [Details](changelog/0063-fixed-weekly-schedule.md)

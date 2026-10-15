@@ -4,7 +4,7 @@
   --color-ink: var(--brand-cream); --color-text: var(--brand-cream);
 }
 .coming-soon-scene, .coming-soon-veil { position: absolute; inset: 0; z-index: -1; }
-.coming-soon-scene .ambient-scene-media { object-position: 66% center; }
+.coming-soon-scene { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
 .coming-soon-veil {
   background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 94%, transparent), color-mix(in srgb, var(--brand-deepBlue) 74%, transparent) 38%, color-mix(in srgb, var(--brand-ink) 9%, transparent) 78%),
     linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 48%, transparent), transparent 30%);
@@ -36,18 +36,15 @@
 .coming-soon-cta > p { font-size: var(--fs-xs); margin: var(--sp-md) 0 0; opacity: .85; }
 .coming-soon-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--block); font-size: var(--fs-xs); }
 .coming-soon-footer p { margin: 0; }
-.coming-soon-motion { display: inline-flex; align-items: center; gap: var(--gap-inline); min-height: var(--h-ctl); padding: 0 var(--sp-lg); background: color-mix(in srgb, var(--brand-ink) 66%, transparent); color: var(--brand-cream); border: 1px solid color-mix(in srgb, var(--brand-cream) 45%, transparent); border-radius: var(--r-full); font: inherit; cursor: pointer; }
-.coming-soon-motion:hover { background: var(--brand-ink); }
 .coming-soon :is(button, a):focus-visible { outline: 2px solid var(--brand-yellow); outline-offset: var(--sp-xs); }
 @media (max-width: 767px) {
   .coming-soon-tools { flex-direction: column-reverse; align-items: flex-end; gap: var(--sp-sm); }
   .coming-soon-layout { padding: var(--sp-xl) var(--gutter); }
-  .coming-soon-scene .ambient-scene-media { object-position: 72% center; }
+  .coming-soon-scene { object-position: 58% center; }
   .coming-soon-veil { background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 86%, transparent), color-mix(in srgb, var(--brand-ink) 43%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 85%, transparent), transparent 90%); }
   .coming-soon-message { padding-block: var(--sp-3xl); }
   .coming-soon h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
   .coming-soon-footer { align-items: flex-end; gap: var(--sp-md); }
   .coming-soon-footer > p { max-width: 12ch; line-height: 1.6; }
-  .coming-soon-motion { padding-inline: var(--sp-md); }
 }
 @media (prefers-reduced-motion: reduce) { .coming-soon-follow { transition: none; } }
