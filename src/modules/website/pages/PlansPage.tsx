@@ -1,3 +1,5 @@
+import { useSiteEdition } from '../edition';
+import { studioPhoto } from '../photography';
 import { Fragment, type ReactNode } from 'react';
 import { Link, useNavigate } from '../links';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -20,6 +22,7 @@ import { siteSpecs } from '../specs';
  * private classes and gift cards, and what is quoted on request (the studio rental, corporate experiences).
  */
 export function PlansPage() {
+  const { photoEdition } = useSiteEdition();
   const { t, bi, lang } = useI18n();
   // 0047: private classes, the space rental and corporate experiences are a `specials` handoff (M-08a contacts).
   const wa = useWhatsappLink();
@@ -114,6 +117,7 @@ export function PlansPage() {
 
   return (
     <SiteShell>
+      {photoEdition && <div className="container photo-booking-banner"><img src={studioPhoto('pricing-duo')} width={960} height={640} loading="eager" decoding="sync" alt={t('site.photos.duo')} /></div>}
       {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
     </SiteShell>
   );

@@ -14,6 +14,7 @@ import { Button } from '../../components/atom/Button/Button';
 import { ElementCursor } from '../../components/atom/ElementCursor/ElementCursor';
 import './site.css';
 import './sanctuary.css';
+import './photography.css';
 import { useSiteEdition } from './edition';
 import { Icon } from '../../components/atom/Icon/Icon';
 import { SiteArchiveNotice } from '../../components/molecule/SiteArchiveNotice/SiteArchiveNotice';
@@ -88,6 +89,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+      {version === 'photos' && <aside className="photo-preview-notice">{t('site.photos.notice')}</aside>}
       {archived && <SiteArchiveNotice onLatest={() => setEdition('latest', true)} />}
       <main className="site-main" id="site-main">{children}</main>
       <footer className="site-foot">
@@ -125,7 +127,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className="container site-foot-bottom">
-          {edition === "sanctuary" && <p className="site-concept-note">{t("site.new.demo")}</p>}
+          {edition === "sanctuary" && version !== 'photos' && <p className="site-concept-note">{t("site.new.demo")}</p>}
           <a className="small" href="https://github.com/imagine-os/hoy/blob/main/docs/website-versions.md" target="_blank" rel="noreferrer">{t("site.edition.history")} ↗</a>
           <span className="xs muted">{t('site.footer.rights', { year: new Date().getFullYear(), name: tenant.legalName })}</span>
         </div>

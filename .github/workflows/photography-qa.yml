@@ -1,0 +1,41 @@
+name: Photography QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/website/**'
+      - 'src/components/molecule/SiteVersionSelect/**'
+      - 'public/images/studio-2026/**'
+      - 'scripts/test-photography-ui.mjs'
+      - '.github/workflows/photography-qa.yml'
+permissions:
+  contents: read
+jobs:
+  photography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/test-sample-clock.mjs && npm run build && npm run hub-map:check
+      - name: Check real photo preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+          node scripts/test-photography-ui.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+          QA_BASE: http://127.0.0.1:4173
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: photography-qa-${{ github.event.pull_request.head.sha }}
+          retention-days: 2
+          path: qa/photos

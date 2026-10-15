@@ -8,6 +8,18 @@ import type { StringTable } from '../../i18n/types';
  * site.modalities · site.schedule · site.teachers · site.plans · site.contact · site.legal · site.footer
  */
 export const strings: StringTable = {
+  'site.photos.teacherLegend': { es: 'Conoce a quienes guían la práctica. Los retratos pendientes se muestran con iniciales.', en: 'Meet the people who guide the practice. Pending portraits are shown with initials.' },
+  'site.edition.photos': { es: 'Fotos · vista previa', en: 'Photos · preview' },
+  'site.photos.notice': { es: 'Vista previa con las fotos del estudio. La versión pública actual sigue disponible en Latest.', en: 'Preview with the studio photographs. The current public edition remains available in Latest.' },
+  'site.photos.hero': { es: 'Movimiento en grupo en el estudio HOY', en: 'Group movement in the HOY studio' },
+  'site.photos.philosophy': { es: 'Carolina Cifuentes en una postura de movimiento', en: 'Carolina Cifuentes in a movement pose' },
+  'site.photos.studio': { es: 'El estudio HOY preparado para la práctica', en: 'The HOY studio prepared for practice' },
+  'site.photos.red': { es: 'El espacio de práctica con iluminación roja', en: 'The practice space with red lighting' },
+  'site.photos.heater': { es: 'Detalle de la calefacción del estudio', en: 'A detail of the studio heating' },
+  'site.photos.equipment': { es: 'Accesorios de práctica del estudio', en: 'Practice equipment in the studio' },
+  'site.photos.duo': { es: 'Dos personas practicando movimiento juntas', en: 'Two people practicing movement together' },
+  'site.photos.facilities': { es: 'Un espacio para estar presente', en: 'A space to be present' },
+
   'site.edition.latest': { es: 'Latest · Actual', en: 'Latest · Current' },
   'site.edition.archive': { es: 'Anterior · Animada', en: 'Previous · Animated' },
   'site.archive.label': { es: 'Archivo · Vista previa de diseño', en: 'Archive · Design preview' },

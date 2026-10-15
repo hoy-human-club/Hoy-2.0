@@ -17,6 +17,7 @@ import { siteSpecs } from '../specs';
 import { useClassPhotos, useTodaySessions } from '../hooks';
 import { useSiteEdition } from '../edition';
 import { siteImage, siteVideo, siteLoops } from '../artwork';
+import { studioPhotoProps, teacherStudioPhoto } from '../photography';
 import { ClassicHomePage } from './ClassicHomePage';
 
 export function HomePage() {
@@ -28,7 +29,7 @@ function SanctuaryHome() {
   const { t, bi, lang } = useI18n();
   const { sections, isVisible } = useLayout(siteSpecs.home);
   const today = useTodaySessions();
-  const { motion, setMotion, videoEnabled } = useSiteEdition();
+  const { motion, setMotion, videoEnabled, photoEdition } = useSiteEdition();
   const { rows: teachers } = useTable<TeacherRow>('teachers', { where: { active: true } });
   const photos = useClassPhotos();
   const { rows: modalities } = useTable<ModalityRow>('modalities');
@@ -43,7 +44,7 @@ function SanctuaryHome() {
   ];
   const SECTIONS: Record<string, () => ReactNode> = {
     Hero: () => <section className="sanctuary-hero">
-      <AmbientScene {...siteLoops.hero} video={videoEnabled ? siteLoops.hero.video : undefined} alt={t('site.new.artAlt')} className="sanctuary-hero-scene" priority motion={motion} />
+      <>{photoEdition ? <img {...studioPhotoProps('hero-group', true, true)} alt={t('site.photos.hero')} className="photo-hero-image" /> : <AmbientScene {...siteLoops.hero} video={videoEnabled ? siteLoops.hero.video : undefined} alt={t('site.new.artAlt')} className="sanctuary-hero-scene" priority motion={motion} />}</>
       <div className="sanctuary-hero-wash" />
       <div className="container sanctuary-hero-inner">
         <div className="sanctuary-hero-copy">
@@ -57,7 +58,7 @@ function SanctuaryHome() {
       <div className="sanctuary-hero-bottom container"><span className="sanctuary-scroll"><span aria-hidden>↓</span>{t('site.new.scroll')}</span><button type="button" className="sanctuary-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ' : '▷'} <span>{t(motion ? 'site.new.ambient' : 'site.new.static')}</span></button></div>
     </section>,
     Philosophy: () => <section className="sanctuary-philosophy" data-reveal><div className="container sanctuary-philosophy-grid">
-      <div className="sanctuary-philosophy-art"><AmbientScene {...siteLoops.philosophy} video={videoEnabled ? siteLoops.philosophy.video : undefined} alt={t('site.new.philosophyAlt')} className="sanctuary-portrait" motion={motion} /><span className="sanctuary-photo-caption">{t('site.new.scroll')}</span></div>
+      <div className="sanctuary-philosophy-art"><>{photoEdition ? <img {...studioPhotoProps('philosophy-carolina', true)} alt={t('site.photos.philosophy')} className="photo-philosophy" /> : <AmbientScene {...siteLoops.philosophy} video={videoEnabled ? siteLoops.philosophy.video : undefined} alt={t('site.new.philosophyAlt')} className="sanctuary-portrait" motion={motion} />}</><span className="sanctuary-photo-caption">{t('site.new.scroll')}</span></div>
       <div className="sanctuary-philosophy-copy"><p className="eyebrow">{t('site.new.philosophyLabel')}</p><h2>{t('site.new.philosophyTitle')}<br /><em>{t('site.new.philosophyEm')}</em></h2><p className="muted">{t('site.new.philosophyBody', { name: tenant.name })}</p><Link className="sanctuary-text-link" to="/site/about">{t('site.philosophy.more')} <Icon name="arrow-right" /></Link></div>
     </div></section>,
     Classes: () => <section className="container sanctuary-section" data-reveal>
@@ -69,16 +70,17 @@ function SanctuaryHome() {
         {today.length ? today.slice(0, 4).map(({ session, modality, teacher }) => <Link key={session.id} to={modality ? `/site/schedule?modality=${modality.slug}` : '/site/schedule'} className="sanctuary-session"><span className="sanctuary-session-time">{new Intl.DateTimeFormat(lang === 'es' ? 'es-CO' : 'en-US', { hour: 'numeric', minute: '2-digit' }).format(new Date(session.starts_at))}</span><span><strong>{session.title}</strong><small>{teacher?.display_name} · {modality?.duration_min ?? 60} min</small></span><span aria-hidden>↗</span></Link>) : <p className="sanctuary-agenda-empty">{t('site.today.empty')}</p>}
       </div></div></section>,
     Teachers: () => <section className="container sanctuary-section" data-reveal><div className="sanctuary-heading"><div><p className="eyebrow">{t('site.nav.teachers')}</p><h2>{t('site.new.teachersTitle')}</h2><p className="muted">{t('site.new.teachersBody')}</p></div><Link className="sanctuary-text-link" to="/site/teachers">{t('site.nav.teachers')} <Icon name="arrow-right" /></Link></div>
-      <div className="sanctuary-teachers"><div className="sanctuary-community"><AmbientScene poster={siteImage('community')} video={videoEnabled ? siteVideo('community') : undefined} alt={t('site.new.community')} motion={motion} className="community-living" /><p>{t('site.new.community')}</p></div><div className="sanctuary-teacher-list">{teachers.map((te, i) => {
+      <div className="sanctuary-teachers"><div className="sanctuary-community"><>{photoEdition ? <img {...studioPhotoProps('pricing-duo')} alt={t('site.photos.duo')} className="photo-community" /> : <AmbientScene poster={siteImage('community')} video={videoEnabled ? siteVideo('community') : undefined} alt={t('site.new.community')} motion={motion} className="community-living" />}</><p>{t('site.new.community')}</p></div><div className="sanctuary-teacher-list">{teachers.map((te, i) => {
         // 0051: real teachers, no generated portraits — the photo once uploaded, else initials in the tone of their class.
         const mod = modalities.find((m) => m.id === te.specialties[0]);
         const cls = classForModality(mod?.slug);
-        return <Link to="/site/teachers" key={te.id} className="sanctuary-teacher-link"><span className="sanctuary-teacher-number">{String(i + 1).padStart(2, '0')}</span>{te.photo_url ? <img src={te.photo_url} alt="" className="sanctuary-teacher-photo" /> : <span className="sanctuary-teacher-initials" data-tone={mod?.tone ?? 'river'} aria-hidden>{te.display_name.split(' ').map((p) => p[0]).slice(0, 2).join('')}</span>}<span><h3>{te.display_name}</h3><p>{te.specialties.map(id => {const m = modalities.find(m => m.id === id); return m ? (lang === 'es' ? m.name_es : m.name_en) : '';}).filter(Boolean).join(' · ')}{cls ? ` · ${bi(classes[cls].tagline)}` : ''}</p></span><span aria-hidden>↗</span></Link>;
+        const photo = te.photo_url || (photoEdition ? teacherStudioPhoto(te.id) : undefined);
+        return <Link to="/site/teachers" key={te.id} className="sanctuary-teacher-link"><span className="sanctuary-teacher-number">{String(i + 1).padStart(2, '0')}</span>{photo ? <img src={photo} loading="lazy" alt="" className="sanctuary-teacher-photo" /> : <span className="sanctuary-teacher-initials" data-tone={mod?.tone ?? 'river'} aria-hidden>{te.display_name.split(' ').map((p) => p[0]).slice(0, 2).join('')}</span>}<span><h3>{te.display_name}</h3><p>{te.specialties.map(id => {const m = modalities.find(m => m.id === id); return m ? (lang === 'es' ? m.name_es : m.name_en) : '';}).filter(Boolean).join(' · ')}{cls ? ` · ${bi(classes[cls].tagline)}` : ''}</p></span><span aria-hidden>↗</span></Link>;
       })}</div></div>
     </section>,
     ValueModel: () => <section className="sanctuary-plans" data-reveal><div className="container sanctuary-section"><div className="sanctuary-centered"><p className="eyebrow">{t('site.nav.plans')}</p><h2>{t('site.new.plansTitle')}</h2><p className="muted">{t('site.new.plansBody')}</p></div><div className="sanctuary-plan-grid">{families.map(({ fam, price, sub }, i) => <Link to={'/site/plans'} key={fam} className={`sanctuary-plan ${i === 1 ? 'is-blue' : ''}`}><p className="eyebrow">0{i + 1} / {t(`site.new.planLabel${i}`)}</p><h3>{bi(FAMILY_LABEL[fam])}</h3>{price != null && <p className="sanctuary-price">{formatCOP(price, lang)}<small>{sub}</small></p>}<span className="sanctuary-plan-cta">{t('site.plans.all')}<Icon name="arrow-right" /></span></Link>)}</div><div className="sanctuary-centered sanctuary-plans-more"><Link className="sanctuary-text-link" to="/site/plans">{t('site.value.all')} <Icon name="arrow-right" /></Link></div></div></section>,
     Testimonials: () => quotes.length > 0 ? <section className="container sanctuary-section sanctuary-quotes" data-reveal>{quotes.map(r => <blockquote key={r.id}><span className="sanctuary-quote-mark" aria-hidden>“</span><p>{r.comment}</p><footer>{t('site.testimonials.member')}</footer></blockquote>)}</section> : null,
-    FirstStep: () => <section className="sanctuary-finale" data-reveal><AmbientScene {...siteLoops.ritual} video={videoEnabled ? siteLoops.ritual.video : undefined} alt={t('site.new.ritualAlt')} className="sanctuary-finale-scene" motion={motion} /><div className="sanctuary-finale-card"><p className="eyebrow">{t('site.new.visit')}</p><h2>{t('site.new.endTitle')}<br /><em>{t('site.new.endEm')}</em></h2><p>{t('site.new.endBody')}</p><Link className="sanctuary-button" to="/site/schedule">{t('site.new.book')}<Icon name="arrow-right" /></Link></div></section>,
+    FirstStep: () => <section className="sanctuary-finale" data-reveal><>{photoEdition ? <img {...studioPhotoProps('facility-studio')} alt={t('site.photos.studio')} className="photo-finale-image" /> : <AmbientScene {...siteLoops.ritual} video={videoEnabled ? siteLoops.ritual.video : undefined} alt={t('site.new.ritualAlt')} className="sanctuary-finale-scene" motion={motion} />}</><div className="sanctuary-finale-card"><p className="eyebrow">{t('site.new.visit')}</p><h2>{t('site.new.endTitle')}<br /><em>{t('site.new.endEm')}</em></h2><p>{t('site.new.endBody')}</p><Link className="sanctuary-button" to="/site/schedule">{t('site.new.book')}<Icon name="arrow-right" /></Link></div></section>,
   };
   return <SiteShell><div className="sanctuary" data-motion={motion ? 'on' : 'off'}>{sections.filter(isVisible).map(name => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}</div></SiteShell>;
 }

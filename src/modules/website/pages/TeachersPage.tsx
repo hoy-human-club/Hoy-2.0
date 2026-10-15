@@ -1,3 +1,4 @@
+import { teacherStudioPhoto } from '../photography';
 import { useSiteEdition } from '../edition';
 import { Fragment, type ReactNode } from 'react';
 import { Link } from '../links';
@@ -18,7 +19,7 @@ import { siteSpecs } from '../specs';
  * and the public page shows no star rating.
  */
 export function TeachersPage() {
-  const { edition } = useSiteEdition();
+  const { edition, photoEdition } = useSiteEdition();
   const { t, lang, bi } = useI18n();
   const { sections, isVisible } = useLayout(siteSpecs.teachers);
   const { rows: teachers } = useTable<TeacherRow>('teachers', { where: { active: true } });
@@ -32,16 +33,17 @@ export function TeachersPage() {
     PageHead: () => <PageHead title={t('site.teachers.title')} body={t('site.teachers.body')} />,
     TeacherGrid: () => (
       <section className="container site-section" style={{ paddingTop: 0 }}>
-        <p className="xs muted" style={{ marginBottom: 'var(--sp-lg)' }}>{t('site.teachers.legend')}</p>
+        <p className="xs muted" style={{ marginBottom: 'var(--sp-lg)' }}>{t(photoEdition ? 'site.photos.teacherLegend' : 'site.teachers.legend')}</p>
         <div className="site-teachergrid">
           {teachers.map((te) => {
+            const photo = te.photo_url || (photoEdition ? teacherStudioPhoto(te.id) : undefined);
             const first = te.specialties.map(spec)[0];
             const cls = first?.slug ? classes[first.slug] : undefined;
             const initials = te.display_name.split(' ').map((part) => part[0]).slice(0, 2).join('');
             return (
               <Card key={te.id} padding="sm" className="site-teacher">
-                {te.photo_url
-                  ? <MediaSlot ratio={edition === 'sanctuary' ? '4:5' : '4:3'} kind="photo" tone={first?.tone} slotKey="teacher.portrait" src={te.photo_url} label={t('site.teachers.portrait', { name: te.display_name })} />
+                {photo
+                  ? <MediaSlot ratio={edition === 'sanctuary' ? '4:5' : '4:3'} kind="photo" tone={first?.tone} slotKey="teacher.portrait" src={photo} label={t('site.teachers.portrait', { name: te.display_name })} />
                   : <div className="site-teacher-monogram" data-tone={first?.tone ?? 'river'} role="img" aria-label={`${te.display_name} · ${t('site.new.portraitPending')}`}><span aria-hidden>{initials}</span><small aria-hidden>{t('site.new.portraitPending')}</small></div>}
                 <div className="site-teacher-copy">
                   <h3>{te.display_name}</h3>

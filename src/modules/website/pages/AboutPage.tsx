@@ -1,3 +1,4 @@
+import { studioPhotoProps } from '../photography';
 import { AmbientScene } from '../../../components/organism/AmbientScene/AmbientScene';
 import { useTable } from '../../../data/DataContext';
 import type { MediaAssetRow } from '../../../data/schema';
@@ -17,7 +18,7 @@ import { siteSpecs } from '../specs';
 
 /** W-02 — the brand's own words, from src/tenant/brand.ts. */
 export function AboutPage() {
-  const { edition, videoEnabled, motion, setMotion } = useSiteEdition();
+  const { edition, videoEnabled, motion, setMotion, photoEdition } = useSiteEdition();
   const { rows: media } = useTable<MediaAssetRow>('media_assets', { where: { slot_key: 'site.about' } });
   const readyMedia = media.some(asset => asset.status === 'ready' && asset.url);
   const { t, bi } = useI18n();
@@ -39,13 +40,14 @@ export function AboutPage() {
     Media: () => (
       <section className="container site-section">
         <div className="site-media-cap">
-          {edition === 'sanctuary' && !readyMedia ? <><AmbientScene {...siteLoops.studio} video={videoEnabled ? siteLoops.studio.video : undefined} motion={motion} className="sanctuary-about-scene" alt={t('site.about.media')} /><button type="button" className="sanctuary-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{t(motion ? 'site.new.ambient' : 'site.new.static')}</button></> : <MediaSlot ratio="4:3" kind="photo" slotKey="site.about" fallbackSrc={edition === "sanctuary" ? siteImage("arch") : undefined} label={t('site.about.media')} />}
+          {photoEdition && !readyMedia ? <img {...studioPhotoProps('facility-studio')} alt={t('site.photos.studio')} className="photo-about-main" /> : edition === 'sanctuary' && !readyMedia ? <><AmbientScene {...siteLoops.studio} video={videoEnabled ? siteLoops.studio.video : undefined} motion={motion} className="sanctuary-about-scene" alt={t('site.about.media')} /><button type="button" className="sanctuary-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{t(motion ? 'site.new.ambient' : 'site.new.static')}</button></> : <MediaSlot ratio="4:3" kind="photo" slotKey="site.about" fallbackSrc={edition === "sanctuary" ? siteImage("arch") : undefined} label={t('site.about.media')} />}
         </div>
       </section>
     ),
     Philosophy: () => (
       <section className="container site-section">
         {/* 0051 — "La filosofía de HOY": two titled parts (nuestra filosofía, nuestro propósito) and the closing question. */}
+        {photoEdition && <div className="photo-facilities"><h2>{t('site.photos.facilities')}</h2><div className="photo-facilities-grid">{([['facility-red-studio','red'],['facility-heater','heater'],['facility-equipment','equipment']] as const).map(([name,alt],i) => <img key={name} {...studioPhotoProps(name,i > 0)} alt={t(`site.photos.${alt}`)} />)}</div></div>}
         <div className="site-panel site-philosophy">
           <p className="eyebrow">{bi(philosophy.eyebrow)}</p>
           <h2>{bi(philosophy.title)}</h2>

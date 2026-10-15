@@ -1,3 +1,5 @@
+import { useSiteEdition } from '../edition';
+import { studioPhoto } from '../photography';
 import { Fragment, useState, type ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -18,6 +20,7 @@ import { siteSpecs } from '../specs';
 import { useSessionsJoined } from '../hooks';
 
 export function SchedulePage() {
+  const { photoEdition } = useSiteEdition();
   const { t, bi } = useI18n();
   const { user } = useSession();
   const nav = useNavigate();
@@ -67,6 +70,7 @@ export function SchedulePage() {
 
   return (
     <SiteShell>
+      {photoEdition && <div className="container photo-booking-banner"><img src={studioPhoto('pricing-duo')} width={960} height={640} loading="eager" decoding="sync" alt={t('site.photos.duo')} /></div>}
       {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
       <Drawer open={!!chosen} onClose={() => setPicked(null)} title={t('site.schedule.loginTitle')} side="bottom">
         {chosen && (

@@ -596,3 +596,8 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 
 ### Timetable evidence · 0063
 - Timetable, Website preview and Voucher hosted QA passed on eca9067a. Twenty approved public built-demo screenshots are linked from W-04, W-05, W-06 and C-03.
+
+## Studio photography
+
+### Done
+- W-01 / W-02 / W-04 / W-05 / P-01: responsive studio-photo preview; Photography, Timetable and Website preview QA passed on 31739e1. Thirty approved public screenshots are linked from the page documentation. Latest remains the default.

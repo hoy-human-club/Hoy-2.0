@@ -128,12 +128,13 @@ export function buildSeed(): Record<string, BaseRow[]> {
     }
   }
 
-  // One upcoming class today is always full, so the "Sin cupos" / "Full" state on C-01 and C-02 is real data (Jas review, 2026-09-17).
+  // One upcoming class (prefer today, otherwise the next day) is always full, so the "Sin cupos" / "Full" state on C-01 and C-02 is real data (Jas review, 2026-09-17).
   const startOf = new Map(sessions.map((s) => [s.id, s.starts_at]));
   const bookedIn = (sid: string, uid: string) => bookings.some((bk) => bk.session_id === sid && bk.user_id === uid && bk.status === 'booked');
-  const fullToday = sessions
-    .filter((s) => s.status === 'scheduled' && s.starts_at.slice(0, 10) === dateKey(NOW) && new Date(s.starts_at) > NOW && !bookedIn(s.id, 'usr_cust'))
-    .sort((a, b) => b.booked_count - a.booked_count || a.starts_at.localeCompare(b.starts_at))[0];
+  const fullCandidates = sessions.filter((s) => s.status === 'scheduled' && new Date(s.starts_at) > NOW && !bookedIn(s.id, 'usr_cust'));
+  const fullToday = fullCandidates.filter((s) => s.starts_at.slice(0, 10) === dateKey(NOW))
+    .sort((a, b) => b.booked_count - a.booked_count || a.starts_at.localeCompare(b.starts_at))[0]
+    ?? fullCandidates.sort((a, b) => a.starts_at.localeCompare(b.starts_at))[0];
   if (fullToday) {
     // Fill from people who already have an earlier class today first, so nobody's "next class" notification changes.
     const hasEarlier = (uid: string) => bookings.some((bk) => bk.user_id === uid && bk.status === 'booked' && (startOf.get(bk.session_id) ?? '') < fullToday.starts_at);

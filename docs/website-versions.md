@@ -15,3 +15,7 @@ Latest is the default for every bare website URL, including after a visit to the
 [Video production handoff](website-motion-production.md) · [Asset sources](website-assets.md)
 
 **Resumen (ES).** El selector de navegación permite comparar Santuario V2 con el sitio original V1. Latest conserva la información vigente; el archivo animado usa su propia copia histórica de solo lectura. V2.1 añade videos ambientales opcionales, retratos de muestra y profundidad con el puntero.
+
+## Studio photography preview (October 2026)
+
+`?version=photos` is an opt-in review edition using the studio's supplied photographs. It preserves the current Latest default and historic archive. The version selector and internal site links retain this explicit choice. Photography uses responsive WebP assets, meaningful Spanish/English alternatives, and no old concept-video overlays. Named portraits are mapped by the supplied filenames; the unnamed portrait and low-resolution mountain attachment screenshot are excluded. Public editing/data publication controls remain unchanged.
