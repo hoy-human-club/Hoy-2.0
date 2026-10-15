@@ -1,0 +1,2140 @@
+[
+  {
+    "id": "brand/hoy-blue.png",
+    "url": "brand/hoy-blue.png",
+    "thumbnail": "brand/hoy-blue.png",
+    "name": "Hoy blue",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1466,
+    "height": 526,
+    "variants": [
+      "brand/hoy-blue.png"
+    ],
+    "tags": [
+      "brand",
+      "hoy",
+      "blue"
+    ],
+    "usages": [
+      {
+        "label": "Classic wordmark (light)",
+        "path": "/site?version=classic",
+        "state": "live",
+        "evidence": "src/modules/website/SiteShell.tsx uses Wordmark; src/components/atom/Wordmark/Wordmark.tsx selects tenant.brand vector or theme-dependent raster."
+      }
+    ]
+  },
+  {
+    "id": "brand/hoy-cream.png",
+    "url": "brand/hoy-cream.png",
+    "thumbnail": "brand/hoy-cream.png",
+    "name": "Hoy cream",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1466,
+    "height": 526,
+    "variants": [
+      "brand/hoy-cream.png"
+    ],
+    "tags": [
+      "brand",
+      "hoy",
+      "cream"
+    ],
+    "usages": [
+      {
+        "label": "Classic wordmark (dark)",
+        "path": "/site?version=classic",
+        "state": "live",
+        "evidence": "src/modules/website/SiteShell.tsx uses Wordmark; src/components/atom/Wordmark/Wordmark.tsx selects tenant.brand vector or theme-dependent raster."
+      }
+    ]
+  },
+  {
+    "id": "brand/hoy-wordmark.svg",
+    "url": "brand/hoy-wordmark.svg",
+    "thumbnail": "brand/hoy-wordmark.svg",
+    "name": "Hoy wordmark",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 4501,
+    "height": 2267,
+    "variants": [
+      "brand/hoy-wordmark.svg"
+    ],
+    "tags": [
+      "brand",
+      "hoy",
+      "wordmark"
+    ],
+    "usages": [
+      {
+        "label": "Website wordmark",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/SiteShell.tsx uses Wordmark; src/components/atom/Wordmark/Wordmark.tsx selects tenant.brand vector or theme-dependent raster."
+      }
+    ]
+  },
+  {
+    "id": "brand/hoy-yellow.png",
+    "url": "brand/hoy-yellow.png",
+    "thumbnail": "brand/hoy-yellow.png",
+    "name": "Hoy yellow",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1466,
+    "height": 526,
+    "variants": [
+      "brand/hoy-yellow.png"
+    ],
+    "tags": [
+      "brand",
+      "hoy",
+      "yellow"
+    ],
+    "usages": []
+  },
+  {
+    "id": "brand/p8-2.png",
+    "url": "brand/p8-2.png",
+    "thumbnail": "brand/p8-2.png",
+    "name": "P8 2",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 710,
+    "height": 355,
+    "variants": [
+      "brand/p8-2.png"
+    ],
+    "tags": [
+      "brand",
+      "p8",
+      "2"
+    ],
+    "usages": [
+      {
+        "label": "Component library",
+        "path": "/dev/components",
+        "state": "live",
+        "evidence": "src/components/molecule/MediaSlot/MediaSlot.meta.ts: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "About",
+        "path": "/site/about",
+        "state": "live",
+        "evidence": "src/modules/website/pages/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "About",
+        "path": "/site/about?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "brand/p8-3.png",
+    "url": "brand/p8-3.png",
+    "thumbnail": "brand/p8-3.png",
+    "name": "P8 3",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 710,
+    "height": 355,
+    "variants": [
+      "brand/p8-3.png"
+    ],
+    "tags": [
+      "brand",
+      "p8",
+      "3"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/sanctuary/arch.webp",
+    "url": "images/sanctuary/arch.webp",
+    "thumbnail": "images/sanctuary/arch.webp",
+    "name": "Arch",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1024,
+    "height": 1536,
+    "variants": [
+      "images/sanctuary/arch.webp"
+    ],
+    "tags": [
+      "concept",
+      "arch"
+    ],
+    "usages": [
+      {
+        "label": "Component library",
+        "path": "/dev/components",
+        "state": "live",
+        "evidence": "src/components/molecule/MediaSlot/MediaSlot.meta.ts: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "About",
+        "path": "/site/about",
+        "state": "live",
+        "evidence": "src/modules/website/pages/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility. media_slots:site.about:fallback"
+      },
+      {
+        "label": "About",
+        "path": "/site/about?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/barre.webp",
+    "url": "images/sanctuary/barre.webp",
+    "thumbnail": "images/sanctuary/barre.webp",
+    "name": "Barre",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1086,
+    "height": 1448,
+    "variants": [
+      "images/sanctuary/barre.webp"
+    ],
+    "tags": [
+      "concept",
+      "barre"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/barre?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/community.webp",
+    "url": "images/sanctuary/community.webp",
+    "thumbnail": "images/sanctuary/community.webp",
+    "name": "Community",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      "images/sanctuary/community.webp"
+    ],
+    "tags": [
+      "concept",
+      "community"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/hero-sanctuary.webp",
+    "url": "images/sanctuary/hero-sanctuary.webp",
+    "thumbnail": "images/sanctuary/hero-sanctuary.webp",
+    "name": "Hero sanctuary",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      "images/sanctuary/hero-sanctuary.webp"
+    ],
+    "tags": [
+      "concept",
+      "hero",
+      "sanctuary"
+    ],
+    "usages": [
+      {
+        "label": "Coming soon",
+        "path": "/",
+        "state": "live",
+        "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/hot-yoga.webp",
+    "url": "images/sanctuary/hot-yoga.webp",
+    "thumbnail": "images/sanctuary/hot-yoga.webp",
+    "name": "Hot yoga",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1086,
+    "height": 1448,
+    "variants": [
+      "images/sanctuary/hot-yoga.webp"
+    ],
+    "tags": [
+      "concept",
+      "hot",
+      "yoga"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/hot-yoga?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/meditacion.webp",
+    "url": "images/sanctuary/meditacion.webp",
+    "thumbnail": "images/sanctuary/meditacion.webp",
+    "name": "Meditacion",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      "images/sanctuary/meditacion.webp"
+    ],
+    "tags": [
+      "concept",
+      "meditacion"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/meditacion?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/mountains.webp",
+    "url": "images/sanctuary/mountains.webp",
+    "thumbnail": "images/sanctuary/mountains.webp",
+    "name": "Mountains",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      "images/sanctuary/mountains.webp"
+    ],
+    "tags": [
+      "concept",
+      "mountains"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/sanctuary/philosophy.webp",
+    "url": "images/sanctuary/philosophy.webp",
+    "thumbnail": "images/sanctuary/philosophy.webp",
+    "name": "Philosophy",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1024,
+    "height": 1536,
+    "variants": [
+      "images/sanctuary/philosophy.webp"
+    ],
+    "tags": [
+      "concept",
+      "philosophy"
+    ],
+    "usages": [
+      {
+        "label": "Component library",
+        "path": "/dev/components",
+        "state": "live",
+        "evidence": "src/components/molecule/MediaSlot/MediaSlot.meta.ts: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/pilates.webp",
+    "url": "images/sanctuary/pilates.webp",
+    "thumbnail": "images/sanctuary/pilates.webp",
+    "name": "Pilates",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1086,
+    "height": 1448,
+    "variants": [
+      "images/sanctuary/pilates.webp"
+    ],
+    "tags": [
+      "concept",
+      "pilates"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/pilates?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/practice-flow.webp",
+    "url": "images/sanctuary/practice-flow.webp",
+    "thumbnail": "images/sanctuary/practice-flow.webp",
+    "name": "Practice flow",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      "images/sanctuary/practice-flow.webp"
+    ],
+    "tags": [
+      "concept",
+      "practice",
+      "flow"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/sanctuary/respiracion.webp",
+    "url": "images/sanctuary/respiracion.webp",
+    "thumbnail": "images/sanctuary/respiracion.webp",
+    "name": "Respiracion",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1024,
+    "height": 1536,
+    "variants": [
+      "images/sanctuary/respiracion.webp"
+    ],
+    "tags": [
+      "concept",
+      "respiracion"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/respiracion?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/ritual-stillness.webp",
+    "url": "images/sanctuary/ritual-stillness.webp",
+    "thumbnail": "images/sanctuary/ritual-stillness.webp",
+    "name": "Ritual stillness",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      "images/sanctuary/ritual-stillness.webp"
+    ],
+    "tags": [
+      "concept",
+      "ritual",
+      "stillness"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/sanctuary/studio-medellin.webp",
+    "url": "images/sanctuary/studio-medellin.webp",
+    "thumbnail": "images/sanctuary/studio-medellin.webp",
+    "name": "Studio medellin",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      "images/sanctuary/studio-medellin.webp"
+    ],
+    "tags": [
+      "concept",
+      "studio",
+      "medellin"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-andres.webp",
+    "url": "images/sanctuary/teacher-andres.webp",
+    "thumbnail": "images/sanctuary/teacher-andres.webp",
+    "name": "Teacher andres",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-andres.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "andres"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-carolina.webp",
+    "url": "images/sanctuary/teacher-carolina.webp",
+    "thumbnail": "images/sanctuary/teacher-carolina.webp",
+    "name": "Teacher carolina",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-carolina.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "carolina"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-daniel.webp",
+    "url": "images/sanctuary/teacher-daniel.webp",
+    "thumbnail": "images/sanctuary/teacher-daniel.webp",
+    "name": "Teacher daniel",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-daniel.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "daniel"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-felipe.webp",
+    "url": "images/sanctuary/teacher-felipe.webp",
+    "thumbnail": "images/sanctuary/teacher-felipe.webp",
+    "name": "Teacher felipe",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-felipe.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "felipe"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-isabela.webp",
+    "url": "images/sanctuary/teacher-isabela.webp",
+    "thumbnail": "images/sanctuary/teacher-isabela.webp",
+    "name": "Teacher isabela",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-isabela.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "isabela"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-manuela.webp",
+    "url": "images/sanctuary/teacher-manuela.webp",
+    "thumbnail": "images/sanctuary/teacher-manuela.webp",
+    "name": "Teacher manuela",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-manuela.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "manuela"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-paula.webp",
+    "url": "images/sanctuary/teacher-paula.webp",
+    "thumbnail": "images/sanctuary/teacher-paula.webp",
+    "name": "Teacher paula",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-paula.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "paula"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/teacher-santiago.webp",
+    "url": "images/sanctuary/teacher-santiago.webp",
+    "thumbnail": "images/sanctuary/teacher-santiago.webp",
+    "name": "Teacher santiago",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 840,
+    "height": 1050,
+    "variants": [
+      "images/sanctuary/teacher-santiago.webp"
+    ],
+    "tags": [
+      "concept",
+      "teacher",
+      "santiago"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/texture-blue.webp",
+    "url": "images/sanctuary/texture-blue.webp",
+    "thumbnail": "images/sanctuary/texture-blue.webp",
+    "name": "Texture blue",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "square",
+    "width": 1254,
+    "height": 1254,
+    "variants": [
+      "images/sanctuary/texture-blue.webp"
+    ],
+    "tags": [
+      "concept",
+      "texture",
+      "blue"
+    ],
+    "usages": [
+      {
+        "label": "Website materials",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/sanctuary.css: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "FAQ",
+        "path": "/site/faq",
+        "state": "live",
+        "evidence": "src/modules/website/faq.css: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/texture-foliage.webp",
+    "url": "images/sanctuary/texture-foliage.webp",
+    "thumbnail": "images/sanctuary/texture-foliage.webp",
+    "name": "Texture foliage",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      "images/sanctuary/texture-foliage.webp"
+    ],
+    "tags": [
+      "concept",
+      "texture",
+      "foliage"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/sanctuary/texture-limestone.webp",
+    "url": "images/sanctuary/texture-limestone.webp",
+    "thumbnail": "images/sanctuary/texture-limestone.webp",
+    "name": "Texture limestone",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      "images/sanctuary/texture-limestone.webp"
+    ],
+    "tags": [
+      "concept",
+      "texture",
+      "limestone"
+    ],
+    "usages": [
+      {
+        "label": "Website materials",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/sanctuary.css: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "Class arch material",
+        "path": "/site/classes",
+        "state": "live",
+        "evidence": "src/components/molecule/ClassArch/ClassArch.css: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      }
+    ]
+  },
+  {
+    "id": "images/sanctuary/texture-sunlight.webp",
+    "url": "images/sanctuary/texture-sunlight.webp",
+    "thumbnail": "images/sanctuary/texture-sunlight.webp",
+    "name": "Texture sunlight",
+    "source": "concept",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      "images/sanctuary/texture-sunlight.webp"
+    ],
+    "tags": [
+      "concept",
+      "texture",
+      "sunlight"
+    ],
+    "usages": [
+      {
+        "label": "Website materials",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/sanctuary.css: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/barre-blue.webp",
+    "url": "images/studio-2026/barre-blue-960.webp",
+    "thumbnail": "images/studio-2026/barre-blue-480.webp",
+    "name": "Barre blue",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/barre-blue-480.webp",
+      "images/studio-2026/barre-blue-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "barre",
+      "blue"
+    ],
+    "usages": [
+      {
+        "label": "Studio light",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx: SlowPhotoPair; 40-second dissolve, pause and reduced motion."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/barre-warm.webp",
+    "url": "images/studio-2026/barre-warm-960.webp",
+    "thumbnail": "images/studio-2026/barre-warm-480.webp",
+    "name": "Barre warm",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1441,
+    "variants": [
+      "images/studio-2026/barre-warm-480.webp",
+      "images/studio-2026/barre-warm-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "barre",
+      "warm"
+    ],
+    "usages": [
+      {
+        "label": "Studio light",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx: SlowPhotoPair; 40-second dissolve, pause and reduced motion."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/facility-equipment.webp",
+    "url": "images/studio-2026/facility-equipment-960.webp",
+    "thumbnail": "images/studio-2026/facility-equipment-480.webp",
+    "name": "Facility equipment",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/facility-equipment-480.webp",
+      "images/studio-2026/facility-equipment-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "facility",
+      "equipment"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/studio-2026/facility-heater.webp",
+    "url": "images/studio-2026/facility-heater-960.webp",
+    "thumbnail": "images/studio-2026/facility-heater-480.webp",
+    "name": "Facility heater",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/facility-heater-480.webp",
+      "images/studio-2026/facility-heater-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "facility",
+      "heater"
+    ],
+    "usages": []
+  },
+  {
+    "id": "images/studio-2026/facility-red-studio.webp",
+    "url": "images/studio-2026/facility-red-studio-960.webp",
+    "thumbnail": "images/studio-2026/facility-red-studio-480.webp",
+    "name": "Facility red studio",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 960,
+    "height": 640,
+    "variants": [
+      "images/studio-2026/facility-red-studio-480.webp",
+      "images/studio-2026/facility-red-studio-960.webp",
+      "images/studio-2026/facility-red-studio-1600.webp"
+    ],
+    "tags": [
+      "studio",
+      "facility",
+      "red"
+    ],
+    "usages": [
+      {
+        "label": "About",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/facility-studio.webp",
+    "url": "images/studio-2026/facility-studio-960.webp",
+    "thumbnail": "images/studio-2026/facility-studio-480.webp",
+    "name": "Facility studio",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 960,
+    "height": 640,
+    "variants": [
+      "images/studio-2026/facility-studio-480.webp",
+      "images/studio-2026/facility-studio-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "facility"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      },
+      {
+        "label": "About",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. media_slots:site.about:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/heater-blue.webp",
+    "url": "images/studio-2026/heater-blue-960.webp",
+    "thumbnail": "images/studio-2026/heater-blue-480.webp",
+    "name": "Heater blue",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/heater-blue-480.webp",
+      "images/studio-2026/heater-blue-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "heater",
+      "blue"
+    ],
+    "usages": [
+      {
+        "label": "Studio light",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx: SlowPhotoPair; 40-second dissolve, pause and reduced motion."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/heater-warm.webp",
+    "url": "images/studio-2026/heater-warm-960.webp",
+    "thumbnail": "images/studio-2026/heater-warm-480.webp",
+    "name": "Heater warm",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1441,
+    "variants": [
+      "images/studio-2026/heater-warm-480.webp",
+      "images/studio-2026/heater-warm-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "heater",
+      "warm"
+    ],
+    "usages": [
+      {
+        "label": "Studio light",
+        "path": "/site/about?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/AboutPage.tsx: SlowPhotoPair; 40-second dissolve, pause and reduced motion."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/hero-group.webp",
+    "url": "images/studio-2026/hero-group-960.webp",
+    "thumbnail": "images/studio-2026/hero-group-480.webp",
+    "name": "Hero group",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/hero-group-480.webp",
+      "images/studio-2026/hero-group-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "hero",
+      "group"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/philosophy-carolina.webp",
+    "url": "images/studio-2026/philosophy-carolina-960.webp",
+    "thumbnail": "images/studio-2026/philosophy-carolina-480.webp",
+    "name": "Philosophy carolina",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/philosophy-carolina-480.webp",
+      "images/studio-2026/philosophy-carolina-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "philosophy",
+      "carolina"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/pricing-duo.webp",
+    "url": "images/studio-2026/pricing-duo-960.webp",
+    "thumbnail": "images/studio-2026/pricing-duo-480.webp",
+    "name": "Pricing duo",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "landscape",
+    "width": 960,
+    "height": 640,
+    "variants": [
+      "images/studio-2026/pricing-duo-480.webp",
+      "images/studio-2026/pricing-duo-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "pricing",
+      "duo"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      },
+      {
+        "label": "Plans",
+        "path": "/site/plans?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/PlansPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      },
+      {
+        "label": "Schedule",
+        "path": "/site/schedule?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/SchedulePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-carolina.webp",
+    "url": "images/studio-2026/teacher-carolina-960.webp",
+    "thumbnail": "images/studio-2026/teacher-carolina-480.webp",
+    "name": "Teacher carolina",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-carolina-480.webp",
+      "images/studio-2026/teacher-carolina-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "carolina"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_carolina:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_carolina:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-leandro.webp",
+    "url": "images/studio-2026/teacher-leandro-960.webp",
+    "thumbnail": "images/studio-2026/teacher-leandro-480.webp",
+    "name": "Teacher leandro",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-leandro-480.webp",
+      "images/studio-2026/teacher-leandro-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "leandro"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_leandro:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_leandro:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-maria-camila.webp",
+    "url": "images/studio-2026/teacher-maria-camila-960.webp",
+    "thumbnail": "images/studio-2026/teacher-maria-camila-480.webp",
+    "name": "Teacher maria camila",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-maria-camila-480.webp",
+      "images/studio-2026/teacher-maria-camila-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "maria",
+      "camila"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_maria_camila:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_maria_camila:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-raghu.webp",
+    "url": "images/studio-2026/teacher-raghu-960.webp",
+    "thumbnail": "images/studio-2026/teacher-raghu-480.webp",
+    "name": "Teacher raghu",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-raghu-480.webp",
+      "images/studio-2026/teacher-raghu-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "raghu"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_raghu:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_raghu:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-sara-crismatt.webp",
+    "url": "images/studio-2026/teacher-sara-crismatt-960.webp",
+    "thumbnail": "images/studio-2026/teacher-sara-crismatt-480.webp",
+    "name": "Teacher sara crismatt",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-sara-crismatt-480.webp",
+      "images/studio-2026/teacher-sara-crismatt-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "sara",
+      "crismatt"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_sara_c:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_sara_c:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-sara-estrada.webp",
+    "url": "images/studio-2026/teacher-sara-estrada-960.webp",
+    "thumbnail": "images/studio-2026/teacher-sara-estrada-480.webp",
+    "name": "Teacher sara estrada",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-sara-estrada-480.webp",
+      "images/studio-2026/teacher-sara-estrada-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "sara",
+      "estrada"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_sara_e:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_sara_e:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/teacher-tatiana.webp",
+    "url": "images/studio-2026/teacher-tatiana-960.webp",
+    "thumbnail": "images/studio-2026/teacher-tatiana-480.webp",
+    "name": "Teacher tatiana",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/teacher-tatiana-480.webp",
+      "images/studio-2026/teacher-tatiana-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "teacher",
+      "tatiana"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_tatiana:fallback"
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_tatiana:fallback"
+      }
+    ]
+  },
+  {
+    "id": "video/hoy-hero.mp4",
+    "url": "video/hoy-hero.mp4",
+    "thumbnail": null,
+    "name": "Hoy hero",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "landscape",
+    "width": 1600,
+    "height": 902,
+    "variants": [
+      "video/hoy-hero.mp4"
+    ],
+    "tags": [
+      "concept",
+      "hoy",
+      "hero"
+    ],
+    "usages": []
+  },
+  {
+    "id": "video/hoy-ritual.mp4",
+    "url": "video/hoy-ritual.mp4",
+    "thumbnail": "images/sanctuary/studio-medellin.webp",
+    "name": "Hoy ritual",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "landscape",
+    "width": 1600,
+    "height": 902,
+    "variants": [
+      "video/hoy-ritual.mp4"
+    ],
+    "tags": [
+      "concept",
+      "hoy",
+      "ritual"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/hoy-studio.mp4",
+    "url": "video/hoy-studio.mp4",
+    "thumbnail": "images/sanctuary/arch.webp",
+    "name": "Hoy studio",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 720,
+    "height": 1080,
+    "variants": [
+      "video/hoy-studio.mp4"
+    ],
+    "tags": [
+      "concept",
+      "hoy",
+      "studio"
+    ],
+    "usages": [
+      {
+        "label": "About",
+        "path": "/site/about",
+        "state": "live",
+        "evidence": "src/modules/website/pages/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility. media_slots:site.about:fallback"
+      },
+      {
+        "label": "About",
+        "path": "/site/about?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/AboutPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-barre.mp4",
+    "url": "video/living-barre.mp4",
+    "thumbnail": "images/sanctuary/barre.webp",
+    "name": "Living barre",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 854,
+    "variants": [
+      "video/living-barre.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "barre"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/barre?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "video/living-community.mp4",
+    "url": "video/living-community.mp4",
+    "thumbnail": "images/sanctuary/community.webp",
+    "name": "Living community",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-community.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "community"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-hero-sanctuary.mp4",
+    "url": "video/living-hero-sanctuary.mp4",
+    "thumbnail": "images/sanctuary/hero-sanctuary.webp",
+    "name": "Living hero sanctuary",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "landscape",
+    "width": 1280,
+    "height": 722,
+    "variants": [
+      "video/living-hero-sanctuary.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "hero",
+      "sanctuary"
+    ],
+    "usages": [
+      {
+        "label": "Coming soon",
+        "path": "/",
+        "state": "live",
+        "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-hot-yoga.mp4",
+    "url": "video/living-hot-yoga.mp4",
+    "thumbnail": "images/sanctuary/hot-yoga.webp",
+    "name": "Living hot yoga",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 854,
+    "variants": [
+      "video/living-hot-yoga.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "hot",
+      "yoga"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/hot-yoga?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "video/living-meditacion.mp4",
+    "url": "video/living-meditacion.mp4",
+    "thumbnail": "images/sanctuary/meditacion.webp",
+    "name": "Living meditacion",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-meditacion.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "meditacion"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/meditacion?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "video/living-philosophy.mp4",
+    "url": "video/living-philosophy.mp4",
+    "thumbnail": "images/sanctuary/philosophy.webp",
+    "name": "Living philosophy",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 960,
+    "variants": [
+      "video/living-philosophy.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "philosophy"
+    ],
+    "usages": [
+      {
+        "label": "Component library",
+        "path": "/dev/components",
+        "state": "live",
+        "evidence": "src/components/molecule/MediaSlot/MediaSlot.meta.ts: literal asset reference. This is a code placement, not a runtime visibility guarantee."
+      },
+      {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-pilates.mp4",
+    "url": "video/living-pilates.mp4",
+    "thumbnail": "images/sanctuary/pilates.webp",
+    "name": "Living pilates",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 854,
+    "variants": [
+      "video/living-pilates.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "pilates"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/pilates?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "video/living-respiracion.mp4",
+    "url": "video/living-respiracion.mp4",
+    "thumbnail": "images/sanctuary/respiracion.webp",
+    "name": "Living respiracion",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 960,
+    "variants": [
+      "video/living-respiracion.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "respiracion"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Classes",
+        "path": "/site/classes?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassesPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Class detail",
+        "path": "/site/classes/respiracion?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/ClassDetailPage.tsx: siteImage(slug), siteVideo(slug); archive/brand.ts: classOrder. Fallback media can be overridden."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-andres.mp4",
+    "url": "video/living-teacher-andres.mp4",
+    "thumbnail": "images/sanctuary/teacher-andres.webp",
+    "name": "Living teacher andres",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-andres.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "andres"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-carolina.mp4",
+    "url": "video/living-teacher-carolina.mp4",
+    "thumbnail": "images/sanctuary/teacher-carolina.webp",
+    "name": "Living teacher carolina",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-carolina.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "carolina"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-daniel.mp4",
+    "url": "video/living-teacher-daniel.mp4",
+    "thumbnail": "images/sanctuary/teacher-daniel.webp",
+    "name": "Living teacher daniel",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-daniel.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "daniel"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-felipe.mp4",
+    "url": "video/living-teacher-felipe.mp4",
+    "thumbnail": "images/sanctuary/teacher-felipe.webp",
+    "name": "Living teacher felipe",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-felipe.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "felipe"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-isabela.mp4",
+    "url": "video/living-teacher-isabela.mp4",
+    "thumbnail": "images/sanctuary/teacher-isabela.webp",
+    "name": "Living teacher isabela",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-isabela.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "isabela"
+    ],
+    "usages": [
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-manuela.mp4",
+    "url": "video/living-teacher-manuela.mp4",
+    "thumbnail": "images/sanctuary/teacher-manuela.webp",
+    "name": "Living teacher manuela",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-manuela.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "manuela"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-paula.mp4",
+    "url": "video/living-teacher-paula.mp4",
+    "thumbnail": "images/sanctuary/teacher-paula.webp",
+    "name": "Living teacher paula",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-paula.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "paula"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  },
+  {
+    "id": "video/living-teacher-santiago.mp4",
+    "url": "video/living-teacher-santiago.mp4",
+    "thumbnail": "images/sanctuary/teacher-santiago.webp",
+    "name": "Living teacher santiago",
+    "source": "concept",
+    "kind": "video",
+    "orientation": "portrait",
+    "width": 640,
+    "height": 800,
+    "variants": [
+      "video/living-teacher-santiago.mp4"
+    ],
+    "tags": [
+      "concept",
+      "living",
+      "teacher",
+      "santiago"
+    ],
+    "usages": [
+      {
+        "label": "Home",
+        "path": "/site?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      },
+      {
+        "label": "Teachers",
+        "path": "/site/teachers?version=archive",
+        "state": "archived",
+        "evidence": "src/modules/website/archive/TeachersPage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
+      }
+    ]
+  }
+]

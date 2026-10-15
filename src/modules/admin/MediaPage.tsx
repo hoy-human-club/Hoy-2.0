@@ -1,3 +1,6 @@
+import { MediaLibrary } from '../../components/organism/MediaLibrary/MediaLibrary';
+import { buildMediaLibrary } from '../../data/mediaLibrary';
+import type { TeacherRow, ModalityRow, EventRow } from '../../data/schema';
 import { useEffect, useState } from 'react';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
@@ -26,6 +29,10 @@ export function MediaPage() {
   const { t, bi } = useI18n();
   const { data, audit, canWrite } = useContentEditing();
   const { rows, loading } = useTable<MediaAssetRow>('media_assets', { orderBy: { column: 'sort' } });
+  const { rows: teachers } = useTable<TeacherRow>('teachers');
+  const { rows: modalities } = useTable<ModalityRow>('modalities');
+  const { rows: events } = useTable<EventRow>('events');
+  const [view, setView] = useState<'catalog' | 'slots'>('catalog');
   const [filter, setFilter] = useState<'all' | MediaAssetRow['status']>('all');
   const ready = rows.filter((r) => r.status === 'ready');
   const shown = rows.filter((r) => filter === 'all' || r.status === filter);
@@ -42,9 +49,12 @@ export function MediaPage() {
 
   return (
     <div className="stack">
-      <ContentHead current="media" title={t('admin.media.title')} subtitle={t('admin.media.subtitle')}
-        actions={canWrite ? <Button size="sm" onClick={add}>{t('admin.media.add')}</Button> : undefined} />
+      <ContentHead current="media" title={t('admin.media.title')} subtitle={t('media.library.subtitle')}
+        actions={canWrite && view === 'slots' ? <Button size="sm" onClick={add}>{t('admin.media.add')}</Button> : undefined} />
 
+      <p className="small muted">{t('media.library.demo')}</p>
+      <div className="row wrap">{(['catalog','slots'] as const).map(v=><Button key={v} variant={view===v?'primary':'ghost'} onClick={()=>setView(v)} aria-pressed={view===v}>{t(`media.library.${v}`)}</Button>)}</div>
+      {view==='catalog' ? <MediaLibrary assets={buildMediaLibrary(rows, teachers, modalities, events)} /> : <>
       <div className="grid grid-3">
         <StatTile label={t('admin.media.kpi.ready')} value={`${ready.length} / ${rows.length}`} hint={t('admin.media.kpi.ready.hint')} trend={ready.length === rows.length ? 'up' : 'flat'} />
         <StatTile label={t('admin.media.kpi.pending')} value={rows.length - ready.length} hint={t('admin.media.kpi.pending.hint')} />
@@ -73,6 +83,7 @@ export function MediaPage() {
             }} />
         ))}
       </div>
+      </>}
     </div>
   );
 }

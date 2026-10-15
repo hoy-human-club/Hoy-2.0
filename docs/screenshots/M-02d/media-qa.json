@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "captures": 18,
+  "checks": [
+    "search",
+    "filter",
+    "empty state",
+    "slot editor preserved",
+    "per-usage mixed states",
+    "teacher fallback deactivation",
+    "unsafe URLs excluded",
+    "ES/EN and themes",
+    "no overflow",
+    "no runtime errors"
+  ]
+}

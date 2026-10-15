@@ -1366,3 +1366,8 @@ _Orden de secciones por página guardado desde el editor drag-and-drop._
 `tenants.settings.openingHoursConfirmed` is an optional persisted boolean, default false. The existing weekly opening-hour values remain demo settings until staff explicitly saves M-08a. Class timetable entries do not establish reception hours. Unconfirmed hours are not published as structured opening-hour data. No table or column was added.
 
 The demo timetable uses stable `tpl_fixed_<weekday>_<HHMM>` identifiers. Historical booked sessions can keep their retired legacy template reference; migration never reassigns those bookings.
+
+
+## 0065 · Media catalog projection
+
+No new database table. `mediaLibrary.ts` projects the build-generated public-file manifest and the existing provider tables `media_assets`, `teachers`, `modalities` and `events`. Assets own variants and provenance; placements own live/draft/archived/inactive status and a route. A single asset can have mixed states. Provider changes are reactive through `useTable`; packaged asset changes are indexed at build time. The existing mock provider persists only in the current browser. A future storage backend must replace file ingestion and provide canonical asset IDs, original/variant lineage, rights metadata and placement records, while retaining this read-model contract. Original binary files and private source identifiers are not copied into the public catalog.

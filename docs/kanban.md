@@ -601,3 +601,10 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 
 ### Done
 - W-01 / W-02 / W-04 / W-05 / P-01: responsive studio-photo preview; Photography, Timetable and Website preview QA passed on 31739e1. Thirty approved public screenshots are linked from the page documentation. Latest remains the default.
+
+## Media library · 0065
+
+### Implemented · release verification
+- M-02d: searchable 68-asset catalog, responsive variants and linked per-placement live/draft/inactive/archive states; browser-local assignments remain explicitly demo-only.
+- W-02 photo preview: four approved equipment photographs with optional 40-second blue/warm dissolve, shared pause and reduced-motion support. [Details](changelog/0065-media-library.md)
+- Shared Content photo picker is a separate pending integration (PR39); it is not part of this release.

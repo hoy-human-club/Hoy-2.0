@@ -77,10 +77,11 @@ export const M02c = contentSub('M-02c',
 
 export const M02d = contentSub('M-02d',
   { es: 'Contenido · Biblioteca de medios', en: 'Content · Media library' },
-  { es: 'La lista de arte que el estudio debe: un cupo por lugar de la app y la web, con proporción, encargo y texto alternativo. Pegar una URL lo publica sin deploy.', en: 'The checklist of art the studio owes: one slot per place in the app and the site, with its ratio, brief and alt text. Pasting a URL publishes it with no deploy.' },
-  ['ContentSubNav', 'ReadyKPIs (listas / pendientes / video)', 'StatusFilter', 'MediaGrid → MediaCard (marco con proporción, encargo, URL, alt)', 'MarkReady / MarkPending', 'AdvancedFields (slot_key, ratio, kind, credit, label, alt, brief)'],
+  { es: 'Inventario de archivos con búsqueda, filtros, variantes y estado por uso. El editor de asignaciones conserva los cambios en este navegador hasta conectar el backend.', en: 'Searchable asset inventory with filters, variants and per-placement state. The assignment editor keeps changes in this browser until the backend is connected.' },
+  ['ContentSubNav', 'AssetCatalog (search, filters, per-placement states, links)', 'ReadyKPIs (listas / pendientes / video)', 'StatusFilter', 'MediaGrid → MediaCard (marco con proporción, encargo, URL, alt)', 'MarkReady / MarkPending', 'AdvancedFields (slot_key, ratio, kind, credit, label, alt, brief)'],
   {
-    data: ['media_assets', 'audit_log'],
+    data: ['media_assets', 'teachers', 'modalities', 'events', 'audit_log'],
+    notes: ['Asset catalog is a build-time file index joined with live provider rows. Source placements are not a claim of production-backend publication. Original files are never edited.'],
     logic: [
       'slot_key is the contract between the table and the components: MediaPlaceholder({slotKey}) renders the URL when status = ready and a branded empty slot otherwise.',
       'A row can only be marked ready with a URL; marking it pending again hides the asset everywhere without deleting the record.',

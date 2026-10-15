@@ -1,12 +1,12 @@
 {
   "name": "hoyos",
   "private": true,
-  "version": "0.24.0",
+  "version": "0.24.1",
   "type": "module",
   "description": "HoyOS \u2014 operations system for HOY Wellness Center (multi-tenant ready)",
   "scripts": {
     "dev": "vite",
-    "build": "npm run tokens && node scripts/spacing-lint.mjs --report && npm run hub-map && npm run actions && npm run capture-dates && node scripts/manual-lint.mjs --report && tsc --noEmit && vite build && node scripts/copy-shots.mjs",
+    "build": "npm run media-catalog && npm run tokens && node scripts/spacing-lint.mjs --report && npm run hub-map && npm run actions && npm run capture-dates && node scripts/manual-lint.mjs --report && tsc --noEmit && vite build && node scripts/copy-shots.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "screenshots": "node scripts/screenshots.mjs",
@@ -27,7 +27,8 @@
     "test:hours": "node --experimental-strip-types scripts/test-hours.mjs",
     "test:contacts": "node scripts/test-contacts.mjs",
     "test:analytics": "node scripts/test-analytics.mjs",
-    "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs"
+    "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs",
+    "media-catalog": "node scripts/gen-media-catalog.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",

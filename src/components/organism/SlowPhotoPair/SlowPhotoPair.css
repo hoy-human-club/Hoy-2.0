@@ -1,0 +1,8 @@
+.slow-photo-pair{margin:0;min-width:0}.slow-photo-pair-frame{position:relative;overflow:hidden;aspect-ratio:2/3;border-radius:var(--r-md);background:var(--color-surface-2)}
+.slow-photo-pair .slow-photo-pair-frame img{display:block;width:100%;height:100%;object-fit:cover;grid-column:auto}
+.slow-photo-pair .slow-photo-pair-frame .slow-photo-pair-warm{position:absolute;inset:0;opacity:0;animation:slow-photo-dissolve 40s ease-in-out infinite}
+.slow-photo-pair[data-motion="off"] .slow-photo-pair-warm{animation-play-state:paused}
+.slow-photo-pair figcaption{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--gap-control);padding-top:var(--stack);font-size:var(--fs-sm)}
+.slow-photo-pair button{min-height:var(--h-ctl);padding:0 var(--btn-pad-x);border:1px solid var(--color-border);border-radius:var(--r-ctl);background:var(--color-surface);color:var(--color-text);cursor:pointer}
+@keyframes slow-photo-dissolve{0%,10%,100%{opacity:0}45%,60%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.slow-photo-pair .slow-photo-pair-frame .slow-photo-pair-warm{animation:none}.slow-photo-pair button{display:none}}

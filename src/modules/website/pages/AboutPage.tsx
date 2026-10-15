@@ -1,4 +1,5 @@
-import { studioPhotoProps } from '../photography';
+import { SlowPhotoPair } from '../../../components/organism/SlowPhotoPair/SlowPhotoPair';
+import { studioPhoto, studioPhotoProps } from '../photography';
 import { AmbientScene } from '../../../components/organism/AmbientScene/AmbientScene';
 import { useTable } from '../../../data/DataContext';
 import type { MediaAssetRow } from '../../../data/schema';
@@ -47,7 +48,7 @@ export function AboutPage() {
     Philosophy: () => (
       <section className="container site-section">
         {/* 0051 — "La filosofía de HOY": two titled parts (nuestra filosofía, nuestro propósito) and the closing question. */}
-        {photoEdition && <div className="photo-facilities"><h2>{t('site.photos.facilities')}</h2><div className="photo-facilities-grid">{([['facility-red-studio','red'],['facility-heater','heater'],['facility-equipment','equipment']] as const).map(([name,alt],i) => <img key={name} {...studioPhotoProps(name,i > 0)} alt={t(`site.photos.${alt}`)} />)}</div></div>}
+        {photoEdition && <div className="photo-facilities"><h2>{t('site.photos.facilities')}</h2><div className="photo-facilities-grid"><img {...studioPhotoProps('facility-red-studio')} alt={t('site.photos.red')} /><SlowPhotoPair cool={studioPhoto('heater-blue')} warm={studioPhoto('heater-warm')} alt={t('media.pair.heater')} motion={motion} onMotionChange={setMotion} /><SlowPhotoPair cool={studioPhoto('barre-blue')} warm={studioPhoto('barre-warm')} alt={t('media.pair.barre')} motion={motion} onMotionChange={setMotion} /></div></div>}
         <div className="site-panel site-philosophy">
           <p className="eyebrow">{bi(philosophy.eyebrow)}</p>
           <h2>{bi(philosophy.title)}</h2>

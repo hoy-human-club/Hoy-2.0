@@ -1,0 +1,4 @@
+import { createElement as h } from 'react';
+import { defineMeta } from '../../../design/meta';
+import { MediaLibrary } from './MediaLibrary';
+export default defineMeta({tier:'organism',name:'MediaLibrary',description:{es:'Catálogo de archivos con filtros y publicación por uso.',en:'Asset catalog with filters and per-placement publication.'},props:[{name:'assets',type:'LibraryAsset[]',required:true,description:{es:'Catálogo derivado del proveedor y archivos del sitio.',en:'Catalog derived from provider rows and site files.'}}],a11y:[{es:'Filtros con etiquetas y enlaces navegables con teclado.',en:'Labelled filters and keyboard-accessible links.'}],states:['default','filtered','empty','expanded placements','image unavailable'],usages:[{title:{es:'Biblioteca vacía',en:'Empty library'},render:()=>h(MediaLibrary,{assets:[]})}]});
