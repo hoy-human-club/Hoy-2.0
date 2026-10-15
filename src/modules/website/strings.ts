@@ -11,6 +11,7 @@ export const strings: StringTable = {
   'site.photos.teacherLegend': { es: 'Conoce a quienes guían la práctica. Los retratos pendientes se muestran con iniciales.', en: 'Meet the people who guide the practice. Pending portraits are shown with initials.' },
   'site.edition.photos': { es: 'Fotos · vista previa', en: 'Photos · preview' },
   'site.photos.notice': { es: 'Vista previa con las fotos del estudio. La versión pública actual sigue disponible en Latest.', en: 'Preview with the studio photographs. The current public edition remains available in Latest.' },
+  'site.photos.studioHero': { es: 'El estudio real con luz roja, espejos y colchonetas preparadas para la práctica', en: 'The real studio with red lighting, mirrors and mats prepared for practice' },
   'site.photos.hero': { es: 'Movimiento en grupo en el estudio HOY', en: 'Group movement in the HOY studio' },
   'site.photos.philosophy': { es: 'Carolina Cifuentes en una postura de movimiento', en: 'Carolina Cifuentes in a movement pose' },
   'site.photos.studio': { es: 'El estudio HOY preparado para la práctica', en: 'The HOY studio prepared for practice' },

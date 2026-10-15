@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "latest/es/390/light",
+    "latest/es/390/dark",
+    "latest/es/1280/light",
+    "latest/es/1280/dark",
+    "latest/en/390/light",
+    "latest/en/390/dark",
+    "latest/en/1280/light",
+    "latest/en/1280/dark",
+    "photos/es/390/light",
+    "photos/es/390/dark",
+    "photos/es/1280/light",
+    "photos/es/1280/dark",
+    "photos/en/390/light",
+    "photos/en/390/dark",
+    "photos/en/1280/light",
+    "photos/en/1280/dark"
+  ],
+  "errors": []
+}

@@ -119,6 +119,11 @@ for(const archived of [false,true]) {
     if(!archived) {
       const names=new Set([...code.matchAll(/studioPhotoProps\('([^']+)'/g)].map(m=>m[1]));
       for(const m of code.matchAll(/<img\s+src=\{studioPhoto\('([^']+)'/g))names.add(m[1]);
+      if(page==='HomePage'&&code.includes('images/studio-2026/facility-red-studio-1600.webp')) {
+        const evidence=`${file}: owner-approved real studio hero shared by Latest and Photos; ComingSoonLanding uses the same packaged image.`;
+        add('images/studio-2026/facility-red-studio-1600.webp',label,'/site','live',evidence);
+        add('images/studio-2026/facility-red-studio-1600.webp',label,'/site?version=photos','draft',evidence);
+      }
       if(code.includes('teacherStudioPhoto(te.id)'))teacherPhotos.forEach(n=>names.add(n));
       if(code.includes('studioPhotoProps(name'))for(const m of code.matchAll(/\['(facility-[^']+)'/g))names.add(m[1]);
       for(const name of names)add(`images/studio-2026/${name}-960.webp`,label,path+'?version=photos','draft',`${file}; ${website}/photography.ts; ${website}/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers.${teacherPhotoIds.has(name)?` teachers:${teacherPhotoIds.get(name)}:fallback`:''}${page==='AboutPage'&&name==='facility-studio'?' media_slots:site.about:fallback':''}`);

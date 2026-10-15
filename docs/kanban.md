@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Completed · 0067 (v0.24.3 · 2026-10-15)
+
+- W-01: use the approved Coming Soon studio hero for both regular Latest and Photos, with the same dark-blue veil, cream text and responsive source selection. [Details](changelog/0067-shared-studio-hero.md)
+
 ## Completed · 0066 (v0.24.2 · 2026-10-15)
 
 - W-11: replace the pre-launch concept artwork with the approved real red-lit studio photograph, responsive image variants and bilingual accessible copy. Keep the independent landing and Login-coming-soon behavior. [Details](changelog/0066-coming-soon-studio-photo.md)

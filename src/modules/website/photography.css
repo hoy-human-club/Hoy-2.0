@@ -1,11 +1,5 @@
-/* Photo preview is opt-in; existing Latest and Archive are untouched. */
+/* Photo preview remains opt-in. Its shared studio hero is the owner-approved Latest hero. */
 .photo-preview-notice { padding: var(--sp-sm) var(--sp-lg); text-align:center; background:var(--color-surface); color:var(--color-text); font-size:.8rem; border-bottom:1px solid var(--color-border); }
-.site[data-site-version="photos"] .sanctuary-hero { display:grid; grid-template-columns: 1.15fr 1fr; height:auto; min-height:0; padding:var(--sp-2xl) 5vw; gap:var(--sp-2xl); align-items:center; }
-.site[data-site-version="photos"] .sanctuary-hero-inner { grid-column:1; grid-row:1; width:100%; padding:0; }
-.site[data-site-version="photos"] .sanctuary-hero-copy { padding:var(--sp-xl) 0; }
-.site[data-site-version="photos"] .sanctuary-hero h1 { font-size:clamp(3.5rem,6.5vw,7rem); }
-.site[data-site-version="photos"] .sanctuary-hero-wash, .site[data-site-version="photos"] .sanctuary-hero-bottom { display:none; }
-.photo-hero-image { grid-column:2; width:100%; max-height:46rem; object-fit:contain; border-radius:46% 46% 0 0; }
 .photo-philosophy { width:100%; height:auto; max-height:38rem; object-fit:contain; }
 .photo-community { width:100%; height:auto; display:block; }
 .photo-finale-image { width:50%; height:auto; object-fit:contain; }
@@ -19,19 +13,12 @@
 .photo-booking-banner img { display:block; width:100%; height:clamp(12rem,30vw,25rem); object-fit:contain; background:var(--color-surface); }
 .site[data-site-version="photos"] .site-teacher .mediaslot img { object-fit:contain; }
 @media(max-width:700px) {
-.site[data-site-version="photos"] .sanctuary-hero { grid-template-columns:1fr; padding:var(--sp-xl) 6vw; }
-.site[data-site-version="photos"] .sanctuary-hero-inner { grid-row:1; }
-.photo-hero-image { grid-column:1; grid-row:2; max-height:none; border-radius:40% 40% 0 0; }
-.site[data-site-version="photos"] .sanctuary-hero h1 { font-size:clamp(3rem,13vw,4.5rem); }
 .site[data-site-version="photos"] .sanctuary-finale { flex-direction:column; }
 .photo-finale-image, .site[data-site-version="photos"] .sanctuary-finale-card { width:100%; }
 .photo-facilities-grid { grid-template-columns:1fr 1fr; }
 .photo-facilities-grid img:first-child { grid-column:1/-1; }
 }
 /* Portraits own their aspect ratio; legacy viewport heights must not clip a stacked photo. */
-.site[data-site-version="photos"] .sanctuary-hero { max-height:none; }
-.site[data-site-version="photos"] .sanctuary-hero-inner { height:auto; }
-.site[data-site-version="photos"] .photo-hero-image { height:auto; }
 .site[data-site-version="photos"] .sanctuary-philosophy-art::before { display:none; }
 .site[data-site-version="photos"] .sanctuary-photo-caption { display:none; }
 .site[data-site-version="photos"] .photo-finale-image { flex-shrink:0; }

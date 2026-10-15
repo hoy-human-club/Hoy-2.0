@@ -35,7 +35,7 @@ try {
  await page.goto(`${base}/#/site?version=photos`);await page.locator('.photo-hero-image').waitFor();
  await page.locator('.sanctuary-hero-copy a[href*="schedule"]').click();await page.locator('.session-calendar').waitFor();assert(page.url().includes('version=photos'));
  await page.goBack();await page.locator('.photo-hero-image').waitFor();
- await page.locator('.site-actions select').selectOption('latest');await page.locator('.site[data-site-version=latest]').waitFor();assert.equal(await page.locator('.photo-hero-image').count(),0);
+ await page.locator('.site-actions select').selectOption('latest');await page.locator('.site[data-site-version=latest]').waitFor();assert.equal(await page.locator('.photo-hero-image').count(),1);assert((await page.locator('.photo-hero-image').getAttribute('src')).includes('facility-red-studio-1600.webp'));
  await page.locator('.site-actions select').selectOption('photos');await page.locator('.photo-hero-image').waitFor();
  await page.reload();await page.locator('.photo-hero-image').waitFor();
  await page.goto(`${base}/#/site`);await page.locator('.site[data-site-version=latest]').waitFor();

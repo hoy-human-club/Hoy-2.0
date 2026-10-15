@@ -6,6 +6,7 @@ on:
       - 'src/components/molecule/SiteVersionSelect/**'
       - 'public/images/studio-2026/**'
       - 'scripts/test-photography-ui.mjs'
+      - 'scripts/test-studio-hero.mjs'
       - '.github/workflows/photography-qa.yml'
 permissions:
   contents: read
@@ -30,6 +31,7 @@ jobs:
           npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
           node scripts/test-photography-ui.mjs
+          node scripts/test-studio-hero.mjs
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
           QA_BASE: http://127.0.0.1:4173
@@ -38,4 +40,6 @@ jobs:
         with:
           name: photography-qa-${{ github.event.pull_request.head.sha }}
           retention-days: 2
-          path: qa/photos
+          path: |
+            qa/photos
+            docs/screenshots/W-01/studio-*

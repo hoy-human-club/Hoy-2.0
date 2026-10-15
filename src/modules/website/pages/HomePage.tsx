@@ -43,8 +43,14 @@ function SanctuaryHome() {
     { fam: 'privadas', price: priv?.price, sub: t('site.new.privateSub', { n: priv?.maxPeople ?? 3 }) },
   ];
   const SECTIONS: Record<string, () => ReactNode> = {
-    Hero: () => <section className="sanctuary-hero">
-      <>{photoEdition ? <img {...studioPhotoProps('hero-group', true, true)} alt={t('site.photos.hero')} className="photo-hero-image" /> : <AmbientScene {...siteLoops.hero} video={videoEnabled ? siteLoops.hero.video : undefined} alt={t('site.new.artAlt')} className="sanctuary-hero-scene" priority motion={motion} />}</>
+    Hero: () => <section className="sanctuary-hero studio-hero">
+      <img
+        className="photo-hero-image studio-hero-image"
+        src={`${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-1600.webp`}
+        srcSet={`${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-480.webp 480w, ${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-960.webp 960w, ${import.meta.env.BASE_URL}images/studio-2026/facility-red-studio-1600.webp 1600w`}
+        sizes="(max-aspect-ratio: 3/2) 150vh, 100vw" width={1600} height={1067} loading="eager" fetchPriority="high" decoding="async"
+        alt={t('site.photos.studioHero')}
+      />
       <div className="sanctuary-hero-wash" />
       <div className="container sanctuary-hero-inner">
         <div className="sanctuary-hero-copy">
@@ -55,7 +61,7 @@ function SanctuaryHome() {
           <Link to="/site/about" className="sanctuary-text-link">{t('site.new.explore')} <span>↗</span></Link>
         </div>
       </div>
-      <div className="sanctuary-hero-bottom container"><span className="sanctuary-scroll"><span aria-hidden>↓</span>{t('site.new.scroll')}</span><button type="button" className="sanctuary-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ' : '▷'} <span>{t(motion ? 'site.new.ambient' : 'site.new.static')}</span></button></div>
+      <div className="sanctuary-hero-bottom container"><span className="sanctuary-scroll"><span aria-hidden>↓</span>{t('site.new.scroll')}</span>{!photoEdition && <button type="button" className="sanctuary-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ' : '▷'} <span>{t(motion ? 'site.new.ambient' : 'site.new.static')}</span></button>}</div>
     </section>,
     Philosophy: () => <section className="sanctuary-philosophy" data-reveal><div className="container sanctuary-philosophy-grid">
       <div className="sanctuary-philosophy-art"><>{photoEdition ? <img {...studioPhotoProps('philosophy-carolina', true)} alt={t('site.photos.philosophy')} className="photo-philosophy" /> : <AmbientScene {...siteLoops.philosophy} video={videoEnabled ? siteLoops.philosophy.video : undefined} alt={t('site.new.philosophyAlt')} className="sanctuary-portrait" motion={motion} />}</><span className="sanctuary-photo-caption">{t('site.new.scroll')}</span></div>

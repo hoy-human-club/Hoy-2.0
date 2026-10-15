@@ -288,12 +288,6 @@
     "usages": [
       {
         "label": "Home",
-        "path": "/site",
-        "state": "live",
-        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
-      },
-      {
-        "label": "Home",
         "path": "/site?version=archive",
         "state": "archived",
         "evidence": "src/modules/website/archive/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
@@ -1062,6 +1056,18 @@
         "evidence": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx: literal asset reference. This is a code placement, not a runtime visibility guarantee."
       },
       {
+        "label": "Home",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx: owner-approved real studio hero shared by Latest and Photos; ComingSoonLanding uses the same packaged image."
+      },
+      {
+        "label": "Home",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx: owner-approved real studio hero shared by Latest and Photos; ComingSoonLanding uses the same packaged image."
+      },
+      {
         "label": "About",
         "path": "/site/about?version=photos",
         "state": "draft",
@@ -1177,14 +1183,7 @@
       "hero",
       "group"
     ],
-    "usages": [
-      {
-        "label": "Home",
-        "path": "/site?version=photos",
-        "state": "draft",
-        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
-      }
-    ]
+    "usages": []
   },
   {
     "id": "images/studio-2026/philosophy-carolina.webp",
@@ -1673,12 +1672,6 @@
       "sanctuary"
     ],
     "usages": [
-      {
-        "label": "Home",
-        "path": "/site",
-        "state": "live",
-        "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/edition.ts. Source placement; layout, saved media and motion settings may override visibility."
-      },
       {
         "label": "Home",
         "path": "/site?version=archive",
