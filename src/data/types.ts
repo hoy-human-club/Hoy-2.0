@@ -20,6 +20,8 @@ export interface ChangeEvent<T extends BaseRow = BaseRow> {
  * same interface, so pages never know which one is behind useData().
  */
 export interface DataProvider {
+  /** Optional local-demo fixture refresh; production providers never synthesize bookings. */
+  prepareDemoSamples?: () => void;
   readonly name: string;
   /** Atomic demo transaction; absent until real backend RPCs are implemented. */
   voucher?(command: VoucherCommand): Promise<VoucherResult>;

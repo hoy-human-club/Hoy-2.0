@@ -10,3 +10,6 @@
 @media(max-width:700px){.media-library-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.media-library-summary{align-items:flex-start;flex-direction:column;gap:var(--stack)}}
 
 .media-library-thumb img:not([hidden])+.media-library-image-error{display:none}
+
+.media-library-placement-label{display:grid;gap:var(--stack-tight);overflow-wrap:anywhere}
+.media-library-use{min-width:0}.media-library-use>a{min-width:0}

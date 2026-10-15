@@ -35,3 +35,10 @@ export function buildMediaLibrary(slots: MediaAssetRow[], teachers: TeacherRow[]
  return assets;
 }
 export function assetStates(asset: LibraryAsset): string[] {return asset.usages.length ? [...new Set(asset.usages.map(u=>u.state))] : ['unused'];}
+
+/** Search the same bilingual placement labels the inventory displays, including accent-free queries. */
+export function matchesMediaQuery(asset: LibraryAsset, query: string, labels: Record<string, { es: string; en?: string }>): boolean {
+ const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+ const uses = asset.usages.flatMap(u => { const label = labels[`media.usage.${u.label}`]; return [u.label, label?.es ?? '', label?.en ?? '']; });
+ return normalize([asset.name, ...asset.tags, ...uses].join(' ')).includes(normalize(query.trim()));
+}

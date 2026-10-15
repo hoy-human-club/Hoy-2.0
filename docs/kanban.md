@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Completed · 0068 (v0.24.4 · 2026-10-15)
+
+- M-02d: role-safe placement previews and bilingual placement search; C-20/sample hub: same-day cached full-class fixtures and complete Photography QA dependency coverage. [Details](changelog/0068-media-navigation-demo-clock.md)
+
 ## Completed · 0067 (v0.24.3 · 2026-10-15)
 
 - W-01: use the approved Coming Soon studio hero for both regular Latest and Photos, with the same dark-blue veil, cream text and responsive source selection. [Details](changelog/0067-shared-studio-hero.md)

@@ -24,12 +24,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: node scripts/test-media-model.mjs
+      - run: node scripts/test-media-model.mjs && node scripts/test-media-access.mjs
       - name: Check media library
         run: |
           npm run dev -- --host 127.0.0.1 --port 5187 > /tmp/media-vite.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
           node scripts/test-media-library.mjs
+          node scripts/test-media-access-ui.mjs
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
           QA_BASE: http://127.0.0.1:5187

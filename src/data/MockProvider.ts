@@ -1,3 +1,4 @@
+import { ensureFullDemoSession } from './seed/ensureFullDemoSession';
 import { upgradeTimetable } from './seed/upgradeTimetable';
 import { executeVoucherCommand, voucherSeats, type VoucherCommand, type VoucherResult, type VoucherBookingRow } from './vouchers';
 import { chooseMat, occupiesMat, usesMats } from './mats';
@@ -59,6 +60,7 @@ export class MockProvider implements DataProvider {
     this.db = this.load();
     if (!(this.db.class_templates ?? []).some(row => row.id.startsWith('tpl_fixed_'))) upgradeTimetable(this.db, buildSeed());
     this.expandDemoCalendar();
+    ensureFullDemoSession(this.db, Date.now());
     this.assignLegacyMats();
     // Cross-tab realtime: another tab's persist() fires `storage` here; reload and tell every subscriber.
     if (typeof window !== 'undefined') window.addEventListener('storage', (e) => this.onStorage(e));
@@ -206,9 +208,17 @@ export class MockProvider implements DataProvider {
     for (const table of ['vouchers', 'voucher_bookings', 'voucher_events', 'class_sessions']) this.emit({ table, type: 'reset' });
     return transaction.result;
   }
+  /** Refresh only synthetic sample fixtures when an already-open demo crosses a class start. */
+  prepareDemoSamples(): void {
+    if (!ensureFullDemoSession(this.db, Date.now())) return;
+    this.assignLegacyMats();
+    for (const table of ['class_sessions', 'bookings', 'waitlist']) this.emit({ table, type: 'reset' });
+  }
+
   async reset(): Promise<void> {
     this.db = buildSeed();
     this.expandDemoCalendar();
+    ensureFullDemoSession(this.db, Date.now());
     this.assignLegacyMats();
     this.persist();
     for (const t of Object.keys(this.db)) this.emit({ table: t, type: 'reset' });

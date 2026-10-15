@@ -17,6 +17,7 @@ export function SampleRoute() {
   useEffect(() => {
     if (!sampleOf(pathname)) return;
     let live = true;
+    data.prepareDemoSamples?.();
     Promise.all([data.list<ClassSessionRow>('class_sessions'), data.list<BookingRow>('bookings'), data.list<PayrollRunRow>('payroll_runs')])
       .then(([class_sessions, bookings, payroll_runs]) => {
         if (!live) return;

@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "already-open morning provider resolves evening sample through real route",
+    "same-day v10 morning cache reload resolves evening sample through real route"
+  ],
+  "errors": []
+}

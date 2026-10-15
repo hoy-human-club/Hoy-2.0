@@ -1,3 +1,4 @@
+import { ensureFullDemoSession } from './ensureFullDemoSession';
 import { TIMETABLE, timetableId } from './timetable';
 import type { ActivityEventRow, BaseRow, BookingRow, ClassLedgerRow, ClassSessionRow, EventRow, InviteRow, MembershipRow, MessageLogRow, NotificationRow, NotificationPrefRow, PaymentMethodRow, PaymentRow, PracticeGoalRow, ProfileRow, ReviewRow, TeacherRow, UserRow } from '../schema';
 import { tableNames } from '../schema';
@@ -128,27 +129,8 @@ export function buildSeed(): Record<string, BaseRow[]> {
     }
   }
 
-  // One upcoming class (prefer today, otherwise the next day) is always full, so the "Sin cupos" / "Full" state on C-01 and C-02 is real data (Jas review, 2026-09-17).
-  const startOf = new Map(sessions.map((s) => [s.id, s.starts_at]));
-  const bookedIn = (sid: string, uid: string) => bookings.some((bk) => bk.session_id === sid && bk.user_id === uid && bk.status === 'booked');
-  const fullCandidates = sessions.filter((s) => s.status === 'scheduled' && new Date(s.starts_at) > NOW && !bookedIn(s.id, 'usr_cust'));
-  const fullToday = fullCandidates.filter((s) => s.starts_at.slice(0, 10) === dateKey(NOW))
-    .sort((a, b) => b.booked_count - a.booked_count || a.starts_at.localeCompare(b.starts_at))[0]
-    ?? fullCandidates.sort((a, b) => a.starts_at.localeCompare(b.starts_at))[0];
-  if (fullToday) {
-    // Fill from people who already have an earlier class today first, so nobody's "next class" notification changes.
-    const hasEarlier = (uid: string) => bookings.some((bk) => bk.user_id === uid && bk.status === 'booked' && (startOf.get(bk.session_id) ?? '') < fullToday.starts_at);
-    const fillers = customerIds.filter((uid) => uid !== 'usr_cust' && !bookedIn(fullToday.id, uid)).sort((a, b) => Number(hasEarlier(b)) - Number(hasEarlier(a)));
-    for (const uid of fillers) {
-      if (fullToday.booked_count >= fullToday.capacity) break;
-      bookings.push({ ...base(`bk_full_${fullToday.booked_count}`, 1), user_id: uid, session_id: fullToday.id, status: 'booked', paid_with: hasPackage(uid) ? 'package' : 'single', ledger_id: null, checked_in_at: null, cancelled_at: null, rated: false });
-      fullToday.booked_count++;
-    }
-    const waiter = customerIds.find((uid) => uid !== 'usr_cust' && !bookedIn(fullToday.id, uid));
-    if (waiter && !(db.waitlist as (BaseRow & { session_id: string })[]).some((w) => w.session_id === fullToday.id)) {
-      db.waitlist.push({ ...base(`wl_${fullToday.id}_0`, 1), user_id: waiter, session_id: fullToday.id, position: 1, status: 'waiting', offered_at: null, claim_until: null });
-    }
-  }
+  // Keep the full-state hub fixture shared with cached-provider normalization.
+  ensureFullDemoSession(db, NOW.getTime());
 
   // ---- content as data: club rules (C-13), FAQ (C-14/C-15), events (C-23) ----
   db.content_articles.push(...contentArticles);

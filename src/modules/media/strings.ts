@@ -1,5 +1,7 @@
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  'media.library.documentedPreview': { es: 'Ver ficha documentada de la pantalla', en: 'View documented screen preview' },
+  'media.library.unavailablePreview': { es: 'Vista de pantalla no disponible', en: 'Screen preview unavailable' },
   "media.usage.Classic wordmark (light)": {"es": "Logotipo clásico (claro)", "en": "Classic wordmark (light)"},
   "media.usage.Classic wordmark (dark)": {"es": "Logotipo clásico (oscuro)", "en": "Classic wordmark (dark)"},
   "media.usage.Website wordmark": {"es": "Logotipo del sitio", "en": "Website wordmark"},

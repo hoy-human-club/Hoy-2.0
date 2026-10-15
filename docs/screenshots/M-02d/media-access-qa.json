@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "admin: real usr_admin, teacher/event/rules/schedule previews, Back and public placement",
+    "coordinator: real usr_coord, teacher/event/rules/schedule previews, Back and public placement",
+    "marketing: real usr_mkt, teacher/event/rules/schedule previews, Back and public placement",
+    "Spanish Inicio and Próximamente/proximamente match the displayed placement names"
+  ],
+  "errors": []
+}
