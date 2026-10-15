@@ -1,3 +1,4 @@
+import { TIMETABLE } from './timetable';
 import type { BaseRow, ModalityRow, RoomRow, TeacherRow, PlanRow } from '../schema';
 import { pricing } from '../../tenant/pricing';
 import { tenant } from '../../tenant/tenant';
@@ -12,7 +13,7 @@ export const base = (id: string, daysAgo = 30): BaseRow => {
 /**
  * 0051 — the seven classes of the verified launch brief, one schedule modality each (the slug matches the class
  * route in src/tenant/brand.ts). Intensity follows the owner's class cards (baja 1 · media 3 · media-alta 4 ·
- * alta 5). Durations are demo values until the studio publishes its timetable; coordination edits them in M-02.
+ * alta 5). Durations remain demo values: the supplied timetable specifies start times, not lengths. Coordination edits them in M-02.
  */
 export const modalities: ModalityRow[] = [
   { ...base('mod_ligereza', 200), slug: 'ligereza', name_es: 'Ligereza', name_en: 'Ligereza', tone: 'river', description: { es: 'Movilidad, stretching y yoga yin. Baja intensidad.', en: 'Mobility, stretching and yin yoga. Low intensity.' }, intensity: 1, heated: false, duration_min: 60, active: true },
@@ -33,7 +34,7 @@ export const rooms: RoomRow[] = [
 
 /**
  * 0051 — the studio's teachers as the owner listed them for the website (names exactly as given), each with the
- * one class they guide. The bio only states that class: nothing else about a real person is invented. Portraits
+ * class families they guide (updated from the provisional timetable below). The bio only states assignments: nothing else about a real person is invented. Portraits
  * stay empty until the photo session (the site shows the portrait-pending state). `rate_per_class` is the demo
  * fallback the payroll seed reads; the owner sets the real rate card in M-08c. The teacher demo sign-in
  * (`usr_teach`) opens Carolina's teacher app; the account's email and phone stay fictional.
@@ -51,8 +52,22 @@ export const teachers: TeacherRow[] = [
   teacher('tea_andre', 'Andre Cardona', 'mod_solido', 'Sólido'),
   teacher('tea_sara_c', 'Sara Crismatt Duque', 'mod_ligereza', 'Ligereza'),
   teacher('tea_maria_camila', 'María Camila Pinzón', 'mod_alineacion', 'Alineación'),
-  teacher('tea_tatiana', 'Tatiana Ramirez', 'mod_centro', 'Centro'),
+  teacher('tea_tatiana', 'Tatiana Ramirez', 'mod_pulso', 'Pulso'),
+  // Andrea is not assumed to be Andre Cardona; retain the existing profile separately.
+  teacher('tea_andrea', 'Andrea', 'mod_fuego', 'Fuego'),
+  teacher('tea_jennifer', 'Jennifer Varela', 'mod_solido', 'Sólido'),
+  teacher('tea_clara', 'Clara Zuluaga', 'mod_fuego', 'Fuego'),
+  teacher('tea_leandro', 'Leandro Valencia', 'mod_fuego', 'Fuego'),
 ];
+
+// Public teaching assignments only; no compensation or private availability is imported.
+for (const person of teachers) {
+  const assigned = [...new Set(TIMETABLE.filter(row => row.teacher === person.id).map(row => row.modality))];
+  if (!assigned.length) continue;
+  person.specialties = assigned;
+  const names = assigned.map(id => modalities.find(m => m.id === id)!.name_es).join(', ');
+  person.bio = { es: `Guía las clases de ${names}.`, en: `Guides the ${names} classes.` };
+}
 
 export const plans: PlanRow[] = pricing.map((p, i) => ({
   ...base(`plan_${p.id}`, 200),

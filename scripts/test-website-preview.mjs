@@ -40,11 +40,12 @@ try {
   await page.goto(`${url}/#/site/teachers`);
   await page.waitForSelector('.site-teacher');
   const currentNames = await page.locator('.site-teacher h3').allTextContents();
-  assert.equal(currentNames.length, 7);
+  assert.equal(currentNames.length, 11);
+  for (const name of ['Andrea','Jennifer Varela','Clara Zuluaga','Leandro Valencia']) assert.ok(currentNames.includes(name));
   assert.ok(!currentNames.includes(archivedTeachers[0]));
   assert.equal(await page.locator('.site').getAttribute('data-site-version'), 'latest');
   const dbBefore = await page.evaluate(() => localStorage.getItem('hoyos.db.v1'));
-  check('Bare URL defaults to seven verified teachers');
+  check('Bare URL includes approved timetable teachers and retains existing profiles');
   await version(page).selectOption('archive');
   await page.waitForSelector('.site[data-site-version="archive"]');
   assert.deepEqual(await page.locator('.site-teacher h3').allTextContents(), archivedTeachers);
@@ -71,7 +72,7 @@ try {
   await page.waitForSelector('.site-classrow'); assert.equal(await page.locator('.site-classrow').count(), 5);
   assert.ok(page.url().includes('version=archive'));
   await page.goBack(); await page.waitForSelector('.site-teacher'); assert.equal(await page.locator('.site-teacher').count(), 8);
-  await page.goBack(); await page.waitForSelector('.site-teacher'); assert.equal(await page.locator('.site-teacher').count(), 7);
+  await page.goBack(); await page.waitForSelector('.site-teacher'); assert.equal(await page.locator('.site-teacher').count(), currentNames.length);
   await page.goForward(); await page.waitForSelector('.site-teacher'); assert.equal(await page.locator('.site-teacher').count(), 8);
   check('Archive browsing and browser Back/Forward preserve edition boundaries');
   await page.goto(`${url}/#/site/classes/?version=archive&video=on&motion=on`); await page.waitForSelector('.site-classrow');
@@ -95,7 +96,7 @@ try {
   assert.ok(page.url().includes('version=latest'));
   await page.goto(`${url}/#/site/teachers?version=archive`); await page.waitForSelector('.site-teacher');
   await page.goto(`${url}/#/site/teachers`); await page.waitForSelector('.site-teacher');
-  assert.equal(await page.locator('.site-teacher').count(), 7);
+  assert.equal(await page.locator('.site-teacher').count(), currentNames.length);
   assert.deepEqual(await page.locator('.site-teacher h3').allTextContents(), currentNames);
   check('Operational archive URLs exit safely; bare URLs still open Latest after archive');
   await page.goto(`${url}/#/site/classes/ligereza?version=classic&motion=off&video=off`); await page.waitForSelector('.classarch');

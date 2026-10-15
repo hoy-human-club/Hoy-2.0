@@ -1,3 +1,4 @@
+import { upgradeTimetable } from './seed/upgradeTimetable';
 import { executeVoucherCommand, voucherSeats, type VoucherCommand, type VoucherResult, type VoucherBookingRow } from './vouchers';
 import { chooseMat, occupiesMat, usesMats } from './mats';
 import type { BookingRow, ClassSessionRow, ModalityRow } from './schema';
@@ -56,6 +57,7 @@ export class MockProvider implements DataProvider {
 
   constructor() {
     this.db = this.load();
+    if (!(this.db.class_templates ?? []).some(row => row.id.startsWith('tpl_fixed_'))) upgradeTimetable(this.db, buildSeed());
     this.expandDemoCalendar();
     this.assignLegacyMats();
     // Cross-tab realtime: another tab's persist() fires `storage` here; reload and tell every subscriber.
@@ -66,7 +68,6 @@ export class MockProvider implements DataProvider {
     // Demo-only publishing horizon from existing studio templates; no invented attendees.
     type Template = BaseRow & { active: boolean; weekday: number; start_time: string; duration_min: number; capacity: number; title: string; modality_id: string; teacher_id: string; room_id: string; level: string };
     const sessions = this.db.class_sessions as ClassSessionRow[];
-    const latest = sessions.reduce((at, s) => s.starts_at > at ? s.starts_at : at, '');
     const now = new Date().toISOString();
     for (let day = 0; day <= 42; day++) {
       const date = new Date(); date.setDate(date.getDate() + day);
@@ -74,7 +75,8 @@ export class MockProvider implements DataProvider {
         if (!template.active || template.weekday !== date.getDay()) continue;
         const [h, m] = template.start_time.split(':').map(Number);
         const start = new Date(date); start.setHours(h, m, 0, 0);
-        if (start.toISOString() <= latest) continue;
+        if (start <= new Date()) continue;
+        if (sessions.some(s => s.template_id === template.id && s.starts_at === start.toISOString())) continue;
         const id = `demo_${template.id}_${start.getFullYear()}_${start.getMonth()}_${start.getDate()}`;
         if (sessions.some(s => s.id === id)) continue;
         sessions.push({ id, tenant_id: tenant.id, created_at: now, updated_at: now, template_id: template.id, title: template.title, modality_id: template.modality_id, teacher_id: template.teacher_id, room_id: template.room_id, starts_at: start.toISOString(), ends_at: new Date(start.getTime() + template.duration_min * 60000).toISOString(), capacity: template.room_id === 'room_main' ? tenant.studio.mats : template.capacity, booked_count: 0, level: template.level, status: 'scheduled', cancel_reason: null });

@@ -30,6 +30,8 @@ export interface StudioSettings {
   profile: { nit: string; address: string; city: string; whatsapp: string; email: string; instagram: string; instagramUrl: string; mapLat: number; mapLng: number; mapLabel: string; mapLink: string; confirmed: boolean; confirmedFields: Record<ContactField, boolean> };
   /** 0 = Sunday … 6 = Saturday; null = closed. */
   openingHours: Record<string, OpeningHours | null>;
+  /** Demo defaults are not verified reception hours. Saving M-08a confirms them explicitly. */
+  openingHoursConfirmed: boolean;
   /**
    * Read by the customer app through usePolicy() → src/modules/customer/policy.ts (cancel window, claim window, hold, package
    * freeze, charge notice, lockout). 0051: the verified launch rules — cancel up to 12 h before; the 12-class package can be
@@ -72,6 +74,7 @@ export const DEFAULT_SETTINGS: StudioSettings = {
   studio: { ...tenant.studio },
   profile: { nit: '', address: tenant.contact.address, city: tenant.city, whatsapp: tenant.contact.whatsapp, email: tenant.contact.email, instagram: tenant.social.instagram, instagramUrl: tenant.social.instagramUrl, mapLat: tenant.location.lat, mapLng: tenant.location.lng, mapLabel: '', mapLink: '', confirmed: false, confirmedFields: { ...tenant.contact.confirmed } },
   openingHours: { ...tenant.openingHours },
+  openingHoursConfirmed: false,
   policies: { ...DEFAULT_POLICIES },
   quietHours: { from: '21:00', to: '07:00' },
   tax: { ivaPct: DEFAULT_IVA_PCT, pricesIncludeIva: true, dianResolution: '', eInvoicing: false },
@@ -94,6 +97,7 @@ function mergeSettings(stored: Partial<StudioSettings> | null | undefined): Stud
     studio: { ...DEFAULT_SETTINGS.studio, ...(s.studio ?? {}) },
     profile: { ...DEFAULT_SETTINGS.profile, ...(s.profile ?? {}), confirmedFields: { ...DEFAULT_SETTINGS.profile.confirmedFields, ...(s.profile?.confirmedFields ?? {}) } },
     openingHours: { ...DEFAULT_SETTINGS.openingHours, ...(s.openingHours ?? {}) },
+    openingHoursConfirmed: s.openingHoursConfirmed ?? false,
     policies: { ...DEFAULT_SETTINGS.policies, ...(s.policies ?? {}) },
     quietHours: { ...DEFAULT_SETTINGS.quietHours, ...(s.quietHours ?? {}) },
     tax: { ...DEFAULT_SETTINGS.tax, ...(s.tax ?? {}) },
@@ -119,7 +123,7 @@ export function useSettings() {
   /** Replaces one section; returns { before, after } for the audit log. */
   const save = useCallback(async <K extends SettingsSection>(section: K, value: StudioSettings[K]) => {
     const before = settings[section];
-    const next = { ...(row?.settings ?? {}), [section]: value };
+    const next = { ...(row?.settings ?? {}), [section]: value, ...(section === 'openingHours' ? { openingHoursConfirmed: true } : {}) };
     if (row) await data.update('tenants', row.id, { settings: next });
     return { before, after: value };
   }, [data, row, settings]);
@@ -212,6 +216,7 @@ export function useContact(): StudioContact {
  * ---------------------------------------------------------------------------------------------- */
 
 export interface StudioHours {
+  confirmed: boolean;
   weekly: WeeklyHours;
   /** Every override, sorted by start date. */
   overrides: HoursOverrideRow[];
@@ -230,10 +235,11 @@ export function hoursOf(settings: StudioSettings, overrides: HoursOverrideRow[],
   const weekly: WeeklyHours = { ...tenant.openingHours, ...settings.openingHours };
   const sorted = [...overrides].sort((a, b) => a.start_date.localeCompare(b.start_date));
   return {
+    confirmed: settings.openingHoursConfirmed,
     weekly,
     overrides: sorted,
-    sentence: { es: hoursSentence(weekly, 'es'), en: hoursSentence(weekly, 'en') },
-    today: { es: todayStatus(now, tenant.timezone, weekly, sorted, 'es'), en: todayStatus(now, tenant.timezone, weekly, sorted, 'en') },
+    sentence: settings.openingHoursConfirmed ? { es: hoursSentence(weekly, 'es'), en: hoursSentence(weekly, 'en') } : { es: 'Clases de lunes a domingo · consulta el horario de clases', en: 'Classes Monday–Sunday · see the class timetable' },
+    today: settings.openingHoursConfirmed ? { es: todayStatus(now, tenant.timezone, weekly, sorted, 'es'), en: todayStatus(now, tenant.timezone, weekly, sorted, 'en') } : { es: 'Horario de recepción pendiente de confirmar', en: 'Reception hours awaiting confirmation' },
     todayKey: dateKeyIn(now, tenant.timezone),
     effectiveHoursFor: (date: string) => effectiveHoursFor(date, weekly, sorted),
   };

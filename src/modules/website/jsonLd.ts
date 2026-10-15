@@ -27,8 +27,7 @@ export function useStudioJsonLd(enabled = true) {
       ...(contact.pendingFields.instagram ? {} : { sameAs: [contact.instagramUrl] }),
       geo: { '@type': 'GeoCoordinates', latitude: contact.location.lat, longitude: contact.location.lng },
       ...(contact.location.link ? { hasMap: contact.location.link } : {}),
-      openingHoursSpecification,
-      ...(specialOpeningHoursSpecification.length ? { specialOpeningHoursSpecification } : {}),
+      ...(hours.confirmed ? { openingHoursSpecification, ...(specialOpeningHoursSpecification.length ? { specialOpeningHoursSpecification } : {}) } : {}),
     });
   }, [contact, hours]);
 

@@ -42,7 +42,7 @@ try{
     await page.locator('.site-foot a[href$="#/hub"]').click();await page.waitForSelector('.hub-card');
     assert.equal(page.url(),base+'#/hub');
     await page.goto(base+'#/site/teachers?version=archive&video=off&motion=off');await page.waitForSelector('.site-teacher');assert.equal(await page.locator('.site-teacher').count(),8);
-    await page.goto(base+'#/site/teachers');await page.waitForSelector('.site-teacher');assert.equal(await page.locator('.site-teacher').count(),7);
+    await page.goto(base+'#/site/teachers');await page.waitForSelector('.site-teacher');assert.equal(await page.locator('.site-teacher').count(),11);
     checks.push(`${prefix||'/'}: root landing, clean hub variants, refresh, map, site/back-to-hub, archive/Latest`);
   }
   assert.deepEqual(errors,[]);console.log('PASS static root and /hoy deployment entries',checks);

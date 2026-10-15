@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+process.env.TZ = 'America/Bogota';
+const scratch = await mkdtemp(join(tmpdir(), 'hoy-timetable-'));
+try {
+  const bundle = async (entry, name) => {
+    const file = join(scratch, name);
+    await build({ entryPoints:[entry], bundle:true, platform:'node', format:'esm', outfile:file, define:{'import.meta.env.BASE_URL':'"/"'}, logLevel:'silent' });
+    return import(pathToFileURL(file));
+  };
+  const { TIMETABLE, timetableId } = await bundle('src/data/seed/timetable.ts','timetable.mjs');
+  const { buildSeed } = await bundle('src/data/seed/index.ts','seed.mjs');
+  const { upgradeTimetable } = await bundle('src/data/seed/upgradeTimetable.ts','upgrade.mjs');
+  assert.equal(TIMETABLE.length,30);
+  assert.deepEqual([0,1,2,3,4,5,6].map(day=>TIMETABLE.filter(t=>t.weekday===day).length),[2,5,5,5,5,5,3]);
+  assert.equal(new Set(TIMETABLE.map(timetableId)).size,30);
+  assert(TIMETABLE.every(t=>t.time.endsWith(':10')));
+  for (const [day,teacher] of [[1,'tea_raghu'],[2,'tea_jennifer']]) assert(TIMETABLE.filter(t=>t.weekday===day&&t.time>'16:00').every(t=>t.teacher===teacher));
+  const seed=buildSeed();
+  assert.equal(seed.class_templates.length,30);
+  for(const t of seed.class_templates){assert(seed.teachers.some(p=>p.id===t.teacher_id));assert(seed.modalities.some(m=>m.id===t.modality_id));assert(t.title.includes(' · '));}
+  assert(seed.class_sessions.some(s=>new Date(s.starts_at).getDay()===0));
+  assert(seed.class_sessions.every(s=>seed.class_templates.some(t=>t.id===s.template_id)),'history and live sessions have valid templates');
+  assert.equal(seed.teachers.find(t=>t.id==='tea_andrea').display_name,'Andrea');
+  assert.equal(seed.teachers.find(t=>t.id==='tea_andre').display_name,'Andre Cardona');
+  assert(seed.teachers.every(t=>t.rate_per_class===90000),'private pay data was not imported');
+  const oldClasses = ['alineacion','pulso','fuego','centro','ligereza','solido','hibrido','pulso','alineacion','hibrido','fuego','ligereza','solido','pulso','hibrido','centro','ligereza','alineacion','fuego','solido','pulso','hibrido','fuego','centro'];
+  const oldTeachers = {alineacion:'maria_camila',pulso:'carolina',fuego:'sara_e',centro:'tatiana',ligereza:'sara_c',solido:'andre',hibrido:'raghu'};
+  const fresh=structuredClone(seed);
+  const legacy=structuredClone(seed);
+  legacy.class_templates=[];
+  for(let day=1;day<=6;day++)for(const time of day===6?['08:00','09:15','10:30','11:45']:['06:30','08:00','17:30','19:00']) legacy.class_templates.push({...seed.class_templates[0],id:`tpl_${legacy.class_templates.length}`,weekday:day,start_time:time,title:seed.modalities.find(m=>m.id===`mod_${oldClasses[legacy.class_templates.length]}`).name_es,modality_id:`mod_${oldClasses[legacy.class_templates.length]}`,teacher_id:`tea_${oldTeachers[oldClasses[legacy.class_templates.length]]}`});
+  legacy.class_sessions=[{...seed.class_sessions[0],id:'keep-booked',template_id:'tpl_0',starts_at:'2099-01-01T12:00:00Z',status:'scheduled',booked_count:1},{...seed.class_sessions[0],id:'remove-empty',template_id:'tpl_1',starts_at:'2099-01-01T13:00:00Z',status:'scheduled',booked_count:0}];
+  legacy.bookings=[{...seed.bookings[0],session_id:'keep-booked'}];legacy.voucher_bookings=[];
+  const bookings=JSON.stringify(legacy.bookings), teachers=JSON.stringify(legacy.teachers);
+  const edited=structuredClone(legacy); edited.class_templates[0].title='Staff edit';
+  const reassigned=structuredClone(legacy);reassigned.class_templates[0].teacher_id='tea_carolina';assert.equal(upgradeTimetable(reassigned,fresh),false);
+  assert.equal(upgradeTimetable(edited,fresh),false);assert.equal(edited.class_templates.length,24);
+  assert.equal(upgradeTimetable(legacy,fresh),true);
+  assert.equal(legacy.class_templates.filter(t=>t.active).length,30);
+  assert.equal(JSON.stringify(legacy.bookings),bookings);
+  assert.equal(JSON.stringify(legacy.teachers),teachers);
+  assert.deepEqual(legacy.class_sessions.map(s=>s.id),['keep-booked']);
+  assert.equal(upgradeTimetable(legacy,fresh),false,'migration is idempotent');
+  console.log('Timetable: 30 unique slots, seven days, provisional evenings, teacher identity, reference integrity, private-data exclusion and non-destructive migration passed');
+} finally { await rm(scratch,{recursive:true,force:true}); }

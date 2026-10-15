@@ -77,7 +77,7 @@ export const tenant = {
     youtube: null,
   },
   /** Studio capacity — the business rule waitlists, capacity meters and the checkout race cite. */
-  studio: { mats: 16, matRows: 2, classesPerDay: 4, perPersonPerDay: 1, rooms: 1 },
+  studio: { mats: 16, matRows: 2, classesPerDay: 5, perPersonPerDay: 1, rooms: 1 },
   openingHours,
   /**
    * The same default hours as a sentence per language (derived, never typed twice). Fallback constant only:

@@ -1359,3 +1359,10 @@ _Orden de secciones por página guardado desde el editor drag-and-drop._
 2. Seed it in `src/data/seed/index.ts`.
 3. `npm run sql` → regenerates `supabase/schema.sql` and this file.
 4. Reference it in the page's `PageSpec.data` so the inspector links to it.
+
+
+## 0063 · Timetable and reception-hour provenance
+
+`tenants.settings.openingHoursConfirmed` is an optional persisted boolean, default false. The existing weekly opening-hour values remain demo settings until staff explicitly saves M-08a. Class timetable entries do not establish reception hours. Unconfirmed hours are not published as structured opening-hour data. No table or column was added.
+
+The demo timetable uses stable `tpl_fixed_<weekday>_<HHMM>` identifiers. Historical booked sessions can keep their retired legacy template reference; migration never reassigns those bookings.

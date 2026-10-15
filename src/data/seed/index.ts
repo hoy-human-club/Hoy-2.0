@@ -1,3 +1,4 @@
+import { TIMETABLE, timetableId } from './timetable';
 import type { ActivityEventRow, BaseRow, BookingRow, ClassLedgerRow, ClassSessionRow, EventRow, InviteRow, MembershipRow, MessageLogRow, NotificationRow, NotificationPrefRow, PaymentMethodRow, PaymentRow, PracticeGoalRow, ProfileRow, ReviewRow, TeacherRow, UserRow } from '../schema';
 import { tableNames } from '../schema';
 import { demoUsers } from '../../auth/demoUsers';
@@ -30,26 +31,6 @@ const giftPrice = (id: string) => priceItem(id)?.price ?? 0;
 
 const FIRST = ['Camila', 'Nicolás', 'Sara', 'Tomás', 'Mariana', 'Julián', 'Daniela', 'Sebastián', 'Gabriela', 'Alejandro', 'Antonia', 'Samuel', 'Salomé', 'Emilio', 'Luciana', 'Martín', 'Elena', 'David', 'Paulina', 'Jerónimo', 'Amelia', 'Simón', 'Renata', 'Lucas', 'Violeta', 'Benjamín', 'Catalina', 'Joaquín', 'Isabel', 'Gael'];
 const LAST = ['García', 'Rodríguez', 'Martínez', 'López', 'González', 'Hernández', 'Pérez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Rivera', 'Gómez', 'Díaz', 'Cruz', 'Morales', 'Reyes', 'Jiménez', 'Ruiz', 'Álvarez', 'Castro', 'Vargas', 'Romero', 'Suárez', 'Moreno', 'Muñoz', 'Rojas', 'Medina', 'Guerrero', 'Cortés'];
-
-/**
- * Weekly timetable: 4 classes/day Mon–Sat. [weekday, 'HH:MM', modality, teacher]. 0051 — the seven classes, each with
- * the teacher who guides it, three or four times a week. Saturday runs inside the 08:00–13:00 opening hours. The times
- * are demo values until the studio publishes its real timetable.
- */
-const T: Record<string, [string, string]> = {
-  ligereza: ['mod_ligereza', 'tea_sara_c'], hibrido: ['mod_hibrido', 'tea_raghu'], fuego: ['mod_fuego', 'tea_sara_e'], solido: ['mod_solido', 'tea_andre'],
-  centro: ['mod_centro', 'tea_tatiana'], alineacion: ['mod_alineacion', 'tea_maria_camila'], pulso: ['mod_pulso', 'tea_carolina'],
-};
-const WEEK: Record<number, [string, string][]> = {
-  1: [['06:30', 'alineacion'], ['08:00', 'pulso'], ['17:30', 'fuego'], ['19:00', 'centro']],
-  2: [['06:30', 'ligereza'], ['08:00', 'solido'], ['17:30', 'hibrido'], ['19:00', 'pulso']],
-  3: [['06:30', 'alineacion'], ['08:00', 'hibrido'], ['17:30', 'fuego'], ['19:00', 'ligereza']],
-  4: [['06:30', 'solido'], ['08:00', 'pulso'], ['17:30', 'hibrido'], ['19:00', 'centro']],
-  5: [['06:30', 'ligereza'], ['08:00', 'alineacion'], ['17:30', 'fuego'], ['19:00', 'solido']],
-  6: [['08:00', 'pulso'], ['09:15', 'hibrido'], ['10:30', 'fuego'], ['11:45', 'centro']],
-};
-const TIMETABLE: [number, string, string, string][] = [];
-for (const wd of [1, 2, 3, 4, 5, 6]) for (const [time, cls] of WEEK[wd]) TIMETABLE.push([wd, time, T[cls][0], T[cls][1]]);
 
 export function buildSeed(): Record<string, BaseRow[]> {
   const r = rng(2026);
@@ -84,24 +65,26 @@ export function buildSeed(): Record<string, BaseRow[]> {
   db.modalities.push(...modalities); db.rooms.push(...rooms); db.teachers.push(...teachers); db.plans.push(...plans);
 
   // templates
-  TIMETABLE.forEach(([weekday, start, mod, tea], i) => {
+  TIMETABLE.forEach((row) => {
+    const { weekday, time: start, modality: mod, teacher: tea, title } = row;
     const m = modalities.find((x) => x.id === mod)!;
-    db.class_templates.push({ ...base(`tpl_${i}`, 150), title: m.name_es, modality_id: mod, teacher_id: tea, room_id: 'room_main', weekday, start_time: start, duration_min: m.duration_min, capacity: tenant.studio.mats, level: 'all', active: true });
+    db.class_templates.push({ ...base(timetableId(row), 150), title, modality_id: mod, teacher_id: tea, room_id: 'room_main', weekday, start_time: start, duration_min: m.duration_min, capacity: tenant.studio.mats, level: 'all', active: true });
   });
 
-  // sessions: 7 days back, 7 days forward (skip Sundays)
+  // sessions: 7 days back, 7 days forward, including the published weekend classes
   const sessions = db.class_sessions as ClassSessionRow[];
   for (let d = -7; d <= 7; d++) {
     const day = new Date(NOW); day.setDate(day.getDate() + d); day.setHours(0, 0, 0, 0);
     const wd = day.getDay();
-    TIMETABLE.filter((t) => t[0] === wd).forEach(([, start, mod, tea], i) => {
+    TIMETABLE.filter((t) => t.weekday === wd).forEach((row, i) => {
+      const { time: start, modality: mod, teacher: tea, title } = row;
       const m = modalities.find((x) => x.id === mod)!;
       const [h, mi] = start.split(':').map(Number);
       const startsAt = new Date(day); startsAt.setHours(h, mi, 0, 0);
       const endsAt = new Date(startsAt.getTime() + m.duration_min * MS.min);
       const past = endsAt < NOW;
       const cancelled = d > 0 && r.chance(0.04);
-      sessions.push({ ...base(`ses_${dateKey(day)}_${i}`, 14), template_id: `tpl_${TIMETABLE.findIndex((t) => t[0] === wd && t[1] === start)}`, title: m.name_es, modality_id: mod, teacher_id: tea, room_id: 'room_main', starts_at: iso(startsAt), ends_at: iso(endsAt), capacity: tenant.studio.mats, booked_count: 0, level: 'all', status: cancelled ? 'cancelled' : past ? 'completed' : 'scheduled', cancel_reason: cancelled ? 'Profesor enfermo' : null });
+      sessions.push({ ...base(`ses_${dateKey(day)}_${i}`, 14), template_id: timetableId(row), title, modality_id: mod, teacher_id: tea, room_id: 'room_main', starts_at: iso(startsAt), ends_at: iso(endsAt), capacity: tenant.studio.mats, booked_count: 0, level: 'all', status: cancelled ? 'cancelled' : past ? 'completed' : 'scheduled', cancel_reason: cancelled ? 'Profesor enfermo' : null });
     });
   }
 
@@ -366,20 +349,21 @@ export function buildSeed(): Record<string, BaseRow[]> {
       if (mine.has(dayOf(ses.starts_at)) || bookings.some((bk) => bk.user_id === 'usr_cust' && bk.session_id === ses.id)) continue;
       checkIn('usr_cust', ses); mine.add(dayOf(ses.starts_at)); have++;
     }
-    // Then her usual slot — Tuesday and Thursday at 08:00 (Sólido / Pulso, "practica en la mañana") — on days with no class yet.
+    // Then her usual slot — Tuesday and Thursday at 08:10 ("practica en la mañana") — on days with no class yet.
     for (const weekday of [2, 4, 1, 3, 5, 6]) {
       if (have >= need) break;
       const day = addDays(new Date(`${week}T12:00:00`), weekday - 1); day.setHours(0, 0, 0, 0);
       const key = dateKey(day);
       if (mine.has(key) || key >= dateKey(NOW)) continue;
-      const tplIndex = TIMETABLE.findIndex((t) => t[0] === weekday && t[1] === '08:00');
-      const [, start, mod, tea] = TIMETABLE[tplIndex];
+      const row = TIMETABLE.find(t => t.weekday === weekday && t.time === '08:10');
+      if (!row) continue;
+      const { time: start, modality: mod, teacher: tea, title } = row;
       const id = `ses_${key}_1`;
       if (sessions.some((x) => x.id === id)) continue;
       const m = modalities.find((x) => x.id === mod)!;
       const [h, mi] = start.split(':').map(Number);
       const startsAt = new Date(day); startsAt.setHours(h, mi, 0, 0);
-      const ses: ClassSessionRow = { ...base(id, back * 7 + 14), template_id: `tpl_${tplIndex}`, title: m.name_es, modality_id: mod, teacher_id: tea, room_id: 'room_main', starts_at: iso(startsAt), ends_at: iso(new Date(startsAt.getTime() + m.duration_min * MS.min)), capacity: tenant.studio.mats, booked_count: 0, level: 'all', status: 'completed', cancel_reason: null };
+      const ses: ClassSessionRow = { ...base(id, back * 7 + 14), template_id: timetableId(row), title, modality_id: mod, teacher_id: tea, room_id: 'room_main', starts_at: iso(startsAt), ends_at: iso(new Date(startsAt.getTime() + m.duration_min * MS.min)), capacity: tenant.studio.mats, booked_count: 0, level: 'all', status: 'completed', cancel_reason: null };
       sessions.push(ses);
       checkIn('usr_cust', ses); mine.add(key); have++;
       // Eight regulars in a fixed rotation keep the class plausible (seven present, one no-show).

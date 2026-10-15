@@ -50,7 +50,7 @@ const validDay = (v: { open: string; close: string }) => /^\d{2}:\d{2}$/.test(v.
 /** What a day reopens with: its tenant.ts default, or the first open day's (never a time typed here). */
 const defaultDay = (day: string) => ({ ...(tenant.openingHours[day as keyof typeof tenant.openingHours] ?? Object.values(tenant.openingHours).find((v) => !!v)!) });
 /** 0030: one glyph per settings section (M-08a…f); the rail uses SETTINGS_GROUPS[].icon. */
-const SECTION_ICON: Record<SettingsSection, IconName> = { profile: 'identity', openingHours: 'clock', studio: 'capacity', policies: 'policies', features: 'features', payments: 'credit-card', tax: 'tax', payroll: 'payroll', quietHours: 'quiet-hours', comms: 'send', content: 'content', branding: 'branding', integrations: 'integrations', contacts: 'whatsapp' };
+const SECTION_ICON: Record<SettingsSection, IconName> = { profile: 'identity', openingHours: 'clock', openingHoursConfirmed: 'clock', studio: 'capacity', policies: 'policies', features: 'features', payments: 'credit-card', tax: 'tax', payroll: 'payroll', quietHours: 'quiet-hours', comms: 'send', content: 'content', branding: 'branding', integrations: 'integrations', contacts: 'whatsapp' };
 /** 0047: a contact row is valid when its number is empty (falls back to the front desk) or carries at least 10 digits. */
 const validContact = (c: ContactRoute) => !c.whatsapp?.trim() || isPhone(c.whatsapp);
 /** Flags whose page is load-bearing for the demo and cannot be switched off. */

@@ -1,0 +1,53 @@
+name: Timetable QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/tenant/**'
+      - 'src/modules/admin/settings.ts'
+      - 'src/modules/website/**'
+      - 'scripts/test-timetable*.mjs'
+      - 'scripts/test-analytics.mjs'
+      - 'scripts/test-public-entry.mjs'
+      - '.github/workflows/timetable-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: timetable-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  timetable:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck && node scripts/test-timetable.mjs && npm run test:analytics && npm run test:hours && npm run test:contacts && npm run test:vouchers
+      - run: npm run build && npm run hub-map:check
+      - name: Verify built screens and capture timetable
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+          node scripts/test-timetable-ui.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+          QA_BASE: http://127.0.0.1:4173
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: timetable-qa-${{ github.event.pull_request.head.sha }}
+          retention-days: 2
+          path: |
+            docs/screenshots/W-04/schedule-*.jpg
+            docs/screenshots/W-05/schedule-*.jpg
+            docs/screenshots/W-06/schedule-*.jpg
+            docs/screenshots/C-03/schedule-*.jpg
+            qa/timetable*
