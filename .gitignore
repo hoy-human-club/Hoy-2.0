@@ -3,3 +3,6 @@ dist
 .DS_Store
 *.log
 .vite
+
+# Post-deploy screenshots are uploaded as Actions artifacts.
+qa/subscription-release/

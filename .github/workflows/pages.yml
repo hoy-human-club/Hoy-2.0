@@ -39,3 +39,27 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-subscriptions:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify deployed subscription directory
+        run: node scripts/test-subscriptions-live.mjs hoy "${{ github.sha }}"
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: subscriptions-live-${{ github.sha }}
+          retention-days: 14
+          path: qa/subscription-release
