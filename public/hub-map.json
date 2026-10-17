@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-15T00:00:00.000Z",
+  "generatedAt": "2026-10-17T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -11,7 +11,7 @@
       "es": "Un solo sistema para cada puesto del estudio: quien practica, quien enseña, quien recibe en la puerta, quien administra y quien lo construye.",
       "en": "One system for every seat at the studio: members, teachers, front desk, admin, and the people who build it."
     },
-    "version": "0.24.2",
+    "version": "0.24.5",
     "baseUrl": "https://imagine-os.github.io/hoy/",
     "hubRoute": "/hub",
     "brand": {

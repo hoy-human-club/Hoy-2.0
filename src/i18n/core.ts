@@ -2,6 +2,11 @@ import type { StringTable } from './types';
 
 /** Shared strings used by shells, guards and dev tooling. Module strings live in each module. */
 export const coreStrings: StringTable = {
+  'core.nav.group.overview': { es: 'Resumen', en: 'Overview' },
+  'core.nav.group.community': { es: 'Comunidad', en: 'Community' },
+  'core.nav.group.publishing': { es: 'Contenido', en: 'Content' },
+  'core.nav.group.finance': { es: 'Finanzas', en: 'Finance' },
+  'core.nav.group.system': { es: 'Administración', en: 'Administration' },
   'core.theme.light': { es: 'Claro', en: 'Light' },
   'core.theme.dark': { es: 'Oscuro', en: 'Dark' },
   'core.theme.toggle': { es: 'Cambiar tema', en: 'Toggle theme' },

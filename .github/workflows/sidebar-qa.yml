@@ -1,0 +1,45 @@
+name: Sidebar categories QA
+on:
+  pull_request:
+    paths:
+      - 'src/components/template/DesktopShell/**'
+      - 'src/modules/admin/index.ts'
+      - 'src/modules/vouchers/index.ts'
+      - 'src/i18n/core.ts'
+      - 'scripts/test-sidebar-groups.mjs'
+      - '.github/workflows/sidebar-qa.yml'
+      - 'docs/screenshots/M-01/sidebar-*'
+      - 'docs/pages/M-01.md'
+      - 'docs/changelog/0069-role-sidebar-groups.md'
+permissions:
+  contents: read
+jobs:
+  sidebar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify role categories and responsive drawers
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/sidebar-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+          node scripts/test-sidebar-groups.mjs
+        env:
+          QA_BASE: http://127.0.0.1:4173
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sidebar-qa-${{ github.event.pull_request.head.sha }}
+          retention-days: 3
+          path: |
+            qa/sidebar
+            docs/screenshots/M-01/sidebar-*.jpg

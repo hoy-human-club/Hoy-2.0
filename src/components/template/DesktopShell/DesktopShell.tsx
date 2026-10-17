@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useId, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, matchPath, useLocation } from 'react-router-dom';
 import type { RouteDef, Surface } from '../../../specs/types';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -30,12 +30,40 @@ export interface DesktopShellProps {
 
 const KEY = 'hoyos.shell';
 function read<T>(key: string, fallback: T): T {
-  try { const raw = localStorage.getItem(key); if (raw) return JSON.parse(raw) as T; } catch { /* ignore */ }
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const value = JSON.parse(raw);
+      if (typeof fallback === 'boolean') return (typeof value === 'boolean' ? value : fallback) as T;
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        return { ...fallback, ...Object.fromEntries(Object.entries(value).filter(([, v]) => typeof v === 'boolean')) } as T;
+      }
+    }
+  } catch { /* ignore */ }
   return fallback;
 }
 function write(key: string, value: unknown) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
 }
+
+/** Key-aware state: switching users must never write the previous user's preferences to the new key. */
+function usePreference<T>(key: string, fallback: T) {
+  const [stored, setStored] = useState(() => ({ key, value: read(key, fallback) }));
+  const value = stored.key === key ? stored.value : read(key, fallback);
+  const update = useCallback((change: (previous: T) => T) => {
+    setStored((previous) => {
+      const next = change(previous.key === key ? previous.value : read(key, fallback));
+      write(key, next);
+      return { key, value: next };
+    });
+  }, [key]);
+  return [value, update] as const;
+}
+const DEFAULT_FOLDED: Record<string, boolean> = {
+  'core.nav.group.staff': true,
+  'core.nav.group.publishing': true, 'core.nav.group.community': true,
+  'core.nav.group.finance': true, 'core.nav.group.system': true, 'core.nav.group.design': true,
+};
 
 /** True while the viewport is narrower than the drawer breakpoint (900 px). */
 function useNarrow() {
@@ -53,7 +81,7 @@ function useNarrow() {
  * Desktop-first shell (staff, admin, dev, docs).
  * Sidebar: 240 px cream lane that collapses to a 56 px icon rail (chevron in the footer or the `[` key,
  * remembered per surface in localStorage) and becomes an off-canvas drawer below 900 px. Nav groups come
- * from `RouteDef.nav.group` and fold with a caret (remembered per group; the active route's group stays open).
+ * from `RouteDef.nav.group` and fold with a caret (remembered per group; navigation automatically opens the active route's group).
  * Top bar: sidebar toggle · wordmark · page name + code · global search · language, theme, the inbox bell
  * (unread inbound messages, with a popover of the threads → S-06), user switcher, dev mode and the spec chip.
  */
@@ -65,21 +93,44 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
   const { pathname } = useLocation();
   const narrow = useNarrow();
   const surfaceKey = surfaces[0] ?? 'desktop';
-  const collapsedKey = `${KEY}.${surfaceKey}.collapsed`;
-  const groupsKey = `${KEY}.${surfaceKey}.groups`;
+  const preferenceScope = `${KEY}.v2.${encodeURIComponent(user.id)}.${role}.${surfaceKey}`;
+  const collapsedKey = `${preferenceScope}.collapsed`;
+  const groupId = useId();
+  const groupsKey = `${preferenceScope}.groups`;
 
-  const [collapsed, setCollapsed] = useState(() => read(collapsedKey, false));
-  const [folded, setFolded] = useState<Record<string, boolean>>(() => read(groupsKey, {}));
+  const [collapsed, setCollapsed] = usePreference(collapsedKey, false);
+  const [folded, setFolded] = usePreference(groupsKey, DEFAULT_FOLDED);
+  const sideRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
   const [drawer, setDrawer] = useState(false);
 
-  useEffect(() => { setCollapsed(read(collapsedKey, false)); setFolded(read(groupsKey, {})); }, [collapsedKey, groupsKey]);
-  useEffect(() => { write(collapsedKey, collapsed); }, [collapsedKey, collapsed]);
-  useEffect(() => { write(groupsKey, folded); }, [groupsKey, folded]);
   useEffect(() => { setDrawer(false); }, [pathname]);
+
+  const rail = collapsed && !narrow;
+
+  useEffect(() => {
+    const side = sideRef.current;
+    if (!side) return;
+    side.inert = narrow && !drawer;
+    if (!narrow || !drawer) return;
+    const focusable = () => [...side.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.getClientRects().length);
+    focusable()[0]?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setDrawer(false); menuRef.current?.focus(); }
+      if (event.key === 'Tab') {
+        const elements = focusable();
+        const first = elements[0], last = elements[elements.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
+    };
+    side.addEventListener('keydown', onKey);
+    return () => side.removeEventListener('keydown', onKey);
+  }, [narrow, drawer]);
 
   const toggleSidebar = useCallback(() => {
     if (narrow) setDrawer((o) => !o); else setCollapsed((c) => !c);
-  }, [narrow]);
+  }, [narrow, setCollapsed]);
 
   // `[` collapses and expands the column (ignored while typing).
   useEffect(() => {
@@ -93,7 +144,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [narrow]);
+  }, [narrow, setCollapsed]);
 
   // A super admin sees the design-system (dev) routes from the staff and admin sidebars too.
   const shown = useMemo<Surface[]>(
@@ -106,15 +157,30 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     .map((r) => ({ to: r.nav!.to ?? r.path, route: r, group: r.nav!.group ?? '' }))
     .sort((a, b) => (shown.indexOf(a.route.surface) - shown.indexOf(b.route.surface)) || (a.route.nav!.order - b.route.nav!.order)),
   [allowed, shown]);
-  const groups = useMemo(() => [...new Set(items.map((i) => i.group))], [items]);
+  const groups = useMemo(() => {
+    const order = ['overview', 'staff', 'community', 'publishing', 'finance', 'system', 'design'].map((key) => `core.nav.group.${key}`);
+    return [...new Set(items.map((i) => i.group))].sort((a, b) => (order.indexOf(a) < 0 ? order.length : order.indexOf(a)) - (order.indexOf(b) < 0 ? order.length : order.indexOf(b)));
+  }, [items]);
   const label = useCallback((g: string) => (dict[g] ? t(g) : g), [dict, t]);
 
   const isRoot = (to: string) => to.split('/').filter(Boolean).length <= 1;
   const isOn = (to: string) => pathname === to || (!isRoot(to) && pathname.startsWith(`${to}/`));
   // The most specific nav item on the current path is the only active one: /admin/crm/deletions lights
   // "Eliminaciones", not "CRM" as well.
-  const activeTo = useMemo(() => [...items].filter((i) => isOn(i.to)).sort((a, b) => b.to.length - a.to.length)[0]?.to ?? '', [items, pathname]);
+  const activeTo = useMemo(() => {
+    const direct = [...items].filter((i) => isOn(i.to) || (i.route.nav?.to && isOn(i.route.path)))
+      .sort((a, b) => b.route.path.length - a.route.path.length)[0];
+    if (direct) return direct.to;
+    // Alias pages (e.g. /dev) share the same spec with their canonical sidebar entry.
+    const currentRoute = allowed.find((r) => matchPath({ path: r.path, end: true }, pathname));
+    return items.find((i) => i.route.spec.code === currentRoute?.spec.code)?.to ?? '';
+  }, [items, allowed, pathname]);
   const activeGroup = useMemo(() => items.find((i) => i.to === activeTo)?.group ?? '', [items, activeTo]);
+
+  // Reopen on navigation (including Back/Forward), but let the user fold the current category afterwards.
+  useEffect(() => {
+    if (activeGroup) setFolded((previous) => previous[activeGroup] ? { ...previous, [activeGroup]: false } : previous);
+  }, [pathname, activeGroup, groupsKey, setFolded]);
 
   const current = useMemo(() => allowed.find((r) => matchPath({ path: r.path, end: true }, pathname)) ?? null, [allowed, pathname]);
 
@@ -136,20 +202,21 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
   const sidebarLabel = narrow ? (drawer ? t('core.shell.closeMenu') : t('core.shell.menu')) : collapsed ? t('core.shell.expand') : t('core.shell.collapse');
 
   return (
-    <div className={`deskshell ${collapsed ? 'is-rail' : ''} ${drawer ? 'is-open' : ''}`}>
-      <aside className="deskshell-side" aria-label={t('core.shell.sections')}>
+    <div className={`deskshell ${rail ? 'is-rail' : ''} ${drawer ? 'is-open' : ''}`}>
+      <aside ref={sideRef} className="deskshell-side" aria-hidden={narrow && !drawer ? true : undefined} aria-label={t('core.shell.sections')}>
         <div className="deskshell-brand">
-          <Link to="/hub" className="deskshell-mark" title={t('core.nav.hub')}><Wordmark height={collapsed ? 15 : 26} /></Link>
-          {!collapsed && <span className="deskshell-title">{title}</span>}
+          <Link to="/hub" className="deskshell-mark" title={t('core.nav.hub')}><Wordmark height={rail ? 15 : 26} /></Link>
+          {!rail && <span className="deskshell-title">{title}</span>}
         </div>
         <nav className="deskshell-nav" aria-label={t('core.shell.sections')}>
           {groups.map((g) => {
-            const open = !g || g === activeGroup || !folded[g];
+            const open = !g || !folded[g];
+            const panelId = `${groupId}-${g.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
             return (
               <div key={g} className={`deskshell-group ${open ? '' : 'is-folded'}`}>
-                {g && !collapsed && (
+                {g && !rail && (
                   <button
-                    type="button" className="deskshell-grouplabel eyebrow" aria-expanded={open}
+                    type="button" className="deskshell-grouplabel eyebrow" aria-expanded={open} aria-controls={panelId}
                     title={t(open ? 'core.shell.group.collapse' : 'core.shell.group.expand', { group: label(g) })}
                     onClick={() => setFolded((f) => ({ ...f, [g]: !f[g] }))}
                   >
@@ -157,20 +224,22 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
                     <span className="deskshell-grouptext">{label(g)}</span>
                   </button>
                 )}
-                {g && collapsed && <hr className="deskshell-sep" aria-hidden />}
-                {(open || collapsed) && items.filter((i) => i.group === g).map(({ to, route: r }) => (
+                {g && rail && <hr className="deskshell-sep" aria-hidden />}
+                <div id={panelId} className="deskshell-groupitems" hidden={!open && !rail}>
+                {items.filter((i) => i.group === g).map(({ to, route: r }) => (
                   <NavLink
-                    key={`${r.path}-${to}`} to={to} end={isRoot(to)}
+                    key={`${r.path}-${to}`} to={to} end={isRoot(to)} aria-current={to === activeTo ? 'page' : false}
                     className={() => `deskshell-link ${to === activeTo ? 'is-active' : ''}`}
-                    title={collapsed ? t(r.nav!.labelKey) : undefined}
+                    title={rail ? t(r.nav!.labelKey) : undefined}
                     onClick={() => setDrawer(false)}
                   >
                     <span className="deskshell-icon" aria-hidden><Icon name={r.nav!.icon} size="md" /></span>
                     <span className="deskshell-linktext">{t(r.nav!.labelKey)}</span>
-                    {devMode && !collapsed && <code className="deskshell-code">{r.spec.code}</code>}
-                    {collapsed && <span className="deskshell-tip" aria-hidden>{t(r.nav!.labelKey)}</span>}
+                    {devMode && !rail && <code className="deskshell-code">{r.spec.code}</code>}
+                    {rail && <span className="deskshell-tip" aria-hidden>{t(r.nav!.labelKey)}</span>}
                   </NavLink>
                 ))}
+                </div>
               </div>
             );
           })}
@@ -178,13 +247,13 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
         <div className="deskshell-foot">
           <button
             type="button" className="deskshell-collapse" onClick={() => setCollapsed((c) => !c)}
-            aria-expanded={!collapsed} aria-label={collapsed ? t('core.shell.expand') : t('core.shell.collapse')}
-            title={`${collapsed ? t('core.shell.expand') : t('core.shell.collapse')} · ${t('core.shell.collapseHint')}`}
+            aria-expanded={!rail} aria-label={rail ? t('core.shell.expand') : t('core.shell.collapse')}
+            title={`${rail ? t('core.shell.expand') : t('core.shell.collapse')} · ${t('core.shell.collapseHint')}`}
           >
-            <span className="deskshell-chev" aria-hidden><Icon name={collapsed ? 'chevron-right' : 'chevron-left'} size="sm" /></span>
-            {!collapsed && <span className="small">{t('core.shell.collapse')}</span>}
+            <span className="deskshell-chev" aria-hidden><Icon name={rail ? 'chevron-right' : 'chevron-left'} size="sm" /></span>
+            {!rail && <span className="small">{t('core.shell.collapse')}</span>}
           </button>
-          {collapsed ? (
+          {rail ? (
             <Link to="/hub" title={user.name} className="deskshell-me"><Avatar name={user.name} initials={user.initials} size={28} /></Link>
           ) : (
             <>
@@ -197,7 +266,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
       <div className="deskshell-col">
         <TopBar
           brand homeTo="/hub" title={current ? (current.nav ? t(current.nav.labelKey) : bi(current.spec.name)) : title} code={current?.spec.code}
-          leading={<button type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={narrow ? drawer : !collapsed} title={sidebarLabel}>☰</button>}
+          leading={<button ref={menuRef} type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={narrow ? drawer : !rail} title={sidebarLabel}>☰</button>}
           center={<GlobalSearch items={searchItems} />}
           actions={
             <>

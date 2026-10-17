@@ -1,7 +1,7 @@
 {
   "name": "hoyos",
   "private": true,
-  "version": "0.24.4",
+  "version": "0.24.5",
   "type": "module",
   "description": "HoyOS \u2014 operations system for HOY Wellness Center (multi-tenant ready)",
   "scripts": {
