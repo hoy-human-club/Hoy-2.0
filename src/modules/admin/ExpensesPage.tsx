@@ -121,6 +121,7 @@ export function ExpensesPage() {
 
   return (
     <div className="stack">
+      <Link to="/admin/finance/subscriptions">{t('admin.subscriptions.nav')} →</Link>
       <div className="page-head">
         <div><h1>{t('admin.expenses.title')}</h1><p className="muted small">{t('admin.expenses.subtitle')}</p></div>
         <div className="row wrap">

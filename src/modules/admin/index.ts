@@ -1,3 +1,4 @@
+import { subscriptionSpec } from './subscriptionSpec';
 import { lazyPages } from '../../app/lazyPage';
 import type { RouteDef } from '../../specs/types';
 import type { Role } from '../../auth/roles';
@@ -15,6 +16,7 @@ const content: Role[] = [...admins, 'coordinator', 'marketing'];
 const tablesRoles: Role[] = ['super_admin', 'finance', 'developer'];
 
 export const routes: RouteDef[] = [
+  { ...base, path: '/admin/finance/subscriptions', roles: [...admins, 'finance'], element: page('AppDirectoryPage'), spec: subscriptionSpec, nav: { labelKey: 'admin.subscriptions.nav', icon: 'integrations', order: 20.5, group: G + 'finance' } },
   { ...base, path: '/admin', roles: [...admins, 'coordinator', 'finance'], element: page('DashboardPage'), spec: M01, nav: { labelKey: 'core.nav.dashboard', icon: 'dashboard', order: 10, group: G + 'overview' } },
   // M-12: attendance / retention only (no revenue) — same roles as M-01 while ROADMAP §E 32 is open.
   { ...base, path: '/admin/analytics', roles: M12.roles, element: page('AnalyticsPage'), spec: M12, nav: { labelKey: 'admin.analytics.nav', icon: 'gauge', order: 10.5, group: G + 'overview' } },

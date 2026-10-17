@@ -804,6 +804,7 @@
         "M-09",
         "M-09a",
         "M-09c",
+        "M-09d",
         "M-09b"
       ],
       "shots": {
@@ -1086,6 +1087,45 @@
     }
   ],
   "pages": [
+    {
+      "code": "M-09d",
+      "route": "/admin/finance/subscriptions",
+      "name": {
+        "es": "Apps y suscripciones",
+        "en": "Apps & subscriptions"
+      },
+      "purpose": {
+        "es": "Directorio de servicios y suscripciones con cargos manuales separados.",
+        "en": "App dependencies and subscriptions with separate manual charges."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "experienceId": "finance",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-09d/es-390.jpg",
+          "en-390": "hub-map/shots/M-09d/en-390.jpg",
+          "es-1280": "hub-map/shots/M-09d/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-09d/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "finance",
+        "label": {
+          "es": "Finanzas",
+          "en": "Finance"
+        },
+        "order": 40
+      }
+    },
     {
       "code": "M-01",
       "route": "/admin",

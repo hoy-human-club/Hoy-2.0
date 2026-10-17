@@ -19,10 +19,11 @@ export function dueDatesFor(t: Pick<ExpenseTemplateRow, 'cadence' | 'anchor_day'
   const out: string[] = [];
   const first = fromDateKey(period.start);
   const end = fromDateKey(period.end);
-  const day = Math.min(28, Math.max(1, t.anchor_day || 1));
+  const day = Math.min(31, Math.max(1, t.anchor_day || 1));
   // Walk month by month from the month before the period (a biweekly second due date can cross in).
   for (let m = new Date(first.getFullYear(), first.getMonth() - 1, 1); m <= end; m.setMonth(m.getMonth() + 1)) {
-    const candidates = [new Date(m.getFullYear(), m.getMonth(), day)];
+    const lastDay = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
+    const candidates = [new Date(m.getFullYear(), m.getMonth(), Math.min(day, lastDay))];
     if (t.cadence === 'biweekly') {
       const second = new Date(m.getFullYear(), m.getMonth(), day + 15);
       const lastOfMonth = new Date(m.getFullYear(), m.getMonth() + 1, 0);
@@ -54,13 +55,14 @@ const fixedKey = (templateId: string, incurredOn: string) => `${templateId}|${in
  * templates and the same existing rows always give the same result, so pressing "generate" twice
  * adds nothing the second time.
  */
-export function fixedExpensesFor(period: Period, templates: ExpenseTemplateRow[], existing: Pick<ExpenseRow, 'template_id' | 'incurred_on'>[]): { drafts: FixedDraft[]; skipped: number } {
+export function fixedExpensesFor(period: Period, templates: Pick<ExpenseTemplateRow, 'id' | 'active' | 'cadence' | 'anchor_day' | 'amount' | 'category' | 'concept' | 'vendor'>[], existing: Pick<ExpenseRow, 'template_id' | 'incurred_on'>[]): { drafts: FixedDraft[]; skipped: number } {
   const have = new Set(existing.filter((e) => e.template_id).map((e) => fixedKey(e.template_id as string, e.incurred_on)));
   const drafts: FixedDraft[] = [];
   let skipped = 0;
   for (const t of templates.filter((x) => x.active)) {
     for (const day of dueDatesFor(t, period)) {
       if (have.has(fixedKey(t.id, day))) { skipped++; continue; }
+      have.add(fixedKey(t.id, day));
       drafts.push({ template_id: t.id, kind: 'fixed', category: t.category, concept: t.concept, amount: t.amount, incurred_on: day, vendor: t.vendor });
     }
   }

@@ -36,6 +36,7 @@ export function IntegrationsPage() {
   const SECTIONS: Record<string, () => ReactNode> = {
     Intro: () => (
       <>
+        <Link to="/admin/finance/subscriptions">{t('admin.subscriptions.nav')} →</Link>
         <div className="page-head">
           <div><h1>{t('admin.integrations.title')}</h1><p className="muted small">{t('admin.integrations.subtitle')}</p></div>
           <div className="row wrap">{counts.map(([s, n]) => <Badge key={s} tone={STATUS_TONE[s]}>{n} · {t(`admin.integrations.status.${s}`)}</Badge>)}{!canWrite && <Badge tone="warn">{t('admin.settings.readonly')}</Badge>}</div>

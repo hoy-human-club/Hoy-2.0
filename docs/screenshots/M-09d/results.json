@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "create/edit app and subscription",
+    "unknown amount",
+    "leap-day preview",
+    "reload persistence",
+    "record charge",
+    "duplicate reference rejected",
+    "customer denied",
+    "storage quota failure",
+    "stale tab conflict",
+    "dark mode",
+    "en/es responsive 390/768/1280/1920/3840"
+  ],
+  "errors": []
+}

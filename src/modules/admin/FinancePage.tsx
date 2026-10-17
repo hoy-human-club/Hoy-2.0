@@ -95,6 +95,7 @@ export function FinancePage() {
 
   return (
     <div className="stack">
+      <Link to="/admin/finance/subscriptions">{t('admin.subscriptions.nav')} →</Link>
       <div className="page-head">
         <div><h1>{t('admin.finance.title')}</h1><p className="muted small">{t('admin.finance.subtitle')}</p></div>
         <div className="row wrap" role="tablist">{(['7d', '15d', '30d', '90d', 'all'] as Range[]).map((r) => <Chip key={r} selected={range === r} onClick={() => setRange(r)}>{t(`admin.finance.range.${r}`)}</Chip>)}</div>

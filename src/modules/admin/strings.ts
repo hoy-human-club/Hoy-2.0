@@ -1,5 +1,8 @@
+import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  ...directoryStrings,
+  'admin.subscriptions.nav': { es: 'Apps y suscripciones', en: 'Apps & subscriptions' },
   // M-03 tables (0044 redesign: views, sidebar, graph — every label a person reads is words, never an identifier)
   'admin.tables.title': { es: 'Tablas', en: 'Tables' },
   'admin.tables.subtitle': { es: 'Todos los datos del estudio, tal como vivirán en Supabase: míralos como cuadrícula, lista, galería, tablero o grafo, filtra, edita y exporta.', en: 'All the studio’s data, as it will live in Supabase: view it as a grid, list, gallery, board or graph, filter, edit and export.' },

@@ -18,3 +18,5 @@ export { ExpensesPage } from './ExpensesPage';
 export { DeletionsPage } from './DeletionsPage';
 export { IntegrationsPage } from './IntegrationsPage';
 export { GoogleBusinessPage } from './GoogleBusinessPage';
+
+export { AppDirectoryPage } from './AppDirectoryPage';

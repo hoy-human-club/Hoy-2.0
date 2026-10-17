@@ -28,7 +28,8 @@
     "test:contacts": "node scripts/test-contacts.mjs",
     "test:analytics": "node scripts/test-analytics.mjs",
     "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs",
-    "media-catalog": "node scripts/gen-media-catalog.mjs"
+    "media-catalog": "node scripts/gen-media-catalog.mjs",
+    "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",

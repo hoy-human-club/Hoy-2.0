@@ -624,3 +624,5 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - M-02d: searchable 68-asset catalog, responsive variants and linked per-placement live/draft/inactive/archive states; browser-local assignments remain explicitly demo-only.
 - W-02 photo preview: four approved equipment photographs with optional 40-second blue/warm dissolve, shared pause and reduced-motion support. [Details](changelog/0065-media-library.md)
 - Shared Content photo picker is a separate pending integration (PR39); it is not part of this release.
+
+- App directory and subscriptions (M-09d): implemented; model/UI/build verification and release receipt in docs/pages/M-09d.md. Production persistence remains explicitly disconnected.
