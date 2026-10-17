@@ -1,3 +1,4 @@
+import { Icon } from '../../components/atom/Icon/Icon';
 import { SERVICE_CATALOG, type CatalogService } from './catalog';
 import type { Directory } from './model';
 export function ServiceLogo({service}:{service:CatalogService}) {
@@ -17,7 +18,7 @@ export function ServiceCatalog({data,lang,onTrack,canWrite}:{data:Directory;lang
     <p>{service.purpose[lang]}</p>
     <div className="service-price"><span>{featured?.name ?? bi('Public plans','Planes públicos')}</span><strong>{featured ? `USD ${featured.usd!.toFixed(Number.isInteger(featured.usd)?0:2)}` : '—'}</strong><span>{featured?.basis[lang] ?? bi('Verification pending','Verificación pendiente')}</span></div>
     <details><summary>{bi('Published price details','Detalles del precio público')} ({service.plans.length})</summary>{service.plans.map(p=><div className="service-plan" key={p.name}><strong>{p.name} · {p.usd===null?bi('Contact sales','Contactar ventas'):`USD ${p.usd}`}</strong><p>{p.basis[lang]}</p><small>{p.note[lang]}</small></div>)}</details>
-    <a href={service.pricingUrl} target="_blank" rel="noreferrer">{bi('Official pricing','Precios oficiales')} ↗</a><small>{bi('Checked','Consultado')}: {service.verifiedOn ?? bi('Pending','Pendiente')}</small>
+    <a href={service.pricingUrl} target="_blank" rel="noreferrer">{bi('Official pricing','Precios oficiales')} <Icon name="arrow-up" size="sm" className="directory-external-icon" /></a><small>{bi('Checked','Consultado')}: {service.verifiedOn ?? bi('Pending','Pendiente')}</small>
     <div className="service-workspace"><strong>{bi('Your workspace','Tu espacio')}</strong><p>{bi('Selected plan','Plan contratado')}: {subs.map(s=>s.selectedPlan || bi('Unknown','Desconocido')).join(', ') || bi('Not recorded','Sin registrar')}</p><p>{bi('Account owner','Responsable de cuenta')}: {apps.map(a=>a.accountOwner || bi('Unknown','Desconocido')).join(', ') || bi('Not recorded','Sin registrar')}</p>{canWrite && <button onClick={()=>onTrack(service)}>{apps.length?bi('Review account','Revisar cuenta'):bi('Track service','Registrar servicio')}</button>}</div>
    </article>;
   })}</div>

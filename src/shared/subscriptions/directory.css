@@ -38,3 +38,5 @@
 .directory-check { display:flex !important; align-items:center; }
 .directory-check input { width:auto; min-height:var(--h-ctl); }
 .directory-import { max-width:20rem; }
+
+.app-directory .directory-external-icon { transform:rotate(45deg); margin-left:var(--sp-sm); flex:none; }

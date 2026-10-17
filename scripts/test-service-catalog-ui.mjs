@@ -11,7 +11,7 @@ await ctx.addInitScript(prefix=>{if(!sessionStorage.getItem('catalog-init')){loc
 await mkdir(`docs/screenshots/${code}/catalog`,{recursive:true});
 try{
  await page.goto(`${base}/#${route}`);const panel=page.locator('.app-directory');await panel.getByRole('heading',{name:'Apps & subscriptions',exact:true}).waitFor();
- assert.equal(await panel.locator('.service-card').count(),5);assert(await panel.locator('.service-logo').evaluateAll(imgs=>imgs.every(img=>img.complete && img.naturalWidth>0)));
+ assert.equal(await panel.locator('.service-card').count(),5);assert.equal(await panel.locator('.service-card a svg[data-icon="arrow-up"]').count(),5);assert(!(await panel.textContent()).includes('↗'));assert(await panel.locator('.service-logo').evaluateAll(imgs=>imgs.every(img=>img.complete && img.naturalWidth>0)));
  assert((await panel.textContent()).includes('No active subscriptions recorded.'));
  assert((await panel.textContent()).includes('Not recorded'));
  for(const lang of ['en','es']){

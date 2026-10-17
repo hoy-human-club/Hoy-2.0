@@ -20,7 +20,7 @@ const es: Record<string,string> = {
 'App':'App', 'Subscription':'Suscripción',
 'Verification is a manual assertion, never a live connectivity check. “Biweekly” means every 14 days here.':'La verificación es una declaración manual, nunca una prueba de conexión en vivo. “Cada 14 días” es distinto de dos veces al mes.',
 'Save record':'Guardar registro', 'Cancel':'Cancelar', 'Find an app':'Buscar una app', 'Add subscription':'Agregar suscripción', 'Record charge':'Registrar cargo',
-'Projects:':'Proyectos:', 'Official site ↗':'Sitio oficial ↗', 'Manage ↗':'Administrar ↗', 'Evidence:':'Evidencia:', '· Verified:':'· Verificado:', 'Edit app':'Editar app', 'Next:':'Próximo:', '· Following:':'· Siguiente:', 'Owner:':'Responsable:', '· Account label:':'· Etiqueta de cuenta:', 'Edit subscription':'Editar suscripción',
+'Projects:':'Proyectos:', 'Official site':'Sitio oficial', 'Manage':'Administrar', 'Evidence:':'Evidencia:', '· Verified:':'· Verificado:', 'Edit app':'Editar app', 'Next:':'Próximo:', '· Following:':'· Siguiente:', 'Owner:':'Responsable:', '· Account label:':'· Etiqueta de cuenta:', 'Edit subscription':'Editar suscripción',
 'No app records yet. Add a service you use, or start from a possible integration below.':'Todavía no hay apps. Agrega un servicio que uses o comienza con una posible integración abajo.',
 'Possible integrations (':'Posibles integraciones (', ') · not paid-service evidence':') · no demuestra un servicio de pago',
 'Catalog entries are suggestions only. Adding one creates a possible app with no subscription or charge.':'El catálogo contiene sugerencias. Agregar una crea una app posible sin suscripción ni cargo.',

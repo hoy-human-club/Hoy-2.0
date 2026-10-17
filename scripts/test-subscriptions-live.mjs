@@ -12,6 +12,8 @@ try {
  assert((await page.locator('.app-directory').textContent()).includes('No active subscriptions recorded.'));
  assert((await page.locator('.app-directory').textContent()).includes('DISCONNECTED'));
  assert.equal(await page.locator('.service-card').count(),5);
+ assert.equal(await page.locator('.service-card a svg[data-icon="arrow-up"]').count(),5);
+ assert(!(await page.locator('.app-directory').textContent()).includes('↗'));
  assert(await page.locator('.service-logo').evaluateAll(imgs=>imgs.every(img=>img.complete && img.naturalWidth>0)));
  assert((await page.locator('.service-catalog').textContent()).includes('USD 8.40'));
  assert.deepEqual(errors,[]);await mkdir(`qa/subscription-release/${project}`,{recursive:true});
