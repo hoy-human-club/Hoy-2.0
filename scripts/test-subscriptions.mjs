@@ -28,3 +28,26 @@ saveDirectory(storage,d,null);assert.deepEqual(readDirectory(storage,'test'),d);
 assert.throws(()=>saveDirectory(storage,d,null),/another tab/);
 assert.throws(()=>saveDirectory({getItem:()=>null,setItem:()=>{throw new Error('Quota');}},d,null),/Quota/);
 console.log('PASS: cadence, leap years, unknown/zero, currencies, evidence, sensitive data, idempotent charges, workspace isolation, reload and storage failures.');
+const {safeReceiptUrl,receiptSearch,parseBackup}=await import('../src/shared/subscriptions/model.ts');
+assert(safeReceiptUrl('https://mail.google.com/mail/u/0/#inbox/abc123'));
+assert(!safeReceiptUrl('https://mail.google.com/mail/u/0/?token=secret#inbox/abc123'));
+assert(!safeReceiptUrl('https://example.com/receipt?signature=secret'));
+assert.throws(()=>validateDirectory({...d,dependencies:[{...app,passwordManagerRef:'https://share.example.com/password'}]}),/vault/);
+assert.throws(()=>validateDirectory({...d,dependencies:[{...app,loginEmail:'invalid'}]}),/email/);
+assert.throws(()=>parseBackup(JSON.stringify(d),'another-workspace'),/Workspace/);
+assert.deepEqual(parseBackup(JSON.stringify(d),'test'),d);
+assert.deepEqual(chargeTotals([{...charge,currencyVerified:false}]),{});
+assert.match(receiptSearch('Example',{...sub,receiptInbox:'billing@example.test'}),/to:billing@example.test/);
+console.log('PASS: account metadata, password references, receipt links, unverified currency exclusion and workspace-safe backups.');
+const {SERVICE_CATALOG}=await import('../src/shared/subscriptions/catalog.ts');
+assert.equal(SERVICE_CATALOG.length,5);assert(SERVICE_CATALOG.every(s=>s.verifiedOn==='2026-10-17' && s.plans.length && s.pricingUrl.startsWith('https:')));
+assert.equal(SERVICE_CATALOG.find(s=>s.id==='google-workspace').plans[0].usd,8.4);
+assert.deepEqual(monthlyEstimates(emptyDirectory('fresh').subscriptions),{});
+console.log('PASS: five dated public-price sources do not create tenant expenses.');
+
+assert.throws(()=>parseBackup(JSON.stringify({...d,dependencies:[{...app,password:'not-allowed'}]}),'test'),/Secret fields/);
+assert.throws(()=>parseBackup(JSON.stringify({...d,dependencies:[{...app,relatedProjects:'invalid'}]}),'test'),/metadata/);
+
+validateDirectory({...d,charges:[{...charge,currency:null,currencyVerified:false}]});
+assert.deepEqual(chargeTotals([{...charge,currency:null,currencyVerified:false}]),{});
+assert.throws(()=>validateDirectory({...d,charges:[{...charge,currency:null,currencyVerified:true}]}),/unverified/);

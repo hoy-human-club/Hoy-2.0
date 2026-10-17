@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "5 real logos loaded",
+    "public prices do not create subscriptions",
+    "en/es 390–3840 no overflow",
+    "account owner/login/vault reference",
+    "selected plan separate from list price",
+    "billing contact separate from receipt inbox",
+    "manual Gmail receipt search",
+    "unverified currency excluded",
+    "existing charge receipt linking/verification",
+    "backup export",
+    "reload persistence",
+    "dark mode"
+  ],
+  "errors": []
+}

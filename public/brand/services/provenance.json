@@ -1,0 +1,43 @@
+{
+  "verifiedOn": "2026-10-17",
+  "purpose": "Provider identification only; marks do not imply partnership, account ownership, connection or payment.",
+  "assets": [
+    {
+      "file": "clerk.svg",
+      "provider": "Clerk",
+      "source": "https://clerk.com/brand-assets",
+      "distribution": "simple-icons@16.35.0/icons/clerk.svg",
+      "terms": "Simple Icons CC0 distribution; Clerk trademark rights retained. Official brand downloads were inspected but blocked by the workspace proxy."
+    },
+    {
+      "file": "supabase.svg",
+      "provider": "Supabase",
+      "source": "https://supabase.com/brand-assets",
+      "download": "https://raw.githubusercontent.com/supabase/supabase/4031a7549f5d46da7bc79c01d56be4177dc7c114/packages/common/assets/images/supabase-logo-icon.svg",
+      "terms": "Official unmodified icon; Supabase brand terms limit use to representing Supabase."
+    },
+    {
+      "file": "resend.svg",
+      "provider": "Resend",
+      "source": "https://resend.com/brand",
+      "distribution": "simple-icons@16.35.0/icons/resend.svg",
+      "terms": "Simple Icons CC0 distribution; Resend trademark rights retained. Official asset https://cdn.resend.com/brand/resend-icon-black.svg was blocked by the workspace proxy."
+    },
+    {
+      "file": "railway.svg",
+      "provider": "Railway",
+      "source": "https://railway.app",
+      "distribution": "simple-icons@16.35.0/icons/railway.svg",
+      "terms": "Simple Icons CC0 distribution; Railway trademark rights retained."
+    },
+    {
+      "file": "google-workspace.svg",
+      "provider": "Google Workspace",
+      "source": "https://about.google/brand-resource-center/brand-elements/",
+      "distribution": "simple-icons@16.35.0/icons/google.svg",
+      "terms": "Google provider mark, not a custom Workspace logo. Simple Icons CC0 distribution; Google trademark rights retained."
+    }
+  ],
+  "fallback": "Provider name remains visible if an image cannot load. No generated or invented brand marks.",
+  "verifiedAt": "2026-10-17T12:30:13.278294+00:00"
+}

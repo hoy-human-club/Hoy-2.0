@@ -11,6 +11,9 @@ try {
  await page.locator('.app-directory').getByRole('heading',{name:'Apps & subscriptions',exact:true}).waitFor({timeout:15000});
  assert((await page.locator('.app-directory').textContent()).includes('No active subscriptions recorded.'));
  assert((await page.locator('.app-directory').textContent()).includes('DISCONNECTED'));
+ assert.equal(await page.locator('.service-card').count(),5);
+ assert(await page.locator('.service-logo').evaluateAll(imgs=>imgs.every(img=>img.complete && img.naturalWidth>0)));
+ assert((await page.locator('.service-catalog').textContent()).includes('USD 8.40'));
  assert.deepEqual(errors,[]);await mkdir(`qa/subscription-release/${project}`,{recursive:true});
  await page.screenshot({path:`qa/subscription-release/${project}/live-1280.png`,fullPage:true});
  await page.setViewportSize({width:390,height:844});assert(await page.locator('.app-directory').evaluate(el=>el.scrollWidth<=el.clientWidth+1));await page.screenshot({path:`qa/subscription-release/${project}/live-390.png`,fullPage:true});

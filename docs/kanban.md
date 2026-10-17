@@ -626,3 +626,5 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - Shared Content photo picker is a separate pending integration (PR39); it is not part of this release.
 
 - App directory and subscriptions (M-09d): implemented; model/UI/build verification and release receipt in docs/pages/M-09d.md. Production persistence remains explicitly disconnected.
+
+- M-09d public service catalog/account/receipt enrichment: implemented; verification and deployment receipt pending CI. No cross-tenant billing seeds or new backend permissions.

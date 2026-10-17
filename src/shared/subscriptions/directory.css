@@ -19,3 +19,22 @@
 @media(min-width:1920px) { .app-directory label,.app-directory small { font-size:1rem; } }
 
 .directory-actions > label { flex:1 1 16rem; min-width:min(100%,16rem); }
+.service-catalog { display:grid; gap:var(--block); }
+.service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr)); gap:var(--grid-gap); }
+.service-card { display:flex; flex-direction:column; gap:var(--stack); background:var(--color-surface); }
+.service-identity { display:flex; align-items:center; gap:var(--gap-control); }
+.service-identity h3,.service-identity h2 { margin:0; }
+.service-identity span,.service-eyebrow { font-size:.8rem; color:var(--color-text-muted); }
+.service-logo { width:var(--h-ctl); height:var(--h-ctl); object-fit:contain; flex:none; padding:var(--sp-sm); background:white; border-radius:var(--r-sm); box-sizing:content-box; }
+.service-price { display:grid; gap:var(--stack-tight); padding:var(--sp-lg) 0; }
+.service-price strong { font-size:2rem; line-height:1.2; }
+.service-card details { padding:var(--sp-sm); border:0; border-top:1px solid var(--color-border); border-radius:0; }
+.service-plan { padding:var(--sp-md) 0; border-top:1px solid var(--color-border); }
+.service-workspace { margin-top:auto; padding-top:var(--sp-lg); border-top:1px solid var(--color-border); }
+.account-details { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:var(--gap-control); }
+.account-details dt { font-size:.85rem; color:var(--color-text-muted); }
+.account-details dd { margin:0; overflow-wrap:anywhere; }
+.receipt-routing { margin-top:var(--block); padding:var(--card-pad); background:var(--color-surface-2); border-radius:var(--r-sm); }
+.directory-check { display:flex !important; align-items:center; }
+.directory-check input { width:auto; min-height:var(--h-ctl); }
+.directory-import { max-width:20rem; }

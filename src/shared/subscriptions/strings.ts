@@ -1,4 +1,6 @@
 const es: Record<string,string> = {
+'Currency (blank = unknown)':'Moneda (vacío = desconocido)',
+"Account owner":"Responsable de cuenta","Sign-in email":"Correo de acceso","Organization / account label":"Etiqueta de organizaci\u00f3n / cuenta","Password manager \u00b7 vault / item label only":"Gestor de contrase\u00f1as \u00b7 solo etiqueta de b\u00f3veda / elemento","Selected plan (not the public price)":"Plan contratado (no el precio p\u00fablico)","Billing contact email":"Correo de contacto de facturaci\u00f3n","Receipt inbox email":"Correo del buz\u00f3n de recibos","Receipt mailbox":"Tipo de buz\u00f3n de recibos","Billing / receipt portal (clean HTTPS URL)":"Portal de facturaci\u00f3n / recibos (URL HTTPS limpia)","Receipt document or message link":"Enlace al documento o mensaje del recibo","outlook":"Outlook","gmail":"Gmail","other":"otro",
 'App subscriptions are restricted to workspace administrators and finance.':'Las suscripciones están restringidas a administración y finanzas.',
 '· workspace directory':'· directorio del espacio',
 'Apps & subscriptions':'Apps y suscripciones',

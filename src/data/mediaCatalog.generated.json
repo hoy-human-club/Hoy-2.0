@@ -160,6 +160,102 @@
     "usages": []
   },
   {
+    "id": "brand/services/clerk.svg",
+    "url": "brand/services/clerk.svg",
+    "thumbnail": "brand/services/clerk.svg",
+    "name": "Clerk",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "square",
+    "width": 24,
+    "height": 24,
+    "variants": [
+      "brand/services/clerk.svg"
+    ],
+    "tags": [
+      "brand",
+      "clerk"
+    ],
+    "usages": []
+  },
+  {
+    "id": "brand/services/google-workspace.svg",
+    "url": "brand/services/google-workspace.svg",
+    "thumbnail": "brand/services/google-workspace.svg",
+    "name": "Google workspace",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "square",
+    "width": 24,
+    "height": 24,
+    "variants": [
+      "brand/services/google-workspace.svg"
+    ],
+    "tags": [
+      "brand",
+      "google",
+      "workspace"
+    ],
+    "usages": []
+  },
+  {
+    "id": "brand/services/railway.svg",
+    "url": "brand/services/railway.svg",
+    "thumbnail": "brand/services/railway.svg",
+    "name": "Railway",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "square",
+    "width": 24,
+    "height": 24,
+    "variants": [
+      "brand/services/railway.svg"
+    ],
+    "tags": [
+      "brand",
+      "railway"
+    ],
+    "usages": []
+  },
+  {
+    "id": "brand/services/resend.svg",
+    "url": "brand/services/resend.svg",
+    "thumbnail": "brand/services/resend.svg",
+    "name": "Resend",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "square",
+    "width": 24,
+    "height": 24,
+    "variants": [
+      "brand/services/resend.svg"
+    ],
+    "tags": [
+      "brand",
+      "resend"
+    ],
+    "usages": []
+  },
+  {
+    "id": "brand/services/supabase.svg",
+    "url": "brand/services/supabase.svg",
+    "thumbnail": "brand/services/supabase.svg",
+    "name": "Supabase",
+    "source": "brand",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 109,
+    "height": 113,
+    "variants": [
+      "brand/services/supabase.svg"
+    ],
+    "tags": [
+      "brand",
+      "supabase"
+    ],
+    "usages": []
+  },
+  {
     "id": "images/sanctuary/arch.webp",
     "url": "images/sanctuary/arch.webp",
     "thumbnail": "images/sanctuary/arch.webp",
