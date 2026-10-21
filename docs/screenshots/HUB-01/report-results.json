@@ -2,7 +2,7 @@
   "feature": "OT-03",
   "phase": "Nov 30 delivery",
   "criterionMet": false,
-  "base": "http://127.0.0.1:5191",
+  "base": "http://127.0.0.1:5197",
   "roles": [
     "super_admin",
     "admin",
@@ -26,13 +26,5 @@
     "Local draft only; original sends criterion remains unmet.",
     "Effective roles are client demo previews, not server authorization.",
     "No external intake, delivery or cross-device persistence."
-  ],
-  "actualActorChecks": {
-    "base": "http://127.0.0.1:5191",
-    "actors": [
-      "usr_cust",
-      "usr_public"
-    ],
-    "result": "passed focused rendered actor context and separate empty drafts; no page errors"
-  }
+  ]
 }

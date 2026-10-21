@@ -15,3 +15,5 @@ Routes/roles: `/#/admin/crm` and member detail (admin/front desk); `/#/staff/che
 Tests: `scripts/test-package-lots.mjs`, `test-pending-package.mjs`, `test-desk-transactions.mjs`, `test-crm-balances-ui.mjs`, `test-desk-package-ui.mjs`; full build required before commit. No live backend/payment/storage requests. Production server consistency, authorization and cross-device verification remain Anu's work.
 
 Next: transfer receipt queue (batch7), future-day atomic reschedule (batch8), explicit catalog publication/local quotes (batch9). Owner question queues remain separate; none sent externally.
+
+Verified correction: `upgradeAdditiveMockTables` initializes missing new demo tables on same-day load and old-tab storage events without reseeding purchases/content. `scripts/test-mock-additive-upgrade.mjs` preserves historical ledger rows exactly and rejects malformed incoming table data. Existing daily demo reset is unchanged; no cross-device persistence or production migration claim. Focused production CRM/desk and customer fresh-purchase checks passed (EN/ES390/1280; desk light/dark).

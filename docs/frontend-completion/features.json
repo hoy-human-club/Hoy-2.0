@@ -681,7 +681,7 @@
         {
           "batch": "batch-09.md",
           "behavior": "Only explicitly published local mock catalog feeds the same-browser website preview; drafts hidden and demo purchase actions disabled.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -1278,7 +1278,7 @@
         {
           "batch": "batch-09.md",
           "behavior": "Explicit review/cancel/confirm local mock publication and withdrawal, snapshot separated from ongoing draft edits.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Mock browser only; authoritative publication service and production permissions pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -1354,7 +1354,7 @@
         {
           "batch": "batch-09.md",
           "behavior": "Common dated quote contract for local published snapshots; immutable quotes/history and past purchased terms retained.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Actual checkout price/snapshot integration remains static; production quote/charge contract pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -1545,7 +1545,7 @@
         {
           "batch": "batch-06.md",
           "behavior": "New debits retain exact grant, including explicit fresh customer package purchase; existing purchased terms unchanged.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Authoritative legacy migration, server approval/activation and cross-device consistency pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -1966,7 +1966,7 @@
         {
           "batch": "batch-08.md",
           "behavior": "Future-day selector preserves original purchased lot validity and debit; atomic move/cancel-original/waitlist-offer with rollback and idempotent retry.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Ambiguous historical purchased terms fail closed; authenticated server atomicity/deadline and cross-device acceptance pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -2304,7 +2304,7 @@
         {
           "batch": "batch-07.md",
           "behavior": "Same-screen fictional PNG/JPG validation, preview/remove/cancel/retry; browser-local pending request without entitlement or capacity hold.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Private durable storage issue54/Anu; pending booking hold/timing remains unresolved. No real receipt persistence claim.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -2404,7 +2404,7 @@
         {
           "batch": "batch-07.md",
           "behavior": "Scoped demo review with image, manual bank-comparison acknowledgement, received amount/reason and atomic approve/reject/activation.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Real bank evidence, authenticated authorization, storage and settlement pending; mismatched approval remains blocked, no partial-payment policy invented.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -2464,7 +2464,7 @@
         {
           "batch": "batch-07.md",
           "behavior": "Receipt-bearing local pending transfer queue with customer/product/amount and review deep link; unresolved timing displayed explicitly.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Not yet all non-receipt manual requests; countdown/after-hours timing requires Jas; realtime private backend queue pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -3353,7 +3353,7 @@
         {
           "batch": "batch-06.md",
           "behavior": "Reception allocations retain exact grant after reconstructing old unlinked usage; future-date expiry and freeze enforced.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Server atomicity, authorization and authoritative migration pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -3420,7 +3420,7 @@
         {
           "batch": "batch-06.md",
           "behavior": "Walk-in uses exact remaining grant; frozen unrelated lots do not block available purchased classes.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Server atomicity, authorization and authoritative migration pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -3944,7 +3944,7 @@
         {
           "batch": "batch-06.md",
           "behavior": "Read-only historical lot reconstruction; expired spent packages do not reduce fresh grants. CRM and customer share remaining-lot balances.",
-          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
         }
@@ -5147,7 +5147,7 @@
       "priority": "Low",
       "relatedTests": "SAD-03",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/hub/HubPage.tsx",
         "src/components/organism/ProblemReport/ProblemReport.tsx",
@@ -5160,7 +5160,9 @@
         "scripts/test-problem-draft.mjs",
         "scripts/test-problem-report-ui.mjs"
       ],
-      "screenshots": [],
+      "screenshots": [
+        "docs/screenshots/HUB-01/report-results.json"
+      ],
       "blockers": [],
       "nextAction": "Connect authenticated issue intake/delivery only after authorized external destination contract; source sends acceptance remains unmet.",
       "candidateRoutes": [
@@ -5169,7 +5171,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Local form/validation/preview/save implemented with no dispatch; final production frontend verification pending."
+          "Local form/validation/preview/save passed production checks; no external dispatch. Original sends criterion remains unmet."
         ],
         "remainingBackend": [
           "Authorized issue intake and optional approved external destination, no messaging until authorized."
@@ -5180,7 +5182,7 @@
         {
           "batch": "batch-10.md",
           "behavior": "Validated local problem draft captures route, fictional demo actor and effective role; explicit preview/save/cancel/retry with no external dispatch.",
-          "verification": "Unit checks passed; rendered role sweep/final production QA in progress.",
+          "verification": "Focused production-bundle frontend checks passed; final correction-head CI and deployment receipt pending in README.",
           "limits": "Original sends criterion remains unmet; authenticated intake/delivery contract pending.",
           "acceptance": "Source criteria/phase/acceptance unchanged."
         }
@@ -5258,7 +5260,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches6–9 in integration: historical lot allocation, fictional transfer queue, atomic future-day reschedule and local catalog publication. Baseline b73c13a (PR59). Production QA/checks/deployment pending.",
+    "activeBatch": "Batches6–10 implemented and focused production QA passed at checkpoint e38ddd5/PR60. Cache/provenance/responsive-check correction pending exact-head CI/release. Independent IN-03/OT-02 follow next; no owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5303,6 +5305,13 @@
       "releaseEvidence": "Associated checked PR records final head/merge/deployment.",
       "verification": "Full build and production-bundle desk booking plus administrator sale metadata assertions passed; existing bilingual responsive and rollback cases remained green."
     },
-    "continuationBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e"
+    "continuationBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
+    "continuationCheckpoint": {
+      "pr": "https://github.com/imagine-os/hoy/pull/60",
+      "featureHead": "e38ddd5983cc538f2d49c5392c77f460cba780f9",
+      "initialChecks": "11 of12 passed; catalog responsive assertion corrected, strict settled-width check retained",
+      "releaseStatus": "correction-head CI/merge/deployment pending",
+      "rollback": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e"
+    }
   }
 }

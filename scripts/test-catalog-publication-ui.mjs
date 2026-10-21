@@ -5,6 +5,26 @@ import {chromium} from 'playwright-core';
 const base=process.env.QA_BASE??'http://127.0.0.1:5173',output='docs/screenshots/M-17';await mkdir(output,{recursive:true});await mkdir('docs/screenshots/P-01',{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});
 const errors=[],checks=[];
+async function fitViewport(page,width,ready,testCase) {
+ await page.setViewportSize({width,height:900});
+ await ready.waitFor({state:'visible'});
+ await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});
+ try {
+  await page.waitForFunction(({width})=>{
+   const docWidth=document.documentElement.scrollWidth,route=location.hash;
+   const key=`${width}:${innerWidth}:${docWidth}:${route}`;
+   const previous=window.__catalogFit;
+   if(!previous||previous.key!==key)window.__catalogFit={key,since:performance.now()};
+   return innerWidth===width&&docWidth<=innerWidth+1&&performance.now()-window.__catalogFit.since>=150;
+  },{width},{timeout:5000,polling:'raf'});
+ }catch(error){
+  const bounds=await page.evaluate(()=>({route:location.hash,viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,fonts:document.fonts.status,elements:[...document.querySelectorAll('body *')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,className:typeof el.className==='string'?el.className:'',left:r.left,right:r.right,width:r.width,height:r.height};}).filter(r=>r.width>0&&r.height>0&&(r.left< -1||r.right>innerWidth+1)).slice(0,30)}));
+  await writeFile(`${output}/overflow-${testCase}-${width}.json`,JSON.stringify(bounds,null,2));
+  await page.screenshot({path:`${output}/overflow-${testCase}-${width}.jpg`,quality:72,animations:'disabled',fullPage:true});
+  throw new Error(`Catalog viewport failed after fonts/layout settled (${testCase}, ${width}): ${JSON.stringify(bounds)}`,{cause:error});
+ }
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${testCase}: settled layout fits ${width}`);
+}
 try{
  const ctx=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/,r=>r.abort());
@@ -35,8 +55,8 @@ try{
   await page.getByRole('button',{name:lang==='en'?'Keep local quote':'Conservar cotización local',exact:true}).click();
   for(const theme of ['light','dark']){
    await page.evaluate(theme=>localStorage.setItem('hoyos.theme',JSON.stringify({theme,skin:'styled'})),theme);await page.reload();await page.getByRole('heading',{name:lang==='en'?'Local catalog preview':'Vista previa del catálogo local',exact:true}).waitFor();await page.getByTestId('published-price-qa_local_publication').waitFor();
-   for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({animations:'disabled',path:`${output}/${lang}-${width}-${theme}-catalog-preview.jpg`,quality:72,fullPage:true});if(theme==='light')await page.screenshot({animations:'disabled',path:`${output}/${lang}-${width}.jpg`,quality:72,fullPage:true});}
-   await page.goto(`${base}/#/site/plans`);await page.getByTestId('local-published-catalog').waitFor();assert(await page.locator('[data-testid="local-published-catalog"] .card-highlight h2').evaluate(h=>getComputedStyle(h).color===getComputedStyle(h.parentElement).color),'local publication heading uses readable highlight ink');for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({animations:'disabled',path:`docs/screenshots/P-01/${lang}-${width}-${theme}-local-catalog.jpg`,quality:72,fullPage:true});}await page.goto(`${base}/#/admin/products/preview`);
+   for(const width of [390,1280]){await fitViewport(page,width,page.getByTestId('published-price-qa_local_publication'),`preview-${lang}-${theme}`);await page.screenshot({animations:'disabled',path:`${output}/${lang}-${width}-${theme}-catalog-preview.jpg`,quality:72,fullPage:true});if(theme==='light')await page.screenshot({animations:'disabled',path:`${output}/${lang}-${width}.jpg`,quality:72,fullPage:true});}
+   await page.goto(`${base}/#/site/plans`);await page.getByTestId('local-published-catalog').waitFor();assert(await page.locator('[data-testid="local-published-catalog"] .card-highlight h2').evaluate(h=>getComputedStyle(h).color===getComputedStyle(h.parentElement).color),'local publication heading uses readable highlight ink');for(const width of [390,1280]){await fitViewport(page,width,page.getByTestId('local-published-catalog'),`website-${lang}-${theme}`);await page.screenshot({animations:'disabled',path:`docs/screenshots/P-01/${lang}-${width}-${theme}-local-catalog.jpg`,quality:72,fullPage:true});}await page.goto(`${base}/#/admin/products/preview`);
   }
  }
  console.log('publication: captures passed');await page.evaluate(()=>localStorage.setItem('hoyos.lang','en'));await page.reload();await page.goto(`${base}/#/admin/products`);

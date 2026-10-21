@@ -4,7 +4,7 @@
 
 - Integration baseline b73c13a / PR59; no previous task/environment files accessed.
 - Historical lot allocation retains purchased terms; fictional transfer upload/review queue; future-day atomic reschedule; explicit local catalog publication and quotes.
-- Production QA and checked release pending; source acceptance/phase labels unchanged. [Batches6–9](frontend-completion/README.md).
+- Focused production QA passed; final correction-head CI and checked release pending; source acceptance/phase labels unchanged. [Batches6–9](frontend-completion/README.md).
 - Anu server/storage/authorization contracts and Jas timing/cancellation questions remain separate. No external questions or real financial actions.
 
 ## Audit attribution · 0081 (2026-10-21)

@@ -4,10 +4,10 @@
     "PG-04",
     "PG-05"
   ],
-  "base": "http://127.0.0.1:5187",
+  "base": "http://127.0.0.1:5197",
   "checks": [
-    "en: invalid type/size/decode, preview/remove, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots",
-    "es: invalid type/size/decode, preview/remove, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots"
+    "en: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots",
+    "es: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots"
   ],
   "errors": [],
   "limits": [
