@@ -1,0 +1,10 @@
+{
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en 390: asserted dark theme, ready map and directions, no external requests or overflow",
+    "en 1280: asserted dark theme, ready map and directions, no external requests or overflow",
+    "es 390: asserted dark theme, ready map and directions, no external requests or overflow",
+    "es 1280: asserted dark theme, ready map and directions, no external requests or overflow"
+  ],
+  "scope": "Additional rendered dark-theme check; no external provider verification."
+}
