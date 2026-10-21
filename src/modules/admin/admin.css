@@ -152,3 +152,6 @@
   .adm-an-modality .barlist-track { grid-column: 1 / -1; grid-row: 2; }
 }
 .adm-an-who { display: inline-flex; align-items: center; gap: var(--sp-sm); flex-wrap: wrap; }
+
+/* AD-07: customer balance cards remain readable at phone widths. */
+.crm-person-link { color: inherit; text-decoration: none; }

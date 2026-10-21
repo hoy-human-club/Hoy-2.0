@@ -95,7 +95,7 @@ export function MemberPage() {
       <Card className="member-head">
         <Avatar name={person.name} initials={person.initials} size={64} />
         <div className="grow stack-sm">
-          <div className="row wrap"><h1 className="member-name">{person.name}</h1>{person.plan ? <Badge tone={toneForStatus(person.membership?.status ?? '')}>{bi({ es: person.plan.name_es, en: person.plan.name_en })}</Badge> : <Badge>{t('admin.crm.noPlan')}</Badge>}</div>
+          <div className="row wrap"><h1 className="member-name">{person.name}</h1>{stats?.pkg.purchase ? <Badge tone={stats.pkg.frozen ? 'warn' : 'success'}>{stats.packagePlan ? bi({ es: stats.packagePlan.name_es, en: stats.packagePlan.name_en }) : t('admin.crm.package')}{stats.pkg.frozen ? ` · ${t('admin.crm.frozen')}` : ''}</Badge> : person.plan ? <Badge tone={toneForStatus(person.membership?.status ?? '')}>{bi({ es: person.plan.name_es, en: person.plan.name_en })}</Badge> : <Badge>{t('admin.crm.noPlan')}</Badge>}</div>
           <div className="small muted">{t('admin.member.since', { date: formatDate(person.createdAt, lang, { month: 'long', year: 'numeric' }) })} · {maskPhone(person.phone)} · {person.email}</div>
           <div className="row wrap">
             <Badge tone={person.whatsappVerified ? 'success' : 'neutral'}>WhatsApp {person.whatsappVerified ? '✓' : '·'}</Badge>
@@ -105,6 +105,13 @@ export function MemberPage() {
           </div>
         </div>
         {can('members.write') && <Link to={`/staff/inbox/${person.id}`}><Button size="sm" variant="secondary" icon="inbox">{t('admin.member.conversation.openInbox')}</Button></Link>}
+      </Card>
+      <Card><div className="row wrap">
+        <span>{t('admin.crm.col.remaining')}: <strong>{stats?.pkg.left ?? 0}</strong></span>
+        <span>{t('admin.crm.col.expires')}: {stats?.pkg.expiresAt ? formatDate(stats.pkg.expiresAt, lang) : '—'}</span>
+        <span>{t('admin.crm.col.vouchers')}: {stats?.vouchers.length ?? 0}</span>
+      </div><p className="small muted">{t('admin.crm.demo')}</p>
+      {stats?.vouchers.map(v => <div key={v.id} className="row wrap small"><strong>{v.title}</strong><span>{v.balance} {v.benefitKind === 'classes' ? t('admin.crm.col.remaining') : 'COP'}</span><span>{v.expiresAt ? formatDate(v.expiresAt, lang) : '—'}</span><Badge>{t(`admin.crm.voucher.${v.status}`)}</Badge></div>)}
       </Card>
       <div className="grid grid-4">
         <StatTile label={t('admin.member.ltv')} value={canPayments ? formatCOP(ltv, lang) : '—'} />
