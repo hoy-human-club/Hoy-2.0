@@ -50,6 +50,16 @@ function upgradeTones(db: Db) {
 type Db = Record<string, BaseRow[]>;
 interface Stored { seededOn: string; version?: number; db: Db }
 
+/** Add empty mock-only tables without discarding same-day purchases, bookings or content.
+ * Existing malformed tables still fail validation; this is not a production data migration.
+ */
+function upgradeAdditiveMockTables(db: Db) {
+  if (!db || typeof db !== 'object') return;
+  for (const table of ['class_pay_rules', 'transfer_receipts']) {
+    if (!Object.prototype.hasOwnProperty.call(db, table)) db[table] = [];
+  }
+}
+
 const newId = (prefix = 'row'): string => `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
 
 /**
@@ -127,6 +137,7 @@ export class MockProvider implements DataProvider {
     if (e.key !== KEY || !e.newValue) return;
     try {
       const parsed = JSON.parse(e.newValue) as Stored;
+      upgradeAdditiveMockTables(parsed.db);
       ensureDemoPromotions(parsed.db, tenant.id);
       if (parsed.version !== SEED_VERSION || !tableNames.every((t) => Array.isArray(parsed.db[t]))) return;
       this.db = parsed.db;
@@ -139,7 +150,7 @@ export class MockProvider implements DataProvider {
       const raw = localStorage.getItem(KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Stored;
-        if (parsed.db && !parsed.db.class_pay_rules) parsed.db.class_pay_rules = [];
+        upgradeAdditiveMockTables(parsed.db);
         // Add only new promotion tables; preserve same-day vouchers, bookings and CMS edits.
         ensureDemoPromotions(parsed.db, tenant.id);
         if ((parsed.version === SEED_VERSION || parsed.version === 2 || parsed.version === 3) && parsed.seededOn === new Date().toDateString() && tableNames.every((t) => Array.isArray(parsed.db[t]))) {

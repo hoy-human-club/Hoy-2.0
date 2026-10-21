@@ -1,0 +1,4 @@
+import {createElement as h} from 'react';
+import {defineMeta} from '../../../design/meta';
+import {ReceiptUpload} from './ReceiptUpload';
+export default defineMeta({tier:'organism',name:'ReceiptUpload',description:{es:'Archivo ficticio local validado con vista previa y cancelación.',en:'Validated local fictional image with preview and cancellation.'},props:[{name:'value',type:'ReceiptImage | null',description:{es:'Imagen validada.',en:'Validated image.'}},{name:'onChange',type:'(image) => void',description:{es:'Selección o eliminación.',en:'Selection or removal.'}}],states:['empty','validating','invalid format/size/decode','preview','cancelled','retry'],usages:[{title:{es:'Selector local',en:'Local picker'},render:()=>h(ReceiptUpload,{value:null,onChange:()=>{}})}],usedBy:['C-04'],a11y:[{es:'Etiqueta visible, estado de validación y error anunciado.',en:'Visible label, announced validation and error.'}]});

@@ -3,12 +3,12 @@ import { useSession } from '../../auth/SessionProvider';
 import type { DataProvider } from '../../data/types';
 import { useData, useTable } from '../../data/DataContext';
 import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedgerRow, EventRow, EventRsvpRow, FaqEntryRow, InviteRow, MembershipRow, ModalityRow, NotificationPrefRow, NotificationRow, PaymentMethodRow, PaymentRow, PlanRow, ProfileRow, ReviewRow, RoomRow, TeacherRow, UserRow } from '../../data/schema';
-import { isSameDay, MS } from '../../i18n/format';
+import { dateKey, isSameDay, MS } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem, type PriceItem } from '../../tenant/pricing';
 import { insideCancelWindow, policy } from './policy';
-import { assertRescheduleAllowed } from './reschedule';
-import { approvedPackageRows, freezePatch, packageState, resumePatch } from '../../data/packages';
+import { rescheduleBooking } from './rescheduleCommand';
+import { approvedPackageRows, freezePatch, packageState, resumePatch, selectPackagePurchase } from '../../data/packages';
 
 export interface WaitlistRow extends BaseRow { user_id: string; session_id: string; position: number; status: 'waiting' | 'offered' | 'claimed' | 'expired' | 'left'; offered_at: string | null; claim_until: string | null }
 export interface EmergencyContact { name: string; phone: string }
@@ -118,22 +118,27 @@ export function useBookingActions() {
     return hit?.session_id ?? null;
   }, []);
 
-  const book = useCallback(async (session: ClassSessionRow, paidWith: EntitlementKind, opts?: { packagePlanId?: string | null; matNumber?: number | null; data?: DataProvider }) => {
+  const book = useCallback(async (session: ClassSessionRow, paidWith: EntitlementKind, opts?: { packagePlanId?: string | null; paymentId?: string; matNumber?: number | null; data?: DataProvider }) => {
     const transaction = opts?.data ?? data;
     // Race guard: re-read the session so a spot that filled during checkout is caught (C-04 "Race" state).
     const fresh = await transaction.get<ClassSessionRow>('class_sessions', session.id);
-    if (!fresh || fresh.status !== 'scheduled') throw new Error('session_unavailable');
+    if (!fresh || fresh.status !== 'scheduled' || !Number.isFinite(Date.parse(fresh.starts_at)) || Date.parse(fresh.starts_at) <= Date.now()) throw new Error('session_unavailable');
     if (fresh.booked_count >= fresh.capacity) throw new Error('session_full');
     const existing = await transaction.list<BookingRow>('bookings', { where: { user_id: user.id, session_id: fresh.id } });
     if (existing.some(b => b.status === 'booked' || b.status === 'checked_in')) throw new Error('booking_exists');
+    let purchase: ClassLedgerRow | undefined;
     if (paidWith === 'package') {
       const ledger = await transaction.list<ClassLedgerRow>('class_ledger', { where: { user_id: user.id } });
       const payments = await transaction.list<PaymentRow>('payments', { where: { user_id: user.id } });
-      if (packageState(approvedPackageRows(ledger, payments)).balance < 1) throw new Error('package_balance');
+      const confirmed = approvedPackageRows(ledger, payments);
+      const eligible = opts?.paymentId ? confirmed.filter(row => row.payment_id === opts.paymentId) : confirmed;
+      purchase = selectPackagePurchase(eligible, dateKey(), dateKey(new Date(fresh.starts_at)));
+      if (opts?.paymentId && purchase?.reason !== 'purchase') throw new Error('package_balance');
+      if (!purchase) throw new Error('package_balance');
     }
     const booking = await transaction.insert<BookingRow>('bookings', { user_id: user.id, session_id: fresh.id, status: 'booked', paid_with: paidWith, ledger_id: null, checked_in_at: null, cancelled_at: null, rated: false, mat_number: opts?.matNumber ?? null });
     if (paidWith === 'package') {
-      const c = await transaction.insert<ClassLedgerRow>('class_ledger', { user_id: user.id, plan_id: opts?.packagePlanId ?? null, payment_id: null, delta: -1, reason: 'booking', expires_at: null } as Partial<ClassLedgerRow>);
+      const c = await transaction.insert<ClassLedgerRow>('class_ledger', { purchase_ledger_id: purchase?.id ?? null, user_id: user.id, plan_id: purchase?.plan_id ?? null, payment_id: purchase?.payment_id ?? null, delta: -1, reason: 'booking', expires_at: null } as Partial<ClassLedgerRow>);
       await transaction.update('bookings', booking.id, { ledger_id: c.id });
       booking.ledger_id = c.id;
     }
@@ -165,21 +170,9 @@ export function useBookingActions() {
 
   /** Reschedule keeps the same entitlement; RS-09 permits it only through the 12-hour deadline. */
   const reschedule = useCallback(async (booking: BookingRow, from: ClassSessionRow, to: ClassSessionRow) => {
-    // Re-read the original session: an open drawer or stale caller cannot bypass the deadline.
-    const original = await data.get<ClassSessionRow>('class_sessions', from.id);
-    const currentBooking = await data.get<BookingRow>('bookings', booking.id);
-    if (!original || original.status !== 'scheduled' || !currentBooking || currentBooking.status !== 'booked' || currentBooking.session_id !== original.id || currentBooking.user_id !== user.id) throw new Error('booking_unavailable');
-    assertRescheduleAllowed(original.starts_at);
-    const fresh = await data.get<ClassSessionRow>('class_sessions', to.id);
-    if (!fresh || fresh.booked_count >= fresh.capacity || fresh.status !== 'scheduled') throw new Error('session_full');
-    assertRescheduleAllowed(original.starts_at);
-    const next = await data.insert<BookingRow>('bookings', { user_id: booking.user_id, session_id: fresh.id, status: 'booked', paid_with: booking.paid_with, ledger_id: booking.ledger_id, checked_in_at: null, cancelled_at: null, rated: false });
-    await data.update('bookings', booking.id, { status: 'cancelled', cancelled_at: new Date().toISOString() });
-    await data.update('class_sessions', from.id, { booked_count: Math.max(0, from.booked_count - 1) });
-    await data.update('class_sessions', fresh.id, { booked_count: fresh.booked_count + 1 });
-    await promoteWaitlist(from.id);
-    return next;
-  }, [data, promoteWaitlist, user.id]);
+    if (!data.atomic) throw new Error('atomic_adapter_required');
+    return data.atomic(tx => rescheduleBooking(tx, { userId: user.id, bookingId: booking.id, fromSessionId: from.id, toSessionId: to.id }), { idempotencyKey: `reschedule:${user.id}:${booking.id}:${from.id}:${to.id}` });
+  }, [data, user.id]);
 
   const joinWaitlist = useCallback(async (session: ClassSessionRow) => {
     const existing = await data.list<WaitlistRow>('waitlist', { where: { session_id: session.id } });

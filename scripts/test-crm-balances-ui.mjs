@@ -25,6 +25,7 @@ try {
    db.profiles.find(p => p.user_id === user).full_name = 'QA Package Holder';
    db.memberships = db.memberships.filter(m => m.user_id !== user);
    db.class_ledger = db.class_ledger.filter(r => r.user_id !== user);
+   db.class_ledger.push({...row('qa_expired',{user_id:user,delta:12,reason:'purchase',expires_at:'2026-04-01'}),created_at:'2026-01-01T12:00:00Z'}, {...row('qa_expired_use',{user_id:user,delta:-12,reason:'booking',expires_at:null}),created_at:'2026-02-01T12:00:00Z'});
    db.class_ledger.push(row('qa_purchase',{user_id:user,plan_id:'plan_pack12',delta:12,reason:'purchase',expires_at:day(30)}),row('qa_debit',{user_id:user,delta:-3,reason:'booking',expires_at:null}));
    // Use the catalog's actual 12-class package identifier.
    db.class_ledger.find(r=>r.id==='qa_purchase').plan_id=db.plans.find(p=>p.classes===12)?.id;

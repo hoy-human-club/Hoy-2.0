@@ -1088,6 +1088,8 @@ create table if not exists public.class_ledger (
   user_id uuid not null references public.users(id) on delete set null,
   plan_id uuid references public.plans(id) on delete set null,
   payment_id uuid,
+  -- original grant for new debits/restorations; legacy rows remain untouched
+  purchase_ledger_id uuid references public.class_ledger(id) on delete set null,
   -- + purchase, − use
   delta integer not null,
   reason text not null check (reason in ('purchase', 'booking', 'refund', 'expiry', 'gift', 'comp', 'cancel_return', 'reschedule')),
@@ -1101,6 +1103,7 @@ create index if not exists class_ledger_tenant_idx on public.class_ledger(tenant
 create index if not exists class_ledger_user_id_idx on public.class_ledger(user_id);
 create index if not exists class_ledger_plan_id_idx on public.class_ledger(plan_id);
 create index if not exists class_ledger_payment_id_idx on public.class_ledger(payment_id);
+create index if not exists class_ledger_purchase_ledger_id_idx on public.class_ledger(purchase_ledger_id);
 create trigger class_ledger_touch before update on public.class_ledger for each row execute function public.touch_updated_at();
 alter table public.class_ledger enable row level security;
 create policy "class_ledger: tenant read" on public.class_ledger for select using (tenant_id = public.current_tenant_id());
@@ -1142,6 +1145,46 @@ create trigger payments_touch before update on public.payments for each row exec
 alter table public.payments enable row level security;
 create policy "payments: tenant read" on public.payments for select using (tenant_id = public.current_tenant_id());
 create policy "payments: staff write" on public.payments for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
+
+-- commerce · Browser demo only. Not secure storage or cross-device synchronization.
+-- access:
+--   · Draft contract only; no deployed policy. Production requires authenticated owner upload and authorized front_desk/admin review with private storage.
+create table if not exists public.transfer_receipts (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null references public.tenants(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  user_id uuid not null references public.users(id) on delete set null,
+  payment_id uuid not null references public.payments(id) on delete set null,
+  session_id uuid references public.class_sessions(id) on delete set null,
+  mat_number integer,
+  product_id text not null,
+  product_name jsonb not null,
+  classes integer not null,
+  expires_at date not null,
+  -- Fictional browser fixture only; replace with private object reference after approved storage integration.
+  image_data_url text not null,
+  file_name text not null,
+  mime_type text not null,
+  byte_size integer not null,
+  status text not null check (status in ('pending', 'approved', 'rejected')),
+  amount_received integer,
+  review_reason text,
+  reviewed_by uuid references public.users(id) on delete set null,
+  reviewed_at timestamptz,
+  booking_id uuid references public.bookings(id) on delete set null
+);
+create index if not exists transfer_receipts_tenant_idx on public.transfer_receipts(tenant_id);
+create index if not exists transfer_receipts_user_id_idx on public.transfer_receipts(user_id);
+create index if not exists transfer_receipts_payment_id_idx on public.transfer_receipts(payment_id);
+create index if not exists transfer_receipts_session_id_idx on public.transfer_receipts(session_id);
+create index if not exists transfer_receipts_reviewed_by_idx on public.transfer_receipts(reviewed_by);
+create index if not exists transfer_receipts_booking_id_idx on public.transfer_receipts(booking_id);
+create trigger transfer_receipts_touch before update on public.transfer_receipts for each row execute function public.touch_updated_at();
+alter table public.transfer_receipts enable row level security;
+-- DEFAULT DENY: fictional browser contract only; no receipt read/write policies or storage access are approved.
 
 -- commerce · Fiscal document per payment (DIAN later).
 create table if not exists public.invoices (

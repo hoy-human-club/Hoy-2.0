@@ -1,8 +1,8 @@
 {
   "schema": "hoy.frontend-routes/1",
-  "baseline": "2d402751c5bee899d5adab62837d2b0e7e313025",
+  "baseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
   "capturedAt": "2026-10-21",
-  "source": "runtime window.__hoyos.routes, local Vite startup at baseline before edits",
+  "source": "Rendered runtime registry after continuation edits; route presence/built badge is not acceptance. Current release commit is recorded in completion README.",
   "routes": [
     {
       "path": "/admin/finance/subscriptions",
@@ -243,7 +243,7 @@
       "verification": "unverified",
       "declaredStates": [
         "No table picked (overview of every group)",
-        "Grid \u00b7 List \u00b7 Gallery \u00b7 Board \u00b7 Graph (table level) \u00b7 Graph (row level)",
+        "Grid · List · Gallery · Board · Graph (table level) · Graph (row level)",
         "Filtered to no rows",
         "Sidebar expanded / rail / phone sheet",
         "Search with no matching table",
@@ -251,9 +251,9 @@
         "Delete confirm (in-product)",
         "Reset demo data confirm",
         "Board without an option column",
-        "Calendar month \u00b7 week \u00b7 agenda",
+        "Calendar month · week · agenda",
         "Calendar empty period (jump to the previous / next row)",
-        "Timeline day \u00b7 week \u00b7 month \u00b7 quarter, with lanes",
+        "Timeline day · week · month · quarter, with lanes",
         "Timeline, phone (one lane, group chips)",
         "Calendar / timeline disabled (no date column)",
         "Saved view rename / delete confirm",
@@ -279,7 +279,7 @@
       "verification": "unverified",
       "declaredStates": [
         "No table picked (overview of every group)",
-        "Grid \u00b7 List \u00b7 Gallery \u00b7 Board \u00b7 Graph (table level) \u00b7 Graph (row level)",
+        "Grid · List · Gallery · Board · Graph (table level) · Graph (row level)",
         "Filtered to no rows",
         "Sidebar expanded / rail / phone sheet",
         "Search with no matching table",
@@ -287,9 +287,9 @@
         "Delete confirm (in-product)",
         "Reset demo data confirm",
         "Board without an option column",
-        "Calendar month \u00b7 week \u00b7 agenda",
+        "Calendar month · week · agenda",
         "Calendar empty period (jump to the previous / next row)",
-        "Timeline day \u00b7 week \u00b7 month \u00b7 quarter, with lanes",
+        "Timeline day · week · month · quarter, with lanes",
         "Timeline, phone (one lane, group chips)",
         "Calendar / timeline disabled (no date column)",
         "Saved view rename / delete confirm",
@@ -374,7 +374,7 @@
         "Empty segment: 'nobody matches yet'",
         "No consent: channels shown as unavailable",
         "Merged duplicate: banner with the merge history",
-        "Conversaci\u00f3n: unread inbound (blue ring) \u2192 read on open",
+        "Conversación: unread inbound (blue ring) → read on open",
         "Composer read-only (no members.write)",
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
@@ -444,7 +444,7 @@
         "Empty segment: 'nobody matches yet'",
         "No consent: channels shown as unavailable",
         "Merged duplicate: banner with the merge history",
-        "Conversaci\u00f3n: unread inbound (blue ring) \u2192 read on open",
+        "Conversación: unread inbound (blue ring) → read on open",
         "Composer read-only (no members.write)",
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
@@ -670,7 +670,7 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Respiraci\u00f3n hidden (default) / shown",
+        "Respiración hidden (default) / shown",
         "Map none / osm / google",
         "Legal: n of 7 published",
         "Read-only"
@@ -992,7 +992,7 @@
       "verification": "unverified",
       "declaredStates": [
         "Loading: skeleton cards, no layout shift",
-        "Empty: no bookings \u2192 'Reserve your first class'",
+        "Empty: no bookings → 'Reserve your first class'",
         "Error: cached feed + retry chip",
         "Offline: last fetch with stale badge"
       ],
@@ -1105,7 +1105,7 @@
       "declaredStates": [
         "Loading: CTA spinner, form locked",
         "Declined: inline reason + alternate method",
-        "Race: class filled during checkout \u2192 waitlist offer",
+        "Race: class filled during checkout → waitlist offer",
         "Success: confirmation sheet"
       ],
       "tables": [
@@ -1135,7 +1135,7 @@
         "Gateway down: cash at the desk only + banner",
         "Expired card: inline warning",
         "Saving: tokenising a new method",
-        "One default: every other row offers \u201cmake default\u201d"
+        "One default: every other row offers “make default”"
       ],
       "tables": [
         "payment_methods",
@@ -1630,7 +1630,7 @@
       "verification": "unverified",
       "declaredStates": [
         "No request: delete row available",
-        "Step 1: explanation, switch off \u2192 next disabled",
+        "Step 1: explanation, switch off → next disabled",
         "Step 2: destructive confirm",
         "Request pending (requested) with cancel",
         "Request processing (no cancel)",
@@ -1830,7 +1830,7 @@
       "declaredStates": [
         "default",
         "wrong credentials: attempts left",
-        "locked \u2192 E-04"
+        "locked → E-04"
       ],
       "tables": [
         "users",
@@ -1861,7 +1861,7 @@
       "declaredStates": [
         "default",
         "validation errors",
-        "duplicate email \u2192 sign-in offer",
+        "duplicate email → sign-in offer",
         "created"
       ],
       "tables": [
@@ -1964,10 +1964,10 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Styled \u00d7 light",
-        "Styled \u00d7 dark",
-        "Wireframe \u00d7 light",
-        "Wireframe \u00d7 dark"
+        "Styled × light",
+        "Styled × dark",
+        "Wireframe × light",
+        "Wireframe × dark"
       ],
       "tables": [
         "design_tokens",
@@ -2100,7 +2100,7 @@
       "declaredStates": [
         "default (M)",
         "zoom S / L / XL",
-        "sin capturas todav\u00eda (mosaicos inactivos)",
+        "sin capturas todavía (mosaicos inactivos)",
         "modo dev (badges de esbozo)"
       ],
       "tables": [
@@ -2147,7 +2147,7 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "tel\u00e9fono",
+        "teléfono",
         "tableta",
         "escritorio",
         "TV 4K",
@@ -2437,6 +2437,52 @@
       ]
     },
     {
+      "path": "/admin/products/preview",
+      "code": "M-17",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "empty",
+        "published",
+        "unpriced date",
+        "saved quote",
+        "withdrawn"
+      ],
+      "source": "src/modules/products/index.ts"
+    },
+    {
+      "path": "/admin/products",
+      "code": "M-16",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "empty",
+        "read failure with retry",
+        "editing",
+        "validation error",
+        "saving",
+        "save failure",
+        "quote unavailable",
+        "saved draft",
+        "publication review",
+        "publication failure with retry",
+        "local published snapshot",
+        "withdrawn"
+      ]
+    },
+    {
       "path": "/teach/promote",
       "code": "S-07",
       "surface": "teacher",
@@ -2660,7 +2706,7 @@
       "declaredStates": [
         "Loading",
         "No conversations",
-        "None selected (\u201cElige una conversaci\u00f3n\u201d)",
+        "None selected (“Elige una conversación”)",
         "All read",
         "Thread with unread inbound (blue ring)",
         "Filtered / searched list, no match",
@@ -2668,7 +2714,7 @@
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
         "Thread not found (old link)",
-        "Narrow: list, then thread (\u2264 900 px)"
+        "Narrow: list, then thread (≤ 900 px)"
       ],
       "tables": [
         "message_log",
@@ -2696,7 +2742,7 @@
       "declaredStates": [
         "Loading",
         "No conversations",
-        "None selected (\u201cElige una conversaci\u00f3n\u201d)",
+        "None selected (“Elige una conversación”)",
         "All read",
         "Thread with unread inbound (blue ring)",
         "Filtered / searched list, no match",
@@ -2704,7 +2750,7 @@
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
         "Thread not found (old link)",
-        "Narrow: list, then thread (\u2264 900 px)"
+        "Narrow: list, then thread (≤ 900 px)"
       ],
       "tables": [
         "message_log",
@@ -2733,7 +2779,10 @@
         "Offline: queue check-ins locally and sync",
         "No classes today: empty strip",
         "Loading roster",
-        "No permission: roster read-only"
+        "No permission: roster read-only",
+        "Future-session booking on behalf of a customer",
+        "Confirmed balance and expiry preview",
+        "Pending-only / frozen / expired / insufficient balance blocks booking"
       ],
       "tables": [
         "class_sessions",
@@ -2768,7 +2817,9 @@
         "Payment declined: inline reason, order stays pending",
         "Offline: queue and warn",
         "No permission: form read-only",
-        "Sale complete: receipt view"
+        "Sale complete: receipt view",
+        "Capacity / duplicate / pending check-in rejected with entire sale rolled back",
+        "Storage or injected write failure: no partial user, consent, payment, invoice, ledger or booking"
       ],
       "tables": [
         "users",
@@ -2808,8 +2859,8 @@
         "Cancelled hidden by default (toggle)",
         "Conflict: CTA disabled with the list of what overlaps",
         "Read-only (no bookings.write_any)",
-        "Selected class \u2192 open check-in",
-        "Selected booking \u2192 confirm / done / cancel / charge"
+        "Selected class → open check-in",
+        "Selected booking → confirm / done / cancel / charge"
       ],
       "tables": [
         "rooms",
@@ -2943,6 +2994,31 @@
         "modalities",
         "audit_log"
       ]
+    },
+    {
+      "path": "/staff/transfers",
+      "code": "S-09",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "front_desk"
+      ],
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "read error / retry",
+        "empty",
+        "pending",
+        "receipt preview",
+        "cancelled review",
+        "invalid amount / missing reason",
+        "atomic failure / retry",
+        "approved",
+        "rejected"
+      ],
+      "source": "src/modules/transfers/index.ts"
     },
     {
       "path": "/staff/vouchers",
@@ -3390,7 +3466,7 @@
         "default",
         "validation: no contact",
         "validation: bad email / phone",
-        "switch off \u2192 button disabled",
+        "switch off → button disabled",
         "sent (reference shown)"
       ],
       "tables": [
@@ -3483,5 +3559,7 @@
         "docs_entries"
       ]
     }
-  ]
+  ],
+  "previousBaseline": "2d402751c5bee899d5adab62837d2b0e7e313025",
+  "routeCount": 123
 }

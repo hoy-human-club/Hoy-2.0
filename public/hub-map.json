@@ -583,6 +583,7 @@
       "pageCodes": [
         "S-01",
         "S-02",
+        "S-09",
         "S-05",
         "S-08"
       ],
@@ -726,7 +727,8 @@
         "M-08d",
         "M-08e",
         "M-08f",
-        "M-10a"
+        "M-10a",
+        "M-17"
       ],
       "shots": {
         "thumbs": {
@@ -4896,6 +4898,44 @@
       }
     },
     {
+      "code": "M-17",
+      "route": "/admin/products/preview",
+      "name": {
+        "es": "Vista previa del catálogo local",
+        "en": "Local catalog preview"
+      },
+      "purpose": {
+        "es": "Revisar precios de revisiones publicadas en este navegador, sin venta ni enlace compartido.",
+        "en": "Review prices from revisions published in this browser, without sales or shared links."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-17/es-390.jpg",
+          "en-390": "hub-map/shots/M-17/en-390.jpg",
+          "es-1280": "hub-map/shots/M-17/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-17/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
+        },
+        "order": 10
+      }
+    },
+    {
       "code": "M-16",
       "route": "/admin/products",
       "name": {
@@ -5386,6 +5426,45 @@
         "label": {
           "es": "Enseñar",
           "en": "Teach"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "S-09",
+      "route": "/staff/transfers",
+      "name": {
+        "es": "Cola de transferencias demo",
+        "en": "Demo transfer queue"
+      },
+      "purpose": {
+        "es": "Revisar comprobantes ficticios locales sin procesar dinero real.",
+        "en": "Review local fictional receipts without processing real money."
+      },
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "front_desk"
+      ],
+      "experienceId": "desk",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/S-09/es-390.jpg",
+          "en-390": "hub-map/shots/S-09/en-390.jpg",
+          "es-1280": "hub-map/shots/S-09/es-1280.jpg",
+          "en-1280": "hub-map/shots/S-09/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "desk",
+        "label": {
+          "es": "Recepción",
+          "en": "Front desk"
         },
         "order": 10
       }

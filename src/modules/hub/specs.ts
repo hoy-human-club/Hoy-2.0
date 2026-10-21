@@ -42,7 +42,7 @@ export const hubSpec = defineSpec({
   layout: [
     'BrandBand (Wordmark, version Badge, LangToggle, theme, wireframe + dev toggles for super_admin)',
     'Hero (eyebrow tenant · city, h1, lead, tagline, BreathingRings art ≥ 900 px)',
-    'SessionBar (RoleSwitcher, Ctrl + . hint in dev mode)',
+    'SessionBar (RoleSwitcher, ProblemReport local draft, Ctrl + . hint in dev mode)',
     'FeaturedTraining · Promociones y bonos (P-02, same-session learning and isolated practice for every Hub role)',
     'BandA · Fuera del estudio (Customer app featured with a phone preview, Website, Coming soon page, Teacher app)',
     'BandB · El equipo (Front desk, Inbox, Caja, Admin, CRM, Mensajes transaccionales → M-04 + M-05 link, Finanzas, Kit de marketing — próximamente)',
@@ -54,6 +54,7 @@ export const hubSpec = defineSpec({
   data: ['users', 'user_roles', 'feature_flags', 'page_layouts'],
   roles: EVERYONE,
   logic: [
+    'OT-03 opens a validated, scoped browser-only draft with current pathname, demo actor and effective role. Preview/save/cancel/storage failure/retry exist; no report is sent and the source sends criterion remains unmet.',
     'Cards with switchUser enter as their role’s demo user. Promotions training and other same-session cards navigate without changing identity or permissions.',
     'The built / stub badge is read from the route manifest (src/app/manifest.ts routeManifest), not typed into the card.',
     '“Estás aquí / You are here” shows on the card whose route is ROLE_HOME for the current effective role.',
@@ -71,7 +72,7 @@ export const hubSpec = defineSpec({
   states: [
     'default (visitor)', 'signed in as a member', 'super admin', 'dev mode', 'wireframe skin',
     'dark theme', 'live previews on', 'live previews off (live=0)', 'automation: live previews off (navigator.webdriver)', 'framed (inside a preview or the simulator)',
-    'no captures yet (idle tiles)', 'English',
+    'no captures yet (idle tiles)', 'English', 'local report draft: edit / invalid / preview / storage failure / retry / saved without dispatch',
   ],
   actions: hubActions,
   checkedAt: [360, 390, 768, 1280, 1920, 2560, 3840],

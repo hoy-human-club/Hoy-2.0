@@ -22,6 +22,8 @@ try {
    db.profiles.push({...db.profiles.find(p=>p.user_id==='usr_cust'),id:`qa_profile_${i}`,user_id:id,full_name:`QA ${name}`,initials:'QA'});
    db.user_roles.push(row(`qa_role_${i}`,{user_id:id,role:'customer'}));
    db.payments.push(row(`qa_pay_${i}`,{user_id:id,plan_id:'plan_pack12',amount:10000,currency:'COP',status:i?'pending':'approved',provider:'manual',method:'cash'}));
+   // Legacy expired purchase and unlinked usage must not consume today's new purchase.
+   db.class_ledger.push({...row(`qa_old_${i}`,{user_id:id,plan_id:'plan_pack12',payment_id:null,delta:12,reason:'purchase',expires_at:'2026-04-01'}),created_at:'2026-01-01T12:00:00Z'}, {...row(`qa_old_use_${i}`,{user_id:id,plan_id:'plan_pack12',payment_id:null,delta:-12,reason:'booking',expires_at:null}),created_at:'2026-02-01T12:00:00Z'});
    db.class_ledger.push(row(`qa_purchase_${i}`,{user_id:id,plan_id:'plan_pack12',payment_id:`qa_pay_${i}`,delta:3,reason:'purchase',expires_at:'2026-12-01',frozen_from:null,frozen_until:null}));
   }
   db.class_sessions.push({...template,...row('qa_desk_class',{title:'QA Future Session',starts_at:'2026-10-22T18:00:00Z',ends_at:'2026-10-22T18:50:00Z',capacity:2,booked_count:0,status:'scheduled',template_id:null})});
@@ -53,6 +55,8 @@ try {
  let state=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db);
  assert.equal(state.bookings.filter(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').length,1);
  assert.equal(state.class_ledger.filter(r=>r.user_id==='qa_desk_0'&&r.delta===-1).length,1);
+ assert.equal(state.class_ledger.find(r=>r.id===state.bookings.find(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').ledger_id).purchase_ledger_id,'qa_purchase_0','new debit keeps exact grant identity');
+ assert.equal(state.class_ledger.find(r=>r.id==='qa_old_0').delta,12,'historical purchase unchanged');
  assert.equal(state.class_sessions.find(s=>s.id==='qa_desk_class').booked_count,1);
  const audit=state.audit_log.find(a=>a.entity_id===state.bookings.find(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').id);assert.equal(audit.diff.role,'front_desk');assert.equal(audit.diff.source,'front_desk');
  await search.fill('QA Pending'); await page.getByText('No confirmed classes available · take payment first',{exact:false}).waitFor(); assert(await page.getByRole('button',{name:'Book · 1 class',exact:true}).isDisabled());
@@ -65,7 +69,7 @@ try {
  assert.equal(state.bookings.find(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_walkin_class').status,'checked_in');
  await search.fill('QA Balance'); await page.getByRole('button',{name:'Undo',exact:true}).click(); await page.getByRole('button',{name:'Check in',exact:true}).click();
  state=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db); assert.equal(state.class_ledger.filter(r=>r.user_id==='qa_desk_0'&&r.delta===-1).length,2,'undo/check-in does not debit again');
- checks.push('future booking and walk-in debit exactly once; booked attendance undo/recheck does not debit again; pending classes unavailable; EN/ES 390/1280 screenshots and overflow check');
+ checks.push('legacy expired package/unlinked usage does not reduce the new lot; new debit retains source grant; historical terms unchanged; future booking and walk-in debit exactly once; booked attendance undo/recheck does not debit again; pending classes unavailable; EN/ES 390/1280 screenshots and overflow check');
  assert.deepEqual(errors,[]); await writeFile(`${output}/package-booking-results.json`,JSON.stringify({features:['RC-04','RC-05'],base,checks,errors,limits:['Fictional browser adapter only; real backend transaction/authorization remains pending.']},null,2));
  console.log(checks.join('\n')); await ctx.close();
 } finally { await browser.close(); }

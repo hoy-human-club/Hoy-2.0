@@ -1,0 +1,17 @@
+{
+  "requirements": [
+    "PG-02",
+    "PG-04",
+    "PG-05"
+  ],
+  "base": "http://127.0.0.1:5197",
+  "checks": [
+    "en: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots",
+    "es: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-local mock only. No bank/storage connection, durable sharing, authenticated server permissions or owner acceptance.",
+    "Deadline and partial-payment settlement policy unresolved."
+  ]
+}

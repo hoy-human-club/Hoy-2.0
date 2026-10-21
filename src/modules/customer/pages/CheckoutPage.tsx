@@ -30,6 +30,9 @@ import { useActions } from '../../../actions';
 import { need, useAppNavHandlers } from '../actions';
 import { Icon } from '../../../components/atom/Icon/Icon';
 
+import { ReceiptUpload } from '../../../components/organism/ReceiptUpload/ReceiptUpload';
+import { submitTransfer, type ReceiptImage } from '../../transfers/receipts';
+
 const spec = canvasSpecs['C-04'];
 /** 0051: a class of the person's package, or something bought now — a trial or individual class, or a 12-class package. */
 type Choice = 'package' | 'membership' | 'trial' | 'single' | 'pack12' | 'pack12_smtc';
@@ -66,6 +69,9 @@ export function CheckoutPage() {
   });
   const kind: Choice = choice ?? (ent.defaultKind as Choice);
   const [method, setMethod] = useState<PayMethod>('card');
+  const [receiptImage,setReceiptImage]=useState<ReceiptImage|null>(null);
+  const transferKey=useRef(`transfer_${crypto.randomUUID()}`);
+  const [transferError,setTransferError]=useState(false);
   const [simulateDecline, setSimulateDecline] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<'full' | 'unavailable' | 'conflict' | 'mat' | null>(null);
@@ -74,7 +80,9 @@ export function CheckoutPage() {
 
   const conflict = useMemo(() => joined ? sameDayConflict(myBookings, sessions, joined.session) : null, [joined, myBookings, sessions, sameDayConflict]);
   const amount = isPass(kind) ? priceOf(kind).price ?? 0 : 0;
-  const methodOpt = PAYMENT_METHODS.find((m) => m.id === method)!;
+  const transferMethod = {id:'transfer' as const,provider:'manual' as const,label:{es:t('transfers.method'),en:t('transfers.method')},hint:{es:t('transfers.methodHint'),en:t('transfers.methodHint')},glyph:'bank' as const};
+  const methods=[transferMethod,...PAYMENT_METHODS];
+  const methodOpt = methods.find((m) => m.id === method)!;
 
   const choices: { id: Choice; title: string; sub: string; price: string; available: boolean }[] = [
     { id: 'package', title: t('customer.checkout.package'), sub: ent.pkg.frozen ? t('customer.classes.frozen.title') : t('customer.checkout.package.sub', { n: ent.classBalance }), price: t('core.common.included'), available: ent.classBalance > 0 },
@@ -84,7 +92,7 @@ export function CheckoutPage() {
   /** Books (and pays, when a pass is chosen). Resolves the outcome so the WebMCP action can report it. */
   const confirm = async (): Promise<string> => {
     if (!joined) return 'unavailable';
-    setBusy(true); setError(null);
+    setBusy(true); setError(null); setTransferError(false);
     try {
       if (yoga) {
         if (!matValid) { setError('mat'); return 'mat'; }
@@ -94,9 +102,18 @@ export function CheckoutPage() {
       if (joined.session.status !== 'scheduled' || new Date(joined.session.starts_at).getTime() <= Date.now()) throw new Error('session_unavailable');
       if (conflict) { setError('conflict'); return 'conflict'; }
       if (!data.atomic) throw new Error('atomic_unavailable');
+      if(method==='transfer' && amount>0 && isPass(kind)) {
+        if(!receiptImage){setTransferError(true);return 'receipt_required';}
+        const item=priceOf(kind);
+        try {
+          await submitTransfer(data,{key:transferKey.current,userId:user.id,sessionId:joined.session.id,matNumber:yoga?mat:null,productId:`plan_${item.id}`,productName:item.name,amount,classes:item.classes??1,expiresAt:dateKey(addDays(new Date(),item.validityDays??90)),image:receiptImage});
+          setDone({booking:null,pending:true});return 'fictional transfer pending; no active booking or hold';
+        }catch{setTransferError(true);return 'transfer_save_failed';}
+      }
       const outcome = await data.atomic(async transaction => {
         let paidWith: EntitlementKind = kind === 'package' ? 'package' : kind === 'membership' ? 'membership' : kind === 'trial' ? 'trial' : kind === 'single' ? 'single' : 'package';
         let packagePlanId: string | null = null;
+        let packagePaymentId: string | undefined;
         let pending = false;
         if (amount > 0 && isPass(kind)) {
           const item = priceOf(kind);
@@ -114,10 +131,10 @@ export function CheckoutPage() {
           if (item.classes && item.classes > 1) {
             // A package bought with this booking: its classes open in the ledger and this class is the first one used.
             await activatePaidPackage(transaction, { paymentId: payment.id, userId: user.id, planId: `plan_${item.id}`, classes: item.classes, expiresAt: dateKey(addDays(new Date(), item.validityDays ?? 90)) });
-            paidWith = 'package'; packagePlanId = `plan_${item.id}`;
+            paidWith = 'package'; packagePlanId = `plan_${item.id}`; packagePaymentId=payment.id;
           }
         }
-        const booking = await book(joined.session, paidWith, { packagePlanId, matNumber: yoga ? mat : null, data: transaction });
+        const booking = await book(joined.session, paidWith, { packagePlanId, paymentId:packagePaymentId, matNumber: yoga ? mat : null, data: transaction });
         if (claimId) await transaction.update('waitlist', claimId, { status: 'claimed' });
         return { booking, pending };
       });
@@ -197,28 +214,30 @@ export function CheckoutPage() {
       <section className="stack-sm">
         <div className="row-between"><h2 className="cust-h2">{t('customer.checkout.method')}</h2><Link to="/app/payment-methods" className="small">{t('customer.checkout.manageMethods')}</Link></div>
         <div className="row wrap">
-          {PAYMENT_METHODS.map((m) => <button key={m.id} type="button" className={`cust-method ${method === m.id ? 'is-active' : ''}`} aria-pressed={method === m.id} onClick={() => setMethod(m.id)}><Icon name={m.glyph} size="sm" />{bi(m.label)}{m.provider === 'wompi' && <Badge tone="neutral">Wompi</Badge>}</button>)}
+          {methods.map((m) => <button key={m.id} type="button" className={`cust-method ${method === m.id ? 'is-active' : ''}`} aria-pressed={method === m.id} onClick={() => setMethod(m.id)}><Icon name={m.glyph} size="sm" />{bi(m.label)}{m.provider === 'wompi' && <Badge tone="neutral">Wompi</Badge>}</button>)}
         </div>
         <p className="xs muted">{bi(methodOpt.hint)}</p>
+        {method==='transfer'&&<><Notice tone="warn">{t('transfers.noQr')}</Notice><ReceiptUpload value={receiptImage} onChange={setReceiptImage}/><Notice>{t('transfers.timing')}</Notice></>}
         {devMode && methodOpt.provider === 'wompi' && <Toggle size="sm" checked={simulateDecline} onChange={setSimulateDecline} label={t('customer.checkout.simulateDecline')} />}
       </section>
     ),
     'OrderSummary (subtotal, IVA, total)': () => declined ? null : amount === 0 ? (
       <Notice tone="success" title={t('customer.checkout.noCharge')}>{t('customer.checkout.noCharge.package', { h: policy.cancelWindowHours })}</Notice>
     ) : (
-      <OrderSummary lines={[{ label: bi(priceOf(kind as 'single').name), amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('customer.checkout.receiptNote')} />
+      <OrderSummary lines={[{ label: bi(priceOf(kind as 'single').name), amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t(method==='transfer'?'transfers.summary':'customer.checkout.receiptNote')} />
     ),
     ConfirmButton: () => declined ? (
       <DeclinedBlock state={declined} amount={amount} onRetry={(m) => { setMethod(m); setDeclined(null); setSimulateDecline(false); }} onRelease={() => nav(`/app/class/${s.id}`)} onExpired={() => setDeclined(null)} />
     ) : (
       <div className="stack-sm cust-sticky">
+        {transferError&&<Notice tone="danger">{t('transfers.submitError')}</Notice>}
         {error === 'mat' && <Notice tone="warn">{t('site.mat.error')}</Notice>}
         {alreadyBooked && <Notice tone="warn">{t('customer.home.booked')}</Notice>}
         {error === 'full' && <Notice tone="warn" title={t('customer.checkout.race.title')} action={<Button size="sm" onClick={() => nav(`/app/waitlist/${s.id}`)}>{t('core.common.waitlist')}</Button>}>{t('customer.checkout.race.body')}</Notice>}
         {error === 'unavailable' && <Notice tone="danger" title={t('core.common.error')}>{t('customer.checkout.unavailable')}</Notice>}
         {(error === 'conflict' || conflict) && <Notice tone="warn">{t('customer.book.oneADay')} {conflict && <Link to={`/app/class/${conflict}`}>{t('customer.class.seeOther')}</Link>}</Notice>}
-        <Button block size="lg" loading={busy} disabled={!!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
-          {amount > 0 ? (methodOpt.provider === 'wompi' ? t('customer.checkout.payWompi', { amount: formatCOP(amount, lang) }) : t('customer.checkout.confirmManual', { amount: formatCOP(amount, lang) })) : t('customer.checkout.confirm')}
+        <Button block size="lg" loading={busy} disabled={(method==='transfer'&&amount>0&&!receiptImage) || !!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
+          {method==='transfer'&&amount>0 ? t('transfers.submit') : amount > 0 ? (methodOpt.provider === 'wompi' ? t('customer.checkout.payWompi', { amount: formatCOP(amount, lang) }) : t('customer.checkout.confirmManual', { amount: formatCOP(amount, lang) })) : t('customer.checkout.confirm')}
         </Button>
         <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.checkout.policy', { h: policy.cancelWindowHours })}</p>
       </div>
@@ -231,12 +250,12 @@ export function CheckoutPage() {
       <Notice tone="info">{t('customer.checkout.demo')}</Notice>
       {/* ≥ 900 px: what you are booking (class + mat) on the left, how you pay + confirm on the right (D-0006). */}
       <SplitSections narrowClassName="stack" className="cust-checkout" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'ClassSummary'} />
-      <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? 'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">
+      <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? method==='transfer'?'transfers.pending':'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">
         {done && (
           <div className="stack">
             <ClassCard variant="next" title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} />
             {done.booking?.mat_number && <p className="small">{t('site.mat.confirmed', { n: done.booking.mat_number })}</p>}
-            {done.pending ? <Notice tone="warn" title={t('customer.checkout.pending.title')}>{t('customer.checkout.pending.body')}</Notice> : <p className="small muted">{t('customer.checkout.success.body', { min: durationMin(joined) })}</p>}
+            {done.pending ? <Notice tone="warn" title={t(method==='transfer'?'transfers.pending':'customer.checkout.pending.title')}>{t(method==='transfer'?'transfers.pendingBody':'customer.checkout.pending.body')}</Notice> : <p className="small muted">{t('customer.checkout.success.body', { min: durationMin(joined) })}</p>}
             {done.booking && <Button block size="lg" onClick={() => nav(`/app/booking/${done.booking!.id}`)}>{t('customer.class.viewBooking')}</Button>}
             <Button block variant="ghost" onClick={() => nav('/app/schedule')}>{t('customer.class.backToSchedule')}</Button>
           </div>
