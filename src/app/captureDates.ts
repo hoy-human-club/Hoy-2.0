@@ -99,6 +99,7 @@ export const CAPTURED: Record<string, string> = {
   'W-09': '2026-10-01',
   'W-10': '2026-10-01',
   'W-11': '2026-10-15',
+  'media-picker': '2026-10-21',
 };
 
 /** Page code → date of the newest changelog entry whose `codes:` line names it. */

@@ -38,6 +38,7 @@ function experienceOf(path, surface) {
     case 'dev': return under('/dev/knowledgebase') ? 'kb' : 'dev';
     case 'docs': return under('/manual') ? 'manual' : under('/docs/source') ? 'sources' : 'docs';
     case 'public':
+      if (under('/hub/promotions') || under('/promotions')) return 'promotions';
       if (path === '/' || under('/coming-soon')) return 'coming-soon';
       if (under('/site')) return 'site';
       if (path === '/hub') return 'dev'; // the testing hub itself sits with the dev tools

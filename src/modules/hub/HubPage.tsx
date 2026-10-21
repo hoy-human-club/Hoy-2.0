@@ -56,6 +56,7 @@ interface SurfaceCard {
  * `npm run hub-map` publishes as public/hub-map.json for other hosts.
  */
 const CARD_UI: Record<HubSurfaceKey, { icon: IconName; shape?: ThumbShape; hue?: HubSurfaceKey; secondaryAsRole?: boolean }> = {
+  promotions: { icon: 'gift', hue: 'teacher' },
   app: { icon: 'smartphone', shape: 'phone' },
   site: { icon: 'globe' },
   'coming-soon': { icon: 'sparkle', hue: 'site' },
@@ -89,7 +90,8 @@ const ALL_CARDS: SurfaceCard[] = HUB_EXPERIENCES.map((e) => {
 });
 const inBand = (band: HubBand) => ALL_CARDS.filter((c) => c.band === band);
 const BAND_OUTSIDE = inBand('outside');
-const BAND_TEAM = inBand('team');
+const BAND_PROMOTIONS = ALL_CARDS.filter((c) => c.key === 'promotions');
+const BAND_TEAM = inBand('team').filter((c) => c.key !== 'promotions');
 const BAND_BUILD = inBand('build');
 
 interface ToolCard { key: HubToolKey; to: string; icon: IconName; isNew?: boolean }
@@ -127,7 +129,7 @@ function SurfaceTile({ card, order, status, here, live, ui, onEnter }: {
         <div className="hub-card-top">
           <span className="hub-medallion" aria-hidden><Icon name={card.icon} size={Math.round(22 * ui)} /></span>
           <div className="hub-card-badges">
-            {card.comingSoon ? <Badge tone="highlight">{t('hub.status.soon')}</Badge> : <Badge tone={tone}>{t(`hub.status.${status}`)}</Badge>}
+            {card.key === 'promotions' ? <Badge tone="highlight">{t('hub.training.preview')}</Badge> : card.comingSoon ? <Badge tone="highlight">{t('hub.status.soon')}</Badge> : <Badge tone={tone}>{t(`hub.status.${status}`)}</Badge>}
             {here && !card.comingSoon && <Badge tone="primary">{t('hub.here')}</Badge>}
           </div>
         </div>
@@ -141,7 +143,7 @@ function SurfaceTile({ card, order, status, here, live, ui, onEnter }: {
             </>
           ) : (
             <Button variant="secondary" onClick={() => onEnter(card)}>
-              {person ? t('hub.enterAs', { name: person.name.split(' ')[0] }) : t('hub.open')}
+              {card.key === 'promotions' ? t('hub.training.open') : person ? t('hub.enterAs', { name: person.name.split(' ')[0] }) : t('hub.open')}
             </Button>
           )}
           {card.secondary && (
@@ -152,7 +154,7 @@ function SurfaceTile({ card, order, status, here, live, ui, onEnter }: {
           )}
         </div>
         <p className="hub-card-meta xs">
-          <span>{card.role ? bi(ROLE_LABEL[card.role]) : bi(ROLE_LABEL.public)}</span>
+          <span>{card.key === 'promotions' ? t('hub.training.everyone') : card.role ? bi(ROLE_LABEL[card.role]) : bi(ROLE_LABEL.public)}</span>
           <span aria-hidden> · </span>
           <code>{card.to}</code>
           {devMode && <code className="hub-card-code">{card.code}</code>}
@@ -316,6 +318,10 @@ export function HubPage() {
         </div>
 
         <main className="hub-main">
+          <Band id="hub-band-promotions" eyebrow={t('hub.band.promotions.eyebrow')} title={t('hub.band.promotions.title')} body={t('hub.band.promotions.body')}>
+            <div className="hub-grid hub-promotions-preview">{BAND_PROMOTIONS.map(tile)}</div>
+          </Band>
+
           <Band id="hub-band-outside" eyebrow={t('hub.band.outside.eyebrow')} title={t('hub.band.outside.title')} body={t('hub.band.outside.body')}>
             <div className="hub-grid hub-grid-outside">{BAND_OUTSIDE.map(tile)}</div>
           </Band>

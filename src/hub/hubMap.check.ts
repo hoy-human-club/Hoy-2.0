@@ -19,6 +19,8 @@ import { pickSampleIds, type SampleTables } from './sampleIds';
 function literalOk(param: string, value: string, db: Record<string, { [k: string]: unknown }[]>): boolean {
   if (param === 'kind') return db.legal_documents.some((d) => d.kind === value);
   if (param === 'slug') return (classOrder as string[]).includes(value);
+  // Public promotion previews can demonstrate the missing-code state without issuing a share.
+  if (param === 'code') return value === 'DEMO-PROMOTION';
   return false;
 }
 

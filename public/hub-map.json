@@ -279,6 +279,55 @@
   ],
   "experiences": [
     {
+      "id": "promotions",
+      "code": "P-02",
+      "label": {
+        "es": "Promociones y bonos · aprender y probar",
+        "en": "Promotions and vouchers · learn and practise"
+      },
+      "purpose": {
+        "es": "Una práctica aislada para todos: oferta aprobada, compartir, activar y reservar, verificar y recibir. Tu rol no cambia.",
+        "en": "An isolated practice for everyone: approved offer, share, claim and book, verify and welcome. Your role stays the same."
+      },
+      "roleId": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "band": "team",
+      "device": "desktop",
+      "route": "/hub/promotions",
+      "url": "https://imagine-os.github.io/hoy/#/hub/promotions",
+      "featured": true,
+      "pageCodes": [
+        "C-29",
+        "P-02"
+      ],
+      "shots": {
+        "thumbs": {
+          "es-desktop": "hub-map/shots/P-02/thumb-es-desktop.jpg",
+          "en-desktop": "hub-map/shots/P-02/thumb-en-desktop.jpg",
+          "es-desktop-dark": "hub-map/shots/P-02/thumb-es-desktop-dark.jpg",
+          "en-desktop-dark": "hub-map/shots/P-02/thumb-en-desktop-dark.jpg"
+        },
+        "full": {
+          "es-390": "hub-map/shots/P-02/es-390.jpg",
+          "en-390": "hub-map/shots/P-02/en-390.jpg",
+          "es-1280": "hub-map/shots/P-02/es-1280.jpg",
+          "en-1280": "hub-map/shots/P-02/en-1280.jpg"
+        }
+      }
+    },
+    {
       "id": "app",
       "code": "C-01",
       "label": {
@@ -487,7 +536,8 @@
       "route": "/teach",
       "url": "https://imagine-os.github.io/hoy/#/teach",
       "pageCodes": [
-        "S-03"
+        "S-03",
+        "S-07"
       ],
       "shots": {
         "thumbs": {
@@ -533,7 +583,8 @@
       "pageCodes": [
         "S-01",
         "S-02",
-        "S-05"
+        "S-05",
+        "S-08"
       ],
       "shots": {
         "thumbs": {
@@ -659,6 +710,7 @@
         "M-14",
         "M-03",
         "M-13",
+        "M-15",
         "M-07",
         "M-08a",
         "M-14a",
@@ -4843,6 +4895,184 @@
       }
     },
     {
+      "code": "S-07",
+      "route": "/teach/promote",
+      "name": {
+        "es": "Promover una invitación",
+        "en": "Promote an invitation"
+      },
+      "purpose": {
+        "es": "Compartir ofertas aprobadas con enlaces únicos y seguir resultados propios.",
+        "en": "Share approved offers with unique links and follow your own results."
+      },
+      "surface": "teacher",
+      "roles": [
+        "super_admin",
+        "admin",
+        "teacher"
+      ],
+      "experienceId": "teacher",
+      "device": "phone",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/S-07/es-390.jpg",
+          "en-390": "hub-map/shots/S-07/en-390.jpg",
+          "es-1280": "hub-map/shots/S-07/es-1280.jpg",
+          "en-1280": "hub-map/shots/S-07/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "teach",
+        "label": {
+          "es": "Enseñar",
+          "en": "Teach"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "C-29",
+      "route": "/promotions/:code",
+      "name": {
+        "es": "Vista previa de promoción",
+        "en": "Promotion preview"
+      },
+      "purpose": {
+        "es": "Revisar una oferta, activarla con una cuenta de prueba y reservar.",
+        "en": "Review an offer, claim it with a test account and book."
+      },
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "experienceId": "promotions",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/C-29/es-390.jpg",
+          "en-390": "hub-map/shots/C-29/en-390.jpg",
+          "es-1280": "hub-map/shots/C-29/es-1280.jpg",
+          "en-1280": "hub-map/shots/C-29/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "promotions",
+        "label": {
+          "es": "Promociones · formación",
+          "en": "Promotions · training"
+        },
+        "order": 10
+      },
+      "sampleRoute": "/promotions/DEMO-PROMOTION"
+    },
+    {
+      "code": "M-15",
+      "route": "/admin/promotions",
+      "name": {
+        "es": "Resultados de promociones",
+        "en": "Promotion results"
+      },
+      "purpose": {
+        "es": "Revisar promociones y resultados por promotor sin confundir compartir con entregar.",
+        "en": "Review promotions and promoter results without confusing sharing with delivery."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-15/es-390.jpg",
+          "en-390": "hub-map/shots/M-15/en-390.jpg",
+          "es-1280": "hub-map/shots/M-15/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-15/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "P-02",
+      "route": "/hub/promotions",
+      "name": {
+        "es": "Promociones · aprender y probar",
+        "en": "Promotions · learn and practise"
+      },
+      "purpose": {
+        "es": "Aprender el recorrido de una promoción y practicar con un ejemplo aislado, desde el Hub y con cualquier rol.",
+        "en": "Learn the promotion journey and practise with an isolated example, from the Hub with any role."
+      },
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "experienceId": "promotions",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {
+          "es-desktop": "hub-map/shots/P-02/thumb-es-desktop.jpg",
+          "en-desktop": "hub-map/shots/P-02/thumb-en-desktop.jpg",
+          "es-desktop-dark": "hub-map/shots/P-02/thumb-es-desktop-dark.jpg",
+          "en-desktop-dark": "hub-map/shots/P-02/thumb-en-desktop-dark.jpg"
+        },
+        "full": {
+          "es-390": "hub-map/shots/P-02/es-390.jpg",
+          "en-390": "hub-map/shots/P-02/en-390.jpg",
+          "es-1280": "hub-map/shots/P-02/es-1280.jpg",
+          "en-1280": "hub-map/shots/P-02/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "promotions",
+        "label": {
+          "es": "Promociones · formación",
+          "en": "Promotions · training"
+        },
+        "order": 10
+      }
+    },
+    {
       "code": "S-01",
       "route": "/staff",
       "name": {
@@ -5117,6 +5347,46 @@
         "label": {
           "es": "Enseñar",
           "en": "Teach"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "S-08",
+      "route": "/staff/vouchers",
+      "name": {
+        "es": "Recepción · bonos y promociones",
+        "en": "Front desk · vouchers and promotions"
+      },
+      "purpose": {
+        "es": "Buscar un código o enlace, verificar al titular, confirmar reservas y marcar asistencia sin volver a descontar.",
+        "en": "Find a code or link, verify the holder, confirm bookings and check in without a second debit."
+      },
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "experienceId": "desk",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/S-08/es-390.jpg",
+          "en-390": "hub-map/shots/S-08/en-390.jpg",
+          "es-1280": "hub-map/shots/S-08/es-1280.jpg",
+          "en-1280": "hub-map/shots/S-08/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "desk",
+        "label": {
+          "es": "Recepción",
+          "en": "Front desk"
         },
         "order": 10
       }

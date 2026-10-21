@@ -155,8 +155,8 @@ export const strings: StringTable = {
     "en": "Available"
   },
   "vouchers.people": {
-    "es": "Hasta {n} participantes",
-    "en": "Up to {n} participants"
+    "es": "Participantes: hasta {n}",
+    "en": "Participant limit: {n}"
   },
   "vouchers.activate": {
     "es": "Activar con mi cuenta de prueba",
@@ -305,5 +305,36 @@ export const strings: StringTable = {
   "vouchers.noSessions": {
     "es": "No hay clases disponibles. Revisa el calendario de prueba.",
     "en": "No classes available. Check the test schedule."
-  }
+  },
+  "desk.title": {"es": "Bonos en recepción", "en": "Vouchers at reception"},
+  "desk.sub": {"es": "Código o enlace → verificar → confirmar → asistencia", "en": "Code or link → verify → confirm → check in"},
+  "desk.lookup": {"es": "Buscar una invitación o reserva", "en": "Find an invitation or booking"},
+  "desk.code": {"es": "Código o enlace completo", "en": "Code or full link"},
+  "desk.codeHint": {"es": "Pega el enlace de promoción o bono, o escribe el código. No hace falta recortar el enlace.", "en": "Paste the promotion or voucher link, or enter its code. No need to trim the link."},
+  "desk.find": {"es": "Buscar código", "en": "Find code"},
+  "desk.missing": {"es": "No encontramos este código aquí. Revisa el enlace y el navegador donde se creó; esta prueba es local.", "en": "This code was not found here. Check the link and browser where it was created; this test is local."},
+  "desk.sharedCode": {"es": "Este código identifica una invitación compartida, no el saldo de una persona. Selecciona el bono del titular después de verificar su identidad.", "en": "This code identifies a shared invitation, not one person’s balance. Select the holder’s voucher after verifying their identity."},
+  "desk.claimFirst": {"es": "El cliente debe activar la oferta con su cuenta antes de reservar. Recepción no puede activar un bono en su nombre.", "en": "The customer must claim the offer with their account before booking. Reception cannot claim a voucher on their behalf."},
+  "desk.selectCustomer": {"es": "Selecciona el titular verificado", "en": "Select the verified holder"},
+  "desk.expiry": {"es": "Vigencia", "en": "Expires"},
+  "desk.owner": {"es": "Titular", "en": "Holder"},
+  "desk.notClaimed": {"es": "Aún no activado", "en": "Not claimed yet"},
+  "desk.verifyHint": {"es": "Comprueba quién presenta el bono, el beneficio, su vigencia y los participantes. Un código público por sí solo no acredita identidad.", "en": "Check the holder, benefit, expiry and participants. A public code alone does not verify identity."},
+  "desk.verified": {"es": "Verifiqué al titular, el beneficio y los participantes de prueba", "en": "I verified the test holder, benefit and participants"},
+  "desk.existing": {"es": "Reservas con este bono", "en": "Bookings with this voucher"},
+  "desk.noDoubleDebit": {"es": "La reserva ya descontó el beneficio. Confirmar la reserva y marcar asistencia no vuelven a descontarlo.", "en": "Booking already deducted the benefit. Confirming the booking and checking in do not deduct it again."},
+  "desk.noBooking": {"es": "No hay reservas con este bono. Puedes registrar una llegada sin reserva abajo.", "en": "No bookings with this voucher. You can register a walk-up below."},
+  "desk.debited": {"es": "Beneficio descontado al reservar: {n}", "en": "Benefit deducted at booking: {n}"},
+  "desk.confirmed": {"es": "Reserva verificada en recepción", "en": "Booking verified at reception"},
+  "desk.confirmBooking": {"es": "Confirmar reserva verificada", "en": "Confirm verified booking"},
+  "desk.verifyBeforeAttendance": {"es": "Verificar en recepción antes de marcar asistencia", "en": "Verify at reception before recording attendance"},
+  "desk.checkin": {"es": "Marcar llegada / asistencia", "en": "Record arrival / attendance"},
+  "desk.walkup": {"es": "Llegada sin reserva", "en": "Walk-up booking"},
+  "desk.walkupHint": {"es": "Elige una clase disponible y confirma el grupo. Este paso descuenta el beneficio una sola vez; después confirma la reserva y marca la llegada.", "en": "Choose an available class and confirm the group. This step deducts the benefit once; then confirm the booking and record arrival."},
+  "desk.notEligible": {"es": "No se puede crear esta reserva: verifica activación, saldo, vigencia y estado. Una reserva existente se gestiona arriba.", "en": "This booking cannot be created: check claim, balance, expiry and status. Manage an existing booking above."},
+  "desk.book": {"es": "Reservar y descontar beneficio de prueba", "en": "Book and deduct test benefit"},
+  "desk.cancelLimit": {"es": "Solo se puede cancelar antes del inicio y antes de marcar asistencia. Se aplica la política de restitución del bono.", "en": "Cancellation is available only before the class starts and before attendance is recorded. The voucher’s restoration policy applies."},
+  "desk.cancelReview": {"es": "Revisar cancelación", "en": "Review cancellation"},
+  "desk.confirmCancel": {"es": "Confirmar cancelación de prueba", "en": "Confirm test cancellation"},
+  "desk.keepBooking": {"es": "Conservar reserva", "en": "Keep booking"},
 };

@@ -593,7 +593,7 @@
         "en": "Enter {surface} as its demo user"
       },
       "params": {
-        "surface": "enum:app,site,coming-soon,teacher,desk,inbox,pos,admin,crm,messages,finance,marketing,manual,sources,docs,kb,dev"
+        "surface": "enum:promotions,app,site,coming-soon,teacher,desk,inbox,pos,admin,crm,messages,finance,marketing,manual,sources,docs,kb,dev"
       },
       "roles": [
         "super_admin",

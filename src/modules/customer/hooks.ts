@@ -291,7 +291,7 @@ export function useMyInvites() {
     const email = input.target.includes('@');
     return data.insert<InviteRow>('invites', {
       inviter_user_id: user.id, invitee_phone: !email && /\d/.test(input.target) ? input.target : null, invitee_email: email ? input.target : null,
-      invitee_user_id: null, channel: input.channel, code, session_id: input.sessionId ?? null, status: 'sent', reward_ledger_id: null,
+      invitee_user_id: null, channel: input.channel, code, session_id: input.sessionId ?? null, status: 'prepared', reward_ledger_id: null,
     } as Partial<InviteRow>);
   }, [code, data, user.id]);
   return { rows, code, send };

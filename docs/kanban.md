@@ -1,6 +1,6 @@
 # HoyOS kanban
 
-## In verification · 0074 (v0.25.0 · 2026-10-21)
+## Completed · 0074 (v0.25.0 · 2026-10-21)
 
 - M-02/M-02d/D-02: catalog/private browser photo chooser integrated with current Content drafts. [Release receipt](changelog/0074-content-photo-picker.md)
 
@@ -35,6 +35,12 @@
 
 - Apply the owner-selected provisional 30-class timetable and public instructor names; keep reception hours unconfirmed until staff saves them. [Details](changelog/0063-fixed-weekly-schedule.md)
 - Studio follow-up: reconcile the four Monday/Tuesday evening assignments; preserve the selected version until told otherwise.
+## In verification · 0075 (v0.25.0 · 2026-10-21)
+
+- HUB-01/P-02: direct promotions guide with isolated practice for all Hub visitors
+- S-07/C-29/M-15: approved demo offers, unique teacher links, individual claims and attributed results
+- S-08: code/full-link lookup, verified walk-up booking, separate booking confirmation and attendance with no second debit
+- Production integration remains pending. [Implementation](changelog/0075-promotion-recovery.md) · [Backend gates](promotion-backend-readiness.md)
 
 ## Completed · 0061 (v0.24.0 patch · 2026-10-14)
 

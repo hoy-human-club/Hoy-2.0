@@ -112,6 +112,7 @@ export const HUB_GROUPS: Record<string, HubGroup> = Object.fromEntries(([
   ['admin', 'Administración', 'Admin', 10], ['content', 'Contenido', 'Content', 20], ['crm', 'CRM', 'CRM', 30], ['messages', 'Mensajes', 'Messages', 10], ['finance', 'Finanzas', 'Finance', 40], ['tables', 'Tablas', 'Tables', 50],
   ['dev', 'Desarrollo', 'Dev tools', 10], ['docs', 'Documentación', 'Docs', 10], ['manual', 'Manual', 'Manual', 10],
   ['sources', 'Documentos fuente', 'Source documents', 10],
+  ['promotions', 'Promociones · formación', 'Promotions · training', 10],
 ] as [string, string, string, number][]).map(([id, es, en, order]) => [id, { id, label: { es, en }, order }]));
 
 /**
@@ -151,6 +152,8 @@ export const HUB_GROUP_RULES: { prefix: string; group: string; exact?: boolean }
   { prefix: '/admin/tables', group: 'tables' },
   // build
   { prefix: '/hub', group: 'dev', exact: true }, // the testing hub itself
+  { prefix: '/hub/promotions', group: 'promotions' },
+  { prefix: '/promotions', group: 'promotions' },
   { prefix: '/', group: 'coming-soon', exact: true }, // the public landing
   { prefix: '/dev', group: 'dev' },
   { prefix: '/docs', group: 'docs' },
@@ -183,6 +186,8 @@ export const SAMPLE_TOKEN = 'sample';
 /** session: an upcoming class with bookings and free mats · fullSession: an upcoming full class (waitlist) · booking: the demo customer's next booking · attendedSession: a class the demo customer attended · payrollRun: the approved payout run. */
 export type SamplePick = 'session' | 'fullSession' | 'booking' | 'attendedSession' | 'payrollRun';
 export const HUB_SAMPLE_ROUTES: Record<string, { route: string; pick?: SamplePick }> = {
+  // Deliberately exercises the honest missing-code state; no live invitation is fabricated.
+  '/promotions/:code': { route: '/promotions/DEMO-PROMOTION' },
   '/app/class/:id': { route: '/app/class/sample', pick: 'session' },
   '/app/checkout/:id': { route: '/app/checkout/sample', pick: 'session' },
   '/app/booking/:id': { route: '/app/booking/sample', pick: 'booking' },
@@ -203,8 +208,12 @@ export interface HubExperienceSeed extends Omit<HubExperience, 'roles' | 'url' |
 const exp = (id: string, code: string, band: HubBand, device: HubDevice, route: string, roleId: string, switchUser: boolean, label: Bi, purpose: Bi, extra: Partial<HubExperienceSeed> = {}): HubExperienceSeed =>
   ({ id, code, label, purpose, roleId, band, device, route, switchUser, ...extra });
 
-/** The 16 hub cards, in document order (= `HUB_SURFACES` in src/modules/hub/specs.ts). */
+/** Hub cards in document order (= `HUB_SURFACES` in src/modules/hub/specs.ts). */
 export const HUB_EXPERIENCES: HubExperienceSeed[] = [
+  exp('promotions', 'P-02', 'team', 'desktop', '/hub/promotions', 'public', false,
+    { es: 'Promociones y bonos · aprender y probar', en: 'Promotions and vouchers · learn and practise' },
+    { es: 'Una práctica aislada para todos: oferta aprobada, compartir, activar y reservar, verificar y recibir. Tu rol no cambia.', en: 'An isolated practice for everyone: approved offer, share, claim and book, verify and welcome. Your role stays the same.' },
+    { featured: true }),
   exp('app', 'C-01', 'outside', 'phone', '/app', 'customer', true,
     { es: 'App de clientes', en: 'Customer app' },
     { es: 'Móvil primero: las clases de hoy, reservar, pagar, el paquete y el historial.', en: 'Mobile first: today’s classes, booking, paying, the package and history.' },

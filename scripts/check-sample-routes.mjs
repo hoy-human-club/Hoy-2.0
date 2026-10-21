@@ -1,7 +1,8 @@
 // Opens every hub-map sample route (pages[].sampleRoute in public/hub-map.json) the way a host does:
 // inside an iframe, with the embed query `?as=<role>&dev=0&live=0`, against `vite preview` of dist/.
 // Each page must end on a concrete route (a `sample` segment resolved to today's seed id), show more than
-// 20 words, carry no ⟨missing-key⟩ marker and show no not-found state. Not part of the build; run after `npm run build`.
+// 20 words, carry no ⟨missing-key⟩ marker and show no unexpected not-found state. C-29 explicitly
+// demonstrates its unavailable-code state without fabricating an invitation. Not part of the build; run after `npm run build`.
 // Usage: npm run hub-map:check   (Chromium from /opt/pw-browsers or CHROMIUM_PATH; never `playwright install`)
 import { spawn } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -59,7 +60,10 @@ try {
     const bad = [];
     if (route.split('/').includes('sample')) bad.push('sample segment never resolved');
     if (words <= 20) bad.push(`only ${words} words`);
-    if (/no encontrad|not found|no existe/i.test(text)) bad.push('not-found state');
+    const missingPromotionExample = p.code === 'C-29' && p.sampleRoute === '/promotions/DEMO-PROMOTION';
+    if (missingPromotionExample) {
+      if (!/Este código no está disponible en este navegador|This code is not available in this browser/.test(text)) bad.push('expected unavailable-code example');
+    } else if (/no encontrad|not found|no existe/i.test(text)) bad.push('not-found state');
     if (text.includes('⟨')) bad.push(`missing-key marker ${text.match(/⟨[^⟩]*⟩/)?.[0]}`);
     console.log(`${bad.length ? 'FAIL' : 'ok  '} ${p.code.padEnd(6)} ${p.sampleRoute.padEnd(32)} as=${role.padEnd(8)} → ${route} · ${words} words${bad.length ? ` · ${bad.join('; ')}` : ''}`);
     if (bad.length) problems.push(`${p.code} ${p.sampleRoute}: ${bad.join('; ')}`);

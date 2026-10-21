@@ -23,6 +23,111 @@ $$;
 create or replace function public.touch_updated_at() returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
+-- commerce · Fictional approved demo offers. Only published, approved, unexpired campaigns can create shares or new claims; teachers cannot edit economics. Production authorization and publishing are not connected.
+-- access:
+--   · Default deny until authenticated RPCs and scoped public preview exist; admin controls approved campaign pause/resume; teachers share approved published offers only.
+create table if not exists public.promotion_campaigns (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  name jsonb not null,
+  "publicDescription" jsonb not null,
+  title text not null,
+  status text not null check (status in ('draft', 'approved', 'paused')),
+  published boolean not null default false,
+  "approvedBy" text,
+  "startsAt" timestamptz,
+  "maxClaims" integer,
+  "benefitKind" text not null,
+  "benefitTotal" integer not null,
+  "participantCap" integer not null,
+  "capScope" text not null,
+  "creditUnit" text not null,
+  "expiresAt" timestamptz,
+  "cancellationPolicy" text not null
+);
+create index if not exists promotion_campaigns_tenant_idx on public.promotion_campaigns(tenant_id);
+create trigger promotion_campaigns_touch before update on public.promotion_campaigns for each row execute function public.touch_updated_at();
+alter table public.promotion_campaigns enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+
+-- commerce · Case-insensitive unique tenant code, immutable creator attribution. Public preview allowlists terms and invitation message only; recipient label and context never enter URLs or public previews. A handoff is not verified delivery.
+-- access:
+--   · Default deny; owner teacher or authorized admin reads private share context. Public preview must omit recipientLabel/privateContext and identities. Shares never authorize spending.
+create table if not exists public.promotion_shares (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  "campaignId" uuid not null references public.promotion_campaigns(id) on delete set null,
+  code text not null,
+  "createdBy" text not null,
+  "recipientLabel" text not null,
+  "privateContext" text not null,
+  message text not null
+);
+create index if not exists promotion_shares_tenant_idx on public.promotion_shares(tenant_id);
+create index if not exists promotion_shares_campaignId_idx on public.promotion_shares("campaignId");
+create trigger promotion_shares_touch before update on public.promotion_shares for each row execute function public.touch_updated_at();
+alter table public.promotion_shares enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+
+-- commerce · One private voucher per tenant + campaign + claimant. Repeat claims return the original voucher and immutable original share/referrer, including attempts through another code. Only the customer may explicitly claim for themself.
+-- access:
+--   · Default deny; authenticated atomic claim with campaign row lock, unique claim constraint, immutable attribution and tenant-scoped owner reads. Staff cannot claim for customers.
+create table if not exists public.promotion_claims (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  "campaignId" uuid not null references public.promotion_campaigns(id) on delete set null,
+  "shareId" uuid not null references public.promotion_shares(id) on delete set null,
+  "userId" text not null,
+  "voucherId" uuid not null,
+  "referrerId" text not null
+);
+create index if not exists promotion_claims_tenant_idx on public.promotion_claims(tenant_id);
+create index if not exists promotion_claims_campaignId_idx on public.promotion_claims("campaignId");
+create index if not exists promotion_claims_shareId_idx on public.promotion_claims("shareId");
+create index if not exists promotion_claims_voucherId_idx on public.promotion_claims("voucherId");
+create trigger promotion_claims_touch before update on public.promotion_claims for each row execute function public.touch_updated_at();
+alter table public.promotion_claims enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+
+-- commerce · Append-only actor-owned idempotency history. Handoff records copy/composer status only, never sent/delivered. Result snapshots may contain private data and must not be exposed publicly.
+-- access:
+--   · Default deny; immutable scoped audit via authenticated RPC only; unique tenant requestId and actor/fingerprint conflict checks.
+create table if not exists public.promotion_events (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  "campaignId" uuid not null references public.promotion_campaigns(id) on delete set null,
+  "shareId" uuid references public.promotion_shares(id) on delete set null,
+  "claimId" uuid references public.promotion_claims(id) on delete set null,
+  kind text not null,
+  "actorId" text not null,
+  "requestId" text not null,
+  fingerprint text not null,
+  payload jsonb not null
+);
+create index if not exists promotion_events_tenant_idx on public.promotion_events(tenant_id);
+create index if not exists promotion_events_campaignId_idx on public.promotion_events("campaignId");
+create index if not exists promotion_events_shareId_idx on public.promotion_events("shareId");
+create index if not exists promotion_events_claimId_idx on public.promotion_events("claimId");
+create trigger promotion_events_touch before update on public.promotion_events for each row execute function public.touch_updated_at();
+alter table public.promotion_events enable row level security;
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
 --   · Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
@@ -49,12 +154,17 @@ create table if not exists public.vouchers (
   message text not null,
   "claimedBy" text,
   status text not null,
-  "issuedBy" text not null
+  "issuedBy" text not null,
+  "campaignId" uuid references public.promotion_campaigns(id) on delete set null,
+  "shareId" uuid references public.promotion_shares(id) on delete set null,
+  "referrerId" text
 );
 create index if not exists vouchers_tenant_idx on public.vouchers(tenant_id);
+create index if not exists vouchers_campaignId_idx on public.vouchers("campaignId");
+create index if not exists vouchers_shareId_idx on public.vouchers("shareId");
 create trigger vouchers_touch before update on public.vouchers for each row execute function public.touch_updated_at();
 alter table public.vouchers enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
 
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
@@ -72,14 +182,18 @@ create table if not exists public.voucher_bookings (
   cost integer not null,
   status text not null,
   restored boolean not null default false,
-  mats jsonb not null
+  mats jsonb not null,
+  -- Verified reception confirmation only; booking remains booked and no additional credit is debited. Cancellation is allowed only before class starts.
+  "confirmedAt" timestamptz,
+  -- First confirming staff actor; attendance is a separate booked-to-attended transition with no debit.
+  "confirmedBy" text
 );
 create index if not exists voucher_bookings_tenant_idx on public.voucher_bookings(tenant_id);
 create index if not exists voucher_bookings_voucherId_idx on public.voucher_bookings("voucherId");
 create index if not exists voucher_bookings_sessionId_idx on public.voucher_bookings("sessionId");
 create trigger voucher_bookings_touch before update on public.voucher_bookings for each row execute function public.touch_updated_at();
 alter table public.voucher_bookings enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
 
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
@@ -104,7 +218,7 @@ create index if not exists voucher_events_voucherId_idx on public.voucher_events
 create index if not exists voucher_events_bookingId_idx on public.voucher_events("bookingId");
 create trigger voucher_events_touch before update on public.voucher_events for each row execute function public.touch_updated_at();
 alter table public.voucher_events enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.
+-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
 
 -- core · Each studio using HoyOS. Today: HOY.
 create table if not exists public.tenants (
@@ -1135,7 +1249,7 @@ create table if not exists public.invites (
   code text not null,
   -- class the invite was sent from
   session_id uuid references public.class_sessions(id) on delete set null,
-  status text not null check (status in ('sent', 'opened', 'joined', 'rewarded')),
+  status text not null check (status in ('prepared', 'sent', 'opened', 'joined', 'rewarded')),
   reward_ledger_id uuid references public.class_ledger(id) on delete set null
 );
 create index if not exists invites_tenant_idx on public.invites(tenant_id);
@@ -1822,7 +1936,19 @@ alter table public.page_layouts enable row level security;
 create policy "page_layouts: tenant read" on public.page_layouts for select using (tenant_id = public.current_tenant_id());
 create policy "page_layouts: staff write" on public.page_layouts for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
 
+-- Promotion uniqueness belongs in the eventual transactional backend, never only UI checks.
+create unique index if not exists promotion_share_code_unique on public.promotion_shares (tenant_id, upper(code));
+create unique index if not exists promotion_claim_user_campaign_unique on public.promotion_claims (tenant_id, "campaignId", "userId");
+create unique index if not exists promotion_claim_voucher_unique on public.promotion_claims (tenant_id, "voucherId");
+create unique index if not exists promotion_request_unique on public.promotion_events (tenant_id, "requestId");
+create unique index if not exists voucher_request_unique on public.voucher_events (tenant_id, "requestId");
+
 -- foreign keys to tables created later in this file (kept out of the create table so the order above stays by group)
+alter table public.promotion_campaigns add constraint promotion_campaigns_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
+alter table public.promotion_shares add constraint promotion_shares_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
+alter table public.promotion_claims add constraint promotion_claims_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
+alter table public.promotion_claims add constraint promotion_claims_voucherId_fk foreign key ("voucherId") references public.vouchers(id) on delete set null;
+alter table public.promotion_events add constraint promotion_events_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
 alter table public.vouchers add constraint vouchers_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
 alter table public.voucher_bookings add constraint voucher_bookings_tenant_id_fk foreign key (tenant_id) references public.tenants(id) on delete set null;
 alter table public.voucher_bookings add constraint voucher_bookings_sessionId_fk foreign key ("sessionId") references public.class_sessions(id) on delete set null;

@@ -1,0 +1,65 @@
+name: Promotion staff-demo QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/modules/promotions*/**'
+      - 'src/modules/vouchers/**'
+      - 'src/components/organism/PromotionPractice/**'
+      - 'src/modules/hub/**'
+      - 'scripts/test-promotion*.mjs'
+      - '.github/workflows/promotion-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: promotion-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  promotion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+      QA_BASE: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:vouchers && npm run test:promotions && node scripts/test-seed-samples.mjs && node scripts/test-promotion-desk.mjs
+      - name: Capture and verify real bilingual screens
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5173/ >/dev/null && break; sleep 1; done
+          node scripts/test-promotion-ui.mjs
+          CAPTURE=1 node scripts/test-promotions-guide.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+          QA_BASE: http://127.0.0.1:5173
+      - run: npm run build && npm run hub-map:check
+      - name: Verify the built promotion flow
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+          QA_BASE=http://127.0.0.1:4173 node scripts/test-promotion-ui.mjs
+          QA_BASE=http://127.0.0.1:4173 node scripts/test-promotions-guide.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          retention-days: 1
+          compression-level: 3
+          name: promotion-qa-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/P-02/*.jpg
+            docs/screenshots/HUB-01/*.jpg
+            docs/screenshots/S-07/*.jpg
+            docs/screenshots/S-08/*.jpg
+            docs/screenshots/C-29/*.jpg
+            docs/screenshots/M-15/*.jpg
+            qa/*.json
+            qa/*failure.jpg

@@ -23,7 +23,7 @@ _Generated from `src/data/schema.ts` by `npm run sql`. The TypeScript file is th
 ### Core · Núcleo
 
 #### `tenants`
-Each studio using HoyOS. Today: HOY.  
+Each studio using HoyOS. Today: HOY.
 _Cada estudio que usa HoyOS. Hoy: HOY._
 
 | column | type | notes |
@@ -41,7 +41,7 @@ _Cada estudio que usa HoyOS. Hoy: HOY._
 | `settings` | json |  |
 
 #### `hours_overrides`
-Dated exceptions to the M-08a weekly hours: holidays (closed), special days (other hours) and events. They win over the week for the dates they cover (inclusive range); M-08g edits them, the site, the app and Google Business Profile read them.  
+Dated exceptions to the M-08a weekly hours: holidays (closed), special days (other hours) and events. They win over the week for the dates they cover (inclusive range); M-08g edits them, the site, the app and Google Business Profile read them.
 _Excepciones con fecha al horario semanal de M-08a: festivos (cerrado), jornadas especiales (otro horario) y eventos. Ganan sobre la semana en las fechas que cubren (rango inclusivo); M-08g las edita, el sitio, la app y Google Business Profile las leen._
 
 | column | type | notes |
@@ -68,7 +68,7 @@ _Excepciones con fecha al horario semanal de M-08a: festivos (cerrado), jornadas
 - google_synced_at is written by the server that pushes to Google Business Profile, never by the browser
 
 #### `feature_flags`
-Blocks and flows Admin → Features turns on or off per page.  
+Blocks and flows Admin → Features turns on or off per page.
 _Bloques y flujos que Admin → Features enciende o apaga por página._
 
 | column | type | notes |
@@ -84,7 +84,7 @@ _Bloques y flujos que Admin → Features enciende o apaga por página._
 | `audience` | enum (all \| staff \| customers \| beta) |  |
 
 #### `legal_documents`
-Terms, privacy, waiver, cancellation, refunds and house rules — bilingual and versioned.  
+Terms, privacy, waiver, cancellation, refunds and house rules — bilingual and versioned.
 _Términos, privacidad, exoneración, cancelaciones, reembolsos y reglas de casa — bilingües y versionados._
 
 | column | type | notes |
@@ -110,7 +110,7 @@ _Términos, privacidad, exoneración, cancelaciones, reembolsos y reglas de casa
 - counsel review: status stays draft until the owner publishes
 
 #### `deletion_requests`
-Every request to delete an account (Ley 1581 deletion right; App Store 5.1.1(v) and Google Play): who asked, through which channel, its status and who closed it. Anonymisation runs server-side; the app only records and tracks the case (C-26, W-09, M-11).  
+Every request to delete an account (Ley 1581 deletion right; App Store 5.1.1(v) and Google Play): who asked, through which channel, its status and who closed it. Anonymisation runs server-side; the app only records and tracks the case (C-26, W-09, M-11).
 _Cada petición de borrar una cuenta (Ley 1581 · supresión; App Store 5.1.1(v) · Google Play): quién la pidió, por dónde, en qué estado va y quién la cerró. La anonimización corre en el servidor; la app solo registra y sigue el caso (C-26, W-09, M-11)._
 
 | column | type | notes |
@@ -138,7 +138,7 @@ _Cada petición de borrar una cuenta (Ley 1581 · supresión; App Store 5.1.1(v)
 - never deleted: the request is the proof the right was honoured; the deletion itself is a server-side job that anonymises profiles + users and keeps payments / invoices for the retention period
 
 #### `consents`
-Which document version each user accepted.  
+Which document version each user accepted.
 _Qué versión de cada documento aceptó cada usuario._
 
 | column | type | notes |
@@ -153,7 +153,7 @@ _Qué versión de cada documento aceptó cada usuario._
 | `ip` | text, null |  |
 
 #### `legal_acceptances`
-Acceptance of one concrete document version (A-06): what the person signed and when.  
+Acceptance of one concrete document version (A-06): what the person signed and when.
 _Aceptación de una versión concreta de un documento (A-06): qué firmó la persona y cuándo._
 
 | column | type | notes |
@@ -176,7 +176,7 @@ _Aceptación de una versión concreta de un documento (A-06): qué firmó la per
 - append-only: a new acceptance is a new row, so the history survives a new version
 
 #### `media_assets`
-One art slot per place in the app and the site (M-02d): what is missing, in which ratio and with which brief.  
+One art slot per place in the app and the site (M-02d): what is missing, in which ratio and with which brief.
 _Un cupo de arte por lugar de la app y la web (M-02d): qué falta, en qué proporción y con qué encargo._
 
 | column | type | notes |
@@ -203,7 +203,7 @@ _Un cupo de arte por lugar de la app y la web (M-02d): qué falta, en qué propo
 - url points at storage; HoyOS never stores the binary in a row
 
 #### `content_articles`
-Club rules (C-13), about-HOY copy and guides, editable without a deploy.  
+Club rules (C-13), about-HOY copy and guides, editable without a deploy.
 _Reglas del club (C-13), textos “sobre HOY” y guías, editables sin deploy._
 
 | column | type | notes |
@@ -230,7 +230,7 @@ _Reglas del club (C-13), textos “sobre HOY” y guías, editables sin deploy._
 - coordinator/admin: write (M-02 content CMS)
 
 #### `faq_entries`
-Questions and answers for C-14/C-15, grouped by section and page.  
+Questions and answers for C-14/C-15, grouped by section and page.
 _Preguntas y respuestas de C-14/C-15, agrupadas por sección y página._
 
 | column | type | notes |
@@ -255,7 +255,7 @@ _Preguntas y respuestas de C-14/C-15, agrupadas por sección y página._
 ### People · Personas
 
 #### `users`
-Login accounts (mirrors auth.users in Supabase).  
+Login accounts (mirrors auth.users in Supabase).
 _Cuentas de acceso (espejo de auth.users en Supabase)._
 
 | column | type | notes |
@@ -271,7 +271,7 @@ _Cuentas de acceso (espejo de auth.users en Supabase)._
 | `locale` | text, null |  |
 
 #### `profiles`
-Person data: name, photo, emergency contact, preferences.  
+Person data: name, photo, emergency contact, preferences.
 _Datos de la persona: nombre, foto, emergencia, preferencias._
 
 | column | type | notes |
@@ -291,7 +291,7 @@ _Datos de la persona: nombre, foto, emergencia, preferencias._
 | `notes` | text, null |  |
 
 #### `user_roles`
-Role assignments; a user may hold several.  
+Role assignments; a user may hold several.
 _Asignación de roles; un usuario puede tener varios._
 
 | column | type | notes |
@@ -305,7 +305,7 @@ _Asignación de roles; un usuario puede tener varios._
 | `granted_by` | uuid, null | → `users`  |
 
 #### `teachers`
-Public and contractual profile of each teacher.  
+Public and contractual profile of each teacher.
 _Perfil público y contractual de cada profesor._
 
 | column | type | notes |
@@ -327,7 +327,7 @@ _Perfil público y contractual de cada profesor._
 ### Schedule · Horario
 
 #### `modalities`
-Class types of the club, each with its colour tone.  
+Class types of the club, each with its colour tone.
 _Tipos de clase del club, cada uno con su tono de color._
 
 | column | type | notes |
@@ -347,7 +347,7 @@ _Tipos de clase del club, cada uno con su tono de color._
 | `active` | bool |  |
 
 #### `rooms`
-Physical rooms and their mat capacity.  
+Physical rooms and their mat capacity.
 _Salas físicas y su capacidad en mats._
 
 | column | type | notes |
@@ -362,7 +362,7 @@ _Salas físicas y su capacidad en mats._
 | `notes` | text, null |  |
 
 #### `class_templates`
-Recurrence rules that generate sessions.  
+Recurrence rules that generate sessions.
 _Reglas de recurrencia que generan sesiones._
 
 | column | type | notes |
@@ -388,7 +388,7 @@ _Reglas de recurrencia que generan sesiones._
 | `active` | bool |  |
 
 #### `class_sessions`
-Each concrete class on the calendar, with live capacity.  
+Each concrete class on the calendar, with live capacity.
 _Cada clase concreta en el calendario, con cupos en vivo._
 
 | column | type | notes |
@@ -413,7 +413,7 @@ _Cada clase concreta en el calendario, con cupos en vivo._
 | `cancel_reason` | text, null |  |
 
 #### `space_bookings`
-A room taken by something other than a class: private event, rental, private class, maintenance or a block (S-05). An Especial may pay for it.  
+A room taken by something other than a class: private event, rental, private class, maintenance or a block (S-05). An Especial may pay for it.
 _Una sala ocupada por algo que no es una clase: evento privado, alquiler, clase privada, mantenimiento o bloqueo (S-05). Un Especial puede pagarla._
 
 | column | type | notes |
@@ -442,7 +442,7 @@ _Una sala ocupada por algo que no es una clase: evento privado, alquiler, clase 
 - a booking in status cancelled frees the room; done is history and is never edited
 
 #### `bookings`
-One person’s spot in a session.  
+One person’s spot in a session.
 _Un cupo de una persona en una sesión._
 
 | column | type | notes |
@@ -461,7 +461,7 @@ _Un cupo de una persona en una sesión._
 | `rated` | bool |  |
 
 #### `waitlist`
-Waiting positions and claim window.  
+Waiting positions and claim window.
 _Posiciones en espera y ventana de reclamo._
 
 | column | type | notes |
@@ -478,7 +478,7 @@ _Posiciones en espera y ventana de reclamo._
 | `claim_until` | timestamptz, null |  |
 
 #### `reviews`
-A class rating (C-10): stars, tags and comment.  
+A class rating (C-10): stars, tags and comment.
 _Calificación de una clase (C-10): estrellas, etiquetas y comentario._
 
 | column | type | notes |
@@ -501,7 +501,7 @@ _Calificación de una clase (C-10): estrellas, etiquetas y comentario._
 - coordinator/admin: read all (M-06), never edit the rating
 
 #### `events`
-Workshops, sound baths and special events (C-23), published from M-02.  
+Workshops, sound baths and special events (C-23), published from M-02.
 _Talleres, baños de sonido y eventos especiales (C-23), publicados desde M-02._
 
 | column | type | notes |
@@ -530,7 +530,7 @@ _Talleres, baños de sonido y eventos especiales (C-23), publicados desde M-02._
 - coordinator/admin: write
 
 #### `event_rsvps`
-Who is going to an event and with which payment (C-23).  
+Who is going to an event and with which payment (C-23).
 _Quién va a un evento y con qué pago (C-23)._
 
 | column | type | notes |
@@ -552,7 +552,7 @@ _Quién va a un evento y con qué pago (C-23)._
 ### Practice & analytics · Práctica y analítica
 
 #### `practice_goals`
-How many classes a week each person wants to take (C-01, C-27). One active row per person; history is kept.  
+How many classes a week each person wants to take (C-01, C-27). One active row per person; history is kept.
 _Cuántas clases por semana quiere tomar cada persona (C-01, C-27). Una fila activa por persona; el historial se conserva._
 
 | column | type | notes |
@@ -575,7 +575,7 @@ _Cuántas clases por semana quiere tomar cada persona (C-01, C-27). Una fila act
 - one active row per person: setting a new goal ends the previous one (active = false), so history survives
 
 #### `activity_events`
-The member-facing moments the raw tables do not hold: a goal set, a milestone reached, a rest week that saved the streak… Bookings, check-ins and payments stay in their own tables and every metric is derived from them.  
+The member-facing moments the raw tables do not hold: a goal set, a milestone reached, a rest week that saved the streak… Bookings, check-ins and payments stay in their own tables and every metric is derived from them.
 _Los momentos que las tablas crudas no guardan: una meta fijada, un hito alcanzado, una semana de descanso que salvó la racha… Reservas, check-ins y pagos siguen en sus tablas y toda métrica se deriva de ellas._
 
 | column | type | notes |
@@ -598,8 +598,98 @@ _Los momentos que las tablas crudas no guardan: una meta fijada, un hito alcanza
 
 ### Commerce · Comercio
 
+#### `promotion_campaigns`
+Fictional approved demo offers. Only published, approved, unexpired campaigns can create shares or new claims; teachers cannot edit economics. Production authorization and publishing are not connected.
+_Ofertas aprobadas ficticias del demo; sin publicación ni autorización de producción._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `name` | json |  |
+| `publicDescription` | json |  |
+| `title` | text |  |
+| `status` | enum (draft \| approved \| paused) |  |
+| `published` | bool |  |
+| `approvedBy` | text, null |  |
+| `startsAt` | timestamptz, null |  |
+| `maxClaims` | int, null |  |
+| `benefitKind` | text |  |
+| `benefitTotal` | int |  |
+| `participantCap` | int |  |
+| `capScope` | text |  |
+| `creditUnit` | text |  |
+| `expiresAt` | timestamptz, null |  |
+| `cancellationPolicy` | text |  |
+
+**Who may read / write**
+- Default deny until authenticated RPCs and scoped public preview exist; admin controls approved campaign pause/resume; teachers share approved published offers only.
+
+#### `promotion_shares`
+Case-insensitive unique tenant code, immutable creator attribution. Public preview allowlists terms and invitation message only; recipient label and context never enter URLs or public previews. A handoff is not verified delivery.
+_Código único por invitación; contexto privado separado de la vista pública._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `campaignId` | uuid | → `promotion_campaigns`  |
+| `code` | text |  |
+| `createdBy` | text |  |
+| `recipientLabel` | text |  |
+| `privateContext` | text |  |
+| `message` | text |  |
+
+**Who may read / write**
+- Default deny; owner teacher or authorized admin reads private share context. Public preview must omit recipientLabel/privateContext and identities. Shares never authorize spending.
+
+#### `promotion_claims`
+One private voucher per tenant + campaign + claimant. Repeat claims return the original voucher and immutable original share/referrer, including attempts through another code. Only the customer may explicitly claim for themself.
+_Un bono privado por persona y campaña, con atribución original fija._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `campaignId` | uuid | → `promotion_campaigns`  |
+| `shareId` | uuid | → `promotion_shares`  |
+| `userId` | text |  |
+| `voucherId` | uuid | → `vouchers`  |
+| `referrerId` | text |  |
+
+**Who may read / write**
+- Default deny; authenticated atomic claim with campaign row lock, unique claim constraint, immutable attribution and tenant-scoped owner reads. Staff cannot claim for customers.
+
+#### `promotion_events`
+Append-only actor-owned idempotency history. Handoff records copy/composer status only, never sent/delivered. Result snapshots may contain private data and must not be exposed publicly.
+_Eventos inmutables de creación, traspaso y canje; sin prueba de entrega._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `campaignId` | uuid | → `promotion_campaigns`  |
+| `shareId` | uuid, null | → `promotion_shares`  |
+| `claimId` | uuid, null | → `promotion_claims`  |
+| `kind` | text |  |
+| `actorId` | text |  |
+| `requestId` | text |  |
+| `fingerprint` | text |  |
+| `payload` | json |  |
+
+**Who may read / write**
+- Default deny; immutable scoped audit via authenticated RPC only; unique tenant requestId and actor/fingerprint conflict checks.
+
 #### `vouchers`
-Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 _Contrato de demostración; backend transaccional pendiente._
 
 | column | type | notes |
@@ -625,12 +715,15 @@ _Contrato de demostración; backend transaccional pendiente._
 | `claimedBy` | text, null |  |
 | `status` | text |  |
 | `issuedBy` | text |  |
+| `campaignId` | uuid, null | → `promotion_campaigns`  |
+| `shareId` | uuid, null | → `promotion_shares`  |
+| `referrerId` | text, null |  |
 
 **Who may read / write**
 - Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
 
 #### `voucher_bookings`
-Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 _Contrato de demostración; backend transaccional pendiente._
 
 | column | type | notes |
@@ -646,12 +739,14 @@ _Contrato de demostración; backend transaccional pendiente._
 | `status` | text |  |
 | `restored` | bool |  |
 | `mats` | json |  |
+| `confirmedAt` | timestamptz, null | Verified reception confirmation only; booking remains booked and no additional credit is debited. Cancellation is allowed only before class starts. |
+| `confirmedBy` | text, null | First confirming staff actor; attendance is a separate booked-to-attended transition with no debit. |
 
 **Who may read / write**
 - Default deny until authenticated scoped RPCs are implemented; audit must be append-only; guest details private to owner and authorized staff.
 
 #### `voucher_events`
-Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.  
+Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 _Contrato de demostración; backend transaccional pendiente._
 
 | column | type | notes |
@@ -698,7 +793,7 @@ _Revisiones inmutables de configuración privada; solo vista previa, no pagos._
 - Exactly one scope: template_id or session_id; production backend pending
 
 #### `plans`
-Launch list (0051): trial class, individual class, 12-class package, private classes and gift cards. Generated from src/tenant/pricing.ts.  
+Launch list (0051): trial class, individual class, 12-class package, private classes and gift cards. Generated from src/tenant/pricing.ts.
 _Lista de lanzamiento (0051): clase de prueba, clase individual, paquete de 12 clases, clases privadas y tarjetas de regalo. Se genera desde src/tenant/pricing.ts._
 
 | column | type | notes |
@@ -722,7 +817,7 @@ _Lista de lanzamiento (0051): clase de prueba, clase individual, paquete de 12 c
 | `sort` | int |  |
 
 #### `memberships`
-A person’s recurring subscription to a plan. Unused since 0051: the launch list has no recurring plan; the table stays for post-launch pricing.  
+A person’s recurring subscription to a plan. Unused since 0051: the launch list has no recurring plan; the table stays for post-launch pricing.
 _Suscripción recurrente de una persona a un plan. Sin uso desde 0051: la lista de lanzamiento no tiene plan recurrente; la tabla queda para los precios después del lanzamiento._
 
 | column | type | notes |
@@ -740,7 +835,7 @@ _Suscripción recurrente de una persona a un plan. Sin uso desde 0051: la lista 
 | `paused_until` | date, null |  |
 
 #### `class_ledger`
-The classes of each package: bought (+), used (−), returned and expired. HOY has no credits (0051): the balance is in classes.  
+The classes of each package: bought (+), used (−), returned and expired. HOY has no credits (0051): the balance is in classes.
 _Las clases de cada paquete: compradas (+), usadas (−), devueltas y vencidas. HOY no maneja créditos (0051): el saldo es de clases._
 
 | column | type | notes |
@@ -759,7 +854,7 @@ _Las clases de cada paquete: compradas (+), usadas (−), devueltas y vencidas. 
 | `frozen_until` | date, null | purchase rows: the last frozen day; expires_at moved by the same days |
 
 #### `payments`
-Each charge, via Wompi or manual.  
+Each charge, via Wompi or manual.
 _Cada cobro, por Wompi o manual._
 
 | column | type | notes |
@@ -782,7 +877,7 @@ _Cada cobro, por Wompi o manual._
 | `note` | text, null | Why the received amount differs from the invoice (S-04 requires it when it does) |
 
 #### `invoices`
-Fiscal document per payment (DIAN later).  
+Fiscal document per payment (DIAN later).
 _Documento fiscal por pago (DIAN más adelante)._
 
 | column | type | notes |
@@ -801,7 +896,7 @@ _Documento fiscal por pago (DIAN más adelante)._
 | `dian_cufe` | text, null |  |
 
 #### `gift_cards`
-Vouchers bought to give away, with scheduled delivery.  
+Vouchers bought to give away, with scheduled delivery.
 _Bonos comprados para regalar, con entrega programada._
 
 | column | type | notes |
@@ -821,7 +916,7 @@ _Bonos comprados para regalar, con entrega programada._
 | `status` | enum (scheduled \| sent \| redeemed \| expired) |  |
 
 #### `payment_methods`
-Methods the person saved (C-05). The token belongs to Wompi; we never store the card.  
+Methods the person saved (C-05). The token belongs to Wompi; we never store the card.
 _Métodos que la persona guardó (C-05). El token es de Wompi; nunca guardamos la tarjeta._
 
 | column | type | notes |
@@ -845,7 +940,7 @@ _Métodos que la persona guardó (C-05). El token es de Wompi; nunca guardamos l
 - nobody: token_ref is never selectable from the client once Wompi is live (vault column)
 
 #### `invites`
-Invites members send (C-16) and the gift class once the guest joins.  
+Invites members send (C-16) and the gift class once the guest joins.
 _Invitaciones enviadas por miembros (C-16) y la clase de regalo cuando el invitado entra._
 
 | column | type | notes |
@@ -861,7 +956,7 @@ _Invitaciones enviadas por miembros (C-16) y la clase de regalo cuando el invita
 | `channel` | enum (whatsapp \| email \| link) |  |
 | `code` | text |  |
 | `session_id` | uuid, null | → `class_sessions` class the invite was sent from |
-| `status` | enum (sent \| opened \| joined \| rewarded) |  |
+| `status` | enum (prepared \| sent \| opened \| joined \| rewarded) |  |
 | `reward_ledger_id` | uuid, null | → `class_ledger`  |
 
 **Who may read / write**
@@ -870,7 +965,7 @@ _Invitaciones enviadas por miembros (C-16) y la clase de regalo cuando el invita
 - admin/finance: write status and reward_ledger_id (the reward class is granted server-side)
 
 #### `special_charges`
-A charge whose concept and price were typed by hand at the desk (S-04): a private event, a rental, a group session, a special request. It may carry a manual teacher payout and a room booking.  
+A charge whose concept and price were typed by hand at the desk (S-04): a private event, a rental, a group session, a special request. It may carry a manual teacher payout and a room booking.
 _Un cobro con concepto y precio escritos a mano en recepción (S-04): evento privado, alquiler, sesión de grupo, pedido especial. Puede llevar un pago manual al profesor y una reserva de sala._
 
 | column | type | notes |
@@ -898,7 +993,7 @@ _Un cobro con concepto y precio escritos a mano en recepción (S-04): evento pri
 - the money in is the linked payments row; the money out is the payroll_lines row of kind manual — this table joins the two
 
 #### `payroll_runs`
-One monthly teacher payroll run (M-09a): period, status, total and payout method.  
+One monthly teacher payroll run (M-09a): period, status, total and payout method.
 _Una liquidación mensual de profesores (M-09a): periodo, estado, total y medio de pago._
 
 | column | type | notes |
@@ -924,7 +1019,7 @@ _Una liquidación mensual de profesores (M-09a): periodo, estado, total y medio 
 - a run in status paid is immutable; a correction is a new adjustment line in the next run
 
 #### `payroll_lines`
-One class taught, bonus, adjustment or manual Especial payout inside a run (M-09b, S-03).  
+One class taught, bonus, adjustment or manual Especial payout inside a run (M-09b, S-03).
 _Una clase dictada, bono, ajuste o pago manual de un Especial dentro de una corrida (M-09b, S-03)._
 
 | column | type | notes |
@@ -951,7 +1046,7 @@ _Una clase dictada, bono, ajuste o pago manual de un Especial dentro de una corr
 - nobody: lines of a paid run are read-only
 
 #### `expense_templates`
-Template for one fixed studio cost (rent, utilities, cleaning…) with its cadence; M-09c generates the period’s expenses from it.  
+Template for one fixed studio cost (rent, utilities, cleaning…) with its cadence; M-09c generates the period’s expenses from it.
 _Plantilla de un costo fijo del estudio (arriendo, servicios, aseo…) con su cadencia; M-09c genera de aquí los gastos del periodo._
 
 | column | type | notes |
@@ -975,7 +1070,7 @@ _Plantilla de un costo fijo del estudio (arriendo, servicios, aseo…) con su ca
 - deactivate instead of delete once a template has generated rows, so history keeps its origin
 
 #### `expenses`
-Every studio expense, fixed (generated from a template) or variable (recorded by hand); it subtracts in the M-09 balance.  
+Every studio expense, fixed (generated from a template) or variable (recorded by hand); it subtracts in the M-09 balance.
 _Cada gasto del estudio, fijo (generado de una plantilla) o variable (registrado a mano); resta en el balance de M-09._
 
 | column | type | notes |
@@ -1004,7 +1099,7 @@ _Cada gasto del estudio, fijo (generado de una plantilla) o variable (registrado
 ### Comms · Comunicaciones
 
 #### `email_templates`
-Versioned automated emails (M-04): to customers, teachers and the team.  
+Versioned automated emails (M-04): to customers, teachers and the team.
 _Emails automáticos versionados (M-04): a clientes, profesores y equipo._
 
 | column | type | notes |
@@ -1024,7 +1119,7 @@ _Emails automáticos versionados (M-04): a clientes, profesores y equipo._
 | `active` | bool |  |
 
 #### `wa_templates`
-Meta-approved templates with variables.  
+Meta-approved templates with variables.
 _Plantillas aprobadas por Meta con variables._
 
 | column | type | notes |
@@ -1041,7 +1136,7 @@ _Plantillas aprobadas por Meta con variables._
 | `active` | bool |  |
 
 #### `automations`
-Trigger → channel → template, with quiet hours.  
+Trigger → channel → template, with quiet hours.
 _Disparador → canal → plantilla, con horas de silencio._
 
 | column | type | notes |
@@ -1059,7 +1154,7 @@ _Disparador → canal → plantilla, con horas de silencio._
 | `enabled` | bool |  |
 
 #### `message_log`
-The whole conversation with each person: WhatsApp and email both ways (manual, automation, newsletter, system) plus internal staff notes. M-06 shows it per person; S-06 spreads it across the front-desk inbox.  
+The whole conversation with each person: WhatsApp and email both ways (manual, automation, newsletter, system) plus internal staff notes. M-06 shows it per person; S-06 spreads it across the front-desk inbox.
 _La conversación completa con cada persona: WhatsApp y email en ambos sentidos (manual, automatización, newsletter, sistema) y las notas internas del equipo. M-06 la muestra por persona; S-06 la reparte en la bandeja de recepción._
 
 | column | type | notes |
@@ -1091,7 +1186,7 @@ _La conversación completa con cada persona: WhatsApp y email en ambos sentidos 
 - retention: internal notes follow the member record (deleted with it, M-11); provider ids are kept for reconciliation
 
 #### `notifications`
-The C-24 inbox: what the studio sends, with read state and a deep link.  
+The C-24 inbox: what the studio sends, with read state and a deep link.
 _La bandeja de C-24: lo que el estudio envía, con estado de lectura y enlace profundo._
 
 | column | type | notes |
@@ -1114,7 +1209,7 @@ _La bandeja de C-24: lo que el estudio envía, con estado de lectura y enlace pr
 - retention: rows older than 90 days are deleted by a scheduled job
 
 #### `notification_prefs`
-Channel × category each person accepts (C-24 / C-19). No row = enabled.  
+Channel × category each person accepts (C-24 / C-19). No row = enabled.
 _Canal × categoría que cada persona acepta (C-24 / C-19). Sin fila = activado._
 
 | column | type | notes |
@@ -1136,7 +1231,7 @@ _Canal × categoría que cada persona acepta (C-24 / C-19). Sin fila = activado.
 ### Manual & training · Manual y formación
 
 #### `manual_progress`
-Who marked which manual chapter (K-03) as read, and at which version: each person’s “read N of M”.  
+Who marked which manual chapter (K-03) as read, and at which version: each person’s “read N of M”.
 _Quién marcó como leído qué capítulo del manual (K-03) y en qué versión: el «leído N de M» de cada persona._
 
 | column | type | notes |
@@ -1156,7 +1251,7 @@ _Quién marcó como leído qué capítulo del manual (K-03) y en qué versión: 
 - never updated in place
 
 #### `manual_training`
-Each Day 1 / Week 1 / Month 1 checklist item (chapter 09) a person completed, and the stage sign-off by their trainer (item_key = __signoff).  
+Each Day 1 / Week 1 / Month 1 checklist item (chapter 09) a person completed, and the stage sign-off by their trainer (item_key = __signoff).
 _Cada punto del checklist Día 1 / Semana 1 / Mes 1 (capítulo 09) que una persona completó, y la firma de etapa de quien la entrena (item_key = __signoff)._
 
 | column | type | notes |
@@ -1178,7 +1273,7 @@ _Cada punto del checklist Día 1 / Semana 1 / Mes 1 (capítulo 09) que una perso
 - a __signoff row is never deleted; a correction is a new row
 
 #### `manual_overrides`
-A manual section rewritten in the app by the owner or coordination (or suggested by an agent): shown instead of the repository text, with its history. The original markdown is never touched.  
+A manual section rewritten in the app by the owner or coordination (or suggested by an agent): shown instead of the repository text, with its history. The original markdown is never touched.
 _Una sección del manual reescrita desde la app por el owner o coordinación (o sugerida por un agente): se muestra en lugar del texto del repositorio, con su historial. El markdown original nunca se toca._
 
 | column | type | notes |
@@ -1203,7 +1298,7 @@ _Una sección del manual reescrita desde la app por el owner o coordinación (o 
 - history is append-only: restoring sets status reverted, never deletes
 
 #### `manual_requests`
-“Request a change”: what someone on the team wants the manual to say. The owner answers it on K-04, or an agent picks it up through the actions registry.  
+“Request a change”: what someone on the team wants the manual to say. The owner answers it on K-04, or an agent picks it up through the actions registry.
 _«Pedir un cambio»: lo que alguien del equipo quiere que diga el manual. El owner lo responde en K-04, o un agente lo toma por el registro de acciones._
 
 | column | type | notes |
@@ -1225,7 +1320,7 @@ _«Pedir un cambio»: lo que alguien del equipo quiere que diga el manual. El ow
 - admin/coordinator/super_admin: read all, update status and answer
 
 #### `studio_policies`
-Text rules the manual quotes with {{studio:key}} and the owner or coordination adjust without touching the markdown (lost items, opening, closing…). Numeric policies stay in M-08.  
+Text rules the manual quotes with {{studio:key}} and the owner or coordination adjust without touching the markdown (lost items, opening, closing…). Numeric policies stay in M-08.
 _Reglas de texto que el manual cita con {{studio:clave}} y que el owner o coordinación ajustan sin tocar el markdown (objetos perdidos, apertura, cierre…). Las políticas numéricas siguen en M-08._
 
 | column | type | notes |
@@ -1250,7 +1345,7 @@ _Reglas de texto que el manual cita con {{studio:clave}} y que el owner o coordi
 ### System · Sistema
 
 #### `integrations`
-One row per external system (Wompi, WhatsApp, email, DIAN, maps, Supabase, Google Business Profile): status, non-secret fields ready to fill and notes for the dev (M-10). Keys live server-side, never here.  
+One row per external system (Wompi, WhatsApp, email, DIAN, maps, Supabase, Google Business Profile): status, non-secret fields ready to fill and notes for the dev (M-10). Keys live server-side, never here.
 _Una fila por sistema externo (Wompi, WhatsApp, correo, DIAN, mapas, Supabase, Google Business Profile): estado, campos no secretos listos para llenar y notas para el dev (M-10). Las llaves viven en el servidor, nunca aquí._
 
 | column | type | notes |
@@ -1271,7 +1366,7 @@ _Una fila por sistema externo (Wompi, WhatsApp, correo, DIAN, mapas, Supabase, G
 - nobody else reads; config holds public identifiers only — a secret in this table is a bug
 
 #### `api_keys`
-Keys HoyOS issues to developers to call its API (D-07). The SHA-256 hash and a visible prefix are stored; the full key is shown once. Verification is the server’s job (it does not exist yet).  
+Keys HoyOS issues to developers to call its API (D-07). The SHA-256 hash and a visible prefix are stored; the full key is shown once. Verification is the server’s job (it does not exist yet).
 _Llaves que HoyOS entrega a desarrolladores para llamar su API (D-07). Se guarda el hash SHA-256 y un prefijo visible; la llave completa se muestra una sola vez. La verificación la hace el servidor (aún no existe)._
 
 | column | type | notes |
@@ -1298,7 +1393,7 @@ _Llaves que HoyOS entrega a desarrolladores para llamar su API (D-07). Se guarda
 - the raw key is never stored — a raw key in this table is a bug
 
 #### `audit_log`
-Who did what, on which entity, when (M-07).  
+Who did what, on which entity, when (M-07).
 _Quién hizo qué, sobre qué entidad, cuándo (M-07)._
 
 | column | type | notes |
@@ -1315,7 +1410,7 @@ _Quién hizo qué, sobre qué entidad, cuándo (M-07)._
 | `ip` | text, null |  |
 
 #### `table_views`
-The table manager views (M-03): which table, which kind of view (grid, list, gallery, board, calendar, timeline, graph) and with which filters, sorts, grouping and columns. A shared view is visible to the whole team.  
+The table manager views (M-03): which table, which kind of view (grid, list, gallery, board, calendar, timeline, graph) and with which filters, sorts, grouping and columns. A shared view is visible to the whole team.
 _Las vistas del gestor de tablas (M-03): qué tabla, qué tipo de vista (cuadrícula, lista, galería, tablero, calendario, línea de tiempo, grafo) y con qué filtros, orden, agrupación y columnas. Una vista compartida la ve todo el equipo._
 
 | column | type | notes |
@@ -1338,7 +1433,7 @@ _Las vistas del gestor de tablas (M-03): qué tabla, qué tipo de vista (cuadrí
 - is_default marks the view a table opens with; one default per table_name
 
 #### `docs_entries`
-Index of docs/ for search and links (the .md files are the source).  
+Index of docs/ for search and links (the .md files are the source).
 _Índice de docs/ para búsqueda y enlaces (los .md son la fuente)._
 
 | column | type | notes |
@@ -1355,7 +1450,7 @@ _Índice de docs/ para búsqueda y enlaces (los .md son la fuente)._
 ### Design · Diseño
 
 #### `components`
-Index of the D-02 library (the .meta.ts files are the source).  
+Index of the D-02 library (the .meta.ts files are the source).
 _Índice de la biblioteca D-02 (los .meta.ts son la fuente)._
 
 | column | type | notes |
@@ -1370,7 +1465,7 @@ _Índice de la biblioteca D-02 (los .meta.ts son la fuente)._
 | `used_by` | json, null |  |
 
 #### `page_layouts`
-Per-page section order saved from the drag-and-drop editor.  
+Per-page section order saved from the drag-and-drop editor.
 _Orden de secciones por página guardado desde el editor drag-and-drop._
 
 | column | type | notes |

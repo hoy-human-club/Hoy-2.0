@@ -22,6 +22,12 @@ export const strings: StringTable = {
   'hub.wireframe': { es: 'Wireframe', en: 'Wireframe' },
 
   // Bands
+  'hub.band.promotions.eyebrow': { es: 'Aprender y practicar', en: 'Learn and practise' },
+  'hub.band.promotions.title': { es: 'De la invitación al check-in', en: 'From invitation to check-in' },
+  'hub.band.promotions.body': { es: 'Empieza aquí para conocer el recorrido de promociones. Una vista previa para cualquier persona con acceso al Hub.', en: 'Start here to learn the promotions journey. A preview for anyone with Hub access.' },
+  'hub.training.preview': { es: 'Formación · práctica aislada', en: 'Training · isolated practice' },
+  'hub.training.open': { es: 'Abrir la práctica', en: 'Open the practice' },
+  'hub.training.everyone': { es: 'Todos los roles', en: 'All roles' },
   'hub.band.outside.eyebrow': { es: 'Fuera del estudio', en: 'Outside the studio' },
   'hub.band.outside.title': { es: 'Lo que ve un miembro', en: 'What a member sees' },
   'hub.band.outside.body': { es: 'La puerta de entrada: el sitio público, la app donde se reserva y la app con la que enseña el profesor.', en: 'The way in: the public site, the app people book from, and the app a teacher runs a class with.' },

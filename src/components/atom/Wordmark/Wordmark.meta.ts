@@ -19,8 +19,9 @@ export default defineMeta({
     { name: 'inline', type: 'boolean', default: 'false', description: { es: 'Dentro de un titular: alto --wm-inline-h (1.2em, mínimo 120 px de ancho), baja hasta la línea base del texto, márgenes --wm-inline-gap.', en: 'Inside a heading: height --wm-inline-h (1.2em, never under 120 px wide), dropped to the text baseline, --wm-inline-gap margins.' } },
     { name: 'tone', type: "'auto' | 'blue' | 'cream' | 'yellow' | 'current'", default: 'auto', description: { es: 'Color del vector: auto = azul #35597D en claro y crema #F1E7D2 en oscuro; current = el color del titular (paneles azules); impreso siempre azul.', en: 'Vector colour: auto = blue #35597D in light, cream #F1E7D2 in dark; current = the heading colour (blue panels); always blue in print.' } },
   ],
-  states: ['light', 'dark', 'inline in a heading', 'inline on the deep-blue panel (tone current / yellow)', 'link hover (site header, footer)', 'link focus-visible', 'print (blue)', 'minimum size floor (120 px)'],
+  states: ['light', 'dark', 'intrinsic raster aspect ratio in stacked cards', 'inline in a heading', 'inline on the deep-blue panel (tone current / yellow)', 'link hover (site header, footer)', 'link focus-visible', 'print (blue)', 'minimum size floor (120 px)'],
   usages: [
+    { title: { es: 'Imagen en tarjeta apilada', en: 'Image in a stacked card' }, render: () => h('div', { className: 'stack' }, h(Wordmark, { variant: 'blue', height: 28 })) },
     { title: { es: 'Colorways (imagen)', en: 'Colourways (image)' }, render: () => h('div', { className: 'row wrap', style: { background: 'var(--brand-deepBlue)', padding: 16, borderRadius: 'var(--r-md)' } }, h(Wordmark, { variant: 'cream', height: 40 }), h(Wordmark, { variant: 'yellow', height: 40 })) },
     { title: { es: 'Vector: tonos', en: 'Vector: tones' }, render: () => h('div', { className: 'row wrap', style: { gap: 24, alignItems: 'center' } },
       h(Wordmark, { vector: true, height: 51 }),
@@ -34,5 +35,5 @@ export default defineMeta({
     { es: 'Vector: role="img" + aria-label = nombre del tenant; el titular se sigue leyendo “Sobre HOY”. El SVG interno es aria-hidden.', en: 'Vector: role="img" + aria-label = tenant name; the heading still reads “About HOY”. The inner SVG is aria-hidden.' },
     { es: 'Contraste: #35597D sobre el papel claro ≥ 6:1; crema sobre el fondo oscuro ≥ 9:1.', en: 'Contrast: #35597D on the light paper ≥ 6:1; cream on the dark ground ≥ 9:1.' },
   ],
-  usedBy: ['M-13', 'C-28', 'P-HOME', 'TopBar', 'HUB-01', 'W-01', 'W-02', 'W-07', 'W-08'],
+  usedBy: ['S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'M-13', 'C-28', 'P-HOME', 'TopBar', 'HUB-01', 'W-01', 'W-02', 'W-07', 'W-08'],
 });

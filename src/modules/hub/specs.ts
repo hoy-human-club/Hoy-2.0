@@ -3,7 +3,7 @@ import { EVERYONE } from '../../auth/roles';
 import type { ActionDef } from '../../actions/types';
 
 /** The card families the hub lays out, in document order. Also the `surface` enum of `hub.enterAs`. */
-export const HUB_SURFACES = ['app', 'site', 'coming-soon', 'teacher', 'desk', 'inbox', 'pos', 'admin', 'crm', 'messages', 'finance', 'marketing', 'manual', 'sources', 'docs', 'kb', 'dev'] as const;
+export const HUB_SURFACES = ['promotions', 'app', 'site', 'coming-soon', 'teacher', 'desk', 'inbox', 'pos', 'admin', 'crm', 'messages', 'finance', 'marketing', 'manual', 'sources', 'docs', 'kb', 'dev'] as const;
 export type HubSurfaceKey = (typeof HUB_SURFACES)[number];
 
 /** The testing-hub row, in document order. Also the `tool` enum of `hub.openTool`. */
@@ -43,6 +43,7 @@ export const hubSpec = defineSpec({
     'BrandBand (Wordmark, version Badge, LangToggle, theme, wireframe + dev toggles for super_admin)',
     'Hero (eyebrow tenant · city, h1, lead, tagline, BreathingRings art ≥ 900 px)',
     'SessionBar (RoleSwitcher, Ctrl + . hint in dev mode)',
+    'FeaturedTraining · Promociones y bonos (P-02, same-session learning and isolated practice for every Hub role)',
     'BandA · Fuera del estudio (Customer app featured with a phone preview, Website, Coming soon page, Teacher app)',
     'BandB · El equipo (Front desk, Inbox, Caja, Admin, CRM, Mensajes transaccionales → M-04 + M-05 link, Finanzas, Kit de marketing — próximamente)',
     'BandC · Construcción y pruebas (Manual, Documentos fuente, Docs, Kanban, Dev tools)',
@@ -53,7 +54,7 @@ export const hubSpec = defineSpec({
   data: ['users', 'user_roles', 'feature_flags', 'page_layouts'],
   roles: EVERYONE,
   logic: [
-    'Every card enters as the demo user of its role: switchUser(role) then navigate — the tester never has to pick a person first.',
+    'Cards with switchUser enter as their role’s demo user. Promotions training and other same-session cards navigate without changing identity or permissions.',
     'The built / stub badge is read from the route manifest (src/app/manifest.ts routeManifest), not typed into the card.',
     '“Estás aquí / You are here” shows on the card whose route is ROLE_HOME for the current effective role.',
     'Previews layer a real capture (docs/screenshots/<code>/thumb-*) over a hue-tinted idle tile; a missing capture hides the image instead of breaking it.',

@@ -1,9 +1,10 @@
-import { Fragment, useRef, useState, type ReactNode } from 'react';
+import {useVoucherActions} from './actions';
+import { Fragment, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { formatCOP } from '../../i18n/format';
-import { useData, useTable } from '../../data/DataContext';
-import type { VoucherRow, VoucherBookingRow, VoucherEventRow, VoucherCommand } from '../../data/vouchers';
+import { useTable } from '../../data/DataContext';
+import type { VoucherRow, VoucherBookingRow, VoucherEventRow } from '../../data/vouchers';
 import type { ClassSessionRow } from '../../data/schema';
 import { useSession } from '../../auth/SessionProvider';
 import { useLayout } from '../../layout/useLayout';
@@ -19,21 +20,6 @@ import { Wordmark } from '../../components/atom/Wordmark/Wordmark';
 import { adminSpec, claimSpec } from './specs';
 import './vouchers.css';
 
-function useVoucherActions() {
-  const data = useData(); const { user, role } = useSession();
-  const [busy, setBusy] = useState(false); const lock = useRef(false);
-  const [error, setError] = useState(false);
-  async function run(command: Omit<VoucherCommand, 'requestId' | 'actorId' | 'role'> | Record<string, unknown>) {
-    if (lock.current) return null;
-    lock.current = true; setBusy(true); setError(false);
-    try {
-      if (!data.voucher) throw new Error('Unavailable');
-      return await data.voucher({ ...command, requestId: crypto.randomUUID(), actorId: user.id, role } as VoucherCommand);
-    } catch { setError(true); return null; }
-    finally { lock.current = false; setBusy(false); }
-  }
-  return { run, busy, error };
-}
 
 export function VoucherAdminPage() {
   const { t, lang } = useI18n(); const { sections, isVisible } = useLayout(adminSpec);
@@ -74,7 +60,7 @@ export function VoucherAdminPage() {
       <p className="small muted">{t('vouchers.free')} · {v.expiresAt?new Date(v.expiresAt).toLocaleDateString(lang):t('vouchers.noExpiry')}</p>
       <div className="row wrap"><Link to={`/app/vouchers/${v.id}`}>{t('vouchers.open')}</Link>{(['email','whatsapp'] as const).map(channel=><Button key={channel} variant="secondary" size="sm" loading={busy} onClick={async()=>{if(await run({type:'preview_delivery',voucherId:v.id,channel}))setPreview(`${v.id}:${channel}`);}}>{t('vouchers.preview')} · {t(`vouchers.${channel}`)}</Button>)}<Button variant="ghost" size="sm" disabled={v.status==='revoked'||busy} onClick={()=>run({type:'revoke',voucherId:v.id})}>{t('vouchers.revoke')}</Button></div>
       {preview?.startsWith(`${v.id}:`)&&<Notice title={t('vouchers.previewOnly')}><p>{t('vouchers.channelBody',{name:v.recipientName||'',studio:tenant.name,benefit:benefit(v)})}</p><p>{v.message}</p><Link to={`/app/vouchers/${v.id}`}>{t('vouchers.open')}</Link></Notice>}
-      {bookings.filter(b=>b.voucherId===v.id).map(b=><div key={b.id} className="stack-sm"><strong>{t('vouchers.booking')} · {t(`vouchers.${b.status}`)}</strong><span>{b.participants.map(p=>p.name).join(' · ')}</span><div className="row wrap">{b.status==='booked'&&<><Button size="sm" disabled={busy} onClick={()=>run({type:'attendance',bookingId:b.id})}>{t('vouchers.attend')}</Button><Button size="sm" variant="secondary" disabled={busy} onClick={()=>run({type:'cancel',bookingId:b.id})}>{t('vouchers.cancel')}</Button></>}</div></div>)}
+      {bookings.filter(b=>b.voucherId===v.id).map(b=><div key={b.id} className="stack-sm"><strong>{t('vouchers.booking')} · {t(`vouchers.${b.status}`)}</strong><span>{b.participants.map(p=>p.name).join(' · ')}</span><div className="row wrap">{b.status==='booked'&&<>{v.source==='promotion_claim'&&!b.confirmedAt?<Link className="btn btn-secondary btn-sm" to="/staff/vouchers">{t('desk.verifyBeforeAttendance')}</Link>:<Button size="sm" disabled={busy} onClick={()=>run({type:'attendance',bookingId:b.id})}>{t('vouchers.attend')}</Button>}<Button size="sm" variant="secondary" disabled={busy} onClick={()=>run({type:'cancel',bookingId:b.id})}>{t('vouchers.cancel')}</Button></>}</div></div>)}
       <ol className="voucher-events">{events.filter(e=>e.voucherId===v.id).map(e=><li key={e.id}><span>{t(`vouchers.${eventLabel(e.kind)}`)}</span> <time>{new Date(e.created_at).toLocaleString(lang)}</time></li>)}</ol>
     </div></Card>)}</div>,
   };

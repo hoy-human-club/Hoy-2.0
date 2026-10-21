@@ -68,13 +68,21 @@ for (const t of tables) {
     sql += '-- DEFAULT DENY: private compensation needs authenticated tenant-scoped admin/super_admin/finance read and append-only RPCs. No client UPDATE/DELETE.\n\n';
     continue;
   }
-  if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(t.name)) {
-    sql += '-- DEFAULT DENY: no client policies until authenticated transactional voucher RPCs and scoped read policies exist.\n\n';
+  if (['vouchers', 'voucher_bookings', 'voucher_events', 'promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(t.name)) {
+    sql += '-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.\n\n';
     continue;
   }
   sql += `create policy "${t.name}: tenant read" on public.${t.name} for select using (tenant_id = public.current_tenant_id());\n`;
   sql += `create policy "${t.name}: staff write" on public.${t.name} for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));\n\n`;
 }
+sql += `-- Promotion uniqueness belongs in the eventual transactional backend, never only UI checks.
+create unique index if not exists promotion_share_code_unique on public.promotion_shares (tenant_id, upper(code));
+create unique index if not exists promotion_claim_user_campaign_unique on public.promotion_claims (tenant_id, "campaignId", "userId");
+create unique index if not exists promotion_claim_voucher_unique on public.promotion_claims (tenant_id, "voucherId");
+create unique index if not exists promotion_request_unique on public.promotion_events (tenant_id, "requestId");
+create unique index if not exists voucher_request_unique on public.voucher_events (tenant_id, "requestId");
+
+`;
 if (deferred.length) sql += `-- foreign keys to tables created later in this file (kept out of the create table so the order above stays by group)\n${deferred.join('\n')}\n\n`;
 sql += `-- ---------------------------------------------------------------------------------------------
 -- RLS notes per role (refine per table when the real backend lands):

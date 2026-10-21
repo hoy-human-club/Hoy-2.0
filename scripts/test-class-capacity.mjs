@@ -48,7 +48,7 @@ try {
   assert.equal((await db.get('class_sessions', session.id)).booked_count, 1);
 
   let request = 0;
-  const command = (type, fields, actorId = 'capacity-admin', role = 'admin') => db.voucher({ type, requestId: `capacity-request-${++request}`, actorId, role, ...fields });
+  const command = (type, fields, actorId = 'usr_admin', role = 'admin') => db.voucher({ type, requestId: `capacity-request-${++request}`, actorId, role, ...fields });
   const user = await db.get('users', 'usr_cust');
   assert(user, 'fixture has a customer');
   const issued = await command('issue', { title: 'Capacity regression', benefitKind: 'classes', benefitTotal: 20, participantCap: 4, capScope: 'per_booking', creditUnit: 'per_person', expiresAt: null, cancellationPolicy: 'restore' });

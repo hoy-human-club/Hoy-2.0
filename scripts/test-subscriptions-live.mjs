@@ -32,5 +32,22 @@ try {
  await page.setViewportSize({width:390,height:844});assert(await page.locator('.app-directory').evaluate(el=>el.scrollWidth<=el.clientWidth+1));await page.screenshot({path:`qa/subscription-release/${project}/live-390.png`,fullPage:true});
  await page.goto(`${url.split('#')[0]}#/admin/class-schedule`);await page.getByRole('heading',{name:'Class Schedule',exact:true}).waitFor();await page.locator('.session-calendar').waitFor();
  await page.goto(`${url.split('#')[0]}#/site/schedule`);await page.locator('.session-calendar').waitFor();assert.deepEqual(errors,[]);
- await writeFile(`qa/subscription-release/${project}/verified.json`,JSON.stringify({url,expectedCommit:expected,release,checkedAt:new Date().toISOString(),httpStatus:response.status(),checks:['exact live source SHA/version','scheduling routes in release map','live admin/public schedule renders','protected captures excluded','deployed directory renders','starts empty','disconnected adapters visible','390/1280 captures','no page errors'],errors},null,2));console.log('Verified '+url);
+ if(project==='hoy') {
+  assert.equal(map.pages.find(p=>p.code==='M-15')?.route,'/admin/promotions','promotion results have a distinct released code');
+  const teacher=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db.teachers[0].id);
+  await page.goto(`${url.split('#')[0]}#/admin/content?entity=teachers&row=${teacher}`);await page.getByRole('dialog').locator('.shared-image-field').waitFor();
+  await page.goto(`${url.split('#')[0]}#/hub/promotions`);await page.locator('.promotion-practice').waitFor();
+  const before=await page.evaluate(()=>localStorage.getItem('hoyos.db.v1'));
+  await page.getByRole('button',{name:'Simulate sharing',exact:true}).click();
+  await page.getByRole('button',{name:'Simulate claim and booking',exact:true}).click();
+  await page.getByLabel('Enter the practice code',{exact:true}).fill('TRAINING-01');
+  await page.getByRole('button',{name:'Verify example',exact:true}).click();
+  await page.getByRole('button',{name:'Simulate check-in',exact:true}).click();await page.getByText('Journey complete',{exact:true}).waitFor();
+  assert.equal(await page.evaluate(()=>localStorage.getItem('hoyos.db.v1')),before,'live isolated practice does not write provider data');
+  await page.goto(`${url.split('#')[0]}#/staff/vouchers`);await page.getByRole('heading',{name:'Vouchers at reception',exact:true}).waitFor();
+  await page.getByLabel('Code or full link',{exact:true}).fill('NOT-A-REAL-CODE');await page.getByRole('button',{name:'Find code',exact:true}).click();
+  await page.getByText('This code was not found here. Check the link and browser where it was created; this test is local.',{exact:true}).waitFor();
+  assert.deepEqual(errors,[]);
+ }
+ await writeFile(`qa/subscription-release/${project}/verified.json`,JSON.stringify({url,expectedCommit:expected,release,checkedAt:new Date().toISOString(),httpStatus:response.status(),checks:['exact live source SHA/version','scheduling routes in release map','live admin/public schedule renders','protected captures excluded','deployed directory renders','starts empty','disconnected adapters visible','390/1280 captures','no page errors','live Content photo chooser','distinct promotion spec','live isolated promotion journey without provider writes','live reception missing-code state'],errors},null,2));console.log('Verified '+url);
 } finally {await browser.close();}

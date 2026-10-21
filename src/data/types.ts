@@ -3,6 +3,7 @@ import type { GenerateRecurrence } from './classRecurrence';
 import type { SessionEdit } from './sessionEditorial';
 import type { ClassSessionRow } from './schema';
 import type { ContentBatch, ContentBatchResult } from './contentBatch';
+import type { PromotionCommand, PromotionResult } from './promotions';
 import type { VoucherCommand, VoucherResult } from './vouchers';
 import type { BaseRow } from './schema';
 
@@ -34,6 +35,8 @@ export interface DataProvider {
   contentBatch?(command: ContentBatch): Promise<ContentBatchResult>;
   /** Atomic demo transaction; absent until real backend RPCs are implemented. */
   voucher?(command: VoucherCommand): Promise<VoucherResult>;
+  /** Approved campaign share and explicit claim, mock-only until authenticated RPCs exist. */
+  promotion?(command: PromotionCommand): Promise<PromotionResult>;
   list<T extends BaseRow = BaseRow>(table: string, query?: Query): Promise<T[]>;
   get<T extends BaseRow = BaseRow>(table: string, id: string): Promise<T | null>;
   insert<T extends BaseRow = BaseRow>(table: string, row: Partial<T>): Promise<T>;

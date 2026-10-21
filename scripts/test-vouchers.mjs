@@ -6,12 +6,15 @@ const scratch = await mkdtemp(join(tmpdir(), 'hoy-vouchers-'));
 try {
  const {executeVoucherCommand: run}=await import('../src/data/vouchers.ts');
  const base={tenant_id:'tenant',created_at:'2026-01-01',updated_at:'2026-01-01'};
- let db={vouchers:[],voucher_bookings:[],voucher_events:[],users:[{...base,id:'member'}],bookings:[],class_sessions:[{...base,id:'s1',starts_at:'2027-01-01',status:'scheduled',capacity:4,booked_count:0},{...base,id:'s2',starts_at:'2027-01-02',status:'scheduled',capacity:1,booked_count:0}]};
+ let db={vouchers:[],voucher_bookings:[],voucher_events:[],users:[{...base,id:'admin'},{...base,id:'member'}],bookings:[],class_sessions:[{...base,id:'s1',starts_at:'2027-01-01',status:'scheduled',capacity:4,booked_count:0},{...base,id:'s2',starts_at:'2027-01-02',status:'scheduled',capacity:1,booked_count:0}]};
  let n=0, requests=0;
  const ctx={tenantId:'tenant',now:'2026-10-14T12:00:00Z',id:()=>`id-${++n}`,usesMats:()=>true,matCapacity:4};
  const exec=(cmd)=>{const out=run(db,{requestId:`req-${++requests}`,actorId:'admin',role:'admin',...cmd},ctx);db=out.db;return out.result};
  const rejects=(cmd,code)=>{const before=JSON.stringify(db);assert.throws(()=>exec(cmd),new RegExp(code));assert.equal(JSON.stringify(db),before,'failure atomic');};
  const issue={type:'issue',title:'Test invitation',benefitKind:'classes',benefitTotal:4,participantCap:3,capScope:'per_booking',creditUnit:'per_person',expiresAt:null,cancellationPolicy:'restore'};
+ rejects({...issue,actorId:'nonexistent'},'voucher_identity_required');
+ db.users.push({...base,id:'foreign-admin',tenant_id:'other'});
+ rejects({...issue,actorId:'foreign-admin'},'voucher_identity_required');
  rejects({...issue,role:'customer'},'voucher_forbidden');
  rejects({...issue,capScope:undefined},'voucher_terms_required');
  rejects({...issue,expiresAt:'2020-01-01'},'voucher_expiration_invalid');
@@ -56,7 +59,7 @@ try {
  const recordedConsent=db.voucher_events.find(e=>e.kind==='book').payload;assert.equal(recordedConsent.contactConsent,true);assert.equal(recordedConsent.marketingConsent,false);assert.equal(recordedConsent.consentRecordedAt,ctx.now);
  // Names do not identify people. Each scenario starts with ample independent capacity.
  const identityScenario=()=>{
-  let state={vouchers:[],voucher_bookings:[],voucher_events:[],users:[{...base,id:'member'},{...base,id:'other-member'}],bookings:[],class_sessions:[{...base,id:'identity-session',starts_at:'2027-01-01',status:'scheduled',capacity:20,booked_count:0}]};
+  let state={vouchers:[],voucher_bookings:[],voucher_events:[],users:[{...base,id:'admin'},{...base,id:'member'},{...base,id:'other-member'}],bookings:[],class_sessions:[{...base,id:'identity-session',starts_at:'2027-01-01',status:'scheduled',capacity:20,booked_count:0}]};
   const act=cmd=>{const out=run(state,{requestId:`identity-${++requests}`,actorId:'admin',role:'admin',...cmd},{...ctx,usesMats:()=>false});state=out.db;return out.result;};
   const makeVoucher=()=>{const voucher=act({...issue,benefitTotal:20,participantCap:10}).voucher;act({type:'claim',voucherId:voucher.id,userId:'member',actorId:'member',role:'customer'});return voucher.id;};
   const firstVoucher=makeVoucher(), secondVoucher=makeVoucher();

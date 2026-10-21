@@ -27,6 +27,7 @@
     "test:hours": "node --experimental-strip-types scripts/test-hours.mjs",
     "test:contacts": "node scripts/test-contacts.mjs",
     "test:analytics": "node scripts/test-analytics.mjs",
+    "test:promotions": "node --experimental-strip-types scripts/test-promotions.mjs",
     "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs",
     "media-catalog": "node scripts/gen-media-catalog.mjs",
     "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs"

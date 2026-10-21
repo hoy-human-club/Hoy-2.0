@@ -1,0 +1,9 @@
+.promotion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--measure-sm, 24ch)), 1fr)); gap: var(--grid-gap); }
+.promotion-code { font-size: var(--fs-xl); font-weight: var(--fw-bold); letter-spacing: .08em; overflow-wrap: anywhere; }
+.promotion-link { overflow-wrap: anywhere; white-space: normal; }
+.promotion-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--grid-gap); }
+.promotion-summary strong { display: block; font-size: var(--fs-xl); }
+.promotion-steps { padding-inline-start: var(--sp-xl); }
+.promotion-steps li + li { margin-top: var(--stack); }
+
+.promotion-offer-page.page { padding-inline: var(--gutter); }

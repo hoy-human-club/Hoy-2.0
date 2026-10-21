@@ -1,3 +1,6 @@
+/* Raster marks retain their intrinsic shape inside flex stacks and narrow cards. */
+.wordmark { object-fit: contain; flex-shrink: 0; }
+.stack > .wordmark { align-self: flex-start; }
 /* Wordmark atom (D-02). Raster <img> colourways + the vector script mark (tenant.brand.vector) in two layouts:
    `vector` (a block mark for the site header / footer) and `inline` (inside a display heading, in place of HOY). */
 .wordmark-vector, .wordmark-inline { display: inline-block; aspect-ratio: var(--wm-ratio); line-height: 0; flex: none; }

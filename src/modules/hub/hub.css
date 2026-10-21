@@ -136,6 +136,9 @@
   flex: 0 0 11.625rem; display: flex; align-items: flex-end;
   padding: var(--sp-xl) var(--sp-xl) 0 0;
 }
+.hub-promotions-preview .hub-card.is-featured .hub-card-body { flex: 1 1 0; min-width: 0; }
+.hub-promotions-preview .hub-card.is-featured .hub-card-preview { flex: 1 1 0; align-items: center; min-width: 0; padding: var(--card-pad); }
+@media (max-width: 600px) { .hub-promotions-preview .hub-card.is-featured .hub-card-preview { max-width: none; width: 100%; } }
 
 /* -------------------------------------------------------------- tools row */
 .hub-tools { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-md); }

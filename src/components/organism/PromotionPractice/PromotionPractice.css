@@ -1,0 +1,10 @@
+.promotion-practice-head, .promotion-practice-stephead { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--gap-control); flex-wrap: wrap; }
+.promotion-practice-head > .stack-sm { flex: 1 1 24rem; }
+.promotion-practice-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); }
+.promotion-practice-steps > li { min-width: 0; }
+.promotion-practice-step { display: flex; flex-direction: column; gap: var(--stack-loose); height: 100%; }
+.promotion-practice-step h3 { font-size: var(--fs-lg); }
+.promotion-practice-step .btn { white-space: normal; line-height: var(--lh-base); }
+.promotion-practice-offer { padding: var(--card-pad); background: var(--color-highlight); color: var(--color-on-highlight); border-radius: var(--r-sm); }
+.promotion-practice-offer code { overflow-wrap: anywhere; }
+@media (max-width: 900px) { .promotion-practice-steps { grid-template-columns: 1fr; } }

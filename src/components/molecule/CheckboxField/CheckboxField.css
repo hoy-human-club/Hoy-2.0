@@ -1,0 +1,3 @@
+.checkbox-field { display: flex; align-items: flex-start; gap: var(--gap-control); min-height: var(--h-ctl); cursor: pointer; }
+.checkbox-field input { flex: none; width: var(--sp-lg); height: var(--sp-lg); margin-block-start: var(--sp-xs); }
+.checkbox-field span { min-width: 0; }
