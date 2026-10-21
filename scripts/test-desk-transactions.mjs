@@ -46,5 +46,29 @@ try {
  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,{userId,sessionId,status:'booked',now:stamp})),/package_frozen/);
  await data.update('class_ledger',buy.id,{frozen_from:null,frozen_until:null,expires_at:'2000-01-01'});
  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,{userId,sessionId,status:'booked',now:stamp})),/insufficient_classes/);
- console.log('PASS desk transaction: every write failure + storage rollback, no intermediate events, concurrent retry idempotency, exactly one debit/capacity, duplicate/full/pending/declined/voided/refunded/frozen/expired rejection');
+ // A freshly paid sale consumes its own purchased lot, independent of exhausted/expired/frozen history.
+ await data.update('class_sessions',sessionId,{capacity:10});
+ for (const [i,paidWith] of ['trial','single','package'].entries()) {
+  const uid=`qa_returning_${paidWith}`, planId=`plan_${paidWith}`, quantity=paidWith==='package'?12:1;
+  const oldPay=await data.insert('payments',{user_id:uid,plan_id:'plan_old',status:'approved'});
+  const history=[await data.insert('class_ledger',{user_id:uid,plan_id:'plan_old',payment_id:oldPay.id,delta:12,reason:'purchase',expires_at:'2000-01-01'}),await data.insert('class_ledger',{user_id:uid,plan_id:'plan_old',payment_id:oldPay.id,delta:-12,reason:'booking',expires_at:null})];
+  if(i===1) history.push(await data.insert('class_ledger',{user_id:uid,plan_id:'plan_frozen',delta:12,reason:'purchase',expires_at:'2099-01-01',frozen_from:'2000-01-01',frozen_until:'2099-01-01'}));
+  const freshPay=await data.insert('payments',{user_id:uid,plan_id:planId,status:'pending'});
+  const freshBuy=await data.insert('class_ledger',{user_id:uid,plan_id:planId,payment_id:freshPay.id,delta:quantity,reason:'purchase',expires_at:'2099-01-01',frozen_from:null,frozen_until:null});
+  const input={userId:uid,sessionId,status:'checked_in',now:stamp,paymentId:freshPay.id,paidWith};
+  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,input)),/payment_confirmation_required/);
+  await data.update('payments',freshPay.id,{status:'approved'});
+  await data.update('class_ledger',freshBuy.id,{expires_at:'2000-01-01'});
+  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,input)),/package_expired/);
+  await data.update('class_ledger',freshBuy.id,{expires_at:'2099-01-01',frozen_from:'2000-01-01',frozen_until:'2099-01-01'});
+  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,input)),/package_frozen/);
+  await data.update('class_ledger',freshBuy.id,{frozen_from:null,frozen_until:null});
+  const result=await data.atomic(tx=>bookWithPackage(tx,input));
+  assert.equal(result.paid_with,paidWith);
+  const debit=data.peek('class_ledger').find(r=>r.id===result.ledger_id);
+  assert.equal(debit.payment_id,freshPay.id); assert.equal(debit.plan_id,planId); assert.equal(debit.delta,-1);
+  assert.deepEqual(history.map(h=>data.peek('class_ledger').find(r=>r.id===h.id)),history,'purchased historical terms untouched');
+  if(quantity===1){await data.update('bookings',result.id,{status:'cancelled'});await assert.rejects(data.atomic(tx=>bookWithPackage(tx,input)),/insufficient_classes/);}
+ }
+ console.log('PASS desk transaction: every write failure + storage rollback, no intermediate events, concurrent retry idempotency, exactly one debit/capacity, duplicate/full/pending/declined/voided/refunded/frozen/expired rejection; fresh trial/single/package sales consume their exact confirmed payment lot despite exhausted historical packages');
 } finally { await rm(scratch,{recursive:true,force:true}); }

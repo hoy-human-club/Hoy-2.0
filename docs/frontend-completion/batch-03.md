@@ -7,7 +7,7 @@ Source: the 124-row manifest criteria PR-06 / RS-09 / RC-04 / RC-05 / RC-10 were
 - PR-06: a pending payment records only a request; no classes, booking or capacity hold. Persisted approved payment activates a package once; replay retains the original purchased quantity/expiry. Legacy linked pending/missing-payment purchases are filtered from customer, CRM and desk balances; unlinked historical grants remain intact. Confirmed checkout atomically activates and debits one class.
 - RS-09: separate source-defined 12h inclusive deadline, checked after rereading original booking/session; menu and already-open alternatives become unavailable after deadline. Cancellation credits and payment timers remain configurable draft assumptions. Current alternatives are same-day only; future-day selection with purchased-validity allocation and full atomic reschedule remain follow-ups.
 - RC-04/05: future-session desk picker, confirmed package balance/expiry/frozen/full/insufficient previews; one shared staged command checks entitlement, class-date validity, duplicates, capacity and existing one-per-day configuration, inserts one debit linked to one booking. Waitlist uses the same command. Attendance undo/recheck does not debit again.
-- RC-10: entire fictional new/existing customer sale stages customer/profile/role/consent/payment/invoice/ledger/attendance/audit/local queued receipt rows. Commit persists once, then emits snapshots. Full/duplicate/pending selected class, injected write and storage failure do not partially save. Browser-local transaction receipts deduplicate retries. Receipt messages are local queued records; no actual dispatch.
+- RC-10: entire fictional new/existing customer sale stages customer/profile/role/consent/payment/invoice/ledger/attendance/audit/local queued receipt rows. Commit persists once, then emits snapshots. Full/duplicate/pending selected class, injected write and storage failure do not partially save. Browser-local transaction receipts deduplicate retries. Receipt messages are local queued records; no actual dispatch. Review found expired/frozen legacy packages could block a fresh paid class; sale check-in now allocates against its exact approved payment/purchase, retaining trial/single classification. Historical unlinked aggregate balance allocation remains a separate AD-07/PR-06 follow-up, never silently rewritten.
 
 No backend, database, payment processor, credentials or permission/security configuration changed. The callback adapter is explicitly mock-only; production needs authorized atomic RPCs. It detects concurrent mutation during a stage and rejects, but is not a cross-device/cross-tab financial transaction or server authorization system. Historical purchased terms, public/draft publication controls, legal policies and role conflicts are not rewritten.
 
@@ -23,7 +23,7 @@ Regression checks also passed: class capacity, mat bookings and product-catalog 
 
 ## Release checkpoint
 
-Implementation commit, checked PR/merge and deployment/source-SHA evidence will be appended after verification. Until recorded, this document is not deployment evidence. Existing live rollback remains the baseline above.
+Initial implementation `3c40b95394814ace7b575c60c50b6d5c5c0653e0`, [PR56](https://github.com/imagine-os/hoy/pull/56). Review regression fix and final checked head/merge/deployment evidence will be appended after verification. Until recorded, this document is not deployment evidence. Existing live rollback remains the baseline above.
 
 ## Next dependency-safe work
 

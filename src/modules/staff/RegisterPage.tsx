@@ -196,7 +196,7 @@ export function RegisterPage() {
 
       let checkedIn: string | undefined;
       if (session && settings.features.autoCheckinOnSale && userId && !special.on) {
-        const b = await bookWithPackage(data, { userId, sessionId: session.session.id, status: 'checked_in', now: now.toISOString() });
+        const b = await bookWithPackage(data, { userId, sessionId: session.session.id, status: 'checked_in', now: now.toISOString(), paymentId: payment.id, paidWith: item.id === 'trial' ? 'trial' : (item.classes ?? 0) > 1 ? 'package' : 'single' });
         await audit('booking.checkin', 'bookings', b.id, { after: 'checked_in', session_id: session.session.id, user_id: userId, source_sale: payment.id });
         checkedIn = `${session.session.title} · ${formatTime(session.session.starts_at, lang)}`;
       }

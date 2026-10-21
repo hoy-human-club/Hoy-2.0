@@ -1452,7 +1452,8 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented."
+          "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
+          "Historical unlinked ledger debits can erode new aggregate package balances after old purchases expire; reconcile lot allocation with deterministic legacy fixtures without changing purchased terms. New desk sale check-in uses its exact payment lot."
         ],
         "remainingBackend": [
           "Atomic payment approval/entitlement activation and authoritative expiry."
@@ -3741,7 +3742,8 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Batch 1 fixes package/expiry/claimed vouchers and mobile display. Unclaimed vouchers remain separate management records. Shared asynchronous read-error/retry paths remain absent in current hooks."
+          "Batch 1 fixes package/expiry/claimed vouchers and mobile display. Unclaimed vouchers remain separate management records. Shared asynchronous read-error/retry paths remain absent in current hooks.",
+          "Historical unlinked ledger debits can erode new aggregate package balances after old purchases expire; reconcile lot allocation with deterministic legacy fixtures without changing purchased terms. New desk sale check-in uses its exact payment lot."
         ],
         "remainingBackend": [
           "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
