@@ -1,5 +1,12 @@
 # HoyOS kanban
 
+## Independent continuation · 0078 / 0079 (2026-10-21)
+
+- SW-07: configured map load/recovery/fallback and coordinate validation implemented; bilingual fixture QA passed. Real Google render blocked by network tunnel; [batch 4](frontend-completion/batch-04.md).
+- Clerk: disconnected development observation adapter/tests prepared; no security or live auth changes. [Batch 5](frontend-completion/batch-05.md).
+- Next: reconcile historical unlinked package allocation, transfer receipt review/queue and explicit catalog publication/shared quotes; retain draft timing and owner decisions.
+
+
 ## Frontend correctness batch · 0077 (2026-10-21)
 
 - PR-06/RS-09/RC-04/RC-05/RC-10: confirmed entitlements, source cutoff and atomic fictional reception flow implemented; focused tests and responsive QA in [batch receipt](frontend-completion/batch-03.md). Source acceptance remains unchanged.

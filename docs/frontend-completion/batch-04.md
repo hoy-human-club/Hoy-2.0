@@ -9,3 +9,5 @@ Verification: production build/TypeScript/spacing/manual lint; `scripts/test-con
 Actual-provider blocker: exactly one normal browser GET to `https://www.google.com/maps?q=6.19281,-75.56535&z=15&output=embed`, with no interception, failed `net::ERR_TUNNEL_CONNECTION_FAILED`. No HTTP response or Google frame loaded. No retry or bypass. The request failed in this execution environment; external provider rendering and geographic correctness remain unverified. Evidence: `docs/screenshots/W-06/map-live-attempt.json` and `en-1280-map-live-attempt.jpg`. Cross-origin iframe load/error events do not establish provider health, so recovery is available as an explicit action.
 
 SW-07 stays separate from source/owner acceptance. No backend, keys, credentials, permissions, external messaging or final imagery changes. Exact commit/checked PR/merge/deployment evidence will be appended after release. Roll back using the previous checked main source.
+
+Source commit `377581f53cd386cdb39fcbf69993fee56a9aa470`. Baseline/rollback `2ecdaf8d09a6ca6743811fab8dee1eb94621552b` (checked PR56 merge).
