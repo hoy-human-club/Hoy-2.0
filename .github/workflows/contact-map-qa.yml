@@ -1,0 +1,40 @@
+name: Contact map frontend QA
+on:
+  pull_request:
+    paths:
+      - 'src/components/molecule/MapSlot/**'
+      - 'src/modules/admin/settings.ts'
+      - 'src/modules/website/**'
+      - 'scripts/test-contact-map*.mjs'
+      - '.github/workflows/contact-map-qa.yml'
+permissions:
+  contents: read
+jobs:
+  configured-map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node --experimental-strip-types scripts/test-contact-map.mjs
+      - name: Verify map UI using intercepted provider fixtures
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5188 > /tmp/hoy-contact-map-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-contact-map-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: contact-map-${{ github.event.pull_request.head.sha }}
+          path: docs/screenshots/W-06/*map*
+          retention-days: 7

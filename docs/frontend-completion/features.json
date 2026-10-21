@@ -148,7 +148,13 @@
           "Default MockProvider; Supabase CRUD throws notReady; cross-device persistence absent."
         ]
       },
-      "sourceNextAction": "Anu implements approved provider after frontend testing; do not enable services here."
+      "sourceNextAction": "Anu implements approved provider after frontend testing; do not enable services here.",
+      "preparedClerkContract": {
+        "batch": "batch-05.md",
+        "source": "src/auth/clerkDevelopmentAdapter.ts",
+        "test": "scripts/test-clerk-development-adapter.mjs",
+        "verification": "Disconnected observation contract passed only; no live auth/backend acceptance."
+      }
     },
     {
       "id": "PL-03",
@@ -228,7 +234,13 @@
           "Server own-data/tenant authorization absent."
         ]
       },
-      "sourceNextAction": "Implement visitor sign-in return flow in an explicit production mode; preserve demo controls."
+      "sourceNextAction": "Implement visitor sign-in return flow in an explicit production mode; preserve demo controls.",
+      "preparedClerkContract": {
+        "batch": "batch-05.md",
+        "source": "src/auth/clerkDevelopmentAdapter.ts",
+        "test": "scripts/test-clerk-development-adapter.mjs",
+        "verification": "Disconnected observation contract passed only; no live auth/backend acceptance."
+      }
     },
     {
       "id": "PL-05",
@@ -828,28 +840,42 @@
       "priority": "Low",
       "relatedTests": "INT-08",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/components/molecule/MapSlot/MapSlot.tsx",
         "src/modules/website/pages/ContactPage.tsx",
         "src/modules/admin/settings.ts"
       ],
       "routes": [],
-      "tests": [],
-      "screenshots": [],
-      "blockers": [],
-      "nextAction": "Verify configured location, preserve MVP link, and activate only owner-selected map provider for later map.",
+      "tests": [
+        "scripts/test-contact-map.mjs",
+        "scripts/test-contact-map-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/W-06/map-results.json",
+        "docs/screenshots/W-06/map-live-attempt.json"
+      ],
+      "blockers": [
+        "Actual external Google map render failed at environment tunnel; no retry/bypass. See batch-04.md."
+      ],
+      "nextAction": "Read back real provider in an approved reachable environment and verify configured public location with owner. Final art is independent.",
       "candidateRoutes": [
         "/#/site/contact"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Google Maps link/address exist; embedded provider defaults none, so full November map is not enabled/verified."
+          "Real external render/geographic correctness unverified; deterministic load/recovery/fallback fixture behavior tested."
         ],
         "remainingBackend": []
       },
-      "sourceNextAction": "Verify configured location, preserve MVP link, and activate only owner-selected map provider for later map."
+      "sourceNextAction": "Verify configured location, preserve MVP link, and activate only owner-selected map provider for later map.",
+      "batchEvidence": {
+        "batch": "batch-04.md",
+        "behavior": "Configured keyless map loads on request with explicit recovery/retry and permanent directions; saved none preserved; coordinate validation.",
+        "limits": "Fixture UI passed; one actual Google GET failed ERR_TUNNEL_CONNECTION_FAILED, no HTTP response/frame. Real provider and geography remain unverified.",
+        "acceptance": "Source owner status unchanged."
+      }
     },
     {
       "id": "SW-08",
@@ -5046,6 +5072,14 @@
     "deployedCodeSource": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
     "deploymentArtifact": "https://github.com/imagine-os/hoy/actions/runs/39686441483/artifacts/12385972674",
     "newFeatureLiveVerification": "New CRM/catalog behavior verified against local production bundle and PR CI; hosted release checker covers provenance and selected existing flows, not full AD-07/PR-01/PR-02 acceptance.",
-    "activeBatch": "Batch 3 local implementation and verification in progress; exact release evidence recorded in batch-03.md."
+    "activeBatch": "Batch 3 merged as2ecdaf8 after all11 exact-head checks passed; deployment39689551507 pending verification. Independent SW-07/Clerk contracts in batches4/5.",
+    "batch3": {
+      "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
+      "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
+      "pr": "https://github.com/imagine-os/hoy/pull/56",
+      "checks": "11 exact-head workflows passed",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39689551507",
+      "deploymentStatus": "pending-verification"
+    }
   }
 }

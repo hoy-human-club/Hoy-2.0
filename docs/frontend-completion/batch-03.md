@@ -28,3 +28,5 @@ Initial implementation `3c40b95394814ace7b575c60c50b6d5c5c0653e0`, [PR56](https:
 ## Next dependency-safe work
 
 Transfer-first QR, local receipt upload/review/queue (PG-02/04/05), then explicit catalog publication and shared quotes (PR-01/02/SW-02). Keep receipt-hold timing decisions draft; no external storage until Anu's approved integration. Independently usable website functionality including SW-07 map can proceed with source-verified location; Aleja owns final art. Clerk adapter/tests are authorized separately; no security changes or guessed production host/keys. Issue54 remains media follow-up.
+
+Checked release checkpoint: final code head `cd3b9b014cc439735c5adc02c3a2c2b19792b9f8`, all eleven exact-head PR workflows passed, including [booking/payment QA](https://github.com/imagine-os/hoy/actions/runs/39689229897). [PR56](https://github.com/imagine-os/hoy/pull/56) merged as `2ecdaf8d09a6ca6743811fab8dee1eb94621552b`. [Normal Pages deployment](https://github.com/imagine-os/hoy/actions/runs/39689551507) is pending verification at this checkpoint; no deployment success claim yet.

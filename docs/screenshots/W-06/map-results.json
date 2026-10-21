@@ -1,0 +1,13 @@
+{
+  "feature": "SW-07",
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en: missing choice defaults Google, saved none preserved, click-to-load, exact configured Google/OSM coordinates, accessible title, failure/retry/directions, invalid pair fallback, 390/1280 screenshots",
+    "es: missing choice defaults Google, saved none preserved, click-to-load, exact configured Google/OSM coordinates, accessible title, failure/retry/directions, invalid pair fallback, 390/1280 screenshots"
+  ],
+  "errors": [],
+  "limits": [
+    "External requests fulfilled with deterministic test HTML. No real provider render or geographic correctness claimed.",
+    "Configured published repository contact used without changing location or saved provider choices."
+  ]
+}

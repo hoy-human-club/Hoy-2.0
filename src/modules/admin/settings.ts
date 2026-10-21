@@ -3,6 +3,7 @@ import { useData, useTable } from '../../data/DataContext';
 import type { BaseRow, HoursOverrideRow } from '../../data/schema';
 import { EMPTY_RATE_CARD, type PayrollCadence, type RateCard } from '../../data/payrollCalc';
 import type { MapProvider } from '../../components/molecule/MapSlot/MapSlot';
+import { mapCoordinates } from '../../components/molecule/MapSlot/mapLocation';
 import { tenant } from '../../tenant/tenant';
 import { DEFAULT_POLICIES } from '../../tenant/policies';
 import { DEFAULT_IVA_PCT, splitIva } from '../../data/tax';
@@ -84,7 +85,8 @@ export const DEFAULT_SETTINGS: StudioSettings = {
   comms: { whatsappSender: tenant.name, emailSender: tenant.legalName, emailReplyTo: tenant.contact.email },
   branding: { displayName: '', wordmarkVariant: 'auto', defaultLang: tenant.defaultLocale },
   payroll: { cadence: 'monthly', payoutMethod: 'wompi', signedBy: '', withholding: false, rateCard: EMPTY_RATE_CARD },
-  content: { mapProvider: 'none' },
+  // Applies only when no provider was saved; mergeSettings preserves an explicit `none`.
+  content: { mapProvider: 'google' },
   contacts: DEFAULT_CONTACT_ROUTES,
 };
 
@@ -191,7 +193,7 @@ export function contactOf(settings: StudioSettings): StudioContact {
     email: p.email || tenant.contact.email,
     instagram,
     instagramUrl: p.instagramUrl || (instagram ? `https://www.instagram.com/${instagram.replace('@', '')}` : tenant.social.instagramUrl),
-    location: { lat: p.mapLat || tenant.location.lat, lng: p.mapLng || tenant.location.lng, label, link: p.mapLink || tenant.location.link || null },
+    location: { ...mapCoordinates(p.mapLat, p.mapLng, tenant.location), label, link: p.mapLink || tenant.location.link || null },
     pendingFields,
     pending: CONTACT_FIELDS.some((f) => pendingFields[f]),
     pendingLabel: tenant.contact.pendingLabel,
