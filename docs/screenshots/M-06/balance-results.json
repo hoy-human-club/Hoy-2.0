@@ -1,6 +1,6 @@
 {
   "feature": "AD-07",
-  "base": "http://127.0.0.1:4180",
+  "base": "http://127.0.0.1:5187",
   "checks": [
     "admin: EN/ES 390/1280 ledger balance/expiry, plan, claim identity, detail, empty search, missing record, frozen and expired package",
     "front: EN/ES 390/1280 ledger balance/expiry, plan, claim identity, detail, empty search, missing record, frozen and expired package",

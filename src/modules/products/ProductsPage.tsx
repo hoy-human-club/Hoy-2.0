@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { changeLocalPublication } from '../../data/catalogPublication';
+import { tenant } from '../../tenant/tenant';
 import { useData } from '../../data/DataContext';
 import { useSession } from '../../auth/SessionProvider';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -20,6 +23,7 @@ export function ProductsPage() {
  const data = useData(), {user} = useSession(), {t,bi,lang} = useI18n();
  const [rows,setRows] = useState<CatalogPlan[]>([]), [loading,setLoading] = useState(true), [readError,setReadError] = useState(false), [refresh,setRefresh] = useState(0);
  const [selected,setSelected] = useState<CatalogPlan | null>(null), [draft,setDraft] = useState<ProductDefinition | null>(null), [saving,setSaving] = useState(false), [error,setError] = useState(''), [notice,setNotice] = useState('');
+ const [publicationReview,setPublicationReview] = useState<{plan:CatalogPlan;action:'publish'|'withdraw'} | null>(null);
  const [quoteDate,setQuoteDate] = useState(dateKey()), [examples,setExamples] = useState<ProductQuote[]>([]);
  useEffect(()=>{
   let alive=true; setLoading(true); setReadError(false);
@@ -46,6 +50,16 @@ export function ProductsPage() {
   } catch(e) {setError(e instanceof Error && e.message==='conflict'?'products.conflict':'products.saveError');}
   finally {setSaving(false);}
  };
+ const publish=async()=>{
+  if(!publicationReview)return;
+  setSaving(true);setError('');setNotice('');
+  try {
+   const {plan,action}=publicationReview;
+   await changeLocalPublication(data,{planId:plan.id,action,expectedRevision:action==='publish'?plan.frontend_catalog!.history.length:plan.frontend_publication!.revision,actorId:user.id,expectedTenant:tenant.id});
+   setPublicationReview(null);setNotice(action==='publish'?'products.published':'products.withdrawn');setRefresh(n=>n+1);
+  }catch(e){setError(e instanceof Error&&e.message==='conflict'?'products.conflict':'products.publicationError');}
+  finally{setSaving(false);}
+ };
  const definitions=rows.filter(r=>r.frontend_catalog);
  const quotePlan=rows.find(r=>r.id===selected?.id);
  let quote:ProductQuote | null=null, quoteError='products.error.invalid';
@@ -53,11 +67,18 @@ export function ProductsPage() {
  return <div className="stack products-page">
   <div className="page-head"><h1>{t('products.title')}</h1><Button onClick={()=>edit(null)} disabled={saving}>{t('products.add')}</Button></div>
   <Card tone="highlight"><p>{t('products.notice')}</p></Card>
+  <Link className="btn btn-secondary" to="/admin/products/preview">{t('products.openPreview')}</Link>
+  {error&&!draft&&<p role="alert">{t(error)}</p>}
   {notice && <p role="status">{t(notice)}</p>}
   {loading ? <EmptyState tone="loading" title={t('core.common.loading')}/> : readError ? <EmptyState tone="error" title={t('products.readError')} action={<Button onClick={()=>setRefresh(n=>n+1)}>{t('products.retry')}</Button>}/> : rows.length===0 ? <EmptyState title={t('products.empty')}/> :
    <div className="grid grid-2">{rows.map(plan=><Card key={plan.id} title={plan.frontend_catalog?bi(plan.frontend_catalog.definition.name):bi({es:plan.name_es,en:plan.name_en})} actions={<Button variant="secondary" onClick={()=>edit(plan)} disabled={saving}>{t(plan.frontend_catalog?'products.edit':'products.import')}</Button>}>
-    {plan.frontend_catalog ? <div className="stack-sm"><strong>{plan.frontend_catalog.definition.code}</strong><span>{t(`products.type.${plan.frontend_catalog.definition.type}`)} · {plan.frontend_catalog.definition.classes} {t('products.classes')} · {plan.frontend_catalog.definition.validityDays} {t('products.validity')}</span><Badge tone={plan.frontend_catalog.definition.active?'success':'neutral'}>{t(plan.frontend_catalog.definition.active?'products.active':'products.inactive')}</Badge>{plan.frontend_catalog.definition.prices.map(price=><div key={price.id} className="small">{formatCOP(price.amount,lang)} · {price.startsOn} – {price.endsOn ?? '∞'}</div>)}</div> : <p className="muted small">{t('products.pending')}</p>}
+    {plan.frontend_catalog ? <div className="stack-sm"><strong>{plan.frontend_catalog.definition.code}</strong><span>{t(`products.type.${plan.frontend_catalog.definition.type}`)} · {plan.frontend_catalog.definition.classes} {t('products.classes')} · {plan.frontend_catalog.definition.validityDays} {t('products.validity')}</span><Badge tone={plan.frontend_catalog.definition.active?'success':'neutral'}>{t(plan.frontend_catalog.definition.active?'products.active':'products.inactive')}</Badge>{plan.frontend_catalog.definition.prices.map(price=><div key={price.id} className="small">{formatCOP(price.amount,lang)} · {price.startsOn} – {price.endsOn ?? '∞'}</div>)}<div className="row wrap"><Button variant="secondary" disabled={saving||!plan.frontend_catalog.definition.active} onClick={()=>{setError('');setPublicationReview({plan:structuredClone(plan),action:'publish'});}}>{t('products.reviewPublication')}</Button>{plan.frontend_publication&&!plan.frontend_publication.withdrawnAt&&<Button variant="ghost" disabled={saving} onClick={()=>{setError('');setPublicationReview({plan:structuredClone(plan),action:'withdraw'});}}>{t('products.reviewWithdrawal')}</Button>}</div><span className="small">{t(plan.frontend_publication&&!plan.frontend_publication.withdrawnAt?'products.publicationActive':'products.unpublished')}</span></div> : <p className="muted small">{t('products.pending')}</p>}
    </Card>)}</div>}
+  {publicationReview&&<Card title={t(publicationReview.action==='publish'?'products.reviewPublication':'products.reviewWithdrawal')}><div className="stack" role="region" aria-label={t('products.publicationReview')}>
+   <p>{t('products.publicationReviewNotice')}</p><strong>{bi(publicationReview.plan.frontend_catalog!.definition.name)} · #{publicationReview.action==='publish'?publicationReview.plan.frontend_catalog!.history.length:publicationReview.plan.frontend_publication!.revision}</strong>
+   {publicationReview.plan.frontend_catalog!.definition.prices.map(price=><p key={price.id}>{formatCOP(price.amount,lang)} · {price.startsOn} – {price.endsOn??'∞'}</p>)}
+   <div className="row wrap"><Button disabled={saving} onClick={()=>void publish()}>{t(publicationReview.action==='publish'?'products.confirmPublication':'products.confirmWithdrawal')}</Button><Button variant="ghost" disabled={saving} onClick={()=>{setPublicationReview(null);setError('');}}>{t('products.cancelPublication')}</Button></div>
+  </div></Card>}
   {draft && <Card title={t(selected?'products.edit':'products.add')}>
    <form className="stack" onSubmit={e=>{e.preventDefault();void save();}} noValidate><fieldset className="stack products-fields" disabled={saving}>
     <div className="grid grid-2">

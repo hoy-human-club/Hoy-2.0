@@ -5,6 +5,10 @@ on:
       - 'src/data/**'
       - 'src/modules/customer/**'
       - 'src/modules/staff/**'
+      - 'src/modules/transfers/**'
+      - 'src/components/organism/ReceiptUpload/**'
+      - 'scripts/test-transfer*.mjs'
+      - 'scripts/test-package-lots.mjs'
       - 'scripts/test-desk*.mjs'
       - 'scripts/test-pending-package*.mjs'
       - 'scripts/test-reschedule*.mjs'
@@ -14,7 +18,7 @@ permissions:
 jobs:
   mock-transactions:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +31,9 @@ jobs:
       - run: npm run build
       - name: Verify isolated mock rules and transactions
         run: |
+          node scripts/test-package-lots.mjs
+          node scripts/test-transfer-receipts.mjs
+          node scripts/test-reschedule-atomic.mjs
           node scripts/test-desk-transactions.mjs
           node scripts/test-pending-package.mjs
           node scripts/test-reschedule-cutoff.mjs
@@ -38,8 +45,18 @@ jobs:
           node scripts/test-desk-sale-ui.mjs
           node scripts/test-pending-package-ui.mjs
           node scripts/test-reschedule-ui.mjs
+          node scripts/test-reschedule-future-ui.mjs
+          node scripts/test-transfer-receipts-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify asynchronous receipt queue states
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-transfer-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-transfer-receipts-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
           CHROMIUM_PATH: /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
@@ -51,4 +68,8 @@ jobs:
             docs/screenshots/C-04/*pending*
             docs/screenshots/C-06/*purchase-failure*
             docs/screenshots/C-08b/*cutoff*
+            docs/screenshots/C-08b/*future-day*
+            docs/screenshots/C-08b/*reschedule-retry*
+            docs/screenshots/C-04/*transfer*
+            docs/screenshots/S-09/*
           retention-days: 7

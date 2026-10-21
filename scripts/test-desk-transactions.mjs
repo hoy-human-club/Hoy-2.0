@@ -25,6 +25,9 @@ try {
   await assert.rejects(data.atomic(async tx=>{await tx.insert('payments',{user_id:userId,status:'approved'});return bookWithPackage(tx,{userId,sessionId, status:'checked_in', now:stamp});},{failAfterWrites}),/mock_injected/);
   assert.equal(snapshot(),before); assert.equal(events,prior,'rejected stage emits no events');
  }
+ const invalidBefore=snapshot();
+ await assert.rejects(data.atomic(async tx=>{await tx.update('class_sessions',sessionId,{starts_at:'invalid'});return bookWithPackage(tx,{userId,sessionId,status:'booked',now:stamp});}),/session_unavailable/);
+ assert.equal(snapshot(),invalidBefore,'invalid session timestamp stage rolls back');
  const before=snapshot(); storageFailure=true;
  await assert.rejects(data.atomic(tx=>bookWithPackage(tx,{userId,sessionId,status:'checked_in',now:stamp})),/quota/);
  storageFailure=false; assert.equal(snapshot(),before);

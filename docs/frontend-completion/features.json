@@ -80,7 +80,7 @@
       "id": "PL-01",
       "module": "Platform",
       "feature": "Hosting, domain and database in the club's name",
-      "criterion": "Hosting, domain, email, database and third-party services are registered in Santa Mar\u00eda's name.",
+      "criterion": "Hosting, domain, email, database and third-party services are registered in Santa María's name.",
       "role": "Admin",
       "source": {
         "status": "Not verified",
@@ -592,7 +592,7 @@
       "module": "Website",
       "feature": "Public website",
       "criterion": "Home, philosophy, methods, today's classes, teachers, plans and contact load without errors and match Content.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -635,7 +635,7 @@
       "module": "Website",
       "feature": "Website prices from the product master",
       "criterion": "Prices on the website are the current ones in the product master; a price change shows on the website.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -644,17 +644,25 @@
       "priority": "Urgent",
       "relatedTests": "PUB-02",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/website/pages/PlansPage.tsx",
         "src/tenant/pricing.ts",
-        "src/data/productCatalog.ts"
+        "src/data/productCatalog.ts",
+        "src/data/catalogPublication.ts",
+        "src/modules/products/ProductPreviewPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/site/plans"
+      ],
+      "tests": [
+        "scripts/test-catalog-publication-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-17/publication-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Connect approved publication adapter and verify date-effective price updates without altering old purchases.",
+      "nextAction": "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending.",
       "candidateRoutes": [
         "/#/site/plans",
         "/#/admin/products"
@@ -662,20 +670,29 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Website uses pricing.ts; new product drafts are deliberately disconnected from public price rendering."
+          "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending."
         ],
         "remainingBackend": [
           "Authoritative published catalog and quote contract pending."
         ]
       },
-      "sourceNextAction": "Connect approved publication adapter and verify date-effective price updates without altering old purchases."
+      "sourceNextAction": "Connect approved publication adapter and verify date-effective price updates without altering old purchases.",
+      "continuationEvidence": [
+        {
+          "batch": "batch-09.md",
+          "behavior": "Only explicitly published local mock catalog feeds the same-browser website preview; drafts hidden and demo purchase actions disabled.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "SW-03",
       "module": "Website",
       "feature": "'Book your class' button",
       "criterion": "Leads to sign-up or sign-in and then to the chosen class.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -716,7 +733,7 @@
       "module": "Website",
       "feature": "WhatsApp buttons",
       "criterion": "Each button opens the chat with the number set in Settings (direct link, no integration).",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -753,7 +770,7 @@
       "module": "Website",
       "feature": "Single brand name and email",
       "criterion": "Website, app, emails and manual use the same brand name and contact email.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -791,7 +808,7 @@
       "module": "Website",
       "feature": "Manual and documents not public",
       "criterion": "The owner decides what is public; internal content (policies, processes, internal prices) requires sign-in.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -831,7 +848,7 @@
       "module": "Website",
       "feature": "Map on the contact page",
       "criterion": "Shows the studio's correct location.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -882,7 +899,7 @@
       "module": "Website",
       "feature": "Pre-opening page",
       "criterion": "From October 30 the pre-opening page redirects to the public website.",
-      "role": "P\u00fablico",
+      "role": "Público",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -1206,38 +1223,44 @@
       "priority": "Urgent",
       "relatedTests": "REC-09, PUB-02",
       "implementationStatus": "partial",
-      "verificationStatus": "local-prototype-passed",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/products/ProductsPage.tsx",
         "src/data/productCatalog.ts",
-        "src/data/schema.ts"
+        "src/data/schema.ts",
+        "src/data/catalogPublication.ts",
+        "src/modules/products/ProductPreviewPage.tsx"
       ],
       "routes": [
-        "/#/admin/products"
+        "/#/admin/products",
+        "/#/admin/products/preview"
       ],
       "tests": [
         "scripts/test-product-catalog.mjs",
         "scripts/test-product-catalog-ui.mjs",
-        "scripts/test-product-catalog-states.mjs"
+        "scripts/test-product-catalog-states.mjs",
+        "scripts/test-catalog-publication.mjs",
+        "scripts/test-catalog-publication-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-16/en-390.jpg",
         "docs/screenshots/M-16/es-390.jpg",
         "docs/screenshots/M-16/en-1280.jpg",
-        "docs/screenshots/M-16/es-1280.jpg"
+        "docs/screenshots/M-16/es-1280.jpg",
+        "docs/screenshots/M-17/publication-results.json"
       ],
       "blockers": [
         "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
         "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
       ],
-      "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
+      "nextAction": "Mock browser only; authoritative publication service and production permissions pending.",
       "candidateRoutes": [
         "/#/admin/products"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Draft-only master has specified fields, validation, revisions; saved frontend_catalog intentionally does not publish legacy price fields or customer catalog."
+          "Mock browser only; authoritative publication service and production permissions pending."
         ],
         "remainingBackend": [
           "Transactional versioned product storage and approved publication contract."
@@ -1250,7 +1273,16 @@
         "target": "local production bundle and exact-head PR CI",
         "ownerAcceptance": "not changed",
         "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-09.md",
+          "behavior": "Explicit review/cancel/confirm local mock publication and withdrawal, snapshot separated from ongoing draft edits.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Mock browser only; authoritative publication service and production permissions pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PR-02",
@@ -1266,31 +1298,37 @@
       "priority": "Urgent",
       "relatedTests": "",
       "implementationStatus": "partial",
-      "verificationStatus": "local-prototype-passed",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/data/productCatalog.ts",
         "src/modules/products/ProductsPage.tsx",
-        "src/modules/customer/payments.ts"
+        "src/modules/customer/payments.ts",
+        "src/data/catalogPublication.ts",
+        "src/modules/products/ProductPreviewPage.tsx"
       ],
       "routes": [
-        "/#/admin/products"
+        "/#/admin/products",
+        "/#/admin/products/preview"
       ],
       "tests": [
         "scripts/test-product-catalog.mjs",
         "scripts/test-product-catalog-ui.mjs",
-        "scripts/test-product-catalog-states.mjs"
+        "scripts/test-product-catalog-states.mjs",
+        "scripts/test-catalog-publication.mjs",
+        "scripts/test-catalog-publication-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-16/en-390.jpg",
         "docs/screenshots/M-16/es-390.jpg",
         "docs/screenshots/M-16/en-1280.jpg",
-        "docs/screenshots/M-16/es-1280.jpg"
+        "docs/screenshots/M-16/es-1280.jpg",
+        "docs/screenshots/M-17/publication-results.json"
       ],
       "blockers": [
         "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
         "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
       ],
-      "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
+      "nextAction": "Actual checkout price/snapshot integration remains static; production quote/charge contract pending.",
       "candidateRoutes": [
         "/#/admin/products",
         "/#/app/checkout/:id"
@@ -1298,7 +1336,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Prototype quoteProduct selects inclusive dated prices and immutable example quote snapshots; actual checkout still reads static pricing and recordPayment lacks catalog quote snapshot."
+          "Actual checkout price/snapshot integration remains static; production quote/charge contract pending."
         ],
         "remainingBackend": [
           "Atomic server quote/purchase snapshot and append-only price history."
@@ -1311,13 +1349,22 @@
         "target": "local production bundle and exact-head PR CI",
         "ownerAcceptance": "not changed",
         "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-09.md",
+          "behavior": "Common dated quote contract for local published snapshots; immutable quotes/history and past purchased terms retained.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Actual checkout price/snapshot integration remains static; production quote/charge contract pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PR-03",
       "module": "Products",
       "feature": "Launch products loaded",
-      "criterion": "Loaded and on sale: single class, trial class ($35,000), 12-class package ($600,000), private class (from $250,000) and Santa Mar\u00eda package ($480,000).",
+      "criterion": "Loaded and on sale: single class, trial class ($35,000), 12-class package ($600,000), private class (from $250,000) and Santa María package ($480,000).",
       "role": "Admin",
       "source": {
         "status": "Not verified",
@@ -1398,9 +1445,9 @@
     {
       "id": "PR-05",
       "module": "Products",
-      "feature": "Santa Mar\u00eda package for members only",
-      "criterion": "The Santa Mar\u00eda package is sold only to verified members.",
-      "role": "Recepci\u00f3n",
+      "feature": "Santa María package for members only",
+      "criterion": "The Santa María package is sold only to verified members.",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -1463,13 +1510,16 @@
       ],
       "tests": [
         "scripts/test-pending-package.mjs",
-        "scripts/test-pending-package-ui.mjs"
+        "scripts/test-pending-package-ui.mjs",
+        "scripts/test-package-lots.mjs"
       ],
       "screenshots": [
-        "docs/screenshots/C-04/pending-results.json"
+        "docs/screenshots/C-04/pending-results.json",
+        "docs/screenshots/M-06/balance-results.json",
+        "docs/screenshots/S-02/package-booking-results.json"
       ],
       "blockers": [],
-      "nextAction": "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
+      "nextAction": "Authoritative legacy migration, server approval/activation and cross-device consistency pending.",
       "candidateRoutes": [
         "/#/app/classes",
         "/#/app/plans",
@@ -1478,8 +1528,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
-          "Historical unlinked ledger debits can erode new aggregate package balances after old purchases expire; reconcile lot allocation with deterministic legacy fixtures without changing purchased terms. New desk sale check-in uses its exact payment lot."
+          "Authoritative legacy migration, server approval/activation and cross-device consistency pending."
         ],
         "remainingBackend": [
           "Atomic payment approval/entitlement activation and authoritative expiry."
@@ -1491,7 +1540,16 @@
         "behavior": "Confirmed demo payments activate once; pending checkout writes only a request, no ledger/booking/hold. Legacy payment-linked purchases are excluded unless approved. Customer and CRM use the same confirmed balance filter.",
         "limits": "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
         "acceptance": "Source status preserved; focused fictional frontend checks only."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-06.md",
+          "behavior": "New debits retain exact grant, including explicit fresh customer package purchase; existing purchased terms unchanged.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Authoritative legacy migration, server approval/activation and cross-device consistency pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PR-07",
@@ -1736,7 +1794,7 @@
       "module": "Bookings",
       "feature": "Room capacity",
       "criterion": "Room capacity (16 / 8 mats) is never exceeded, from the app or the front desk.",
-      "role": "Cliente, Recepci\u00f3n",
+      "role": "Cliente, Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -1867,27 +1925,31 @@
       "candidateEvidence": [
         "src/modules/customer/pages/BookedPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/modules/customer/policy.ts"
+        "src/modules/customer/policy.ts",
+        "src/modules/customer/rescheduleCommand.ts"
       ],
       "routes": [
         "/#/app/booking/:id/change"
       ],
       "tests": [
         "scripts/test-reschedule-cutoff.mjs",
-        "scripts/test-reschedule-ui.mjs"
+        "scripts/test-reschedule-ui.mjs",
+        "scripts/test-reschedule-atomic.mjs",
+        "scripts/test-reschedule-future-ui.mjs"
       ],
       "screenshots": [
-        "docs/screenshots/C-08b/cutoff-results.json"
+        "docs/screenshots/C-08b/cutoff-results.json",
+        "docs/screenshots/C-08b/future-day-results.json"
       ],
       "blockers": [],
-      "nextAction": "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up.",
+      "nextAction": "Ambiguous historical purchased terms fail closed; authenticated server atomicity/deadline and cross-device acceptance pending.",
       "candidateRoutes": [
         "/#/app/booking/:id/change"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up."
+          "Ambiguous historical purchased terms fail closed; authenticated server atomicity/deadline and cross-device acceptance pending."
         ],
         "remainingBackend": [
           "Server-enforced deadline/atomic reschedule."
@@ -1899,7 +1961,16 @@
         "behavior": "Source 12-hour inclusive deadline enforced in UI and hook after rereading original booking/session; open alternatives disappear after deadline.",
         "limits": "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up.",
         "acceptance": "Source status preserved; focused fictional frontend checks only."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-08.md",
+          "behavior": "Future-day selector preserves original purchased lot validity and debit; atomic move/cancel-original/waitlist-offer with rollback and idempotent retry.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Ambiguous historical purchased terms fail closed; authenticated server atomicity/deadline and cross-device acceptance pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "RS-10",
@@ -2194,36 +2265,57 @@
       "priority": "Urgent",
       "relatedTests": "",
       "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/data/schema.ts"
+        "src/data/schema.ts",
+        "src/modules/transfers/receipts.ts",
+        "src/modules/transfers/TransferQueuePage.tsx",
+        "src/components/organism/ReceiptUpload/ReceiptUpload.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/checkout/:id"
+      ],
+      "tests": [
+        "scripts/test-transfer-receipts.mjs",
+        "scripts/test-transfer-receipts-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-09/transfer-results.json",
+        "docs/screenshots/S-09/en-transfer-state-results.json",
+        "docs/screenshots/S-09/es-transfer-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Build PNG/JPG size/type validation, local fictional receipt preview/remove/error and pending-state contract.",
+      "nextAction": "Private durable storage issue54/Anu; pending booking hold/timing remains unresolved. No real receipt persistence claim.",
       "candidateRoutes": [
         "/#/app/checkout/:id"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "No transfer receipt image-upload/review linkage identified in checkout; photo picker is content-specific and not a receipt flow."
+          "Private durable storage issue54/Anu; pending booking hold/timing remains unresolved. No real receipt persistence claim."
         ],
         "remainingBackend": [
           "Private durable receipt storage/access plus pending confirmation."
         ]
       },
-      "sourceNextAction": "Build PNG/JPG size/type validation, local fictional receipt preview/remove/error and pending-state contract."
+      "sourceNextAction": "Build PNG/JPG size/type validation, local fictional receipt preview/remove/error and pending-state contract.",
+      "continuationEvidence": [
+        {
+          "batch": "batch-07.md",
+          "behavior": "Same-screen fictional PNG/JPG validation, preview/remove/cancel/retry; browser-local pending request without entitlement or capacity hold.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Private durable storage issue54/Anu; pending booking hold/timing remains unresolved. No real receipt persistence claim.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PG-03",
       "module": "Payments",
       "feature": "Spot held for 15 minutes",
       "criterion": "The spot is held for 15 minutes; if it is not confirmed in that time, the booking is released, the spot becomes available again and the customer is notified by email.",
-      "role": "Cliente, Recepci\u00f3n",
+      "role": "Cliente, Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2262,7 +2354,7 @@
       "module": "Payments",
       "feature": "Confirm or reject the payment",
       "criterion": "Front desk or Administration opens the receipt, compares it with the Bancolombia notification, records the amount received and confirms or rejects with a reason. On confirmation, the booking or package becomes active.",
-      "role": "Recepci\u00f3n, Admin",
+      "role": "Recepción, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -2271,17 +2363,29 @@
       "priority": "Urgent",
       "relatedTests": "FIN-05",
       "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/RegisterPage.tsx",
         "src/modules/admin/FinancePage.tsx",
-        "src/data/schema.ts"
+        "src/data/schema.ts",
+        "src/modules/transfers/receipts.ts",
+        "src/modules/transfers/TransferQueuePage.tsx",
+        "src/components/organism/ReceiptUpload/ReceiptUpload.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/transfers?receipt=:id"
+      ],
+      "tests": [
+        "scripts/test-transfer-receipts.mjs",
+        "scripts/test-transfer-receipts-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-09/transfer-results.json",
+        "docs/screenshots/S-09/en-transfer-state-results.json",
+        "docs/screenshots/S-09/es-transfer-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Build reception review prototype and rejection/amount/error states using fictional receipts.",
+      "nextAction": "Real bank evidence, authenticated authorization, storage and settlement pending; mismatched approval remains blocked, no partial-payment policy invented.",
       "candidateRoutes": [
         "/#/staff/register",
         "/#/admin/finance"
@@ -2289,20 +2393,29 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "No receipt viewer+bank-notification comparison+received amount+reasoned approve/reject flow identified; register creates new sale, finance only refund."
+          "Real bank evidence, authenticated authorization, storage and settlement pending; mismatched approval remains blocked, no partial-payment policy invented."
         ],
         "remainingBackend": [
           "Authenticated atomic payment review with audit and activation."
         ]
       },
-      "sourceNextAction": "Build reception review prototype and rejection/amount/error states using fictional receipts."
+      "sourceNextAction": "Build reception review prototype and rejection/amount/error states using fictional receipts.",
+      "continuationEvidence": [
+        {
+          "batch": "batch-07.md",
+          "behavior": "Scoped demo review with image, manual bank-comparison acknowledgement, received amount/reason and atomic approve/reject/activation.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Real bank evidence, authenticated authorization, storage and settlement pending; mismatched approval remains blocked, no partial-payment policy invented.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PG-05",
       "module": "Payments",
       "feature": "Pending payments list",
       "criterion": "The front desk sees all payments awaiting confirmation in one list, with customer, product, amount, receipt and time remaining.",
-      "role": "Recepci\u00f3n, Admin",
+      "role": "Recepción, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2311,17 +2424,28 @@
       "priority": "Urgent",
       "relatedTests": "",
       "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/HomePage.tsx",
         "src/modules/admin/FinancePage.tsx",
-        "src/modules/staff/index.ts"
+        "src/modules/staff/index.ts",
+        "src/modules/transfers/receipts.ts",
+        "src/modules/transfers/TransferQueuePage.tsx",
+        "src/components/organism/ReceiptUpload/ReceiptUpload.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/transfers"
+      ],
+      "tests": [
+        "scripts/test-transfer-receipts-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-09/transfer-results.json",
+        "docs/screenshots/S-09/en-transfer-state-results.json",
+        "docs/screenshots/S-09/es-transfer-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Create dedicated pending review list with filters, empty/loading/error and hold countdown fixtures.",
+      "nextAction": "Not yet all non-receipt manual requests; countdown/after-hours timing requires Jas; realtime private backend queue pending.",
       "candidateRoutes": [
         "/#/staff",
         "/#/admin/finance"
@@ -2329,20 +2453,29 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Pending count and mixed payment table exist; no front-desk pending list with receipt/product/hold countdown."
+          "Not yet all non-receipt manual requests; countdown/after-hours timing requires Jas; realtime private backend queue pending."
         ],
         "remainingBackend": [
           "Pending queue/realtime/read authorization."
         ]
       },
-      "sourceNextAction": "Create dedicated pending review list with filters, empty/loading/error and hold countdown fixtures."
+      "sourceNextAction": "Create dedicated pending review list with filters, empty/loading/error and hold countdown fixtures.",
+      "continuationEvidence": [
+        {
+          "batch": "batch-07.md",
+          "behavior": "Receipt-bearing local pending transfer queue with customer/product/amount and review deep link; unresolved timing displayed explicitly.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Not yet all non-receipt manual requests; countdown/after-hours timing requires Jas; realtime private backend queue pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "PG-06",
       "module": "Payments",
       "feature": "Pay at the front desk",
       "criterion": "The customer chooses to pay at the front desk; the booking stays pending and is released if not paid within 1 hour.",
-      "role": "Cliente, Recepci\u00f3n",
+      "role": "Cliente, Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2381,7 +2514,7 @@
       "module": "Payments",
       "feature": "Record payment at the front desk",
       "criterion": "The front desk records the payment (cash, card terminal or transfer) and the booking is confirmed, with the name of who took it.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -2459,7 +2592,7 @@
       "module": "Payments",
       "feature": "No duplicate payments",
       "criterion": "Pressing twice or on a poor connection does not duplicate the payment or the booking.",
-      "role": "Cliente, Recepci\u00f3n",
+      "role": "Cliente, Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -2574,7 +2707,7 @@
       "module": "Payments",
       "feature": "Daily cash close",
       "criterion": "The close reconciles cash, card terminal and transfers against recorded payments.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -3048,7 +3181,7 @@
       "module": "Front desk",
       "feature": "Front desk home",
       "criterion": "Shows arrivals, pending payments and next class; figures match Check-in and the pending payments list.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3088,7 +3221,7 @@
       "module": "Front desk",
       "feature": "Check-in and attendance",
       "criterion": "The front desk marks 'Arrived' or 'No-show' per class and can undo; the counter and spots update instantly. This is the official attendance at launch.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3114,7 +3247,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Arrived/No-show actions and arrived undo exist. No-show has only mark-arrived, not direct undo-to-booked. Undo checked_in\u2192booked triggers prepareBooking, which rejects sessions already started, so normal after-start undo can fail.",
+          "Arrived/No-show actions and arrived undo exist. No-show has only mark-arrived, not direct undo-to-booked. Undo checked_in→booked triggers prepareBooking, which rejects sessions already started, so normal after-start undo can fail.",
           "MockProvider.syncCapacity counts no_show in booked_count while mat occupancy/prepareBooking excludes it, so seat semantics disagree."
         ],
         "remainingBackend": [
@@ -3128,7 +3261,7 @@
       "module": "Front desk",
       "feature": "Search people",
       "criterion": "Finds a person by name, WhatsApp or email even if they did not book that class.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3166,7 +3299,7 @@
       "module": "Front desk",
       "feature": "Book on behalf of a customer",
       "criterion": "The front desk books a class for an existing customer with the same capacity and balance rules.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -3187,13 +3320,15 @@
       ],
       "tests": [
         "scripts/test-desk-transactions.mjs",
-        "scripts/test-desk-package-ui.mjs"
+        "scripts/test-desk-package-ui.mjs",
+        "scripts/test-package-lots.mjs"
       ],
       "screenshots": [
-        "docs/screenshots/S-02/package-booking-results.json"
+        "docs/screenshots/S-02/package-booking-results.json",
+        "docs/screenshots/M-06/balance-results.json"
       ],
       "blockers": [],
-      "nextAction": "Focused mock pass; broader provider loading/error states and backend enforcement remain.",
+      "nextAction": "Server atomicity, authorization and authoritative migration pending.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3201,7 +3336,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Focused mock pass; broader provider loading/error states and backend enforcement remain."
+          "Server atomicity, authorization and authoritative migration pending."
         ],
         "remainingBackend": [
           "Atomic booking capacity, policy/entitlement allocation and idempotency enforced server-side."
@@ -3213,14 +3348,23 @@
         "behavior": "Future-session selector and package balance/expiry preview; staged book-on-behalf validates confirmed entitlement, freeze/expiry, capacity, duplicates and one-per-day rule before one debit.",
         "limits": "Focused mock pass; broader provider loading/error states and backend enforcement remain.",
         "acceptance": "Source status preserved; focused fictional frontend checks only."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-06.md",
+          "behavior": "Reception allocations retain exact grant after reconstructing old unlinked usage; future-date expiry and freeze enforced.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Server atomicity, authorization and authoritative migration pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "RC-05",
       "module": "Front desk",
       "feature": "Walk-in customer",
       "criterion": "An existing customer checks in and deducts from their package; a new person is registered (name, WhatsApp, verbal consent) and pays at the desk.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3242,14 +3386,16 @@
       "tests": [
         "scripts/test-desk-transactions.mjs",
         "scripts/test-desk-package-ui.mjs",
-        "scripts/test-desk-sale-ui.mjs"
+        "scripts/test-desk-sale-ui.mjs",
+        "scripts/test-package-lots.mjs"
       ],
       "screenshots": [
         "docs/screenshots/S-02/package-booking-results.json",
-        "docs/screenshots/S-04/atomic-sale-results.json"
+        "docs/screenshots/S-04/atomic-sale-results.json",
+        "docs/screenshots/M-06/balance-results.json"
       ],
       "blockers": [],
-      "nextAction": "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain.",
+      "nextAction": "Server atomicity, authorization and authoritative migration pending.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3257,7 +3403,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain."
+          "Server atomicity, authorization and authoritative migration pending."
         ],
         "remainingBackend": [
           "Atomic customer/consent/payment/entitlement/attendance transaction, consent proof and durable payment confirmation."
@@ -3269,14 +3415,23 @@
         "behavior": "Existing walk-in and waitlist promotion share atomic package booking/debit. New-person name/WhatsApp/verbal consent + sale/check-in stage together. Attendance undo/recheck does not debit again.",
         "limits": "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain.",
         "acceptance": "Source status preserved; focused fictional frontend checks only."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-06.md",
+          "behavior": "Walk-in uses exact remaining grant; frozen unrelated lots do not block available purchased classes.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Server atomicity, authorization and authoritative migration pending.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "RC-06",
       "module": "Front desk",
       "feature": "Late-arrival grace minutes",
       "criterion": "Applies the Settings late-arrival rule (15 minutes).",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -3316,7 +3471,7 @@
       "module": "Front desk",
       "feature": "Specials and private classes",
       "criterion": "A special is created with a required description and linked to the room booking if there is one.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3354,7 +3509,7 @@
       "module": "Front desk",
       "feature": "Rooms and space bookings",
       "criterion": "Calendar of the 2 rooms with classes, rentals, maintenance and blocks, with no overlaps.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3380,7 +3535,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Two-room day grid and rental/private/maintenance/blocked types exist; form prevents overlaps using findConflicts. Generic provider has no room-overlap invariant and simultaneous tabs can race; changing date/time paths and browser timezone vs Bogot\u00e1 require verification."
+          "Two-room day grid and rental/private/maintenance/blocked types exist; form prevents overlaps using findConflicts. Generic provider has no room-overlap invariant and simultaneous tabs can race; changing date/time paths and browser timezone vs Bogotá require verification."
         ],
         "remainingBackend": [
           "Server exclusion/locking across class sessions and space bookings, tenant-scoped room access."
@@ -3393,7 +3548,7 @@
       "module": "Front desk",
       "feature": "WhatsApp and email inbox",
       "criterion": "One thread per person; replies go out on the right channel and internal notes do not reach the customer.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -3433,7 +3588,7 @@
       "module": "Front desk",
       "feature": "Sell and check into the class",
       "criterion": "When charging at the desk with 'Check in to class', the person is placed in the class and the spot is deducted.",
-      "role": "Recepci\u00f3n",
+      "role": "Recepción",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3727,7 +3882,7 @@
       "module": "Administration",
       "feature": "Customer list with balance",
       "criterion": "Customer list with search, package, remaining classes, expiry and vouchers.",
-      "role": "Recepci\u00f3n, Admin",
+      "role": "Recepción, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3736,7 +3891,7 @@
       "priority": "High",
       "relatedTests": "COO-02",
       "implementationStatus": "partial",
-      "verificationStatus": "local-flow-passed",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/CrmPage.tsx",
         "src/modules/admin/MemberPage.tsx",
@@ -3748,19 +3903,22 @@
         "/#/admin/crm/usr_cust"
       ],
       "tests": [
-        "scripts/test-crm-balances-ui.mjs"
+        "scripts/test-crm-balances-ui.mjs",
+        "scripts/test-package-lots.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-06/en-390-balances.jpg",
         "docs/screenshots/M-06/es-390-balances.jpg",
         "docs/screenshots/M-06/en-1280-balances.jpg",
-        "docs/screenshots/M-06/es-1280-balances.jpg"
+        "docs/screenshots/M-06/es-1280-balances.jpg",
+        "docs/screenshots/M-06/balance-results.json",
+        "docs/screenshots/S-02/package-booking-results.json"
       ],
       "blockers": [
         "Shared data hooks have no asynchronous rejection/retry path; loading/error integration unverified.",
         "Backend tenant/role enforcement and cross-device consistency excluded from this frontend batch."
       ],
-      "nextAction": "Verify production bundle, exact-head CI and deployed SHA; retain partial until asynchronous read failure contract is tested.",
+      "nextAction": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
       "candidateRoutes": [
         "/#/admin/crm",
         "/#/admin/crm/usr_cust"
@@ -3768,8 +3926,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Batch 1 fixes package/expiry/claimed vouchers and mobile display. Unclaimed vouchers remain separate management records. Shared asynchronous read-error/retry paths remain absent in current hooks.",
-          "Historical unlinked ledger debits can erode new aggregate package balances after old purchases expire; reconcile lot allocation with deterministic legacy fixtures without changing purchased terms. New desk sale check-in uses its exact payment lot."
+          "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open."
         ],
         "remainingBackend": [
           "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
@@ -3782,7 +3939,16 @@
         "target": "local production bundle and exact-head PR CI",
         "ownerAcceptance": "not changed",
         "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
-      }
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-06.md",
+          "behavior": "Read-only historical lot reconstruction; expired spent packages do not reduce fresh grants. CRM and customer share remaining-lot balances.",
+          "verification": "Focused production-bundle frontend checks passed; final copy/contrast refinements and checked release receipt pending.",
+          "limits": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
+          "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        }
+      ]
     },
     {
       "id": "AD-08",
@@ -4110,7 +4276,7 @@
       "module": "Notifications",
       "feature": "Team alert for a new receipt",
       "criterion": "Front desk and Administration are alerted when a customer uploads a receipt.",
-      "role": "Recepci\u00f3n, Admin",
+      "role": "Recepción, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -4895,7 +5061,7 @@
       "role": "Marketing",
       "source": {
         "status": "Not verified",
-        "demoStatus": "Pr\u00f3ximamente / Coming soon"
+        "demoStatus": "Próximamente / Coming soon"
       },
       "phase": "After Nov 30",
       "priority": "Low",
@@ -4975,7 +5141,7 @@
       "role": "Todos",
       "source": {
         "status": "Not verified",
-        "demoStatus": "Pr\u00f3ximamente / Coming soon"
+        "demoStatus": "Próximamente / Coming soon"
       },
       "phase": "Nov 30 delivery",
       "priority": "Low",
@@ -4983,26 +5149,42 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/hub/HubPage.tsx"
+        "src/modules/hub/HubPage.tsx",
+        "src/components/organism/ProblemReport/ProblemReport.tsx",
+        "src/components/organism/ProblemReport/problemDraft.ts"
       ],
-      "routes": [],
-      "tests": [],
+      "routes": [
+        "/#/hub"
+      ],
+      "tests": [
+        "scripts/test-problem-draft.mjs",
+        "scripts/test-problem-report-ui.mjs"
+      ],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Replace placeholder with local report draft/validation and preview including route/user; keep real dispatch disconnected.",
+      "nextAction": "Connect authenticated issue intake/delivery only after authorized external destination contract; source sends acceptance remains unmet.",
       "candidateRoutes": [
         "/#/hub"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Report button is wrapped in Placeholder; no form/submit handler with screen and actor context."
+          "Local form/validation/preview/save implemented with no dispatch; final production frontend verification pending."
         ],
         "remainingBackend": [
           "Authorized issue intake and optional approved external destination, no messaging until authorized."
         ]
       },
-      "sourceNextAction": "Replace placeholder with local report draft/validation and preview including route/user; keep real dispatch disconnected."
+      "sourceNextAction": "Replace placeholder with local report draft/validation and preview including route/user; keep real dispatch disconnected.",
+      "continuationEvidence": [
+        {
+          "batch": "batch-10.md",
+          "behavior": "Validated local problem draft captures route, fictional demo actor and effective role; explicit preview/save/cancel/retry with no external dispatch.",
+          "verification": "Unit checks passed; rendered role sweep/final production QA in progress.",
+          "limits": "Original sends criterion remains unmet; authenticated intake/delivery contract pending.",
+          "acceptance": "Source criteria/phase/acceptance unchanged."
+        }
+      ]
     },
     {
       "id": "OT-04",
@@ -5060,7 +5242,7 @@
       "result": "passed; no console errors",
       "basis": "Preserved PR55 evidence; no new all-route smoke claim in this continuation."
     },
-    "release": "Core batches 3\u20135 source f660f20cb88d9e39e6cf8be8126d77c91fd947a7 deployed with hosted source-SHA readback. Final demo-copy/evidence checkpoint0080 uses its associated checked PR receipt; owner/backend acceptance remains separate.",
+    "release": "Core batches 3–5 source f660f20cb88d9e39e6cf8be8126d77c91fd947a7 deployed with hosted source-SHA readback. Final demo-copy/evidence checkpoint0080 uses its associated checked PR receipt; owner/backend acceptance remains separate.",
     "directLiveReadback": "No direct public readback attempted in this continuation. Hosted workflow source-SHA verification passed; prior batch reported 403.",
     "implementationCommits": [
       "955d067",
@@ -5076,7 +5258,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches 3\u20135 and explicit demo labels released with checked merges and hosted source verification. Audit attribution follow-up verified locally; next: legacy lot allocation and transfer receipt queue.",
+    "activeBatch": "Batches6–9 in integration: historical lot allocation, fictional transfer queue, atomic future-day reschedule and local catalog publication. Baseline b73c13a (PR59). Production QA/checks/deployment pending.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5120,6 +5302,7 @@
       ],
       "releaseEvidence": "Associated checked PR records final head/merge/deployment.",
       "verification": "Full build and production-bundle desk booking plus administrator sale metadata assertions passed; existing bilingual responsive and rollback cases remained green."
-    }
+    },
+    "continuationBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e"
   }
 }

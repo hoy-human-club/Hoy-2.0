@@ -2,9 +2,12 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import type { BookingRow } from '../../../data/schema';
-import { formatDate, formatTime, MS } from '../../../i18n/format';
+import { dateKey, formatDate, formatTime, MS } from '../../../i18n/format';
 import { useLayout } from '../../../layout/useLayout';
 import { tenant } from '../../../tenant/tenant';
+import { Input } from '../../../components/atom/Input/Input';
+import { Field } from '../../../components/molecule/Field/Field';
+import { approvedPackageRows } from '../../../data/packages';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { Badge } from '../../../components/atom/Badge/Badge';
@@ -20,11 +23,12 @@ import { canvasSpecs } from '../specs';
 import { SplitSections } from '../split';
 import { useActions } from '../../../actions';
 import { useAppNavHandlers } from '../actions';
-import { useBookingActions, useMyBookings, useNow, useSessionJoined } from '../hooks';
+import { useAllSessionsJoined, useBookingActions, useEntitlements, useMyBookings, useNow, useSessionJoined } from '../hooks';
 import { cancelDeadline, insideCancelWindow, policy } from '../policy';
 import { canReschedule, RESCHEDULE_CUTOFF_HOURS } from '../reschedule';
+import { assertRescheduleValidity, reschedulePurchase } from '../rescheduleCommand';
 import { PageHead, downloadIcs, toneOf, roomName, shareText, teacherName } from '../ui';
-import { StudioCancelledBlock, useAlternatives } from './blocks';
+import { StudioCancelledBlock } from './blocks';
 
 const spec = canvasSpecs['C-08'];
 
@@ -129,13 +133,24 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
   const { t, lang } = useI18n();
   const nav = useNavigate();
   const { cancel, reschedule } = useBookingActions();
-  const alts = useAlternatives(joined, 4);
+  const allSessions = useAllSessionsJoined();
+  const { ledger, payments } = useEntitlements();
+  const [day, setDay] = useState(() => dateKey(new Date(joined.session.starts_at)));
   const [mode, setMode] = useState<'menu' | 'move' | 'cancel'>('menu');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const s = joined.session;
   const now = useNow(1_000);
   const moveAllowed = canReschedule(s.starts_at, now);
+  const validity = useMemo(() => {
+    try { return { purchase: reschedulePurchase(approvedPackageRows(ledger, payments), booking), unresolved: false }; }
+    catch { return { purchase: null, unresolved: true }; }
+  }, [ledger, payments, booking]);
+  const entitlementUnresolved = validity.unresolved || (!validity.purchase && day !== dateKey(new Date(s.starts_at)));
+  const alts = allSessions.filter(a => {
+    if (entitlementUnresolved || a.session.id === s.id || a.session.status !== 'scheduled' || Date.parse(a.session.starts_at) <= now || a.session.booked_count >= a.session.capacity || dateKey(new Date(a.session.starts_at)) !== day) return false;
+    try { assertRescheduleValidity(validity.purchase, a.session.starts_at); return true; } catch { return false; }
+  });
   const close = () => { setMode('menu'); setErr(null); onClose(); };
 
   const doCancel = async () => {
@@ -150,7 +165,10 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
     const to = alts.find((a) => a.session.id === toId)?.session; if (!to) return;
     setBusy(true); setErr(null);
     try { const next = await reschedule(booking, s, to); close(); nav(`/app/booking/${next.id}`, { replace: true }); }
-    catch (e) { setErr(t(e instanceof Error && e.message === 'reschedule_cutoff' ? 'customer.change.move.closed' : 'customer.checkout.race.body', { h: RESCHEDULE_CUTOFF_HOURS })); }
+    catch (e) {
+      const key = e instanceof Error && e.message === 'reschedule_cutoff' ? 'customer.change.move.closed' : e instanceof Error && e.message === 'same_day_conflict' ? 'customer.change.move.conflict' : e instanceof Error && (e.message === 'package_expired' || e.message === 'package_frozen' || e.message === 'reschedule_entitlement_unresolved') ? 'customer.change.move.validity' : 'customer.change.move.failed';
+      setErr(t(key, { h: RESCHEDULE_CUTOFF_HOURS }));
+    }
     finally { setBusy(false); }
   };
 
@@ -170,9 +188,12 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
         )}
         {mode === 'move' && (
           <section className="stack-sm">
+            <Field label={t('customer.change.move.day')} hint={validity.purchase?.expires_at ? t('customer.change.move.expires', { date: formatDate(validity.purchase.expires_at, lang) }) : t('customer.change.move.day.hint')}>{id => <Input id={id} type="date" value={day} min={dateKey(new Date(now))} max={validity.purchase?.expires_at ?? undefined} disabled={busy || !moveAllowed} onChange={e => { setDay(e.target.value); setErr(null); }} />}</Field>
             <div className="eyebrow">{t('customer.change.pick')}</div>
             {!moveAllowed ? (
               <Notice tone="warn">{t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })}</Notice>
+            ) : entitlementUnresolved ? (
+              <Notice tone="warn">{t('customer.change.move.validity')}</Notice>
             ) : alts.length === 0 ? (
               <Notice tone="info" title={t('customer.change.noAlt')} action={<Link to="/app/schedule"><Button size="sm" variant="secondary">{t('customer.class.backToSchedule')}</Button></Link>}>{t('customer.change.noAlt.body')}</Notice>
             ) : (
@@ -188,7 +209,7 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
             <Button block variant="danger" size="lg" loading={busy} onClick={doCancel}>{t('customer.change.cancel.cta')}</Button>
           </section>
         )}
-        <Button block variant={mode === 'menu' ? 'secondary' : 'ghost'} onClick={mode === 'menu' ? close : () => setMode('menu')}>{mode === 'menu' ? t('customer.change.keep') : t('core.nav.back')}</Button>
+        <Button block disabled={busy} variant={mode === 'menu' ? 'secondary' : 'ghost'} onClick={mode === 'menu' ? close : () => setMode('menu')}>{mode === 'menu' ? t('customer.change.keep') : t('core.nav.back')}</Button>
       </div>
     </Drawer>
   );

@@ -1,0 +1,39 @@
+name: Local problem report frontend QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/hub/**'
+      - 'src/components/organism/ProblemReport/**'
+      - 'scripts/test-problem*.mjs'
+      - '.github/workflows/problem-report-qa.yml'
+permissions:
+  contents: read
+jobs:
+  local-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/test-problem-draft.mjs
+      - name: Verify rendered local report drafts
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-report-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-problem-report-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: problem-report-${{ github.event.pull_request.head.sha }}
+          path: docs/screenshots/HUB-01/*report*
+          retention-days: 7

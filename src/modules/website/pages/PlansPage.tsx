@@ -1,3 +1,6 @@
+import { useTable } from '../../../data/DataContext';
+import { quotePublishedProduct } from '../../../data/catalogPublication';
+import type { CatalogPlan } from '../../../data/productCatalog';
 import { useSiteEdition } from '../edition';
 import { studioPhoto } from '../photography';
 import { Fragment, type ReactNode } from 'react';
@@ -11,7 +14,7 @@ import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { PackageCard } from '../../../components/molecule/PackageCard/PackageCard';
 import { PriceRow } from '../../../components/molecule/PriceRow/PriceRow';
-import { formatCOP } from '../../../i18n/format';
+import { dateKey, formatCOP } from '../../../i18n/format';
 import { PageHead, SiteShell } from '../SiteShell';
 import { siteSpecs } from '../specs';
 
@@ -22,6 +25,8 @@ import { siteSpecs } from '../specs';
  * private classes and gift cards, and what is quoted on request (the studio rental, corporate experiences).
  */
 export function PlansPage() {
+  const {rows:catalogRows}=useTable<CatalogPlan>('plans');
+  const localPublished=catalogRows.filter(p=>p.frontend_publication&&!p.frontend_publication.withdrawnAt);
   const { photoEdition } = useSiteEdition();
   const { t, bi, lang } = useI18n();
   // 0047: private classes, the space rental and corporate experiences are a `specials` handoff (M-08a contacts).
@@ -43,7 +48,15 @@ export function PlansPage() {
 
   const SECTIONS: Record<string, () => ReactNode> = {
     PageHead: () => <PageHead title={t('site.plans.title')} body={t('site.plans.body')} />,
-    Families: () => <>
+    Families: () => localPublished.length>0 ? <section className="container site-section" data-testid="local-published-catalog">
+      <Card tone="highlight"><h2 style={{color:'var(--color-on-highlight)'}}>{t('products.siteLocalTitle')}</h2><p>{t('products.siteLocalNotice')}</p></Card>
+      <div className="grid grid-2" style={{marginTop:'var(--block)'}}>{localPublished.map(plan=>{
+        let quote=null,error='';try{quote=quotePublishedProduct(plan,dateKey());}catch(e){error=`products.error.${e instanceof Error?e.message:'invalid'}`;}
+        return <Card key={plan.id} title={bi(plan.frontend_publication!.snapshot.definition.name)}>
+          <div className="stack"><span>{plan.frontend_publication!.snapshot.definition.code} · #{plan.frontend_publication!.revision}</span>{quote?<><strong data-testid={`site-published-price-${plan.id}`}>{formatCOP(quote.amount,lang)}</strong><span>{quote.classes} {t('products.classes')} · {quote.validityDays} {t('products.validity')}</span></>:<p role="status">{t(error)}</p>}<Button disabled>{t('products.purchaseDisconnected')}</Button></div>
+        </Card>;
+      })}</div>
+    </section> : <>
       {/* the 12-class package, at the general price and at the Santa María Tennis Club price */}
       <section className="container site-section" style={{ paddingTop: 0 }}>
         <div className="plans-heading"><p className="eyebrow">{bi(FAMILY_LABEL.paquetes)}</p><h2>{t('site.plans.package.title')}</h2><p className="muted">{bi(FAMILY_RATIONALE.paquetes.why)}</p></div>

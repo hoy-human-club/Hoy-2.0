@@ -7,6 +7,8 @@ on:
       - 'src/data/productCatalog.ts'
       - 'src/modules/products/**'
       - 'scripts/test-product-catalog*.mjs'
+      - 'src/data/catalogPublication.ts'
+      - 'scripts/test-catalog-publication*.mjs'
       - 'src/modules/staff/people.ts'
       - 'scripts/test-crm-balances-ui.mjs'
       - '.github/workflows/crm-balances-qa.yml'
@@ -31,6 +33,9 @@ jobs:
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-crm-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
           node scripts/test-crm-balances-ui.mjs
+          node scripts/test-package-lots.mjs
+          node scripts/test-catalog-publication.mjs
+          node scripts/test-catalog-publication-ui.mjs
           node scripts/test-product-catalog.mjs
           node scripts/test-product-catalog-ui.mjs
         env:
@@ -53,4 +58,5 @@ jobs:
             docs/screenshots/M-06/*package-detail.jpg
             docs/screenshots/M-06/balance-results.json
             docs/screenshots/M-16
+            docs/screenshots/M-17
           retention-days: 3

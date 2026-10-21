@@ -847,6 +847,7 @@ _Las clases de cada paquete: compradas (+), usadas (−), devueltas y vencidas. 
 | `user_id` | uuid | → `users`  |
 | `plan_id` | uuid, null | → `plans`  |
 | `payment_id` | uuid, null | → `payments`  |
+| `purchase_ledger_id` | uuid, null | → `class_ledger` original grant for new debits/restorations; legacy rows remain untouched |
 | `delta` | int | + purchase, − use |
 | `reason` | enum (purchase \| booking \| refund \| expiry \| gift \| comp \| cancel_return \| reschedule) |  |
 | `expires_at` | date, null |  |
@@ -875,6 +876,38 @@ _Cada cobro, por Wompi o manual._
 | `paid_at` | timestamptz, null |  |
 | `taken_by` | uuid, null | → `users` staff user for manual payments |
 | `note` | text, null | Why the received amount differs from the invoice (S-04 requires it when it does) |
+
+#### `transfer_receipts`
+Browser demo only. Not secure storage or cross-device synchronization.
+_Solo demo en este navegador. No almacenamiento seguro ni sincronización._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `user_id` | uuid | → `users`  |
+| `payment_id` | uuid | → `payments`  |
+| `session_id` | uuid, null | → `class_sessions`  |
+| `mat_number` | int, null |  |
+| `product_id` | text |  |
+| `product_name` | json |  |
+| `classes` | int |  |
+| `expires_at` | date |  |
+| `image_data_url` | text | Fictional browser fixture only; replace with private object reference after approved storage integration. |
+| `file_name` | text |  |
+| `mime_type` | text |  |
+| `byte_size` | int |  |
+| `status` | enum (pending \| approved \| rejected) |  |
+| `amount_received` | int, null |  |
+| `review_reason` | text, null |  |
+| `reviewed_by` | uuid, null | → `users`  |
+| `reviewed_at` | timestamptz, null |  |
+| `booking_id` | uuid, null | → `bookings`  |
+
+**Who may read / write**
+- Draft contract only; no deployed policy. Production requires authenticated owner upload and authorized front_desk/admin review with private storage.
 
 #### `invoices`
 Fiscal document per payment (DIAN later).

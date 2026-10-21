@@ -1,7 +1,14 @@
 # Frontend completion handoff index
 
+Current continuation: remote main `b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e` (PR59) verified before work on2026-10-21; recovered from repository documentation only. Branch `codex/frontend-next`. No previous task/environment files accessed. Batches6–9 implemented and production QA running; batch10 independent local report draft in progress. Checked release receipt follows below. No new owner acceptance.
+
 Owner: one frontend integration coordinator. Baseline: remote main `2d402751c5bee899d5adab62837d2b0e7e313025`, v0.25.0, checked 2026-10-21. No AGENTS.md exists in the checkout/workspace; CLAUDE.md is the repository engineering contract. Original workbook was read only through connected Drive. Authoritative private English-first tracker: [Front End Dev Log](https://docs.google.com/spreadsheets/d/19SWDF957P55Iw5QEPyVtoPDS50-eor0k76djVv1YyNU/edit). Parent owns spreadsheet updates from repository evidence.
 
+- [Batch6: historical allocation](batch-06.md): preserve historical purchased terms; exact grant IDs for new customer/desk usage.
+- [Batch7: fictional transfer receipts](batch-07.md): validated local upload, review queue and atomic mock decisions; timing/private storage remain disconnected.
+- [Batch8: future-day rescheduling](batch-08.md): original purchased validity, staged rollback and idempotent retry.
+- [Batch9: local catalog publication](batch-09.md): explicit publication/withdrawal, shared dated quote contract and same-browser website preview; operational checkout remains static.
+- [Batch10: local report draft](batch-10.md): screen/effective-user context; no external report dispatch.
 - [Authoritative task manifest](features.json): all 124 source stable IDs, exact English acceptance criteria, scope/priority, separate source and fresh verification states. Unknowns stay unverified. Preserve IDs and phase labels when updating the duplicate.
 - [Baseline source audit](baseline.md) and [all routes/roles](routes.json): 120 routes, 103 codes, 102 components. Source-level implemented/partial/absent findings; no overall acceptance claim.
 - [Batch 5 / Clerk contract](batch-05.md): disconnected development observations and tests; no security/configuration/auth-provider changes.

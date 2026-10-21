@@ -1,0 +1,10 @@
+{
+  "base": "http://127.0.0.1:5175",
+  "checks": [
+    "async loading",
+    "empty resolve",
+    "read rejection contained",
+    "retry restores queue"
+  ],
+  "errors": []
+}

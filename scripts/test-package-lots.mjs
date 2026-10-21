@@ -1,0 +1,43 @@
+// Fictional, read-only legacy allocation and exact-grant booking contract.
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const dir=await mkdtemp(join(tmpdir(),'hoy-lots-'));
+try {
+ const out=join(dir,'lots.mjs');
+ await build({stdin:{contents:"export {packageLots,packageState,selectPackagePurchase,approvedPackageRows} from './src/data/packages';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',outfile:out});
+ const {packageLots,packageState,selectPackagePurchase,approvedPackageRows}=await import(pathToFileURL(out));
+ const row=(id,created,delta,extra={})=>({id,tenant_id:'qa_tenant',user_id:'qa_member',created_at:created+'T12:00:00Z',reason:delta>0?'purchase':'booking',delta,expires_at:delta>0?'2026-12-01':null,...extra});
+ const old=row('old','2026-01-01',12,{expires_at:'2026-04-01'}),spent=row('spent','2026-02-01',-12),fresh=row('fresh','2026-10-01',12);
+ const history=[old,spent,fresh], snapshot=JSON.stringify(history);
+ assert.equal(packageState(history,'2026-10-21').balance,12,'expired used package cannot reduce a fresh purchase');
+ assert.equal(packageState([old,row('overdraw','2026-02-01',-20),fresh],'2026-10-21').balance,12,'legacy excess debit does not spill into future purchase');
+ assert.equal(JSON.stringify(history),snapshot,'read model never rewrites historical terms');
+ const debit=row('new-use','2026-10-21',-1,{purchase_ledger_id:'fresh'});
+ assert.equal(packageState([...history,debit],'2026-10-21').balance,11);
+ assert.equal(packageLots([...history,debit]).find(l=>l.purchase.id==='fresh').debits[0].ledgerId,'new-use');
+ const earliest=row('early','2026-10-02',2,{expires_at:'2026-11-01'});
+ assert.equal(selectPackagePurchase([...history,earliest],'2026-10-21','2026-10-23').id,'early');
+ assert.equal(selectPackagePurchase([...history,earliest],'2026-10-21','2026-11-20').id,'fresh');
+ assert.equal(selectPackagePurchase(history,'2026-10-21','2027-01-01'),undefined);
+ const frozen=row('frozen','2026-10-03',12,{frozen_from:'2026-10-20',frozen_until:'2026-11-02'});
+ assert.equal(packageState([...history,frozen],'2026-10-21').balance,12,'frozen lot does not block independent valid package');
+ assert.equal(packageState([frozen],'2026-10-21').frozen,true);
+ assert.equal(selectPackagePurchase([frozen],'2026-10-19','2026-10-21'),undefined,'class-day freeze applies');
+ const exact=row('exact','2026-10-20',-1,{payment_id:'qa_pay'}),paid={...fresh,id:'paid',payment_id:'qa_pay'};
+ assert.equal(packageLots([paid,earliest,exact]).find(l=>l.purchase.id==='paid').left,11,'payment-linked debit stays with original lot');
+ assert.equal(packageLots([paid,earliest,{...exact,purchase_ledger_id:'missing'}]).find(l=>l.purchase.id==='paid').left,12,'broken explicit linkage cannot consume another lot');
+ const other=row('other','2026-10-01',12,{user_id:'qa_other'});
+ assert.equal(packageLots([other,debit]).find(l=>l.purchase.id==='other').left,12,'no cross-member allocation');
+ const returned=row('return','2026-10-22',1,{reason:'cancel_return',purchase_ledger_id:'fresh'});
+ assert.equal(packageState([...history,debit,returned],'2026-10-23').balance,12);
+ assert.equal(packageState([...history,debit,returned],'2027-01-01').balance,0,'linked restoration retains purchase expiry');
+ assert.equal(packageState(approvedPackageRows([paid,exact],[{id:'qa_pay',status:'pending'}]),'2026-10-21').balance,0);
+ assert.equal(packageState([...history].reverse(),'2026-10-21').balance,12,'input order independent');
+ const same=[row('z_grant','2026-10-21',2),row('a_debit','2026-10-21',-1)];
+ assert.equal(packageState(same,'2026-10-21').balance,1,'same timestamp positives allocated before usage');
+ console.log('PASS legacy lot reconstruction, no rewritten purchases, no future debt, exact grant/payment scope, expiry/freeze, returns, input order');
+}finally{await rm(dir,{recursive:true,force:true});}

@@ -154,3 +154,9 @@ sistema en números y las herramientas de prueba.
 ## Public landing and clean entry (0059)
 
 The public deployment root opens Coming Soon. This testing hub stays public, without a new password gate, at `/#/hub`; `/hub`, `/hub/` and `/hub/index.html` hand off to that route on the same deployment. All semantic “Hub” links return here. The full website, Latest and historical animated edition remain testable from the existing cards. No DNS, CNAME or authentication setting is changed.
+
+## OT-03 local report-draft prototype · 0086
+
+The report control opens an accessible local form with screen pathname, demo user and effective role. Validation, preview, local-save failure/retry and scoped reload are frontend-only. Closing without saving preserves the prior saved draft. Identical retries retain one local draft. No report is sent and drafts are not shared across devices; no external intake is connected. The original Nov30 “sends the report” criterion remains unmet.
+
+[Batch 10](../frontend-completion/batch-10.md) records exact behavior and verification. [QA report](../screenshots/HUB-01/report-results.json) · [EN mobile](../screenshots/HUB-01/en-390-report-customer.jpg) · [EN desktop](../screenshots/HUB-01/en-1280-report-customer.jpg) · [ES mobile](../screenshots/HUB-01/es-390-report-customer.jpg) · [ES desktop](../screenshots/HUB-01/es-1280-report-customer.jpg).

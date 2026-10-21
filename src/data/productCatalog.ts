@@ -1,3 +1,4 @@
+import type { CatalogPublication } from './catalogPublication';
 import type { PlanRow } from './schema';
 
 /** Frontend draft contract. Legacy plan/public pricing is deliberately not published by this prototype. */
@@ -5,7 +6,7 @@ export interface ProductPrice { id: string; amount: number; startsOn: string; en
 export interface ProductDefinition { code: string; name: { es: string; en: string }; type: PlanRow['family']; classes: number; validityDays: number; active: boolean; prices: ProductPrice[] }
 export interface ProductRevision { revision: number; actorId: string; at: string; definition: ProductDefinition }
 export interface CatalogDraft { definition: ProductDefinition; history: ProductRevision[] }
-export type CatalogPlan = PlanRow & { frontend_catalog?: CatalogDraft };
+export type CatalogPlan = PlanRow & { frontend_catalog?: CatalogDraft; frontend_publication?: CatalogPublication };
 export interface ProductQuote { productId: string; code: string; name: { es: string; en: string }; priceId: string; amount: number; currency: 'COP'; purchaseDate: string; classes: number; validityDays: number; catalogRevision: number }
 
 export function validProductDate(value: string): boolean {

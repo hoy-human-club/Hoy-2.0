@@ -1,0 +1,14 @@
+{
+  "feature": "RS-09",
+  "role": "customer",
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en: future-day date and original expiry, out-of-validity hidden, cancel-edit unchanged, storage failure retains original, retry moves once with same debit, desktop/mobile light/dark",
+    "es: future-day date and original expiry, out-of-validity hidden, cancel-edit unchanged, storage failure retains original, retry moves once with same debit, desktop/mobile light/dark"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-local transaction, no server authorization or cross-device atomicity.",
+    "Ambiguous historical debit allocation requires Anu reconciliation; cancellation policy unchanged."
+  ]
+}

@@ -23,6 +23,7 @@ import { Icon, type IconName } from '../../components/atom/Icon/Icon';
 import { Placeholder } from '../../components/atom/Placeholder/Placeholder';
 import { LangToggle } from '../../components/molecule/LangToggle/LangToggle';
 import { RoleSwitcher } from '../../components/molecule/RoleSwitcher/RoleSwitcher';
+import { ProblemReport } from '../../components/organism/ProblemReport/ProblemReport';
 import { BreathingRings } from '../../components/organism/BreathingRings/BreathingRings';
 import { LivePreviewBudget, PagePreview } from '../../components/organism/PagePreview/PagePreview';
 import { hubSpec, HUB_SURFACES, HUB_TOOLS, type HubSurfaceKey, type HubToolKey } from './specs';
@@ -309,10 +310,7 @@ export function HubPage() {
           <div className="hub-sessionbar">
             <span className="eyebrow hub-sessionbar-label">{t('hub.session')}</span>
             <RoleSwitcher />
-            {/* In-product annotations are not built yet: the control exists, says so, and blocks itself. */}
-            <Placeholder what={t('hub.report')}>
-              <Button size="sm" variant="ghost" icon={<Icon name="alert" size={16} />}>{t('hub.report')}</Button>
-            </Placeholder>
+            <ProblemReport />
             {devMode && <p className="small hub-devhint">{t('hub.devHint')}</p>}
           </div>
         </div>

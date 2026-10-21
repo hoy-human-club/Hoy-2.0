@@ -5,7 +5,7 @@
   ],
   "base": "http://127.0.0.1:5187",
   "checks": [
-    "future booking and walk-in debit exactly once; booked attendance undo/recheck does not debit again; pending classes unavailable; EN/ES 390/1280 screenshots and overflow check"
+    "legacy expired package/unlinked usage does not reduce the new lot; new debit retains source grant; historical terms unchanged; future booking and walk-in debit exactly once; booked attendance undo/recheck does not debit again; pending classes unavailable; EN/ES 390/1280 screenshots and overflow check"
   ],
   "errors": [],
   "limits": [
