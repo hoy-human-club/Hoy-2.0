@@ -1,0 +1,18 @@
+{
+  "featureIds": [
+    "PR-01",
+    "PR-02"
+  ],
+  "base": "http://127.0.0.1:4180",
+  "checks": [
+    "admin create/edit/local reload, metadata validation, overlap rejection, date quote, gap block, immutable fictional example, retained revision history, EN/ES 390/1280, legacy public pricing unchanged",
+    "failed local persistence keeps editor and reports error",
+    "front desk and customer route denied"
+  ],
+  "errors": [],
+  "limits": [
+    "Operational checkout uses legacy pricing; prototype quotes are disconnected.",
+    "Read loading/error injection requires dev module imports; provider contract pending.",
+    "Server atomic revision/audit and authenticated tenant/role enforcement unverified."
+  ]
+}

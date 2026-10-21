@@ -1,0 +1,56 @@
+name: Frontend completion QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/admin/**'
+      - 'src/data/packages.ts'
+      - 'src/data/productCatalog.ts'
+      - 'src/modules/products/**'
+      - 'scripts/test-product-catalog*.mjs'
+      - 'src/modules/staff/people.ts'
+      - 'scripts/test-crm-balances-ui.mjs'
+      - '.github/workflows/crm-balances-qa.yml'
+permissions:
+  contents: read
+jobs:
+  crm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify built CRM frontend
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-crm-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-crm-balances-ui.mjs
+          node scripts/test-product-catalog.mjs
+          node scripts/test-product-catalog-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify asynchronous product read states
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-product-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-product-catalog-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crm-balances-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/M-06/*balances.jpg
+            docs/screenshots/M-06/*package-detail.jpg
+            docs/screenshots/M-06/balance-results.json
+            docs/screenshots/M-16
+          retention-days: 3

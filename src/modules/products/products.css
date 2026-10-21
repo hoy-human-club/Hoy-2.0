@@ -1,0 +1,8 @@
+.products-page { overflow-wrap: anywhere; }
+.products-page .input { max-width: 100%; }
+.products-quote { margin-top: var(--block); }
+@media (max-width: 899px) {
+  .products-page .grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.products-fields { border: 0; padding: 0; margin: 0; min-width: 0; }

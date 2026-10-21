@@ -710,6 +710,7 @@
         "M-14",
         "M-03",
         "M-13",
+        "M-16",
         "M-15",
         "M-07",
         "M-08a",
@@ -4890,6 +4891,44 @@
         "label": {
           "es": "Documentos fuente",
           "en": "Source documents"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "M-16",
+      "route": "/admin/products",
+      "name": {
+        "es": "Maestro de productos · borrador",
+        "en": "Product master · draft"
+      },
+      "purpose": {
+        "es": "Preparar productos y vigencias con cotizaciones ficticias, sin publicar precios.",
+        "en": "Prepare products and effective prices with fictional quotes, without publishing prices."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-16/es-390.jpg",
+          "en-390": "hub-map/shots/M-16/en-390.jpg",
+          "es-1280": "hub-map/shots/M-16/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-16/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
         },
         "order": 10
       }
