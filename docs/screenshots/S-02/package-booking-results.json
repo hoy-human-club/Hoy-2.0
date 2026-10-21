@@ -1,0 +1,14 @@
+{
+  "features": [
+    "RC-04",
+    "RC-05"
+  ],
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "future booking and walk-in debit exactly once; booked attendance undo/recheck does not debit again; pending classes unavailable; EN/ES 390/1280 screenshots and overflow check"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser adapter only; real backend transaction/authorization remains pending."
+  ]
+}

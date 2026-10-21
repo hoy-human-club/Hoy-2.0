@@ -17,8 +17,8 @@ export const S02 = defineSpec({
   logic: (canvasSpecs['S-02'].logic ?? []).filter((l) => !/face.template/i.test(l)),
   layout: ['TodayStrip (now / next / later)', 'MemberSearch + CapacityMeter', 'RosterList (expected / checked in / waitlist)', 'TeachersInToday', 'QuickSell (walk-in)'],
   data: ['class_sessions', 'bookings', 'waitlist', 'users', 'profiles', 'memberships', 'plans', 'teachers', 'modalities', 'audit_log', 'tenants'],
-  states: [...(canvasSpecs['S-02'].states ?? []).filter((s) => !/scan/i.test(s)), 'No classes today: empty strip', 'Loading roster', 'No permission: roster read-only'],
-  notes: [...(canvasSpecs['S-02'].notes ?? []), 'Late = checked in after starts_at + policies.lateGraceMin (M-08).', 'Keyboard: / focuses search, Enter checks in the first expected match, Esc clears.', 'Capacity comes from the session row (seeded from tenant.studio.mats).'],
+  states: [...(canvasSpecs['S-02'].states ?? []).filter((s) => !/scan/i.test(s)), 'No classes today: empty strip', 'Loading roster', 'No permission: roster read-only', 'Future-session booking on behalf of a customer', 'Confirmed balance and expiry preview', 'Pending-only / frozen / expired / insufficient balance blocks booking'],
+  notes: [...(canvasSpecs['S-02'].notes ?? []), 'Late = checked in after starts_at + policies.lateGraceMin (M-08).', 'Keyboard: / focuses search, Enter checks in the first expected match, Esc clears.', 'Capacity comes from the session row (seeded from tenant.studio.mats).', 'RC-04/05: bookWithPackage inside the isolated mock atomic adapter allocates one ledger debit and booking; attendance updates never debit twice. Production requires server transactions.'],
 });
 
 /** S-04 register & take payment. */
@@ -26,8 +26,8 @@ export const S04 = defineSpec({
   ...canvasSpecs['S-04'],
   layout: ['Step1 · Who (new / existing)', 'Step2 · What (pricing.ts)', 'Step3 · How they pay', 'SummaryRail (IVA + total)', 'Receipt'],
   data: ['users', 'profiles', 'user_roles', 'consents', 'payments', 'invoices', 'memberships', 'class_ledger', 'bookings', 'class_sessions', 'message_log', 'audit_log', 'tenants'],
-  states: [...(canvasSpecs['S-04'].states ?? []), 'No permission: form read-only', 'Sale complete: receipt view'],
-  notes: [...(canvasSpecs['S-04'].notes ?? []), 'Prices only from src/tenant/pricing.ts; IVA from M-08 tax settings.', 'Wompi link is a placeholder: payment stays pending until the gateway confirms.'],
+  states: [...(canvasSpecs['S-04'].states ?? []), 'No permission: form read-only', 'Sale complete: receipt view', 'Capacity / duplicate / pending check-in rejected with entire sale rolled back', 'Storage or injected write failure: no partial user, consent, payment, invoice, ledger or booking'],
+  notes: [...(canvasSpecs['S-04'].notes ?? []), 'Prices only from src/tenant/pricing.ts; IVA from M-08 tax settings.', 'Wompi link is a placeholder: payment stays pending until the gateway confirms.', 'RC-10: entire fictional sale is staged, persisted once and deduplicated by a browser-local transaction receipt. No actual messaging/payment dispatch. Pending sales never activate classes or check in.'],
 });
 
 /** S-05 rooms — the day of every room; classes and space bookings side by side (Especiales, 0017). */

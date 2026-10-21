@@ -18,7 +18,7 @@ import { EmptyState } from '../../../components/molecule/EmptyState/EmptyState';
 import { Skeleton } from '../../../components/atom/Skeleton/Skeleton';
 import { canvasSpecs } from '../specs';
 import { PACKAGE_IDS, PASS_IDS, priceOf, useBookingActions, useEntitlements, useMyBookings, useSessionJoined, type EntitlementKind } from '../hooks';
-import { PAYMENT_METHODS, recordPayment, wompiCheckout, type ElectronicMethod, type PayMethod, type WompiResult } from '../payments';
+import { PAYMENT_METHODS, activatePaidPackage, recordPayment, wompiCheckout, type ElectronicMethod, type PayMethod, type WompiResult } from '../payments';
 import { policy } from '../policy';
 import { PageHead, durationMin, toneOf, roomName, teacherName } from '../ui';
 import { MatPicker } from '../../../components/organism/MatPicker/MatPicker';
@@ -70,7 +70,7 @@ export function CheckoutPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<'full' | 'unavailable' | 'conflict' | 'mat' | null>(null);
   const [declined, setDeclined] = useState<DeclinedState | null>(null);
-  const [done, setDone] = useState<{ booking: BookingRow; pending: boolean } | null>(null);
+  const [done, setDone] = useState<{ booking: BookingRow | null; pending: boolean } | null>(null);
 
   const conflict = useMemo(() => joined ? sameDayConflict(myBookings, sessions, joined.session) : null, [joined, myBookings, sessions, sameDayConflict]);
   const amount = isPass(kind) ? priceOf(kind).price ?? 0 : 0;
@@ -93,30 +93,38 @@ export function CheckoutPage() {
       if (alreadyBooked) throw new Error('booking_exists');
       if (joined.session.status !== 'scheduled' || new Date(joined.session.starts_at).getTime() <= Date.now()) throw new Error('session_unavailable');
       if (conflict) { setError('conflict'); return 'conflict'; }
-      let paidWith: EntitlementKind = kind === 'package' ? 'package' : kind === 'membership' ? 'membership' : kind === 'trial' ? 'trial' : kind === 'single' ? 'single' : 'package';
-      let packagePlanId: string | null = null;
-      let pending = false;
-      if (amount > 0 && isPass(kind)) {
-        const item = priceOf(kind);
-        let result: WompiResult | undefined;
-        if (methodOpt.provider === 'wompi') result = await wompiCheckout({ amount, method: method as ElectronicMethod, simulate: simulateDecline ? 'declined' : 'approved' });
-        const payment = await recordPayment(data, { userId: user.id, planId: `plan_${item.id}`, amount, method, result, ivaRate: policy.ivaRate });
-        if (result?.status === 'declined') {
-          setDeclined((d) => ({ reason: result?.reason ?? null, holdUntil: d?.holdUntil ?? new Date(Date.now() + policy.paymentHoldMinutes * MS.min).toISOString(), attempts: (d?.attempts ?? 0) + 1, method }));
-          return 'declined';
+      if (!data.atomic) throw new Error('atomic_unavailable');
+      const outcome = await data.atomic(async transaction => {
+        let paidWith: EntitlementKind = kind === 'package' ? 'package' : kind === 'membership' ? 'membership' : kind === 'trial' ? 'trial' : kind === 'single' ? 'single' : 'package';
+        let packagePlanId: string | null = null;
+        let pending = false;
+        if (amount > 0 && isPass(kind)) {
+          const item = priceOf(kind);
+          let result: WompiResult | undefined;
+          if (methodOpt.provider === 'wompi') result = await wompiCheckout({ amount, method: method as ElectronicMethod, simulate: simulateDecline ? 'declined' : 'approved' });
+          const payment = await recordPayment(transaction, { userId: user.id, planId: `plan_${item.id}`, amount, method, result, ivaRate: policy.ivaRate });
+          if (result?.status === 'declined') {
+            setDeclined((d) => ({ reason: result?.reason ?? null, holdUntil: d?.holdUntil ?? new Date(Date.now() + policy.paymentHoldMinutes * MS.min).toISOString(), attempts: (d?.attempts ?? 0) + 1, method }));
+            return null;
+          }
+          pending = payment.status === 'pending';
+          if (pending) {
+            return { booking: null, pending: true };
+          }
+          if (item.classes && item.classes > 1) {
+            // A package bought with this booking: its classes open in the ledger and this class is the first one used.
+            await activatePaidPackage(transaction, { paymentId: payment.id, userId: user.id, planId: `plan_${item.id}`, classes: item.classes, expiresAt: dateKey(addDays(new Date(), item.validityDays ?? 90)) });
+            paidWith = 'package'; packagePlanId = `plan_${item.id}`;
+          }
         }
-        pending = payment.status === 'pending';
-        if (item.classes && item.classes > 1) {
-          // A package bought with this booking: its classes open in the ledger and this class is the first one used.
-          await data.insert('class_ledger', { user_id: user.id, plan_id: `plan_${item.id}`, payment_id: payment.id, delta: item.classes, reason: 'purchase', expires_at: dateKey(addDays(new Date(), item.validityDays ?? 90)), frozen_from: null, frozen_until: null });
-          paidWith = 'package'; packagePlanId = `plan_${item.id}`;
-        }
-      }
-      const booking = await book(joined.session, paidWith, { packagePlanId, matNumber: yoga ? mat : null });
-      if (claimId) await data.update('waitlist', claimId, { status: 'claimed' });
+        const booking = await book(joined.session, paidWith, { packagePlanId, matNumber: yoga ? mat : null, data: transaction });
+        if (claimId) await transaction.update('waitlist', claimId, { status: 'claimed' });
+        return { booking, pending };
+      });
+      if (!outcome) return 'declined';
       setDeclined(null);
-      setDone({ booking, pending });
-      return `booked ${booking.id}${pending ? ' (payment pending at the desk)' : ''}`;
+      setDone(outcome);
+      return outcome.booking ? `booked ${outcome.booking.id}` : 'payment pending; no classes activated or spot held';
     } catch (e) {
       const code = (e as Error).message.startsWith('mat_') ? 'mat' : (e as Error).message === 'session_full' ? 'full' : 'unavailable';
       setError(code);
@@ -222,13 +230,13 @@ export function CheckoutPage() {
       <PageHead back={`/app/class/${s.id}`} title={t('customer.checkout.title')} sub={claimId ? t('customer.checkout.claiming') : undefined} />
       {/* ≥ 900 px: what you are booking (class + mat) on the left, how you pay + confirm on the right (D-0006). */}
       <SplitSections narrowClassName="stack" className="cust-checkout" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'ClassSummary'} />
-      <Drawer open={!!done} onClose={() => done && nav(`/app/booking/${done.booking.id}`)} title={t('customer.book.ok')} side="bottom">
+      <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? 'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">
         {done && (
           <div className="stack">
             <ClassCard variant="next" title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} />
-            {done.booking.mat_number && <p className="small">{t('site.mat.confirmed', { n: done.booking.mat_number })}</p>}
+            {done.booking?.mat_number && <p className="small">{t('site.mat.confirmed', { n: done.booking.mat_number })}</p>}
             {done.pending ? <Notice tone="warn" title={t('customer.checkout.pending.title')}>{t('customer.checkout.pending.body')}</Notice> : <p className="small muted">{t('customer.checkout.success.body', { min: durationMin(joined) })}</p>}
-            <Button block size="lg" onClick={() => nav(`/app/booking/${done.booking.id}`)}>{t('customer.class.viewBooking')}</Button>
+            {done.booking && <Button block size="lg" onClick={() => nav(`/app/booking/${done.booking!.id}`)}>{t('customer.class.viewBooking')}</Button>}
             <Button block variant="ghost" onClick={() => nav('/app/schedule')}>{t('customer.class.backToSchedule')}</Button>
           </div>
         )}

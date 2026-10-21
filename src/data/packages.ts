@@ -9,7 +9,7 @@
  * takes one (−1), a cancellation outside the window gives it back (+1). The package lasts `validity_days` (3 months)
  * and can be frozen once for up to the M-08 `freezeMaxDays`; a freeze moves the expiry by the frozen days.
  */
-import type { ClassLedgerRow } from './schema';
+import type { ClassLedgerRow, PaymentRow } from './schema';
 import { addDaysKey, dateKey, fromDateKey, MS } from '../i18n/format';
 
 // ── 1. packageState ────────────────────────────────────────────────────────────────────────────────
@@ -28,6 +28,12 @@ export interface PackageState {
   frozenUntil: string | null;
   /** The package already used its freeze (frozen now or before). */
   freezeUsed: boolean;
+}
+
+/** Payment-backed purchases are usable only after confirmation. Unlinked historical grants retain their terms. */
+export function approvedPackageRows(rows: ClassLedgerRow[], payments: PaymentRow[]): ClassLedgerRow[] {
+  const approved = new Set(payments.filter(p => p.status === 'approved').map(p => p.id));
+  return rows.filter(row => !(row.reason === 'purchase' && row.delta > 0 && row.payment_id) || approved.has(row.payment_id!));
 }
 
 export function packageState(rows: ClassLedgerRow[], today: string = dateKey()): PackageState {

@@ -3,12 +3,12 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
-import type { BaseRow, BookingRow, ClassSessionRow } from '../../data/schema';
-import { formatTime, isSameDay, MS } from '../../i18n/format';
+import type { BaseRow, BookingRow, ClassLedgerRow, ClassSessionRow, PaymentRow } from '../../data/schema';
+import { dateKey, formatDate, formatTime, isSameDay, MS } from '../../i18n/format';
 import { useLayout } from '../../layout/useLayout';
 import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
-import { Input } from '../../components/atom/Input/Input';
+import { Input, Select } from '../../components/atom/Input/Input';
 import { Badge } from '../../components/atom/Badge/Badge';
 import { CapacityMeter } from '../../components/molecule/CapacityMeter/CapacityMeter';
 import { RosterRow } from '../../components/molecule/RosterRow/RosterRow';
@@ -18,6 +18,9 @@ import { useSettings } from '../admin/settings';
 import { useAudit } from './audit';
 import { maskPhone, personMatches, usePeople, type Person } from './people';
 import { S02 } from './specs';
+import { tenant } from '../../tenant/tenant';
+import { approvedPackageRows, packageState } from '../../data/packages';
+import { bookWithPackage } from '../../data/deskBooking';
 import './staff.css';
 import { type Lang } from '../../i18n/types';
 
@@ -27,9 +30,9 @@ const MAIN = new Set(['TodayStrip (now / next / later)', 'MemberSearch + Capacit
 
 /** S-02 — the door board: today's strip, one roster, one search box, one-tap check-in, walk-ins and waitlist promotion. */
 export function CheckinPage() {
-  const { t, lang, bi } = useI18n();
+  const { t, lang } = useI18n();
   const data = useData();
-  const { can } = useSession();
+  const { can, user } = useSession();
   const audit = useAudit('front_desk');
   const { settings } = useSettings();
   const { sections, isVisible } = useLayout(S02);
@@ -41,7 +44,12 @@ export function CheckinPage() {
   const canWrite = can('checkin.write');
   const canBookAny = can('bookings.write_any');
 
-  const todayAll = useSessionsJoined(useCallback((s: ClassSessionRow) => isSameDay(s.starts_at, new Date()) && s.status !== 'cancelled', []));
+  const allSessions = useSessionsJoined(useCallback((s: ClassSessionRow) => s.status !== 'cancelled', []));
+  const todayAll = allSessions.filter(x => isSameDay(x.session.starts_at, new Date()));
+  const futureSessions = allSessions.filter(x => x.session.status === 'scheduled' && Date.parse(x.session.starts_at) > Date.now());
+  const { rows: ledger } = useTable<ClassLedgerRow>('class_ledger');
+  const { rows: payments } = useTable<PaymentRow>('payments');
+  const { rows: allBookings } = useTable<BookingRow>('bookings');
   const now = Date.now();
   const autoId = useMemo(() => {
     const live = todayAll.find((x) => new Date(x.session.starts_at).getTime() - 30 * MS.min <= now && new Date(x.session.ends_at).getTime() >= now);
@@ -49,7 +57,7 @@ export function CheckinPage() {
     return (live ?? next ?? todayAll[todayAll.length - 1])?.session.id;
   }, [todayAll, now]);
   const wanted = params.get('session');
-  const selected = todayAll.find((x) => x.session.id === wanted) ?? todayAll.find((x) => x.session.id === autoId);
+  const selected = allSessions.find((x) => x.session.id === wanted) ?? todayAll.find((x) => x.session.id === autoId);
   const selectedId = selected?.session.id;
 
   const { rows: bookings, loading } = useTable<BookingRow>('bookings', { where: { session_id: selectedId ?? '__none__' } });
@@ -73,26 +81,50 @@ export function CheckinPage() {
       await audit(status === 'checked_in' ? 'booking.checkin' : status === 'no_show' ? 'booking.no_show' : 'booking.undo', 'bookings', b.id, { before: b.status, after: status, session_id: b.session_id, user_id: b.user_id });
     } catch (e) { setError(String(e)); } finally { setBusy(null); }
   };
-  const walkIn = async (p: Person) => {
-    if (!selected || !canWrite) return;
+  const commandError = (error: unknown) => {
+    const code = error instanceof Error ? error.message : '';
+    const known = ['session_full', 'session_unavailable', 'booking_exists', 'same_day_conflict', 'insufficient_classes', 'package_frozen', 'package_expired', 'disconnected'];
+    return t(`staff.checkin.error.${known.includes(code) ? code : 'failed'}`);
+  };
+  const packageFor = (userId: string) => packageState(approvedPackageRows(ledger.filter(row => row.user_id === userId), payments));
+  const unavailable = (userId: string) => {
+    if (!selected || selected.session.status !== 'scheduled' || Date.parse(selected.session.starts_at) <= Date.now()) return t('staff.checkin.package.unavailable');
+    if (selected.session.booked_count >= selected.session.capacity) return t('core.common.full');
+    const state = packageFor(userId);
+    if (state.frozen) return t('staff.checkin.package.frozen');
+    if (state.balance < 1) return t('staff.checkin.package.empty');
+    const atClass = packageState(approvedPackageRows(ledger.filter(row => row.user_id === userId), payments), dateKey(new Date(selected.session.starts_at)));
+    if (atClass.balance < 1) return t('staff.checkin.package.expired');
+    if (tenant.studio.perPersonPerDay === 1 && allBookings.some(b => b.user_id === userId && b.status !== 'cancelled' && b.status !== 'late_cancel' && allSessions.some(({ session: s }) => s.id === b.session_id && isSameDay(s.starts_at, selected.session.starts_at)))) return t('staff.checkin.error.same_day_conflict');
+    return null;
+  };
+  const packageLabel = (userId: string) => {
+    const state = packageFor(userId);
+    return `${t('staff.checkin.package.balance', { n: state.balance })}${state.expiresAt ? ` · ${t('staff.checkin.package.expires', { date: formatDate(state.expiresAt, lang) })}` : ''}`;
+  };
+  const walkIn = async (p: Person, status: 'booked' | 'checked_in' = 'checked_in') => {
+    if (!selected || (status === 'booked' ? !canBookAny : !canWrite) || busy) return;
     setBusy(p.id); setError(null);
     try {
-      const b = await data.insert<BookingRow>('bookings', { user_id: p.id, session_id: selected.session.id, status: 'checked_in', paid_with: p.membership ? 'membership' : 'single', ledger_id: null, checked_in_at: new Date().toISOString(), cancelled_at: null, rated: false });
-      await data.update('class_sessions', selected.session.id, { booked_count: selected.session.booked_count + 1 });
-      await audit('booking.walkin', 'bookings', b.id, { after: 'checked_in', session_id: selected.session.id, user_id: p.id });
+      if (!data.atomic) throw new Error('disconnected');
+      await data.atomic(async tx => {
+        const b = await bookWithPackage(tx, { userId: p.id, sessionId: selected.session.id, status });
+        await tx.insert('audit_log', { actor_id: user.id, action: status === 'booked' ? 'booking.desk' : 'booking.walkin', entity: 'bookings', entity_id: b.id, ip: null, diff: { after: status, session_id: selected.session.id, user_id: p.id } });
+      });
       setQ('');
-    } catch (e) { setError(String(e)); } finally { setBusy(null); }
+    } catch (e) { setError(commandError(e)); } finally { setBusy(null); }
   };
   const promote = async (w: WaitlistRow) => {
-    if (!selected || !canBookAny) return;
+    if (!selected || !canBookAny || busy) return;
     setBusy(w.id); setError(null);
     try {
-      const p = byId.get(w.user_id);
-      const b = await data.insert<BookingRow>('bookings', { user_id: w.user_id, session_id: selected.session.id, status: 'booked', paid_with: p?.membership ? 'membership' : 'package', ledger_id: null, checked_in_at: null, cancelled_at: null, rated: false });
-      await data.update('waitlist', w.id, { status: 'claimed' });
-      await data.update('class_sessions', selected.session.id, { booked_count: selected.session.booked_count + 1 });
-      await audit('waitlist.promote', 'waitlist', w.id, { booking_id: b.id, session_id: selected.session.id, user_id: w.user_id });
-    } catch (e) { setError(String(e)); } finally { setBusy(null); }
+      if (!data.atomic) throw new Error('disconnected');
+      await data.atomic(async tx => {
+        const b = await bookWithPackage(tx, { userId: w.user_id, sessionId: selected.session.id, status: 'booked' });
+        await tx.update('waitlist', w.id, { status: 'claimed' });
+        await tx.insert('audit_log', { actor_id: user.id, action: 'waitlist.promote', entity: 'waitlist', entity_id: w.id, ip: null, diff: { booking_id: b.id, session_id: selected.session.id, user_id: w.user_id } });
+      });
+    } catch (e) { setError(commandError(e)); } finally { setBusy(null); }
   };
 
   // keyboard: "/" focuses search; Enter checks in the first expected match (or the single walk-in candidate); Esc clears
@@ -117,6 +149,8 @@ export function CheckinPage() {
   const SECTIONS: Record<string, () => ReactNode> = {
     'TodayStrip (now / next / later)': () => (
       <section className="stack-sm">
+        <label className="stack-sm"><span className="small">{t('staff.checkin.future.label')}</span><Select aria-label={t('staff.checkin.future.label')} value={selectedId ?? ''} onChange={e => setParams({ session: e.target.value })}><option value="">{t('staff.checkin.future.choose')}</option>{futureSessions.map(({ session: s }) => <option key={s.id} value={s.id}>{formatDate(s.starts_at, lang)} · {formatTime(s.starts_at, lang)} · {s.title} ({s.booked_count}/{s.capacity})</option>)}</Select></label>
+        <p className="xs muted">{t('staff.checkin.package.demo')}</p>
         <div className="row-between wrap"><div className="eyebrow">{t('staff.checkin.today')}</div><span className="xs muted">{t('staff.checkin.strip.hint')}</span></div>
         {todayAll.length === 0 ? <EmptyState compact title={t('staff.checkin.noClasses')} body={t('staff.checkin.noClasses.body')} /> : (
           <div className="checkin-strip" role="tablist" aria-label={t('staff.checkin.today')}>
@@ -169,8 +203,8 @@ export function CheckinPage() {
             actions={canWrite && b.status === 'no_show' && <Button size="sm" variant="tonal" onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button>} />)}
         </Group>}
         {waitlist.length > 0 && <Group title={t('core.common.waitlist')} n={waitlist.length}>
-          {waitlist.sort((a, b) => a.position - b.position).map((w) => { const p = byId.get(w.user_id); return <RosterRow key={w.id} name={p?.name ?? w.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={p?.plan ? bi({ es: p.plan.name_es, en: p.plan.name_en }) : undefined} status="waiting" showStatus={false} time={`#${w.position}`}
-            actions={canBookAny && <Button size="sm" variant="tonal" disabled={full} loading={busy === w.id} title={full ? t('core.common.full') : undefined} onClick={() => promote(w)} icon="promote">{t('staff.checkin.promote')}</Button>} />; })}
+          {waitlist.sort((a, b) => a.position - b.position).map((w) => { const p = byId.get(w.user_id); return <RosterRow key={w.id} name={p?.name ?? w.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={`${packageLabel(w.user_id)}${unavailable(w.user_id) ? ` · ${unavailable(w.user_id)}` : ''}`} status="waiting" showStatus={false} time={`#${w.position}`}
+            actions={canBookAny && <Button size="sm" variant="tonal" disabled={!!unavailable(w.user_id) || !!busy} loading={busy === w.id} title={unavailable(w.user_id) ?? undefined} onClick={() => promote(w)} icon="promote">{t('staff.checkin.promote')}</Button>} />; })}
         </Group>}
       </div>
     ) : null,
@@ -190,8 +224,12 @@ export function CheckinPage() {
         <div className="stack-sm" style={{ padding: 'var(--sp-xs)' }}>
           <p className="xs muted">{t('staff.checkin.walkin.body')}</p>
           {q.trim().length >= 2 && walkIns.length === 0 && <p className="small muted">{t('staff.checkin.walkin.none')}</p>}
-          {walkIns.map((p) => <RosterRow key={p.id} name={p.name} initials={p.initials} phone={maskPhone(p.phone)} plan={p.plan ? bi({ es: p.plan.name_es, en: p.plan.name_en }) : t('staff.checkin.noPlan')} status="booked" showStatus={false}
-            actions={canWrite && selected && <Button size="sm" variant="tonal" disabled={full} loading={busy === p.id} onClick={() => walkIn(p)} icon="user-plus">{t('staff.checkin.walkin.add')}</Button>} />)}
+          {walkIns.map((p) => <div key={p.id} className="stack-sm">
+            <RosterRow name={p.name} initials={p.initials} phone={maskPhone(p.phone)} status="booked" showStatus={false} />
+            <p className="xs muted">{packageLabel(p.id)}</p>
+            {unavailable(p.id) && <p className="xs" role="status">{unavailable(p.id)}</p>}
+            {selected && <div className="row wrap">{canBookAny && <Button variant="outline" disabled={!!unavailable(p.id) || !!busy} loading={busy === p.id} title={unavailable(p.id) ?? undefined} onClick={() => walkIn(p, 'booked')} icon="user-plus">{t('staff.checkin.package.book')}</Button>}{canWrite && <Button variant="tonal" disabled={!!unavailable(p.id) || !!busy} loading={busy === p.id} title={unavailable(p.id) ?? undefined} onClick={() => walkIn(p)} icon="check">{t('staff.checkin.walkin.add')}</Button>}</div>}
+          </div>)}
           {can('payments.write') && <Link to={`/staff/register${selectedId ? `?session=${selectedId}` : ''}`}><Button block variant={walkIns.length ? 'ghost' : 'primary'} size="sm" icon="user-plus">{t('staff.checkin.walkin.register')}</Button></Link>}
         </div>
       </Card>

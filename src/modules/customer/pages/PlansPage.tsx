@@ -15,7 +15,7 @@ import { PriceRow } from '../../../components/molecule/PriceRow/PriceRow';
 import { OrderSummary } from '../../../components/molecule/OrderSummary/OrderSummary';
 import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { PACKAGE_IDS, PASS_IDS, useEntitlements } from '../hooks';
-import { recordPayment, wompiCheckout } from '../payments';
+import { activatePaidPackage, recordPayment, wompiCheckout } from '../payments';
 import { policy } from '../policy';
 import { PageHead } from '../ui';
 import { useActions } from '../../../actions';
@@ -48,6 +48,7 @@ export function PlansPage() {
   const [buying, setBuying] = useState<PriceItem | null>(preselected);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState(false);
   const months = Math.round((priceItem('pack12')?.validityDays ?? 90) / 30);
   const benefits = (p: PriceItem) => [
     t('customer.plans.benefit.classes', { n: p.classes ?? 12 }),
@@ -78,14 +79,18 @@ export function PlansPage() {
 
   const buy = async () => {
     if (!buying) return;
-    setBusy(true);
+    setBusy(true); setError(false);
     try {
       const result = await wompiCheckout({ amount: buying.price ?? 0, method: 'card' }); // INTEGRATION SEAM: Wompi
-      const payment = await recordPayment(data, { userId: user.id, planId: `plan_${buying.id}`, amount: buying.price ?? 0, method: 'card', result, ivaRate: policy.ivaRate });
-      if (result.status !== 'approved') return;
-      await data.insert('class_ledger', { user_id: user.id, plan_id: `plan_${buying.id}`, payment_id: payment.id, delta: buying.classes ?? 12, reason: 'purchase', expires_at: dateKey(addDays(new Date(), buying.validityDays ?? 90)), frozen_from: null, frozen_until: null });
-      setDone(true);
-    } finally { setBusy(false); }
+      if (!data.atomic) throw new Error('atomic_unavailable');
+      await data.atomic(async transaction => {
+        const payment = await recordPayment(transaction, { userId: user.id, planId: `plan_${buying.id}`, amount: buying.price ?? 0, method: 'card', result, ivaRate: policy.ivaRate });
+        if (result.status !== 'approved') return;
+        await activatePaidPackage(transaction, { paymentId: payment.id, userId: user.id, planId: `plan_${buying.id}`, classes: buying.classes ?? 12, expiresAt: dateKey(addDays(new Date(), buying.validityDays ?? 90)) });
+      });
+      if (result.status === 'approved') setDone(true);
+      else setError(true);
+    } catch { setError(true); } finally { setBusy(false); }
   };
 
   return (
@@ -138,6 +143,7 @@ export function PlansPage() {
         {buying && !done && (
           <div className="stack">
             <OrderSummary lines={[{ label: bi(buying.name), amount: buying.price ?? 0 }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('customer.plans.confirm.note', { months })} />
+            {error && <Notice tone="danger">{t('customer.plans.paymentError')}</Notice>}
             {buying.audience && <Notice tone="info">{t('customer.plans.benefit.affiliates')}</Notice>}
             <Button block size="lg" loading={busy} onClick={buy}>{t('customer.checkout.payWompi', { amount: formatCOP(buying.price ?? 0, lang) })}</Button>
             <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.pay.wompi.seam')}</p>

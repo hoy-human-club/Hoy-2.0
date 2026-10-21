@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from '../../auth/SessionProvider';
+import type { DataProvider } from '../../data/types';
 import { useData, useTable } from '../../data/DataContext';
 import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedgerRow, EventRow, EventRsvpRow, FaqEntryRow, InviteRow, MembershipRow, ModalityRow, NotificationPrefRow, NotificationRow, PaymentMethodRow, PaymentRow, PlanRow, ProfileRow, ReviewRow, RoomRow, TeacherRow, UserRow } from '../../data/schema';
 import { isSameDay, MS } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem, type PriceItem } from '../../tenant/pricing';
 import { insideCancelWindow, policy } from './policy';
-import { freezePatch, packageState, resumePatch } from '../../data/packages';
+import { assertRescheduleAllowed } from './reschedule';
+import { approvedPackageRows, freezePatch, packageState, resumePatch } from '../../data/packages';
 
 export interface WaitlistRow extends BaseRow { user_id: string; session_id: string; position: number; status: 'waiting' | 'offered' | 'claimed' | 'expired' | 'left'; offered_at: string | null; claim_until: string | null }
 export interface EmergencyContact { name: string; phone: string }
@@ -68,7 +70,7 @@ export function useEntitlements() {
   const { rows: plans } = useTable<PlanRow>('plans');
   return useMemo(() => {
     const membership = memberships.find((m) => m.status === 'active') ?? memberships.find((m) => m.status === 'paused') ?? null;
-    const pkg = packageState(ledger);
+    const pkg = packageState(approvedPackageRows(ledger, payments));
     const plan = membership ? plans.find((p) => p.id === membership.plan_id) ?? null : pkg.purchase?.plan_id ? plans.find((p) => p.id === pkg.purchase!.plan_id) ?? null : null;
     const trialUsed = bookings.some((b) => b.paid_with === 'trial') || payments.some((p) => p.plan_id === 'plan_trial' && p.status === 'approved');
     const defaultKind: EntitlementKind = pkg.balance > 0 ? 'package' : membership?.status === 'active' ? 'membership' : !trialUsed ? 'trial' : 'single';
@@ -116,20 +118,26 @@ export function useBookingActions() {
     return hit?.session_id ?? null;
   }, []);
 
-  const book = useCallback(async (session: ClassSessionRow, paidWith: EntitlementKind, opts?: { packagePlanId?: string | null; matNumber?: number | null }) => {
+  const book = useCallback(async (session: ClassSessionRow, paidWith: EntitlementKind, opts?: { packagePlanId?: string | null; matNumber?: number | null; data?: DataProvider }) => {
+    const transaction = opts?.data ?? data;
     // Race guard: re-read the session so a spot that filled during checkout is caught (C-04 "Race" state).
-    const fresh = await data.get<ClassSessionRow>('class_sessions', session.id);
+    const fresh = await transaction.get<ClassSessionRow>('class_sessions', session.id);
     if (!fresh || fresh.status !== 'scheduled') throw new Error('session_unavailable');
     if (fresh.booked_count >= fresh.capacity) throw new Error('session_full');
-    const existing = await data.list<BookingRow>('bookings', { where: { user_id: user.id, session_id: fresh.id } });
+    const existing = await transaction.list<BookingRow>('bookings', { where: { user_id: user.id, session_id: fresh.id } });
     if (existing.some(b => b.status === 'booked' || b.status === 'checked_in')) throw new Error('booking_exists');
-    const booking = await data.insert<BookingRow>('bookings', { user_id: user.id, session_id: fresh.id, status: 'booked', paid_with: paidWith, ledger_id: null, checked_in_at: null, cancelled_at: null, rated: false, mat_number: opts?.matNumber ?? null });
     if (paidWith === 'package') {
-      const c = await data.insert<ClassLedgerRow>('class_ledger', { user_id: user.id, plan_id: opts?.packagePlanId ?? null, payment_id: null, delta: -1, reason: 'booking', expires_at: null } as Partial<ClassLedgerRow>);
-      await data.update('bookings', booking.id, { ledger_id: c.id });
+      const ledger = await transaction.list<ClassLedgerRow>('class_ledger', { where: { user_id: user.id } });
+      const payments = await transaction.list<PaymentRow>('payments', { where: { user_id: user.id } });
+      if (packageState(approvedPackageRows(ledger, payments)).balance < 1) throw new Error('package_balance');
+    }
+    const booking = await transaction.insert<BookingRow>('bookings', { user_id: user.id, session_id: fresh.id, status: 'booked', paid_with: paidWith, ledger_id: null, checked_in_at: null, cancelled_at: null, rated: false, mat_number: opts?.matNumber ?? null });
+    if (paidWith === 'package') {
+      const c = await transaction.insert<ClassLedgerRow>('class_ledger', { user_id: user.id, plan_id: opts?.packagePlanId ?? null, payment_id: null, delta: -1, reason: 'booking', expires_at: null } as Partial<ClassLedgerRow>);
+      await transaction.update('bookings', booking.id, { ledger_id: c.id });
       booking.ledger_id = c.id;
     }
-    await data.update('class_sessions', fresh.id, { booked_count: fresh.booked_count + 1 });
+    await transaction.update('class_sessions', fresh.id, { booked_count: fresh.booked_count + 1 });
     return booking;
   }, [data, user.id]);
 
@@ -155,17 +163,23 @@ export function useBookingActions() {
     return { late };
   }, [data, promoteWaitlist]);
 
-  /** Reschedule = cancel + rebook in one transaction, same entitlement, no fee outside the window (C-08b). */
+  /** Reschedule keeps the same entitlement; RS-09 permits it only through the 12-hour deadline. */
   const reschedule = useCallback(async (booking: BookingRow, from: ClassSessionRow, to: ClassSessionRow) => {
+    // Re-read the original session: an open drawer or stale caller cannot bypass the deadline.
+    const original = await data.get<ClassSessionRow>('class_sessions', from.id);
+    const currentBooking = await data.get<BookingRow>('bookings', booking.id);
+    if (!original || original.status !== 'scheduled' || !currentBooking || currentBooking.status !== 'booked' || currentBooking.session_id !== original.id || currentBooking.user_id !== user.id) throw new Error('booking_unavailable');
+    assertRescheduleAllowed(original.starts_at);
     const fresh = await data.get<ClassSessionRow>('class_sessions', to.id);
     if (!fresh || fresh.booked_count >= fresh.capacity || fresh.status !== 'scheduled') throw new Error('session_full');
+    assertRescheduleAllowed(original.starts_at);
     const next = await data.insert<BookingRow>('bookings', { user_id: booking.user_id, session_id: fresh.id, status: 'booked', paid_with: booking.paid_with, ledger_id: booking.ledger_id, checked_in_at: null, cancelled_at: null, rated: false });
     await data.update('bookings', booking.id, { status: 'cancelled', cancelled_at: new Date().toISOString() });
     await data.update('class_sessions', from.id, { booked_count: Math.max(0, from.booked_count - 1) });
     await data.update('class_sessions', fresh.id, { booked_count: fresh.booked_count + 1 });
     await promoteWaitlist(from.id);
     return next;
-  }, [data, promoteWaitlist]);
+  }, [data, promoteWaitlist, user.id]);
 
   const joinWaitlist = useCallback(async (session: ClassSessionRow) => {
     const existing = await data.list<WaitlistRow>('waitlist', { where: { session_id: session.id } });

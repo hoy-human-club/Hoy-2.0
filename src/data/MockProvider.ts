@@ -171,6 +171,46 @@ export class MockProvider implements DataProvider {
     return this.db[table];
   }
 
+  private atomicQueue: Promise<unknown> = Promise.resolve();
+  /** Detached mock transaction: no partial persistence/events, even when a write or storage fails.
+   * No server/security guarantee; callbacks must only write to their supplied staged provider.
+   */
+  atomic<T>(action: (data: DataProvider) => Promise<T>, options: { idempotencyKey?: string; failAfterWrites?: number } = {}): Promise<T> {
+    const run = async () => {
+      const receiptId = options.idempotencyKey ? `mock_transaction_${options.idempotencyKey}` : null;
+      const prior = receiptId && this.db.audit_log.find(r => r.id === receiptId);
+      if (prior) return structuredClone((prior.diff as { result: T }).result);
+      const before = JSON.stringify(this.db);
+      const stage = Object.create(MockProvider.prototype) as MockProvider;
+      stage.db = structuredClone(this.db);
+      stage.listeners = new Map();
+      stage.persist = () => {};
+      let writes = 0;
+      for (const method of ['insert', 'update', 'remove'] as const) {
+        const original = stage[method].bind(stage);
+        // The injected failure belongs to this isolated mock invocation only.
+        Object.defineProperty(stage, method, { value: async (...args: unknown[]) => {
+          const result = await (original as (...args: unknown[]) => Promise<unknown>)(...args);
+          if (++writes === options.failAfterWrites) throw new Error('mock_injected_write_failure');
+          return result;
+        } });
+      }
+      const result = await action(stage);
+      if (JSON.stringify(this.db) !== before) throw new Error('mock_concurrent_change_retry');
+      if (receiptId) {
+        const stamp = new Date().toISOString();
+        stage.db.audit_log.push({ id: receiptId, tenant_id: tenant.id, created_at: stamp, updated_at: stamp, actor_id: null, action: 'mock.transaction', entity: 'mock', entity_id: receiptId, ip: null, diff: { result: structuredClone(result) } });
+      }
+      this.persist(stage.db, true);
+      this.db = stage.db;
+      for (const table of Object.keys(this.db)) this.emit({ table, type: 'reset' });
+      return structuredClone(result);
+    };
+    const pending = this.atomicQueue.then(run);
+    this.atomicQueue = pending.catch(() => {});
+    return pending;
+  }
+
   peek<T extends BaseRow>(table: string, query?: Query): T[] { return structuredClone(applyQuery(this.rows(table) as T[], query)); }
   /** Detached snapshots preserve immutable voucher history and keep subscriber memos fresh. */
   async list<T extends BaseRow>(table: string, query?: Query): Promise<T[]> { return [...this.peek<T>(table, query)]; }

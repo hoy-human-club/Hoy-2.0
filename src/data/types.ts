@@ -29,6 +29,8 @@ export interface DataProvider {
   /** Optional local-demo fixture refresh; production providers never synthesize bookings. */
   prepareDemoSamples?: () => void;
   readonly name: string;
+  /** Browser demo only. Production must replace this with authorized atomic RPCs. */
+  atomic?<T>(action: (data: DataProvider) => Promise<T>, options?: { idempotencyKey?: string; failAfterWrites?: number }): Promise<T>;
   appendClassPayRule?(command: AppendClassPayRuleCommand): Promise<ClassPayRuleRow>;
   generateRecurrence?(command: GenerateRecurrence): Promise<{ created: number; skipped: number }>;
   editSession?(command: SessionEdit): Promise<ClassSessionRow>;

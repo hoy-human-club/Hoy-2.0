@@ -14,7 +14,7 @@
  * row with provider 'manual' and status 'pending' that the front desk settles (S-04).
  */
 import type { DataProvider } from '../../data/types';
-import type { PaymentRow } from '../../data/schema';
+import type { ClassLedgerRow, PaymentRow } from '../../data/schema';
 import { splitIva } from '../../data/tax';
 import { tenant } from '../../tenant/tenant';
 import type { IconName } from '../../components/atom/Icon/Icon';
@@ -40,7 +40,7 @@ export const PAYMENT_METHODS: PaymentMethodOption[] = [
   { id: 'card', provider: 'wompi', label: { es: 'Tarjeta', en: 'Card' }, hint: { es: 'Crédito o débito · vía Wompi', en: 'Credit or debit · via Wompi' }, glyph: 'credit-card' },
   { id: 'pse', provider: 'wompi', label: { es: 'PSE', en: 'PSE' }, hint: { es: 'Débito desde tu banco · vía Wompi', en: 'Bank debit · via Wompi' }, glyph: 'bank' },
   { id: 'qr', provider: 'wompi', label: { es: 'Código QR', en: 'QR code' }, hint: { es: 'Escanea el QR de Wompi con la app de tu banco', en: 'Scan the Wompi QR with your bank app' }, glyph: 'qr' },
-  { id: 'cash', provider: 'manual', label: { es: 'En recepción', en: 'At the front desk' }, hint: { es: 'Efectivo u otro medio de recepción · cupo retenido 60 min', en: 'Cash or another desk method · spot held 60 min' }, glyph: 'cash' },
+  { id: 'cash', provider: 'manual', label: { es: 'En recepción', en: 'At the front desk' }, hint: { es: 'Solicitud demo · requiere confirmación; sin cupo retenido', en: 'Demo request · confirmation required; no spot held' }, glyph: 'cash' },
 ];
 
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -87,4 +87,17 @@ export async function wompiTokenise(input: { kind: SavableMethod }): Promise<{ t
   const n = Math.random().toString().slice(2, 6);
   if (input.kind === 'card') return { tokenRef: `tok_demo_${n}${n}`, brand: Math.random() < 0.5 ? 'Visa' : 'Mastercard', last4: n, expires: '12/29' };
   return { tokenRef: `tok_demo_pse_${n}`, brand: 'Bancolombia', last4: null, expires: null };
+}
+
+/** Activate a confirmed package exactly once. Call inside data.atomic with the payment/booking writes.
+ * Existing purchase rows retain their stored quantity and expiry when this command is replayed.
+ */
+export async function activatePaidPackage(data: DataProvider, input: { paymentId: string; userId: string; planId: string; classes: number; expiresAt: string }): Promise<ClassLedgerRow | null> {
+  const payment = await data.get<PaymentRow>('payments', input.paymentId);
+  if (!payment || payment.user_id !== input.userId || payment.plan_id !== input.planId) throw new Error('payment_scope_invalid');
+  if (payment.status !== 'approved') return null;
+  const existing = (await data.list<ClassLedgerRow>('class_ledger', { where: { payment_id: payment.id, reason: 'purchase' } }))[0];
+  if (existing) return existing;
+  if (!Number.isInteger(input.classes) || input.classes < 1) throw new Error('package_quantity_invalid');
+  return data.insert<ClassLedgerRow>('class_ledger', { user_id: input.userId, plan_id: input.planId, payment_id: payment.id, delta: input.classes, reason: 'purchase', expires_at: input.expiresAt, frozen_from: null, frozen_until: null });
 }

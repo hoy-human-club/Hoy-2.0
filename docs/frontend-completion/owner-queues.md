@@ -21,7 +21,7 @@ No messages sent. Source: acceptance workbook stable IDs/PC questions, read 2026
 - PL-01: Confirm ownership of domain, hosting, email, database and vendor accounts. No account mutation authorized here.
 - PL-13 / PC-09: Confirm whether migration exists, and provide sanitized field/volume contract to Anu; no production data in fixtures.
 - AD-07: Review demo CRM balances and mobile cards, then record owner acceptance separately from engineering evidence.
-- Front End Dev Log: parent spreadsheet worker supplies duplicate URL and reconciles stable IDs; original remains untouched.
+- Front End Dev Log: parent spreadsheet worker updates the [authoritative duplicate](https://docs.google.com/spreadsheets/d/19SWDF957P55Iw5QEPyVtoPDS50-eor0k76djVv1YyNU/edit) from stable-ID repository evidence; original remains untouched.
 
 ## Backend decisions and dependencies for Anu
 
@@ -34,3 +34,11 @@ No messages sent. Source: acceptance workbook stable IDs/PC questions, read 2026
 - BO-01…BO-06: secure claims and gift settlement bridge; existing mock commands must not become real purchases.
 - PL-08: backups and verified restore; operational work excluded here.
 - MK-01 / issue54: approved durable photo-storage integration, migration/re-upload policy and separate draft/publication boundaries. Browser-local photos are not shared cloud storage.
+
+## Preserved source conflicts / separate follow-ups
+
+- Older source grants reception expense access; newer workbook denies Finance: do not expand roles pending approval.
+- Older no-refund wording versus PG-11/FI-01 future refunds: do not rewrite legal policies.
+- Older on-the-hour starts versus newer :10 timetable: keep separate from booking/payment logic.
+- Clerk development adapter/tests allowed separately; production host and access policy unresolved. No security configuration changes in this batch.
+- Six-month validity/private max6, teacher biographies (Jennifer pending), class descriptions, customer mat removal with retained capacity, 50-minute display, analytics custom dates, transfer-first receipt flow, focus-cycle start and teacher export/Cuentas require source reconciliation; do not overwrite past purchases.

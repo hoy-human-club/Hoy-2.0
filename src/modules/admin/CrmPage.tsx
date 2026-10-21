@@ -2,8 +2,8 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
-import type { BookingRow, ClassLedgerRow, PlanRow } from '../../data/schema';
-import { packageState, type PackageState } from '../../data/packages';
+import type { BookingRow, ClassLedgerRow, PaymentRow, PlanRow } from '../../data/schema';
+import { approvedPackageRows, packageState, type PackageState } from '../../data/packages';
 import type { VoucherRow } from '../../data/vouchers';
 import { formatDate, MS } from '../../i18n/format';
 import { useMinWidth } from '../../layout/useMinWidth';
@@ -28,6 +28,7 @@ export function useMemberStats(people: Person[]) {
   const { rows: bookings } = useTable<BookingRow>('bookings', { where: { status: 'checked_in' } });
   const { rows: credits } = useTable<ClassLedgerRow>('class_ledger');
   const { rows: plans } = useTable<PlanRow>('plans');
+  const { rows: payments } = useTable<PaymentRow>('payments');
   const { rows: vouchers } = useTable<VoucherRow>('vouchers');
   return useMemo(() => {
     const now = Date.now();
@@ -38,7 +39,7 @@ export function useMemberStats(people: Person[]) {
       const daysSince = last ? (now - new Date(last).getTime()) / MS.day : Infinity;
       const recent = mine.filter((d) => now - new Date(d).getTime() < 30 * MS.day).length;
       const previous = mine.filter((d) => { const age = now - new Date(d).getTime(); return age >= 30 * MS.day && age < 60 * MS.day; }).length;
-      const pkg = packageState(credits.filter((c) => c.user_id === p.id));
+      const pkg = packageState(approvedPackageRows(credits.filter((c) => c.user_id === p.id), payments));
       const bal = pkg.balance;
       // Identity comes from a verified claim, never a matching recipient name/contact.
       const mineVouchers = vouchers.filter(v => v.claimedBy === p.id);
@@ -48,7 +49,7 @@ export function useMemberStats(people: Person[]) {
       out.set(p.id, { visits: mine.length, lastVisit: last, risk, credits: bal, pkg, packagePlan, vouchers: mineVouchers });
     }
     return out;
-  }, [people, bookings, credits, plans, vouchers]);
+  }, [people, bookings, credits, plans, vouchers, payments]);
 }
 
 function inSegment(p: Person, s: MemberStats | undefined, seg: Segment): boolean {

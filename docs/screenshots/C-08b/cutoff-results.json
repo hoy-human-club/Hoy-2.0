@@ -1,0 +1,13 @@
+{
+  "feature": "RS-09",
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en: before allowed / exact reschedule succeeds with conserved capacity; open list and menu unavailable after deadline; unchanged booking; desktop/mobile screenshots",
+    "es: before allowed / exact reschedule succeeds with conserved capacity; open list and menu unavailable after deadline; unchanged booking; desktop/mobile screenshots"
+  ],
+  "errors": [],
+  "limits": [
+    "Frontend mock only; server deadline and atomic reschedule remain pending.",
+    "Cancellation credit rules are unchanged draft settings."
+  ]
+}
