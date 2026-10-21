@@ -1,0 +1,15 @@
+{
+  "feature": "SW-07",
+  "attempts": 1,
+  "mode": "actual Google provider, no interception",
+  "geographicVerification": false,
+  "configuredCoordinates": "6.19281,-75.56535",
+  "response": null,
+  "requestFailures": [
+    {
+      "url": "https://www.google.com/maps?q=6.19281,-75.56535&z=15&output=embed",
+      "reason": "net::ERR_TUNNEL_CONNECTION_FAILED"
+    }
+  ],
+  "frameUrl": null
+}
