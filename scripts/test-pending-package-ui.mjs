@@ -20,6 +20,7 @@ try {
    localStorage.setItem('hoyos.db.v1',JSON.stringify(stored));
   });
   await page.goto(`${base}/#/app/checkout/qa_pending_class?pass=pack12`);await page.reload();
+  await page.getByText(lang==='en'?'Local demonstration with fictional data. Does not process real payments.':'Demostración local con datos ficticios. No procesa pagos reales.',{exact:true}).waitFor();
   await page.getByRole('button',{name:lang==='en'?'At the front desk':'En recepción',exact:true}).click();
   await page.getByRole('button',{name:lang==='en'?/Request demo desk payment/:/Solicitar pago demo/}).click();
   await page.getByText(lang==='en'?'Pending payment at the desk':'Pendiente de pago en recepción',{exact:true}).first().waitFor();

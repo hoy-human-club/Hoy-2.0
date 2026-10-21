@@ -228,6 +228,7 @@ export function CheckoutPage() {
   return (
     <div className="container page cust-page">
       <PageHead back={`/app/class/${s.id}`} title={t('customer.checkout.title')} sub={claimId ? t('customer.checkout.claiming') : undefined} />
+      <Notice tone="info">{t('customer.checkout.demo')}</Notice>
       {/* ≥ 900 px: what you are booking (class + mat) on the left, how you pay + confirm on the right (D-0006). */}
       <SplitSections narrowClassName="stack" className="cust-checkout" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'ClassSummary'} />
       <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? 'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">

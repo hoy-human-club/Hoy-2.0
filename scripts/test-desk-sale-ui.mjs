@@ -44,6 +44,7 @@ try {
   assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
   for(const width of [390,1280]){await page.setViewportSize({width,height:900});await page.screenshot({path:`${output}/${lang}-${width}-dark-atomic-sale.jpg`,quality:72,fullPage:true});}
   const before=await snapshot(page);await page.getByRole('button',{name:lang==='en'?'Complete sale':'Completar venta',exact:true}).click();await page.getByRole('heading',{name:lang==='en'?'Sale complete':'Venta completa',exact:true}).waitFor();
+  await page.getByText(lang==='en'?'Local demonstration with fictional data. Does not process real payments.':'Demostración local con datos ficticios. No procesa pagos reales.',{exact:false}).waitFor();
   const db=await snapshot(page),profile=db.profiles.find(p=>p.full_name==='QA Fictional Sale'),uid=profile.user_id;
   assert.equal(db.users.length,before.users.length+1);assert.equal(db.user_roles.filter(r=>r.user_id===uid).length,1);assert.equal(db.consents.filter(r=>r.user_id===uid).length,1);
   const payments=db.payments.filter(p=>p.user_id===uid),ledger=db.class_ledger.filter(r=>r.user_id===uid),bookings=db.bookings.filter(b=>b.user_id===uid);

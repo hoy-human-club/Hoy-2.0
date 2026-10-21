@@ -1,5 +1,13 @@
 # HoyOS kanban
 
+## Checked continuation releases · 0080 (2026-10-21)
+
+- PR56 merged 2ecdaf8 after all 11 checks; Pages build/deploy/source readback passed.
+- PR57 merged f660f20 after all 10 checks; map and disconnected Clerk contract released; Pages source readback passed.
+- Visible checkout/printed-receipt demo boundaries refined; no stored financial terms, permissions or live auth changes.
+- All 124 source criteria/statuses/phases preserved. Owner/backend acceptance remains open; [durable handoff](frontend-completion/README.md).
+
+
 ## Independent continuation · 0078 / 0079 (2026-10-21)
 
 - SW-07: configured map load/recovery/fallback and coordinate validation implemented; bilingual fixture QA passed. Real Google render blocked by network tunnel; [batch 4](frontend-completion/batch-04.md).

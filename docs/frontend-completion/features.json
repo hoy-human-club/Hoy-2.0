@@ -5057,29 +5057,53 @@
       "excluded": [
         "/docs/* wildcard"
       ],
-      "result": "passed; no console errors"
+      "result": "passed; no console errors",
+      "basis": "Preserved PR55 evidence; no new all-route smoke claim in this continuation."
     },
-    "release": "Code f0f72539afb7fabf50825bc8e33c4e658b9bacd0 deployed; GitHub-hosted release source-SHA readback and selected live flows passed.",
-    "directLiveReadback": "GET https://imagine-os.github.io/hoy/release.json returned HTTP 403 from execution environment; no retry or bypass.",
+    "release": "Core batches 3\u20135 source f660f20cb88d9e39e6cf8be8126d77c91fd947a7 deployed with hosted source-SHA readback. Final demo-copy/evidence checkpoint0080 uses its associated checked PR receipt; owner/backend acceptance remains separate.",
+    "directLiveReadback": "No direct public readback attempted in this continuation. Hosted workflow source-SHA verification passed; prior batch reported 403.",
     "implementationCommits": [
       "955d067",
-      "8136c6f84922efd26154ffa645a35cc8c0298c13"
+      "8136c6f84922efd26154ffa645a35cc8c0298c13",
+      "3c40b95394814ace7b575c60c50b6d5c5c0653e0",
+      "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
+      "377581f53cd386cdb39fcbf69993fee56a9aa470",
+      "964a9bb1f921c468b698e7ce42020c10b21a028b"
     ],
-    "mergedCode": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
-    "pullRequest": "https://github.com/imagine-os/hoy/pull/55",
-    "codeCI": "All 10 exact-head PR workflows passed at 8136c6f84922efd26154ffa645a35cc8c0298c13",
-    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39686441483",
-    "deployedCodeSource": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
-    "deploymentArtifact": "https://github.com/imagine-os/hoy/actions/runs/39686441483/artifacts/12385972674",
-    "newFeatureLiveVerification": "New CRM/catalog behavior verified against local production bundle and PR CI; hosted release checker covers provenance and selected existing flows, not full AD-07/PR-01/PR-02 acceptance.",
-    "activeBatch": "Batch 3 merged as2ecdaf8 after all11 exact-head checks passed; deployment39689551507 pending verification. Independent SW-07/Clerk contracts in batches4/5.",
+    "mergedCode": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
+    "pullRequest": "https://github.com/imagine-os/hoy/pull/57",
+    "codeCI": "All 10 exact-head PR57 workflows passed at 964a9bb1f921c468b698e7ce42020c10b21a028b",
+    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
+    "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
+    "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
+    "activeBatch": "Batches 3\u20135 code released with checked merges and deployment provenance. Final demo-label refinement and evidence receipt follow; next: legacy lot allocation and transfer receipt queue.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
       "pr": "https://github.com/imagine-os/hoy/pull/56",
       "checks": "11 exact-head workflows passed",
       "deployment": "https://github.com/imagine-os/hoy/actions/runs/39689551507",
-      "deploymentStatus": "pending-verification"
+      "deploymentStatus": "passed build/deploy/hosted exact-source-SHA readback"
+    },
+    "batch4and5": {
+      "head": "964a9bb1f921c468b698e7ce42020c10b21a028b",
+      "merge": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
+      "pr": "https://github.com/imagine-os/hoy/pull/57",
+      "checks": "10 exact-head workflows passed",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
+      "deploymentStatus": "passed build/deploy/hosted exact-source-SHA readback",
+      "mapExternal": "one actual Google request failed ERR_TUNNEL_CONNECTION_FAILED, no HTTP response/frame; no retry/bypass",
+      "auth": "disconnected observation contract only; live auth/security configuration unchanged"
+    },
+    "demoBoundaryCheckpoint": {
+      "branch": "codex/frontend-release-receipt",
+      "scope": "Explicit pre-payment and printed-receipt non-production copy; plain simulation wording, no behavior/terms/security changes.",
+      "tests": [
+        "scripts/test-pending-package-ui.mjs",
+        "scripts/test-desk-sale-ui.mjs"
+      ],
+      "result": "Full build and EN/ES 390/1280 production-bundle checks passed, including14 recorded flow checks; current light/dark receipts regenerated.",
+      "releaseEvidence": "Associated pull request records final checked head, merge and normal deployment/source readback."
     }
   }
 }

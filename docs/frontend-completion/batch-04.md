@@ -8,6 +8,10 @@ Verification: production build/TypeScript/spacing/manual lint; `scripts/test-con
 
 Actual-provider blocker: exactly one normal browser GET to `https://www.google.com/maps?q=6.19281,-75.56535&z=15&output=embed`, with no interception, failed `net::ERR_TUNNEL_CONNECTION_FAILED`. No HTTP response or Google frame loaded. No retry or bypass. The request failed in this execution environment; external provider rendering and geographic correctness remain unverified. Evidence: `docs/screenshots/W-06/map-live-attempt.json` and `en-1280-map-live-attempt.jpg`. Cross-origin iframe load/error events do not establish provider health, so recovery is available as an explicit action.
 
-SW-07 stays separate from source/owner acceptance. No backend, keys, credentials, permissions, external messaging or final imagery changes. Exact commit/checked PR/merge/deployment evidence will be appended after release. Roll back using the previous checked main source.
+SW-07 stays separate from source/owner acceptance. No backend, keys, credentials, permissions, external messaging or final imagery changes. Exact commit/checked PR/merge/deployment evidence is recorded below. Roll back using the previous checked main source.
 
 Source commit `377581f53cd386cdb39fcbf69993fee56a9aa470`. Baseline/rollback `2ecdaf8d09a6ca6743811fab8dee1eb94621552b` (checked PR56 merge).
+
+Checked release: [PR57](https://github.com/imagine-os/hoy/pull/57), final head `964a9bb1f921c468b698e7ce42020c10b21a028b`, all ten exact-head workflows passed. Map source `377581f53cd386cdb39fcbf69993fee56a9aa470`; Clerk contract `964a9bb1f921c468b698e7ce42020c10b21a028b`. Merge `f660f20cb88d9e39e6cf8be8126d77c91fd947a7`; [Pages build/deploy/hosted source-SHA readback passed](https://github.com/imagine-os/hoy/actions/runs/39690125961). Live demo: https://imagine-os.github.io/hoy/ . External map rendering and real authentication remain unverified/unimplemented as described above.
+
+Additional local production-bundle checks: EN/ES asserted dark theme at 390/1280 (`map-theme-results.json`), plus EN/ES 3840 captures with no overflow and a load target at least 44px. No external map request made.
