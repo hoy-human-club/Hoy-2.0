@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Completed · 0073 (v0.25.0 · 2026-10-21)
+
+- W-01: recover PR44 capture theme reset and assertions on current main; regenerate the 19-case hero report. [Release receipt](changelog/0073-hero-capture-recovery.md)
+
 ## Cloud release recovery · 0072 (2026-10-21)
 
 - Source main 4c90a67, v0.24.5. Integrating preserved inactive-calendar and class-management requests in an isolated recovery branch. Newer settings requirements need the preserved checkpoint or exact text; no inferred changes. [Release record](changelog/0072-cloud-release-recovery.md)

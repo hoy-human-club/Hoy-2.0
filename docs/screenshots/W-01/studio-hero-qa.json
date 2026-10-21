@@ -15,7 +15,10 @@
     "photos/en/390/light",
     "photos/en/390/dark",
     "photos/en/1280/light",
-    "photos/en/1280/dark"
+    "photos/en/1280/dark",
+    "latest/en/344/light",
+    "latest/en/768/light",
+    "latest/en/3840/light"
   ],
   "errors": []
 }

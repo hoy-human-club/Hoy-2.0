@@ -15,6 +15,8 @@ try {
   await page.goto(`${base}/#/site?version=${version}`);await page.reload();await page.locator(`.site[data-site-version=${version}]`).waitFor();
   const hero=page.locator('.studio-hero'), image=hero.locator('img.studio-hero-image');
   await image.evaluate(async i=>{await i.decode();});await page.evaluate(async()=>{await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});
+  assert.equal(await page.locator('html').getAttribute('data-theme'),dark?'dark':'light','capture filename matches actual theme');
+  assert.equal(await page.locator('html').getAttribute('lang'),lang,'capture filename matches actual language');
   assert.equal(await image.getAttribute('src'),source,'same source as Coming Soon');assert.equal(await hero.locator('video').count(),0,'no old hero concept video');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${version}/${lang}/${width}: overflow`);
   assert(await image.evaluate(i=>{const r=i.getBoundingClientRect(),p=i.parentElement.getBoundingClientRect();return i.naturalWidth>=960&&Math.abs(r.width-p.width)<2&&Math.abs(r.height-p.height)<2;}),'decoded high-resolution full-cover photo');
@@ -24,9 +26,16 @@ try {
   checks.push(`${version}/${lang}/${width}/${dark?'dark':'light'}`);
  }
  for(const width of [344,768,3840]){
-  await page.setViewportSize({width,height:1000});await page.goto(`${base}/#/site`);await page.locator('.studio-hero-image').waitFor();
-  await page.locator('.studio-hero-image').evaluate(i=>i.decode());assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.setViewportSize({width,height:1000});
+  // The preceding matrix ends in dark mode. These filenames explicitly describe English/light.
+  await page.evaluate(()=>{localStorage.setItem('hoyos.lang','en');localStorage.setItem('hoyos.theme',JSON.stringify({theme:'light',skin:'styled'}));});
+  await page.goto(`${base}/#/site`);await page.reload();await page.locator('.site[data-site-version=latest]').waitFor();
+  await page.locator('.studio-hero-image').evaluate(i=>i.decode());await page.evaluate(async()=>{await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});
+  assert.equal(await page.locator('html').getAttribute('data-theme'),'light','extra-width capture is really light mode');
+  assert.equal(await page.locator('html').getAttribute('lang'),'en','extra-width capture is really English');
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   await page.screenshot({path:`docs/screenshots/W-01/studio-latest-en-${width}.jpg`,type:'jpeg',quality:72});
+  checks.push(`latest/en/${width}/light`);
  }
  await page.setViewportSize({width:1280,height:1000});await page.goto(`${base}/#/site`);await page.locator('.site[data-site-version=latest]').waitFor();
  await page.locator('.studio-hero .sanctuary-button').click();await page.locator('.session-calendar').waitFor();await page.goBack();await page.locator('.studio-hero-image').waitFor();
