@@ -32,7 +32,7 @@ const MAIN = new Set(['TodayStrip (now / next / later)', 'MemberSearch + Capacit
 export function CheckinPage() {
   const { t, lang } = useI18n();
   const data = useData();
-  const { can, user } = useSession();
+  const { can, user, role } = useSession();
   const audit = useAudit('front_desk');
   const { settings } = useSettings();
   const { sections, isVisible } = useLayout(S02);
@@ -109,7 +109,7 @@ export function CheckinPage() {
       if (!data.atomic) throw new Error('disconnected');
       await data.atomic(async tx => {
         const b = await bookWithPackage(tx, { userId: p.id, sessionId: selected.session.id, status });
-        await tx.insert('audit_log', { actor_id: user.id, action: status === 'booked' ? 'booking.desk' : 'booking.walkin', entity: 'bookings', entity_id: b.id, ip: null, diff: { after: status, session_id: selected.session.id, user_id: p.id } });
+        await tx.insert('audit_log', { actor_id: user.id, action: status === 'booked' ? 'booking.create' : 'booking.walkin', entity: 'bookings', entity_id: b.id, ip: null, diff: { role, source: 'front_desk', after: status, session_id: selected.session.id, user_id: p.id } });
       });
       setQ('');
     } catch (e) { setError(commandError(e)); } finally { setBusy(null); }
@@ -122,7 +122,7 @@ export function CheckinPage() {
       await data.atomic(async tx => {
         const b = await bookWithPackage(tx, { userId: w.user_id, sessionId: selected.session.id, status: 'booked' });
         await tx.update('waitlist', w.id, { status: 'claimed' });
-        await tx.insert('audit_log', { actor_id: user.id, action: 'waitlist.promote', entity: 'waitlist', entity_id: w.id, ip: null, diff: { booking_id: b.id, session_id: selected.session.id, user_id: w.user_id } });
+        await tx.insert('audit_log', { actor_id: user.id, action: 'waitlist.promote', entity: 'waitlist', entity_id: w.id, ip: null, diff: { role, source: 'front_desk', booking_id: b.id, session_id: selected.session.id, user_id: w.user_id } });
       });
     } catch (e) { setError(commandError(e)); } finally { setBusy(null); }
   };

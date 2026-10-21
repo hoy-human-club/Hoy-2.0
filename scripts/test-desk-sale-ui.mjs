@@ -6,9 +6,9 @@ const base=process.env.QA_BASE??'http://127.0.0.1:5173', output='docs/screenshot
 await mkdir(output,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});
 const errors=[],checks=[];
-async function fixture(kind='open',lang='en') {
+async function fixture(kind='open',lang='en',actor='usr_desk') {
  const ctx=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
- await ctx.addInitScript(lang=>{if(sessionStorage.getItem('sale-init'))return;sessionStorage.setItem('sale-init','1');localStorage.setItem('hoyos.session',JSON.stringify({userId:'usr_desk',devMode:false,viewAs:null}));localStorage.setItem('hoyos.lang',lang);},lang);
+ await ctx.addInitScript(({lang,actor})=>{if(sessionStorage.getItem('sale-init'))return;sessionStorage.setItem('sale-init','1');localStorage.setItem('hoyos.session',JSON.stringify({userId:actor,devMode:false,viewAs:null}));localStorage.setItem('hoyos.lang',lang);},{lang,actor});
  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/,r=>r.abort());
  const page=await ctx.newPage();await page.clock.install({time:new Date('2026-10-21T17:00:00Z')});page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`${base}/#/staff/register`);await page.waitForFunction(()=>localStorage.getItem('hoyos.db.v1'));
@@ -53,6 +53,7 @@ try {
   for(const theme of ['dark','light']){if(theme==='light')await page.getByRole('button',{name:lang==='en'?'Toggle theme':'Cambiar tema',exact:true}).click();for(const width of [390,1280]){await page.setViewportSize({width,height:900});await page.screenshot({path:`${output}/${lang}-${width}-${theme}-atomic-receipt.jpg`,quality:72,fullPage:true});}}
   checks.push(`${lang}: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt`);await ctx.close();
  }
+ const admin=await fixture('open','en','usr_admin');await fill(admin.page);const adminBefore=await snapshot(admin.page);await admin.page.getByRole('button',{name:'Complete sale',exact:true}).click();await admin.page.getByRole('heading',{name:'Sale complete',exact:true}).waitFor();const adminDb=await snapshot(admin.page);const adminAudit=adminDb.audit_log.filter(a=>!adminBefore.audit_log.some(old=>old.id===a.id)&&a.action!=='mock.transaction');assert(adminAudit.length>0);assert(adminAudit.every(a=>a.actor_id==='usr_admin'&&a.diff?.role==='admin'&&a.diff?.source==='front_desk'));checks.push('administrator sale retains actual actor/effective role and front-desk source in every staged audit row');await admin.ctx.close();
  for(const kind of ['returning-expired','returning-frozen']) {
   console.log(`Sale UI ${kind}: start`); const {ctx,page}=await fixture(kind);await fill(page,'en',true,'QA Returning Customer');
   await page.getByText('Individual class',{exact:true}).click();

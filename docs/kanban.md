@@ -1,5 +1,11 @@
 # HoyOS kanban
 
+## Audit attribution · 0081 (2026-10-21)
+
+- Restore effective role and front-desk source in staged booking/waitlist/sale audits, with administrator and desk browser assertions. Permissions and financial rules remain unchanged.
+- PR58 demo-boundary checkpoint merged e1758bf after four checks; normal Pages build/deploy/source verification passed.
+
+
 ## Checked continuation releases · 0080 (2026-10-21)
 
 - PR56 merged 2ecdaf8 after all 11 checks; Pages build/deploy/source readback passed.
