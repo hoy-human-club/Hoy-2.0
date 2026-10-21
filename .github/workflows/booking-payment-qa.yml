@@ -12,6 +12,8 @@ on:
       - 'scripts/test-mock-additive-upgrade.mjs'
       - 'scripts/test-release-source.mjs'
       - 'scripts/write-release.mjs'
+      - 'scripts/gen-sql.mjs'
+      - 'scripts/test-draft-receipt-schema.mjs'
       - 'scripts/test-desk*.mjs'
       - 'scripts/test-pending-package*.mjs'
       - 'scripts/test-reschedule*.mjs'
@@ -36,6 +38,7 @@ jobs:
         run: |
           node scripts/test-mock-additive-upgrade.mjs
           node scripts/test-release-source.mjs
+          node scripts/test-draft-receipt-schema.mjs
           node scripts/test-package-lots.mjs
           node scripts/test-transfer-receipts.mjs
           node scripts/test-reschedule-atomic.mjs

@@ -53,10 +53,6 @@ for (const t of tables) {
     if (later) deferred.push(`alter table public.${t.name} add constraint ${t.name}_${c.name}_fk foreign key (${columnName(c.name)}) references public.${c.references}(id) on delete set null;`);
     return col(later ? { ...c, deferFk: true } : c);
   });
-  if (t.name === 'transfer_receipts') {
-    sql += '-- DEFAULT DENY: fictional browser contract only; no receipt read/write policies or storage access are approved.\n\n';
-    continue;
-  }
   if (t.name === 'class_pay_rules') {
     cols.push('  check ((template_id is null) <> (session_id is null))');
     cols.push("  check ((mode = 'flat' and flat_amount is not null and flat_amount >= 0) or (mode = 'attendance' and base_amount is not null and base_amount >= 0 and per_attendee is not null and per_attendee >= 0 and attendance_basis is not null))");
