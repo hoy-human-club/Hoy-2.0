@@ -1,0 +1,30 @@
+name: Media picker QA
+on:
+  pull_request:
+    paths: ['src/**', 'scripts/test-media-picker.mjs', 'scripts/test-content-photo-picker.mjs', '.github/workflows/media-picker-qa.yml']
+permissions:
+  contents: read
+jobs:
+  picker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: |
+          npm run dev -- --host 127.0.0.1 --port 5187 &
+          sleep 5
+          CHROMIUM_PATH=/usr/bin/google-chrome node scripts/test-media-picker.mjs
+          CHROMIUM_PATH=/usr/bin/google-chrome node scripts/test-content-photo-picker.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: media-picker-qa-${{ github.event.pull_request.head.sha }}
+          path: docs/screenshots/media-picker
+          retention-days: 3

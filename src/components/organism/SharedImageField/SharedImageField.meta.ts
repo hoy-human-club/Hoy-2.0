@@ -1,0 +1,5 @@
+import {useState,createElement as h} from 'react';
+import {defineMeta} from '../../../design/meta';
+import {SharedImageField} from './SharedImageField';
+function Example(){const [value,onChange]=useState<string|null>(null);return h(SharedImageField,{value,onChange});}
+export default defineMeta({tier:'organism',name:'SharedImageField',description:{es:'Selector de fotos con biblioteca y copias privadas en el navegador.',en:'Photo chooser with library and browser-private copies.'},props:[{name:'value',type:'string | null',required:true,description:{es:'URL en el borrador.',en:'Draft URL.'}},{name:'onChange',type:'(url: string | null) => void',required:true,description:{es:'Actualiza el borrador, no publica.',en:'Updates draft without publishing.'}}],a11y:[{es:'Controles etiquetados, selección por teclado y errores anunciados.',en:'Labelled controls, keyboard selection and announced errors.'}],states:['empty','selected','browsing','uploading','error','disabled','undo'],usages:[{title:{es:'Sin foto',en:'No photo'},render:()=>h(Example)},{title:{es:'Deshabilitado',en:'Disabled'},render:()=>h(SharedImageField,{value:null,onChange:()=>{},disabled:true})}]});

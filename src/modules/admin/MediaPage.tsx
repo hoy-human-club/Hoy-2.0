@@ -1,6 +1,7 @@
+import { SharedImageField } from '../../components/organism/SharedImageField/SharedImageField';
+import { safeMediaUrl } from '../../data/mediaLibrary';
+import { useMediaLibrary } from '../../data/useMediaLibrary';
 import { MediaLibrary } from '../../components/organism/MediaLibrary/MediaLibrary';
-import { buildMediaLibrary } from '../../data/mediaLibrary';
-import type { TeacherRow, ModalityRow, EventRow } from '../../data/schema';
 import { useEffect, useState } from 'react';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
@@ -27,11 +28,9 @@ const RATIOS = ['21 / 9', '16 / 9', '4 / 3', '1 / 1', '4 / 5', '3 / 4'] as const
  */
 export function MediaPage() {
   const { t, bi } = useI18n();
+  const { assets: libraryAssets } = useMediaLibrary();
   const { data, audit, canWrite } = useContentEditing();
   const { rows, loading } = useTable<MediaAssetRow>('media_assets', { orderBy: { column: 'sort' } });
-  const { rows: teachers } = useTable<TeacherRow>('teachers');
-  const { rows: modalities } = useTable<ModalityRow>('modalities');
-  const { rows: events } = useTable<EventRow>('events');
   const [view, setView] = useState<'catalog' | 'slots'>('catalog');
   const [filter, setFilter] = useState<'all' | MediaAssetRow['status']>('all');
   const ready = rows.filter((r) => r.status === 'ready');
@@ -54,7 +53,7 @@ export function MediaPage() {
 
       <p className="small muted">{t('media.library.demo')}</p>
       <div className="row wrap">{(['catalog','slots'] as const).map(v=><Button key={v} variant={view===v?'primary':'ghost'} onClick={()=>setView(v)} aria-pressed={view===v}>{t(`media.library.${v}`)}</Button>)}</div>
-      {view==='catalog' ? <MediaLibrary assets={buildMediaLibrary(rows, teachers, modalities, events)} /> : <>
+      {view==='catalog' ? <MediaLibrary assets={libraryAssets} /> : <>
       <div className="grid grid-3">
         <StatTile label={t('admin.media.kpi.ready')} value={`${ready.length} / ${rows.length}`} hint={t('admin.media.kpi.ready.hint')} trend={ready.length === rows.length ? 'up' : 'flat'} />
         <StatTile label={t('admin.media.kpi.pending')} value={rows.length - ready.length} hint={t('admin.media.kpi.pending.hint')} />
@@ -96,12 +95,13 @@ function MediaCard({ asset, readOnly, bi, onSave, onRemove }: { asset: MediaAsse
   const [draft, setDraft] = useState(() => pick(asset));
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   useEffect(() => { setDraft(pick(asset)); }, [asset.id, asset.updated_at]);
   const dirty = JSON.stringify(draft) !== JSON.stringify(pick(asset));
   const set = <K extends keyof MediaDraft>(k: K, v: MediaDraft[K]) => setDraft((d) => ({ ...d, [k]: v }));
-  const urlBad = !!draft.url && !/^(https?:\/\/|\.\/|\/)/.test(draft.url);
+  const urlBad = !!draft.url && !safeMediaUrl(draft.url);
   const canBeReady = !!draft.url && !urlBad;
-  const save = async (patch: Partial<MediaAssetRow>) => { setSaving(true); try { await onSave(patch); } finally { setSaving(false); } };
+  const save = async (patch: Partial<MediaAssetRow>) => { setSaving(true); setSaveError(false); try { await onSave(patch); } catch { setSaveError(true); } finally { setSaving(false); } };
 
   return (
     <Card padding="sm" tone={asset.status === 'ready' ? 'surface' : 'muted'}
@@ -121,9 +121,10 @@ function MediaCard({ asset, readOnly, bi, onSave, onRemove }: { asset: MediaAsse
       <p className="xs muted" style={{ marginTop: 'var(--sp-sm)' }}>{bi(asset.brief) || t('admin.media.noBrief')}</p>
 
       <div className="stack-sm" style={{ marginTop: 'var(--sp-sm)' }}>
-        <Field label={t('admin.media.url')} error={urlBad ? t('admin.media.url.bad') : undefined} hint={t('admin.media.url.hint')}>
+        {draft.kind === 'photo' ? <SharedImageField value={draft.url} onChange={url => set('url', url)} disabled={readOnly || saving} /> : <Field label={t('admin.media.url')} error={urlBad ? t('admin.media.url.bad') : undefined} hint={t('admin.media.url.hint')}>
           {(id) => <Input id={id} disabled={readOnly} value={draft.url ?? ''} placeholder="https://…" onChange={(e) => set('url', e.target.value || null)} />}
-        </Field>
+        </Field>}
+        {saveError && <p role="alert">{t('bulk.saveError')}</p>}
         <div className="row wrap">
           {!readOnly && <Button size="sm" disabled={!dirty || urlBad} loading={saving} onClick={() => save(draft)}>{t('core.common.save')}</Button>}
           {!readOnly && asset.status === 'pending' && <Button size="sm" variant="ghost" disabled={!canBeReady} onClick={() => save({ ...draft, status: 'ready' })}>{t('admin.media.markReady')}</Button>}

@@ -1,13 +1,14 @@
+import { isLocalPhotoUrl, type LocalPhoto } from './localMediaStore';
 import type { MediaAssetRow, TeacherRow, ModalityRow, EventRow } from './schema';
 import catalog from './mediaCatalog.generated.json';
 export type UsageState = 'live' | 'draft' | 'archived' | 'inactive';
 export interface MediaUsage { label: string; path: string; state: UsageState; evidence: string }
 export interface LibraryAsset { id: string; url: string; thumbnail: string | null; name: string; source: string; kind: string; orientation: string; tags: string[]; variants: string[]; usages: MediaUsage[] }
 export const normalizeMediaUrl = (url: string) => url.replace(/^\.\//, '').replace(/^\//, '');
-export const safeMediaUrl = (url: string) => /^(https?:\/\/|\.\/|\/|images\/|video\/|brand\/)/.test(url) && !url.startsWith('//');
+export const safeMediaUrl = (url: string) => isLocalPhotoUrl(url) || /^(https?:\/\/|\.\/|\/|images\/|video\/|brand\/)/.test(url) && !url.startsWith('//');
 const slotRoutes = (key: string): string[] => key.startsWith('site.classes.') ? ['/site/classes', `/site/classes/${key.slice(13)}`, '/site/schedule', '/site', '/app/schedule'] : ({'site.about':['/site/about'],'site.hero':['/site?version=classic'],'site.contact.map':['/site/contact'],'class.hero':[],'teacher.portrait':['/app/teachers'],'event.cover':[],'studio.tour':['/app/rules']}[key] ?? []);
 /** A projection over provider rows plus the build manifest. No invented backend or global publication flag. */
-export function buildMediaLibrary(slots: MediaAssetRow[], teachers: TeacherRow[], modalities: ModalityRow[], events: EventRow[] = []): LibraryAsset[] {
+export function buildMediaLibrary(slots: MediaAssetRow[], teachers: TeacherRow[], modalities: ModalityRow[], events: EventRow[] = [], local: LocalPhoto[] = []): LibraryAsset[] {
  const assets = (catalog as LibraryAsset[]).map(a => ({...a, usages: a.usages.map(u => {
    const teacherId=u.evidence.match(/teachers:(tea_\w+):fallback/)?.[1];
    const teacher=teacherId?teachers.find(t=>t.id===teacherId):undefined;
@@ -16,6 +17,7 @@ export function buildMediaLibrary(slots: MediaAssetRow[], teachers: TeacherRow[]
    const overridden=teacherId && (!teacher || !teacher.active || !!teacher.photo_url) || slot?.status==='ready' && !!slot.url;
    return overridden ? {...u,state:'inactive' as const} : {...u};
  }), tags: [...a.tags]}));
+ for(const p of local) assets.push({id:`local:${p.id}`,url:p.url,thumbnail:p.url,name:p.name,source:'local',kind:'photo',orientation:p.width>p.height?'landscape':p.width<p.height?'portrait':'square',tags:['local'],variants:[p.url],usages:[]});
  const resolve = (url: string, name: string, source: string, kind: string, ratio?: string) => {
   let asset = assets.find(a => [a.url,...a.variants].some(u => normalizeMediaUrl(u) === normalizeMediaUrl(url)));
   if (!asset) { const parts = ratio?.split('/').map(Number); asset={id:`provider:${url}`,url,thumbnail:kind==='video'?'':url,name,source,kind,orientation:parts?.length===2?(parts[0]>parts[1]?'landscape':parts[0]<parts[1]?'portrait':'square'):'unknown',tags:[source],variants:[url],usages:[]};assets.push(asset); }

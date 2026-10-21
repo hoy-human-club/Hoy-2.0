@@ -11,7 +11,7 @@ import { useSession } from '../../../auth/SessionProvider';
 import { getRoutes } from '../../../app/registry';
 import { placementTarget } from './placementTarget';
 import './MediaLibrary.css';
-const urlFor = (url:string) => /^(https?:|\/)/.test(url) ? url : `${import.meta.env.BASE_URL}${url.replace(/^\.\//,'')}`;
+const urlFor = (url:string) => /^(data:|https?:|\/)/.test(url) ? url : `${import.meta.env.BASE_URL}${url.replace(/^\.\//,'')}`;
 export function MediaLibrary({ assets }: {assets: LibraryAsset[]}) {
  const {hasRole} = useSession();
  const routes = useMemo(() => getRoutes(), []);
@@ -33,6 +33,6 @@ export function MediaLibrary({ assets }: {assets: LibraryAsset[]}) {
       {target ? <Link to={target.to} title={u.evidence}><span className="media-library-placement-label">{label}{target.documented&&<><small className="muted">{text('documentedPreview')}</small><small className="muted">{u.path}</small></>}</span></Link> : <span className="media-library-placement-label" title={u.evidence}>{label}<small className="muted">{text('unavailablePreview')}</small></span>}
       <Badge tone={u.state==='live'?'success':'neutral'}>{text(u.state)}</Badge>
     </div>;
-  }):<p className="muted small">{text('unused')}</p>}<h4>{text('variants')}</h4><p className="muted small">{text('original')}</p>{a.variants.filter(safeMediaUrl).map(v=><a key={v} href={urlFor(v)} target="_blank" rel="noreferrer">{v.split('/').pop()}</a>)}</div></details>{safeMediaUrl(a.url)&&<a className="media-library-open" href={urlFor(a.url)} target="_blank" rel="noreferrer">{text('open')} ↗</a>}</div></Card>)}</div>
+  }):<p className="muted small">{text('unused')}</p>}<h4>{text('variants')}</h4><p className="muted small">{text('original')}</p>{a.variants.filter(safeMediaUrl).map(v=><a key={v} href={urlFor(v)} target="_blank" rel="noreferrer">{v.startsWith('data:')?a.name:v.split('/').pop()}</a>)}</div></details>{safeMediaUrl(a.url)&&<a className="media-library-open" href={urlFor(a.url)} target="_blank" rel="noreferrer">{text('open')} ↗</a>}</div></Card>)}</div>
  </section>;
 }

@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## In verification · 0074 (v0.25.0 · 2026-10-21)
+
+- M-02/M-02d/D-02: catalog/private browser photo chooser integrated with current Content drafts. [Release receipt](changelog/0074-content-photo-picker.md)
+
 ## Completed · 0073 (v0.25.0 · 2026-10-21)
 
 - W-01: recover PR44 capture theme reset and assertions on current main; regenerate the 19-case hero report. [Release receipt](changelog/0073-hero-capture-recovery.md)

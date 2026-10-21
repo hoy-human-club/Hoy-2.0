@@ -1,3 +1,4 @@
+import { SharedImageField } from '../../components/organism/SharedImageField/SharedImageField';
 import { ClassPayRulesPanel } from '../../components/organism/ClassPayRulesPanel/ClassPayRulesPanel';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -28,7 +29,7 @@ import { ContentSubNav } from './contentNav';
 import './admin.css';
 
 type Entity = 'class_templates' | 'teachers' | 'modalities' | 'rooms';
-type FieldKind = 'text' | 'int' | 'bool' | 'bi' | 'select' | 'ref' | 'time' | 'list' | 'tone' | 'date';
+type FieldKind = 'text' | 'int' | 'bool' | 'bi' | 'select' | 'ref' | 'time' | 'list' | 'tone' | 'date' | 'image';
 interface FieldDef { name: string; kind: FieldKind; label: Bi; options?: readonly string[]; ref?: 'modalities' | 'teachers' | 'rooms'; required?: boolean; hint?: Bi }
 
 const WEEKDAYS: Bi[] = [{ es: 'Domingo', en: 'Sunday' }, { es: 'Lunes', en: 'Monday' }, { es: 'Martes', en: 'Tuesday' }, { es: 'Miércoles', en: 'Wednesday' }, { es: 'Jueves', en: 'Thursday' }, { es: 'Viernes', en: 'Friday' }, { es: 'Sábado', en: 'Saturday' }];
@@ -53,7 +54,7 @@ const FIELDS: Record<Entity, FieldDef[]> = {
     { name: 'bio', kind: 'bi', label: { es: 'Bio', en: 'Bio' } },
     { name: 'specialties', kind: 'list', label: { es: 'Especialidades', en: 'Specialties' } },
     { name: 'rate_per_class', kind: 'int', label: { es: 'Tarifa por clase (COP)', en: 'Rate per class (COP)' } },
-    { name: 'photo_url', kind: 'text', label: { es: 'Foto (URL)', en: 'Photo (URL)' }, hint: { es: 'Marcador hasta tener fotos reales', en: 'Placeholder until real photos land' } },
+    { name: 'photo_url', kind: 'image', label: { es: 'Foto', en: 'Photo' } },
   ],
   modalities: [
     { name: 'name_es', kind: 'text', label: { es: 'Nombre (ES)', en: 'Name (ES)' }, required: true },
@@ -219,6 +220,7 @@ function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave 
           <Field key={f.name} label={bi(f.label)} required={f.required} hint={f.hint ? bi(f.hint) : undefined} error={errors.includes(f.name) ? t('admin.content.required') : undefined}>
             {(id) => {
               const v = draft[f.name];
+              if (f.kind === 'image') return <SharedImageField value={v as string | null} disabled={readOnly || saving} label={bi(f.label)} onChange={url => set(f.name, url)} />;
               if (f.kind === 'bool') return <Toggle checked={!!v} disabled={readOnly} onChange={(on) => set(f.name, on)} />;
               if (f.kind === 'int') return <Input id={id} type="number" disabled={readOnly} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' ? null : Number(e.target.value))} />;
               if (f.kind === 'date') return <Input id={id} type="date" disabled={readOnly} value={String(v ?? '')} onChange={e => set(f.name, e.target.value || null)} />;

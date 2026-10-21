@@ -1407,3 +1407,8 @@ No new database table. `mediaLibrary.ts` projects the build-generated public-fil
 
 ## Portable subscription directory (M-09d)
 AppDependency → Subscription → ActualCharge is a versioned browser-local contract in `src/shared/subscriptions/model.ts`, keyed by workspaceId. It is intentionally not a Supabase table or MockProvider seed. No SQL migration is claimed; see `docs/pages/M-09d.md` for future production constraints.
+
+
+### Browser-private photo copies (0074)
+
+`hoy.local-media.v1` IndexedDB `photos` stores tenant-filtered optimized WebP copies with ID, tenantId, name, dimensions and creation timestamp. Mock-provider photo URL fields may reference these browser-local data URLs; remote providers cannot import/select them. No server table is introduced and no originals or private captures enter repository/build catalogs. Clearing browser data removes local copies.
