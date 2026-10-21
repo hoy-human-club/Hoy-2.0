@@ -10,7 +10,7 @@
 // Usage: npm run hub-map   (also the first step of npm run build)
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { createServer } from 'vite';
-import { planShots, SHOTS_DIR } from './lib/hubShots.mjs';
+import { planShots, SHOTS_DIR, PRIVATE_CAPTURE_CODES } from './lib/hubShots.mjs';
 
 const ROOT = new URL('../', import.meta.url);
 const OUT = new URL('public/hub-map.json', ROOT);
@@ -176,7 +176,7 @@ try {
     bi(p.name, `page ${p.code} name`); bi(p.purpose, `page ${p.code} purpose`);
     for (const r of p.roles) if (!roleIds.has(r)) problems.push(`page ${p.code}: role ${r} is not a role`);
     if (p.group) bi(p.group.label, `page ${p.code} group ${p.group.id} label`);
-    if (!hasShots(p.shots)) problems.push(`page ${p.code}: no shots in docs/screenshots/${p.code}/`);
+    if (!PRIVATE_CAPTURE_CODES.has(p.code) && !hasShots(p.shots)) problems.push(`page ${p.code}: no shots in docs/screenshots/${p.code}/`);
   }
   for (const t of tools) {
     if (!pageCodes.has(t.code)) problems.push(`tool ${t.id}: code ${t.code} does not exist`);

@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
-import { TABLE_GROUPS, tableRegistry, tables, type TableDef } from '../../../data/schema';
+import { TABLE_GROUPS, tableRegistry, tables as allTables, type TableDef } from '../../../data/schema';
 import { tableLabel } from '../../../data/labels';
 import { Icon } from '../../../components/atom/Icon/Icon';
 import { Input } from '../../../components/atom/Input/Input';
 import { Button } from '../../../components/atom/Button/Button';
 import { toggleIn, type TablesPrefs } from './prefs';
+
+const tables = allTables.filter(table => table.name !== 'class_pay_rules');
 
 export interface TablesSidebarProps {
   current?: string;
@@ -28,8 +30,8 @@ export function TablesSidebar({ current, counts, prefs, update, technical, mode,
   const [q, setQ] = useState('');
   const query = q.trim().toLowerCase();
   const match = (x: TableDef) => !query || x.name.toLowerCase().includes(query) || tableLabel(x, lang).toLowerCase().includes(query) || tableLabel(x, lang === 'es' ? 'en' : 'es').toLowerCase().includes(query);
-  const pinned = prefs.pinned.filter((n) => tableRegistry[n]);
-  const recent = prefs.recent.filter((n) => tableRegistry[n] && !pinned.includes(n));
+  const pinned = prefs.pinned.filter((n) => n !== 'class_pay_rules' && tableRegistry[n]);
+  const recent = prefs.recent.filter((n) => n !== 'class_pay_rules' && tableRegistry[n] && !pinned.includes(n));
   const groups = useMemo(() => TABLE_GROUPS.map((g) => ({ ...g, list: tables.filter((x) => x.group === g.id && match(x)) })).filter((g) => g.list.length > 0),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [query, lang]);

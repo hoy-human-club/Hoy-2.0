@@ -1,0 +1,47 @@
+name: Class Management QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/classSchedule/**'
+      - 'src/modules/admin/ContentPage.tsx'
+      - 'src/data/**'
+      - 'src/components/**'
+      - 'scripts/test-class-management*.mjs'
+      - 'scripts/test-content-batch.mjs'
+      - '.github/workflows/class-management-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: class-management-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+      TZ: America/Bogota
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/test-content-batch.mjs && node scripts/test-class-management.mjs && node scripts/test-class-management-provider.mjs && node scripts/test-class-pay-rules.mjs && node scripts/test-private-capture-policy.mjs
+      - run: npm run build && npm run hub-map:check
+      - name: Exercise editor flows
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4174 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4174/ >/dev/null && break; sleep 1; done
+          node scripts/test-class-management-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:4174
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: class-management-${{ github.event.pull_request.head.sha }}
+          retention-days: 2
+          path: qa/class-management.json

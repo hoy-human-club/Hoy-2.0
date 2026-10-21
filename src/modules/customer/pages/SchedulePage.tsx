@@ -15,6 +15,7 @@ import { canvasSpecs } from '../specs';
 import { useAllSessionsJoined, useMyBookings } from '../hooks';
 import { PageHead } from '../ui';
 import { useActions } from '../../../actions';
+import { sessionUnavailableReason } from '../../../data/sessionAvailability';
 import { need, useAppNavHandlers } from '../actions';
 
 const specDay = canvasSpecs['C-02'];
@@ -81,7 +82,7 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
       const id = need(p, 'session');
       const x = allRef.current.find((j) => j.session.id === id);
       if (!x) throw new Error(`unknown session "${id}"`);
-      if (x.session.status !== 'scheduled' || new Date(x.session.starts_at).getTime() <= Date.now()) throw new Error(`session "${id}" is not bookable (${x.session.status})`);
+      if (sessionUnavailableReason(x)) throw new Error(`session "${id}" is not bookable (${x.session.status})`);
       nav(`/app/checkout/${id}`);
       return `opened /app/checkout/${id}`;
     },

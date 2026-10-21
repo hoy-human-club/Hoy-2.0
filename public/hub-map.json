@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-17T00:00:00.000Z",
+  "generatedAt": "2026-10-21T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -11,7 +11,7 @@
       "es": "Un solo sistema para cada puesto del estudio: quien practica, quien enseña, quien recibe en la puerta, quien administra y quien lo construye.",
       "en": "One system for every seat at the studio: members, teachers, front desk, admin, and the people who build it."
     },
-    "version": "0.24.5",
+    "version": "0.25.0",
     "baseUrl": "https://imagine-os.github.io/hoy/",
     "hubRoute": "/hub",
     "brand": {
@@ -656,10 +656,12 @@
         "M-01",
         "M-12",
         "M-02",
+        "M-14",
         "M-03",
         "M-13",
         "M-07",
         "M-08a",
+        "M-14a",
         "M-10",
         "M-02a",
         "M-02b",
@@ -2303,6 +2305,73 @@
           "en": "Finance"
         },
         "order": 40
+      }
+    },
+    {
+      "code": "M-14a",
+      "route": "/admin/class-pay",
+      "name": {
+        "es": "Pago por clase",
+        "en": "Class pay"
+      },
+      "purpose": {
+        "es": "Configurar reglas futuras de pago, sin ejecutar pagos.",
+        "en": "Configure prospective pay rules without making payments."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {}
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "M-14",
+      "route": "/admin/class-schedule",
+      "name": {
+        "es": "Horario de clases",
+        "en": "Class Schedule"
+      },
+      "purpose": {
+        "es": "Gestionar sesiones fechadas y sus vínculos con el catálogo.",
+        "en": "Manage dated sessions and their catalogue links."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {}
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
+        },
+        "order": 10
       }
     },
     {

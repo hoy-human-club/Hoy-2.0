@@ -6,3 +6,8 @@ dist
 
 # Post-deploy screenshots are uploaded as Actions artifacts.
 qa/subscription-release/
+
+# Protected release QA is local; never include it in repository publication.
+/qa/
+/docs/screenshots/M-14/
+/docs/screenshots/M-14a/

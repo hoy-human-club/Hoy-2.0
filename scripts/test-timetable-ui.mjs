@@ -12,7 +12,7 @@ try {
   const db=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db);
   assert.equal(db.class_templates.filter(t=>t.active).length,30);
   assert.equal(db.teachers.find(t=>t.id==='tea_andrea').display_name,'Andrea');
-  const sunday=db.class_sessions.find(s=>new Date(s.starts_at).getDay()===0&&s.status==='scheduled');
+  const sunday=db.class_sessions.find(s=>new Date(s.starts_at).getDay()===0&&s.status==='scheduled'&&Date.parse(s.starts_at)>Date.now()&&db.class_templates.find(t=>t.id===s.template_id)?.active!==false);
   assert(sunday,'Sunday sessions exist');
   await page.locator('input[type=date]').fill(sunday.starts_at.slice(0,10));
   await page.getByRole('button',{name:'Día',exact:true}).click();
@@ -21,7 +21,7 @@ try {
   assert(!(await page.locator('body').innerText()).includes('4 clases al día'));
   const schema=await page.locator('#hoyos-localbusiness').textContent();
   assert(!JSON.parse(schema).openingHoursSpecification,'unconfirmed hours excluded from search metadata');
-  await page.getByText('Fuego · Pilates Full Body',{exact:true}).first().click();
+  await page.locator('.classrow:not(:disabled)').filter({hasText:'Fuego · Pilates Full Body'}).first().click();
   await page.getByRole('dialog').waitFor();
   await page.keyboard.press('Escape');
   await assert.equal(await page.getByRole('dialog').count(),0);
@@ -34,7 +34,7 @@ try {
     if(code==='C-03')await page.evaluate(()=>localStorage.setItem('hoyos.session',JSON.stringify({userId:'usr_cust',devMode:false,viewAs:null})));
     for(const lang of ['es','en'])for(const width of [390,1280]){
       await page.evaluate(lang=>localStorage.setItem('hoyos.lang',lang),lang);
-      await page.setViewportSize({width,height:1000});await page.goto(`${base}/#${path}`);await page.reload();
+      await page.setViewportSize({width,height:1000});await page.reload();await page.goto(`${base}/#${path}`);
       await page.locator(code==='W-04'||code==='C-03'?'.session-calendar':code==='W-05'?'.site': '[data-testid=contact-today]').first().waitFor();
       await page.waitForTimeout(400);
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${code} ${lang} ${width} fits`);

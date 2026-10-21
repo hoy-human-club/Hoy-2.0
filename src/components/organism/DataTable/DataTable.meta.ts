@@ -31,5 +31,5 @@ export default defineMeta({
     { title: { es: 'Agrupada por estado, varios órdenes', en: 'Grouped by status, multi-sort' }, render: () => h(DataTable<Row>, { rows, rowKey: (r) => r.id, multiSort: true, hiddenColumns: ['plan'], groupBy: { value: (r) => r.status }, columns: [{ key: 'name', label: 'Nombre' }, { key: 'plan', label: 'Plan' }, { key: 'status', label: 'Estado' }, { key: 'visits', label: 'Visitas', align: 'right' }] }) },
   ],
   a11y: [{ es: 'aria-sort en cabeceras; filas clicables con tabIndex y Enter.', en: 'aria-sort on headers; clickable rows get tabIndex and Enter.' }],
-  usedBy: ['M-03', 'M-06', 'M-07', 'S-02', 'M-08g', 'D-07'],
+  usedBy: ['M-14', 'M-03', 'M-06', 'M-07', 'S-02', 'M-08g', 'D-07'],
 });

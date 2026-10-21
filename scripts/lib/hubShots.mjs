@@ -8,6 +8,8 @@ export const SHOT_KEYS = ['es-390', 'en-390', 'es-1280', 'en-1280', 'es-390-full
 export const SHOTS_BUDGET_BYTES = 80 * 1024 * 1024;
 /** Published folder for the captures, relative to the base URL (= HUB_SHOTS_DIR in src/hub/hubMap.data.ts). */
 export const SHOTS_DIR = 'hub-map/shots';
+// Protected scheduling/pay QA evidence is kept locally, outside the public release.
+export const PRIVATE_CAPTURE_CODES = new Set(['M-14', 'M-14a']);
 
 /** A page code as its screenshot folder name (`C-02/b` → `C-02_b`), like thumbFolder() in src/app/thumbnails.ts. */
 export const folderOf = (code) => code.replace(/\//g, '_');
@@ -22,6 +24,7 @@ export function planShots(rootUrl, codes, entryCodes) {
   const found = new Map();
   let thumbBytes = 0, fullBytes = 0, entryFullBytes = 0;
   for (const code of codes) {
+    if (PRIVATE_CAPTURE_CODES.has(code)) { found.set(code, { thumbs: {}, full: {} }); continue; }
     const dir = folderOf(code);
     const thumbs = {}, full = {};
     for (const k of THUMB_KEYS) {

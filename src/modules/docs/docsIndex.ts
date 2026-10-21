@@ -18,7 +18,7 @@ export interface DocMeta {
 
 const metaFiles = import.meta.glob<DocMeta>('../../../docs/**/*.md', { query: '?docmeta', import: 'default', eager: true });
 const rawFiles = import.meta.glob<string>('../../../docs/**/*.md', { query: '?raw', import: 'default' });
-const assets = import.meta.glob<string>('../../../docs/**/*.{png,jpg,jpeg,gif,svg,webp}', { query: '?url', import: 'default', eager: true });
+const assets = import.meta.glob<string>(['../../../docs/**/*.{png,jpg,jpeg,gif,svg,webp}', '!../../../docs/screenshots/M-14/**', '!../../../docs/screenshots/M-14a/**'], { query: '?url', import: 'default', eager: true });
 
 const strip = (k: string) => k.replace(/^(\.\.\/)+/, ''); // → 'docs/…'
 

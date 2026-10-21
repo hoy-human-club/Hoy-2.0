@@ -1,3 +1,4 @@
+import { SessionEditorial } from '../../../components/molecule/SessionEditorial/SessionEditorial';
 import { Fragment, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -102,7 +103,7 @@ export function ClassDetailPage() {
     AboutSection: () => (
       <section className="stack-sm">
         <h2 className="cust-h2">{t('customer.class.about')}</h2>
-        <p className="small">{m ? bi(m.description) : ''}</p>
+        <SessionEditorial session={s} />
         {m && <div className="row wrap small muted">
           <span>{t('customer.class.intensity')}: {'●'.repeat(m.intensity)}{'○'.repeat(5 - m.intensity)}</span>
           {m.heated && <Badge tone="warn">{t('customer.class.heated')}</Badge>}

@@ -12,7 +12,7 @@ export interface WaitlistRow extends BaseRow { user_id: string; session_id: stri
 export interface EmergencyContact { name: string; phone: string }
 export interface ProfileFull extends ProfileRow { birthday: string | null; emergency_contact: EmergencyContact | null; notes: string | null }
 
-export interface JoinedSession { session: ClassSessionRow; modality?: ModalityRow; teacher?: TeacherRow; room?: RoomRow }
+export interface JoinedSession { session: ClassSessionRow; modality?: ModalityRow; teacher?: TeacherRow; room?: RoomRow; templateActive?: boolean }
 
 /** One session joined with its modality, teacher and room. Live. */
 export function useSessionJoined(id: string | undefined): { joined: JoinedSession | null; loading: boolean } {
@@ -29,14 +29,15 @@ export function useSessionJoined(id: string | undefined): { joined: JoinedSessio
 
 /** All sessions joined (for lists). */
 export function useAllSessionsJoined(): JoinedSession[] {
+  const { rows: templates } = useTable<BaseRow & { active: boolean }>('class_templates');
   const { rows: sessions } = useTable<ClassSessionRow>('class_sessions', { orderBy: { column: 'starts_at' } });
   const { rows: modalities } = useTable<ModalityRow>('modalities');
   const { rows: teachers } = useTable<TeacherRow>('teachers');
   const { rows: rooms } = useTable<RoomRow>('rooms');
   return useMemo(() => {
     const mod = new Map(modalities.map((m) => [m.id, m])), tea = new Map(teachers.map((t) => [t.id, t])), rm = new Map(rooms.map((r) => [r.id, r]));
-    return sessions.map((s) => ({ session: s, modality: mod.get(s.modality_id), teacher: tea.get(s.teacher_id), room: rm.get(s.room_id) }));
-  }, [sessions, modalities, teachers, rooms]);
+    return sessions.map((s) => ({ session: s, modality: mod.get(s.modality_id), teacher: tea.get(s.teacher_id), room: rm.get(s.room_id), templateActive: templates.find(t => t.id === s.template_id)?.active }));
+  }, [sessions, modalities, teachers, rooms, templates]);
 }
 
 export function useMyBookings() {

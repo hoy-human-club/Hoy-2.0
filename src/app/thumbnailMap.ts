@@ -9,7 +9,7 @@
  * src/app/thumbnails.ts rather than sitting in the entry chunk: previews show their idle tile for
  * the one frame it takes to arrive.
  */
-const files = import.meta.glob<string>('../../docs/screenshots/**/thumb-*.jpg', { query: '?url', import: 'default', eager: true });
+const files = import.meta.glob<string>(['../../docs/screenshots/**/thumb-*.jpg', '!../../docs/screenshots/M-14/**', '!../../docs/screenshots/M-14a/**'], { query: '?url', import: 'default', eager: true });
 
 const strip = (k: string) => k.replace(/^(\.\.\/)+/, ''); // → 'docs/screenshots/…'
 

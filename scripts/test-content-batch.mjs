@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+const dir = await mkdtemp(join(tmpdir(), 'hoy-bulk-'));
+try {
+ const out = join(dir, 'batch.mjs');
+ await build({ entryPoints: ['src/data/contentBatch.ts'], bundle: true, platform: 'node', format: 'esm', outfile: out });
+ const { applyContentBatch } = await import(pathToFileURL(out));
+ const base = { tenant_id: 'test', created_at: '2026-01-01', updated_at: '2026-01-01' };
+ const row = (id, extra) => ({ ...base, id, ...extra });
+ const db = { class_templates: [row('a', { title:'A', capacity:8, room_id:'room', teacher_id:'teacher', modality_id:'modality', active:true }), row('b', { title:'B', capacity:8, room_id:'room', teacher_id:'teacher', modality_id:'modality', active:true })], class_sessions: [row('session', { template_id:'a', room_id:'room', capacity:8, booked_count:4, starts_at:'2099-01-01', status:'scheduled' })], rooms:[row('room', { capacity:10 })], teachers:[row('teacher', { active:true })], modalities:[row('modality', { active:true })], audit_log:[] };
+ const command = (patch, extra = {}) => ({ table:'class_templates', changes: db.class_templates.map(r => ({id:r.id,before:structuredClone(r),patch})), role:'admin', actorId:'admin', ...extra });
+ const original = JSON.stringify(db);
+ const result = applyContentBatch(db, command({capacity:6}), 'test');
+ assert.equal(JSON.stringify(db), original, 'input remains unchanged');
+ assert.deepEqual(result.db.class_templates.map(x => x.capacity), [6,6]);
+ assert.equal(result.db.class_sessions[0].capacity,8,'dated sessions are not silently changed');
+ assert.equal(result.db.audit_log.length,1);
+ assert.equal(result.db.audit_log[0].entity,'class_templates');
+ const undone = applyContentBatch(result.db, { ...command({}), changes:result.result.changes, undo:true }, 'test');
+ assert.deepEqual(undone.db.class_templates.map(x => x.capacity),[8,8]);
+ assert.equal(undone.db.audit_log[1].action,'content.bulk.undo');
+ for (const patch of [{capacity:0},{capacity:NaN},{capacity:2},{capacity:11},{weekday:7},{start_time:'25:00'},{teacher_id:'missing'},{rate_per_class:900},{tenant_id:'other'}]) assert.throws(() => applyContentBatch(db,command(patch),'test'));
+ assert.throws(() => applyContentBatch(db,command({active:false},{role:'customer'}),'test'));
+ assert.throws(() => applyContentBatch(db,command({active:false}),'other'));
+ const stale = command({active:false}); stale.changes[1].before.title = 'outdated';
+ assert.throws(() => applyContentBatch(db,stale,'test'),/content_conflict/);
+ assert.equal(JSON.stringify(db), original,'failed multirow batch is atomic');
+ const changed = structuredClone(result.db); changed.class_templates[1].title='changed afterward';
+ assert.throws(() => applyContentBatch(changed,{...command({}),changes:result.result.changes,undo:true},'test'),/content_conflict/);
+ assert.throws(() => applyContentBatch(db,{...command({}),table:'rooms',changes:[{id:'room',before:db.rooms[0],patch:{capacity:7}}]},'test'),/content_booked/);
+ console.log('Content batch: apply, audit, undo, conflicts, references, permissions, tenant isolation, validation and occupied capacity passed');
+} finally { await rm(dir,{recursive:true,force:true}); }

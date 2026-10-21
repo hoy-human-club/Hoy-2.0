@@ -506,6 +506,40 @@ alter table public.teachers enable row level security;
 create policy "teachers: tenant read" on public.teachers for select using (tenant_id = public.current_tenant_id());
 create policy "teachers: staff write" on public.teachers for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
 
+-- commerce · Immutable private compensation configuration revisions; preview only, no payments.
+-- access:
+--   · super_admin/admin/finance only: select and append; no update/delete
+--   · Deny anonymous, customer, teacher, marketing, coordinator and developer access
+--   · Exactly one scope: template_id or session_id; production backend pending
+create table if not exists public.class_pay_rules (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null references public.tenants(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  template_id uuid,
+  session_id uuid,
+  effective_from date not null,
+  mode text not null check (mode in ('flat', 'attendance')),
+  flat_amount integer,
+  base_amount integer,
+  per_attendee integer,
+  attendance_basis text check (attendance_basis in ('checked_in', 'booked')),
+  revision_of uuid references public.class_pay_rules(id) on delete set null,
+  created_by uuid references public.users(id) on delete set null,
+  check ((template_id is null) <> (session_id is null)),
+  check ((mode = 'flat' and flat_amount is not null and flat_amount >= 0) or (mode = 'attendance' and base_amount is not null and base_amount >= 0 and per_attendee is not null and per_attendee >= 0 and attendance_basis is not null))
+);
+create index if not exists class_pay_rules_tenant_idx on public.class_pay_rules(tenant_id);
+create index if not exists class_pay_rules_template_id_idx on public.class_pay_rules(template_id);
+create index if not exists class_pay_rules_session_id_idx on public.class_pay_rules(session_id);
+create index if not exists class_pay_rules_revision_of_idx on public.class_pay_rules(revision_of);
+create index if not exists class_pay_rules_created_by_idx on public.class_pay_rules(created_by);
+create trigger class_pay_rules_touch before update on public.class_pay_rules for each row execute function public.touch_updated_at();
+alter table public.class_pay_rules enable row level security;
+-- DEFAULT DENY: private compensation needs authenticated tenant-scoped admin/super_admin/finance read and append-only RPCs. No client UPDATE/DELETE.
+
 -- schedule · Class types of the club, each with its colour tone.
 create table if not exists public.modalities (
   -- Primary key
@@ -559,6 +593,14 @@ create table if not exists public.class_templates (
   tenant_id uuid not null references public.tenants(id),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  start_date date,
+  end_date date,
+  -- Legacy demo uses automatic; new templates explicitly generate a reviewed batch
+  generation_mode text check (generation_mode in ('automatic', 'manual')),
+  -- Default bilingual theme {es,en}
+  theme jsonb,
+  -- Default bilingual description {es,en}; null inherits modality
+  description jsonb,
   title text not null,
   modality_id uuid not null references public.modalities(id) on delete set null,
   teacher_id uuid not null references public.teachers(id) on delete set null,
@@ -588,6 +630,10 @@ create table if not exists public.class_sessions (
   tenant_id uuid not null references public.tenants(id),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  -- Null inherits template; empty text clears theme
+  theme_override jsonb,
+  -- Null inherits template/modality; empty text clears description
+  description_override jsonb,
   template_id uuid references public.class_templates(id) on delete set null,
   title text not null,
   modality_id uuid not null references public.modalities(id) on delete set null,
@@ -1785,6 +1831,8 @@ alter table public.deletion_requests add constraint deletion_requests_user_id_fk
 alter table public.deletion_requests add constraint deletion_requests_resolved_by_fk foreign key (resolved_by) references public.users(id) on delete set null;
 alter table public.consents add constraint consents_user_id_fk foreign key (user_id) references public.users(id) on delete set null;
 alter table public.legal_acceptances add constraint legal_acceptances_user_id_fk foreign key (user_id) references public.users(id) on delete set null;
+alter table public.class_pay_rules add constraint class_pay_rules_template_id_fk foreign key (template_id) references public.class_templates(id) on delete set null;
+alter table public.class_pay_rules add constraint class_pay_rules_session_id_fk foreign key (session_id) references public.class_sessions(id) on delete set null;
 alter table public.space_bookings add constraint space_bookings_special_charge_id_fk foreign key (special_charge_id) references public.special_charges(id) on delete set null;
 alter table public.bookings add constraint bookings_ledger_id_fk foreign key (ledger_id) references public.class_ledger(id) on delete set null;
 alter table public.event_rsvps add constraint event_rsvps_payment_id_fk foreign key (payment_id) references public.payments(id) on delete set null;

@@ -1,8 +1,13 @@
 import { ensureFullDemoSession } from './seed/ensureFullDemoSession';
+import { appendClassPayRule, defaultClassPayRule, type AppendClassPayRuleCommand, type ClassPayRuleRow } from './classPayRules';
+import { dateKey } from '../i18n/format';
+import { generateRecurrence, type GenerateRecurrence } from './classRecurrence';
+import { applySessionEdit, type SessionEdit } from './sessionEditorial';
+import { applyContentBatch, type ContentBatch, type ContentBatchResult } from './contentBatch';
 import { upgradeTimetable } from './seed/upgradeTimetable';
 import { executeVoucherCommand, voucherSeats, type VoucherCommand, type VoucherResult, type VoucherBookingRow } from './vouchers';
 import { chooseMat, occupiesMat, usesMats } from './mats';
-import type { BookingRow, ClassSessionRow, ModalityRow } from './schema';
+import type { BookingRow, ClassSessionRow, ModalityRow, RoomRow } from './schema';
 import type { BaseRow } from './schema';
 import { tableNames } from './schema';
 import { applyQuery, type ChangeEvent, type DataProvider, type Query } from './types';
@@ -74,14 +79,19 @@ export class MockProvider implements DataProvider {
     for (let day = 0; day <= 42; day++) {
       const date = new Date(); date.setDate(date.getDate() + day);
       for (const template of this.db.class_templates as Template[]) {
-        if (!template.active || template.weekday !== date.getDay()) continue;
+        if (!template.active || template.weekday !== date.getDay() || template.generation_mode === 'manual') continue;
+        const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+        if (template.start_date && key < String(template.start_date) || template.end_date && key > String(template.end_date)) continue;
         const [h, m] = template.start_time.split(':').map(Number);
         const start = new Date(date); start.setHours(h, m, 0, 0);
         if (start <= new Date()) continue;
         if (sessions.some(s => s.template_id === template.id && s.starts_at === start.toISOString())) continue;
         const id = `demo_${template.id}_${start.getFullYear()}_${start.getMonth()}_${start.getDate()}`;
         if (sessions.some(s => s.id === id)) continue;
-        sessions.push({ id, tenant_id: tenant.id, created_at: now, updated_at: now, template_id: template.id, title: template.title, modality_id: template.modality_id, teacher_id: template.teacher_id, room_id: template.room_id, starts_at: start.toISOString(), ends_at: new Date(start.getTime() + template.duration_min * 60000).toISOString(), capacity: template.room_id === 'room_main' ? tenant.studio.mats : template.capacity, booked_count: 0, level: template.level, status: 'scheduled', cancel_reason: null });
+        // Snapshot the class limit only for new occurrences; existing bookings keep their session capacity.
+        const room = (this.db.rooms as RoomRow[]).find(row => row.id === template.room_id);
+        const capacity = Math.min(template.capacity, room?.capacity ?? template.capacity, template.room_id === 'room_main' ? tenant.studio.mats : Infinity);
+        sessions.push({ id, tenant_id: tenant.id, created_at: now, updated_at: now, template_id: template.id, title: template.title, modality_id: template.modality_id, teacher_id: template.teacher_id, room_id: template.room_id, starts_at: start.toISOString(), ends_at: new Date(start.getTime() + template.duration_min * 60000).toISOString(), capacity, booked_count: 0, level: template.level, status: 'scheduled', cancel_reason: null });
       }
     }
   }
@@ -127,6 +137,7 @@ export class MockProvider implements DataProvider {
       const raw = localStorage.getItem(KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Stored;
+        if (parsed.db && !parsed.db.class_pay_rules) parsed.db.class_pay_rules = [];
         if ((parsed.version === SEED_VERSION || parsed.version === 2 || parsed.version === 3) && parsed.seededOn === new Date().toDateString() && tableNames.every((t) => Array.isArray(parsed.db[t]))) {
           if (parsed.version === 2) {
             // Preserve same-day CMS edits, members and bookings when upgrading this demo.
@@ -142,9 +153,9 @@ export class MockProvider implements DataProvider {
     this.persist(db);
     return db;
   }
-  private persist(db = this.db) {
+  private persist(db = this.db, strict = false) {
     const stored: Stored = { seededOn: new Date().toDateString(), version: SEED_VERSION, db };
-    try { localStorage.setItem(KEY, JSON.stringify(stored)); } catch { /* quota or private mode */ }
+    try { localStorage.setItem(KEY, JSON.stringify(stored)); } catch (error) { if (strict) throw error; /* initial demo can still render in private mode */ }
   }
   private emit(e: ChangeEvent) {
     this.listeners.get(e.table)?.forEach((cb) => cb(e));
@@ -161,35 +172,49 @@ export class MockProvider implements DataProvider {
   async get<T extends BaseRow>(table: string, id: string): Promise<T | null> { return structuredClone((this.rows(table).find((r) => r.id === id) as T) ?? null); }
 
   async insert<T extends BaseRow>(table: string, row: Partial<T>): Promise<T> {
+    if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     const now = new Date().toISOString();
     let full = { id: newId(table.slice(0, 3)), tenant_id: tenant.id, created_at: now, updated_at: now, ...row } as T;
     if (table === 'bookings') full = this.prepareBooking(full as unknown as BookingRow) as unknown as T;
+    const previousDb = structuredClone(this.db);
     this.rows(table).push(full);
+    if (table === 'class_templates' || table === 'class_sessions' && !full.template_id && Date.parse(String(full.starts_at)) > Date.now()) {
+      const scope = table === 'class_templates' ? { templateId: full.id } : { sessionId: full.id };
+      this.rows('class_pay_rules').push({ ...defaultClassPayRule(scope, dateKey()), id: `cpr_default_${full.id}`, tenant_id: full.tenant_id, created_at: now, updated_at: now });
+    }
     if (table === 'bookings') this.syncCapacity((full as unknown as BookingRow).session_id);
-    this.persist();
+    try { this.persist(this.db, true); } catch (error) { this.db = previousDb; throw error; }
     this.emit({ table, type: 'insert', row: full });
     return full;
   }
   async update<T extends BaseRow>(table: string, id: string, patch: Partial<T>): Promise<T> {
+    if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     const rows = this.rows(table);
     const i = rows.findIndex((r) => r.id === id);
     if (i < 0) throw new Error(`${table}/${id} not found`);
+    if (table === 'class_templates' || table === 'rooms') {
+      const checkedFields = ['capacity','room_id','teacher_id','modality_id','duration_min','weekday','start_time','level'];
+      const checked = Object.fromEntries(Object.entries(patch).filter(([key]) => checkedFields.includes(key)));
+      if (Object.keys(checked).length) applyContentBatch(this.db, { table, role: 'admin', actorId: 'validation', changes: [{ id, before: structuredClone(rows[i]), patch: checked }] }, tenant.id);
+    }
     let next = { ...rows[i], ...patch, updated_at: new Date().toISOString() } as T;
     if (table === 'bookings' && ('mat_number' in patch || 'session_id' in patch || ((patch as Partial<BookingRow>).status === 'booked' && (rows[i] as BookingRow).status !== 'booked'))) next = this.prepareBooking(next as unknown as BookingRow) as unknown as T;
     const previousSession = table === 'bookings' ? (rows[i] as BookingRow).session_id : null;
+    const previousDb = structuredClone(this.db);
     rows[i] = next;
     if (table === 'bookings') {
       if (previousSession) this.syncCapacity(previousSession);
       this.syncCapacity((next as unknown as BookingRow).session_id);
     }
     if (table === 'class_sessions' && 'booked_count' in patch) this.syncCapacity(id);
-    this.persist();
+    try { this.persist(this.db, true); } catch (error) { this.db = previousDb; throw error; }
     this.emit({ table, type: 'update', row: next, id });
     return next;
   }
   async remove(table: string, id: string): Promise<void> {
+    if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
     this.db[table] = this.rows(table).filter((r) => r.id !== id);
     this.persist();
@@ -215,6 +240,44 @@ export class MockProvider implements DataProvider {
     for (const table of ['class_sessions', 'bookings', 'waitlist']) this.emit({ table, type: 'reset' });
   }
 
+  async appendClassPayRule(command: AppendClassPayRuleCommand): Promise<ClassPayRuleRow> {
+    const next = structuredClone(this.db);
+    const row = appendClassPayRule(next, command);
+    if (row.tenant_id !== tenant.id) throw new Error('class_pay_scope_invalid');
+    if (!(this.db.class_pay_rules ?? []).some(r => r.id === row.id)) {
+      const now = new Date().toISOString();
+      next.audit_log.push({ id: `audit_${row.id}`, tenant_id: tenant.id, created_at: now, updated_at: now, actor_id: command.actorId, action: 'class_pay.configure', entity: 'class_pay_rules', entity_id: row.id, ip: null, diff: { role: command.role, source: 'admin', scope: row.session_id ?? row.template_id } });
+    }
+    const previous = this.db; this.db = next;
+    try { this.persist(this.db, true); } catch (error) { this.db = previous; throw error; }
+    this.emit({ table: 'class_pay_rules', type: 'reset' }); this.emit({ table: 'audit_log', type: 'reset' });
+    return row;
+  }
+  async generateRecurrence(command: GenerateRecurrence): Promise<{ created: number; skipped: number }> {
+    const result = generateRecurrence(this.db, command, tenant.id);
+    const previous = this.db; this.db = result.db;
+    try { this.persist(this.db, true); } catch (error) { this.db = previous; throw error; }
+    this.emit({ table: 'class_sessions', type: 'reset' }); this.emit({ table: 'audit_log', type: 'reset' });
+    return { created: result.created, skipped: result.skipped };
+  }
+  async editSession(command: SessionEdit): Promise<ClassSessionRow> {
+    const transaction = applySessionEdit(this.db, command, tenant.id);
+    const previous = this.db;
+    this.db = transaction.db;
+    try { this.persist(this.db, true); } catch (error) { this.db = previous; throw error; }
+    this.emit({ table: 'class_sessions', type: 'reset' });
+    this.emit({ table: 'audit_log', type: 'reset' });
+    return structuredClone(transaction.row);
+  }
+  async contentBatch(command: ContentBatch): Promise<ContentBatchResult> {
+    const transaction = applyContentBatch(this.db, command, tenant.id);
+    const previous = this.db;
+    this.db = transaction.db;
+    try { this.persist(this.db, true); } catch (error) { this.db = previous; throw error; }
+    this.emit({ table: command.table, type: 'reset' });
+    this.emit({ table: 'audit_log', type: 'reset' });
+    return transaction.result;
+  }
   async reset(): Promise<void> {
     this.db = buildSeed();
     this.expandDemoCalendar();

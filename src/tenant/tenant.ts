@@ -33,6 +33,8 @@ export const tenant = {
   country: 'CO',
   timezone: 'America/Bogota',
   currency: 'COP',
+  /** Owner-selected defaults for new classes; existing durations and agreements stay unchanged. */
+  classDefaults: { durationMin: 50, flatPayCOP: 100_000 },
   /** Country dialling code every phone field starts from. */
   dialCode: '+57',
   /** Prefix of the invoice numbers the studio issues (`HOY-1005`). */

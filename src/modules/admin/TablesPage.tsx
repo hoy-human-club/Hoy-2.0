@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
 import type { DataProvider } from '../../data/types';
-import { CALENDAR_MODES, TABLE_GROUPS, TABLE_VIEW_KINDS, TIMELINE_ZOOMS, tableRegistry, tables, type BaseRow, type CalendarMode, type TableViewConfig, type TableViewKind, type TableViewRow, type TimelineZoom, type ViewFilterOp } from '../../data/schema';
+import { CALENDAR_MODES, TABLE_GROUPS, TABLE_VIEW_KINDS, TIMELINE_ZOOMS, tableRegistry, tables as allTables, type BaseRow, type CalendarMode, type TableViewConfig, type TableViewKind, type TableViewRow, type TimelineZoom, type ViewFilterOp } from '../../data/schema';
 import { columnLabel, enumLabel, rowTitle, tableLabel, type RowResolver } from '../../data/labels';
 import { dateColumnOf } from '../../data/relations';
 import { dateKey } from '../../i18n/format';
@@ -39,6 +39,9 @@ import { M03 } from './specs';
 import { need } from './actions';
 import './tables.css';
 
+// Private compensation is available only through its guarded dedicated page.
+const tables = allTables.filter(table => table.name !== 'class_pay_rules');
+
 /** Re-renders on every change event of any table (row counts, FK titles, the resolver). */
 function useDbVersion(data: DataProvider): number {
   const [v, setV] = useState(0);
@@ -49,7 +52,7 @@ function useDbVersion(data: DataProvider): number {
 /** Lazy id → row maps per table from the provider's synchronous snapshot, rebuilt when anything changes. */
 function makeResolver(data: DataProvider) {
   const cache = new Map<string, Map<string, BaseRow>>();
-  const rowsOf = (table: string): BaseRow[] => data.peek?.(table) ?? [];
+  const rowsOf = (table: string): BaseRow[] => table === 'class_pay_rules' ? [] : data.peek?.(table) ?? [];
   const byCol = new Map<string, Map<string, BaseRow>>();
   const resolve: RowResolver = (table: string, id: string) => {
     let m = cache.get(table);
@@ -92,7 +95,7 @@ export function TablesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data, version]);
   const counts = useMemo(() => Object.fromEntries(tables.map((x) => [x.name, rowsOf(x.name).length])), [rowsOf]);
-  const def: Def | undefined = table ? tableRegistry[table] : undefined;
+  const def: Def | undefined = table && table !== 'class_pay_rules' ? tableRegistry[table] : undefined;
   const hasDate = def ? !!dateColumnOf(def.name) : false;
   const { rows } = useTable<BaseRow>(def?.name ?? 'tenants');
   const { rows: allViews } = useTable<TableViewRow>('table_views');

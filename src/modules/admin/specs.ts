@@ -13,7 +13,7 @@ export const M02 = defineSpec({
   ...canvasSpecs['M-02'],
   // 0031: marketing (content.write) joins; home of the marketing role.
   roles: [...new Set([...canvasSpecs['M-02'].roles, 'marketing' as const])],
-  layout: ['ContentSubNav (Catálogo · Artículos · FAQ · Eventos · Medios)', 'EntityTabs (Classes / Teachers / Modalities / Rooms)', 'ListView (DataTable, search, publish toggle)', 'EditDrawer (fields, ES / EN, publish state)', 'PreviewPane'],
+  layout: ['ContentSubNav (Catálogo · Artículos · FAQ · Eventos · Medios)', 'EntityTabs (Classes / Teachers / Modalities / Rooms)', 'ListView (DataTable / cards, search, selection, publish toggle)', 'BulkEdit (preview, atomic apply, guarded undo)', 'RecurrencePreview (date range and explicit generation)', 'EditDrawer (fields, ES / EN, publish state)', 'PreviewPane'],
   data: ['class_templates', 'teachers', 'modalities', 'rooms', 'audit_log'],
   notes: [...(canvasSpecs['M-02'].notes ?? []), 'Pricing is not editable here: prices live in src/tenant/pricing.ts (P-01).', 'Publish state = the active column of each table.', 'M-02 is now a family: this page is the catalogue (the four scheduling entities); M-02a…M-02d are articles, FAQ, events and the media library, behind one shared sub-navigation.'],
 });

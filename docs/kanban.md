@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Cloud release recovery · 0072 (2026-10-21)
+
+- Source main 4c90a67, v0.24.5. Integrating preserved inactive-calendar and class-management requests in an isolated recovery branch. Newer settings requirements need the preserved checkpoint or exact text; no inferred changes. [Release record](changelog/0072-cloud-release-recovery.md)
+
 ## Completed · 0069 (v0.24.5 · 2026-10-17)
 
 - Shared role sidebars: meaningful bilingual categories, working expand/collapse, isolated preferences and responsive drawer. [Details](changelog/0069-role-sidebar-groups.md)
@@ -15,6 +19,9 @@
 ## Completed · 0066 (v0.24.2 · 2026-10-15)
 
 - W-11: replace the pre-launch concept artwork with the approved real red-lit studio photograph, responsive image variants and bilingual accessible copy. Keep the independent landing and Login-coming-soon behavior. [Details](changelog/0066-coming-soon-studio-photo.md)
+## Checked locally · 0071 (2026-10-21)
+
+- M-14/M-02: Class Schedule views, Content batch preview/apply/undo, recurrence controls, 50-minute new-class defaults and dated-session theme overrides. Browser-local demo; production backend integration remains pending. [Details](changelog/0071-class-management.md)
 
 ## Implemented · 0063 (2026-10-15; deployment verification pending)
 
@@ -628,3 +635,6 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - App directory and subscriptions (M-09d): implemented; model/UI/build verification and release receipt in docs/pages/M-09d.md. Production persistence remains explicitly disconnected.
 
 - M-09d public service catalog/account/receipt enrichment: implemented; verification and deployment receipt pending CI. No cross-tenant billing seeds or new backend permissions.
+## Class availability repair (0070)
+### Doing
+- C-02 / C-02b / W-04: Ghost inactive calendar sessions; preserve waitlist and staff history; fix new-session capacity inheritance. Local domain/build/browser checks pass; hosted release verification pending.

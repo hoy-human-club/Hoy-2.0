@@ -1,12 +1,12 @@
 {
   "name": "hoyos",
   "private": true,
-  "version": "0.24.5",
+  "version": "0.25.0",
   "type": "module",
   "description": "HoyOS \u2014 operations system for HOY Wellness Center (multi-tenant ready)",
   "scripts": {
     "dev": "vite",
-    "build": "npm run media-catalog && npm run tokens && node scripts/spacing-lint.mjs --report && npm run hub-map && npm run actions && npm run capture-dates && node scripts/manual-lint.mjs --report && tsc --noEmit && vite build && node scripts/copy-shots.mjs",
+    "build": "npm run media-catalog && npm run tokens && node scripts/spacing-lint.mjs --report && npm run hub-map && npm run actions && npm run capture-dates && node scripts/manual-lint.mjs --report && tsc --noEmit && vite build && node scripts/copy-shots.mjs && node scripts/write-release.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "screenshots": "node scripts/screenshots.mjs",

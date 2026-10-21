@@ -1,4 +1,9 @@
+import { ClassPayRulesPanel } from '../../components/organism/ClassPayRulesPanel/ClassPayRulesPanel';
 import { useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { previewRecurrence } from '../../data/classRecurrence';
+import { formatDateTime, dateKey } from '../../i18n/format';
+import { applyContentBatch, type ContentChange } from '../../data/contentBatch';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
@@ -23,16 +28,20 @@ import { ContentSubNav } from './contentNav';
 import './admin.css';
 
 type Entity = 'class_templates' | 'teachers' | 'modalities' | 'rooms';
-type FieldKind = 'text' | 'int' | 'bool' | 'bi' | 'select' | 'ref' | 'time' | 'list' | 'tone';
+type FieldKind = 'text' | 'int' | 'bool' | 'bi' | 'select' | 'ref' | 'time' | 'list' | 'tone' | 'date';
 interface FieldDef { name: string; kind: FieldKind; label: Bi; options?: readonly string[]; ref?: 'modalities' | 'teachers' | 'rooms'; required?: boolean; hint?: Bi }
 
 const WEEKDAYS: Bi[] = [{ es: 'Domingo', en: 'Sunday' }, { es: 'Lunes', en: 'Monday' }, { es: 'Martes', en: 'Tuesday' }, { es: 'Miércoles', en: 'Wednesday' }, { es: 'Jueves', en: 'Thursday' }, { es: 'Viernes', en: 'Friday' }, { es: 'Sábado', en: 'Saturday' }];
 const FIELDS: Record<Entity, FieldDef[]> = {
   class_templates: [
     { name: 'title', kind: 'text', label: { es: 'Título', en: 'Title' }, required: true },
+    { name: 'theme', kind: 'bi', label: { es: 'Tema predeterminado', en: 'Default theme' } },
+    { name: 'description', kind: 'bi', label: { es: 'Descripción predeterminada', en: 'Default description' } },
     { name: 'modality_id', kind: 'ref', ref: 'modalities', label: { es: 'Modalidad', en: 'Modality' } },
     { name: 'teacher_id', kind: 'ref', ref: 'teachers', label: { es: 'Profesor/a', en: 'Teacher' } },
     { name: 'room_id', kind: 'ref', ref: 'rooms', label: { es: 'Sala', en: 'Room' } },
+    { name: 'start_date', kind: 'date', label: { es: 'Desde (opcional)', en: 'From (optional)' } },
+    { name: 'end_date', kind: 'date', label: { es: 'Hasta (opcional)', en: 'Until (optional)' } },
     { name: 'weekday', kind: 'select', options: ['0', '1', '2', '3', '4', '5', '6'], label: { es: 'Día', en: 'Weekday' } },
     { name: 'start_time', kind: 'time', label: { es: 'Hora', en: 'Start time' } },
     { name: 'duration_min', kind: 'int', label: { es: 'Duración (min)', en: 'Duration (min)' } },
@@ -64,9 +73,9 @@ const FIELDS: Record<Entity, FieldDef[]> = {
   ],
 };
 const BLANK: Record<Entity, Record<string, unknown>> = {
-  class_templates: { title: '', modality_id: '', teacher_id: '', room_id: '', weekday: 1, start_time: '07:00', duration_min: 60, capacity: tenant.studio.mats, level: 'all', active: false },
+  class_templates: { generation_mode: 'manual', start_date: dateKey(), end_date: null, title: '', modality_id: '', teacher_id: '', room_id: '', weekday: 1, start_time: '07:00', duration_min: tenant.classDefaults.durationMin, capacity: tenant.studio.mats, level: 'all', active: false },
   teachers: { user_id: null, display_name: '', bio: { es: '', en: '' }, photo_url: null, specialties: [], certifications: null, rate_per_class: 0, active: false, rating_avg: null },
-  modalities: { slug: '', name_es: '', name_en: '', tone: 'river', description: { es: '', en: '' }, intensity: 3, heated: false, duration_min: 60, active: false },
+  modalities: { slug: '', name_es: '', name_en: '', tone: 'river', description: { es: '', en: '' }, intensity: 3, heated: false, duration_min: tenant.classDefaults.durationMin, active: false },
   rooms: { name: '', capacity: tenant.studio.mats, heated: false, notes: null },
 };
 
@@ -74,11 +83,18 @@ const BLANK: Record<Entity, Record<string, unknown>> = {
 export function ContentPage() {
   const { t, bi, lang } = useI18n();
   const data = useData();
-  const { can } = useSession();
+  const { can, role, user } = useSession();
+  const [params] = useSearchParams();
   const audit = useAudit('admin');
-  const [entity, setEntity] = useState<Entity>('class_templates');
+  const [entity, setEntity] = useState<Entity>(() => { const e = params.get('entity'); return e && e in FIELDS ? e as Entity : 'class_templates'; });
   const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(params.get('row'));
+  const [checked, setChecked] = useState<string[]>([]);
+  const [bulkField, setBulkField] = useState('active'), [bulkValue, setBulkValue] = useState('false');
+  const [preview, setPreview] = useState<ContentChange[] | null>(null), [undo, setUndo] = useState<ContentChange[] | null>(null);
+  const [bulkBusy, setBulkBusy] = useState(false), [bulkError, setBulkError] = useState('');
+  const [view, setView] = useState<'table' | 'list'>('table');
+  useEffect(() => { const e = params.get('entity'); if (e && e in FIELDS) { setEntity(e as Entity); setSelected(params.get('row')); setChecked([]); setPreview(null); setUndo(null); } }, [params]);
   const { rows, loading } = useTable<BaseRow>(entity, { orderBy: { column: FIELDS[entity][0].name } });
   const { rows: modalities } = useTable<ModalityRow>('modalities');
   const { rows: teachers } = useTable<TeacherRow>('teachers');
@@ -86,11 +102,38 @@ export function ContentPage() {
   const refs = { modalities: modalities.map((m) => ({ id: m.id, label: bi({ es: m.name_es, en: m.name_en }) })), teachers: teachers.map((x) => ({ id: x.id, label: x.display_name })), rooms: rooms.map((r) => ({ id: r.id, label: r.name })) };
   const refLabel = (ref: keyof typeof refs, id: unknown) => refs[ref].find((r) => r.id === id)?.label ?? String(id ?? '—');
   const canWrite = can('content.write');
+  const fields = FIELDS[entity].filter(f => f.name !== 'rate_per_class' || can('payroll.write'));
+  const visibleRows = rows.filter(r => String(r[FIELDS[entity][0].name] ?? '').toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+  const bulkFields = fields.filter(f => ['teacher_id','modality_id','room_id','weekday','start_time','duration_min','capacity','level','heated','intensity','tone'].includes(f.name));
+  const activeField: FieldDef = { name: 'active', kind: 'bool', label: { es: 'Publicado', en: 'Published' } };
+  if (entity !== 'rooms') bulkFields.unshift(activeField);
+  const chosenField = bulkFields.find(f => f.name === bulkField) ?? bulkFields[0];
+  const resetBulk = () => { setChecked([]); setPreview(null); setUndo(null); setBulkError(''); setBulkField(entity === 'rooms' ? 'heated' : 'active'); setBulkValue('false'); };
+  const bulk = async (action: 'preview' | 'apply' | 'undo') => {
+    if (bulkBusy || !canWrite || !data.contentBatch) return;
+    setBulkBusy(true); setBulkError('');
+    try {
+      if (action === 'preview') {
+        const value = chosenField.kind === 'bool' ? bulkValue === 'true' : chosenField.kind === 'int' || chosenField.name === 'weekday' ? Number(bulkValue) : bulkValue;
+        const changes = rows.filter(r => checked.includes(r.id)).map(r => ({ id: r.id, before: structuredClone(r), patch: { [chosenField.name]: value } }));
+        const snapshot = Object.fromEntries(await Promise.all(['class_templates','class_sessions','teachers','modalities','rooms','audit_log'].map(async table => [table, await data.list(table)])));
+        applyContentBatch(snapshot, { table: entity, changes, role, actorId: user.id }, tenant.id);
+        setPreview(changes);
+      } else {
+        const changes = action === 'undo' ? undo : preview;
+        if (!changes) return;
+        const result = await data.contentBatch({ table: entity, changes, role, actorId: user.id, undo: action === 'undo' });
+        setUndo(action === 'undo' ? null : result.changes); setPreview(null); setChecked([]);
+        setBulkError(action === 'undo' ? 'bulk.undone' : 'bulk.saved');
+      }
+    } catch { setPreview(null); setBulkError('bulk.error'); } finally { setBulkBusy(false); }
+  };
   const row = rows.find((r) => r.id === selected) ?? null;
 
   const columns = useMemo<DataTableColumn<BaseRow>[]>(() => {
-    const first = FIELDS[entity].slice(0, entity === 'class_templates' ? 6 : 4);
+    const first = fields.slice(0, entity === 'class_templates' ? 6 : 4);
     return [
+      ...(canWrite ? [{ key: 'select', label: t('bulk.select'), render: (r: BaseRow) => <span onClick={e => e.stopPropagation()}><input type="checkbox" aria-label={`${t('bulk.select')} ${String(r[FIELDS[entity][0].name])}`} checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /></span> }] : []),
       ...first.map<DataTableColumn<BaseRow>>((f) => ({ key: f.name, label: bi(f.label), render: (r) => {
         const v = r[f.name];
         if (f.kind === 'ref' && f.ref) return refLabel(f.ref, v);
@@ -103,7 +146,7 @@ export function ContentPage() {
       } })),
       { key: 'active', label: t('admin.content.published'), width: 120, render: (r) => <span onClick={(e) => e.stopPropagation()}><Toggle size="sm" checked={!!r.active} disabled={!canWrite} onChange={(on) => publish(r, on)} /></span> },
     ];
-  }, [entity, bi, refs, canWrite]);
+  }, [entity, bi, refs, canWrite, checked, bulkBusy, fields]);
 
   const publish = async (r: BaseRow, on: boolean) => {
     await data.update(entity, r.id, { active: on });
@@ -132,29 +175,42 @@ export function ContentPage() {
       </div>
       <ContentSubNav current="entities" />
       <div className="row wrap" role="tablist">
-        {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={() => { setEntity(e); setSelected(null); setSearch(''); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
+        {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={() => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
         <span className="xs muted">{t('admin.content.pricingNote')}</span>
       </div>
+      <div className="row wrap"><Link to="/admin/class-schedule">{t('schedule.title')}</Link>{(['table', 'list'] as const).map(v => <Button key={v} variant={view === v ? 'primary' : 'secondary'} aria-pressed={view === v} onClick={() => setView(v)}>{t(`schedule.${v}`)}</Button>)}</div>
+      <p className="small muted">{t('schedule.demo')}</p>
+      {canWrite && data.contentBatch && <Card title={t('bulk.title')}><div className="stack">
+        <p className="small muted">{t('bulk.scope')}</p>
+        <div className="row wrap"><Button variant="secondary" disabled={bulkBusy} onClick={() => { setChecked(visibleRows.map(r => r.id)); setPreview(null); }}>{t('bulk.selectVisible')}</Button><Button variant="ghost" disabled={bulkBusy} onClick={() => { setChecked([]); setPreview(null); }}>{t('bulk.clear')}</Button><span>{t('bulk.count', { n: checked.length })}</span></div>
+        <div className="row wrap"><label>{t('bulk.field')}<Select aria-label={t('bulk.field')} value={chosenField.name} disabled={bulkBusy} onChange={e => { setBulkField(e.target.value); setBulkValue(''); setPreview(null); }}>{bulkFields.map(f => <option key={f.name} value={f.name}>{bi(f.label)}</option>)}</Select></label><label>{t('bulk.value')}{chosenField.kind === 'bool' ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option><option value="true">{t('admin.tables.yes')}</option><option value="false">{t('admin.tables.no')}</option></Select> : chosenField.kind === 'ref' && chosenField.ref ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option>{refs[chosenField.ref].map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</Select> : chosenField.kind === 'select' || chosenField.kind === 'tone' ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option>{(chosenField.options ?? TONES).map(v => <option key={v} value={v}>{chosenField.name === 'weekday' ? bi(WEEKDAYS[Number(v)]) : v}</option>)}</Select> : <Input aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} type={chosenField.kind === 'int' ? 'number' : chosenField.kind === 'time' ? 'time' : 'text'} onChange={e => { setBulkValue(e.target.value); setPreview(null); }} />}</label><Button disabled={!checked.length || bulkValue === '' || bulkBusy} onClick={() => bulk('preview')}>{t('bulk.preview')}</Button></div>
+        {preview && <div className="stack"><strong>{t('bulk.preview')}</strong>{preview.map(c => { const key = Object.keys(c.patch)[0]; const f = bulkFields.find(x => x.name === key); const display = (v: unknown) => f?.ref ? refLabel(f.ref, v) : String(v); return <p key={c.id}>{String(c.before[FIELDS[entity][0].name])}: {bi(f?.label ?? { es: key, en: key })} · {display(c.before[key])} → {display(c.patch[key])}</p>; })}<div className="row wrap"><Button loading={bulkBusy} onClick={() => bulk('apply')}>{t('bulk.apply')}</Button><Button variant="secondary" disabled={bulkBusy} onClick={() => setPreview(null)}>{t('core.common.cancel')}</Button></div></div>}
+        {undo && <Button variant="secondary" loading={bulkBusy} onClick={() => bulk('undo')}>{t('bulk.undo')}</Button>}{bulkError && <p role="status">{t(bulkError)}</p>}
+      </div></Card>}
       {loading && rows.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.content.empty')} body={t('admin.content.empty.body')} action={canWrite && <Button size="sm" onClick={add}>{t('admin.content.add')}</Button>} /> : (
-        <DataTable columns={columns} rows={rows} rowKey={(r) => r.id} search={search} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense />
+        view === 'list' ? <div className="grid grid-2">{visibleRows.map(r => <Card key={r.id} title={String(r[FIELDS[entity][0].name])} actions={<Button onClick={() => setSelected(r.id)}>{t('core.common.edit')}</Button>}><div className="stack-sm">{canWrite && <label><input type="checkbox" checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /> {t('bulk.select')}</label>}{fields.slice(1, 5).filter(f => f.kind !== 'bi' && f.kind !== 'list').map(f => <p key={f.name} className="small">{bi(f.label)}: {f.ref ? refLabel(f.ref, r[f.name]) : String(r[f.name] ?? '—')}</p>)}</div></Card>)}</div> : <DataTable columns={columns} rows={visibleRows} rowKey={(r) => r.id} search={search} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense />
       )}
       <Drawer open={!!row} onClose={() => setSelected(null)} width={520} title={<div className="row wrap"><span>{t(`admin.content.tab.${entity}`)}</span>{row && <Badge tone={row.active ? 'success' : 'warn'}>{row.active ? t('admin.content.published') : t('admin.content.draft')}</Badge>}</div>}
         footer={row && canWrite ? <div className="row-between"><Button variant="danger" size="sm" onClick={() => remove(row)}>{t('core.common.delete')}</Button><Toggle size="sm" checked={!!row.active} label={t('admin.content.published')} onChange={(on) => publish(row, on)} /></div> : undefined}>
-        {row && <Editor key={row.id} entity={entity} row={row} fields={FIELDS[entity]} refs={refs} modalities={modalities} readOnly={!canWrite} lang={lang} onSave={async (patch) => { await data.update(entity, row.id, patch); await audit('content.update', entity, row.id, { before: Object.fromEntries(Object.keys(patch).map((k) => [k, row[k]])), after: patch }); }} />}
+        {row && <Editor key={row.id} entity={entity} row={row} fields={fields} refs={refs} modalities={modalities} readOnly={!canWrite} lang={lang} onSave={async (patch) => { await data.update(entity, row.id, patch); await audit('content.update', entity, row.id, { before: Object.fromEntries(Object.keys(patch).map((k) => [k, row[k]])), after: patch }); }} />}
       </Drawer>
     </div>
   );
 }
 
 function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave }: { entity: Entity; row: BaseRow; fields: FieldDef[]; refs: Record<'modalities' | 'teachers' | 'rooms', { id: string; label: string }[]>; modalities: ModalityRow[]; readOnly: boolean; lang: string; onSave: (patch: Record<string, unknown>) => Promise<void> }) {
-  const { t, bi } = useI18n();
+  const { t, bi, lang: currentLang } = useI18n();
+  const data = useData(); const { role, user } = useSession();
+  const [recurrencePreview, setRecurrencePreview] = useState<ReturnType<typeof previewRecurrence> | null>(null);
+  const [recurrenceMessage, setRecurrenceMessage] = useState('');
   const [draft, setDraft] = useState<Record<string, unknown>>(() => Object.fromEntries(fields.map((f) => [f.name, row[f.name]])));
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   useEffect(() => { setDraft(Object.fromEntries(fields.map((f) => [f.name, row[f.name]]))); }, [row.updated_at]);
   const dirty = fields.some((f) => JSON.stringify(draft[f.name]) !== JSON.stringify(row[f.name]));
   const errors = fields.filter((f) => f.required && !String(draft[f.name] ?? '').trim()).map((f) => f.name);
   const set = (k: string, v: unknown) => setDraft((d) => ({ ...d, [k]: v }));
-  const save = async () => { setSaving(true); try { await onSave(draft); } finally { setSaving(false); } };
+  const save = async () => { setSaving(true); setSaveError(false); try { await onSave(draft); } catch { setSaveError(true); } finally { setSaving(false); } };
   const d = draft as Record<string, string | number | boolean | Bi | string[] | null>;
   return (
     <div className="stack">
@@ -165,6 +221,7 @@ function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave 
               const v = draft[f.name];
               if (f.kind === 'bool') return <Toggle checked={!!v} disabled={readOnly} onChange={(on) => set(f.name, on)} />;
               if (f.kind === 'int') return <Input id={id} type="number" disabled={readOnly} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' ? null : Number(e.target.value))} />;
+              if (f.kind === 'date') return <Input id={id} type="date" disabled={readOnly} value={String(v ?? '')} onChange={e => set(f.name, e.target.value || null)} />;
               if (f.kind === 'time') return <Input id={id} type="time" disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)} />;
               if (f.kind === 'select') return <Select id={id} disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, f.name === 'weekday' ? Number(e.target.value) : e.target.value)}>{f.options!.map((o) => <option key={o} value={o}>{f.name === 'weekday' ? bi(WEEKDAYS[Number(o)]) : o}</option>)}</Select>;
               if (f.kind === 'ref' && f.ref) return <Select id={id} disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)}><option value="">—</option>{refs[f.ref].map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}</Select>;
@@ -176,7 +233,10 @@ function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave 
           </Field>
         ))}
       </div>
+      {saveError && <p role="alert">{t('bulk.saveError')}</p>}
       {!readOnly && <div className="row-between wrap"><span className="xs muted">{dirty ? t('admin.content.unsaved') : t('admin.content.upToDate')}</span><Button size="sm" disabled={!dirty || errors.length > 0} loading={saving} onClick={save}>{t('core.common.save')}</Button></div>}
+      {entity === 'class_templates' && <ClassPayRulesPanel templateId={row.id} />}
+      {entity === 'class_templates' && <Card title={t('recurrence.title')}><div className="stack"><p className="small muted">{t('recurrence.explain')}</p><p>{t('recurrence.defaults')}</p><Button variant="secondary" disabled={dirty || readOnly || saving || !data.generateRecurrence} onClick={() => { setRecurrencePreview(previewRecurrence(row)); setRecurrenceMessage(''); }}>{t('recurrence.preview')}</Button>{recurrencePreview && <><ol>{recurrencePreview.map(o => <li key={o.starts_at}>{formatDateTime(o.starts_at, currentLang)} · {Number(row.duration_min)} min</li>)}</ol>{!recurrencePreview.length && <p>{t('recurrence.empty')}</p>}<Button disabled={!row.active || !recurrencePreview.length || dirty || readOnly} loading={saving} onClick={async () => { setSaving(true); try { const result = await data.generateRecurrence!({ template: row, occurrences: recurrencePreview, role, actorId: user.id }); setRecurrenceMessage(t('recurrence.done', { n:result.created, skipped:result.skipped })); setRecurrencePreview(null); } catch { setRecurrenceMessage(t('recurrence.error')); } finally { setSaving(false); } }}>{t('recurrence.generate')}</Button>{!row.active && <p>{t('recurrence.publishFirst')}</p>}</>}{recurrenceMessage && <p role="status">{recurrenceMessage}</p>}</div></Card>}
       <Card tone="muted" eyebrow={t('admin.content.preview')} padding="sm">
         {entity === 'class_templates' && <ClassRow title={String(d.title ?? '')} teacher={refs.teachers.find((x) => x.id === d.teacher_id)?.label ?? ''} startsAt={`2026-01-05T${String(d.start_time ?? '07:00')}:00`} durationMin={Number(d.duration_min ?? 60)} tone={modalities.find((m) => m.id === d.modality_id)?.tone ?? 'river'} booked={0} capacity={Number(d.capacity ?? 0)} />}
         {entity === 'teachers' && <TeacherCard name={String(d.display_name ?? '')} bio={(d.bio as Bi) ?? { es: '', en: '' }} photo={d.photo_url as string | null} rating={row.rating_avg as number | null} specialties={((d.specialties as string[]) ?? []).map((id) => modalities.find((m) => m.id === id)).filter(Boolean).map((m) => ({ label: bi({ es: m!.name_es, en: m!.name_en }), tone: m!.tone }))} />}

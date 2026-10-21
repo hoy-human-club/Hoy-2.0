@@ -1,5 +1,6 @@
 import { useSiteEdition } from '../edition';
 import { studioPhoto } from '../photography';
+import { SessionEditorial } from '../../../components/molecule/SessionEditorial/SessionEditorial';
 import { Fragment, useState, type ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -76,6 +77,7 @@ export function SchedulePage() {
         {chosen && (
           <div className="stack">
             <ClassCard title={chosen.session.title} teacher={chosen.teacher?.display_name ?? ''} room={t('site.mat.room')} startsAt={chosen.session.starts_at} endsAt={chosen.session.ends_at} tone={chosen.modality?.tone ?? 'river'} booked={chosen.session.booked_count} capacity={chosen.session.capacity} />
+            <SessionEditorial session={chosen.session} />
             {yoga && !full && !unavailable && <MatPicker sessionId={chosen.session.id} capacity={chosen.session.capacity} value={mat} onChange={setMat} />}
             <p className="muted small">{t('site.schedule.loginBody')}</p>
             <Button block size="lg" onClick={signInAndBook} disabled={unavailable || (!full && yoga && (mat == null || taken.has(mat)))}>{unavailable ? t('customer.class.past') : full ? t('core.common.waitlist') : t('site.mat.continue')}</Button>

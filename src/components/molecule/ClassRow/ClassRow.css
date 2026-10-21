@@ -9,3 +9,9 @@
 .classrow-completed .classrow-title { text-decoration: none; }
 
 .classrow-thumbnail{width:5.5rem;aspect-ratio:4/3;flex-shrink:0;border-radius:var(--r-md);overflow:hidden;position:relative}.classrow-thumbnail:after{content:"";position:absolute;inset:0;box-shadow:var(--shadow-photo-inset);pointer-events:none;border-radius:inherit}.class-thumbnail{display:block;width:100%;height:100%;object-fit:cover}.classrow:has(.classrow-thumbnail){padding:var(--sp-lg);gap:var(--sp-lg)}.classrow:has(.classrow-thumbnail) .classrow-dot{display:none}@media(max-width:600px){.classrow-thumbnail{width:3.5rem}.classrow:has(.classrow-thumbnail){padding:var(--sp-md) var(--sp-xs);gap:var(--sp-sm)}.classrow:has(.classrow-thumbnail) .capacitymeter{display:none}.classrow-title{font-size:var(--fs-sm)}}
+
+.classrow.is-disabled { color: var(--color-text-muted); cursor: default; }
+.classrow.is-disabled .classrow-thumbnail, .classrow.is-disabled .classrow-dot { opacity: .45; filter: grayscale(1); }
+.classrow.is-disabled .classrow-title { color: var(--color-text-muted); }
+
+.classrow-availability { white-space: normal; margin-top: var(--sp-xs); }

@@ -1,0 +1,52 @@
+name: Session Availability QA
+on:
+  pull_request:
+    paths:
+      - 'src/components/**/ClassRow/**'
+      - 'src/components/**/SessionCalendar/**'
+      - 'src/data/**'
+      - 'src/modules/customer/**'
+      - 'src/modules/website/**'
+      - 'scripts/test-session-availability*.mjs'
+      - 'scripts/test-class-capacity.mjs'
+      - '.github/workflows/session-availability-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: session-availability-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/test-session-availability.mjs && node scripts/test-class-capacity.mjs && node scripts/test-mat-bookings.mjs && npm run test:vouchers
+      - run: npm run build && npm run hub-map:check
+      - name: Verify inactive classes and capture bilingual responsive screens
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+          node scripts/test-session-availability-ui.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+          QA_BASE: http://127.0.0.1:4173
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: session-availability-${{ github.event.pull_request.head.sha }}
+          retention-days: 2
+          path: |
+            docs/screenshots/W-04/inactive-*.jpg
+            docs/screenshots/C-02/inactive-*.jpg
+            docs/screenshots/C-02b/inactive-*.jpg
+            qa/session-availability*

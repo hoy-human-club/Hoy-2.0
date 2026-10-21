@@ -1,3 +1,4 @@
+import { SessionEditorial } from '../../../components/molecule/SessionEditorial/SessionEditorial';
 import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -166,7 +167,7 @@ export function CheckoutPage() {
 
   const s = joined.session;
   const SECTIONS: Record<string, () => ReactNode> = {
-    ClassSummary: () => <div className="stack"><ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} />{yoga && <MatPicker sessionId={s.id} capacity={s.capacity} value={mat} onChange={n => { setMat(n); setError(null); }} />}</div>,
+    ClassSummary: () => <div className="stack"><ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} /><SessionEditorial session={s} />{yoga && <MatPicker sessionId={s.id} capacity={s.capacity} value={mat} onChange={n => { setMat(n); setError(null); }} />}</div>,
     EntitlementPicker: () => declined ? null : (
       <section className="stack-sm">
         <h2 className="cust-h2">{t('customer.checkout.payWith')}</h2>
