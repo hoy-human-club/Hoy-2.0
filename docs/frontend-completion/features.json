@@ -6,7 +6,7 @@
     "url": "https://docs.google.com/spreadsheets/d/1mYdL-JXd6-Y7A7XfTbUWsAbPNRUuI-Di5Aebgmu6Rjo/edit",
     "readAt": "2026-10-21",
     "featureCount": 124,
-    "duplicate": "Parent spreadsheet worker owns English-first Front End Dev Log; URL pending. Original untouched."
+    "duplicate": "https://docs.google.com/spreadsheets/d/19SWDF957P55Iw5QEPyVtoPDS50-eor0k76djVv1YyNU/edit"
   },
   "policy": "Source acceptance is preserved separately. No source Accepted status or built badge constitutes fresh verification. Future phase prototypes remain prototypes; backend acceptance is not frontend completion.",
   "features": [
@@ -80,7 +80,7 @@
       "id": "PL-01",
       "module": "Platform",
       "feature": "Hosting, domain and database in the club's name",
-      "criterion": "Hosting, domain, email, database and third-party services are registered in Santa María's name.",
+      "criterion": "Hosting, domain, email, database and third-party services are registered in Santa Mar\u00eda's name.",
       "role": "Admin",
       "source": {
         "status": "Not verified",
@@ -580,7 +580,7 @@
       "module": "Website",
       "feature": "Public website",
       "criterion": "Home, philosophy, methods, today's classes, teachers, plans and contact load without errors and match Content.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -623,7 +623,7 @@
       "module": "Website",
       "feature": "Website prices from the product master",
       "criterion": "Prices on the website are the current ones in the product master; a price change shows on the website.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -663,7 +663,7 @@
       "module": "Website",
       "feature": "'Book your class' button",
       "criterion": "Leads to sign-up or sign-in and then to the chosen class.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -704,7 +704,7 @@
       "module": "Website",
       "feature": "WhatsApp buttons",
       "criterion": "Each button opens the chat with the number set in Settings (direct link, no integration).",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -741,7 +741,7 @@
       "module": "Website",
       "feature": "Single brand name and email",
       "criterion": "Website, app, emails and manual use the same brand name and contact email.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -779,7 +779,7 @@
       "module": "Website",
       "feature": "Manual and documents not public",
       "criterion": "The owner decides what is public; internal content (policies, processes, internal prices) requires sign-in.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -819,7 +819,7 @@
       "module": "Website",
       "feature": "Map on the contact page",
       "criterion": "Shows the studio's correct location.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -856,7 +856,7 @@
       "module": "Website",
       "feature": "Pre-opening page",
       "criterion": "From October 30 the pre-opening page redirects to the public website.",
-      "role": "Público",
+      "role": "P\u00fablico",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -1291,7 +1291,7 @@
       "id": "PR-03",
       "module": "Products",
       "feature": "Launch products loaded",
-      "criterion": "Loaded and on sale: single class, trial class ($35,000), 12-class package ($600,000), private class (from $250,000) and Santa María package ($480,000).",
+      "criterion": "Loaded and on sale: single class, trial class ($35,000), 12-class package ($600,000), private class (from $250,000) and Santa Mar\u00eda package ($480,000).",
       "role": "Admin",
       "source": {
         "status": "Not verified",
@@ -1372,9 +1372,9 @@
     {
       "id": "PR-05",
       "module": "Products",
-      "feature": "Santa María package for members only",
-      "criterion": "The Santa María package is sold only to verified members.",
-      "role": "Recepción",
+      "feature": "Santa Mar\u00eda package for members only",
+      "criterion": "The Santa Mar\u00eda package is sold only to verified members.",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -1423,18 +1423,27 @@
       "priority": "Urgent",
       "relatedTests": "CLI-05, CLI-14",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/PassesPage.tsx",
         "src/modules/customer/pages/PlansPage.tsx",
         "src/modules/customer/pages/CheckoutPage.tsx",
         "src/data/packages.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/classes",
+        "/#/app/plans",
+        "/#/app/checkout/:id"
+      ],
+      "tests": [
+        "scripts/test-pending-package.mjs",
+        "scripts/test-pending-package-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-04/pending-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Add pending-vs-approved package fixture and ensure customer cannot spend pending classes.",
+      "nextAction": "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
       "candidateRoutes": [
         "/#/app/classes",
         "/#/app/plans",
@@ -1443,13 +1452,19 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Balance/expiry and approved package purchase exist. Checkout writes package ledger even when a manual payment is pending; activation must wait for confirmation."
+          "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented."
         ],
         "remainingBackend": [
           "Atomic payment approval/entitlement activation and authoritative expiry."
         ]
       },
-      "sourceNextAction": "Add pending-vs-approved package fixture and ensure customer cannot spend pending classes."
+      "sourceNextAction": "Add pending-vs-approved package fixture and ensure customer cannot spend pending classes.",
+      "batchEvidence": {
+        "batch": "batch-03.md",
+        "behavior": "Confirmed demo payments activate once; pending checkout writes only a request, no ledger/booking/hold. Legacy payment-linked purchases are excluded unless approved. Customer and CRM use the same confirmed balance filter.",
+        "limits": "Customer payment request and activation tests passed; pending-to-approved settlement UI and retained purchase quote integration remain to be implemented.",
+        "acceptance": "Source status preserved; focused fictional frontend checks only."
+      }
     },
     {
       "id": "PR-07",
@@ -1694,7 +1709,7 @@
       "module": "Bookings",
       "feature": "Room capacity",
       "criterion": "Room capacity (16 / 8 mats) is never exceeded, from the app or the front desk.",
-      "role": "Cliente, Recepción",
+      "role": "Cliente, Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -1821,30 +1836,43 @@
       "priority": "Urgent",
       "relatedTests": "CLI-11",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/BookedPage.tsx",
         "src/modules/customer/hooks.ts",
         "src/modules/customer/policy.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/booking/:id/change"
+      ],
+      "tests": [
+        "scripts/test-reschedule-cutoff.mjs",
+        "scripts/test-reschedule-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-08b/cutoff-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Disable move after cutoff and test just before/at/after 12 hours with clock fixture.",
+      "nextAction": "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up.",
       "candidateRoutes": [
         "/#/app/booking/:id/change"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "ChangeSheet shows inside-window warning but still offers move and invokes reschedule; helper checks capacity/status, not 12-hour cutoff."
+          "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up."
         ],
         "remainingBackend": [
           "Server-enforced deadline/atomic reschedule."
         ]
       },
-      "sourceNextAction": "Disable move after cutoff and test just before/at/after 12 hours with clock fixture."
+      "sourceNextAction": "Disable move after cutoff and test just before/at/after 12 hours with clock fixture.",
+      "batchEvidence": {
+        "batch": "batch-03.md",
+        "behavior": "Source 12-hour inclusive deadline enforced in UI and hook after rereading original booking/session; open alternatives disappear after deadline.",
+        "limits": "Same-day-only alternatives remain; future-day reschedule with purchased-validity allocation and atomic reschedule rollback still needs a follow-up.",
+        "acceptance": "Source status preserved; focused fictional frontend checks only."
+      }
     },
     {
       "id": "RS-10",
@@ -2168,7 +2196,7 @@
       "module": "Payments",
       "feature": "Spot held for 15 minutes",
       "criterion": "The spot is held for 15 minutes; if it is not confirmed in that time, the booking is released, the spot becomes available again and the customer is notified by email.",
-      "role": "Cliente, Recepción",
+      "role": "Cliente, Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2207,7 +2235,7 @@
       "module": "Payments",
       "feature": "Confirm or reject the payment",
       "criterion": "Front desk or Administration opens the receipt, compares it with the Bancolombia notification, records the amount received and confirms or rejects with a reason. On confirmation, the booking or package becomes active.",
-      "role": "Recepción, Admin",
+      "role": "Recepci\u00f3n, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -2247,7 +2275,7 @@
       "module": "Payments",
       "feature": "Pending payments list",
       "criterion": "The front desk sees all payments awaiting confirmation in one list, with customer, product, amount, receipt and time remaining.",
-      "role": "Recepción, Admin",
+      "role": "Recepci\u00f3n, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2287,7 +2315,7 @@
       "module": "Payments",
       "feature": "Pay at the front desk",
       "criterion": "The customer chooses to pay at the front desk; the booking stays pending and is released if not paid within 1 hour.",
-      "role": "Cliente, Recepción",
+      "role": "Cliente, Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -2326,7 +2354,7 @@
       "module": "Payments",
       "feature": "Record payment at the front desk",
       "criterion": "The front desk records the payment (cash, card terminal or transfer) and the booking is confirmed, with the name of who took it.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -2404,7 +2432,7 @@
       "module": "Payments",
       "feature": "No duplicate payments",
       "criterion": "Pressing twice or on a poor connection does not duplicate the payment or the booking.",
-      "role": "Cliente, Recepción",
+      "role": "Cliente, Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -2519,7 +2547,7 @@
       "module": "Payments",
       "feature": "Daily cash close",
       "criterion": "The close reconciles cash, card terminal and transfers against recorded payments.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -2993,7 +3021,7 @@
       "module": "Front desk",
       "feature": "Front desk home",
       "criterion": "Shows arrivals, pending payments and next class; figures match Check-in and the pending payments list.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3033,7 +3061,7 @@
       "module": "Front desk",
       "feature": "Check-in and attendance",
       "criterion": "The front desk marks 'Arrived' or 'No-show' per class and can undo; the counter and spots update instantly. This is the official attendance at launch.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3059,7 +3087,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Arrived/No-show actions and arrived undo exist. No-show has only mark-arrived, not direct undo-to-booked. Undo checked_in→booked triggers prepareBooking, which rejects sessions already started, so normal after-start undo can fail.",
+          "Arrived/No-show actions and arrived undo exist. No-show has only mark-arrived, not direct undo-to-booked. Undo checked_in\u2192booked triggers prepareBooking, which rejects sessions already started, so normal after-start undo can fail.",
           "MockProvider.syncCapacity counts no_show in booked_count while mat occupancy/prepareBooking excludes it, so seat semantics disagree."
         ],
         "remainingBackend": [
@@ -3073,7 +3101,7 @@
       "module": "Front desk",
       "feature": "Search people",
       "criterion": "Finds a person by name, WhatsApp or email even if they did not book that class.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3111,7 +3139,7 @@
       "module": "Front desk",
       "feature": "Book on behalf of a customer",
       "criterion": "The front desk books a class for an existing customer with the same capacity and balance rules.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -3120,17 +3148,25 @@
       "priority": "High",
       "relatedTests": "REC-05",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/CheckinPage.tsx",
         "src/modules/staff/RegisterPage.tsx",
         "src/data/MockProvider.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ],
+      "tests": [
+        "scripts/test-desk-transactions.mjs",
+        "scripts/test-desk-package-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-02/package-booking-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Implement existing-customer booking with shared quote/entitlement decision and show capacity/balance failures before confirmation.",
+      "nextAction": "Focused mock pass; broader provider loading/error states and backend enforcement remain.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3138,20 +3174,26 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Desk has walk-in and waitlist promotion, not a general future-class booking-on-behalf flow. Those inserts do not validate/debit package balance; walkIn uses legacy membership presence and otherwise paid_with=single. Provider rejects capacity/duplicates but not entitlement balance."
+          "Focused mock pass; broader provider loading/error states and backend enforcement remain."
         ],
         "remainingBackend": [
           "Atomic booking capacity, policy/entitlement allocation and idempotency enforced server-side."
         ]
       },
-      "sourceNextAction": "Implement existing-customer booking with shared quote/entitlement decision and show capacity/balance failures before confirmation."
+      "sourceNextAction": "Implement existing-customer booking with shared quote/entitlement decision and show capacity/balance failures before confirmation.",
+      "batchEvidence": {
+        "batch": "batch-03.md",
+        "behavior": "Future-session selector and package balance/expiry preview; staged book-on-behalf validates confirmed entitlement, freeze/expiry, capacity, duplicates and one-per-day rule before one debit.",
+        "limits": "Focused mock pass; broader provider loading/error states and backend enforcement remain.",
+        "acceptance": "Source status preserved; focused fictional frontend checks only."
+      }
     },
     {
       "id": "RC-05",
       "module": "Front desk",
       "feature": "Walk-in customer",
       "criterion": "An existing customer checks in and deducts from their package; a new person is registered (name, WhatsApp, verbal consent) and pays at the desk.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3160,17 +3202,27 @@
       "priority": "High",
       "relatedTests": "REC-05, REC-07, REC-08",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/CheckinPage.tsx",
         "src/modules/staff/RegisterPage.tsx",
         "src/data/packages.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ],
+      "tests": [
+        "scripts/test-desk-transactions.mjs",
+        "scripts/test-desk-package-ui.mjs",
+        "scripts/test-desk-sale-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-02/package-booking-results.json",
+        "docs/screenshots/S-04/atomic-sale-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Debit existing package exactly once via shared entitlement command; test new-person consent/payment and rollback without duplicate registration or payment.",
+      "nextAction": "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3178,20 +3230,26 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Existing-customer QuickSell walk-in inserts attendance but never deducts class_ledger or uses packageState. New-person desk form requires first name/phone/consent and creates consent/payment rows, but the multi-step save has no transaction/rollback if later booking fails."
+          "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain."
         ],
         "remainingBackend": [
           "Atomic customer/consent/payment/entitlement/attendance transaction, consent proof and durable payment confirmation."
         ]
       },
-      "sourceNextAction": "Debit existing package exactly once via shared entitlement command; test new-person consent/payment and rollback without duplicate registration or payment."
+      "sourceNextAction": "Debit existing package exactly once via shared entitlement command; test new-person consent/payment and rollback without duplicate registration or payment.",
+      "batchEvidence": {
+        "batch": "batch-03.md",
+        "behavior": "Existing walk-in and waitlist promotion share atomic package booking/debit. New-person name/WhatsApp/verbal consent + sale/check-in stage together. Attendance undo/recheck does not debit again.",
+        "limits": "Focused fictional frontend pass; formal consent wording/current legal document selection, live settlement and durable backend transaction remain.",
+        "acceptance": "Source status preserved; focused fictional frontend checks only."
+      }
     },
     {
       "id": "RC-06",
       "module": "Front desk",
       "feature": "Late-arrival grace minutes",
       "criterion": "Applies the Settings late-arrival rule (15 minutes).",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "No visto / Not seen"
@@ -3231,7 +3289,7 @@
       "module": "Front desk",
       "feature": "Specials and private classes",
       "criterion": "A special is created with a required description and linked to the room booking if there is one.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3269,7 +3327,7 @@
       "module": "Front desk",
       "feature": "Rooms and space bookings",
       "criterion": "Calendar of the 2 rooms with classes, rentals, maintenance and blocks, with no overlaps.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3295,7 +3353,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Two-room day grid and rental/private/maintenance/blocked types exist; form prevents overlaps using findConflicts. Generic provider has no room-overlap invariant and simultaneous tabs can race; changing date/time paths and browser timezone vs Bogotá require verification."
+          "Two-room day grid and rental/private/maintenance/blocked types exist; form prevents overlaps using findConflicts. Generic provider has no room-overlap invariant and simultaneous tabs can race; changing date/time paths and browser timezone vs Bogot\u00e1 require verification."
         ],
         "remainingBackend": [
           "Server exclusion/locking across class sessions and space bookings, tenant-scoped room access."
@@ -3308,7 +3366,7 @@
       "module": "Front desk",
       "feature": "WhatsApp and email inbox",
       "criterion": "One thread per person; replies go out on the right channel and internal notes do not reach the customer.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Simulado / Simulated"
@@ -3348,7 +3406,7 @@
       "module": "Front desk",
       "feature": "Sell and check into the class",
       "criterion": "When charging at the desk with 'Check in to class', the person is placed in the class and the spot is deducted.",
-      "role": "Recepción",
+      "role": "Recepci\u00f3n",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -3357,30 +3415,43 @@
       "priority": "Medium",
       "relatedTests": "REC-15, REC-14",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/RegisterPage.tsx",
         "src/data/MockProvider.ts",
         "src/data/mats.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/register"
+      ],
+      "tests": [
+        "scripts/test-desk-transactions.mjs",
+        "scripts/test-desk-sale-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-04/atomic-sale-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Implement coherent mock transaction/preview; prove full/duplicate/pending/failure paths create neither partial payment nor double class debit and keep counters exact.",
+      "nextAction": "Focused mock pass; production settlement, authorized RPC and cross-tab/durable idempotency remain Anu work.",
       "candidateRoutes": [
         "/#/staff/register"
       ],
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Check-in-to-class creates checked_in booking and one ledger debit. It first creates payment/invoice/ledger in separate writes, then may fail on full/duplicate/past booking; no atomic rollback. Wompi pending sales still enter entitlement/check-in path."
+          "Focused mock pass; production settlement, authorized RPC and cross-tab/durable idempotency remain Anu work."
         ],
         "remainingBackend": [
           "Atomic payment settlement + entitlement + capacity + attendance transaction and idempotent retries."
         ]
       },
-      "sourceNextAction": "Implement coherent mock transaction/preview; prove full/duplicate/pending/failure paths create neither partial payment nor double class debit and keep counters exact."
+      "sourceNextAction": "Implement coherent mock transaction/preview; prove full/duplicate/pending/failure paths create neither partial payment nor double class debit and keep counters exact.",
+      "batchEvidence": {
+        "batch": "batch-03.md",
+        "behavior": "All fictional sale writes stage together and persist once; full/duplicate/pending check-in/storage/write failure leave no partial sale. Retry receipt deduplicates exact browser-local transaction key.",
+        "limits": "Focused mock pass; production settlement, authorized RPC and cross-tab/durable idempotency remain Anu work.",
+        "acceptance": "Source status preserved; focused fictional frontend checks only."
+      }
     },
     {
       "id": "AD-01",
@@ -3629,7 +3700,7 @@
       "module": "Administration",
       "feature": "Customer list with balance",
       "criterion": "Customer list with search, package, remaining classes, expiry and vouchers.",
-      "role": "Recepción, Admin",
+      "role": "Recepci\u00f3n, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Visto / Seen"
@@ -4011,7 +4082,7 @@
       "module": "Notifications",
       "feature": "Team alert for a new receipt",
       "criterion": "Front desk and Administration are alerted when a customer uploads a receipt.",
-      "role": "Recepción, Admin",
+      "role": "Recepci\u00f3n, Admin",
       "source": {
         "status": "Not verified",
         "demoStatus": "Nuevo / New"
@@ -4796,7 +4867,7 @@
       "role": "Marketing",
       "source": {
         "status": "Not verified",
-        "demoStatus": "Próximamente / Coming soon"
+        "demoStatus": "Pr\u00f3ximamente / Coming soon"
       },
       "phase": "After Nov 30",
       "priority": "Low",
@@ -4876,7 +4947,7 @@
       "role": "Todos",
       "source": {
         "status": "Not verified",
-        "demoStatus": "Próximamente / Coming soon"
+        "demoStatus": "Pr\u00f3ximamente / Coming soon"
       },
       "phase": "Nov 30 delivery",
       "priority": "Low",
@@ -4972,6 +5043,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39686441483",
     "deployedCodeSource": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
     "deploymentArtifact": "https://github.com/imagine-os/hoy/actions/runs/39686441483/artifacts/12385972674",
-    "newFeatureLiveVerification": "New CRM/catalog behavior verified against local production bundle and PR CI; hosted release checker covers provenance and selected existing flows, not full AD-07/PR-01/PR-02 acceptance."
+    "newFeatureLiveVerification": "New CRM/catalog behavior verified against local production bundle and PR CI; hosted release checker covers provenance and selected existing flows, not full AD-07/PR-01/PR-02 acceptance.",
+    "activeBatch": "Batch 3 local implementation and verification in progress; exact release evidence recorded in batch-03.md."
   }
 }

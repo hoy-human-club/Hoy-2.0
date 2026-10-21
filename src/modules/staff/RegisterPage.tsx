@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
-import type { BaseRow, BookingRow, ClassSessionRow, MessageLogRow, PaymentRow, ProfileRow, RoomRow, SpaceBookingKind, SpaceBookingRow, SpecialChargeRow, TeacherRow, UserRow } from '../../data/schema';
+import type { ClassSessionRow, MessageLogRow, PaymentRow, ProfileRow, RoomRow, SpaceBookingKind, SpaceBookingRow, SpecialChargeRow, TeacherRow, UserRow } from '../../data/schema';
 import { formatCOP, formatTime } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { FAMILY_LABEL, priceItem, pricing, type PlanFamily, type PriceItem } from '../../tenant/pricing';
@@ -20,7 +20,7 @@ import { Receipt } from '../../components/organism/Receipt/Receipt';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useTodaySessions } from '../website/hooks';
 import { splitTax, useSettings } from '../admin/settings';
-import { useAudit } from './audit';
+import { bookWithPackage } from '../../data/deskBooking';
 import { maskPhone, personMatches, usePeople } from './people';
 import { BOOKING_KINDS, KIND_FOR_ITEM, KIND_LABEL, dateInputValue, findConflicts, localIso, timeInputValue } from './rooms';
 import './staff.css';
@@ -54,12 +54,12 @@ export function RegisterPage() {
   const { t, lang, bi } = useI18n();
   const data = useData();
   const { user, can } = useSession();
-  const audit = useAudit('front_desk');
+  const saleKey = useRef(crypto.randomUUID());
+  const saleBusy = useRef(false);
   const { settings } = useSettings();
   const [params] = useSearchParams();
   const { people } = usePeople();
   const today = useTodaySessions();
-  const { rows: invoices } = useTable<BaseRow>('invoices');
   const { rows: rooms } = useTable<RoomRow>('rooms', { orderBy: { column: 'created_at' } });
   const { rows: teachers } = useTable<TeacherRow>('teachers', { where: { active: true }, orderBy: { column: 'display_name' } });
   const { rows: sessions } = useTable<ClassSessionRow>('class_sessions');
@@ -133,10 +133,15 @@ export function RegisterPage() {
   const displayName = mode === 'existing' ? person?.name ?? '' : mode === 'contact' ? contactName.trim() : `${form.first.trim()} ${form.last.trim()}`.trim();
 
   const complete = async () => {
-    if (!canWrite || !valid) return;
+    if (!canWrite || !valid || saleBusy.current) return;
+    saleBusy.current = true;
     setBusy(true); setError(null);
     try {
+      if (!data.atomic) throw new Error('mock_atomic_adapter_required');
+      const result = await data.atomic<Sale>(async data => {
+      const audit = (action: string, entity: string, entityId: string, diff: Record<string, unknown>) => data.insert('audit_log', { actor_id: user.id, action, entity, entity_id: entityId, diff: { role: 'front_desk', source: 'front_desk', ...diff }, ip: null });
       const now = new Date();
+      if (sessionId && (!session || method === 'wompi')) throw new Error(method === 'wompi' ? 'payment_confirmation_required' : 'session_unavailable');
       let userId: string | null = person?.id ?? null;
       let isNew = false;
       if (!userId && mode !== 'contact') {
@@ -152,7 +157,7 @@ export function RegisterPage() {
       const db = METHOD_DB[method];
       const pending = method === 'wompi';
       const payment = await data.insert<PaymentRow>('payments', { user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
-      const number = `${tenant.invoicePrefix}-${1000 + invoices.length + 1}`;
+      const number = `${tenant.invoicePrefix}-${1000 + (await data.list('invoices')).length + 1}`;
       await data.insert('invoices', { payment_id: payment.id, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, issued_at: now.toISOString(), pdf_url: null, dian_cufe: null });
       await audit('payment.take', 'payments', payment.id, { amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, method, item: item.id, invoice: number, status: payment.status, contact: mode === 'contact' ? contactName.trim() : undefined });
 
@@ -183,7 +188,7 @@ export function RegisterPage() {
 
       if (special.on) {
         // no package, no class check-in: an Especial is its own thing
-      } else if (item.classes) {
+      } else if (item.classes && payment.status === 'approved') {
         // 0051: the classes open in the ledger (12 for the package, 1 for a class bought ahead) with their validity.
         const c = await data.insert('class_ledger', { user_id: userId, plan_id: `plan_${item.id}`, payment_id: payment.id, delta: item.classes, reason: 'purchase', expires_at: item.validityDays ? dateKey(addDays(now, item.validityDays)) : null, frozen_from: null, frozen_until: null });
         await audit('classes.purchase', 'class_ledger', c.id, { delta: item.classes, user_id: userId });
@@ -191,23 +196,21 @@ export function RegisterPage() {
 
       let checkedIn: string | undefined;
       if (session && settings.features.autoCheckinOnSale && userId && !special.on) {
-        const paidWith = item.id === 'trial' ? 'trial' : (item.classes ?? 0) > 1 ? 'package' : 'single';
-        const b = await data.insert<BookingRow>('bookings', { user_id: userId, session_id: session.session.id, status: 'checked_in', paid_with: paidWith, ledger_id: null, checked_in_at: now.toISOString(), cancelled_at: null, rated: false });
-        await data.update('class_sessions', session.session.id, { booked_count: session.session.booked_count + 1 });
-        // The class just bought (or the first of the package) is the one checked in: one class leaves the ledger.
-        if (item.classes) await data.insert('class_ledger', { user_id: userId, plan_id: `plan_${item.id}`, payment_id: payment.id, delta: -1, reason: 'booking', expires_at: null, frozen_from: null, frozen_until: null });
+        const b = await bookWithPackage(data, { userId, sessionId: session.session.id, status: 'checked_in', now: now.toISOString() });
         await audit('booking.checkin', 'bookings', b.id, { after: 'checked_in', session_id: session.session.id, user_id: userId, source_sale: payment.id });
         checkedIn = `${session.session.title} · ${formatTime(session.session.starts_at, lang)}`;
       }
       for (const ch of [receipt.wa ? 'whatsapp' : null, receipt.email ? 'email' : null] as const) {
-        if (ch && userId) await data.insert<MessageLogRow>('message_log', { user_id: userId, channel: ch, direction: 'outbound', source: 'system', template_key: 'receipt', automation_id: null, subject: ch === 'email' ? `${tenant.name} · ${number}` : null, body: `${number} · ${formatCOP(totals.total, 'es')}`, status: 'sent', sent_at: now.toISOString(), sent_by: user.id, read_at: null, read_by: null, external_id: null, payload: { invoice: number, amount: totals.total } });
+        if (ch && userId) await data.insert<MessageLogRow>('message_log', { user_id: userId, channel: ch, direction: 'outbound', source: 'system', template_key: 'receipt', automation_id: null, subject: ch === 'email' ? `${tenant.name} · ${number}` : null, body: `${number} · ${formatCOP(totals.total, 'es')}`, status: 'queued', sent_at: null, sent_by: user.id, read_at: null, read_by: null, external_id: null, payload: { invoice: number, amount: totals.total } });
       }
       const contact = mode === 'existing' ? maskPhone(person?.phone) : mode === 'contact' ? '—' : maskPhone(form.phone);
-      setDone({ payment, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, customer: displayName, contact, item, checkedIn, isNew, booking: bookingTitle, payout: payoutDone });
-    } catch (e) { setError(String(e)); } finally { setBusy(false); }
+      return { payment, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, customer: displayName, contact, item, checkedIn, isNew, booking: bookingTitle, payout: payoutDone };
+      }, { idempotencyKey: saleKey.current });
+      setDone(result);
+    } catch (e) { const code = e instanceof Error ? e.message : ''; setError(['payment_confirmation_required','session_unavailable','session_full','booking_exists','same_day_conflict','insufficient_classes','package_frozen','package_expired','mock_atomic_adapter_required'].includes(code) ? code : 'failed'); } finally { setBusy(false); saleBusy.current = false; }
   };
 
-  const reset = () => { setDone(null); setForm({ first: '', last: '', phone: '', email: '', birthday: '', emergency: '', consent: false }); setPersonId(null); setExistingQ(''); setMode('new'); setItemId('trial'); setMethod('cash'); setPaidRaw(null); setNote(''); setSpecial(NO_SPECIAL); setContactName(''); };
+  const reset = () => { saleKey.current = crypto.randomUUID(); setDone(null); setForm({ first: '', last: '', phone: '', email: '', birthday: '', emergency: '', consent: false }); setPersonId(null); setExistingQ(''); setMode('new'); setItemId('trial'); setMethod('cash'); setPaidRaw(null); setNote(''); setSpecial(NO_SPECIAL); setContactName(''); };
 
   if (!canWrite) return <div className="stack"><div className="page-head"><h1>{t('staff.register.title')}</h1></div><EmptyState tone="error" title={t('staff.register.noPermission')} body={t('staff.register.noPermission.body')} /></div>;
 
@@ -231,6 +234,7 @@ export function RegisterPage() {
   return (
     <div className="stack">
       <div className="page-head"><div><h1>{t('staff.register.title')}</h1><p className="muted small">{t('staff.register.subtitle')}</p></div></div>
+      <p className="xs muted">{t('staff.booking.mock')}</p>
       <div className="register">
         <div className="register-steps">
           <Card eyebrow={t('staff.register.step1')} title={t('staff.register.who')} actions={<div className="row wrap" role="tablist"><Chip selected={mode === 'new'} onClick={() => setMode('new')}>{t('staff.register.new')}</Chip><Chip selected={mode === 'existing'} onClick={() => setMode('existing')}>{t('staff.register.existing')}</Chip><Chip selected={mode === 'contact'} disabled={!special.on} title={special.on ? undefined : t('staff.register.contact.only')} onClick={() => setMode('contact')}>{t('staff.register.contact')}</Chip></div>}>
@@ -357,7 +361,7 @@ export function RegisterPage() {
               <Field label={t('staff.register.checkinTo')} hint={settings.features.autoCheckinOnSale ? t('staff.register.checkinTo.hint') : t('staff.register.checkinTo.off')}>
                 {(id) => <Select id={id} value={sessionId} onChange={(e) => setSessionId(e.target.value)} disabled={!settings.features.autoCheckinOnSale || special.on || mode === 'contact'}><option value="">{t('staff.register.checkinTo.none')}</option>{upcoming.map(({ session: s, teacher: te }) => <option key={s.id} value={s.id}>{formatTime(s.starts_at, lang)} · {s.title} · {te?.display_name} ({s.booked_count}/{s.capacity})</option>)}</Select>}
               </Field>
-              {error && <EmptyState compact tone="error" title={t('core.common.error')} body={error} />}
+              {error && <EmptyState compact tone="error" title={t('core.common.error')} body={t(`staff.booking.error.${error}`)} />}
               <Button block size="lg" disabled={!valid} loading={busy} onClick={complete} icon={method === 'wompi' ? 'link' : 'payment'}>{method === 'wompi' ? t('staff.register.cta.link') : t('staff.register.cta')}</Button>
               <p className="xs muted">{t('staff.register.audit', { staff: user.name })}</p>
             </div>

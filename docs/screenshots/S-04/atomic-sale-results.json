@@ -1,0 +1,16 @@
+{
+  "feature": "RC-10",
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, 390/1280 form/receipt",
+    "es: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, 390/1280 form/receipt",
+    "full: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+    "duplicate: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+    "pending: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+    "storage: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser transaction only; backend settlement, authorization and durable idempotency remain pending."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "feature": "PR-06",
+  "base": "http://127.0.0.1:5187",
+  "checks": [
+    "en: pending package request creates one payment, no purchase/debit/booking/capacity; EN/ES mobile and desktop pending notice",
+    "en: confirmed demo payment activates 12 classes with stored expiry, one booking/debit, balance 11; pending request remains separate",
+    "en: package-only persistence failure reports retry, rolls back payment/invoice/grant, EN/ES desktop/mobile error notice",
+    "es: pending package request creates one payment, no purchase/debit/booking/capacity; EN/ES mobile and desktop pending notice",
+    "es: confirmed demo payment activates 12 classes with stored expiry, one booking/debit, balance 11; pending request remains separate",
+    "es: package-only persistence failure reports retry, rolls back payment/invoice/grant, EN/ES desktop/mobile error notice"
+  ],
+  "errors": [],
+  "limits": [
+    "Frontend MockProvider only; no real charge, server approval or capacity hold.",
+    "Pending checkout creates request only; backend settlement and replay integration remains Anu work."
+  ]
+}

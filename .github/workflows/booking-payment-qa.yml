@@ -1,0 +1,54 @@
+name: Booking and payment frontend QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/modules/customer/**'
+      - 'src/modules/staff/**'
+      - 'scripts/test-desk*.mjs'
+      - 'scripts/test-pending-package*.mjs'
+      - 'scripts/test-reschedule*.mjs'
+      - '.github/workflows/booking-payment-qa.yml'
+permissions:
+  contents: read
+jobs:
+  mock-transactions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify isolated mock rules and transactions
+        run: |
+          node scripts/test-desk-transactions.mjs
+          node scripts/test-pending-package.mjs
+          node scripts/test-reschedule-cutoff.mjs
+      - name: Verify built customer and desk flows
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-booking-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-desk-package-ui.mjs
+          node scripts/test-desk-sale-ui.mjs
+          node scripts/test-pending-package-ui.mjs
+          node scripts/test-reschedule-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: booking-payment-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/S-02/*package*
+            docs/screenshots/S-04/*atomic*
+            docs/screenshots/C-04/*pending*
+            docs/screenshots/C-06/*purchase-failure*
+            docs/screenshots/C-08b/*cutoff*
+          retention-days: 7

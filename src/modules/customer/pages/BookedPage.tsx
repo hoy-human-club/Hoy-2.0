@@ -22,6 +22,7 @@ import { useActions } from '../../../actions';
 import { useAppNavHandlers } from '../actions';
 import { useBookingActions, useMyBookings, useNow, useSessionJoined } from '../hooks';
 import { cancelDeadline, insideCancelWindow, policy } from '../policy';
+import { canReschedule, RESCHEDULE_CUTOFF_HOURS } from '../reschedule';
 import { PageHead, downloadIcs, toneOf, roomName, shareText, teacherName } from '../ui';
 import { StudioCancelledBlock, useAlternatives } from './blocks';
 
@@ -133,6 +134,8 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const s = joined.session;
+  const now = useNow(1_000);
+  const moveAllowed = canReschedule(s.starts_at, now);
   const close = () => { setMode('menu'); setErr(null); onClose(); };
 
   const doCancel = async () => {
@@ -147,7 +150,7 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
     const to = alts.find((a) => a.session.id === toId)?.session; if (!to) return;
     setBusy(true); setErr(null);
     try { const next = await reschedule(booking, s, to); close(); nav(`/app/booking/${next.id}`, { replace: true }); }
-    catch { setErr(t('customer.checkout.race.body')); }
+    catch (e) { setErr(t(e instanceof Error && e.message === 'reschedule_cutoff' ? 'customer.change.move.closed' : 'customer.checkout.race.body', { h: RESCHEDULE_CUTOFF_HOURS })); }
     finally { setBusy(false); }
   };
 
@@ -161,17 +164,19 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
 
         {mode === 'menu' && (
           <ListGroup>
-            <ListRow icon="move" title={t('customer.change.move')} subtitle={t('customer.change.move.sub')} onClick={() => setMode('move')} />
+            <ListRow icon="move" title={t('customer.change.move')} subtitle={moveAllowed ? t('customer.change.move.sub') : t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })} disabled={!moveAllowed || busy} onClick={() => setMode('move')} />
             <ListRow icon="cancel" tone="danger" title={t('customer.change.drop')} subtitle={inside ? t('customer.change.drop.sub.inside') : t('customer.change.drop.sub')} onClick={() => setMode('cancel')} />
           </ListGroup>
         )}
         {mode === 'move' && (
           <section className="stack-sm">
             <div className="eyebrow">{t('customer.change.pick')}</div>
-            {alts.length === 0 ? (
+            {!moveAllowed ? (
+              <Notice tone="warn">{t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })}</Notice>
+            ) : alts.length === 0 ? (
               <Notice tone="info" title={t('customer.change.noAlt')} action={<Link to="/app/schedule"><Button size="sm" variant="secondary">{t('customer.class.backToSchedule')}</Button></Link>}>{t('customer.change.noAlt.body')}</Notice>
             ) : (
-              <Card padding="sm">{alts.map((a) => <ClassRow key={a.session.id} title={a.session.title} teacher={a.teacher?.display_name ?? ''} startsAt={a.session.starts_at} durationMin={a.modality?.duration_min ?? 60} tone={a.modality?.tone ?? 'river'} booked={a.session.booked_count} capacity={a.session.capacity} onClick={() => !busy && doMove(a.session.id)} />)}</Card>
+              <Card padding="sm">{alts.map((a) => <ClassRow key={a.session.id} title={a.session.title} teacher={a.teacher?.display_name ?? ''} startsAt={a.session.starts_at} durationMin={a.modality?.duration_min ?? 60} tone={a.modality?.tone ?? 'river'} booked={a.session.booked_count} capacity={a.session.capacity} onClick={() => !busy && canReschedule(s.starts_at) && doMove(a.session.id)} />)}</Card>
             )}
             {err && <Notice tone="warn">{err}</Notice>}
             <p className="xs muted">{t('customer.change.move.note')}</p>

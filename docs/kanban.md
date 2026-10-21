@@ -1,5 +1,10 @@
 # HoyOS kanban
 
+## Frontend correctness batch · 0077 (2026-10-21)
+
+- PR-06/RS-09/RC-04/RC-05/RC-10: confirmed entitlements, source cutoff and atomic fictional reception flow implemented; focused tests and responsive QA in [batch receipt](frontend-completion/batch-03.md). Source acceptance remains unchanged.
+- Next: transfer receipt review/queue and catalog publication/shared quotes; keep timing questions draft and backend integration deferred.
+
 ## Frontend completion program · 0076 (2026-10-21)
 
 - Baseline inventory and 124 stable feature IDs recorded; source acceptance separate from fresh verification. [Handoff](frontend-completion/README.md)
