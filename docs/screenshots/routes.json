@@ -1,5 +1,68 @@
 [
  {
+  "path": "/admin/finance/subscriptions",
+  "code": "M-09d",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "finance"
+  ],
+  "spec": {
+   "code": "M-09d",
+   "checkedAt": [
+    390,
+    768,
+    1280,
+    1920,
+    3840
+   ],
+   "name": {
+    "es": "Apps y suscripciones",
+    "en": "Apps & subscriptions"
+   },
+   "purpose": {
+    "es": "Directorio de servicios y suscripciones con cargos manuales separados.",
+    "en": "App dependencies and subscriptions with separate manual charges."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "finance"
+   ],
+   "layout": [
+    "Storage notice",
+    "Public service catalog",
+    "Manual backup",
+    "Estimates",
+    "Directory",
+    "Possible integrations",
+    "Actual charges"
+   ],
+   "data": [],
+   "logic": [
+    "Browser-local workspace-scoped records; no production backend.",
+    "Public prices never populate workspace bills; account login, billing contact and receipt inbox are distinct.",
+    "Receipt retrieval is manual; unverified currencies excluded.",
+    "Unknown amounts stay null; currencies stay separate.",
+    "Evidence-backed charge reference is unique per subscription.",
+    "Biweekly subscriptions mean every 14 days; the expense ledger uses twice-monthly quincena."
+   ],
+   "integrations": [
+    "Email DISCONNECTED",
+    "Bank DISCONNECTED"
+   ],
+   "states": [
+    "empty",
+    "editing",
+    "saved",
+    "conflict",
+    "storage failure"
+   ]
+  }
+ },
+ {
   "path": "/admin",
   "code": "M-01",
   "surface": "admin",
@@ -225,7 +288,9 @@
    "layout": [
     "ContentSubNav (Catálogo · Artículos · FAQ · Eventos · Medios)",
     "EntityTabs (Classes / Teachers / Modalities / Rooms)",
-    "ListView (DataTable, search, publish toggle)",
+    "ListView (DataTable / cards, search, selection, publish toggle)",
+    "BulkEdit (preview, atomic apply, guarded undo)",
+    "RecurrencePreview (date range and explicit generation)",
     "EditDrawer (fields, ES / EN, publish state)",
     "PreviewPane"
    ],
@@ -564,11 +629,12 @@
     "en": "Content · Media library"
    },
    "purpose": {
-    "es": "La lista de arte que el estudio debe: un cupo por lugar de la app y la web, con proporción, encargo y texto alternativo. Pegar una URL lo publica sin deploy.",
-    "en": "The checklist of art the studio owes: one slot per place in the app and the site, with its ratio, brief and alt text. Pasting a URL publishes it with no deploy."
+    "es": "Inventario de archivos con búsqueda, filtros, variantes y estado por uso. El editor de asignaciones conserva los cambios en este navegador hasta conectar el backend.",
+    "en": "Searchable asset inventory with filters, variants and per-placement state. The assignment editor keeps changes in this browser until the backend is connected."
    },
    "layout": [
     "ContentSubNav",
+    "AssetCatalog (search, filters, per-placement states, links)",
     "ReadyKPIs (listas / pendientes / video)",
     "StatusFilter",
     "MediaGrid → MediaCard (marco con proporción, encargo, URL, alt)",
@@ -577,6 +643,9 @@
    ],
    "data": [
     "media_assets",
+    "teachers",
+    "modalities",
+    "events",
     "audit_log"
    ],
    "roles": [
@@ -628,8 +697,7 @@
    "layerTree": "CMS\n├ EntityTabs (Classes / Teachers / Schedule / Pricing / Content)\n├ ListView (search, filter, bulk)\n├ EditDrawer\n│ ├ Fields\n│ ├ Media (photo placeholders)\n│ ├ Localisation EN / ES\n│ └ Publish state\n└ PreviewPane (app / web)",
    "canvasRef": "reference/canvas/Hoy Wellness System.dc.html#M-02",
    "notes": [
-    "Sub-page of M-02; the sub-navigation is shared by all five.",
-    "Every write appends an audit_log row through useAudit('admin')."
+    "Asset catalog is a build-time file index joined with live provider rows. Source placements are not a claim of production-backend publication. Original files are never edited."
    ]
   }
  },
@@ -1576,6 +1644,7 @@
     "class_sessions",
     "payments",
     "class_ledger",
+    "vouchers",
     "message_log",
     "consents",
     "audit_log",
@@ -1641,6 +1710,7 @@
    "canvasRef": "reference/canvas/Hoy Wellness System.dc.html#M-06",
    "notes": [
     "At risk = person with a live package and no check-in in 21 days (0051: no credits, no membership at launch).",
+    "AD-07: CRM and customer app share packageState(class_ledger): package, remaining classes, expiry and freeze. Claimed vouchers join only by claimedBy, never contact/name; this is browser-local demo data. Server loading/failure and cross-device authorization remain backend verification gates.",
     "Since 0.8.0 the conversation is message_log: inbound and outbound WhatsApp/email (manual, automation, newsletter, system) and internal notes (channel note, direction internal) — never visible to the member. Bookings, payments and consents appear inline as system lines.",
     "Sending and notes go through useMessaging() (src/data/comms.ts): audit_log keeps member.message / member.note as a trail without content. Opening the tab marks the member’s inbound rows read.",
     "Opening a record writes member.view to audit_log (Ley 1581).",
@@ -1749,6 +1819,7 @@
     "class_sessions",
     "payments",
     "class_ledger",
+    "vouchers",
     "message_log",
     "consents",
     "audit_log",
@@ -1814,6 +1885,7 @@
    "canvasRef": "reference/canvas/Hoy Wellness System.dc.html#M-06",
    "notes": [
     "At risk = person with a live package and no check-in in 21 days (0051: no credits, no membership at launch).",
+    "AD-07: CRM and customer app share packageState(class_ledger): package, remaining classes, expiry and freeze. Claimed vouchers join only by claimedBy, never contact/name; this is browser-local demo data. Server loading/failure and cross-device authorization remain backend verification gates.",
     "Since 0.8.0 the conversation is message_log: inbound and outbound WhatsApp/email (manual, automation, newsletter, system) and internal notes (channel note, direction internal) — never visible to the member. Bookings, payments and consents appear inline as system lines.",
     "Sending and notes go through useMessaging() (src/data/comms.ts): audit_log keeps member.message / member.note as a trail without content. Opening the tab marks the member’s inbound rows read.",
     "Opening a record writes member.view to audit_log (Ley 1581).",
@@ -3110,6 +3182,262 @@
     "src/data/expenseCalc.ts is the single arithmetic: dueDatesFor() and fixedExpensesFor() are what the seed and the generator both call, so the fixed rows on screen and the ones a button creates cannot disagree.",
     "Generating a period is idempotent: one row per template per due day; a due day that already has its row is skipped (paid or not), nothing is deleted, inactive templates generate nothing. Regenerating never duplicates, and a paid row is never touched.",
     "expenses.write gates every action (finance, admin, super_admin); expenses.read is enough to look. Every write appends an audit_log row through useAudit('admin')."
+   ]
+  }
+ },
+ {
+  "path": "/admin/class-pay",
+  "code": "M-14a",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "finance"
+  ],
+  "spec": {
+   "code": "M-14a",
+   "name": {
+    "es": "Pago por clase",
+    "en": "Class pay"
+   },
+   "purpose": {
+    "es": "Configurar reglas futuras de pago, sin ejecutar pagos.",
+    "en": "Configure prospective pay rules without making payments."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "finance"
+   ],
+   "layout": [
+    "rules"
+   ],
+   "data": [
+    "class_pay_rules",
+    "class_templates"
+   ],
+   "logic": [
+    "Templates are recurrence definitions; sessions are individual dated occurrences.",
+    "Calendar, list and table share filters.",
+    "Past sessions are read-only. Capacity cannot fall below occupied seats.",
+    "Current provider is a browser-local demo; no production booking changes."
+   ],
+   "integrations": [
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Loading",
+    "Empty",
+    "Filtered",
+    "Calendar",
+    "List",
+    "Table",
+    "Editing",
+    "Conflict",
+    "Error",
+    "Read-only history"
+   ]
+  }
+ },
+ {
+  "path": "/admin/class-schedule",
+  "code": "M-14",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin"
+  ],
+  "spec": {
+   "code": "M-14",
+   "name": {
+    "es": "Horario de clases",
+    "en": "Class Schedule"
+   },
+   "purpose": {
+    "es": "Gestionar sesiones fechadas y sus vínculos con el catálogo.",
+    "en": "Manage dated sessions and their catalogue links."
+   },
+   "roles": [
+    "super_admin",
+    "admin"
+   ],
+   "layout": [
+    "notice",
+    "filters",
+    "sessions"
+   ],
+   "data": [
+    "class_sessions",
+    "class_templates",
+    "teachers",
+    "modalities",
+    "rooms",
+    "audit_log"
+   ],
+   "logic": [
+    "Templates are recurrence definitions; sessions are individual dated occurrences.",
+    "Calendar, list and table share filters.",
+    "Past sessions are read-only. Capacity cannot fall below occupied seats.",
+    "Current provider is a browser-local demo; no production booking changes."
+   ],
+   "integrations": [
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Loading",
+    "Empty",
+    "Filtered",
+    "Calendar",
+    "List",
+    "Table",
+    "Editing",
+    "Conflict",
+    "Error",
+    "Read-only history"
+   ]
+  }
+ },
+ {
+  "path": "/",
+  "code": "W-11",
+  "surface": "public",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk",
+   "finance",
+   "teacher",
+   "maintenance",
+   "marketing",
+   "developer",
+   "customer",
+   "public"
+  ],
+  "spec": {
+   "code": "W-11",
+   "name": {
+    "es": "Próximamente",
+    "en": "Coming soon"
+   },
+   "purpose": {
+    "es": "La página de preapertura, separada del sitio completo y accesible desde su propia tarjeta en el hub.",
+    "en": "A standalone pre-launch page, separate from the full website and accessible from its own hub card."
+   },
+   "layout": [
+    "Landing"
+   ],
+   "data": [],
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk",
+    "finance",
+    "teacher",
+    "maintenance",
+    "marketing",
+    "developer",
+    "customer",
+    "public"
+   ],
+   "integrations": [],
+   "logic": [
+    "Public root and /coming-soon share the pre-launch page; /hub is the separate public testing hub. No SiteShell, booking, launch date or lead collection.",
+    "Uses the existing brand wordmark, tenant identity, approved brand tagline and concept sanctuary artwork.",
+    "AmbientScene reuses the existing local loop with a still fallback, reduced-motion/save-data support and an explicit pause control.",
+    "Top-right Login opens a Coming Soon dialog with Close, Escape, Back and focus restoration; no credentials, Clerk setup or authentication action.",
+    "The only external link opens the existing studio Instagram profile; no visitor data is collected or submitted.",
+    "Spanish and English share the normal language switch; the full website and its Latest default remain unchanged."
+   ],
+   "states": [
+    "Spanish",
+    "English",
+    "login dialog",
+    "motion playing",
+    "motion paused",
+    "reduced motion",
+    "video unavailable"
+   ],
+   "checkedAt": [
+    344,
+    390,
+    768,
+    1280
+   ]
+  }
+ },
+ {
+  "path": "/coming-soon",
+  "code": "W-11",
+  "surface": "public",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk",
+   "finance",
+   "teacher",
+   "maintenance",
+   "marketing",
+   "developer",
+   "customer",
+   "public"
+  ],
+  "spec": {
+   "code": "W-11",
+   "name": {
+    "es": "Próximamente",
+    "en": "Coming soon"
+   },
+   "purpose": {
+    "es": "La página de preapertura, separada del sitio completo y accesible desde su propia tarjeta en el hub.",
+    "en": "A standalone pre-launch page, separate from the full website and accessible from its own hub card."
+   },
+   "layout": [
+    "Landing"
+   ],
+   "data": [],
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk",
+    "finance",
+    "teacher",
+    "maintenance",
+    "marketing",
+    "developer",
+    "customer",
+    "public"
+   ],
+   "integrations": [],
+   "logic": [
+    "Public root and /coming-soon share the pre-launch page; /hub is the separate public testing hub. No SiteShell, booking, launch date or lead collection.",
+    "Uses the existing brand wordmark, tenant identity, approved brand tagline and concept sanctuary artwork.",
+    "AmbientScene reuses the existing local loop with a still fallback, reduced-motion/save-data support and an explicit pause control.",
+    "Top-right Login opens a Coming Soon dialog with Close, Escape, Back and focus restoration; no credentials, Clerk setup or authentication action.",
+    "The only external link opens the existing studio Instagram profile; no visitor data is collected or submitted.",
+    "Spanish and English share the normal language switch; the full website and its Latest default remain unchanged."
+   ],
+   "states": [
+    "Spanish",
+    "English",
+    "login dialog",
+    "motion playing",
+    "motion paused",
+    "reduced motion",
+    "video unavailable"
+   ],
+   "checkedAt": [
+    344,
+    390,
+    768,
+    1280
    ]
   }
  },
@@ -7272,7 +7600,7 @@
   }
  },
  {
-  "path": "/",
+  "path": "/hub",
   "code": "HUB-01",
   "surface": "public",
   "status": "built",
@@ -7296,14 +7624,15 @@
     "en": "Testing hub"
    },
    "purpose": {
-    "es": "La primera pantalla: enseña el sistema entero de un vistazo y deja entrar a cualquier puesto del estudio con su usuario demo. Cada tarjeta muestra la pantalla real (captura, y la página en vivo cuando cabe), su estado y su ruta; abajo, el sistema en números y el hub de pruebas (lienzo, simulador, specs, tablas, componentes, tokens, decisiones, capturas).",
-    "en": "The first screen: it shows the whole system at once and lets a tester enter any seat at the studio as its demo user. Every card shows the real screen (a capture, and the running page when there is room), its status and its route; below, the system in numbers and the testing hub (canvas, simulator, specs, tables, components, tokens, decisions, captures)."
+    "es": "El hub público de pruebas en /hub: enseña el sistema entero de un vistazo y deja entrar a cualquier puesto del estudio con su usuario demo. Cada tarjeta muestra la pantalla real (captura, y la página en vivo cuando cabe), su estado y su ruta; abajo, el sistema en números y el hub de pruebas (lienzo, simulador, specs, tablas, componentes, tokens, decisiones, capturas).",
+    "en": "The public testing hub at /hub: it shows the whole system at once and lets a tester enter any seat at the studio as its demo user. Every card shows the real screen (a capture, and the running page when there is room), its status and its route; below, the system in numbers and the testing hub (canvas, simulator, specs, tables, components, tokens, decisions, captures)."
    },
    "layout": [
     "BrandBand (Wordmark, version Badge, LangToggle, theme, wireframe + dev toggles for super_admin)",
     "Hero (eyebrow tenant · city, h1, lead, tagline, BreathingRings art ≥ 900 px)",
     "SessionBar (RoleSwitcher, Ctrl + . hint in dev mode)",
-    "BandA · Fuera del estudio (Customer app featured with a phone preview, Website, Teacher app)",
+    "FeaturedTraining · Promociones y bonos (P-02, same-session learning and isolated practice for every Hub role)",
+    "BandA · Fuera del estudio (Customer app featured with a phone preview, Website, Coming soon page, Teacher app)",
     "BandB · El equipo (Front desk, Inbox, Caja, Admin, CRM, Mensajes transaccionales → M-04 + M-05 link, Finanzas, Kit de marketing — próximamente)",
     "BandC · Construcción y pruebas (Manual, Documentos fuente, Docs, Kanban, Dev tools)",
     "ToolsRow · Hub de pruebas (9 tool cards)",
@@ -7330,7 +7659,7 @@
     "public"
    ],
    "logic": [
-    "Every card enters as the demo user of its role: switchUser(role) then navigate — the tester never has to pick a person first.",
+    "Cards with switchUser enter as their role’s demo user. Promotions training and other same-session cards navigate without changing identity or permissions.",
     "The built / stub badge is read from the route manifest (src/app/manifest.ts routeManifest), not typed into the card.",
     "“Estás aquí / You are here” shows on the card whose route is ROLE_HOME for the current effective role.",
     "Previews layer a real capture (docs/screenshots/<code>/thumb-*) over a hue-tinted idle tile; a missing capture hides the image instead of breaking it.",
@@ -7370,7 +7699,7 @@
       "en": "Enter {surface} as its demo user"
      },
      "params": {
-      "surface": "enum:app,site,teacher,desk,inbox,pos,admin,crm,messages,finance,marketing,manual,sources,docs,kb,dev"
+      "surface": "enum:promotions,app,site,coming-soon,teacher,desk,inbox,pos,admin,crm,messages,finance,marketing,manual,sources,docs,kb,dev"
      }
     },
     {
@@ -7482,7 +7811,7 @@
     3840
    ],
    "notes": [
-    "Not part of the canvas; it is the private testing front door. A real splash (A-01) plus Supabase Auth replaces the role switching later.",
+    "Not part of the canvas; it is the public testing hub at /hub. The public root is Coming Soon; demo role switching remains isolated from production authentication.",
     "Referenced design: the cal-tenant-law hub (same stack) — brand band, floating session bar, 3fr/9fr surface bands, layered previews."
    ]
   }
@@ -8317,6 +8646,405 @@
     768,
     1280,
     1920
+   ]
+  }
+ },
+ {
+  "path": "/admin/products",
+  "code": "M-16",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin"
+  ],
+  "spec": {
+   "code": "M-16",
+   "name": {
+    "es": "Maestro de productos · borrador",
+    "en": "Product master · draft"
+   },
+   "purpose": {
+    "es": "Preparar productos y vigencias con cotizaciones ficticias, sin publicar precios.",
+    "en": "Prepare products and effective prices with fictional quotes, without publishing prices."
+   },
+   "roles": [
+    "super_admin",
+    "admin"
+   ],
+   "layout": [
+    "Disconnected demo notice",
+    "Draft product list",
+    "Draft editor and price windows",
+    "Quote preview and fictional snapshots",
+    "Revision history"
+   ],
+   "data": [
+    "plans"
+   ],
+   "logic": [
+    "PR-01/PR-02 prototype only; no operational checkout integration.",
+    "Inclusive price date windows cannot overlap. Gaps block quoting.",
+    "Product changes preserve revision history and fictional quote snapshots.",
+    "Saving frontend_catalog does not publish legacy plan names/prices/availability."
+   ],
+   "integrations": [
+    "DataProvider mock only; authenticated atomic pricing contract pending"
+   ],
+   "states": [
+    "loading",
+    "empty",
+    "read failure with retry",
+    "editing",
+    "validation error",
+    "saving",
+    "save failure",
+    "quote unavailable",
+    "saved draft"
+   ],
+   "notes": [
+    "Future backend must authorize by authenticated actor/tenant, reject stale revisions, append audit and save catalog atomically. Quote snapshots are browser test examples, not paid orders."
+   ]
+  }
+ },
+ {
+  "path": "/teach/promote",
+  "code": "S-07",
+  "surface": "teacher",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "teacher"
+  ],
+  "spec": {
+   "code": "S-07",
+   "name": {
+    "es": "Promover una invitación",
+    "en": "Promote an invitation"
+   },
+   "purpose": {
+    "es": "Compartir ofertas aprobadas con enlaces únicos y seguir resultados propios.",
+    "en": "Share approved offers with unique links and follow your own results."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "teacher"
+   ],
+   "layout": [
+    "notice",
+    "create",
+    "history"
+   ],
+   "data": [
+    "promotion_campaigns",
+    "promotion_shares",
+    "promotion_claims",
+    "promotion_events",
+    "voucher_bookings"
+   ],
+   "logic": [
+    "Only approved, published, eligible campaigns can be shared.",
+    "Private context never appears in public offer previews or links.",
+    "Copy and native-share handoff do not mean delivered.",
+    "This browser-local sandbox does not work across devices."
+   ],
+   "integrations": [
+    "Native share sheet (handoff only)",
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Draft",
+    "Created",
+    "Copied",
+    "Share cancelled",
+    "Claimed",
+    "Booked",
+    "Attended",
+    "Error"
+   ]
+  }
+ },
+ {
+  "path": "/promotions/:code",
+  "code": "C-29",
+  "surface": "public",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk",
+   "finance",
+   "teacher",
+   "maintenance",
+   "marketing",
+   "developer",
+   "customer",
+   "public"
+  ],
+  "spec": {
+   "code": "C-29",
+   "name": {
+    "es": "Vista previa de promoción",
+    "en": "Promotion preview"
+   },
+   "purpose": {
+    "es": "Revisar una oferta, activarla con una cuenta de prueba y reservar.",
+    "en": "Review an offer, claim it with a test account and book."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk",
+    "finance",
+    "teacher",
+    "maintenance",
+    "marketing",
+    "developer",
+    "customer",
+    "public"
+   ],
+   "layout": [
+    "notice",
+    "offer"
+   ],
+   "data": [
+    "promotion_campaigns",
+    "promotion_shares",
+    "promotion_claims",
+    "promotion_events",
+    "voucher_bookings"
+   ],
+   "logic": [
+    "Only approved, published, eligible campaigns can be shared.",
+    "Private context never appears in public offer previews or links.",
+    "Copy and native-share handoff do not mean delivered.",
+    "This browser-local sandbox does not work across devices."
+   ],
+   "integrations": [
+    "Native share sheet (handoff only)",
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Draft",
+    "Created",
+    "Copied",
+    "Share cancelled",
+    "Claimed",
+    "Booked",
+    "Attended",
+    "Error"
+   ]
+  }
+ },
+ {
+  "path": "/promotions",
+  "code": "C-29",
+  "surface": "public",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk",
+   "finance",
+   "teacher",
+   "maintenance",
+   "marketing",
+   "developer",
+   "customer",
+   "public"
+  ],
+  "spec": {
+   "code": "C-29",
+   "name": {
+    "es": "Vista previa de promoción",
+    "en": "Promotion preview"
+   },
+   "purpose": {
+    "es": "Revisar una oferta, activarla con una cuenta de prueba y reservar.",
+    "en": "Review an offer, claim it with a test account and book."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk",
+    "finance",
+    "teacher",
+    "maintenance",
+    "marketing",
+    "developer",
+    "customer",
+    "public"
+   ],
+   "layout": [
+    "notice",
+    "offer"
+   ],
+   "data": [
+    "promotion_campaigns",
+    "promotion_shares",
+    "promotion_claims",
+    "promotion_events",
+    "voucher_bookings"
+   ],
+   "logic": [
+    "Only approved, published, eligible campaigns can be shared.",
+    "Private context never appears in public offer previews or links.",
+    "Copy and native-share handoff do not mean delivered.",
+    "This browser-local sandbox does not work across devices."
+   ],
+   "integrations": [
+    "Native share sheet (handoff only)",
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Draft",
+    "Created",
+    "Copied",
+    "Share cancelled",
+    "Claimed",
+    "Booked",
+    "Attended",
+    "Error"
+   ]
+  }
+ },
+ {
+  "path": "/admin/promotions",
+  "code": "M-15",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator"
+  ],
+  "spec": {
+   "code": "M-15",
+   "name": {
+    "es": "Resultados de promociones",
+    "en": "Promotion results"
+   },
+   "purpose": {
+    "es": "Revisar promociones y resultados por promotor sin confundir compartir con entregar.",
+    "en": "Review promotions and promoter results without confusing sharing with delivery."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator"
+   ],
+   "layout": [
+    "notice",
+    "campaigns",
+    "results"
+   ],
+   "data": [
+    "promotion_campaigns",
+    "promotion_shares",
+    "promotion_claims",
+    "promotion_events",
+    "voucher_bookings"
+   ],
+   "logic": [
+    "Only approved, published, eligible campaigns can be shared.",
+    "Private context never appears in public offer previews or links.",
+    "Copy and native-share handoff do not mean delivered.",
+    "This browser-local sandbox does not work across devices."
+   ],
+   "integrations": [
+    "Native share sheet (handoff only)",
+    "Supabase (not connected)"
+   ],
+   "states": [
+    "Draft",
+    "Created",
+    "Copied",
+    "Share cancelled",
+    "Claimed",
+    "Booked",
+    "Attended",
+    "Error"
+   ]
+  }
+ },
+ {
+  "path": "/hub/promotions",
+  "code": "P-02",
+  "surface": "public",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk",
+   "finance",
+   "teacher",
+   "maintenance",
+   "marketing",
+   "developer",
+   "customer",
+   "public"
+  ],
+  "spec": {
+   "code": "P-02",
+   "name": {
+    "es": "Promociones · aprender y probar",
+    "en": "Promotions · learn and practise"
+   },
+   "purpose": {
+    "es": "Aprender el recorrido de una promoción y practicar con un ejemplo aislado, desde el Hub y con cualquier rol.",
+    "en": "Learn the promotion journey and practise with an isolated example, from the Hub with any role."
+   },
+   "layout": [
+    "overview",
+    "practice",
+    "workspaces"
+   ],
+   "data": [
+    "page_layouts"
+   ],
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk",
+    "finance",
+    "teacher",
+    "maintenance",
+    "marketing",
+    "developer",
+    "customer",
+    "public"
+   ],
+   "integrations": [],
+   "logic": [
+    "Same access as /hub. Entering the guide never changes the session, effective role or permissions.",
+    "The persistent sandbox notice is outside reorderable sections and cannot be hidden by a layout setting.",
+    "Three steps: approved offer and teacher share; recipient activation and booking; front-desk verification and check-in.",
+    "PromotionPractice uses component-local state only. It never writes vouchers, bookings, attendance or any provider table, and resets on leaving or reloading the page.",
+    "A fictional short code is checked locally. Verification is required before the simulated check-in; the practice can be restarted.",
+    "Workspace links are resolved from the registered routes and gated with the same hasRole check used by RequireRole. Unavailable or unauthorized routes have explanatory non-link states.",
+    "No role-switching iframe is used: the existing DeviceFrame isolates session keys but does not isolate data writes."
+   ],
+   "states": [
+    "Approved example",
+    "Share simulated",
+    "Booking simulated",
+    "Incorrect sample code",
+    "Verified sample code",
+    "Check-in simulated",
+    "Reset",
+    "Role-allowed workspace",
+    "Role-restricted workspace",
+    "Spanish",
+    "English",
+    "Dark theme"
    ]
   }
  },
@@ -9198,6 +9926,253 @@
   }
  },
  {
+  "path": "/staff/vouchers",
+  "code": "S-08",
+  "surface": "staff",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "coordinator",
+   "front_desk"
+  ],
+  "spec": {
+   "code": "S-08",
+   "name": {
+    "es": "Recepción · bonos y promociones",
+    "en": "Front desk · vouchers and promotions"
+   },
+   "purpose": {
+    "es": "Buscar un código o enlace, verificar al titular, confirmar reservas y marcar asistencia sin volver a descontar.",
+    "en": "Find a code or link, verify the holder, confirm bookings and check in without a second debit."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "coordinator",
+    "front_desk"
+   ],
+   "layout": [
+    "notice",
+    "lookup",
+    "result",
+    "bookings",
+    "walkup"
+   ],
+   "data": [
+    "vouchers",
+    "voucher_bookings",
+    "voucher_events",
+    "class_sessions",
+    "bookings",
+    "promotion_campaigns",
+    "promotion_shares",
+    "promotion_claims"
+   ],
+   "logic": [
+    "Free invitation issuance never records a purchase.",
+    "Benefit and participant cap are independent.",
+    "Demo provider only: no real delivery, authentication or payment."
+   ],
+   "integrations": [
+    "Supabase (not connected)",
+    "WhatsApp (preview only)",
+    "Email (preview only)"
+   ],
+   "states": [
+    "Lookup",
+    "Not found",
+    "No available class",
+    "Participant limit",
+    "Unclaimed",
+    "Verified",
+    "Booked",
+    "Confirmed",
+    "Attended",
+    "Expired",
+    "Cancelled"
+   ]
+  }
+ },
+ {
+  "path": "/admin/vouchers",
+  "code": "M-13",
+  "surface": "admin",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin"
+  ],
+  "spec": {
+   "code": "M-13",
+   "name": {
+    "es": "Invitaciones y bonos",
+    "en": "Invitations and vouchers"
+   },
+   "purpose": {
+    "es": "Crear invitaciones gratuitas de prueba y seguir activación, reserva y asistencia.",
+    "en": "Create free test invitations and follow activation, booking and attendance."
+   },
+   "roles": [
+    "super_admin",
+    "admin"
+   ],
+   "layout": [
+    "notice",
+    "create",
+    "history"
+   ],
+   "data": [
+    "vouchers",
+    "voucher_bookings",
+    "voucher_events",
+    "class_sessions"
+   ],
+   "logic": [
+    "Free invitation issuance never records a purchase.",
+    "Benefit and participant cap are independent.",
+    "Demo provider only: no real delivery, authentication or payment."
+   ],
+   "integrations": [
+    "Supabase (not connected)",
+    "WhatsApp (preview only)",
+    "Email (preview only)"
+   ],
+   "states": [
+    "Empty",
+    "Draft",
+    "Issued (test)",
+    "Claimed (test)",
+    "Booked (test)",
+    "Attended (test)",
+    "Error",
+    "Revoked"
+   ]
+  }
+ },
+ {
+  "path": "/app/vouchers",
+  "code": "C-28",
+  "surface": "customer",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "customer",
+   "teacher"
+  ],
+  "spec": {
+   "code": "C-28",
+   "name": {
+    "es": "Activar invitación",
+    "en": "Activate invitation"
+   },
+   "purpose": {
+    "es": "Activar un bono de prueba y reservar con acompañantes.",
+    "en": "Activate a test voucher and book with guests."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "customer",
+    "teacher"
+   ],
+   "layout": [
+    "notice",
+    "benefit",
+    "booking",
+    "history"
+   ],
+   "data": [
+    "vouchers",
+    "voucher_bookings",
+    "voucher_events",
+    "class_sessions"
+   ],
+   "logic": [
+    "Free invitation issuance never records a purchase.",
+    "Benefit and participant cap are independent.",
+    "Demo provider only: no real delivery, authentication or payment."
+   ],
+   "integrations": [
+    "Supabase (not connected)",
+    "WhatsApp (preview only)",
+    "Email (preview only)"
+   ],
+   "states": [
+    "Empty",
+    "Draft",
+    "Issued (test)",
+    "Claimed (test)",
+    "Booked (test)",
+    "Attended (test)",
+    "Error",
+    "Revoked"
+   ]
+  }
+ },
+ {
+  "path": "/app/vouchers/:id",
+  "code": "C-28",
+  "surface": "customer",
+  "status": "built",
+  "roles": [
+   "super_admin",
+   "admin",
+   "customer",
+   "teacher"
+  ],
+  "spec": {
+   "code": "C-28",
+   "name": {
+    "es": "Activar invitación",
+    "en": "Activate invitation"
+   },
+   "purpose": {
+    "es": "Activar un bono de prueba y reservar con acompañantes.",
+    "en": "Activate a test voucher and book with guests."
+   },
+   "roles": [
+    "super_admin",
+    "admin",
+    "customer",
+    "teacher"
+   ],
+   "layout": [
+    "notice",
+    "benefit",
+    "booking",
+    "history"
+   ],
+   "data": [
+    "vouchers",
+    "voucher_bookings",
+    "voucher_events",
+    "class_sessions"
+   ],
+   "logic": [
+    "Free invitation issuance never records a purchase.",
+    "Benefit and participant cap are independent.",
+    "Demo provider only: no real delivery, authentication or payment."
+   ],
+   "integrations": [
+    "Supabase (not connected)",
+    "WhatsApp (preview only)",
+    "Email (preview only)"
+   ],
+   "states": [
+    "Empty",
+    "Draft",
+    "Issued (test)",
+    "Claimed (test)",
+    "Booked (test)",
+    "Attended (test)",
+    "Error",
+    "Revoked"
+   ]
+  }
+ },
+ {
   "path": "/site",
   "code": "W-01",
   "surface": "public",
@@ -9258,6 +10233,7 @@
     "reviews"
    ],
    "logic": [
+    "0067: Latest and Photos share the approved real red-lit studio hero used by Coming Soon; Archive and Classic preserve their historical hero treatments.",
     "Sections render in the order stored by the layout editor (useLayout).",
     "Today list shows only scheduled sessions for the current date.",
     "Prose comes from src/tenant/brand.ts; prices from src/tenant/pricing.ts; facts from src/tenant/tenant.ts.",

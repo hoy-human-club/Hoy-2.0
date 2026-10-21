@@ -1,0 +1,3487 @@
+{
+  "schema": "hoy.frontend-routes/1",
+  "baseline": "2d402751c5bee899d5adab62837d2b0e7e313025",
+  "capturedAt": "2026-10-21",
+  "source": "runtime window.__hoyos.routes, local Vite startup at baseline before edits",
+  "routes": [
+    {
+      "path": "/admin/finance/subscriptions",
+      "code": "M-09d",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "empty",
+        "editing",
+        "saved",
+        "conflict",
+        "storage failure"
+      ],
+      "tables": []
+    },
+    {
+      "path": "/admin",
+      "code": "M-01",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: KPI skeletons",
+        "Flag conflict: dependency warning before saving",
+        "No permission: switches render read-only"
+      ],
+      "tables": [
+        "memberships",
+        "payments",
+        "class_sessions",
+        "bookings",
+        "modalities",
+        "teachers",
+        "audit_log",
+        "users",
+        "profiles"
+      ]
+    },
+    {
+      "path": "/admin/analytics",
+      "code": "M-12",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading (empty tables)",
+        "Range with no classes held",
+        "Nobody at risk (EmptyState)",
+        "No milestones in range",
+        "No goals set yet",
+        "Heatmap scrolls inside its card on phones"
+      ],
+      "tables": [
+        "bookings",
+        "class_sessions",
+        "memberships",
+        "class_ledger",
+        "practice_goals",
+        "profiles",
+        "users",
+        "teachers",
+        "modalities"
+      ]
+    },
+    {
+      "path": "/admin/content",
+      "code": "M-02",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: table skeleton",
+        "Validation: field-level errors in the drawer",
+        "Conflict: concurrent edit warning",
+        "Empty: 'Create the first class type'"
+      ],
+      "tables": [
+        "class_templates",
+        "teachers",
+        "modalities",
+        "rooms",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/content/articles",
+      "code": "M-02a",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty (no articles)",
+        "Filter with no matches",
+        "Draft / scheduled / published",
+        "Invalid slug",
+        "Read-only (sin content.write)",
+        "Unsaved changes"
+      ],
+      "tables": [
+        "content_articles",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/content/faq",
+      "code": "M-02b",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "First / last entry (arrow disabled)",
+        "Unpublished entry",
+        "Read-only",
+        "New empty section"
+      ],
+      "tables": [
+        "faq_entries",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/content/events",
+      "code": "M-02c",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "Draft / published / cancelled",
+        "Sold out (RSVPs = capacity)",
+        "Capacity below RSVPs: blocked",
+        "End before start: blocked",
+        "Delete blocked by RSVPs",
+        "Read-only"
+      ],
+      "tables": [
+        "events",
+        "event_rsvps",
+        "rooms",
+        "teachers",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/content/media",
+      "code": "M-02d",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "Pending slot (ratio + brief)",
+        "Ready photo",
+        "Ready video",
+        "Invalid URL",
+        "Read-only"
+      ],
+      "tables": [
+        "media_assets",
+        "teachers",
+        "modalities",
+        "events",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/tables",
+      "code": "M-03",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "finance",
+        "developer"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No table picked (overview of every group)",
+        "Grid \u00b7 List \u00b7 Gallery \u00b7 Board \u00b7 Graph (table level) \u00b7 Graph (row level)",
+        "Filtered to no rows",
+        "Sidebar expanded / rail / phone sheet",
+        "Search with no matching table",
+        "Row drawer (edit) / read-only for finance and developer",
+        "Delete confirm (in-product)",
+        "Reset demo data confirm",
+        "Board without an option column",
+        "Calendar month \u00b7 week \u00b7 agenda",
+        "Calendar empty period (jump to the previous / next row)",
+        "Timeline day \u00b7 week \u00b7 month \u00b7 quarter, with lanes",
+        "Timeline, phone (one lane, group chips)",
+        "Calendar / timeline disabled (no date column)",
+        "Saved view rename / delete confirm",
+        "Technical names on (dev mode)"
+      ],
+      "tables": [
+        "table_views",
+        "any table in src/data/schema.ts (tableRegistry)",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/admin/tables/:table",
+      "code": "M-03",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "finance",
+        "developer"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No table picked (overview of every group)",
+        "Grid \u00b7 List \u00b7 Gallery \u00b7 Board \u00b7 Graph (table level) \u00b7 Graph (row level)",
+        "Filtered to no rows",
+        "Sidebar expanded / rail / phone sheet",
+        "Search with no matching table",
+        "Row drawer (edit) / read-only for finance and developer",
+        "Delete confirm (in-product)",
+        "Reset demo data confirm",
+        "Board without an option column",
+        "Calendar month \u00b7 week \u00b7 agenda",
+        "Calendar empty period (jump to the previous / next row)",
+        "Timeline day \u00b7 week \u00b7 month \u00b7 quarter, with lanes",
+        "Timeline, phone (one lane, group chips)",
+        "Calendar / timeline disabled (no date column)",
+        "Saved view rename / delete confirm",
+        "Technical names on (dev mode)"
+      ],
+      "tables": [
+        "table_views",
+        "any table in src/data/schema.ts (tableRegistry)",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/admin/emails",
+      "code": "M-04",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Unsaved changes: sticky save bar",
+        "Missing translation: blocked from activation",
+        "Provider error: banner with retry"
+      ],
+      "tables": [
+        "email_templates",
+        "message_log",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/whatsapp",
+      "code": "M-05",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing",
+        "front_desk"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Template pending approval: automation disabled with reason",
+        "Rate limited: queue depth shown",
+        "Opt-out: preview marked undeliverable"
+      ],
+      "tables": [
+        "automations",
+        "wa_templates",
+        "message_log",
+        "profiles",
+        "users",
+        "tenants",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/crm",
+      "code": "M-06",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: list skeleton",
+        "Empty segment: 'nobody matches yet'",
+        "No consent: channels shown as unavailable",
+        "Merged duplicate: banner with the merge history",
+        "Conversaci\u00f3n: unread inbound (blue ring) \u2192 read on open",
+        "Composer read-only (no members.write)",
+        "WhatsApp blocked (unverified number)",
+        "Quiet hours (queued hint)",
+        "Sistema filter: events only, no composer"
+      ],
+      "tables": [
+        "users",
+        "profiles",
+        "memberships",
+        "plans",
+        "bookings",
+        "class_sessions",
+        "payments",
+        "class_ledger",
+        "message_log",
+        "consents",
+        "audit_log",
+        "practice_goals"
+      ]
+    },
+    {
+      "path": "/admin/crm/deletions",
+      "code": "M-11",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "No open requests",
+        "Filter with no matches",
+        "Requested (mover a en proceso)",
+        "Processing with a partial checklist (hecha disabled)",
+        "All steps ticked (hecha enabled)",
+        "Done / cancelled (locked, read-only)",
+        "Public request without an account",
+        "Read-only (not admin)"
+      ],
+      "tables": [
+        "deletion_requests",
+        "users",
+        "profiles",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/crm/:id",
+      "code": "M-06",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "marketing"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: list skeleton",
+        "Empty segment: 'nobody matches yet'",
+        "No consent: channels shown as unavailable",
+        "Merged duplicate: banner with the merge history",
+        "Conversaci\u00f3n: unread inbound (blue ring) \u2192 read on open",
+        "Composer read-only (no members.write)",
+        "WhatsApp blocked (unverified number)",
+        "Quiet hours (queued hint)",
+        "Sistema filter: events only, no composer"
+      ],
+      "tables": [
+        "users",
+        "profiles",
+        "memberships",
+        "plans",
+        "bookings",
+        "class_sessions",
+        "payments",
+        "class_ledger",
+        "message_log",
+        "consents",
+        "audit_log",
+        "practice_goals"
+      ]
+    },
+    {
+      "path": "/admin/activity",
+      "code": "M-07",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: table skeleton",
+        "Empty: 'no activity in this range'",
+        "Large range: paginated with a count",
+        "Export running: progress + email on completion"
+      ],
+      "tables": [
+        "audit_log",
+        "users",
+        "profiles",
+        "user_roles"
+      ]
+    },
+    {
+      "path": "/admin/settings",
+      "code": "M-08a",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Some fields pending (default: email, Instagram)",
+        "All confirmed",
+        "Saving",
+        "Read-only"
+      ],
+      "tables": [
+        "tenants",
+        "hours_overrides",
+        "rooms",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/hours",
+      "code": "M-08g",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty (no exceptions yet)",
+        "Seed: three holidays + one special Saturday",
+        "Drawer new / edit",
+        "Validation error",
+        "Import done (n added) / nothing new",
+        "Read-only (no hours.write)"
+      ],
+      "tables": [
+        "hours_overrides",
+        "tenants",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/features",
+      "code": "M-08b",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Read-only (sin features.write)",
+        "Flag bloqueado",
+        "Guardado"
+      ],
+      "tables": [
+        "tenants",
+        "feature_flags",
+        "rooms",
+        "modalities",
+        "teachers",
+        "legal_documents",
+        "hours_overrides",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/payments",
+      "code": "M-08c",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Monthly (default)",
+        "Biweekly",
+        "Rate row empty (falls through)",
+        "Saving",
+        "Read-only"
+      ],
+      "tables": [
+        "tenants",
+        "modalities",
+        "teachers",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/communications",
+      "code": "M-08d",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Saving: section-level confirmation",
+        "Validation: DIAN range exhausted warning",
+        "Integration down: amber status with last check",
+        "No permission: section renders read-only"
+      ],
+      "tables": [
+        "tenants",
+        "feature_flags",
+        "rooms",
+        "modalities",
+        "teachers",
+        "legal_documents",
+        "hours_overrides",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/branding",
+      "code": "M-08e",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Saving: section-level confirmation",
+        "Validation: DIAN range exhausted warning",
+        "Integration down: amber status with last check",
+        "No permission: section renders read-only"
+      ],
+      "tables": [
+        "tenants",
+        "feature_flags",
+        "rooms",
+        "modalities",
+        "teachers",
+        "legal_documents",
+        "hours_overrides",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/settings/content",
+      "code": "M-08f",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Respiraci\u00f3n hidden (default) / shown",
+        "Map none / osm / google",
+        "Legal: n of 7 published",
+        "Read-only"
+      ],
+      "tables": [
+        "tenants",
+        "legal_documents",
+        "media_assets",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/integrations",
+      "code": "M-10",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "All simulated (seed)",
+        "Configured: fields filled, dev pending",
+        "Connected",
+        "Dirty card (unsaved)",
+        "Saved",
+        "Read-only (no settings.write)"
+      ],
+      "tables": [
+        "integrations",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/integrations/google-business",
+      "code": "M-10a",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Simulated (seed)",
+        "Configured (location filled, server pending)",
+        "Connected",
+        "No special hours upcoming",
+        "Copied"
+      ],
+      "tables": [
+        "integrations",
+        "tenants",
+        "hours_overrides",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/finance",
+      "code": "M-09",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty range",
+        "No refund permission: action hidden",
+        "E-invoicing off: notice",
+        "No draft run yet",
+        "Negative balance (expenses above revenue in the range)"
+      ],
+      "tables": [
+        "payments",
+        "invoices",
+        "plans",
+        "users",
+        "profiles",
+        "payroll_runs",
+        "payroll_lines",
+        "expenses",
+        "audit_log",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/admin/finance/payouts",
+      "code": "M-09a",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "No runs yet",
+        "Draft exists for the period: regenerated",
+        "Period already approved/paid: blocked",
+        "Read-only (solo payroll.read)"
+      ],
+      "tables": [
+        "payroll_runs",
+        "payroll_lines",
+        "class_sessions",
+        "bookings",
+        "teachers",
+        "special_charges",
+        "space_bookings",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/finance/payouts/:id",
+      "code": "M-09b",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Draft: regenerate + approve",
+        "Approved: pay by Wompi / transfer / cash",
+        "Approved: one teacher settled, the rest pending",
+        "Paid: locked, read-only",
+        "Wompi rejected: reason shown",
+        "Run not found",
+        "Negative adjustment line"
+      ],
+      "tables": [
+        "payroll_runs",
+        "payroll_lines",
+        "class_sessions",
+        "bookings",
+        "teachers",
+        "special_charges",
+        "space_bookings",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/finance/expenses",
+      "code": "M-09c",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/admin/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty range",
+        "No templates yet",
+        "Generate: n created / all skipped",
+        "Unpaid row: marcar pagado",
+        "Paid row: locked",
+        "Read-only (solo expenses.read)",
+        "Invalid form (empty concept, zero amount)"
+      ],
+      "tables": [
+        "expenses",
+        "expense_templates",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/admin/class-pay",
+      "code": "M-14a",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/classSchedule/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "Filtered",
+        "Calendar",
+        "List",
+        "Table",
+        "Editing",
+        "Conflict",
+        "Error",
+        "Read-only history"
+      ],
+      "tables": [
+        "class_pay_rules",
+        "class_templates"
+      ]
+    },
+    {
+      "path": "/admin/class-schedule",
+      "code": "M-14",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/classSchedule/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "Filtered",
+        "Calendar",
+        "List",
+        "Table",
+        "Editing",
+        "Conflict",
+        "Error",
+        "Read-only history"
+      ],
+      "tables": [
+        "class_sessions",
+        "class_templates",
+        "teachers",
+        "modalities",
+        "rooms",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/",
+      "code": "W-11",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/coming-soon/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Spanish",
+        "English",
+        "login dialog",
+        "motion playing",
+        "motion paused",
+        "reduced motion",
+        "video unavailable"
+      ],
+      "tables": []
+    },
+    {
+      "path": "/coming-soon",
+      "code": "W-11",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/coming-soon/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Spanish",
+        "English",
+        "login dialog",
+        "motion playing",
+        "motion paused",
+        "reduced motion",
+        "video unavailable"
+      ],
+      "tables": []
+    },
+    {
+      "path": "/app",
+      "code": "C-01",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: skeleton cards, no layout shift",
+        "Empty: no bookings \u2192 'Reserve your first class'",
+        "Error: cached feed + retry chip",
+        "Offline: last fetch with stale badge"
+      ],
+      "tables": [
+        "bookings",
+        "classes",
+        "announcements",
+        "memberships",
+        "credits",
+        "practice_stats",
+        "feedback_requests",
+        "events",
+        "class_sessions",
+        "class_ledger",
+        "practice_goals",
+        "activity_events"
+      ]
+    },
+    {
+      "path": "/app/schedule",
+      "code": "C-02",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: three skeleton rows",
+        "Empty: 'No classes match' + clear-filters",
+        "Error: retry",
+        "Past days: rows read-only",
+        "Week view (C-02b)"
+      ],
+      "tables": [
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "rooms",
+        "bookings",
+        "waitlist"
+      ]
+    },
+    {
+      "path": "/app/schedule/week",
+      "code": "C-02b",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: skeleton",
+        "Empty day: dash in the column",
+        "Past days: chips dimmed",
+        "Booked: chip outlined"
+      ],
+      "tables": [
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "rooms",
+        "bookings"
+      ]
+    },
+    {
+      "path": "/app/class/:id",
+      "code": "C-03",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: hero shimmer",
+        "Cancelled class: banner + reschedule options",
+        "Full: CTA becomes Waitlist",
+        "Already booked: CTA opens the booking",
+        "Same-day conflict: CTA disabled with reason",
+        "Not found"
+      ],
+      "tables": [
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "rooms",
+        "bookings",
+        "waitlist"
+      ]
+    },
+    {
+      "path": "/app/checkout/:id",
+      "code": "C-04",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: CTA spinner, form locked",
+        "Declined: inline reason + alternate method",
+        "Race: class filled during checkout \u2192 waitlist offer",
+        "Success: confirmation sheet"
+      ],
+      "tables": [
+        "class_sessions",
+        "bookings",
+        "class_ledger",
+        "memberships",
+        "plans",
+        "payments",
+        "invoices"
+      ]
+    },
+    {
+      "path": "/app/payment-methods",
+      "code": "C-05",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: rows shimmer",
+        "Empty: 'Add a payment method'",
+        "Gateway down: cash at the desk only + banner",
+        "Expired card: inline warning",
+        "Saving: tokenising a new method",
+        "One default: every other row offers \u201cmake default\u201d"
+      ],
+      "tables": [
+        "payment_methods",
+        "payments",
+        "invoices"
+      ]
+    },
+    {
+      "path": "/app/plans",
+      "code": "C-06",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: card skeletons",
+        "Existing member: current plan marked, others show 'change'",
+        "Promotion active: badge + strike price"
+      ],
+      "tables": [
+        "plans",
+        "class_ledger",
+        "payments"
+      ]
+    },
+    {
+      "path": "/app/passes",
+      "code": "C-07",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Default (this screen)",
+        "Trial already used: that row drops to a note",
+        "Existing member: banner offers C-06 instead",
+        "Loading: four skeleton rows"
+      ],
+      "tables": [
+        "plans",
+        "payments",
+        "class_ledger",
+        "bookings"
+      ]
+    },
+    {
+      "path": "/app/classes",
+      "code": "C-07b",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Default (this screen)",
+        "Trial already used: that row drops to a note",
+        "Existing member: banner offers C-06 instead",
+        "Loading: four skeleton rows"
+      ],
+      "tables": [
+        "class_ledger",
+        "plans",
+        "payments",
+        "bookings"
+      ]
+    },
+    {
+      "path": "/app/booking/:id",
+      "code": "C-08",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Inside window: destructive confirm sheet",
+        "Past class: read-only + rate CTA",
+        "Cancelled by studio: banner + alternatives"
+      ],
+      "tables": [
+        "bookings",
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "rooms",
+        "class_ledger",
+        "waitlist"
+      ]
+    },
+    {
+      "path": "/app/booking/:id/change",
+      "code": "C-08b",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Outside window (this sheet)",
+        "Inside window: destructive confirm naming the forfeited credit",
+        "No replacement available: waitlist offer",
+        "Past class: sheet cannot open"
+      ],
+      "tables": [
+        "bookings",
+        "class_sessions",
+        "modalities",
+        "class_ledger",
+        "waitlist"
+      ]
+    },
+    {
+      "path": "/app/rate/:id",
+      "code": "C-10",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Multiple pending: queue one at a time",
+        "Submitted: thank-you with review link",
+        "Error: keep local draft"
+      ],
+      "tables": [
+        "reviews",
+        "bookings",
+        "class_sessions",
+        "teachers"
+      ]
+    },
+    {
+      "path": "/app/history",
+      "code": "C-11",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty: 'Your first class is waiting'",
+        "Loading: rows shimmer",
+        "Error: retry"
+      ],
+      "tables": [
+        "bookings",
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "payments",
+        "invoices",
+        "plans"
+      ]
+    },
+    {
+      "path": "/app/rules",
+      "code": "C-13",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Video missing: textured placeholder with intended shot noted",
+        "Untranslated: falls back to Spanish with a note"
+      ],
+      "tables": [
+        "content_articles",
+        "legal_documents"
+      ]
+    },
+    {
+      "path": "/app/faq",
+      "code": "C-14",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Collapsed (default)",
+        "One expanded",
+        "No match in search: offers the concierge",
+        "Untranslated entry: falls back to Spanish"
+      ],
+      "tables": [
+        "faq_entries"
+      ]
+    },
+    {
+      "path": "/app/faq/2",
+      "code": "C-15",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Collapsed (default)",
+        "One expanded",
+        "Untranslated entry: falls back to Spanish",
+        "Studio closed today: hours row shows next opening"
+      ],
+      "tables": [
+        "faq_entries"
+      ]
+    },
+    {
+      "path": "/app/invite",
+      "code": "C-16",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty: channel row only",
+        "Pass used: row collapses to a result",
+        "Limit hit: explains the cap"
+      ],
+      "tables": [
+        "invites",
+        "class_ledger",
+        "class_sessions",
+        "profiles"
+      ]
+    },
+    {
+      "path": "/app/gift",
+      "code": "C-17",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Custom amount: min/max validation",
+        "Delivery in the past: blocked inline",
+        "Success: preview of what the recipient receives"
+      ],
+      "tables": [
+        "gift_cards",
+        "payments",
+        "invoices"
+      ]
+    },
+    {
+      "path": "/app/teachers",
+      "code": "C-18",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No portrait: textured placeholder marked 'teacher portrait'",
+        "Pending approval: staff-only draft badge"
+      ],
+      "tables": [
+        "teachers",
+        "modalities",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/app/teachers/:id",
+      "code": "C-18",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No portrait: textured placeholder marked 'teacher portrait'",
+        "Pending approval: staff-only draft badge"
+      ],
+      "tables": [
+        "teachers",
+        "modalities",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/app/profile",
+      "code": "C-19",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: header skeleton",
+        "Unverified WhatsApp: verify chip",
+        "Saving: inline confirmation"
+      ],
+      "tables": [
+        "profiles",
+        "users",
+        "memberships",
+        "plans",
+        "consents"
+      ]
+    },
+    {
+      "path": "/app/waitlist/:id",
+      "code": "C-20",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Waiting: position + rule",
+        "Offered: banner + live countdown",
+        "Expired: 'the spot passed on' + rejoin",
+        "Class started: row goes read-only"
+      ],
+      "tables": [
+        "waitlist",
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "bookings",
+        "class_ledger"
+      ]
+    },
+    {
+      "path": "/app/events",
+      "code": "C-23",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: hero shimmer",
+        "Sold out: waitlist offer",
+        "Past: read-only with gallery",
+        "Cancelled: banner + refund note",
+        "No events published yet",
+        "Going: RSVP notice with cancel",
+        "Member price included"
+      ],
+      "tables": [
+        "events",
+        "event_rsvps",
+        "payments",
+        "invoices",
+        "teachers",
+        "memberships"
+      ]
+    },
+    {
+      "path": "/app/events/:id",
+      "code": "C-23",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: hero shimmer",
+        "Sold out: waitlist offer",
+        "Past: read-only with gallery",
+        "Cancelled: banner + refund note",
+        "No events published yet",
+        "Going: RSVP notice with cancel",
+        "Member price included"
+      ],
+      "tables": [
+        "events",
+        "event_rsvps",
+        "payments",
+        "invoices",
+        "teachers",
+        "memberships"
+      ]
+    },
+    {
+      "path": "/app/notifications",
+      "code": "C-24",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty: 'nothing yet'",
+        "Unread: dot + heavier weight",
+        "Expired action: row dims, action removed",
+        "Offline: cached list",
+        "All read",
+        "Muted category in the prefs matrix"
+      ],
+      "tables": [
+        "notifications",
+        "notification_prefs"
+      ]
+    },
+    {
+      "path": "/app/more",
+      "code": "C-25",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading: identity skeleton",
+        "No membership: card shows the plan prompt",
+        "Outside hours: the WhatsApp row states the reply window"
+      ],
+      "tables": [
+        "profiles",
+        "memberships",
+        "plans",
+        "class_ledger"
+      ]
+    },
+    {
+      "path": "/app/account",
+      "code": "C-26",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No request: delete row available",
+        "Step 1: explanation, switch off \u2192 next disabled",
+        "Step 2: destructive confirm",
+        "Request pending (requested) with cancel",
+        "Request processing (no cancel)",
+        "Privacy policy not accepted yet",
+        "Exporting"
+      ],
+      "tables": [
+        "deletion_requests",
+        "profiles",
+        "users",
+        "notification_prefs",
+        "legal_acceptances",
+        "legal_documents",
+        "payments",
+        "invoices",
+        "bookings",
+        "audit_log",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/app/practice",
+      "code": "C-27",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No bookings ever: EmptyState with the book CTA",
+        "Goal set, streak alive",
+        "At risk (weekend, goal not met)",
+        "Building (no run yet, a visit this week)",
+        "Broken (shows the best run)",
+        "No goal (sin meta): no ring, no streak, counts stay",
+        "Rest week used / rest week available",
+        "Month with no-shows or late cancels (neutral tiles, shown only when > 0)"
+      ],
+      "tables": [
+        "bookings",
+        "class_sessions",
+        "practice_goals",
+        "activity_events",
+        "memberships",
+        "class_ledger",
+        "modalities",
+        "teachers"
+      ]
+    },
+    {
+      "path": "/app/legal/:kind",
+      "code": "A-06",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Published version in force",
+        "Draft pending counsel review",
+        "More than one version: switcher",
+        "Accepted by this member (date + channel)",
+        "Accepted an older version",
+        "Not accepted yet: accept action",
+        "Kind not found"
+      ],
+      "tables": [
+        "legal_documents",
+        "legal_acceptances",
+        "consents",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/app/state/empty",
+      "code": "E-01",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty (this screen)",
+        "Loading: skeleton rows",
+        "Error: retry with cached announcements"
+      ],
+      "tables": [
+        "bookings",
+        "memberships"
+      ]
+    },
+    {
+      "path": "/app/state/declined",
+      "code": "E-02",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Declined (this screen)",
+        "Retrying: button spinner, methods locked",
+        "Hold expired: spot released, rebook offered",
+        "Recovered: confirmation sheet"
+      ],
+      "tables": [
+        "payments",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/app/state/cancelled",
+      "code": "E-03",
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Cancelled with alternatives (this screen)",
+        "Cancelled, none available: waitlist offer",
+        "Already rebooked: confirmation",
+        "Past class: read-only"
+      ],
+      "tables": [
+        "class_sessions",
+        "bookings",
+        "class_ledger",
+        "modalities",
+        "teachers"
+      ]
+    },
+    {
+      "path": "/auth",
+      "code": "A-01",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "breathing",
+        "reduced motion"
+      ],
+      "tables": [
+        "users",
+        "feature_flags"
+      ]
+    },
+    {
+      "path": "/auth/sign-in",
+      "code": "A-02",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "wrong credentials: attempts left",
+        "locked \u2192 E-04"
+      ],
+      "tables": [
+        "users",
+        "user_roles",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/auth/sign-up",
+      "code": "A-03",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "validation errors",
+        "duplicate email \u2192 sign-in offer",
+        "created"
+      ],
+      "tables": [
+        "users",
+        "profiles",
+        "user_roles",
+        "consents",
+        "legal_documents"
+      ]
+    },
+    {
+      "path": "/auth/recover",
+      "code": "C-21",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Sending: button spinner",
+        "Wrong code: cells shake, attempts left shown",
+        "Expired: 'code expired' + resend",
+        "Rate limited: wait time stated"
+      ],
+      "tables": [
+        "users",
+        "wa_templates"
+      ]
+    },
+    {
+      "path": "/auth/locked",
+      "code": "E-04",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/customer/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Locked (this screen)",
+        "Countdown finished: form re-enabled",
+        "Escalated: contact-support copy"
+      ],
+      "tables": [
+        "users"
+      ]
+    },
+    {
+      "path": "/dev",
+      "code": "D-03",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "filtered by family"
+      ],
+      "tables": [
+        "components",
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/dev/tokens",
+      "code": "D-01",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Styled \u00d7 light",
+        "Styled \u00d7 dark",
+        "Wireframe \u00d7 light",
+        "Wireframe \u00d7 dark"
+      ],
+      "tables": [
+        "design_tokens",
+        "materials",
+        "textures",
+        "shadow_scale",
+        "radius_scale",
+        "type_scale",
+        "themes"
+      ]
+    },
+    {
+      "path": "/dev/components",
+      "code": "D-02",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Default / hover / active / focus / disabled / loading / empty / error"
+      ],
+      "tables": [
+        "components",
+        "variants",
+        "props",
+        "usage_examples",
+        "a11y_notes"
+      ]
+    },
+    {
+      "path": "/dev/specs",
+      "code": "D-03",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "filtered by family"
+      ],
+      "tables": [
+        "components",
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/dev/layout",
+      "code": "D-04",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default (spec order)",
+        "custom order saved",
+        "page not wired"
+      ],
+      "tables": [
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/dev/layout/:pageCode",
+      "code": "D-04",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default (spec order)",
+        "custom order saved",
+        "page not wired"
+      ],
+      "tables": [
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/dev/knowledgebase",
+      "code": "K-01",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Current version",
+        "Historic version (read-only banner)"
+      ],
+      "tables": [
+        "plan_phases",
+        "tasks",
+        "task_status",
+        "changelog_entries",
+        "decisions",
+        "prompt_notes",
+        "versions"
+      ]
+    },
+    {
+      "path": "/dev/canvas",
+      "code": "D-05",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default (M)",
+        "zoom S / L / XL",
+        "sin capturas todav\u00eda (mosaicos inactivos)",
+        "modo dev (badges de esbozo)"
+      ],
+      "tables": [
+        "page_layouts",
+        "components"
+      ]
+    },
+    {
+      "path": "/dev/api-keys",
+      "code": "D-07",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer",
+        "admin"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "Empty",
+        "Seed: two example keys",
+        "Create drawer",
+        "Key shown once",
+        "Rotating (grace 24 h)",
+        "Revoke confirm",
+        "Read-only (admin)"
+      ],
+      "tables": [
+        "api_keys",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/dev/simulator",
+      "code": "D-06",
+      "surface": "dev",
+      "roles": [
+        "super_admin",
+        "developer"
+      ],
+      "source": "src/modules/dev/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "tel\u00e9fono",
+        "tableta",
+        "escritorio",
+        "TV 4K",
+        "rol sin acceso a la ruta (el marco muestra E-05)",
+        "oscuro",
+        "English"
+      ],
+      "tables": [
+        "users",
+        "user_roles"
+      ]
+    },
+    {
+      "path": "/docs",
+      "code": "K-02",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/docs/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "doc not found",
+        "index pages (changelog, prompts, screenshots)",
+        "screenshots empty"
+      ],
+      "tables": [
+        "docs_entries"
+      ]
+    },
+    {
+      "path": "/hub",
+      "code": "HUB-01",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/hub/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default (visitor)",
+        "signed in as a member",
+        "super admin",
+        "dev mode",
+        "wireframe skin",
+        "dark theme",
+        "live previews on",
+        "live previews off (live=0)",
+        "automation: live previews off (navigator.webdriver)",
+        "framed (inside a preview or the simulator)",
+        "no captures yet (idle tiles)",
+        "English"
+      ],
+      "tables": [
+        "users",
+        "user_roles",
+        "feature_flags",
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/no-access",
+      "code": "E-05",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/hub/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default"
+      ],
+      "tables": [
+        "user_roles"
+      ]
+    },
+    {
+      "path": "/manual",
+      "code": "K-03",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/ops-manual/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "home, lens = all (tiles + start here + grid)",
+        "home, lens = a role (Tu manual)",
+        "home as coordination / admin (team view)",
+        "chapter",
+        "chapter, required / recommended / not applicable for the lens",
+        "chapter read / new version",
+        "chapter marked unread again",
+        "chapter foot (last chapter of the list: no next link)",
+        "section editable by admin without a level tag",
+        "phone figures paired",
+        "section edited (override live)",
+        "section editor open",
+        "section with suggestions",
+        "scoped block collapsed",
+        "chapter not found",
+        "untranslated (ES fallback)",
+        "search results",
+        "print"
+      ],
+      "tables": [
+        "docs_entries",
+        "tenants",
+        "profiles",
+        "users",
+        "user_roles",
+        "memberships",
+        "class_sessions",
+        "teachers",
+        "bookings",
+        "manual_progress",
+        "manual_training",
+        "manual_overrides",
+        "manual_requests",
+        "studio_policies",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/manual/decisions",
+      "code": "K-04",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/ops-manual/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "no decisions",
+        "no open requests",
+        "requests (lead)",
+        "requests hidden (not a lead)"
+      ],
+      "tables": [
+        "docs_entries",
+        "manual_requests",
+        "profiles",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/manual/:chapter",
+      "code": "K-03",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/ops-manual/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "home, lens = all (tiles + start here + grid)",
+        "home, lens = a role (Tu manual)",
+        "home as coordination / admin (team view)",
+        "chapter",
+        "chapter, required / recommended / not applicable for the lens",
+        "chapter read / new version",
+        "chapter marked unread again",
+        "chapter foot (last chapter of the list: no next link)",
+        "section editable by admin without a level tag",
+        "phone figures paired",
+        "section edited (override live)",
+        "section editor open",
+        "section with suggestions",
+        "scoped block collapsed",
+        "chapter not found",
+        "untranslated (ES fallback)",
+        "search results",
+        "print"
+      ],
+      "tables": [
+        "docs_entries",
+        "tenants",
+        "profiles",
+        "users",
+        "user_roles",
+        "memberships",
+        "class_sessions",
+        "teachers",
+        "bookings",
+        "manual_progress",
+        "manual_training",
+        "manual_overrides",
+        "manual_requests",
+        "studio_policies",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/docs/source",
+      "code": "K-05",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer"
+      ],
+      "source": "src/modules/ops-manual/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "one document opened (?doc=)",
+        "viewer fullscreen"
+      ],
+      "tables": [
+        "docs_entries"
+      ]
+    },
+    {
+      "path": "/teach/promote",
+      "code": "S-07",
+      "surface": "teacher",
+      "roles": [
+        "super_admin",
+        "admin",
+        "teacher"
+      ],
+      "source": "src/modules/promotions/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Draft",
+        "Created",
+        "Copied",
+        "Share cancelled",
+        "Claimed",
+        "Booked",
+        "Attended",
+        "Error"
+      ],
+      "tables": [
+        "promotion_campaigns",
+        "promotion_shares",
+        "promotion_claims",
+        "promotion_events",
+        "voucher_bookings"
+      ]
+    },
+    {
+      "path": "/promotions/:code",
+      "code": "C-29",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/promotions/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Draft",
+        "Created",
+        "Copied",
+        "Share cancelled",
+        "Claimed",
+        "Booked",
+        "Attended",
+        "Error"
+      ],
+      "tables": [
+        "promotion_campaigns",
+        "promotion_shares",
+        "promotion_claims",
+        "promotion_events",
+        "voucher_bookings"
+      ]
+    },
+    {
+      "path": "/promotions",
+      "code": "C-29",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/promotions/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Draft",
+        "Created",
+        "Copied",
+        "Share cancelled",
+        "Claimed",
+        "Booked",
+        "Attended",
+        "Error"
+      ],
+      "tables": [
+        "promotion_campaigns",
+        "promotion_shares",
+        "promotion_claims",
+        "promotion_events",
+        "voucher_bookings"
+      ]
+    },
+    {
+      "path": "/admin/promotions",
+      "code": "M-15",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator"
+      ],
+      "source": "src/modules/promotions/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Draft",
+        "Created",
+        "Copied",
+        "Share cancelled",
+        "Claimed",
+        "Booked",
+        "Attended",
+        "Error"
+      ],
+      "tables": [
+        "promotion_campaigns",
+        "promotion_shares",
+        "promotion_claims",
+        "promotion_events",
+        "voucher_bookings"
+      ]
+    },
+    {
+      "path": "/hub/promotions",
+      "code": "P-02",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/promotions-guide/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Approved example",
+        "Share simulated",
+        "Booking simulated",
+        "Incorrect sample code",
+        "Verified sample code",
+        "Check-in simulated",
+        "Reset",
+        "Role-allowed workspace",
+        "Role-restricted workspace",
+        "Spanish",
+        "English",
+        "Dark theme"
+      ],
+      "tables": [
+        "page_layouts"
+      ]
+    },
+    {
+      "path": "/staff",
+      "code": "S-01",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "maintenance",
+        "marketing",
+        "developer",
+        "teacher"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No role assigned: read-only student view",
+        "Context switch: full re-route"
+      ],
+      "tables": [
+        "class_sessions",
+        "bookings",
+        "waitlist",
+        "payments",
+        "message_log",
+        "users",
+        "profiles",
+        "audit_log",
+        "teachers"
+      ]
+    },
+    {
+      "path": "/staff/inbox",
+      "code": "S-06",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "No conversations",
+        "None selected (\u201cElige una conversaci\u00f3n\u201d)",
+        "All read",
+        "Thread with unread inbound (blue ring)",
+        "Filtered / searched list, no match",
+        "Read-only composer (no members.write)",
+        "WhatsApp blocked (unverified number)",
+        "Quiet hours (queued hint)",
+        "Thread not found (old link)",
+        "Narrow: list, then thread (\u2264 900 px)"
+      ],
+      "tables": [
+        "message_log",
+        "users",
+        "profiles",
+        "memberships",
+        "plans",
+        "tenants",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/staff/inbox/:id",
+      "code": "S-06",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "No conversations",
+        "None selected (\u201cElige una conversaci\u00f3n\u201d)",
+        "All read",
+        "Thread with unread inbound (blue ring)",
+        "Filtered / searched list, no match",
+        "Read-only composer (no members.write)",
+        "WhatsApp blocked (unverified number)",
+        "Quiet hours (queued hint)",
+        "Thread not found (old link)",
+        "Narrow: list, then thread (\u2264 900 px)"
+      ],
+      "tables": [
+        "message_log",
+        "users",
+        "profiles",
+        "memberships",
+        "plans",
+        "tenants",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/staff/checkin",
+      "code": "S-02",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Offline: queue check-ins locally and sync",
+        "No classes today: empty strip",
+        "Loading roster",
+        "No permission: roster read-only"
+      ],
+      "tables": [
+        "class_sessions",
+        "bookings",
+        "waitlist",
+        "users",
+        "profiles",
+        "memberships",
+        "plans",
+        "teachers",
+        "modalities",
+        "audit_log",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/staff/register",
+      "code": "S-04",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "New customer (this screen)",
+        "Existing member: identity fields collapse to a found-member card",
+        "Payment declined: inline reason, order stays pending",
+        "Offline: queue and warn",
+        "No permission: form read-only",
+        "Sale complete: receipt view"
+      ],
+      "tables": [
+        "users",
+        "profiles",
+        "user_roles",
+        "consents",
+        "payments",
+        "invoices",
+        "memberships",
+        "class_ledger",
+        "bookings",
+        "class_sessions",
+        "message_log",
+        "audit_log",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/staff/rooms",
+      "code": "S-05",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/staff/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Loading",
+        "No rooms",
+        "Empty day",
+        "Day with classes only",
+        "Held / confirmed / done / cancelled blocks",
+        "Cancelled hidden by default (toggle)",
+        "Conflict: CTA disabled with the list of what overlaps",
+        "Read-only (no bookings.write_any)",
+        "Selected class \u2192 open check-in",
+        "Selected booking \u2192 confirm / done / cancel / charge"
+      ],
+      "tables": [
+        "rooms",
+        "class_sessions",
+        "space_bookings",
+        "special_charges",
+        "teachers",
+        "modalities",
+        "users",
+        "profiles",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/teach",
+      "code": "S-03",
+      "surface": "teacher",
+      "roles": [
+        "teacher",
+        "coordinator",
+        "admin"
+      ],
+      "source": "src/modules/teacher/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "No class today: schedule promoted",
+        "Attendance locked: read-only with reason",
+        "Payroll pending: 'run closes on the 15th'"
+      ],
+      "tables": [
+        "teachers",
+        "class_sessions",
+        "bookings",
+        "modalities",
+        "users",
+        "profiles",
+        "audit_log",
+        "space_bookings",
+        "special_charges",
+        "rooms",
+        "reviews",
+        "memberships",
+        "class_ledger",
+        "practice_goals"
+      ]
+    },
+    {
+      "path": "/teach/class/:id",
+      "code": "S-03",
+      "surface": "teacher",
+      "roles": [
+        "teacher",
+        "coordinator",
+        "admin"
+      ],
+      "source": "src/modules/teacher/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Before start: roster only",
+        "After start: Close class (own class, or coordinator override)",
+        "Completed",
+        "Class not found"
+      ],
+      "tables": [
+        "teachers",
+        "class_sessions",
+        "bookings",
+        "modalities",
+        "users",
+        "profiles",
+        "audit_log",
+        "reviews"
+      ]
+    },
+    {
+      "path": "/teach/payroll",
+      "code": "S-03",
+      "surface": "teacher",
+      "roles": [
+        "teacher",
+        "coordinator",
+        "admin",
+        "finance"
+      ],
+      "source": "src/modules/teacher/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Estimate (no run yet)",
+        "Draft run",
+        "Approved run",
+        "Paid run (with date)",
+        "No classes this month",
+        "Substitutions present",
+        "Negative adjustment",
+        "No payout method on file",
+        "Not linked to a teacher profile"
+      ],
+      "tables": [
+        "payroll_runs",
+        "payroll_lines",
+        "special_charges",
+        "teachers",
+        "class_sessions",
+        "bookings",
+        "class_templates",
+        "payment_methods",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/teach/profile",
+      "code": "S-03",
+      "surface": "teacher",
+      "roles": [
+        "teacher",
+        "coordinator",
+        "admin"
+      ],
+      "source": "src/modules/teacher/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Saved: sent for review",
+        "Not linked to a teacher profile"
+      ],
+      "tables": [
+        "teachers",
+        "modalities",
+        "audit_log"
+      ]
+    },
+    {
+      "path": "/staff/vouchers",
+      "code": "S-08",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk"
+      ],
+      "source": "src/modules/vouchers/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Lookup",
+        "Not found",
+        "No available class",
+        "Participant limit",
+        "Unclaimed",
+        "Verified",
+        "Booked",
+        "Confirmed",
+        "Attended",
+        "Expired",
+        "Cancelled"
+      ],
+      "tables": [
+        "vouchers",
+        "voucher_bookings",
+        "voucher_events",
+        "class_sessions",
+        "bookings",
+        "promotion_campaigns",
+        "promotion_shares",
+        "promotion_claims"
+      ]
+    },
+    {
+      "path": "/admin/vouchers",
+      "code": "M-13",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin"
+      ],
+      "source": "src/modules/vouchers/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty",
+        "Draft",
+        "Issued (test)",
+        "Claimed (test)",
+        "Booked (test)",
+        "Attended (test)",
+        "Error",
+        "Revoked"
+      ],
+      "tables": [
+        "vouchers",
+        "voucher_bookings",
+        "voucher_events",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/app/vouchers",
+      "code": "C-28",
+      "surface": "customer",
+      "roles": [
+        "super_admin",
+        "admin",
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/vouchers/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty",
+        "Draft",
+        "Issued (test)",
+        "Claimed (test)",
+        "Booked (test)",
+        "Attended (test)",
+        "Error",
+        "Revoked"
+      ],
+      "tables": [
+        "vouchers",
+        "voucher_bookings",
+        "voucher_events",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/app/vouchers/:id",
+      "code": "C-28",
+      "surface": "customer",
+      "roles": [
+        "super_admin",
+        "admin",
+        "customer",
+        "teacher"
+      ],
+      "source": "src/modules/vouchers/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "Empty",
+        "Draft",
+        "Issued (test)",
+        "Claimed (test)",
+        "Booked (test)",
+        "Attended (test)",
+        "Error",
+        "Revoked"
+      ],
+      "tables": [
+        "vouchers",
+        "voucher_bookings",
+        "voucher_events",
+        "class_sessions"
+      ]
+    },
+    {
+      "path": "/site",
+      "code": "W-01",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "no classes today",
+        "no published reviews"
+      ],
+      "tables": [
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "reviews"
+      ]
+    },
+    {
+      "path": "/site/about",
+      "code": "W-02",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default"
+      ],
+      "tables": []
+    },
+    {
+      "path": "/site/classes",
+      "code": "W-07",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default"
+      ],
+      "tables": [
+        "modalities"
+      ]
+    },
+    {
+      "path": "/site/classes/:slug",
+      "code": "W-08",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "no matching modality",
+        "unknown slug"
+      ],
+      "tables": [
+        "modalities"
+      ]
+    },
+    {
+      "path": "/site/modalities",
+      "code": "W-03",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default"
+      ],
+      "tables": [
+        "modalities"
+      ]
+    },
+    {
+      "path": "/site/schedule",
+      "code": "W-04",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "day without classes",
+        "login prompt open"
+      ],
+      "tables": [
+        "class_sessions",
+        "modalities",
+        "teachers",
+        "rooms"
+      ]
+    },
+    {
+      "path": "/site/teachers",
+      "code": "W-05",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "no portrait yet"
+      ],
+      "tables": [
+        "teachers",
+        "modalities"
+      ]
+    },
+    {
+      "path": "/site/plans",
+      "code": "P-01",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "IVA included",
+        "IVA added at checkout",
+        "freeze rule from M-08"
+      ],
+      "tables": [
+        "plans",
+        "plan_prices",
+        "packages",
+        "memberships",
+        "gift_cards",
+        "space_rentals",
+        "orders",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/site/faq",
+      "code": "W-10",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "search: matches (answers open)",
+        "search: no matches",
+        "loading"
+      ],
+      "tables": [
+        "faq_entries"
+      ]
+    },
+    {
+      "path": "/site/contact",
+      "code": "W-06",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "form empty",
+        "form filled"
+      ],
+      "tables": [
+        "tenants"
+      ]
+    },
+    {
+      "path": "/site/delete-account",
+      "code": "W-09",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "validation: no contact",
+        "validation: bad email / phone",
+        "switch off \u2192 button disabled",
+        "sent (reference shown)"
+      ],
+      "tables": [
+        "deletion_requests",
+        "audit_log",
+        "tenants"
+      ]
+    },
+    {
+      "path": "/site/legal/terms",
+      "code": "A-06",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [],
+      "tables": [
+        "legal_documents",
+        "document_versions",
+        "consents"
+      ]
+    },
+    {
+      "path": "/site/legal/privacy",
+      "code": "A-06",
+      "surface": "public",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/website/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [],
+      "tables": [
+        "legal_documents",
+        "document_versions",
+        "consents"
+      ]
+    },
+    {
+      "path": "/docs/*",
+      "code": "K-02",
+      "surface": "docs",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "front_desk",
+        "finance",
+        "teacher",
+        "maintenance",
+        "marketing",
+        "developer",
+        "customer",
+        "public"
+      ],
+      "source": "src/modules/docs/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "default",
+        "doc not found",
+        "index pages (changelog, prompts, screenshots)",
+        "screenshots empty"
+      ],
+      "tables": [
+        "docs_entries"
+      ]
+    }
+  ]
+}

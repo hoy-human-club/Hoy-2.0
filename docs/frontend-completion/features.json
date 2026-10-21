@@ -1,0 +1,3761 @@
+{
+  "schema": "hoy.frontend-completion/1",
+  "owner": "frontend integration coordinator",
+  "baseline": "2d402751c5bee899d5adab62837d2b0e7e313025",
+  "source": {
+    "url": "https://docs.google.com/spreadsheets/d/1mYdL-JXd6-Y7A7XfTbUWsAbPNRUuI-Di5Aebgmu6Rjo/edit",
+    "readAt": "2026-10-21",
+    "featureCount": 124,
+    "duplicate": "Parent spreadsheet worker owns English-first Front End Dev Log; URL pending. Original untouched."
+  },
+  "policy": "Source acceptance is preserved separately. No source Accepted status or built badge constitutes fresh verification. Future phase prototypes remain prototypes; backend acceptance is not frontend completion.",
+  "features": [
+    {
+      "id": "AC-01",
+      "module": "Agreement",
+      "feature": "Agreed scope document",
+      "criterion": "This sheet, with the scope of every row reviewed and accepted by Justin and the club's management.",
+      "role": "Admin",
+      "source": {
+        "status": "In review",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": []
+    },
+    {
+      "id": "AC-05",
+      "module": "Agreement",
+      "feature": "Support and bug fixing through November 30",
+      "criterion": "Reported bugs are fixed within the agreed time. A bug that prevents booking or paying is handled the same day.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No aplica / N/A"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": []
+    },
+    {
+      "id": "PL-01",
+      "module": "Platform",
+      "feature": "Hosting, domain and database in the club's name",
+      "criterion": "Hosting, domain, email, database and third-party services are registered in Santa María's name.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "",
+      "implementationStatus": "absent",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [
+        "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
+      ],
+      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-02",
+      "module": "Platform",
+      "feature": "Real database and authentication",
+      "criterion": "Data is stored on the server (Supabase), not in the browser; a change made on one device is visible on another.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "INT-06, TRA-01",
+      "implementationStatus": "absent",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [
+        "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
+      ],
+      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-03",
+      "module": "Platform",
+      "feature": "No demo tools or data in production",
+      "criterion": "The demo user selector and the 'Reset demo data' button do not exist, and no fictitious data remains.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "SAD-02, ADM-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-04",
+      "module": "Platform",
+      "feature": "Protected private areas",
+      "criterion": "A visitor who pastes a private route is sent to sign-in; a customer only sees their own data; the server rejects anything the role does not allow.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "PUB-11, CLI-23, TRA-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-05",
+      "module": "Platform",
+      "feature": "Permissions for launch roles",
+      "criterion": "Customer, Front desk and Administration see and do only what the approved permissions matrix states.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "TRA-03, REC-26",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-06",
+      "module": "Platform",
+      "feature": "Secrets on the server only",
+      "criterion": "No private keys on screen, in browser code or in the repository.",
+      "role": "Desarrollo",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "DEV-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-07",
+      "module": "Platform",
+      "feature": "Input validation",
+      "criterion": "Text with symbols, HTML or scripts is stored as text and not executed; forms validate format and length.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "TRA-07",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-08",
+      "module": "Platform",
+      "feature": "Backups",
+      "criterion": "There is an automatic daily backup and a restore has been tested without data loss.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "TRA-11",
+      "implementationStatus": "absent",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [
+        "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
+      ],
+      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-09",
+      "module": "Platform",
+      "feature": "Colombian dates, times and currency",
+      "criterion": "Times in America/Bogota, Colombian holidays and pesos without decimals.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "TRA-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-10",
+      "module": "Platform",
+      "feature": "Log of sensitive actions",
+      "criterion": "Confirming or rejecting a payment, changing a booking, creating a voucher and changing a price are logged with user, date and time, and cannot be edited.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "TRA-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-11",
+      "module": "Platform",
+      "feature": "Spanish at launch",
+      "criterion": "All launch text is in Spanish, with no mixed phrases.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "PUB-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-12",
+      "module": "Platform",
+      "feature": "English version",
+      "criterion": "All screens switch between ES and EN with no mixed phrases.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "PUB-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "PL-13",
+      "module": "Platform",
+      "feature": "Migration of existing data",
+      "criterion": "Loaded people, packages and balances match the source.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "To be confirmed",
+      "priority": "High",
+      "relatedTests": "TRA-12",
+      "implementationStatus": "absent",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts",
+        "src/data/DataContext.tsx",
+        "src/data/SupabaseProvider.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [
+        "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
+      ],
+      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "SW-01",
+      "module": "Website",
+      "feature": "Public website",
+      "criterion": "Home, philosophy, methods, today's classes, teachers, plans and contact load without errors and match Content.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "PUB-01, PUB-03, PUB-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-02",
+      "module": "Website",
+      "feature": "Website prices from the product master",
+      "criterion": "Prices on the website are the current ones in the product master; a price change shows on the website.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "PUB-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-03",
+      "module": "Website",
+      "feature": "'Book your class' button",
+      "criterion": "Leads to sign-up or sign-in and then to the chosen class.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "PUB-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-04",
+      "module": "Website",
+      "feature": "WhatsApp buttons",
+      "criterion": "Each button opens the chat with the number set in Settings (direct link, no integration).",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "PUB-06",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-05",
+      "module": "Website",
+      "feature": "Single brand name and email",
+      "criterion": "Website, app, emails and manual use the same brand name and contact email.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "PUB-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-06",
+      "module": "Website",
+      "feature": "Manual and documents not public",
+      "criterion": "The owner decides what is public; internal content (policies, processes, internal prices) requires sign-in.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "PUB-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-07",
+      "module": "Website",
+      "feature": "Map on the contact page",
+      "criterion": "Shows the studio's correct location.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "INT-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "SW-08",
+      "module": "Website",
+      "feature": "Pre-opening page",
+      "criterion": "From October 30 the pre-opening page redirects to the public website.",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Low",
+      "relatedTests": "PUB-07",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/website/index.ts",
+        "src/tenant/pricing.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/site"
+      ]
+    },
+    {
+      "id": "CU-01",
+      "module": "Account",
+      "feature": "Account required to book",
+      "criterion": "Booking requires an account with name, WhatsApp and email; there is no guest booking.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-01",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-02",
+      "module": "Account",
+      "feature": "Personal data consent",
+      "criterion": "On sign-up the customer accepts terms and data policy; date and document version are stored (Law 1581).",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-01, TRA-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-03",
+      "module": "Account",
+      "feature": "Sign-in with email code or Google",
+      "criterion": "Customers sign in with a code sent to their email or with their Google account. The code expires, and after several failed attempts access is locked for a while.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-02, TRA-01",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-04",
+      "module": "Account",
+      "feature": "Sign out and change email",
+      "criterion": "The session closes completely; an email change sends a notice to the previous address.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "CLI-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-05",
+      "module": "Account",
+      "feature": "Customer profile",
+      "criterion": "Customers edit their details, emergency contact and birthday, and changes show in the customer record.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-19",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-06",
+      "module": "Account",
+      "feature": "Personal data rights",
+      "criterion": "Customers view, download, correct and request deletion of their data; the request is handled within 15 business days.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "CLI-22, COO-13",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "CU-07",
+      "module": "Account",
+      "feature": "Sign-in with WhatsApp code",
+      "criterion": "The code arrives through real WhatsApp.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "CLI-02, INT-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/pages/AccountPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/auth/sign-in",
+        "/#/auth/sign-up",
+        "/#/app/profile",
+        "/#/app/account"
+      ]
+    },
+    {
+      "id": "PR-01",
+      "module": "Products",
+      "feature": "Configurable product master",
+      "criterion": "Administration creates and edits products with: code, name, type, number of classes, validity in days, price, price start date, price end date and active/inactive.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "REC-09, PUB-02",
+      "implementationStatus": "partial",
+      "verificationStatus": "local-prototype-passed",
+      "candidateEvidence": [
+        "src/data/productCatalog.ts",
+        "src/modules/products/ProductsPage.tsx",
+        "src/modules/products/spec.ts"
+      ],
+      "routes": [
+        "/#/admin/products"
+      ],
+      "tests": [
+        "scripts/test-product-catalog.mjs",
+        "scripts/test-product-catalog-ui.mjs",
+        "scripts/test-product-catalog-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-16/en-390.jpg",
+        "docs/screenshots/M-16/es-390.jpg",
+        "docs/screenshots/M-16/en-1280.jpg",
+        "docs/screenshots/M-16/es-1280.jpg"
+      ],
+      "blockers": [
+        "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
+        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
+      ],
+      "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-02",
+      "module": "Products",
+      "feature": "Price in force by date",
+      "criterion": "The system charges the price in force on the purchase date; a price change does not alter past purchases and the price history is kept.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "local-prototype-passed",
+      "candidateEvidence": [
+        "src/data/productCatalog.ts",
+        "src/modules/products/ProductsPage.tsx",
+        "src/modules/products/spec.ts"
+      ],
+      "routes": [
+        "/#/admin/products"
+      ],
+      "tests": [
+        "scripts/test-product-catalog.mjs",
+        "scripts/test-product-catalog-ui.mjs",
+        "scripts/test-product-catalog-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-16/en-390.jpg",
+        "docs/screenshots/M-16/es-390.jpg",
+        "docs/screenshots/M-16/en-1280.jpg",
+        "docs/screenshots/M-16/es-1280.jpg"
+      ],
+      "blockers": [
+        "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
+        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
+      ],
+      "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-03",
+      "module": "Products",
+      "feature": "Launch products loaded",
+      "criterion": "Loaded and on sale: single class, trial class ($35,000), 12-class package ($600,000), private class (from $250,000) and Santa María package ($480,000).",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "PUB-02, CLI-12, CLI-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/packages.ts",
+        "src/tenant/pricing.ts",
+        "src/modules/customer/hooks.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-04",
+      "module": "Products",
+      "feature": "Trial class rule",
+      "criterion": "The trial class can be bought only once per person and is not offered to someone with an active package.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "CLI-13",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/packages.ts",
+        "src/tenant/pricing.ts",
+        "src/modules/customer/hooks.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-05",
+      "module": "Products",
+      "feature": "Santa María package for members only",
+      "criterion": "The Santa María package is sold only to verified members.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/packages.ts",
+        "src/tenant/pricing.ts",
+        "src/modules/customer/hooks.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-06",
+      "module": "Products",
+      "feature": "Package balance and expiry",
+      "criterion": "Once payment is confirmed, the package is active with its classes and expiry; the customer sees remaining classes and expiry date.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-05, CLI-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/packages.ts",
+        "src/tenant/pricing.ts",
+        "src/modules/customer/hooks.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "PR-07",
+      "module": "Products",
+      "feature": "Freeze and resume package",
+      "criterion": "Respects the maximum days and times, moves the expiry date and sends notices.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-15",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/packages.ts",
+        "src/tenant/pricing.ts",
+        "src/modules/customer/hooks.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/plans",
+        "/#/app/classes"
+      ]
+    },
+    {
+      "id": "RS-01",
+      "module": "Bookings",
+      "feature": "Schedule with availability",
+      "criterion": "Customers see classes by day and week, filter by method and see available spots.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "CLI-06",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-02",
+      "module": "Bookings",
+      "feature": "Book with an active package",
+      "criterion": "Confirms the booking, deducts 1 class and the booking appears in upcoming classes.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-07",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-03",
+      "module": "Bookings",
+      "feature": "Book and buy in the same flow",
+      "criterion": "If the customer has no classes, they choose a product (single, trial or package) and go to the payment screen without losing the chosen class.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-12, CLI-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-04",
+      "module": "Bookings",
+      "feature": "One class per person per day",
+      "criterion": "A second booking on the same day is rejected with a clear message.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "CLI-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-05",
+      "module": "Bookings",
+      "feature": "No bookings for started or past classes",
+      "criterion": "A class that has started or ended cannot be booked.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "CLI-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-06",
+      "module": "Bookings",
+      "feature": "Room capacity",
+      "criterion": "Room capacity (16 / 8 mats) is never exceeded, from the app or the front desk.",
+      "role": "Cliente, Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "REC-06",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-07",
+      "module": "Bookings",
+      "feature": "Last spot without double booking",
+      "criterion": "If two people take the last spot at the same time, only one gets it and the other is notified.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "TRA-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-08",
+      "module": "Bookings",
+      "feature": "Booking details",
+      "criterion": "Customers see date, time, room, teacher, payment status (pending, confirmed, released) and directions.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-09",
+      "module": "Bookings",
+      "feature": "Reschedule up to 12 hours before",
+      "criterion": "Customers move their booking to another class up to 12 hours before start; after that the button is unavailable.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-10",
+      "module": "Bookings",
+      "feature": "Cancellation policy",
+      "criterion": "Within the window the class is returned; outside it the late-cancellation policy applies.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "CLI-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-11",
+      "module": "Bookings",
+      "feature": "Waitlist",
+      "criterion": "In a full class the customer joins the list; when a spot opens they get the offer and have a set time to take it.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-12",
+      "module": "Bookings",
+      "feature": "Class and payment history",
+      "criterion": "Customers see attended, cancelled and missed classes, and their payments with receipts; they can export them.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-16",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-13",
+      "module": "Bookings",
+      "feature": "Support content in the app",
+      "criterion": "Club rules, FAQ, teachers and directions are correct.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "CLI-24",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-14",
+      "module": "Bookings",
+      "feature": "My practice: streak and weekly goal",
+      "criterion": "Figures match the customer's history.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "CLI-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "RS-15",
+      "module": "Bookings",
+      "feature": "Events",
+      "criterion": "Customers sign up and cancel; capacity, confirmation and emails work.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-18, COO-15",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/index.ts",
+        "src/modules/customer/hooks.ts",
+        "src/data/mats.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/schedule",
+        "/#/app/class/sample",
+        "/#/app/booking/sample"
+      ]
+    },
+    {
+      "id": "PG-01",
+      "module": "Payments",
+      "feature": "Bank transfer payment screen",
+      "criterion": "Shows the amount due, the club's Bancolombia account, the fixed QR code and the Bre-B key. The customer types the amount in their bank app.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-02",
+      "module": "Payments",
+      "feature": "Upload the transfer receipt",
+      "criterion": "On the same screen the customer uploads an image (PNG or JPG) of the receipt; format and size are validated and the booking becomes 'pending confirmation'.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-03",
+      "module": "Payments",
+      "feature": "Spot held for 15 minutes",
+      "criterion": "The spot is held for 15 minutes; if it is not confirmed in that time, the booking is released, the spot becomes available again and the customer is notified by email.",
+      "role": "Cliente, Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-04",
+      "module": "Payments",
+      "feature": "Confirm or reject the payment",
+      "criterion": "Front desk or Administration opens the receipt, compares it with the Bancolombia notification, records the amount received and confirms or rejects with a reason. On confirmation, the booking or package becomes active.",
+      "role": "Recepción, Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "FIN-05",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-05",
+      "module": "Payments",
+      "feature": "Pending payments list",
+      "criterion": "The front desk sees all payments awaiting confirmation in one list, with customer, product, amount, receipt and time remaining.",
+      "role": "Recepción, Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-06",
+      "module": "Payments",
+      "feature": "Pay at the front desk",
+      "criterion": "The customer chooses to pay at the front desk; the booking stays pending and is released if not paid within 1 hour.",
+      "role": "Cliente, Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-07",
+      "module": "Payments",
+      "feature": "Record payment at the front desk",
+      "criterion": "The front desk records the payment (cash, card terminal or transfer) and the booking is confirmed, with the name of who took it.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "REC-12, REC-16",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-08",
+      "module": "Payments",
+      "feature": "Payment receipt by email",
+      "criterion": "Each confirmed payment sends a receipt to the customer's email. No invoice is issued.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-16",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-09",
+      "module": "Payments",
+      "feature": "No duplicate payments",
+      "criterion": "Pressing twice or on a poor connection does not duplicate the payment or the booking.",
+      "role": "Cliente, Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-10",
+      "module": "Payments",
+      "feature": "Payments report for accounting",
+      "criterion": "Administration downloads confirmed payments as Excel or CSV by date range, with method, product and who confirmed.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "FIN-01",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-11",
+      "module": "Payments",
+      "feature": "Refunds",
+      "criterion": "A full or partial refund changes the payment status, adjusts the package and sends a notice.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "FIN-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-12",
+      "module": "Payments",
+      "feature": "Daily cash close",
+      "criterion": "The close reconciles cash, card terminal and transfers against recorded payments.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "REC-18",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-13",
+      "module": "Payments",
+      "feature": "Online payments with Wompi",
+      "criterion": "Card, PSE, QR and link; approved, declined and pending are reflected by webhook.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Medium",
+      "relatedTests": "CLI-12, CLI-14, REC-12, INT-01",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-14",
+      "module": "Payments",
+      "feature": "Saved cards",
+      "criterion": "Only a token and the last 4 digits are stored.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "CLI-20, TRA-06",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-15",
+      "module": "Payments",
+      "feature": "DIAN electronic invoicing",
+      "criterion": "Each approved payment generates an invoice with CUFE and unique consecutive numbering.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Medium",
+      "relatedTests": "FIN-06, FIN-07, INT-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "PG-16",
+      "module": "Payments",
+      "feature": "VAT on the receipt",
+      "criterion": "The receipt shows subtotal, VAT included and total without rounding errors.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "To be confirmed",
+      "priority": "Medium",
+      "relatedTests": "REC-13",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/app/checkout/sample",
+        "/#/staff/register",
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "BO-01",
+      "module": "Gift vouchers",
+      "feature": "Buy and send a voucher",
+      "criterion": "The customer buys a voucher for a number of classes, enters the recipient's email and pays by transfer (PG-01 to PG-04).",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-02",
+      "module": "Gift vouchers",
+      "feature": "Voucher sent by email with a link",
+      "criterion": "Once payment is confirmed, the recipient gets an email with a unique link to redeem it.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-03",
+      "module": "Gift vouchers",
+      "feature": "Studio courtesy vouchers",
+      "criterion": "Administration creates invitations or courtesy vouchers with number of classes, expiry and usage limit, and sends them by email with a link.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "COO-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-04",
+      "module": "Gift vouchers",
+      "feature": "Redeem the voucher",
+      "criterion": "On opening the link, the person signs up or signs in and the voucher's classes are added to their balance for booking.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-05",
+      "module": "Gift vouchers",
+      "feature": "Voucher expiry and single use",
+      "criterion": "An expired or already redeemed voucher cannot be used and shows a clear message.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-06",
+      "module": "Gift vouchers",
+      "feature": "Voucher notifications",
+      "criterion": "The buyer is notified when the voucher is sent and when it is used.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "BO-07",
+      "module": "Gift vouchers",
+      "feature": "Invite a friend (referrals)",
+      "criterion": "The customer shares an invitation and the system records who referred whom.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "CLI-17",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/vouchers.ts",
+        "src/modules/vouchers/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/vouchers",
+        "/#/app/vouchers"
+      ]
+    },
+    {
+      "id": "RC-01",
+      "module": "Front desk",
+      "feature": "Front desk home",
+      "criterion": "Shows arrivals, pending payments and next class; figures match Check-in and the pending payments list.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-01",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-02",
+      "module": "Front desk",
+      "feature": "Check-in and attendance",
+      "criterion": "The front desk marks 'Arrived' or 'No-show' per class and can undo; the counter and spots update instantly. This is the official attendance at launch.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "REC-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-03",
+      "module": "Front desk",
+      "feature": "Search people",
+      "criterion": "Finds a person by name, WhatsApp or email even if they did not book that class.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-04",
+      "module": "Front desk",
+      "feature": "Book on behalf of a customer",
+      "criterion": "The front desk books a class for an existing customer with the same capacity and balance rules.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-05",
+      "module": "Front desk",
+      "feature": "Walk-in customer",
+      "criterion": "An existing customer checks in and deducts from their package; a new person is registered (name, WhatsApp, verbal consent) and pays at the desk.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "REC-05, REC-07, REC-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-06",
+      "module": "Front desk",
+      "feature": "Late-arrival grace minutes",
+      "criterion": "Applies the Settings late-arrival rule (15 minutes).",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "REC-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-07",
+      "module": "Front desk",
+      "feature": "Specials and private classes",
+      "criterion": "A special is created with a required description and linked to the room booking if there is one.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "REC-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-08",
+      "module": "Front desk",
+      "feature": "Rooms and space bookings",
+      "criterion": "Calendar of the 2 rooms with classes, rentals, maintenance and blocks, with no overlaps.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "REC-22, REC-23, REC-24, REC-25, MAN-01, MAN-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-09",
+      "module": "Front desk",
+      "feature": "WhatsApp and email inbox",
+      "criterion": "One thread per person; replies go out on the right channel and internal notes do not reach the customer.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Medium",
+      "relatedTests": "REC-19, REC-20, REC-21",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "RC-10",
+      "module": "Front desk",
+      "feature": "Sell and check into the class",
+      "criterion": "When charging at the desk with 'Check in to class', the person is placed in the class and the spot is deducted.",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Medium",
+      "relatedTests": "REC-15, REC-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/staff/index.ts",
+        "src/modules/staff/CheckinPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/staff",
+        "/#/staff/checkin",
+        "/#/staff/register"
+      ]
+    },
+    {
+      "id": "AD-01",
+      "module": "Administration",
+      "feature": "Classes, schedule, teachers and rooms",
+      "criterion": "Administration creates, edits, publishes and unpublishes classes, schedules, teachers, rooms and FAQ; changes show on the website, app and front desk.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "COO-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-02",
+      "module": "Administration",
+      "feature": "Cancel a studio class",
+      "criterion": "When a class with sign-ups is cancelled, everyone is emailed and their class is returned.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "COO-12",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-03",
+      "module": "Administration",
+      "feature": "Change teacher or time of a booked class",
+      "criterion": "Bookings are kept and signed-up people are notified.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "COO-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-04",
+      "module": "Administration",
+      "feature": "Configurable policies",
+      "criterion": "Settings allow changing: rescheduling hours (12), transfer hold minutes (15), front-desk payment wait (1 hour) and capacity per room. A change applies only to future bookings.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "ADM-08",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-05",
+      "module": "Administration",
+      "feature": "General settings and payment details",
+      "criterion": "Contact, front-desk hours, holidays, Bancolombia account, QR image and Bre-B key are edited in Settings and show on the website, app and emails.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "ADM-06, ADM-07",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-06",
+      "module": "Administration",
+      "feature": "Team users",
+      "criterion": "Administration invites users, assigns the role (Front desk or Administration), changes it and removes it; the change applies immediately.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "SAD-01",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-07",
+      "module": "Administration",
+      "feature": "Customer list with balance",
+      "criterion": "Customer list with search, package, remaining classes, expiry and vouchers.",
+      "role": "Recepción, Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "COO-02",
+      "implementationStatus": "partial",
+      "verificationStatus": "local-flow-passed",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [
+        "/#/admin/crm",
+        "/#/admin/crm/usr_cust"
+      ],
+      "tests": [
+        "scripts/test-crm-balances-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-06/en-390-balances.jpg",
+        "docs/screenshots/M-06/es-390-balances.jpg",
+        "docs/screenshots/M-06/en-1280-balances.jpg",
+        "docs/screenshots/M-06/es-1280-balances.jpg"
+      ],
+      "blockers": [
+        "Shared data hooks have no asynchronous rejection/retry path; loading/error integration unverified.",
+        "Backend tenant/role enforcement and cross-device consistency excluded from this frontend batch."
+      ],
+      "nextAction": "Verify production bundle, exact-head CI and deployed SHA; retain partial until asynchronous read failure contract is tested.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-08",
+      "module": "Administration",
+      "feature": "Full CRM",
+      "criterion": "Filters (at risk, new, no classes, birthdays), record with bookings, payments, consents and notes; every change is logged.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "COO-01, COO-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-09",
+      "module": "Administration",
+      "feature": "Dashboard and analytics",
+      "criterion": "Active members, revenue, occupancy, arrivals and retention with a single definition per metric.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "ADM-01, ADM-02, ADM-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-10",
+      "module": "Administration",
+      "feature": "Activity log viewer",
+      "criterion": "Filter by person, area and date and export CSV; action and object correctly named.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "ADM-04, ADM-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-11",
+      "module": "Administration",
+      "feature": "Feature toggles",
+      "criterion": "Each change is audited and turns the feature on or off across the app.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "ADM-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-12",
+      "module": "Administration",
+      "feature": "WhatsApp contacts by topic",
+      "criterion": "Each topic reaches the right person; with no number it falls to the front desk.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "ADM-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "AD-13",
+      "module": "Administration",
+      "feature": "Team manual",
+      "criterion": "Required readings by role and recorded progress; manual updated to the delivered version.",
+      "role": "Equipo",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "ADM-12, MAN-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/CrmPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin",
+        "/#/admin/content",
+        "/#/admin/crm",
+        "/#/admin/settings"
+      ]
+    },
+    {
+      "id": "NT-01",
+      "module": "Notifications",
+      "feature": "Email from the club's domain",
+      "criterion": "Emails are sent from the club's domain with correct SPF, DKIM and DMARC and do not land in spam.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "INT-04",
+      "implementationStatus": "absent",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [
+        "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
+      ],
+      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "NT-02",
+      "module": "Notifications",
+      "feature": "Launch emails",
+      "criterion": "Sent on the right trigger: welcome, sign-in code, booking pending payment, payment confirmed, payment rejected, booking released, rescheduled, class cancelled, voucher received and receipt.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "Urgent",
+      "relatedTests": "COO-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "NT-03",
+      "module": "Notifications",
+      "feature": "Team alert for a new receipt",
+      "criterion": "Front desk and Administration are alerted when a customer uploads a receipt.",
+      "role": "Recepción, Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      },
+      "phase": "MVP Oct 30",
+      "priority": "High",
+      "relatedTests": "",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "NT-04",
+      "module": "Notifications",
+      "feature": "Reminders with the actual class time",
+      "criterion": "The reminder uses the class time (for example, 17:10), not a fixed time.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "TRA-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "NT-05",
+      "module": "Notifications",
+      "feature": "Template editor",
+      "criterion": "Edit templates with variables, send a test and save versions.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "COO-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "NT-06",
+      "module": "Notifications",
+      "feature": "Notification preferences",
+      "criterion": "Customers turn off non-urgent emails and the change is immediate.",
+      "role": "Cliente",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "CLI-21",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/data/emailCatalog.ts",
+        "src/data/comms.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/emails",
+        "/#/app/notifications"
+      ]
+    },
+    {
+      "id": "PF-01",
+      "module": "Teachers",
+      "feature": "Teachers' app: my classes and attendance",
+      "criterion": "Teachers see only their classes and mark attendance; what they mark shows at the front desk.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "PRO-01, PRO-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "PF-02",
+      "module": "Teachers",
+      "feature": "My numbers",
+      "criterion": "Own occupancy, attendance and no-shows against the average; never colleagues' data.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "PRO-03, PRO-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "PF-03",
+      "module": "Teachers",
+      "feature": "Request a substitute",
+      "criterion": "The request reaches Administration and is logged.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "PRO-05",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "PF-04",
+      "module": "Teachers",
+      "feature": "Teacher profile",
+      "criterion": "Bio and specialties stay pending until approved; the rate is read-only.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "PRO-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "PF-05",
+      "module": "Teachers",
+      "feature": "Payroll visible to the teacher",
+      "criterion": "Class-by-class detail, status and PDF statement; matches Finance.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "PRO-06, PRO-07, PRO-08, PRO-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "PF-06",
+      "module": "Teachers",
+      "feature": "Restricted teacher access",
+      "criterion": "Teachers cannot open CRM, Finance or Settings.",
+      "role": "Profesor",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "PRO-11",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/teacher/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/teach"
+      ]
+    },
+    {
+      "id": "FI-01",
+      "module": "Finance",
+      "feature": "Revenue summary",
+      "criterion": "Revenue, pending and refunds by period; totals add up to the payments table and match by product and by method.",
+      "role": "Admin, Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "FIN-01, FIN-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/ExpensesPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "FI-02",
+      "module": "Finance",
+      "feature": "Balance and margin",
+      "criterion": "Revenue minus payroll minus expenses, reproducible by hand.",
+      "role": "Admin, Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "FIN-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/ExpensesPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "FI-03",
+      "module": "Finance",
+      "feature": "Teacher payroll",
+      "criterion": "Draft without duplicates using closed classes times rate; Draft, Approved and Paid statuses; total equals the sum per teacher.",
+      "role": "Admin, Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "FIN-08, FIN-09, FIN-10",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/ExpensesPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "FI-04",
+      "module": "Finance",
+      "feature": "Expenses and subscriptions",
+      "criterion": "Record fixed and variable expenses and services; a paid expense cannot be deleted.",
+      "role": "Admin, Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Medium",
+      "relatedTests": "FIN-11, FIN-12, FIN-13, FIN-14",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/ExpensesPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "FI-05",
+      "module": "Finance",
+      "feature": "Restricted Finance access",
+      "criterion": "Finance cannot open security settings or developer tools and cannot see health data.",
+      "role": "Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "High",
+      "relatedTests": "FIN-15",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/ExpensesPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/finance"
+      ]
+    },
+    {
+      "id": "MK-01",
+      "module": "Marketing",
+      "feature": "Marketing content and media",
+      "criterion": "Marketing publishes articles, FAQ, events and images with alt text; cannot open Finance or Settings.",
+      "role": "Marketing",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "MKT-01, MKT-02, MKT-04",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/MediaPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/admin/content/media"
+      ]
+    },
+    {
+      "id": "IN-01",
+      "module": "Integrations",
+      "feature": "Wompi payroll payouts",
+      "criterion": "The payroll run status changes by webhook.",
+      "role": "Finanzas",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "INT-02, FIN-09",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/IntegrationsPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "IN-02",
+      "module": "Integrations",
+      "feature": "WhatsApp Business",
+      "criterion": "Meta-approved templates, reminders and automations with opt-in and quiet hours.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Medium",
+      "relatedTests": "COO-06, COO-07, COO-08, COO-09, INT-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/IntegrationsPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "IN-03",
+      "module": "Integrations",
+      "feature": "Google Business Profile",
+      "criterion": "Google shows the system's hours and holidays.",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "INT-07",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/IntegrationsPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "IN-04",
+      "module": "Integrations",
+      "feature": "API and API keys",
+      "criterion": "The API responds with a valid key and returns 401 with a revoked key; the full key is shown only once.",
+      "role": "Desarrollo",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "DEV-03, DEV-04",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/admin/IntegrationsPage.tsx"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/admin/integrations"
+      ]
+    },
+    {
+      "id": "OT-01",
+      "module": "Other",
+      "feature": "Marketing kit",
+      "criterion": "Campaigns, brand assets and content calendar.",
+      "role": "Marketing",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Próximamente / Coming soon"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "MKT-03",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/dev/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/dev"
+      ]
+    },
+    {
+      "id": "OT-02",
+      "module": "Other",
+      "feature": "Maintenance screens",
+      "criterion": "Room checklists, incidents, supplies and equipment.",
+      "role": "Mantenimiento",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "MAN-04, MAN-05",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/dev/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/dev"
+      ]
+    },
+    {
+      "id": "OT-03",
+      "module": "Other",
+      "feature": "'Report a problem' button",
+      "criterion": "Sends the report with the screen and the user.",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Próximamente / Coming soon"
+      },
+      "phase": "Nov 30 delivery",
+      "priority": "Low",
+      "relatedTests": "SAD-03",
+      "implementationStatus": "partial",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/dev/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/dev"
+      ]
+    },
+    {
+      "id": "OT-04",
+      "module": "Other",
+      "feature": "Developer tools",
+      "criterion": "Tokens, components, specs, kanban and changelog reflect what was delivered.",
+      "role": "Desarrollo",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      },
+      "phase": "After Nov 30",
+      "priority": "Low",
+      "relatedTests": "DEV-01, DEV-02",
+      "implementationStatus": "unverified",
+      "verificationStatus": "not-run",
+      "candidateEvidence": [
+        "src/modules/dev/index.ts"
+      ],
+      "routes": [],
+      "tests": [],
+      "screenshots": [],
+      "blockers": [],
+      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "candidateRoutes": [
+        "/#/hub",
+        "/#/dev"
+      ]
+    }
+  ],
+  "integration": {
+    "branch": "feat/frontend-completion-audit",
+    "localBuild": "passed",
+    "allRouteSmoke": {
+      "routes": 121,
+      "result": "passed; no console errors"
+    },
+    "release": "pending exact-head CI, checked merge and deployment readback",
+    "directLiveReadback": "GET https://imagine-os.github.io/hoy/release.json returned HTTP 403 from execution environment; no retry or bypass."
+  }
+}

@@ -1,5 +1,13 @@
 # HoyOS kanban
 
+## Frontend completion program · 0076 (2026-10-21)
+
+- Baseline inventory and 124 stable feature IDs recorded; source acceptance separate from fresh verification. [Handoff](frontend-completion/README.md)
+- AD-07 / HALL-2: CRM package balances, expiry, claimed vouchers and mobile cards implemented; browser/build/release gates tracked in [batch receipt](frontend-completion/batch-01.md).
+- PR-01/PR-02: disconnected product-master draft prototype implemented; quote/date-window/history tests and mobile/desktop captures present. Checkout/publication integration remains partial.
+- Next: explicit catalog publication/shared quote contract for PR-01/PR-02/SW-02; payment wait decisions remain distinct Jas questions. No 100% claim.
+
+
 ## Completed · 0074 (v0.25.0 · 2026-10-21)
 
 - M-02/M-02d/D-02: catalog/private browser photo chooser integrated with current Content drafts. [Release receipt](changelog/0074-content-photo-picker.md)

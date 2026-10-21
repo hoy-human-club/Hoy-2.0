@@ -1,0 +1,14 @@
+{
+  "feature": "AD-07",
+  "base": "http://127.0.0.1:4180",
+  "checks": [
+    "admin: EN/ES 390/1280 ledger balance/expiry, plan, claim identity, detail, empty search, missing record, frozen and expired package",
+    "front: EN/ES 390/1280 ledger balance/expiry, plan, claim identity, detail, empty search, missing record, frozen and expired package",
+    "customer route denied; current permission map unchanged"
+  ],
+  "errors": [],
+  "limits": [
+    "MockProvider only; provider rejection/loading behavior not verified",
+    "Backend tenant/role enforcement and cross-device balances remain pending"
+  ]
+}

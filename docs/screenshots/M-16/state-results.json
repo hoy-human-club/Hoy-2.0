@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "async loading visible",
+    "empty resolved read",
+    "read rejection contained",
+    "retry restores catalog"
+  ],
+  "errors": []
+}

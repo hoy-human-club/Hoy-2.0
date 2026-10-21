@@ -60,3 +60,6 @@ this folder). The club's **operations manual** (how HOY runs, in person and in s
   for the studio team; the operations manual is Spanish first.
 - Page codes (`C-01`, `S-02`, …) are the shared vocabulary between canvas, specs, screenshots and docs.
 - Numbered files (`0001-…`) are append-only; never renumber.
+
+
+Frontend completion program: [124 stable feature IDs, audit, batch receipts and owner queues](frontend-completion/README.md). Source acceptance and fresh verification are tracked separately.
