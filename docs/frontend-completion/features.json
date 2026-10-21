@@ -25,13 +25,23 @@
       "relatedTests": "",
       "implementationStatus": "unverified",
       "verificationStatus": "not-run",
-      "candidateEvidence": [],
+      "candidateEvidence": [
+        "docs/frontend-completion/features.json"
+      ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
-      "candidateRoutes": []
+      "nextAction": "Justin and club review each preserved source scope row.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Owner scope acceptance outside code."
+        ]
+      },
+      "sourceNextAction": "Justin and club review each preserved source scope row."
     },
     {
       "id": "AC-05",
@@ -48,13 +58,23 @@
       "relatedTests": "",
       "implementationStatus": "unverified",
       "verificationStatus": "not-run",
-      "candidateEvidence": [],
+      "candidateEvidence": [
+        "docs/frontend-completion/owner-queues.md"
+      ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
-      "candidateRoutes": []
+      "nextAction": "Justin confirms response times; keep unaccepted.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Support response agreement requires owner decision PC-11."
+        ]
+      },
+      "sourceNextAction": "Justin confirms response times; keep unaccepted."
     },
     {
       "id": "PL-01",
@@ -69,13 +89,11 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "",
-      "implementationStatus": "absent",
+      "implementationStatus": "unverified",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        ".github/workflows/pages.yml",
+        "src/tenant/tenant.ts"
       ],
       "routes": [],
       "tests": [],
@@ -83,11 +101,16 @@
       "blockers": [
         "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
       ],
-      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
-      "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+      "nextAction": "Justin verifies registrations in approved accounts.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Account/domain/vendor legal ownership cannot be established from app code."
+        ]
+      },
+      "sourceNextAction": "Justin verifies registrations in approved accounts."
     },
     {
       "id": "PL-02",
@@ -105,8 +128,6 @@
       "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
         "src/data/DataContext.tsx",
         "src/data/SupabaseProvider.ts"
       ],
@@ -116,11 +137,18 @@
       "blockers": [
         "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
       ],
-      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "nextAction": "Anu implements approved provider after frontend testing; do not enable services here.",
       "candidateRoutes": [
-        "/#/hub",
         "/#/admin/integrations"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Default MockProvider; Supabase CRUD throws notReady; cross-device persistence absent."
+        ]
+      },
+      "sourceNextAction": "Anu implements approved provider after frontend testing; do not enable services here."
     },
     {
       "id": "PL-03",
@@ -135,23 +163,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "SAD-02, ADM-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/auth/SessionProvider.tsx",
+        "src/components/molecule/RoleSwitcher/RoleSwitcher.tsx",
+        "src/modules/admin/TablesPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Design and verify explicit demo/production mode while preserving this public testing demo.",
       "candidateRoutes": [
         "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/admin/tables"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Production/demo build separation and removal of demo data/tools absent."
+        ],
+        "remainingBackend": [
+          "Production auth/data environment required."
+        ]
+      },
+      "sourceNextAction": "Design and verify explicit demo/production mode while preserving this public testing demo."
     },
     {
       "id": "PL-04",
@@ -166,23 +203,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "PUB-11, CLI-23, TRA-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
+        "src/auth/SessionProvider.tsx",
         "src/data/SupabaseProvider.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement visitor sign-in return flow in an explicit production mode; preserve demo controls.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/no-access",
+        "/#/auth/sign-in"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Visitor denial goes to /no-access, not sign-in with preserved destination; demo defaults to super admin."
+        ],
+        "remainingBackend": [
+          "Server own-data/tenant authorization absent."
+        ]
+      },
+      "sourceNextAction": "Implement visitor sign-in return flow in an explicit production mode; preserve demo controls."
     },
     {
       "id": "PL-05",
@@ -197,23 +243,31 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "TRA-03, REC-26",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
         "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/auth/RequireRole.tsx",
+        "docs/frontend-completion/routes.json"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Obtain approved matrix via Jas; do not mutate permission settings in this program.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/hub"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Current route roles differ from proposed workbook matrix; matrix approval pending."
+        ],
+        "remainingBackend": [
+          "Server enforcement absent."
+        ]
+      },
+      "sourceNextAction": "Obtain approved matrix via Jas; do not mutate permission settings in this program."
     },
     {
       "id": "PL-06",
@@ -231,20 +285,28 @@
       "implementationStatus": "unverified",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/modules/admin/IntegrationsPage.tsx",
+        "src/data/seed/apiKeys.ts",
+        "src/modules/dev/ApiKeysPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify no private keys across repository/build without printing secrets.",
       "candidateRoutes": [
-        "/#/hub",
         "/#/admin/integrations"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Full bundle/repository secret audit has not been run; demo API-key UI must stay unmistakably fictional."
+        ],
+        "remainingBackend": [
+          "Real secrets belong in server configuration."
+        ]
+      },
+      "sourceNextAction": "Verify no private keys across repository/build without printing secrets."
     },
     {
       "id": "PL-07",
@@ -259,23 +321,33 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "TRA-07",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/products/ProductsPage.tsx",
+        "src/components/molecule/Field/Field.tsx",
+        "src/data/DataContext.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Audit forms and malicious-text fixtures per stable feature, including failure recovery.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/auth/sign-up",
+        "/#/admin/products"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Field checks exist, but global format/length/XSS acceptance and shared read-error paths not verified."
+        ],
+        "remainingBackend": [
+          "Server input validation authoritative."
+        ]
+      },
+      "sourceNextAction": "Audit forms and malicious-text fixtures per stable feature, including failure recovery."
     },
     {
       "id": "PL-08",
@@ -293,9 +365,6 @@
       "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
         "src/data/SupabaseProvider.ts"
       ],
       "routes": [],
@@ -304,11 +373,16 @@
       "blockers": [
         "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
       ],
-      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
-      "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+      "nextAction": "Anu/Justin supply authorized backup and restore evidence.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "No operational automatic backup/restore integration; browser demo is not a backup service."
+        ]
+      },
+      "sourceNextAction": "Anu/Justin supply authorized backup and restore evidence."
     },
     {
       "id": "PL-09",
@@ -323,23 +397,33 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "TRA-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/i18n/format.ts",
+        "src/tenant/holidays.co.ts",
+        "scripts/test-date-keys.mjs",
+        "scripts/test-holidays.mjs"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Unify Colombia time-zone contract and test UTC/Bogota/other device zones before changing scheduling.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/site/schedule",
+        "/#/app/schedule"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "COP integer formatting and holiday helpers exist; formatDate/Time and dateKey use browser timezone instead of enforcing America/Bogota."
+        ],
+        "remainingBackend": [
+          "Server business-day/instant consistency required."
+        ]
+      },
+      "sourceNextAction": "Unify Colombia time-zone contract and test UTC/Bogota/other device zones before changing scheduling."
     },
     {
       "id": "PL-10",
@@ -354,23 +438,31 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "TRA-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/modules/staff/audit.ts",
+        "src/data/MockProvider.ts",
+        "src/modules/admin/ActivityPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Audit payment/booking/voucher/price mutations; prove actor/object/time agreement and server append-only contract.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/admin/activity"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Audit helper and command logs exist; every sensitive action/entity pair not freshly reconciled (HALL-7)."
+        ],
+        "remainingBackend": [
+          "Append-only audit immutability/atomic transaction enforcement absent."
+        ]
+      },
+      "sourceNextAction": "Audit payment/booking/voucher/price mutations; prove actor/object/time agreement and server append-only contract."
     },
     {
       "id": "PL-11",
@@ -385,23 +477,29 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "PUB-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/i18n/I18nProvider.tsx",
+        "src/modules/admin/MemberPage.tsx",
+        "src/modules/admin/strings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Audit raw labels/status values in launch screens; distinguish authored message content from UI copy.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/admin/crm/usr_cust"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Bilingual tables exist; raw payment/booking status strings render in member tables, and global ES-only UI acceptance remains open."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Audit raw labels/status values in launch screens; distinguish authored message content from UI copy."
     },
     {
       "id": "PL-12",
@@ -416,23 +514,29 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "PUB-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "src/i18n/I18nProvider.tsx",
+        "src/modules/customer/strings.ts",
+        "src/modules/admin/strings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Run ES/EN feature-state matrix; retain source acceptance Not verified.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+        "/#/hub"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Language switching exists; all screens/roles/error messages have not passed mixed-language audit."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Run ES/EN feature-state matrix; retain source acceptance Not verified."
     },
     {
       "id": "PL-13",
@@ -447,13 +551,10 @@
       "phase": "To be confirmed",
       "priority": "High",
       "relatedTests": "TRA-12",
-      "implementationStatus": "absent",
+      "implementationStatus": "unverified",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/auth/RequireRole.tsx",
-        "src/auth/permissions.ts",
-        "src/data/DataContext.tsx",
-        "src/data/SupabaseProvider.ts"
+        "docs/frontend-completion/owner-queues.md"
       ],
       "routes": [],
       "tests": [],
@@ -461,11 +562,18 @@
       "blockers": [
         "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
       ],
-      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
-      "candidateRoutes": [
-        "/#/hub",
-        "/#/admin/integrations"
-      ]
+      "nextAction": "Justin confirms sanitized migration contract; Anu owns actual data migration.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No migration review/import UI identified as agreed scope."
+        ],
+        "remainingBackend": [
+          "Source data, mapping and approved migration requirement unresolved PC-09."
+        ]
+      },
+      "sourceNextAction": "Justin confirms sanitized migration contract; Anu owns actual data migration."
     },
     {
       "id": "SW-01",
@@ -480,20 +588,35 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "PUB-01, PUB-03, PUB-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/modules/website/pages/HomePage.tsx",
+        "src/modules/website/pages/PlansPage.tsx",
+        "src/modules/admin/ContentPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify each page field against Content and draft/publication boundaries.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/site",
+        "/#/site/schedule",
+        "/#/site/teachers",
+        "/#/site/plans"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "All requested routes render, but price list is static and full published-Content parity not reconciled."
+        ],
+        "remainingBackend": [
+          "Approved persisted CMS provider required later."
+        ]
+      },
+      "sourceNextAction": "Verify each page field against Content and draft/publication boundaries."
     },
     {
       "id": "SW-02",
@@ -508,20 +631,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "PUB-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/modules/website/pages/PlansPage.tsx",
+        "src/tenant/pricing.ts",
+        "src/data/productCatalog.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Connect approved publication adapter and verify date-effective price updates without altering old purchases.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/site/plans",
+        "/#/admin/products"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Website uses pricing.ts; new product drafts are deliberately disconnected from public price rendering."
+        ],
+        "remainingBackend": [
+          "Authoritative published catalog and quote contract pending."
+        ]
+      },
+      "sourceNextAction": "Connect approved publication adapter and verify date-effective price updates without altering old purchases."
     },
     {
       "id": "SW-03",
@@ -536,20 +671,33 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "PUB-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/modules/website/pages/SchedulePage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx",
+        "src/modules/customer/auth/SignUpPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Preserve validated return destination through account creation and test selected-class booking.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/site/schedule",
+        "/#/auth/sign-in",
+        "/#/auth/sign-up"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Schedule/sign-in preserve chosen class next destination; SignUpPage ignores next and always navigates /app."
+        ],
+        "remainingBackend": [
+          "Real auth session handoff pending."
+        ]
+      },
+      "sourceNextAction": "Preserve validated return destination through account creation and test selected-class booking."
     },
     {
       "id": "SW-04",
@@ -564,20 +712,29 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "PUB-06",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/tenant/contacts.ts",
+        "src/modules/admin/settings.ts",
+        "src/modules/website/pages/ContactPage.tsx",
+        "scripts/test-contacts.mjs"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly verify rendered buttons against edited mock Settings for each contact topic.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/site/contact",
+        "/#/admin/settings"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Freshly verify rendered buttons against edited mock Settings for each contact topic."
     },
     {
       "id": "SW-05",
@@ -592,20 +749,30 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "PUB-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/tenant/tenant.ts",
+        "src/modules/coming-soon/strings.ts",
+        "src/modules/admin/settings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Jas confirms final brand/email; then trace website/app/templates/manual from one source.",
       "candidateRoutes": [
+        "/#/coming-soon",
         "/#/site"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Brand/contact configuration exists but final shared brand/email decision PC-08 unresolved."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Jas confirms final brand/email; then trace website/app/templates/manual from one source."
     },
     {
       "id": "SW-06",
@@ -620,20 +787,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "PUB-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/modules/docs/index.ts",
+        "src/modules/ops-manual/index.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Jas decides public content; retain current demo role settings until explicitly approved.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/manual",
+        "/#/docs",
+        "/#/docs/source"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Manual/docs allow EVERYONE; source documents require ALL_SIGNED_IN but underlying published static files must be reviewed. Owner public/internal policy pending."
+        ],
+        "remainingBackend": [
+          "Real server authentication/protected asset delivery pending."
+        ]
+      },
+      "sourceNextAction": "Jas decides public content; retain current demo role settings until explicitly approved."
     },
     {
       "id": "SW-07",
@@ -648,20 +827,29 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "INT-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/components/molecule/MapSlot/MapSlot.tsx",
+        "src/modules/website/pages/ContactPage.tsx",
+        "src/modules/admin/settings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify configured location, preserve MVP link, and activate only owner-selected map provider for later map.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/site/contact"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Google Maps link/address exist; embedded provider defaults none, so full November map is not enabled/verified."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Verify configured location, preserve MVP link, and activate only owner-selected map provider for later map."
     },
     {
       "id": "SW-08",
@@ -676,20 +864,28 @@
       "phase": "MVP Oct 30",
       "priority": "Low",
       "relatedTests": "PUB-07",
-      "implementationStatus": "unverified",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/website/index.ts",
-        "src/tenant/pricing.ts"
+        "src/modules/coming-soon/index.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement owner-approved date/config-based public launch redirect with archive/demo controls preserved.",
       "candidateRoutes": [
-        "/#/site"
-      ]
+        "/#/",
+        "/#/coming-soon"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Root and /coming-soon always render ComingSoonPage; no October 30 redirect condition in route module."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Implement owner-approved date/config-based public launch redirect with archive/demo controls preserved."
     },
     {
       "id": "CU-01",
@@ -704,24 +900,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-01",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/auth/RequireRole.tsx",
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test validation, duplicate contact and visitor-to-signup-to-selected-class flow.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
         "/#/auth/sign-up",
-        "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Required name/WhatsApp/email form exists; reconcile password/emergency fields with email-code spec and preserve chosen class after signup (currently nav /app)."
+        ],
+        "remainingBackend": [
+          "Real account creation and server-enforced authenticated bookings."
+        ]
+      },
+      "sourceNextAction": "Test validation, duplicate contact and visitor-to-signup-to-selected-class flow."
     },
     {
       "id": "CU-02",
@@ -736,24 +940,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-01, TRA-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/legal.tsx",
+        "src/data/schema.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Unify signup legal consent with versioned legal documents; test unchecked and version-change states.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
         "/#/auth/sign-up",
-        "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/app/legal/privacy"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Signup saves fixed consents IDs plus accepted_at, not explicit current document version; separate legal acceptance mechanism exists."
+        ],
+        "remainingBackend": [
+          "Store immutable accepted document version/date with authenticated signup transaction."
+        ]
+      },
+      "sourceNextAction": "Unify signup legal consent with versioned legal documents; test unchecked and version-change states."
     },
     {
       "id": "CU-03",
@@ -771,21 +983,30 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/auth/SignUpPage.tsx",
         "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/auth/PasswordResetPage.tsx",
+        "src/modules/customer/auth/LockedPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Build explicit fictional email-code/Google flows with deterministic expiry/lockout states; backend disconnected.",
       "candidateRoutes": [
         "/#/auth/sign-in",
-        "/#/auth/sign-up",
-        "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/auth/recover",
+        "/#/auth/locked"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Sign-in uses demo picker/email + nonempty password. Recovery shows simulated email/WhatsApp OTP, not email-code sign-in or Google; OTP text mentions expiry but verify compares code without issued-time expiry."
+        ],
+        "remainingBackend": [
+          "Auth provider email OTP/Google, expiry/rate limit and session issuance."
+        ]
+      },
+      "sourceNextAction": "Build explicit fictional email-code/Google flows with deterministic expiry/lockout states; backend disconnected."
     },
     {
       "id": "CU-04",
@@ -800,24 +1021,30 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "CLI-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/pages/ProfilePage.tsx",
+        "src/auth/SessionProvider.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add email-change confirmation/error states and mocked old-address notification; test sign-out.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
-        "/#/auth/sign-up",
-        "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/app/profile"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "signOut switches to public demo role; profile editor has no email-change field or old-address notice preview."
+        ],
+        "remainingBackend": [
+          "Real revoke session, verified email change and old-address email."
+        ]
+      },
+      "sourceNextAction": "Add email-change confirmation/error states and mocked old-address notification; test sign-out."
     },
     {
       "id": "CU-05",
@@ -832,24 +1059,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-19",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/pages/ProfilePage.tsx",
+        "src/modules/staff/people.ts",
+        "src/modules/admin/MemberPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
-        "/#/auth/sign-up",
         "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/admin/crm/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No identified missing source path: profile editor writes name/phone/birthday/emergency_contact read by shared CRM people join; fresh rendering/validation still unverified."
+        ],
+        "remainingBackend": [
+          "Authenticated own-profile writes and cross-device persistence."
+        ]
+      },
+      "sourceNextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop."
     },
     {
       "id": "CU-06",
@@ -864,24 +1099,33 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "CLI-22, COO-13",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/pages/AccountPage.tsx",
+        "src/modules/customer/pages/ProfilePage.tsx",
+        "src/modules/admin/DeletionsPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
-        "/#/auth/sign-up",
+        "/#/app/account",
         "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/admin/crm/deletions"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Own-data JSON export and two-step deletion request/admin queue exist. Required 15-business-day deadline and all failure states need verification."
+        ],
+        "remainingBackend": [
+          "Authenticated export/correction, anonymization worker and 15-business-day handling; no real deletion in frontend program."
+        ]
+      },
+      "sourceNextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract."
     },
     {
       "id": "CU-07",
@@ -896,24 +1140,31 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "CLI-02, INT-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/auth/SignUpPage.tsx",
-        "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/pages/AccountPage.tsx"
+        "src/modules/customer/auth/PasswordResetPage.tsx",
+        "src/modules/customer/auth/SignInPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Preserve After Nov30 label; implement distinct fictional sign-in states without claiming code delivery.",
       "candidateRoutes": [
-        "/#/auth/sign-in",
-        "/#/auth/sign-up",
-        "/#/app/profile",
-        "/#/app/account"
-      ]
+        "/#/auth/recover",
+        "/#/auth/sign-in"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Simulated WhatsApp recovery OTP exists; real WhatsApp-code sign-in UI is not complete."
+        ],
+        "remainingBackend": [
+          "WhatsApp Business OTP delivery/verification."
+        ]
+      },
+      "sourceNextAction": "Preserve After Nov30 label; implement distinct fictional sign-in states without claiming code delivery."
     },
     {
       "id": "PR-01",
@@ -931,9 +1182,9 @@
       "implementationStatus": "partial",
       "verificationStatus": "local-prototype-passed",
       "candidateEvidence": [
-        "src/data/productCatalog.ts",
         "src/modules/products/ProductsPage.tsx",
-        "src/modules/products/spec.ts"
+        "src/data/productCatalog.ts",
+        "src/data/schema.ts"
       ],
       "routes": [
         "/#/admin/products"
@@ -955,9 +1206,25 @@
       ],
       "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
       "candidateRoutes": [
-        "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/admin/products"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Draft-only master has specified fields, validation, revisions; saved frontend_catalog intentionally does not publish legacy price fields or customer catalog."
+        ],
+        "remainingBackend": [
+          "Transactional versioned product storage and approved publication contract."
+        ]
+      },
+      "sourceNextAction": "Verify draft CRUD/states; reconcile publication and shared catalog consumption in later batch.",
+      "freshEvidence": {
+        "codeCommit": "8136c6f84922efd26154ffa645a35cc8c0298c13",
+        "workflow": "https://github.com/imagine-os/hoy/actions/runs/39685943071",
+        "target": "local production bundle and exact-head PR CI",
+        "ownerAcceptance": "not changed",
+        "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
+      }
     },
     {
       "id": "PR-02",
@@ -977,7 +1244,7 @@
       "candidateEvidence": [
         "src/data/productCatalog.ts",
         "src/modules/products/ProductsPage.tsx",
-        "src/modules/products/spec.ts"
+        "src/modules/customer/payments.ts"
       ],
       "routes": [
         "/#/admin/products"
@@ -999,9 +1266,26 @@
       ],
       "nextAction": "Connect a separately approved publication/quote adapter across website, customer checkout and desk, then exercise purchase-date price snapshots; no production price changes in this batch.",
       "candidateRoutes": [
-        "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/admin/products",
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Prototype quoteProduct selects inclusive dated prices and immutable example quote snapshots; actual checkout still reads static pricing and recordPayment lacks catalog quote snapshot."
+        ],
+        "remainingBackend": [
+          "Atomic server quote/purchase snapshot and append-only price history."
+        ]
+      },
+      "sourceNextAction": "Connect approved published product quote contract to fictional checkout after decisions; test history/date boundaries.",
+      "freshEvidence": {
+        "codeCommit": "8136c6f84922efd26154ffa645a35cc8c0298c13",
+        "workflow": "https://github.com/imagine-os/hoy/actions/runs/39685943071",
+        "target": "local production bundle and exact-head PR CI",
+        "ownerAcceptance": "not changed",
+        "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
+      }
     },
     {
       "id": "PR-03",
@@ -1016,22 +1300,34 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "PUB-02, CLI-12, CLI-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/packages.ts",
         "src/tenant/pricing.ts",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/pages/PlansPage.tsx",
+        "src/modules/customer/pages/PassesPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify listed products end-to-end with fictional fixtures; keep PC-06 explicit and do not invent final prices.",
       "candidateRoutes": [
         "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/app/passes",
+        "/#/staff/register"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Static launch amounts match trial35000/package600000/private250000/SantaMaria480000; private class is WhatsApp handoff, new master stays draft. Single/private exact prices have PC-06 decision."
+        ],
+        "remainingBackend": [
+          "Publish approved product catalog and enforce price on purchase."
+        ]
+      },
+      "sourceNextAction": "Verify listed products end-to-end with fictional fixtures; keep PC-06 explicit and do not invent final prices."
     },
     {
       "id": "PR-04",
@@ -1046,22 +1342,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "CLI-13",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/packages.ts",
-        "src/tenant/pricing.ts",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/hooks.ts",
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/customer/pages/PassesPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Hide/reject trial for active package and repeated trial across all purchase paths; add regression fixtures.",
       "candidateRoutes": [
-        "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/app/passes",
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Trial suppressed only by trialUsed; active package displays a notice but trial remains selectable."
+        ],
+        "remainingBackend": [
+          "Enforce one trial per real person and active-package exclusion transactionally."
+        ]
+      },
+      "sourceNextAction": "Hide/reject trial for active package and repeated trial across all purchase paths; add regression fixtures."
     },
     {
       "id": "PR-05",
@@ -1076,22 +1382,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/packages.ts",
-        "src/tenant/pricing.ts",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/pages/PlansPage.tsx",
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/tenant/pricing.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add explicit unverified/verified eligibility prototype after PC-07 clarification, without real role mutation.",
       "candidateRoutes": [
         "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "SantaMaria audience copy exists but discounted package purchase has no verified-membership eligibility gate."
+        ],
+        "remainingBackend": [
+          "Authoritative membership verification/eligibility decision PC-07."
+        ]
+      },
+      "sourceNextAction": "Add explicit unverified/verified eligibility prototype after PC-07 clarification, without real role mutation."
     },
     {
       "id": "PR-06",
@@ -1106,22 +1422,34 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-05, CLI-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/packages.ts",
-        "src/tenant/pricing.ts",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/pages/PassesPage.tsx",
+        "src/modules/customer/pages/PlansPage.tsx",
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/data/packages.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add pending-vs-approved package fixture and ensure customer cannot spend pending classes.",
       "candidateRoutes": [
+        "/#/app/classes",
         "/#/app/plans",
-        "/#/app/classes"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Balance/expiry and approved package purchase exist. Checkout writes package ledger even when a manual payment is pending; activation must wait for confirmation."
+        ],
+        "remainingBackend": [
+          "Atomic payment approval/entitlement activation and authoritative expiry."
+        ]
+      },
+      "sourceNextAction": "Add pending-vs-approved package fixture and ensure customer cannot spend pending classes."
     },
     {
       "id": "PR-07",
@@ -1136,22 +1464,31 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-15",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/data/packages.ts",
-        "src/tenant/pricing.ts",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/hooks.ts",
+        "src/modules/customer/pages/PassesPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test max days, freeze count setting, early resume and notification preview; preserve Nov30 scope.",
       "candidateRoutes": [
-        "/#/app/plans",
         "/#/app/classes"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Freeze/resume/expiry adjustment exists with UI flash. freeze() rejects any prior frozen_from regardless configurable freezesPerPackage; no notification write."
+        ],
+        "remainingBackend": [
+          "Authoritative freeze concurrency/history and notices."
+        ]
+      },
+      "sourceNextAction": "Test max days, freeze count setting, early resume and notification preview; preserve Nov30 scope."
     },
     {
       "id": "RS-01",
@@ -1166,23 +1503,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "CLI-06",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/SchedulePage.tsx",
+        "src/components/organism/SessionCalendar/SessionCalendar.tsx",
+        "src/data/sessionAvailability.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Exercise day/week filters, empty/started/full/inactive states at 390/1280.",
       "candidateRoutes": [
         "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/schedule/week"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Concrete day/week calendar, method/teacher/time filters and availability exist; fresh acceptance unverified."
+        ],
+        "remainingBackend": [
+          "Live availability read."
+        ]
+      },
+      "sourceNextAction": "Exercise day/week filters, empty/started/full/inactive states at 390/1280."
     },
     {
       "id": "RS-02",
@@ -1197,23 +1543,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-07",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/customer/HomePage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify success/upcoming view and partial-failure rollback with deterministic provider failures.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id",
+        "/#/app"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "book inserts booking, -1 ledger and capacity update; no atomic rollback across these separate operations. Frozen/expiry/spendability must be enforced at command boundary."
+        ],
+        "remainingBackend": [
+          "Atomic authenticated balance debit plus booking and capacity."
+        ]
+      },
+      "sourceNextAction": "Verify success/upcoming view and partial-failure rollback with deterministic provider failures."
     },
     {
       "id": "RS-03",
@@ -1228,23 +1583,31 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-12, CLI-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/customer/pages/PassesPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test no-entitlement single/trial/package paths preserving selected class through payment and errors.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id",
+        "/#/app/passes?session=:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Product choices and payment stay on class checkout; PassesPage preserves session param. Pending transfer-specific flow remains PG01-06 gap."
+        ],
+        "remainingBackend": [
+          "Payment/booking integration."
+        ]
+      },
+      "sourceNextAction": "Test no-entitlement single/trial/package paths preserving selected class through payment and errors."
     },
     {
       "id": "RS-04",
@@ -1259,23 +1622,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "CLI-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Keep PC-05 decision explicit; cover checked-in/existing booking/reschedule/desk variations.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id",
+        "/#/staff/register"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "sameDayConflict rejects checkout second active booked class only; other booking paths/reschedule need equivalent guard, and checked_in same-day is excluded. PC-05 is unresolved."
+        ],
+        "remainingBackend": [
+          "Server transaction enforcing agreed daily policy."
+        ]
+      },
+      "sourceNextAction": "Keep PC-05 decision explicit; cover checked-in/existing booking/reschedule/desk variations."
     },
     {
       "id": "RS-05",
@@ -1290,23 +1662,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "CLI-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
+        "src/modules/customer/pages/CheckoutPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/data/sessionAvailability.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test all customer/desk/waitlist/reschedule command paths with deterministic started/past fixtures.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id",
+        "/#/app/class/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Checkout rejects started class and disables button; shared book/reschedule helpers do not check starts_at, so direct paths need audit."
+        ],
+        "remainingBackend": [
+          "Server-time enforcement."
+        ]
+      },
+      "sourceNextAction": "Test all customer/desk/waitlist/reschedule command paths with deterministic started/past fixtures."
     },
     {
       "id": "RS-06",
@@ -1321,23 +1702,33 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "REC-06",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
+        "src/data/MockProvider.ts",
+        "src/data/mats.ts",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/staff/RegisterPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Run capacity/mat/desk suites and review 16/8-room full, unavailable and validation states.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id",
+        "/#/staff/register"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Mock provider occupancy/capacity guards and mat picker exist; full acceptance requires app+desk failure/last-mat verification."
+        ],
+        "remainingBackend": [
+          "Atomic room capacity across devices."
+        ]
+      },
+      "sourceNextAction": "Run capacity/mat/desk suites and review 16/8-room full, unavailable and validation states."
     },
     {
       "id": "RS-07",
@@ -1352,23 +1743,31 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "TRA-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/data/MockProvider.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add two concurrent fictional checkout attempts and verify losing user error; preserve server requirement.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Re-read race guard and full/race message exist; list/get/insert/update sequence cannot guarantee cross-device one winner."
+        ],
+        "remainingBackend": [
+          "Atomic lock/unique reservation server RPC and realtime notification."
+        ]
+      },
+      "sourceNextAction": "Add two concurrent fictional checkout attempts and verify losing user error; preserve server requirement."
     },
     {
       "id": "RS-08",
@@ -1383,23 +1782,30 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/BookedPage.tsx",
+        "src/components/organism/ClassCard/ClassCard.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add linked payment status and configured directions; test pending/confirmed/released/missing booking.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/booking/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Date/time/teacher/room and paid_with visible, but no explicit pending/confirmed/released payment status or directions action identified on booked screen."
+        ],
+        "remainingBackend": [
+          "Booking/payment state relationship and release events."
+        ]
+      },
+      "sourceNextAction": "Add linked payment status and configured directions; test pending/confirmed/released/missing booking."
     },
     {
       "id": "RS-09",
@@ -1414,23 +1820,31 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
+        "src/modules/customer/pages/BookedPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/policy.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Disable move after cutoff and test just before/at/after 12 hours with clock fixture.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/booking/:id/change"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "ChangeSheet shows inside-window warning but still offers move and invokes reschedule; helper checks capacity/status, not 12-hour cutoff."
+        ],
+        "remainingBackend": [
+          "Server-enforced deadline/atomic reschedule."
+        ]
+      },
+      "sourceNextAction": "Disable move after cutoff and test just before/at/after 12 hours with clock fixture."
     },
     {
       "id": "RS-10",
@@ -1445,23 +1859,31 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "CLI-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
+        "src/modules/customer/pages/BookedPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/policy.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Preserve PC-04 question and test once-only return and late status under deterministic clock.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/booking/:id/change"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "cancel applies late status and package return outside window; repeated cancel could append duplicate return; cancellation business decision PC-04 unresolved."
+        ],
+        "remainingBackend": [
+          "Atomic idempotent cancellation/refund with approved policy."
+        ]
+      },
+      "sourceNextAction": "Preserve PC-04 question and test once-only return and late status under deterministic clock."
     },
     {
       "id": "RS-11",
@@ -1476,23 +1898,30 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/WaitlistPage.tsx",
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test waiting/offered/expired/claim-failure and inactive page; add explicit offer validation/notification preview.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/waitlist/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Join/leave/position/offer/countdown/auto-claim exist. Promotion/expiry is browser triggered; no notification write in promoteWaitlist; claim does not independently enforce offer expiry."
+        ],
+        "remainingBackend": [
+          "Background queue advancement, timed holds, authenticated offers and email delivery."
+        ]
+      },
+      "sourceNextAction": "Test waiting/offered/expired/claim-failure and inactive page; add explicit offer validation/notification preview."
     },
     {
       "id": "RS-12",
@@ -1507,23 +1936,30 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-16",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/HistoryPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test attended/cancelled/no-show/payment receipts/export with fictional rows and empty state.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/history",
+        "/#/app/history?tab=payments"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "History joins classes and statuses, opens payment receipts, exports classes/payments JSON. Source complete for frontend criterion, fresh behavior unverified."
+        ],
+        "remainingBackend": [
+          "Authorized history/receipt read and retained payment records."
+        ]
+      },
+      "sourceNextAction": "Test attended/cancelled/no-show/payment receipts/export with fictional rows and empty state."
     },
     {
       "id": "RS-13",
@@ -1538,23 +1974,34 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "CLI-24",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/RulesPage.tsx",
+        "src/modules/customer/pages/FaqPage.tsx",
+        "src/modules/customer/pages/TeachersPage.tsx",
+        "src/tenant/tenant.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Compare configured directions and all approved content against source; render empty/error/locale cases.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/rules",
+        "/#/app/faq",
+        "/#/app/teachers"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Content routes exist; correctness needs approved club content and directions verification, not inferred from seed or build."
+        ],
+        "remainingBackend": [
+          "Published content reads."
+        ]
+      },
+      "sourceNextAction": "Compare configured directions and all approved content against source; render empty/error/locale cases."
     },
     {
       "id": "RS-14",
@@ -1569,23 +2016,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "CLI-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
-        "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/customer/pages/PracticePage.tsx",
+        "src/data/analytics.ts",
+        "src/data/useAnalytics.ts",
+        "scripts/test-analytics.mjs"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Run analytics and compare rendered own-history metrics under deterministic attendance/freeze fixtures.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/practice"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Source derives weekly goals/streak/history with dedicated analytics suite; fresh criterion verification unrun."
+        ],
+        "remainingBackend": [
+          "Own-history backend data and goal persistence."
+        ]
+      },
+      "sourceNextAction": "Run analytics and compare rendered own-history metrics under deterministic attendance/freeze fixtures."
     },
     {
       "id": "RS-15",
@@ -1603,20 +2059,30 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/index.ts",
+        "src/modules/customer/pages/EventPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/data/mats.ts"
+        "src/modules/admin/EventsAdminPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Add event capacity/duplicate/failure fixtures and email preview; test cancellation/rejoin.",
       "candidateRoutes": [
-        "/#/app/schedule",
-        "/#/app/class/sample",
-        "/#/app/booking/sample"
-      ]
+        "/#/app/events",
+        "/#/app/events/:id",
+        "/#/admin/content/events"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "RSVP/cancel and capacity display exist; going() inserts directly without fresh capacity/duplicate checks, no email write identified."
+        ],
+        "remainingBackend": [
+          "Atomic event capacity/RSVP/payment and confirmation emails."
+        ]
+      },
+      "sourceNextAction": "Add event capacity/duplicate/failure fixtures and email preview; test cancellation/rejoin."
     },
     {
       "id": "PG-01",
@@ -1634,19 +2100,30 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/customer/pages/PaymentMethodsPage.tsx",
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/payments.ts",
+        "src/modules/admin/settings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Implement transfer prototype with amount/account/fixedQR/BreB placeholders clearly unconfigured; no real transactions.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/payment-methods",
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Payment details settings exist, but checkout offers Wompi card/PSE/QR and cash; no Bancolombia fixed QR+BreB transfer screen."
+        ],
+        "remainingBackend": [
+          "Approved nonsecret banking config and transfer workflow."
+        ]
+      },
+      "sourceNextAction": "Implement transfer prototype with amount/account/fixedQR/BreB placeholders clearly unconfigured; no real transactions."
     },
     {
       "id": "PG-02",
@@ -1661,22 +2138,30 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "",
-      "implementationStatus": "partial",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/data/schema.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Build PNG/JPG size/type validation, local fictional receipt preview/remove/error and pending-state contract.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No transfer receipt image-upload/review linkage identified in checkout; photo picker is content-specific and not a receipt flow."
+        ],
+        "remainingBackend": [
+          "Private durable receipt storage/access plus pending confirmation."
+        ]
+      },
+      "sourceNextAction": "Build PNG/JPG size/type validation, local fictional receipt preview/remove/error and pending-state contract."
     },
     {
       "id": "PG-03",
@@ -1695,18 +2180,27 @@
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/policy.ts",
+        "src/modules/customer/pages/blocks.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Prototype deterministic hold countdown/released state, clearly pending PC-01; no silent policy choice.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Declined-payment holdUntil is component state; no durable transfer hold expiry/release/email job. PC-01 unresolved (upload versus confirmation)."
+        ],
+        "remainingBackend": [
+          "Authoritative hold timer/release/capacity/email worker."
+        ]
+      },
+      "sourceNextAction": "Prototype deterministic hold countdown/released state, clearly pending PC-01; no silent policy choice."
     },
     {
       "id": "PG-04",
@@ -1721,22 +2215,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "FIN-05",
-      "implementationStatus": "partial",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/staff/RegisterPage.tsx",
+        "src/modules/admin/FinancePage.tsx",
+        "src/data/schema.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Build reception review prototype and rejection/amount/error states using fictional receipts.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
         "/#/staff/register",
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No receipt viewer+bank-notification comparison+received amount+reasoned approve/reject flow identified; register creates new sale, finance only refund."
+        ],
+        "remainingBackend": [
+          "Authenticated atomic payment review with audit and activation."
+        ]
+      },
+      "sourceNextAction": "Build reception review prototype and rejection/amount/error states using fictional receipts."
     },
     {
       "id": "PG-05",
@@ -1751,22 +2255,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "",
-      "implementationStatus": "partial",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/staff/HomePage.tsx",
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/staff/index.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Create dedicated pending review list with filters, empty/loading/error and hold countdown fixtures.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
+        "/#/staff",
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Pending count and mixed payment table exist; no front-desk pending list with receipt/product/hold countdown."
+        ],
+        "remainingBackend": [
+          "Pending queue/realtime/read authorization."
+        ]
+      },
+      "sourceNextAction": "Create dedicated pending review list with filters, empty/loading/error and hold countdown fixtures."
     },
     {
       "id": "PG-06",
@@ -1784,19 +2298,28 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/customer/payments.ts",
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Model pending vs confirmed and deterministic timeout after PC-02 clarification.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "cash option advertises 60min and creates pending payment, but booking is immediately booked; no expiry release logic found. PC-02 unresolved."
+        ],
+        "remainingBackend": [
+          "Timed pending booking and expiry scheduler."
+        ]
+      },
+      "sourceNextAction": "Model pending vs confirmed and deterministic timeout after PC-02 clarification."
     },
     {
       "id": "PG-07",
@@ -1811,22 +2334,30 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "REC-12, REC-16",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/staff/RegisterPage.tsx",
+        "src/modules/staff/audit.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test direct sale and add existing-pending settlement path with fictional payment identity.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/staff/register"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Records cash/card terminal/transfer approved sale with taken_by and can book/checkin; settling an existing pending booking/payment is not implemented here."
+        ],
+        "remainingBackend": [
+          "Authenticated transactional settlement/booking activation/audit."
+        ]
+      },
+      "sourceNextAction": "Test direct sale and add existing-pending settlement path with fictional payment identity."
     },
     {
       "id": "PG-08",
@@ -1841,22 +2372,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-16",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/payments.ts",
+        "src/modules/staff/RegisterPage.tsx",
+        "src/data/emailCatalog.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Separate receipt from invoice frontend semantics and add deterministic email-preview status.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/history?tab=payments",
+        "/#/staff/register"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Receipt UI/email templates exist, but approved recordPayment and register create invoices, conflicting with no-invoice rule; no actual email dispatch."
+        ],
+        "remainingBackend": [
+          "Transactional receipt email and suppression of invoices for launch."
+        ]
+      },
+      "sourceNextAction": "Separate receipt from invoice frontend semantics and add deterministic email-preview status."
     },
     {
       "id": "PG-09",
@@ -1871,22 +2412,31 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/payments.ts",
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add double-click/retry/poor-connection fixtures and stable request key contract; preserve one payment/booking.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Busy buttons/existing-booking check reduce repeated booking; payment writes have no idempotency key, multi-step payment then booking can duplicate on retry/failure."
+        ],
+        "remainingBackend": [
+          "Idempotent atomic payment+booking command."
+        ]
+      },
+      "sourceNextAction": "Add double-click/retry/poor-connection fixtures and stable request key contract; preserve one payment/booking."
     },
     {
       "id": "PG-10",
@@ -1901,22 +2451,30 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "FIN-01",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/admin/FinancePage.tsx",
+        "src/components/organism/DataTable/DataTable.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement frontend CSV export/date range and reconcile included fields with confirmed payments.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Preset date windows and payment table exist; no download button/CSV confirmed-payment report with product/method/confirmer found."
+        ],
+        "remainingBackend": [
+          "Authorized accounting export endpoint or safe paginated source."
+        ]
+      },
+      "sourceNextAction": "Implement frontend CSV export/date range and reconcile included fields with confirmed payments."
     },
     {
       "id": "PG-11",
@@ -1931,22 +2489,30 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "FIN-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/customer/payments.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Build fictional partial/full refund review and remaining balance/notice states; no real refund action.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "refund confirms full p.amount then only changes status and audit; no partial amount input, package adjustment or notice."
+        ],
+        "remainingBackend": [
+          "Authoritative full/partial refund RPC and money movement/notice."
+        ]
+      },
+      "sourceNextAction": "Build fictional partial/full refund review and remaining balance/notice states; no real refund action."
     },
     {
       "id": "PG-12",
@@ -1961,22 +2527,31 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "REC-18",
-      "implementationStatus": "unverified",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/staff/RegisterPage.tsx",
+        "src/data/schema.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Create fictional daily close prototype with method counts, discrepancies and review/close contract.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Revenue by method exists; no counted-vs-recorded daily cash-close screen/entity identified."
+        ],
+        "remainingBackend": [
+          "Immutable daily close/reconciliation command."
+        ]
+      },
+      "sourceNextAction": "Create fictional daily close prototype with method counts, discrepancies and review/close contract."
     },
     {
       "id": "PG-13",
@@ -1991,22 +2566,32 @@
       "phase": "After Nov 30",
       "priority": "Medium",
       "relatedTests": "CLI-12, CLI-14, REC-12, INT-01",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/customer/payments.ts",
         "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/admin/integrationDefs.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Keep AfterNov30 prototype; add pending/link/retry fixtures without live gateway.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id",
+        "/#/admin/integrations"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Card/PSE/QR simulator and declined UI exist; WompiResult only approved/declined, no async pending webhook lifecycle or complete link flow."
+        ],
+        "remainingBackend": [
+          "Wompi checkout/webhook signature, reconciliation, idempotency."
+        ]
+      },
+      "sourceNextAction": "Keep AfterNov30 prototype; add pending/link/retry fixtures without live gateway."
     },
     {
       "id": "PG-14",
@@ -2021,22 +2606,31 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "CLI-20, TRA-06",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/pages/PaymentMethodsPage.tsx",
+        "src/modules/customer/payments.ts",
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test fictional add/default/remove/tokenization-error states; document token-only contract.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/payment-methods"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Saved-card token/last4 UI and placeholder tokenise exist; no real tokenization, expiry/error scenarios still need verification."
+        ],
+        "remainingBackend": [
+          "Provider tokenization and secure ownership, never raw PAN/CVV."
+        ]
+      },
+      "sourceNextAction": "Test fictional add/default/remove/tokenization-error states; document token-only contract."
     },
     {
       "id": "PG-15",
@@ -2051,22 +2645,32 @@
       "phase": "After Nov 30",
       "priority": "Medium",
       "relatedTests": "FIN-06, FIN-07, INT-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/modules/customer/payments.ts",
+        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/settings.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Keep future prototype distinct from no-invoice launch; add deterministic pending/issued/rejected fixtures.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/admin/finance",
+        "/#/admin/settings/payments"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Invoice rows/UI exist with dian_cufe null and Date.now suffix numbering (not guaranteed unique consecutive). No DIAN emission."
+        ],
+        "remainingBackend": [
+          "DIAN provider/resolution/CUFE, unique sequence and issued invoice workflow."
+        ]
+      },
+      "sourceNextAction": "Keep future prototype distinct from no-invoice launch; add deterministic pending/issued/rejected fixtures."
     },
     {
       "id": "PG-16",
@@ -2081,22 +2685,32 @@
       "phase": "To be confirmed",
       "priority": "Medium",
       "relatedTests": "REC-13",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/customer/pages/CheckoutPage.tsx",
-        "src/modules/staff/RegisterPage.tsx"
+        "src/data/tax.ts",
+        "src/components/molecule/OrderSummary/OrderSummary.tsx",
+        "src/modules/customer/pages/HistoryPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Keep TBC phase; verify split/recombination integer COP and await VAT-on-receipt decision.",
       "candidateRoutes": [
-        "/#/app/checkout/sample",
-        "/#/staff/register",
-        "/#/admin/finance"
-      ]
+        "/#/app/checkout/:id",
+        "/#/app/history?tab=payments"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Subtotal/IVA/total arithmetic and receipt fields exist; display requirement remains PC-12 decision, inclusive-price rounding needs exact tests."
+        ],
+        "remainingBackend": [
+          "Persist exact tax snapshot if approved."
+        ]
+      },
+      "sourceNextAction": "Keep TBC phase; verify split/recombination integer COP and await VAT-on-receipt decision."
     },
     {
       "id": "BO-01",
@@ -2111,21 +2725,31 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/customer/pages/GiftPage.tsx",
+        "src/modules/vouchers/pages.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Unify purchased-gift and class-voucher lifecycle preserving explicit demo boundaries.",
       "candidateRoutes": [
-        "/#/admin/vouchers",
+        "/#/app/gift",
         "/#/app/vouchers"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Gift purchase supports recipient/contact/classes-priced cards but uses simulated Wompi, writes monetary draft gift_cards; no linked bank-transfer receipt approval to class voucher."
+        ],
+        "remainingBackend": [
+          "Atomic purchased voucher after approved transfer."
+        ]
+      },
+      "sourceNextAction": "Unify purchased-gift and class-voucher lifecycle preserving explicit demo boundaries."
     },
     {
       "id": "BO-02",
@@ -2140,21 +2764,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/vouchers/pages.tsx",
         "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/customer/pages/GiftPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add fictional buyer/payment/sent-email/recipient-link states; do not mark preview delivered.",
       "candidateRoutes": [
         "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/vouchers/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Unique voucher link and preview_delivery exist; previews explicitly do not send. Gift payment is not linked to real sent/redeem lifecycle."
+        ],
+        "remainingBackend": [
+          "Email unique claim token issuance/delivery after payment approval."
+        ]
+      },
+      "sourceNextAction": "Add fictional buyer/payment/sent-email/recipient-link states; do not mark preview delivered."
     },
     {
       "id": "BO-03",
@@ -2169,21 +2804,31 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "COO-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/vouchers/pages.tsx",
+        "src/data/vouchers.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Exercise expiry/limits/preview/error states and document exact usage semantics.",
       "candidateRoutes": [
         "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/vouchers/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Admin issuance includes class count/expiry/participant and use policy, link preview/revoke. Email send remains preview only; usage limit criterion needs reconciliation with capScope/creditUnit."
+        ],
+        "remainingBackend": [
+          "Authorized issuance, unique claim tokens and actual email."
+        ]
+      },
+      "sourceNextAction": "Exercise expiry/limits/preview/error states and document exact usage semantics."
     },
     {
       "id": "BO-04",
@@ -2198,9 +2843,10 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/vouchers/pages.tsx",
         "src/data/vouchers.ts",
         "src/modules/vouchers/index.ts"
       ],
@@ -2208,11 +2854,20 @@
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Decide unified ledger-voucher contract and build fictional auth-return redemption path.",
       "candidateRoutes": [
-        "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/vouchers/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Claim assigns claimedBy and books using separate voucher balance; does not add voucher classes to class_ledger balance. Demo switchUser is not signup/signin redemption."
+        ],
+        "remainingBackend": [
+          "Recipient-authenticated claim and exactly-once entitlement transfer."
+        ]
+      },
+      "sourceNextAction": "Decide unified ledger-voucher contract and build fictional auth-return redemption path."
     },
     {
       "id": "BO-05",
@@ -2227,21 +2882,31 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/vouchers/pages.tsx",
+        "src/modules/vouchers/actions.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Map explicit expired/already-redeemed messages; reconcile single-use redemption versus balance-use semantics.",
       "candidateRoutes": [
-        "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/vouchers/:id"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Domain checks expiry/revocation/balance/claim and prevents wrong owner; UI uses generic voucher error for domain failures, and vouchers can have multi-use balances by design."
+        ],
+        "remainingBackend": [
+          "Exactly-once redemption/concurrency and authoritative expiry."
+        ]
+      },
+      "sourceNextAction": "Map explicit expired/already-redeemed messages; reconcile single-use redemption versus balance-use semantics."
     },
     {
       "id": "BO-06",
@@ -2256,21 +2921,32 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/vouchers/pages.tsx",
+        "src/data/emailCatalog.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add deterministic sent/used buyer notification preview and failure/retry states.",
       "candidateRoutes": [
         "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/gift"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Voucher event history/preview exists; no buyer sent/used notification flow identified."
+        ],
+        "remainingBackend": [
+          "Buyer notification worker on delivery/redemption with consent/ownership."
+        ]
+      },
+      "sourceNextAction": "Add deterministic sent/used buyer notification preview and failure/retry states."
     },
     {
       "id": "BO-07",
@@ -2285,21 +2961,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "CLI-17",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/vouchers.ts",
-        "src/modules/vouchers/index.ts"
+        "src/modules/customer/pages/InvitePage.tsx",
+        "src/modules/customer/hooks.ts",
+        "src/modules/customer/auth/SignUpPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Connect fictional signup attribution once; native handoff/copy must not imply email delivery.",
       "candidateRoutes": [
-        "/#/admin/vouchers",
-        "/#/app/vouchers"
-      ]
+        "/#/app/invite",
+        "/#/auth/sign-up?invite=:code"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Invitation share/prepared record includes inviter; signup only stores Invite code in profile notes, never associates invitee_user_id/joined attribution."
+        ],
+        "remainingBackend": [
+          "Authenticated first-referrer attribution and any server reward."
+        ]
+      },
+      "sourceNextAction": "Connect fictional signup attribution once; native handoff/copy must not imply email delivery."
     },
     {
       "id": "RC-01",
@@ -2314,22 +3001,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-01",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/HomePage.tsx",
+        "src/modules/staff/CheckinPage.tsx",
+        "src/modules/website/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Share canonical whole-day attendance and pending-payment selectors; verify same fictional arrivals before/after class completion and across reception/payment list.",
       "candidateRoutes": [
         "/#/staff",
-        "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/staff/checkin"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Home counts arrivals only among scheduled today sessions (useTodaySessions default), while Check-in includes all noncancelled today sessions. Completed classes can disappear from home arrivals. Pending count exists as hint, but no dedicated pending-payment list route exists."
+        ],
+        "remainingBackend": [
+          "Authenticated tenant/role enforcement and durable cross-device data; browser mock does not establish operational acceptance."
+        ]
+      },
+      "sourceNextAction": "Share canonical whole-day attendance and pending-payment selectors; verify same fictional arrivals before/after class completion and across reception/payment list."
     },
     {
       "id": "RC-02",
@@ -2344,22 +3041,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "REC-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/CheckinPage.tsx",
+        "src/data/MockProvider.ts",
+        "src/data/mats.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Define no-show spot occupancy then align counters/mats; add direct undo and test official attendance counts across desk/teacher/dashboard.",
       "candidateRoutes": [
-        "/#/staff",
-        "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/staff/checkin"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Arrived/No-show actions and arrived undo exist. No-show has only mark-arrived, not direct undo-to-booked. Undo checked_in→booked triggers prepareBooking, which rejects sessions already started, so normal after-start undo can fail.",
+          "MockProvider.syncCapacity counts no_show in booked_count while mat occupancy/prepareBooking excludes it, so seat semantics disagree."
+        ],
+        "remainingBackend": [
+          "Atomic attendance/undo with canonical capacity occupancy and append-only audit; role-authorized server command."
+        ]
+      },
+      "sourceNextAction": "Define no-show spot occupancy then align counters/mats; add direct undo and test official attendance counts across desk/teacher/dashboard."
     },
     {
       "id": "RC-03",
@@ -2374,22 +3081,30 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/people.ts",
+        "src/modules/staff/CheckinPage.tsx",
+        "src/modules/staff/RegisterPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly test name, normalized WhatsApp and email matches for roster and non-roster people, including empty/no-match and keyboard search; search implementation already exists.",
       "candidateRoutes": [
-        "/#/staff",
         "/#/staff/checkin",
         "/#/staff/register"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Authenticated tenant/role enforcement and durable cross-device data; browser mock does not establish operational acceptance."
+        ]
+      },
+      "sourceNextAction": "Freshly test name, normalized WhatsApp and email matches for roster and non-roster people, including empty/no-match and keyboard search; search implementation already exists."
     },
     {
       "id": "RC-04",
@@ -2404,22 +3119,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/CheckinPage.tsx",
+        "src/modules/staff/RegisterPage.tsx",
+        "src/data/MockProvider.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement existing-customer booking with shared quote/entitlement decision and show capacity/balance failures before confirmation.",
       "candidateRoutes": [
-        "/#/staff",
         "/#/staff/checkin",
         "/#/staff/register"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Desk has walk-in and waitlist promotion, not a general future-class booking-on-behalf flow. Those inserts do not validate/debit package balance; walkIn uses legacy membership presence and otherwise paid_with=single. Provider rejects capacity/duplicates but not entitlement balance."
+        ],
+        "remainingBackend": [
+          "Atomic booking capacity, policy/entitlement allocation and idempotency enforced server-side."
+        ]
+      },
+      "sourceNextAction": "Implement existing-customer booking with shared quote/entitlement decision and show capacity/balance failures before confirmation."
     },
     {
       "id": "RC-05",
@@ -2434,22 +3159,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "REC-05, REC-07, REC-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/CheckinPage.tsx",
+        "src/modules/staff/RegisterPage.tsx",
+        "src/data/packages.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Debit existing package exactly once via shared entitlement command; test new-person consent/payment and rollback without duplicate registration or payment.",
       "candidateRoutes": [
-        "/#/staff",
         "/#/staff/checkin",
         "/#/staff/register"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Existing-customer QuickSell walk-in inserts attendance but never deducts class_ledger or uses packageState. New-person desk form requires first name/phone/consent and creates consent/payment rows, but the multi-step save has no transaction/rollback if later booking fails."
+        ],
+        "remainingBackend": [
+          "Atomic customer/consent/payment/entitlement/attendance transaction, consent proof and durable payment confirmation."
+        ]
+      },
+      "sourceNextAction": "Debit existing package exactly once via shared entitlement command; test new-person consent/payment and rollback without duplicate registration or payment."
     },
     {
       "id": "RC-06",
@@ -2464,22 +3199,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "REC-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/CheckinPage.tsx",
+        "src/modules/admin/settings.ts",
+        "src/data/MockProvider.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Clarify badge vs admission behavior, then test scheduled member and walk-in at 14/15/16 minutes with settings changes; retain source phase label.",
       "candidateRoutes": [
-        "/#/staff",
         "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/admin/settings"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Late badge compares checked_in_at to session start + Settings lateGraceMin, and displays configured grace. No business action beyond badge; new walk-in insert is rejected once class has started by prepareBooking, even within grace."
+        ],
+        "remainingBackend": [
+          "Authoritative studio time and approved late-arrival admission policy."
+        ]
+      },
+      "sourceNextAction": "Clarify badge vs admission behavior, then test scheduled member and walk-in at 14/15/16 minutes with settings changes; retain source phase label."
     },
     {
       "id": "RC-07",
@@ -2494,22 +3239,30 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "REC-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/RegisterPage.tsx",
+        "src/modules/staff/RoomsPage.tsx",
+        "src/modules/staff/rooms.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify required concept validation and link existing/new room booking to special_charge/payment, including failure recovery and fictional teacher payout.",
       "candidateRoutes": [
-        "/#/staff",
-        "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/staff/register",
+        "/#/staff/rooms"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Atomic special payment/room booking linkage and audit across writes; server overlap and settlement enforcement."
+        ]
+      },
+      "sourceNextAction": "Verify required concept validation and link existing/new room booking to special_charge/payment, including failure recovery and fictional teacher payout."
     },
     {
       "id": "RC-08",
@@ -2524,22 +3277,31 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "REC-22, REC-23, REC-24, REC-25, MAN-01, MAN-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/RoomsPage.tsx",
+        "src/modules/staff/rooms.ts",
+        "src/components/organism/RoomDayGrid/RoomDayGrid.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test all block kinds and conflict edges in grid plus stale concurrent edit; document browser prototype overlap check versus authoritative server guarantee.",
       "candidateRoutes": [
-        "/#/staff",
-        "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/staff/rooms"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Two-room day grid and rental/private/maintenance/blocked types exist; form prevents overlaps using findConflicts. Generic provider has no room-overlap invariant and simultaneous tabs can race; changing date/time paths and browser timezone vs Bogotá require verification."
+        ],
+        "remainingBackend": [
+          "Server exclusion/locking across class sessions and space bookings, tenant-scoped room access."
+        ]
+      },
+      "sourceNextAction": "Test all block kinds and conflict edges in grid plus stale concurrent edit; document browser prototype overlap check versus authoritative server guarantee."
     },
     {
       "id": "RC-09",
@@ -2554,22 +3316,32 @@
       "phase": "After Nov 30",
       "priority": "Medium",
       "relatedTests": "REC-19, REC-20, REC-21",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/InboxPage.tsx",
+        "src/data/comms.ts",
+        "src/components/molecule/MessageComposer/MessageComposer.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly exercise channel selection and note isolation with mock failures, making simulated status explicit; no real outbound messages.",
       "candidateRoutes": [
-        "/#/staff",
-        "/#/staff/checkin",
-        "/#/staff/register"
-      ]
+        "/#/staff/inbox",
+        "/#/staff/inbox/usr_cust"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "One thread per user and channel composer/internal-note distinction exist. Sends merely insert simulated sent/queued message_log; no delivery failure/retry or real right-channel evidence."
+        ],
+        "remainingBackend": [
+          "Provider email/WhatsApp dispatch, authenticated inbound webhooks and internal-note customer-read exclusion."
+        ]
+      },
+      "sourceNextAction": "Freshly exercise channel selection and note isolation with mock failures, making simulated status explicit; no real outbound messages."
     },
     {
       "id": "RC-10",
@@ -2584,22 +3356,31 @@
       "phase": "MVP Oct 30",
       "priority": "Medium",
       "relatedTests": "REC-15, REC-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/staff/index.ts",
-        "src/modules/staff/CheckinPage.tsx"
+        "src/modules/staff/RegisterPage.tsx",
+        "src/data/MockProvider.ts",
+        "src/data/mats.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement coherent mock transaction/preview; prove full/duplicate/pending/failure paths create neither partial payment nor double class debit and keep counters exact.",
       "candidateRoutes": [
-        "/#/staff",
-        "/#/staff/checkin",
         "/#/staff/register"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Check-in-to-class creates checked_in booking and one ledger debit. It first creates payment/invoice/ledger in separate writes, then may fail on full/duplicate/past booking; no atomic rollback. Wompi pending sales still enter entitlement/check-in path."
+        ],
+        "remainingBackend": [
+          "Atomic payment settlement + entitlement + capacity + attendance transaction and idempotent retries."
+        ]
+      },
+      "sourceNextAction": "Implement coherent mock transaction/preview; prove full/duplicate/pending/failure paths create neither partial payment nor double class debit and keep counters exact."
     },
     {
       "id": "AD-01",
@@ -2614,23 +3395,35 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "COO-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/ContentPage.tsx",
+        "src/modules/admin/FaqAdminPage.tsx",
+        "src/modules/classSchedule/pages.tsx",
+        "src/data/contentBatch.ts",
+        "src/data/classRecurrence.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Exercise one fictional entity of each type through create/edit/publish/unpublish and inspect all three consuming surfaces.",
       "candidateRoutes": [
-        "/#/admin",
         "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/content/faq",
+        "/#/admin/class-schedule"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "CRUD and publication paths exist for content entities and FAQ; exact downstream website/app/desk propagation and all unpublished/empty/error states have not been reconciled per entity."
+        ],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Exercise one fictional entity of each type through create/edit/publish/unpublish and inspect all three consuming surfaces."
     },
     {
       "id": "AD-02",
@@ -2645,23 +3438,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "COO-12",
-      "implementationStatus": "unverified",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/data/sessionEditorial.ts",
+        "src/modules/classSchedule/pages.tsx",
+        "src/modules/customer/pages/StatePages.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement fictional cancellation command/preview/confirmation with attendee and credit outcomes, preserving phase/publication boundaries.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/class-schedule",
+        "/#/app/state/cancelled"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No dated-class cancellation action identified; applySessionEdit whitelist excludes status. Cancelled customer edge preview is not cancellation orchestration. Missing attendee impact preview, credit restoration result and notification status."
+        ],
+        "remainingBackend": [
+          "Atomic cancellation, entitlement restoration and idempotent attendee-email dispatch."
+        ]
+      },
+      "sourceNextAction": "Implement fictional cancellation command/preview/confirmation with attendee and credit outcomes, preserving phase/publication boundaries."
     },
     {
       "id": "AD-03",
@@ -2676,23 +3478,31 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "COO-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/data/sessionEditorial.ts",
+        "src/modules/classSchedule/pages.tsx",
+        "src/data/MockProvider.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add explicit time-change and attendee-impact prototype; verify booking IDs retained and notification preview/status.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/class-schedule"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Teacher/room/editorial edits retain existing bookings; starts_at/ends_at changes are not allowed by edit whitelist. No affected-attendee notification flow."
+        ],
+        "remainingBackend": [
+          "Transactional reschedule with capacity/overlap constraints and durable notification dispatch."
+        ]
+      },
+      "sourceNextAction": "Add explicit time-change and attendee-impact prototype; verify booking IDs retained and notification preview/status."
     },
     {
       "id": "AD-04",
@@ -2707,23 +3517,33 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "ADM-08",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/settings.ts",
+        "src/modules/admin/SettingsPage.tsx",
+        "src/modules/customer/policy.ts",
+        "src/modules/customer/hooks.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add exact policy fields, draft validation and booking policy version snapshot; resolve PC-01/PC-02 before timer semantics.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/settings",
+        "/#/admin/content"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Settings expose cancellationHours and paymentHoldMin; no distinct front-desk one-hour payment wait setting. Current policy is read dynamically, not frozen onto existing bookings; future-bookings-only semantics absent. Room capacity is edited in Content."
+        ],
+        "remainingBackend": [
+          "Versioned policy snapshots and authoritative server hold expiry."
+        ]
+      },
+      "sourceNextAction": "Add exact policy fields, draft validation and booking policy version snapshot; resolve PC-01/PC-02 before timer semantics."
     },
     {
       "id": "AD-05",
@@ -2738,23 +3558,34 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "ADM-06, ADM-07",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/settings.ts",
+        "src/modules/admin/SettingsPage.tsx",
+        "src/modules/admin/HoursSettings.tsx",
+        "src/tenant/hours.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Add approved QR/Bre-B frontend fields and previews; verify each configured value in consuming surfaces using fictional settings.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/settings",
+        "/#/admin/settings/hours",
+        "/#/admin/settings/payments"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Contact/hour/holiday and basic bank account editors exist. StudioSettings.payments has no QR image or Bre-B key. Exact consumption by all website/app/email surfaces unverified."
+        ],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Add approved QR/Bre-B frontend fields and previews; verify each configured value in consuming surfaces using fictional settings."
     },
     {
       "id": "AD-06",
@@ -2769,23 +3600,29 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "SAD-01",
-      "implementationStatus": "unverified",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/TablesPage.tsx",
+        "src/auth/SessionProvider.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
-      "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+      "nextAction": "Build isolated fictional team administration frontend and document invitation/role lifecycle contract; do not mutate real permissions.",
+      "candidateRoutes": [],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No dedicated team-user invitation, role change or removal screen found. Generic table editing and demo role switching do not satisfy this workflow."
+        ],
+        "remainingBackend": [
+          "Authenticated staff invite acceptance, immediate session/permission invalidation and audit."
+        ]
+      },
+      "sourceNextAction": "Build isolated fictional team administration frontend and document invitation/role lifecycle contract; do not mutate real permissions."
     },
     {
       "id": "AD-07",
@@ -2803,8 +3640,10 @@
       "implementationStatus": "partial",
       "verificationStatus": "local-flow-passed",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/CrmPage.tsx",
+        "src/modules/admin/MemberPage.tsx",
+        "src/data/packages.ts",
+        "scripts/test-crm-balances-ui.mjs"
       ],
       "routes": [
         "/#/admin/crm",
@@ -2825,11 +3664,26 @@
       ],
       "nextAction": "Verify production bundle, exact-head CI and deployed SHA; retain partial until asynchronous read failure contract is tested.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
         "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/crm/usr_cust"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Batch 1 fixes package/expiry/claimed vouchers and mobile display. Unclaimed vouchers remain separate management records. Shared asynchronous read-error/retry paths remain absent in current hooks."
+        ],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Retain local verification evidence from batch 1; add failing/loading provider contract coverage before full frontend acceptance.",
+      "freshEvidence": {
+        "codeCommit": "8136c6f84922efd26154ffa645a35cc8c0298c13",
+        "workflow": "https://github.com/imagine-os/hoy/actions/runs/39685943071",
+        "target": "local production bundle and exact-head PR CI",
+        "ownerAcceptance": "not changed",
+        "liveSpecificFlow": "not independently exercised from execution environment (HTTP 403)."
+      }
     },
     {
       "id": "AD-08",
@@ -2844,23 +3698,33 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "COO-01, COO-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/CrmPage.tsx",
+        "src/modules/admin/MemberPage.tsx",
+        "src/data/comms.ts",
+        "src/modules/staff/audit.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify each segment/record tab with consistent fixtures and prove every supported mutation has correct audit action/entity.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
         "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/crm/usr_cust"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Required segments and record tabs exist; notes/composed messages use audit. No complete per-field audit coverage test; read-only and health-sensitive role variants need explicit verification."
+        ],
+        "remainingBackend": [
+          "Append-only server audit, authorized record scope and retention."
+        ]
+      },
+      "sourceNextAction": "Verify each segment/record tab with consistent fixtures and prove every supported mutation has correct audit action/entity."
     },
     {
       "id": "AD-09",
@@ -2875,23 +3739,34 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "ADM-01, ADM-02, ADM-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/DashboardPage.tsx",
+        "src/modules/admin/AnalyticsPage.tsx",
+        "src/data/analytics.ts",
+        "src/modules/staff/HomePage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Define source-backed active-member and occupancy windows once; wire Dashboard/Analytics/CRM/desk to shared selectors and reconcile all metric totals.",
       "candidateRoutes": [
         "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/analytics",
+        "/#/staff"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Dashboard active members counts active memberships; Analytics uses activity-based activeIds. Dashboard occupancy uses +/-3.5 days and booked_count; analytics uses held/attended definitions. Single shared KPI contract absent."
+        ],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Define source-backed active-member and occupancy windows once; wire Dashboard/Analytics/CRM/desk to shared selectors and reconcile all metric totals."
     },
     {
       "id": "AD-10",
@@ -2906,23 +3781,31 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "ADM-04, ADM-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/ActivityPage.tsx",
+        "src/modules/staff/audit.ts",
+        "src/data/seed/index.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Test audit records from actual sensitive commands; remove incoherent synthetic action/entity pairs and verify filtered CSV.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/activity"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Actor/entity/date filters, detail and CSV exist. Action/object correctness of actual producer commands and source HALL-7 fixture mismatch are not covered by this viewer; CSV search/export parity unverified."
+        ],
+        "remainingBackend": [
+          "Append-only immutable audit and export authorization/retention."
+        ]
+      },
+      "sourceNextAction": "Test audit records from actual sensitive commands; remove incoherent synthetic action/entity pairs and verify filtered CSV."
     },
     {
       "id": "AD-11",
@@ -2937,23 +3820,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "ADM-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/admin/SettingsPage.tsx",
+        "src/modules/admin/settings.ts",
+        "src/modules/staff/RegisterPage.tsx",
+        "src/modules/customer/legal.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Enumerate every switch and implement/verify its actual consumer; label unsupported switches as prototypes rather than successful activation.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/admin/settings/features"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Flag switches write and audit feature_flags; no app consumers of feature_flags.enabled identified outside Settings. A few studio features such as autoCheckinOnSale/noShowFee are consumed, but complete app-wide effect is absent."
+        ],
+        "remainingBackend": [
+          "Authorized feature configuration persistence and audit."
+        ]
+      },
+      "sourceNextAction": "Enumerate every switch and implement/verify its actual consumer; label unsupported switches as prototypes rather than successful activation."
     },
     {
       "id": "AD-12",
@@ -2968,23 +3860,30 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "ADM-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/tenant/contacts.ts",
+        "src/modules/admin/settings.ts",
+        "src/modules/admin/SettingsPage.tsx",
+        "scripts/test-contacts.mjs"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly verify all topic routes, configured contact and empty-number fallback in relevant rendered CTAs; source implementation exists.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
         "/#/admin/settings"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Freshly verify all topic routes, configured contact and empty-number fallback in relevant rendered CTAs; source implementation exists."
     },
     {
       "id": "AD-13",
@@ -2999,23 +3898,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "ADM-12, MAN-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/index.ts",
-        "src/modules/admin/CrmPage.tsx"
+        "src/modules/ops-manual/lms.tsx",
+        "src/modules/ops-manual/manualData.ts",
+        "src/modules/ops-manual/audience.ts",
+        "docs/ops-manual/en/00-index.md"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Reconcile manual contents/version against current release; verify required-role progress/read-unread/new-version behavior.",
       "candidateRoutes": [
-        "/#/admin",
-        "/#/admin/content",
-        "/#/admin/crm",
-        "/#/admin/settings"
-      ]
+        "/#/manual"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Per-role required readings, progress and version-aware read acknowledgments exist. Manual source cover remains version 0.22.0, so delivered-version reconciliation is incomplete."
+        ],
+        "remainingBackend": [
+          "Durable per-user training/read acknowledgment and approver authorization."
+        ]
+      },
+      "sourceNextAction": "Reconcile manual contents/version against current release; verify required-role progress/read-unread/new-version behavior."
     },
     {
       "id": "NT-01",
@@ -3033,7 +3941,8 @@
       "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/emailCatalog.ts",
+        "src/modules/admin/integrationDefs.ts",
+        "src/modules/admin/IntegrationsPage.tsx",
         "src/data/comms.ts"
       ],
       "routes": [],
@@ -3042,11 +3951,20 @@
       "blockers": [
         "Backend/operations work excluded from frontend execution; Anu or Justin must supply approved integration."
       ],
-      "nextAction": "Build/verify only relevant frontend contract; do not claim production acceptance.",
+      "nextAction": "Keep disconnected UI explicit and define sender readiness/status contract for Anu; do not send real messages.",
       "candidateRoutes": [
-        "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/admin/integrations"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Only integration checklist/config and simulated send status exist; no truthful connected-domain or deliverability evidence."
+        ],
+        "remainingBackend": [
+          "Approved sender provider/domain SPF/DKIM/DMARC and real delivery/bounce monitoring."
+        ]
+      },
+      "sourceNextAction": "Keep disconnected UI explicit and define sender readiness/status contract for Anu; do not send real messages."
     },
     {
       "id": "NT-02",
@@ -3061,21 +3979,32 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "COO-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/data/emailCatalog.ts",
-        "src/data/comms.ts"
+        "src/modules/admin/EmailsPage.tsx",
+        "src/data/comms.ts",
+        "src/modules/customer/payments.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Create exact trigger-to-template matrix for all ten named events and exercise fictional emit/preview states before provider wiring.",
       "candidateRoutes": [
-        "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/admin/emails"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Template catalog/preview covers many triggers; sign-in email-code frontend, transfer-receipt rejection/release and full launch trigger dispatch are not wired end to end. Simulated message_log.sent is not delivery."
+        ],
+        "remainingBackend": [
+          "Idempotent trigger/outbox delivery, provider event reconciliation and consent."
+        ]
+      },
+      "sourceNextAction": "Create exact trigger-to-template matrix for all ten named events and exercise fictional emit/preview states before provider wiring."
     },
     {
       "id": "NT-03",
@@ -3090,21 +4019,32 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "",
-      "implementationStatus": "unverified",
+      "implementationStatus": "absent",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/emailCatalog.ts",
+        "src/modules/customer/pages/CheckoutPage.tsx",
+        "src/modules/staff/HomePage.tsx",
         "src/data/comms.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract.",
       "candidateRoutes": [
-        "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/app/checkout/sample",
+        "/#/staff"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "No receipt-upload event or new-receipt front-desk/admin alert workflow identified. Generic unread messages/pending payment count is not a receipt alert."
+        ],
+        "remainingBackend": [
+          "Receipt upload event, approved alert destination (PC-03), authorized staff delivery."
+        ]
+      },
+      "sourceNextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract."
     },
     {
       "id": "NT-04",
@@ -3119,21 +4059,32 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "TRA-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/data/emailCatalog.ts",
-        "src/data/comms.ts"
+        "src/data/seed/messages.ts",
+        "src/modules/admin/EmailsPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Generate reminder fixture/body from selected session starts_at and add 17:10 plus timezone/reschedule regression tests.",
       "candidateRoutes": [
         "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/admin/whatsapp"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Template variables exist, but seeded class_reminder body hardcodes 5:30 p.m.; sampleVars also hardcodes 17:30. No actual reminder scheduler resolves starts_at."
+        ],
+        "remainingBackend": [
+          "Reminder scheduler/outbox based on authoritative class session start time."
+        ]
+      },
+      "sourceNextAction": "Generate reminder fixture/body from selected session starts_at and add 17:10 plus timezone/reschedule regression tests."
     },
     {
       "id": "NT-05",
@@ -3148,21 +4099,30 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "COO-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/emailCatalog.ts",
-        "src/data/comms.ts"
+        "src/modules/admin/EmailsPage.tsx",
+        "src/components/organism/EmailPreview/EmailPreview.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly exercise edit/variables/version rollback plus simulated send failure; clearly distinguish local test preview from external delivery.",
       "candidateRoutes": [
-        "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/admin/emails"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Template subject/body editor, variables, version counter/audit and rollback exist. Test send merely inserts sent message_log; failure/retry and genuine provider test state remain disconnected."
+        ],
+        "remainingBackend": [
+          "Template rendering/send provider, immutable version retention and delivery events."
+        ]
+      },
+      "sourceNextAction": "Freshly exercise edit/variables/version rollback plus simulated send failure; clearly distinguish local test preview from external delivery."
     },
     {
       "id": "NT-06",
@@ -3177,21 +4137,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-21",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/data/emailCatalog.ts",
+        "src/modules/customer/pages/NotificationsPage.tsx",
+        "src/modules/customer/hooks.ts",
         "src/data/comms.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Define mandatory vs optional notification categories; enforce preference selection in mock send/preview and verify immediate effect.",
       "candidateRoutes": [
-        "/#/admin/emails",
-        "/#/app/notifications"
-      ]
+        "/#/app/notifications",
+        "/#/app/profile"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Customer preferences persist, but useMessaging.send does not consult notification_prefs. Nonurgent/urgent distinction is not enforced; current UI can toggle bookings/payments categories without mandatory-transactional policy."
+        ],
+        "remainingBackend": [
+          "Provider/outbox must check preferences at dispatch and retain required transactional policy."
+        ]
+      },
+      "sourceNextAction": "Define mandatory vs optional notification categories; enforce preference selection in mock send/preview and verify immediate effect."
     },
     {
       "id": "PF-01",
@@ -3206,19 +4177,32 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "PRO-01, PRO-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/teacher/HomePage.tsx",
+        "src/modules/teacher/ClassPage.tsx",
+        "src/modules/teacher/useTeacherSelf.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Preserve launch rule; implement explicitly future-phase teacher attendance prototype and deny foreign class detail rather than merely hiding controls.",
       "candidateRoutes": [
-        "/#/teach"
-      ]
+        "/#/teach",
+        "/#/teach/class/sample"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Home filters to linked teacher; class detail reads arbitrary :id before ownership and shows roster. Attendance is deliberately read-only (front desk launch policy), so future teacher attendance action/sync is missing."
+        ],
+        "remainingBackend": [
+          "Authenticated ownership of teacher/session/roster and attendance mutation."
+        ]
+      },
+      "sourceNextAction": "Preserve launch rule; implement explicitly future-phase teacher attendance prototype and deny foreign class detail rather than merely hiding controls."
     },
     {
       "id": "PF-02",
@@ -3233,19 +4217,29 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "PRO-03, PRO-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/teacher/HomePage.tsx",
+        "src/data/useAnalytics.ts",
+        "src/data/analytics.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify own occupancy/attendance/no-show vs studio aggregate on deterministic fixtures, including empty and min-review states; no colleague ranking is rendered.",
       "candidateRoutes": [
         "/#/teach"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Tenant/teacher-scoped aggregation; client currently reads complete mock dataset."
+        ]
+      },
+      "sourceNextAction": "Verify own occupancy/attendance/no-show vs studio aggregate on deterministic fixtures, including empty and min-review states; no colleague ranking is rendered."
     },
     {
       "id": "PF-03",
@@ -3263,16 +4257,29 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/teacher/HomePage.tsx",
+        "src/modules/admin/WhatsAppPage.tsx",
+        "src/modules/staff/audit.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach.",
       "candidateRoutes": [
-        "/#/teach"
-      ]
+        "/#/teach",
+        "/#/admin/whatsapp"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Request writes substitution.request audit plus queued team-only message_log payload.to=coordinator. No dedicated Administration request queue, delivery/acknowledgment or robust submit failure state."
+        ],
+        "remainingBackend": [
+          "Authorized substitute request workflow and staff notification delivery."
+        ]
+      },
+      "sourceNextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach."
     },
     {
       "id": "PF-04",
@@ -3287,19 +4294,31 @@
       "phase": "Nov 30 delivery",
       "priority": "Low",
       "relatedTests": "PRO-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/teacher/ProfilePage.tsx",
+        "src/modules/admin/ContentPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Separate teacher proposed edits from published record, add admin approve/reject and prove public bio remains unchanged before approval.",
       "candidateRoutes": [
-        "/#/teach"
-      ]
+        "/#/teach/profile",
+        "/#/admin/content"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Rate is read-only; bio/specialties save directly to teachers then audit review=coordinator. They do not remain pending in a separate proposal until approval."
+        ],
+        "remainingBackend": [
+          "Authorized profile proposal/approval/publish transaction."
+        ]
+      },
+      "sourceNextAction": "Separate teacher proposed edits from published record, add admin approve/reject and prove public bio remains unchanged before approval."
     },
     {
       "id": "PF-05",
@@ -3314,19 +4333,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "PRO-06, PRO-07, PRO-08, PRO-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/teacher/PayrollPage.tsx",
+        "src/modules/admin/payouts.ts",
+        "src/modules/admin/PayoutsPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify per-class statement totals against Finance; create/review print/PDF output including headers, page breaks and own-data scope.",
       "candidateRoutes": [
-        "/#/teach"
-      ]
+        "/#/teach/payroll",
+        "/#/admin/finance/payouts"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Teacher statement reads same payroll_lines/run or labelled estimate, with status/class detail. Download calls window.print(), not a generated standalone PDF artifact; printable scope and consistency unverified."
+        ],
+        "remainingBackend": [
+          "Teacher-only statement authorization and settled status source."
+        ]
+      },
+      "sourceNextAction": "Verify per-class statement totals against Finance; create/review print/PDF output including headers, page breaks and own-data scope."
     },
     {
       "id": "PF-06",
@@ -3341,19 +4373,29 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "PRO-11",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/teacher/index.ts"
+        "src/modules/admin/index.ts",
+        "src/auth/RequireRole.tsx",
+        "src/auth/permissions.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Run direct-route teacher denial tests for every CRM/Finance/Settings route and assert no protected surface mounts.",
       "candidateRoutes": [
         "/#/teach"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Client guards do not enforce server authorization; teacher must be denied CRM/Finance/Settings at API/RLS boundary."
+        ]
+      },
+      "sourceNextAction": "Run direct-route teacher denial tests for every CRM/Finance/Settings route and assert no protected surface mounts."
     },
     {
       "id": "FI-01",
@@ -3368,21 +4410,27 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "FIN-01, FIN-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/FinancePage.tsx",
-        "src/modules/admin/PayoutsPage.tsx",
-        "src/modules/admin/ExpensesPage.tsx"
+        "src/modules/admin/FinancePage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify explicit approved/pending/refunded fixtures by period/product/method, including amount vs amount_paid and date boundary agreement.",
       "candidateRoutes": [
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Authenticated tenant-scoped persistence/authorization and cross-device behavior are not implemented by MockProvider."
+        ]
+      },
+      "sourceNextAction": "Verify explicit approved/pending/refunded fixtures by period/product/method, including amount vs amount_paid and date boundary agreement."
     },
     {
       "id": "FI-02",
@@ -3397,21 +4445,32 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "FIN-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/admin/FinancePage.tsx",
-        "src/modules/admin/PayoutsPage.tsx",
-        "src/modules/admin/ExpensesPage.tsx"
+        "src/modules/admin/expenses.ts",
+        "src/data/expenseCalc.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Document basis and run/expense inclusion rules, then add hand-reproducible fixture and visible drilldown matching exact balance.",
       "candidateRoutes": [
-        "/#/admin/finance"
-      ]
+        "/#/admin/finance",
+        "/#/admin/finance/expenses"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Formula exists, but payrollInRange includes every run overlapping period irrespective of status and full total; revenue uses paid timestamps while costs use incurred/period dates. Accounting basis and source HALL-4 reconciliation remain unresolved."
+        ],
+        "remainingBackend": [
+          "Approved accounting basis and canonical server ledger/period data."
+        ]
+      },
+      "sourceNextAction": "Document basis and run/expense inclusion rules, then add hand-reproducible fixture and visible drilldown matching exact balance."
     },
     {
       "id": "FI-03",
@@ -3426,21 +4485,30 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "FIN-08, FIN-09, FIN-10",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/FinancePage.tsx",
+        "src/modules/admin/payouts.ts",
         "src/modules/admin/PayoutsPage.tsx",
-        "src/modules/admin/ExpensesPage.tsx"
+        "src/data/payrollCalc.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
       "candidateRoutes": [
-        "/#/admin/finance"
-      ]
+        "/#/admin/finance/payouts",
+        "/#/admin/finance/payouts/sample"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Current draft generation is multiple client CRUD writes; server transaction/idempotency/unique period and status locks required."
+        ]
+      },
+      "sourceNextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid."
     },
     {
       "id": "FI-04",
@@ -3455,21 +4523,31 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "FIN-11, FIN-12, FIN-13, FIN-14",
-      "implementationStatus": "unverified",
+      "implementationStatus": "implemented",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/FinancePage.tsx",
-        "src/modules/admin/PayoutsPage.tsx",
-        "src/modules/admin/ExpensesPage.tsx"
+        "src/modules/admin/ExpensesPage.tsx",
+        "src/modules/admin/expenses.ts",
+        "src/modules/admin/AppDirectoryPage.tsx",
+        "src/data/subscriptionExpenses.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Freshly verify fixed/variable/service expense creation and paid-delete prohibition through all allowed frontend entry paths.",
       "candidateRoutes": [
-        "/#/admin/finance"
-      ]
+        "/#/admin/finance/expenses",
+        "/#/admin/finance/subscriptions"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [],
+        "remainingBackend": [
+          "Paid expense immutability enforced only in page handler, not generic MockProvider/table routes; server ledger must reject deletion."
+        ]
+      },
+      "sourceNextAction": "Freshly verify fixed/variable/service expense creation and paid-delete prohibition through all allowed frontend entry paths."
     },
     {
       "id": "FI-05",
@@ -3484,21 +4562,32 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "FIN-15",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/FinancePage.tsx",
-        "src/modules/admin/PayoutsPage.tsx",
-        "src/modules/admin/ExpensesPage.tsx"
+        "src/modules/admin/index.ts",
+        "src/auth/permissions.ts",
+        "src/modules/admin/MemberPage.tsx",
+        "src/modules/admin/TablesPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Reconcile approved finance matrix without changing permissions now; define health fields and verify no disclosure in CRM/tables/export.",
       "candidateRoutes": [
         "/#/admin/finance"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Developer tools are denied by role; finance can open several Settings routes read-only and generic tables/CRM. No explicit health-field redaction layer identified for finance-accessible customer records. Security-area definition/approved matrix remains unresolved."
+        ],
+        "remainingBackend": [
+          "Field-level sensitive-data authorization and scoped finance queries; prevent generic table bypass."
+        ]
+      },
+      "sourceNextAction": "Reconcile approved finance matrix without changing permissions now; define health fields and verify no disclosure in CRM/tables/export."
     },
     {
       "id": "MK-01",
@@ -3516,16 +4605,33 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
+        "src/modules/admin/index.ts",
+        "src/modules/admin/ArticlesPage.tsx",
+        "src/modules/admin/FaqAdminPage.tsx",
+        "src/modules/admin/EventsAdminPage.tsx",
         "src/modules/admin/MediaPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Verify Marketing role through each content/alt workflow, draft/publication separation and denied Finance/Settings deep links.",
       "candidateRoutes": [
+        "/#/admin/content/articles",
+        "/#/admin/content/faq",
+        "/#/admin/content/events",
         "/#/admin/content/media"
-      ]
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Publishing editors and bilingual alt text exist; role denies Finance/Settings. Need fresh edit/publish/withdraw and missing-alt validation/state checks; private media remains local until issue54."
+        ],
+        "remainingBackend": [
+          "Authenticated publication/media access and approved durable storage (#54)."
+        ]
+      },
+      "sourceNextAction": "Verify Marketing role through each content/alt workflow, draft/publication separation and denied Finance/Settings deep links."
     },
     {
       "id": "IN-01",
@@ -3540,19 +4646,31 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "INT-02, FIN-09",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/IntegrationsPage.tsx"
+        "src/modules/admin/payouts.ts",
+        "src/modules/admin/PayoutsPage.tsx",
+        "src/modules/admin/integrationDefs.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Prototype webhook event/state timeline without sending money; preserve disconnected label.",
       "candidateRoutes": [
-        "/#/admin/integrations"
-      ]
+        "/#/admin/finance/payouts"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "wompiPayout is a simulated seam and client immediately marks run paid; no webhook-driven pending/failed/partially settled transition UI tied to durable provider events."
+        ],
+        "remainingBackend": [
+          "Wompi authenticated webhook, idempotent payout reconciliation and recipient settlement."
+        ]
+      },
+      "sourceNextAction": "Prototype webhook event/state timeline without sending money; preserve disconnected label."
     },
     {
       "id": "IN-02",
@@ -3567,19 +4685,31 @@
       "phase": "After Nov 30",
       "priority": "Medium",
       "relatedTests": "COO-06, COO-07, COO-08, COO-09, INT-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/IntegrationsPage.tsx"
+        "src/modules/admin/WhatsAppPage.tsx",
+        "src/data/comms.ts",
+        "src/modules/admin/integrationDefs.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Implement truthful provider-read status/approval mock and blocked reasons; test opt-in/quiet hours before server dispatch.",
       "candidateRoutes": [
-        "/#/admin/integrations"
-      ]
+        "/#/admin/whatsapp"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Template approval is locally editable rather than read from Meta. Quiet-hour preview/queue and opt-in counts exist; actual send does not enforce complete opt-in/template approval contract."
+        ],
+        "remainingBackend": [
+          "Meta template approval synchronization, opt-in proof, scheduler and real send/delivery callbacks."
+        ]
+      },
+      "sourceNextAction": "Implement truthful provider-read status/approval mock and blocked reasons; test opt-in/quiet hours before server dispatch."
     },
     {
       "id": "IN-03",
@@ -3594,19 +4724,30 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "INT-07",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/IntegrationsPage.tsx"
+        "src/modules/admin/GoogleBusinessPage.tsx",
+        "src/tenant/hours.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Complete frontend dry-run/push-progress/error/retry contract while keeping real sync disabled until authorized backend.",
       "candidateRoutes": [
-        "/#/admin/integrations"
-      ]
+        "/#/admin/integrations/google-business"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Hours/holiday payload preview exists; connect/push controls are Placeholders. No sync result/error/retry beyond preview."
+        ],
+        "remainingBackend": [
+          "Approved Google OAuth tokens and server PATCH with external readback."
+        ]
+      },
+      "sourceNextAction": "Complete frontend dry-run/push-progress/error/retry contract while keeping real sync disabled until authorized backend."
     },
     {
       "id": "IN-04",
@@ -3621,19 +4762,31 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "DEV-03, DEV-04",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/admin/IntegrationsPage.tsx"
+        "src/modules/dev/ApiKeysPage.tsx",
+        "src/modules/dev/apiKeys.ts",
+        "src/modules/admin/integrationDefs.ts"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Verify one-time display and add disconnected request-response test harness; backend 401 acceptance remains unverified.",
       "candidateRoutes": [
-        "/#/admin/integrations"
-      ]
+        "/#/dev/api-keys"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Key issue/hash/show-once/rotate/revoke UI exists; no HTTP API verifies keys. Missing real/mock request console demonstrating accepted and 401 revoked behavior."
+        ],
+        "remainingBackend": [
+          "Server API key verification, scopes/tenant authorization, revocation and rate limiting."
+        ]
+      },
+      "sourceNextAction": "Verify one-time display and add disconnected request-response test harness; backend 401 acceptance remains unverified."
     },
     {
       "id": "OT-01",
@@ -3648,20 +4801,32 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "MKT-03",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/dev/index.ts"
+        "src/modules/hub/HubPage.tsx",
+        "src/modules/admin/MediaPage.tsx",
+        "src/modules/admin/EmailsPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Build later-phase campaign/brand/content-calendar prototype without real campaign delivery.",
       "candidateRoutes": [
         "/#/hub",
-        "/#/dev"
-      ]
+        "/#/admin/content/media"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Brand/media assets and email templates exist; no dedicated marketing campaign planner or content calendar route identified. Announced Hub surfaces are not a marketing kit."
+        ],
+        "remainingBackend": [
+          "Campaign persistence/scheduling and authorized publishing/delivery services."
+        ]
+      },
+      "sourceNextAction": "Build later-phase campaign/brand/content-calendar prototype without real campaign delivery."
     },
     {
       "id": "OT-02",
@@ -3676,20 +4841,32 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "MAN-04, MAN-05",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/dev/index.ts"
+        "src/modules/staff/RoomsPage.tsx",
+        "src/modules/staff/rooms.ts",
+        "src/modules/staff/HomePage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Build explicit later-phase maintenance workspace with fictional checklist/incident/supply/equipment data contracts.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/dev"
-      ]
+        "/#/staff/rooms",
+        "/#/staff"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Room maintenance blocks exist, but no dedicated room checklist, incident intake, supplies inventory or equipment lifecycle screens found."
+        ],
+        "remainingBackend": [
+          "Tenant-scoped maintenance records, assignment and attachments."
+        ]
+      },
+      "sourceNextAction": "Build explicit later-phase maintenance workspace with fictional checklist/incident/supply/equipment data contracts."
     },
     {
       "id": "OT-03",
@@ -3707,17 +4884,26 @@
       "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/dev/index.ts"
+        "src/modules/hub/HubPage.tsx"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify baseline source finding and implement missing client behavior. See baseline.md; server delivery remains separate.",
+      "nextAction": "Replace placeholder with local report draft/validation and preview including route/user; keep real dispatch disconnected.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/dev"
-      ]
+        "/#/hub"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Report button is wrapped in Placeholder; no form/submit handler with screen and actor context."
+        ],
+        "remainingBackend": [
+          "Authorized issue intake and optional approved external destination, no messaging until authorized."
+        ]
+      },
+      "sourceNextAction": "Replace placeholder with local report draft/validation and preview including route/user; keep real dispatch disconnected."
     },
     {
       "id": "OT-04",
@@ -3732,30 +4918,60 @@
       "phase": "After Nov 30",
       "priority": "Low",
       "relatedTests": "DEV-01, DEV-02",
-      "implementationStatus": "unverified",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
-        "src/modules/dev/index.ts"
+        "src/design/tokens.ts",
+        "src/design/library.ts",
+        "src/app/manifest.ts",
+        "src/modules/dev/index.ts",
+        "docs/kanban.md",
+        "docs/changelog/0076-frontend-completion.md"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Reconcile exact acceptance criterion with cited source and exercise rendered flow.",
+      "nextAction": "Keep task manifest, route list, component usedBy, changelog and release SHA current per batch; verify rendered developer indexes and version references.",
       "candidateRoutes": [
-        "/#/hub",
-        "/#/dev"
-      ]
+        "/#/dev/tokens",
+        "/#/dev/components",
+        "/#/dev/specs",
+        "/#/dev/knowledgebase"
+      ],
+      "sourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Live inventories and durable documentation exist; source built/specCompleteness badges do not prove acceptance, and historical documentation/version claims need reconciliation with delivered release."
+        ],
+        "remainingBackend": []
+      },
+      "sourceNextAction": "Keep task manifest, route list, component usedBy, changelog and release SHA current per batch; verify rendered developer indexes and version references."
     }
   ],
   "integration": {
-    "branch": "feat/frontend-completion-audit",
+    "branch": "main",
     "localBuild": "passed",
     "allRouteSmoke": {
-      "routes": 121,
+      "registeredRoutes": 121,
+      "exercisedRouteTemplates": 120,
+      "excluded": [
+        "/docs/* wildcard"
+      ],
       "result": "passed; no console errors"
     },
-    "release": "pending exact-head CI, checked merge and deployment readback",
-    "directLiveReadback": "GET https://imagine-os.github.io/hoy/release.json returned HTTP 403 from execution environment; no retry or bypass."
+    "release": "Code f0f72539afb7fabf50825bc8e33c4e658b9bacd0 deployed; GitHub-hosted release source-SHA readback and selected live flows passed.",
+    "directLiveReadback": "GET https://imagine-os.github.io/hoy/release.json returned HTTP 403 from execution environment; no retry or bypass.",
+    "implementationCommits": [
+      "955d067",
+      "8136c6f84922efd26154ffa645a35cc8c0298c13"
+    ],
+    "mergedCode": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
+    "pullRequest": "https://github.com/imagine-os/hoy/pull/55",
+    "codeCI": "All 10 exact-head PR workflows passed at 8136c6f84922efd26154ffa645a35cc8c0298c13",
+    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39686441483",
+    "deployedCodeSource": "f0f72539afb7fabf50825bc8e33c4e658b9bacd0",
+    "deploymentArtifact": "https://github.com/imagine-os/hoy/actions/runs/39686441483/artifacts/12385972674",
+    "newFeatureLiveVerification": "New CRM/catalog behavior verified against local production bundle and PR CI; hosted release checker covers provenance and selected existing flows, not full AD-07/PR-01/PR-02 acceptance."
   }
 }
