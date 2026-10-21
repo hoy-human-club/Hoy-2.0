@@ -53,7 +53,7 @@ const NO_SPECIAL: Special = { on: false, source: null, people: 1, concept: '', a
 export function RegisterPage() {
   const { t, lang, bi } = useI18n();
   const data = useData();
-  const { user, can } = useSession();
+  const { user, role, can } = useSession();
   const saleKey = useRef(crypto.randomUUID());
   const saleBusy = useRef(false);
   const { settings } = useSettings();
@@ -139,7 +139,7 @@ export function RegisterPage() {
     try {
       if (!data.atomic) throw new Error('mock_atomic_adapter_required');
       const result = await data.atomic<Sale>(async data => {
-      const audit = (action: string, entity: string, entityId: string, diff: Record<string, unknown>) => data.insert('audit_log', { actor_id: user.id, action, entity, entity_id: entityId, diff: { role: 'front_desk', source: 'front_desk', ...diff }, ip: null });
+      const audit = (action: string, entity: string, entityId: string, diff: Record<string, unknown>) => data.insert('audit_log', { actor_id: user.id, action, entity, entity_id: entityId, diff: { role, source: 'front_desk', ...diff }, ip: null });
       const now = new Date();
       if (sessionId && (!session || method === 'wompi')) throw new Error(method === 'wompi' ? 'payment_confirmation_required' : 'session_unavailable');
       let userId: string | null = person?.id ?? null;

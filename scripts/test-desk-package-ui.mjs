@@ -54,6 +54,7 @@ try {
  assert.equal(state.bookings.filter(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').length,1);
  assert.equal(state.class_ledger.filter(r=>r.user_id==='qa_desk_0'&&r.delta===-1).length,1);
  assert.equal(state.class_sessions.find(s=>s.id==='qa_desk_class').booked_count,1);
+ const audit=state.audit_log.find(a=>a.entity_id===state.bookings.find(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').id);assert.equal(audit.diff.role,'front_desk');assert.equal(audit.diff.source,'front_desk');
  await search.fill('QA Pending'); await page.getByText('No confirmed classes available · take payment first',{exact:false}).waitFor(); assert(await page.getByRole('button',{name:'Book · 1 class',exact:true}).isDisabled());
  assert(await page.locator('.checkin-side').getByRole('button',{name:'Check in',exact:true}).isDisabled());
  await page.getByLabel('Book for a customer · scheduled class').selectOption('qa_walkin_class'); await search.fill('QA Balance');

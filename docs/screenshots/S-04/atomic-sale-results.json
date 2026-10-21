@@ -4,6 +4,7 @@
   "checks": [
     "en: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",
     "es: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",
+    "administrator sale retains actual actor/effective role and front-desk source in every staged audit row",
     "returning-expired: approved new single sale checks in once, spends exact new payment, preserves historical purchased terms",
     "returning-frozen: approved new single sale checks in once, spends exact new payment, preserves historical purchased terms",
     "full: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",

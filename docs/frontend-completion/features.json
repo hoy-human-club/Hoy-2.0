@@ -5076,7 +5076,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches 3\u20135 code released with checked merges and deployment provenance. Final demo-label refinement and evidence receipt follow; next: legacy lot allocation and transfer receipt queue.",
+    "activeBatch": "Batches 3\u20135 and explicit demo labels released with checked merges and hosted source verification. Audit attribution follow-up verified locally; next: legacy lot allocation and transfer receipt queue.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5103,7 +5103,23 @@
         "scripts/test-desk-sale-ui.mjs"
       ],
       "result": "Full build and EN/ES 390/1280 production-bundle checks passed, including14 recorded flow checks; current light/dark receipts regenerated.",
-      "releaseEvidence": "Associated pull request records final checked head, merge and normal deployment/source readback."
+      "releaseEvidence": "Associated pull request records final checked head, merge and normal deployment/source readback.",
+      "head": "da21f359eac3e37b123261ebc9ade5014f9cd47c",
+      "merge": "e1758bf0da2fe9e63ef6f1de4a021655bb1384b7",
+      "pr": "https://github.com/imagine-os/hoy/pull/58",
+      "checks": "4 triggered exact-head workflows passed",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39691093863",
+      "deploymentStatus": "build/deploy/hosted exact-source-SHA readback passed"
+    },
+    "auditAttributionFollowup": {
+      "branch": "codex/desk-audit-metadata",
+      "scope": "Restore effective role/front-desk source in staged audits; no permission/financial-rule change.",
+      "tests": [
+        "scripts/test-desk-package-ui.mjs",
+        "scripts/test-desk-sale-ui.mjs"
+      ],
+      "releaseEvidence": "Associated checked PR records final head/merge/deployment.",
+      "verification": "Full build and production-bundle desk booking plus administrator sale metadata assertions passed; existing bilingual responsive and rollback cases remained green."
     }
   }
 }
