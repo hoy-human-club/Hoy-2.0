@@ -1,0 +1,17 @@
+{
+  "requirement": "CU-05",
+  "result": "passed",
+  "checks": [
+    "staged profile/user/receipt rollback",
+    "quota rollback and retry",
+    "read failure and missing/ambiguous/foreign rows",
+    "cancel before and during stage",
+    "tenant/actor/role and disconnected adapter guards",
+    "Gregorian birthday validity without age policy",
+    "atomic replay and changed-request/stale conflict",
+    "missing-row replay rejection",
+    "customer/teacher/super own scope only",
+    "receipt values hashed, no patch values",
+    "browser provider reopen, protected fields unchanged"
+  ]
+}

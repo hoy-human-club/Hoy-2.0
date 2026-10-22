@@ -1,0 +1,42 @@
+{
+  "requirement": "CU-05",
+  "baseCommit": "61fc32265fac67beb9e2e9c35de66629ba74368c",
+  "version": "0.25.0",
+  "uncommittedPrototype": true,
+  "moduleSourceFingerprint": "29ac614d5eab36230964b2cdee39ce5a42076d454ad80f41036896166b8a43bb",
+  "moduleFiles": [
+    "src/modules/customer/pages/ProfilePage.tsx",
+    "src/modules/customer/profileSave.ts",
+    "src/modules/customer/useOwnProfile.ts",
+    "src/modules/customer/strings.ts"
+  ],
+  "beforeAfterModuleFingerprintEqual": true,
+  "buildCommand": "npm run build",
+  "buildExit": 0,
+  "buildLog": "/tmp/hoy-profile-build-final.log",
+  "snapshot": "/tmp/hoy-profile-qa-29ac614d5eab",
+  "bundleTreeFingerprint": "854313dbc509eb46a650b9aeee9545b921c20a8af86db7f68b42e54649bd764f",
+  "productionQA": "http://127.0.0.1:5217",
+  "deploymentStatus": "Local immutable production bundle; parent owns checked commit/CI/merge/public deployment.",
+  "qaScripts": {
+    "test-profile-save.mjs": {
+      "exit": 0,
+      "results": "profile-save-domain-results.json"
+    },
+    "test-profile-save-ui.mjs": {
+      "exit": 0,
+      "base": "http://127.0.0.1:5217",
+      "results": "profile-save-results.json"
+    },
+    "test-profile-save-states.mjs": {
+      "exit": 0,
+      "base": "http://127.0.0.1:5216",
+      "results": "profile-save-state-results.json"
+    }
+  },
+  "visualInspection": [
+    "es-390-atomic-editor-dark-bottom.jpg",
+    "en-1280-atomic-editor-error.jpg",
+    "es-1280-atomic-usr_teach-editor-dark.jpg"
+  ]
+}

@@ -2,6 +2,16 @@ import type { StringTable } from '../../i18n/types';
 
 /** Every user-facing string of the customer app (C-xx, A-xx, E-xx). Spanish first; English always present. */
 export const strings: StringTable = {
+  'customer.profile.atomic.loading': {es: 'Cargando tus datos…', en: 'Loading your details…'},
+  'customer.profile.atomic.readError': {es: 'No pudimos cargar tus dos registros. No se puede editar todavía.', en: 'We could not load both of your records. Editing is unavailable.'},
+  'customer.profile.atomic.retry': {es: 'Reintentar', en: 'Retry'},
+  'customer.profile.atomic.birthday': {es: 'Ingresa una fecha válida.', en: 'Enter a valid calendar date.'},
+  'customer.profile.atomic.failure': {es: 'No se guardó. Reintenta o cancela; si el problema continúa, vuelve a abrir el editor.', en: 'Save failed. Retry or cancel; if the problem continues, reopen the editor.'},
+  'customer.profile.atomic.stale': {es: 'Tus datos cambiaron. Cancela y vuelve a abrir para revisar la versión actual.', en: 'Your details changed. Cancel and reopen to review the current version.'},
+  'customer.profile.atomic.locale': {es: 'No se guardó la preferencia de idioma. Cambia de idioma para reintentar.', en: 'Language preference could not be saved. Change language to retry.'},
+  'customer.profile.atomic.saving': {es: 'Guardando los dos registros…', en: 'Saving both records…'},
+  'customer.profile.atomic.mock': {es: 'Demo ficticia: guardado solo en este navegador. Sin sincronización entre dispositivos ni garantía transaccional entre pestañas.', en: 'Fictional demo: saved in this browser only. No cross-device sync or transaction guarantee between tabs.'},
+
   // C-01 home
   'customer.home.greeting': { es: 'Hola, {name}', en: 'Hi, {name}' },
   'customer.home.next': { es: 'Tu próxima clase', en: 'Your next class' },
