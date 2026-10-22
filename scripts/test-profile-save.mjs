@@ -1,0 +1,33 @@
+// CU05 fictional own-row atomic command; no real adapter, customer data or external writes.
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {mkdtemp,rm,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';import {join} from 'node:path';import {pathToFileURL} from 'node:url';
+const scratch=await mkdtemp(join(tmpdir(),'hoy-profile-')),store=new Map();let quota=false;
+globalThis.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>{if(quota)throw Error('qa_quota');store.set(k,v);}};
+try{
+ const file=join(scratch,'module.mjs');await build({stdin:{contents:"export {MockProvider} from './src/data/MockProvider';export * from './src/modules/customer/profileSave';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',outfile:file,logLevel:'silent'});
+ const {MockProvider,saveOwnProfile,readOwnProfile,profileRevision,profileErrors,validBirthday}=await import(pathToFileURL(file));const data=new MockProvider();
+ const own=await readOwnProfile(data,'usr_cust');const input={actorId:'usr_cust',role:'customer',requestId:'qa_atomic',expected:await profileRevision(own),form:{full_name:'FICTIONAL PROFILE QA',phone:'+57 300 000 0201',birthday:'2000-02-29',ec_name:'FICTIONAL EMERGENCY QA',ec_phone:'+57 300 000 0202'}};
+ const snapshot=()=>JSON.stringify(['profiles','users','audit_log'].map(t=>data.peek(t)));
+ for(const writes of [1,2,3]){const before=snapshot();await assert.rejects(saveOwnProfile({name:'mock',atomic:fn=>data.atomic(fn,{failAfterWrites:writes})},input),/injected/);assert.equal(snapshot(),before);}
+ const readBefore=snapshot();await assert.rejects(saveOwnProfile({name:'mock',atomic:fn=>data.atomic(tx=>fn({...tx,get:tx.get.bind(tx),list:async()=>{throw Error('qa_atomic_read');}}))},input),/qa_atomic_read/);assert.equal(snapshot(),readBefore);
+ const before=snapshot();quota=true;await assert.rejects(saveOwnProfile(data,input),/quota/);quota=false;assert.equal(snapshot(),before);
+ await assert.rejects(saveOwnProfile(data,input,()=>true),/cancelled/);assert.equal(snapshot(),before);
+ let cancel=false;await assert.rejects(saveOwnProfile({name:'mock',atomic:fn=>data.atomic(async tx=>fn({...tx,list:tx.list.bind(tx),get:tx.get.bind(tx),insert:tx.insert.bind(tx),update:async(...args)=>{const row=await tx.update(...args);cancel=true;return row;}}))},input,()=>cancel),/cancelled/);assert.equal(snapshot(),before);
+ const readFail={list:async()=>{throw Error('qa_read');}};await assert.rejects(readOwnProfile(readFail,'usr_cust'),/qa_read/);
+ await assert.rejects(saveOwnProfile({name:'supabase',atomic:data.atomic.bind(data)},input),/disconnected/);await assert.rejects(saveOwnProfile({name:'mock'},input),/atomic_required/);
+ for(const role of ['public','admin','coordinator','front_desk','finance','marketing','maintenance','developer'])await assert.rejects(saveOwnProfile(data,{...input,role}),/denied/);
+ await assert.rejects(readOwnProfile(data,'missing'),/missing/);await assert.rejects(readOwnProfile({list:async table=>table==='profiles'?[own.profile,own.profile]:[own.account]},'usr_cust'),/missing/);await assert.rejects(readOwnProfile({list:async()=>[{...own.profile,tenant_id:'other'}]},'usr_cust'),/missing/);
+ assert(validBirthday('2000-02-29'));for(const date of ['1900-02-29','2026-02-30','2026-13-01','0-01-01','0000-01-01'])assert(!validBirthday(date));assert(validBirthday(''));assert.equal(profileErrors({...input.form,birthday:'2026-02-30'}).birthday,'customer.profile.atomic.birthday');assert(profileErrors({...input.form,full_name:'x'}).full_name);assert(profileErrors({...input.form,phone:'x'}).phone);assert(profileErrors({...input.form,ec_phone:'x'}).ec_phone);
+ const [a,b]=await Promise.all([saveOwnProfile(data,input),saveOwnProfile(data,input)]);assert.deepEqual(a,b);assert.deepEqual(await saveOwnProfile(data,input),a);assert.equal(data.peek('audit_log').filter(r=>r.action==='profile.mock-save').length,1);
+ const receipt=data.peek('audit_log').find(r=>r.action==='profile.mock-save');for(const secret of Object.values(input.form))assert(!JSON.stringify(receipt).includes(secret));assert.equal(receipt.diff.fingerprint.length,64);
+ await assert.rejects(saveOwnProfile(data,{...input,form:{...input.form,full_name:'DIFFERENT FICTIONAL NAME'}}),/request_conflict/);await assert.rejects(saveOwnProfile(data,{...input,requestId:'stale'}),/stale/);
+ const saved=await readOwnProfile(data,'usr_cust');assert.equal(saved.profile.full_name,input.form.full_name);assert.equal(saved.account.phone,input.form.phone);assert.equal(saved.profile.birthday,input.form.birthday);assert.deepEqual(saved.profile.emergency_contact,{name:input.form.ec_name,phone:input.form.ec_phone});assert.equal(saved.account.email,own.account.email);assert.equal(saved.profile.whatsapp_verified,own.profile.whatsapp_verified);assert.equal(saved.profile.photo_url,own.profile.photo_url);
+ // Fresh provider reopens browser-local values; absence never reports success.
+ assert.equal((await readOwnProfile(new MockProvider(),'usr_cust')).profile.full_name,input.form.full_name);
+ for(const [actorId,role] of [['usr_teach','teacher'],['usr_super','super_admin']]){const rows=await readOwnProfile(data,actorId);await saveOwnProfile(data,{...input,actorId,role,requestId:'own_scope',expected:await profileRevision(rows),form:{...input.form,full_name:`FICTIONAL OWN ${role}`}});assert.equal((await readOwnProfile(data,actorId)).profile.full_name,`FICTIONAL OWN ${role}`);assert.equal((await readOwnProfile(data,'usr_cust')).profile.full_name,input.form.full_name);}
+ await data.remove('users','usr_cust');await assert.rejects(saveOwnProfile(data,input),/missing/);await assert.rejects(saveOwnProfile(data,{...input,requestId:'missing',expected:await profileRevision(saved)}),/missing/);
+ await writeFile('docs/screenshots/C-19/profile-save-domain-results.json',JSON.stringify({requirement:'CU-05',result:'passed',checks:['staged profile/user/receipt rollback','quota rollback and retry','read failure and missing/ambiguous/foreign rows','cancel before and during stage','tenant/actor/role and disconnected adapter guards','Gregorian birthday validity without age policy','atomic replay and changed-request/stale conflict','missing-row replay rejection','customer/teacher/super own scope only','receipt values hashed, no patch values','browser provider reopen, protected fields unchanged']},null,2)+'\n');
+ console.log('CU05 domain PASS: staged1/2/receipt rollback, quota/retry/replay/conflict, cancel, read/missing/scope, disconnected/roles, date labels, safe receipts and browser reopen');
+}finally{await rm(scratch,{recursive:true,force:true});}

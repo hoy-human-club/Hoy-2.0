@@ -1,10 +1,9 @@
-import { Fragment, useEffect, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useContact } from '../../admin/settings';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
-import { isPhone } from '../../../i18n/format';
 import { useLayout } from '../../../layout/useLayout';
 import { tenant } from '../../../tenant/tenant';
 import { Card } from '../../../components/molecule/Card/Card';
@@ -20,9 +19,12 @@ import { LangToggle } from '../../../components/molecule/LangToggle/LangToggle';
 import { Skeleton } from '../../../components/atom/Skeleton/Skeleton';
 import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow';
 import { canvasSpecs } from '../specs';
-import { NOTIF_CHANNELS, useEntitlements, useMyProfile, useNotificationPrefs } from '../hooks';
+import { NOTIF_CHANNELS, useEntitlements, useNotificationPrefs } from '../hooks';
 import { PageHead } from '../ui';
 import { Icon } from '../../../components/atom/Icon/Icon';
+
+import { useOwnProfile } from '../useOwnProfile';
+import { profileErrors, profileRevision, saveOwnProfile } from '../profileSave';
 
 const spec = canvasSpecs['C-19'];
 
@@ -32,9 +34,10 @@ export function ProfilePage() {
   const contact = useContact();
   const nav = useNavigate();
   const data = useData();
-  const { user, switchUser } = useSession();
+  const { user, role, switchUser } = useSession();
   const { sections, isVisible } = useLayout(spec);
-  const { profile, account } = useMyProfile();
+  const own = useOwnProfile(data,user.id);
+  const { profile, account } = own;
   const ent = useEntitlements();
   const prefs = useNotificationPrefs();
   const [edit, setEdit] = useState(false);
@@ -42,20 +45,38 @@ export function ProfilePage() {
   const [form, setForm] = useState({ full_name: '', phone: '', birthday: '', ec_name: '', ec_phone: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Language is per account: persist the real LangToggle's choice on users.locale (C-19 rule).
-  useEffect(() => { if (account && account.locale !== lang) data.update('users', account.id, { locale: lang }); }, [lang, account, data]);
-
-  const openEdit = () => { setForm({ full_name: profile?.full_name ?? user.name, phone: account?.phone ?? `${tenant.dialCode} `, birthday: profile?.birthday ?? '', ec_name: profile?.emergency_contact?.name ?? '', ec_phone: profile?.emergency_contact?.phone ?? `${tenant.dialCode} ` }); setErrors({}); setEdit(true); };
-  const flash = (msg: string) => { setSaved(msg); setTimeout(() => setSaved(null), 2500); };
+  const [busy,setBusy]=useState(false);
+  const [saveError,setSaveError]=useState<string|null>(null);
+  const attempt=useRef<{cancelled:boolean}|null>(null);
+  const expected=useRef('');
+  const request=useRef('');
+  const timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+  const closeEdit=()=>{if(attempt.current)attempt.current.cancelled=true;attempt.current=null;setEdit(false);setBusy(false);setSaveError(null);};
+  useEffect(()=>{setEdit(false);setSaved(null);setBusy(false);setSaveError(null);return()=>{if(attempt.current)attempt.current.cancelled=true;attempt.current=null;clearTimeout(timer.current);};},[data,user.id,role]);
+  // Keep the existing automatic locale preference; contain storage failures.
+  useEffect(() => { let active=true; if (account && account.locale !== lang) void data.update('users', account.id, { locale: lang }).catch(()=>{if(active)setSaveError('customer.profile.atomic.locale');}); return()=>{active=false;}; }, [lang, account, data]);
+  const openEdit = async () => {
+    if(!profile||!account||own.status!=='ready')return;
+    if(attempt.current)attempt.current.cancelled=true;
+    const context={cancelled:false};attempt.current=context;
+    const revision=await profileRevision({profile,account});if(context.cancelled)return;
+    expected.current=revision;request.current=crypto.randomUUID();
+    setForm({full_name:profile.full_name,phone:account.phone??`${tenant.dialCode} `,birthday:profile.birthday??'',ec_name:profile.emergency_contact?.name??'',ec_phone:profile.emergency_contact?.phone??`${tenant.dialCode} `});setErrors({});setSaveError(null);setEdit(true);
+  };
+  const flash = (msg:string) => {clearTimeout(timer.current);setSaved(msg);timer.current=setTimeout(()=>setSaved(null),2500);};
   const save = async () => {
-    const e: Record<string, string> = {};
-    if (form.full_name.trim().length < 3) e.full_name = t('customer.form.required');
-    if (!isPhone(form.phone)) e.phone = t('customer.form.phone');
-    if (form.ec_name && !isPhone(form.ec_phone)) e.ec_phone = t('customer.form.phone');
-    setErrors(e); if (Object.keys(e).length) return;
-    if (profile) await data.update('profiles', profile.id, { full_name: form.full_name.trim(), initials: form.full_name.trim().split(' ').map((s) => s[0]).join('').slice(0, 2).toUpperCase(), birthday: form.birthday || null, emergency_contact: form.ec_name ? { name: form.ec_name.trim(), phone: form.ec_phone.trim() } : null });
-    if (account) await data.update('users', account.id, { phone: form.phone.trim() });
-    setEdit(false); flash(t('customer.profile.saved'));
+    if(busy||!attempt.current||attempt.current.cancelled)return;
+    const e=profileErrors(form);setErrors(Object.fromEntries(Object.entries(e).map(([k,v])=>[k,t(v)])));if(Object.keys(e).length)return;
+    const current=attempt.current;
+    // Synchronous latch closes the double-click gap before React paints busy.
+    if('saving' in current)return;
+    Object.assign(current,{saving:true});setBusy(true);setSaveError(null);
+    try {
+      await saveOwnProfile(data,{actorId:user.id,role,requestId:request.current,expected:expected.current,form},()=>current.cancelled);
+      if(current.cancelled||attempt.current!==current)return;
+      setEdit(false);flash(t('customer.profile.saved'));
+    }catch(error){if(!current.cancelled&&attempt.current===current)setSaveError(String(error).includes('stale')?'customer.profile.atomic.stale':'customer.profile.atomic.failure');}
+    finally{delete (current as {saving?:boolean}).saving;if(!current.cancelled&&attempt.current===current)setBusy(false);}
   };
   const onPhoto = (file: File | undefined) => {
     if (!file || !profile) return;
@@ -88,7 +109,7 @@ export function ProfilePage() {
         </div>
       </Card>
     ),
-    EditProfile: () => <Button block variant="secondary" onClick={openEdit}>{t('customer.profile.edit')}</Button>,
+    EditProfile: () => <Button block variant="secondary" disabled={own.status!=='ready'} onClick={()=>void openEdit()}>{t('customer.profile.edit')}</Button>,
     'MembershipRow → plan management': () => (
       <ListGroup title={t('customer.profile.account')}>
         <ListRow icon="coins" title={t('customer.classes.title')} subtitle={ent.pkg.purchase ? t('customer.checkout.package.sub', { n: ent.pkg.left }) : t('customer.profile.noPlan')} to="/app/classes" trailing={ent.pkg.frozen ? <Badge tone="warn">{t('customer.classes.frozen.badge')}</Badge> : undefined} />
@@ -131,19 +152,25 @@ export function ProfilePage() {
   return (
     <div className="container page cust-page">
       <PageHead title={t('customer.profile.title')} />
+      {own.status==='loading' && <Notice>{t('customer.profile.atomic.loading')}</Notice>}
+      {own.status==='error' && <Notice tone="danger">{t('customer.profile.atomic.readError')} <Button variant="ghost" onClick={own.retry}>{t('customer.profile.atomic.retry')}</Button></Notice>}
+      {!edit && saveError && <Notice tone="danger">{t(saveError)}</Notice>}
       {saved && <Notice tone="success">{saved}</Notice>}
       <div className="stack">
         {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
       </div>
 
-      <Drawer open={edit} onClose={() => setEdit(false)} side="bottom" title={t('customer.profile.edit')} footer={<><Button variant="ghost" onClick={() => setEdit(false)}>{t('core.common.cancel')}</Button><Button onClick={save}>{t('core.common.save')}</Button></>}>
-        <div className="stack">
-          <Field label={t('customer.form.name')} required error={errors.full_name}>{(id) => <Input id={id} value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} autoComplete="name" />}</Field>
-          <Field label={t('customer.form.whatsapp')} required hint={t('customer.form.whatsapp.hint', { dial: tenant.dialCode })} error={errors.phone}>{(id) => <Input id={id} value={form.phone} inputMode="tel" onChange={(e) => setForm({ ...form, phone: e.target.value })} autoComplete="tel" />}</Field>
-          <Field label={t('customer.form.birthday')} hint={t('customer.form.birthday.hint')}>{(id) => <Input id={id} type="date" value={form.birthday} onChange={(e) => setForm({ ...form, birthday: e.target.value })} />}</Field>
+      <Drawer open={edit} onClose={closeEdit} side="bottom" title={t('customer.profile.edit')} footer={<><Button variant="ghost" onClick={closeEdit}>{t('core.common.cancel')}</Button><Button disabled={busy} onClick={()=>void save()}>{t('core.common.save')}</Button></>}>
+        <div className="stack" aria-busy={busy}>
+          <Notice>{t('customer.profile.atomic.mock')}</Notice>
+          {saveError && <Notice tone="danger">{t(saveError)}</Notice>}
+          {busy && <Notice>{t('customer.profile.atomic.saving')}</Notice>}
+          <Field label={t('customer.form.name')} required error={errors.full_name}>{(id) => <Input disabled={busy} id={id} value={form.full_name} onChange={(e) => (request.current=crypto.randomUUID(),setForm({ ...form, full_name: e.target.value }))} autoComplete="name" />}</Field>
+          <Field label={t('customer.form.whatsapp')} required hint={t('customer.form.whatsapp.hint', { dial: tenant.dialCode })} error={errors.phone}>{(id) => <Input disabled={busy} id={id} value={form.phone} inputMode="tel" onChange={(e) => (request.current=crypto.randomUUID(),setForm({ ...form, phone: e.target.value }))} autoComplete="tel" />}</Field>
+          <Field label={t('customer.form.birthday')} hint={t('customer.form.birthday.hint')} error={errors.birthday}>{(id) => <Input disabled={busy} id={id} type="date" value={form.birthday} onChange={(e) => (request.current=crypto.randomUUID(),setForm({ ...form, birthday: e.target.value }))} />}</Field>
           <div className="eyebrow">{t('customer.form.emergency')}</div>
-          <Field label={t('customer.form.name')}>{(id) => <Input id={id} value={form.ec_name} onChange={(e) => setForm({ ...form, ec_name: e.target.value })} />}</Field>
-          <Field label={t('customer.form.phone')} error={errors.ec_phone}>{(id) => <Input id={id} value={form.ec_phone} inputMode="tel" onChange={(e) => setForm({ ...form, ec_phone: e.target.value })} />}</Field>
+          <Field label={t('customer.form.name')}>{(id) => <Input disabled={busy} id={id} value={form.ec_name} onChange={(e) => (request.current=crypto.randomUUID(),setForm({ ...form, ec_name: e.target.value }))} />}</Field>
+          <Field label={t('customer.form.phone')} error={errors.ec_phone}>{(id) => <Input disabled={busy} id={id} value={form.ec_phone} inputMode="tel" onChange={(e) => (request.current=crypto.randomUUID(),setForm({ ...form, ec_phone: e.target.value }))} />}</Field>
         </div>
       </Drawer>
     </div>
