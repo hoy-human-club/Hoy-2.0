@@ -36,8 +36,11 @@ export function useAtomicNotificationPrefs() {
     setState(previous=>({...previous,error:null}));
     try{
       await savePreferences(data,ctx.actor,input,()=>attempt.cancelled||!current());
-      if(attempt.cancelled||!current())return;
-      failed.current=null;const ready=await refresh();if(ready&&!attempt.cancelled&&current())setSaved(ctx);
+      if(attempt.cancelled||!current())throw Error('prefs_cancelled');
+      const ready=await refresh();
+      if(attempt.cancelled||!current())throw Error('prefs_cancelled');
+      if(!ready)throw Error('prefs_unconfirmed');
+      failed.current=null;setSaved(ctx);
     }catch(error){if(!attempt.cancelled&&current()){failed.current={context:ctx,input};setState(previous=>({...previous,error:errorKey(error)}));}throw error;}
     finally{if(ctx.attempt===attempt){ctx.attempt=null;if(current())setBusy(null);}}
   };
