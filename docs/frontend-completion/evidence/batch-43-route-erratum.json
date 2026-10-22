@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-10-22",
+  "requirement": "RS-10",
+  "kind": "documentation erratum; no runtime change",
+  "incorrectTrackerRoute": "/#/app/booked",
+  "registeredRoute": "/#/app/booking/:id",
+  "changeRoute": "/#/app/booking/:id/change",
+  "source": "src/modules/customer/index.ts:33-34",
+  "basis": "Direct source registration inspection; actual rendered cancellation tests use registered booking routes.",
+  "publicationRestriction": {
+    "action": "GitHub create_blob",
+    "target": "docs/frontend-completion/features.json",
+    "state": "denied; no retry/alternate upload",
+    "reason": "Automatic approval review flagged potentially nonpublic operational owner/source-tracker details in the full tracker.",
+    "resolution": "Existing remote tracker retained unchanged. This concise erratum supplies the exact route without re-uploading the detailed tracker."
+  },
+  "limits": "All124 original fields/phases and partial/unaccepted classification remain; backend/policy/owner acceptance not established."
+}
