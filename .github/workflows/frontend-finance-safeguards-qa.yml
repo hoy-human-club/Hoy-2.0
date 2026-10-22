@@ -1,0 +1,81 @@
+name: Frontend finance safeguards QA
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'scripts/test-payroll-settlement*.mjs'
+      - 'scripts/test-expense-delete-guard*.mjs'
+      - 'scripts/test-expense-table*.mjs'
+      - 'scripts/expense-table-harness.tsx'
+      - 'scripts/test-expense-ledger-baseline.mjs'
+      - 'scripts/fixtures/expense-ledger-original-provider.ts.txt'
+      - 'scripts/test-danger-button-contrast.mjs'
+      - '.github/workflows/frontend-finance-safeguards-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-finance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: [payroll-settlement, expense-delete]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify actual fictional commands and lifecycle invariants
+        run: |
+          if [ '${{ matrix.scope }}' = 'payroll-settlement' ]; then
+            node scripts/test-payroll-settlement.mjs
+            node scripts/test-payroll-settlement-hook.mjs
+          else
+            node scripts/test-expense-ledger-baseline.mjs
+            node scripts/test-expense-delete-guard.mjs
+            node scripts/test-expense-table-lifecycle.mjs
+          fi
+      - name: Verify immutable production behavior
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5189 > /tmp/hoy-finance-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5189/ >/dev/null && break; sleep 1; done
+          if [ '${{ matrix.scope }}' = 'payroll-settlement' ]; then
+            node scripts/test-payroll-settlement-ui.mjs
+          else
+            node scripts/test-expense-delete-guard-ui.mjs
+            node scripts/test-danger-button-contrast.mjs
+          fi
+        env:
+          QA_BASE: http://127.0.0.1:5189
+          QA_TAG: ${{ github.event.pull_request.head.sha }}
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify actual delayed, cancel, actor, retry and uncertain acknowledgement states
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5190 > /tmp/hoy-finance-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5190/ >/dev/null && break; sleep 1; done
+          if [ '${{ matrix.scope }}' = 'payroll-settlement' ]; then
+            node scripts/test-payroll-settlement-states.mjs
+          else
+            node scripts/test-expense-table-states.mjs
+          fi
+        env:
+          QA_BASE: http://127.0.0.1:5190
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: finance-${{ matrix.scope }}-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            docs/frontend-completion/evidence/payroll-settlement-*.json
+            docs/frontend-completion/evidence/batch42-*.json
+            docs/frontend-completion/evidence/finance-*.json
+            docs/screenshots/M-09b/*settlement*
+            docs/screenshots/M-03/*expense*
+            docs/screenshots/M-03/*danger-contrast*

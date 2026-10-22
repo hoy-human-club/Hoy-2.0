@@ -1,0 +1,194 @@
+{
+  "base": "http://127.0.0.1:5280",
+  "checks": [
+    {
+      "lang": "en",
+      "width": 390,
+      "theme": "light",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "theme": "dark",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "theme": "light",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "theme": "dark",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "theme": "light",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "theme": "dark",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "theme": "light",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "theme": "dark",
+      "paidRetained": true,
+      "clearRejected": true,
+      "cancelNoWrite": true,
+      "quotaRollback": true,
+      "retry": true
+    },
+    {
+      "userId": "usr_fin",
+      "lang": "en",
+      "width": 390,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_fin",
+      "lang": "en",
+      "width": 1280,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_fin",
+      "lang": "es",
+      "width": 390,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_fin",
+      "lang": "es",
+      "width": 1280,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_dev",
+      "lang": "en",
+      "width": 390,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_dev",
+      "lang": "en",
+      "width": 1280,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_dev",
+      "lang": "es",
+      "width": 390,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_dev",
+      "lang": "es",
+      "width": 1280,
+      "readOnly": true,
+      "noWrite": true
+    },
+    {
+      "userId": "usr_admin",
+      "lang": "es",
+      "width": 390,
+      "denied": true
+    },
+    {
+      "userId": "usr_coord",
+      "lang": "en",
+      "width": 1280,
+      "denied": true
+    },
+    {
+      "userId": "usr_desk",
+      "lang": "es",
+      "width": 390,
+      "denied": true
+    },
+    {
+      "userId": "usr_teach",
+      "lang": "en",
+      "width": 1280,
+      "denied": true
+    },
+    {
+      "userId": "usr_maint",
+      "lang": "es",
+      "width": 390,
+      "denied": true
+    },
+    {
+      "userId": "usr_mkt",
+      "lang": "en",
+      "width": 1280,
+      "denied": true
+    },
+    {
+      "userId": "usr_cust",
+      "lang": "es",
+      "width": 390,
+      "denied": true
+    },
+    {
+      "userId": "usr_public",
+      "lang": "en",
+      "width": 1280,
+      "denied": true
+    }
+  ],
+  "errors": [],
+  "unexpectedExternalRequests": [],
+  "limits": [
+    "Fictional local browser safeguards only; no server/access-policy or financial acceptance."
+  ]
+}

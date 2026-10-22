@@ -1,0 +1,47 @@
+{
+  "runtime803": {
+    "baseline": "PASS5",
+    "domain": "PASS38",
+    "lifecycle": "PASS11",
+    "ledger": "PASS10",
+    "subscription": "PASS",
+    "type": "PASS77652",
+    "build": "PASS71949",
+    "production": "FAIL83812 nested alert semantics, preserved screenshot and JSON"
+  },
+  "failures": [
+    {
+      "stage": "domain initial syntax",
+      "exit": 1,
+      "log": "qa/batch42-domain.log",
+      "cause": "Test-only top-level const selected redeclared; renamed replay variable, assertions unchanged."
+    },
+    {
+      "stage": "domain cancellation fault fixture",
+      "exit": 1,
+      "log": "qa/batch42-domain-fixed1.log",
+      "cause": "Test attempted to replace actual staged readonly remove; moved fault to writable staged second actor read, same cancellation/rollback assertions."
+    },
+    {
+      "stage": "production expense-save-quota",
+      "exit": 1,
+      "log": "qa/batch42-table-production-ui.log",
+      "cause": "Runtime nested role=alert wrappers produced two alerts for one Notice; removed redundant outer role, preserving existing Notice alert. No business logic change.",
+      "capture": "docs/screenshots/M-03/expense-guard-failure-803-nested-alert.jpg",
+      "sha256": "e9968368e0fb780c027c6f9056db360e66b4941955d3f9442a4bbfe82c5acbe7",
+      "failureJson": "batch42-table-ui-failure-803-nested-alert.json"
+    },
+    {
+      "stage": "c51 production delete-quota notice selector",
+      "exit": 1,
+      "session": 15566,
+      "log": "qa/batch42-table-production-ui-single-alert.log",
+      "cause": "Test selected all alerts while both legitimate danger confirmation and warn failure were present. Scoped to exact bilingual failure notice, retaining all rollback/retry/bounds/timeouts; runtime unchanged.",
+      "capture": "docs/screenshots/M-03/expense-guard-failure-c51-confirm-selector.jpg",
+      "sha256": "1e663a9a120bf166f5202f0acdafc46a47b7cdaef0193c3e5742e23bf6b39c77",
+      "failureJson": "batch42-table-ui-failure-c51-confirm-selector.json"
+    }
+  ],
+  "current": "FINAL c51 localPASS: source unchanged after single-alert fix/type/build/allQA; prior failed runs remain history. No source acceptance/deployment claim.",
+  "logsLocalOnly": true
+}

@@ -1,0 +1,19 @@
+{
+  "stage": "Measured actual enabled-button defect; scoped existing foreground-token fix written, new combined build/rendered verification pending.",
+  "source": "Isolated42 c51 immutable, shared Button CSS matches prior main70.",
+  "oldCommand": "QA_BASE=http://127.0.0.1:5280 QA_TAG=c51-before node scripts/test-danger-button-contrast.mjs",
+  "oldExit": 1,
+  "cases": 16,
+  "result": "Light text/fill pairs pass; all8 dark language/viewport/normal-hover samples fail. Minimum1.7693602708433775 vs4.5; enabled=true, opacity1, backgrounds opaque.",
+  "basis": "Computed text/fill standard relative luminance, CSSbrightness applied; no shadow/texture/pixel/OCR certification. Fullproviderbytes unchanged; no delete executed.",
+  "rawResult": "docs/screenshots/M-03/danger-contrast-c51-before.json",
+  "capturePattern": "docs/screenshots/M-03/*-danger-contrast-c51-before.jpg",
+  "metadataLimit": "Original raw row.width is measuredbuttonwidth due spread ordering; 390/1280 viewports are independently identifiable from loop order/capturefilename/image dimensions. New script adds explicitviewportWidth without altering originalmeasurement JSON.",
+  "fix": "Existing Button danger foreground changes from fixedbrandcream to theme surface token; dangerfill/action/disabled behavior unchanged, no business/data/policy change.",
+  "remaining": [
+    "Current combined fullbuild/freeze",
+    "Repeat enabled normal/hover ENES3901280lightdark actualbuttoncontrast\u22654.5, completeproviderbytes unchanged",
+    "Combined41/42 domain/rendered/CI/exactrelease checks"
+  ],
+  "acceptance": "Isolated42 functionalpass remains true; complete visual acceptance not claimed while currentcontrastgap remains."
+}

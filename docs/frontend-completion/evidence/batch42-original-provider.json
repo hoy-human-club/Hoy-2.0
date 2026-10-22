@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "0a09975aae2f581bd82e694b0654002466b79181",
+  "originalPath": "src/data/MockProvider.ts",
+  "fixturePath": "scripts/fixtures/expense-ledger-original-provider.ts.txt",
+  "sha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7",
+  "method": "Byte-for-byte copy before batch42 runtime edits. Historical baseline only; frozen provider resolves imports against src/data. Existing five defect assertions retained.",
+  "execution": "PASS baseline41922 EXIT0: all5 original defects reproduced against exact frozen bytes; fixture SHA and GitHEAD comparison verified before execution."
+}

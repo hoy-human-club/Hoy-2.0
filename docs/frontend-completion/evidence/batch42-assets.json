@@ -1,0 +1,44 @@
+{
+  "source": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "immutable": "/workspace/hoy-qa-artifacts/expense-delete-guard-c51c2063a5b5",
+  "beforeUiWholeArtifact": {
+    "sha256": "6a1a0d0faa4bc930aaf21e5b9f03302bc5840627d5529ee1f1e7356ddbf17a59",
+    "fileCount": 4512
+  },
+  "beforeUiAssets": {
+    "sha256": "daab7247b4cfb3021562129bf0a2eebf77c47aa5698e69ef3f90870f2938a985",
+    "fileCount": 3457
+  },
+  "basis": "Sorted paths relative to immutable root + NUL + bytes + NUL. Measured after build/copy/sidecar BEFORE any currentc51 browser.",
+  "afterAllQaWholeArtifact": {
+    "sha256": "6a1a0d0faa4bc930aaf21e5b9f03302bc5840627d5529ee1f1e7356ddbf17a59",
+    "fileCount": 4512
+  },
+  "afterAllQaAssets": {
+    "sha256": "daab7247b4cfb3021562129bf0a2eebf77c47aa5698e69ef3f90870f2938a985",
+    "fileCount": 3457
+  },
+  "unchangedBeforeAfterAllQa": true,
+  "httpFiles": {
+    "index.html": {
+      "sha256": "64406599d4d1ec3a476bd25102fa334aa98567e2bb467fc7447e2507802e9877",
+      "bytes": 1229,
+      "matchesImmutable": true
+    },
+    "assets/index-BjqHoOBe.css": {
+      "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+      "bytes": 80570,
+      "matchesImmutable": true
+    },
+    "assets/pages-nQhCG05h.js": {
+      "sha256": "6e0d898763bbdf94b532bd7cfc11cb9b176e508bed766ce43c92a55bafb04d06",
+      "bytes": 324436,
+      "matchesImmutable": true
+    },
+    "assets/index-DXPEAEcW.js": {
+      "sha256": "fc7057b2600a0085c17d1c833a8707567d0a3c0dbefbe8951b7bb65e287f74f9",
+      "bytes": 1595191,
+      "matchesImmutable": true
+    }
+  }
+}
