@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5290",
+  "base": "http://127.0.0.1:5291",
   "checks": [
     {
       "lang": "en",
@@ -146,56 +146,56 @@
       "width": 390,
       "theme": "light",
       "phase": "setup",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "en",
       "width": 390,
       "theme": "dark",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "en",
       "width": 1280,
       "theme": "light",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "en",
       "width": 1280,
       "theme": "dark",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "es",
       "width": 390,
       "theme": "light",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "es",
       "width": 390,
       "theme": "dark",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "es",
       "width": 1280,
       "theme": "light",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     },
     {
       "lang": "es",
       "width": 1280,
       "theme": "dark",
       "phase": "read-only and unrelated foreign canary",
-      "url": "http://127.0.0.1:5290/scripts/expense-table-harness.html"
+      "url": "http://127.0.0.1:5291/scripts/expense-table-harness.html"
     }
   ],
   "limits": [

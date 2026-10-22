@@ -48,5 +48,6 @@
     "Existing unrelated ComingSoonLanding React18 fetchPriority console warning preserved, not repaired here"
   ],
   "ciFollowup": "finance-pr71-ci-followup.json",
-  "secondCiFollowup": "finance-pr71-second-ci-followup.json"
+  "secondCiFollowup": "finance-pr71-second-ci-followup.json",
+  "thirdCiFollowup": "finance-pr71-third-ci-followup.json"
 }
