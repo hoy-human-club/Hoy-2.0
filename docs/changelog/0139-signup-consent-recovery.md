@@ -12,3 +12,5 @@ Regression fixtures cover published/draft writes, resolved policy/contact/brandi
 Cancellation QA follow-up: the shared-debit fixture copied an occupied mat into a date-dependent seeded class. It now uses an isolated synthetic future class and real provider mat allocation; shared-debit rejection assertions remain intact. The failure reproduces on the unchanged signup baseline.
 
 A-06 now distinguishes the recorded acceptance version/date from the live-resolved text below it in both languages. Regression checks change policy/contact after signup, verify current values and this distinction, and verify the original signup audit snapshot is unchanged. Legacy acceptance rows are not presented as saved text snapshots.
+
+Pending-queue QA follow-up: prepare dev dependencies before accepting test requests, reject unexpected document reloads, and verify that held loading and all four injected failures reach the actual scoped provider reads before retry. Failure diagnostics and traces are retained as CI artifacts. Production queue behavior and assertions remain unchanged.

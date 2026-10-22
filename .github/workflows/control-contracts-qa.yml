@@ -13,6 +13,7 @@ on:
       - 'scripts/test-teacher-ownership*.mjs'
       - 'scripts/teacher-ownership-harness.tsx'
       - 'scripts/test-pending-payments*.mjs'
+      - 'scripts/qa-pending-payments-dev.mjs'
       - '.github/workflows/control-contracts-qa.yml'
 permissions:
   contents: read
@@ -81,7 +82,7 @@ jobs:
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify contained pending queue read failures
         run: |
-          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-pending-dev.log 2>&1 &
+          QA_PORT=5188 QA_VITE_FORCE=1 node scripts/qa-pending-payments-dev.mjs > /tmp/hoy-pending-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
           node scripts/test-pending-payments-states.mjs
         env:
@@ -91,5 +92,8 @@ jobs:
         if: always()
         with:
           name: pending-queue-${{ github.event.pull_request.head.sha }}
-          path: docs/screenshots/S-09/*pending*
+          path: |
+            docs/screenshots/S-09/*pending*
+            qa/pending-payments-states/
+            /tmp/hoy-pending-dev.log
           retention-days: 7
