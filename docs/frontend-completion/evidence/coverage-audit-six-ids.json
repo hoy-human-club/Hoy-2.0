@@ -1,0 +1,84 @@
+{
+  "checkedSource": "ede03f34190e06b5b4a9f502c9262036a76cb59f",
+  "scope": "Read-only authorized repository audit; source phases/criteria/roles preserved. No mock acceptance.",
+  "rows": [
+    {
+      "id": "SW-08",
+      "criterion": "From October 30 the pre-opening page redirects to the public website.",
+      "phase": "MVP Oct 30",
+      "finding": "Redirect absent; coming-soon/index.ts always maps / and /coming-soon to ComingSoon. Website scaffolding is adjacent evidence only.",
+      "priority": "Low",
+      "role": "Público",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Visto / Seen"
+      }
+    },
+    {
+      "id": "PG-12",
+      "criterion": "The close reconciles cash, card terminal and transfers against recorded payments.",
+      "phase": "Nov 30 delivery",
+      "finding": "Daily close absent. admin/FinancePage.tsx aggregates approved payment amount over periods; no counted reconciliation or close command. Card terminal mapping, received basis, cutoff/float/withdrawals/signoff/refund treatment remain owner decisions. Existing Reception/Finance conflict unresolved; no role expansion.",
+      "priority": "High",
+      "role": "Recepción",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      }
+    },
+    {
+      "id": "AD-02",
+      "criterion": "When a class with sign-ups is cancelled, everyone is emailed and their class is returned.",
+      "phase": "MVP Oct 30",
+      "finding": "Cancellation orchestration absent. data/sessionEditorial.ts whitelist excludes status; templates/customer cancelled state are adjacent evidence, not attendee credit or dispatch.",
+      "priority": "High",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      }
+    },
+    {
+      "id": "AD-06",
+      "criterion": "Administration invites users, assigns the role (Front desk or Administration), changes it and removes it; the change applies immediately.",
+      "phase": "MVP Oct 30",
+      "finding": "Dedicated team invitation/change/remove lifecycle absent. SessionProvider resolves roles; customer registration and demo switching do not satisfy staff lifecycle. Production authorization remains separate.",
+      "priority": "Urgent",
+      "role": "Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "No visto / Not seen"
+      }
+    },
+    {
+      "id": "NT-01",
+      "criterion": "Emails are sent from the club's domain with correct SPF, DKIM and DMARC and do not land in spam.",
+      "phase": "MVP Oct 30",
+      "finding": "Actual domain delivery absent. admin/integrationDefs.ts disconnected fields/checklist and batch28 M04 self-only LOCAL simulation are not domain configuration, DNS verification or delivery evidence.",
+      "priority": "Urgent",
+      "role": "Todos",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Simulado / Simulated"
+      }
+    },
+    {
+      "id": "NT-03",
+      "criterion": "Front desk and Administration are alerted when a customer uploads a receipt.",
+      "phase": "MVP Oct 30",
+      "finding": "Specific staff alert absent at checked source. PG02 upload and S09 queue/deeplinks exist, but Checkout discarded receipt ID and no receipt-upload alert intent existed. Adjacent evidence alone does not promote NT03 classification. Batch36 separately implements and verifies a bounded local prototype; actual channel/destination/delivery remain unresolved.",
+      "priority": "High",
+      "role": "Recepción, Admin",
+      "source": {
+        "status": "Not verified",
+        "demoStatus": "Nuevo / New"
+      }
+    }
+  ],
+  "gates": [
+    "Do not equate local mock results with source acceptance or production/commercial readiness.",
+    "No real messages, payment, database, customer data, policy or role changes.",
+    "Old no-refunds versus future PG11/FI01 remains unresolved.",
+    "PC03 real receipt/bank alert channel and destination require owner decision; no inferred recipient."
+  ]
+}

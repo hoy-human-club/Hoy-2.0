@@ -1,3 +1,4 @@
+import {receiptDigest,assertReceiptOwner,ownedReceipt,insertAlertIntent,verifyUploadIntent} from './receiptAlert';
 import { type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
 import type { BookingRow, PaymentRow, TransferReceiptRow } from '../../data/schema';
@@ -35,16 +36,22 @@ export async function fictionalReceipt(): Promise<ReceiptImage> {
 }
 export interface TransferRequest { quote?:FrozenSaleQuote; key:string; userId:string; sessionId:string|null; matNumber:number|null; productId:string; productName:Bi; amount:number; classes:number; expiresAt:string; image:ReceiptImage }
 /** Fictional browser-only staged request. No booking/hold/grant before explicit review. */
-export async function submitTransfer(data:DataProvider,input:TransferRequest):Promise<TransferReceiptRow> {
+export async function submitTransfer(data:DataProvider,request:TransferRequest,cancelled:()=>boolean=()=>false):Promise<TransferReceiptRow> {
+  const input=structuredClone(request),check=()=>{if(cancelled())throw Error('cancelled');};check();
   if(data.name!=='mock' || !data.atomic)throw Error('disconnected');
-  return data.atomic(async tx=>{
-    const existing=await tx.get<TransferReceiptRow>('transfer_receipts',input.key);
-    if(existing){if(existing.user_id!==input.userId||existing.tenant_id!==tenant.id)throw Error('scope');return existing;}
+  const fingerprint=await receiptDigest(input);check();
+  const result=await data.atomic(async tx=>{
+    check();await assertReceiptOwner(tx,input.userId);check();const existing=await tx.get<TransferReceiptRow>('transfer_receipts',input.key);
+    if(existing){const {receipt,payment}=await ownedReceipt(tx,input.userId,input.key);check();
+      if(receipt.session_id!==input.sessionId||receipt.mat_number!==input.matNumber||receipt.product_id!==input.productId||JSON.stringify(receipt.product_name)!==JSON.stringify(input.productName)||receipt.classes!==input.classes||receipt.expires_at!==input.expiresAt||receipt.image_data_url!==input.image.dataUrl||receipt.file_name!==input.image.fileName||receipt.mime_type!==input.image.mimeType||receipt.byte_size!==input.image.bytes||payment.amount!==input.amount)throw Error('request_conflict');
+      await verifyUploadIntent(tx,receipt,fingerprint);check();return receipt;}
     if(!Number.isInteger(input.amount)||input.amount<1||!Number.isInteger(input.classes)||input.classes<1||!input.image.dataUrl.startsWith(`data:${input.image.mimeType};base64,`)||!Number.isInteger(input.image.bytes)||input.image.bytes<1||input.image.bytes>RECEIPT_MAX_BYTES)throw Error('invalid');
     if(input.quote&&(input.quote.kind!=='class'||input.quote.quantity!==1||input.quote.classes!==input.classes||input.quote.entitlementExpiresAt!==input.expiresAt||JSON.stringify(input.quote.name)!==JSON.stringify(input.productName)))throw Error('quote_scope');
     const payment=await recordPayment(tx,{userId:input.userId,planId:input.productId,amount:input.amount,method:'transfer',ivaRate:policy.ivaRate,quote:input.quote});
-    return tx.insert<TransferReceiptRow>('transfer_receipts',{id:input.key,user_id:input.userId,payment_id:payment.id,session_id:input.sessionId,mat_number:input.matNumber,product_id:input.productId,product_name:input.productName,classes:input.classes,expires_at:input.expiresAt,image_data_url:input.image.dataUrl,file_name:input.image.fileName,mime_type:input.image.mimeType,byte_size:input.image.bytes,status:'pending',amount_received:null,review_reason:null,reviewed_by:null,reviewed_at:null,booking_id:null});
-  },{idempotencyKey:`transfer-submit:${input.userId}:${input.key}`});
+    check();const receipt=await tx.insert<TransferReceiptRow>('transfer_receipts',{id:input.key,user_id:input.userId,payment_id:payment.id,session_id:input.sessionId,mat_number:input.matNumber,product_id:input.productId,product_name:input.productName,classes:input.classes,expires_at:input.expiresAt,image_data_url:input.image.dataUrl,file_name:input.image.fileName,mime_type:input.image.mimeType,byte_size:input.image.bytes,status:'pending',amount_received:null,review_reason:null,reviewed_by:null,reviewed_at:null,booking_id:null});
+    check();await insertAlertIntent(tx,receipt,fingerprint);await assertReceiptOwner(tx,input.userId);check();return receipt;
+  });
+  const current=await ownedReceipt(data,input.userId,result.id);await verifyUploadIntent(data,current.receipt,fingerprint);check();return current.receipt;
 }
 export async function reviewTransfer(data:DataProvider,input:{id:string;actorId:string;role:string;decision:'approved'|'rejected';amount:number;reason:string;compared:boolean}):Promise<TransferReceiptRow>{
   if(data.name!=='mock'||!data.atomic)throw Error('disconnected');
