@@ -8,5 +8,5 @@ export default defineMeta({
   states: ['unchecked', 'checked', 'disabled', 'keyboard focus', 'long wrapped label'],
   usages: [{ title: { es: 'Verificación y etiqueta larga', en: 'Verification and wrapped label' }, render: () => h('div', { className: 'stack' }, h(CheckboxField, { checked: false, onChange: () => {}, children: 'He revisado el ejemplo y sus participantes. / I reviewed the example and its participants.' }), h(CheckboxField, { checked: true, onChange: () => {}, children: 'Verificado / Verified' }), h(CheckboxField, { checked: false, disabled: true, onChange: () => {}, children: 'No disponible / Unavailable' })) }],
   a11y: [{ es: 'Etiqueta asociada de forma nativa; toda la etiqueta activa la casilla. Usa Espacio para cambiarla.', en: 'Native associated label; the entire label toggles the control. Space toggles keyboard selection.' }],
-  usedBy: ['S-08'],
+  usedBy: ['MaintenanceWorkbench', 'S-08'],
 });

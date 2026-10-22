@@ -1802,6 +1802,33 @@ alter table public.studio_policies enable row level security;
 create policy "studio_policies: tenant read" on public.studio_policies for select using (tenant_id = public.current_tenant_id());
 create policy "studio_policies: staff write" on public.studio_policies for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
 
+-- schedule · After Nov30 browser-only prototype: fictional checklists, nonmedical incidents, supplies and equipment. No studio operations or real alerts.
+-- access:
+--   · DEFAULT DENY draft only; no deployed policies. Authenticated tenant-scoped maintenance commands and approved read rules remain backend work.
+create table if not exists public.maintenance_records (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null references public.tenants(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  kind text not null check (kind in ('checklist', 'incident', 'supply', 'equipment')),
+  room_id uuid references public.rooms(id) on delete set null,
+  -- {es,en}; unmistakably fictional demo label
+  label jsonb not null,
+  -- Validated kind-specific fictional draft; no people, medical details, attachments or actual alerts.
+  payload jsonb not null,
+  -- Mock optimistic revision; production needs authoritative server transaction.
+  revision integer not null,
+  created_by uuid not null references public.users(id) on delete set null
+);
+create index if not exists maintenance_records_tenant_idx on public.maintenance_records(tenant_id);
+create index if not exists maintenance_records_room_id_idx on public.maintenance_records(room_id);
+create index if not exists maintenance_records_created_by_idx on public.maintenance_records(created_by);
+create trigger maintenance_records_touch before update on public.maintenance_records for each row execute function public.touch_updated_at();
+alter table public.maintenance_records enable row level security;
+-- DEFAULT DENY: fictional future maintenance contract only; no client read/write policies or operational actions approved.
+
 -- system · One row per external system (Wompi, WhatsApp, email, DIAN, maps, Supabase, Google Business Profile): status, non-secret fields ready to fill and notes for the dev (M-10). Keys live server-side, never here.
 -- access:
 --   · super_admin/admin: full control (M-10)

@@ -1,0 +1,194 @@
+{
+  "viewport": 390,
+  "docWidth": 410,
+  "elements": [
+    {
+      "tag": "ASIDE",
+      "className": "deskshell-side",
+      "left": -320,
+      "right": 0,
+      "width": 320
+    },
+    {
+      "tag": "DIV",
+      "className": "deskshell-brand",
+      "left": -320,
+      "right": 0,
+      "width": 320
+    },
+    {
+      "tag": "A",
+      "className": "deskshell-mark",
+      "left": -304,
+      "right": -231.546875,
+      "width": 72.453125
+    },
+    {
+      "tag": "IMG",
+      "className": "wordmark ",
+      "left": -304,
+      "right": -231.546875,
+      "width": 72.453125
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-title",
+      "left": -223.546875,
+      "right": -16,
+      "width": 207.546875
+    },
+    {
+      "tag": "NAV",
+      "className": "deskshell-nav",
+      "left": -320,
+      "right": 0,
+      "width": 320
+    },
+    {
+      "tag": "DIV",
+      "className": "deskshell-group ",
+      "left": -308,
+      "right": -12,
+      "width": 296
+    },
+    {
+      "tag": "BUTTON",
+      "className": "deskshell-grouplabel eyebrow",
+      "left": -308,
+      "right": -12,
+      "width": 296
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-caret",
+      "left": -296,
+      "right": -282,
+      "width": 14
+    },
+    {
+      "tag": "svg",
+      "className": "",
+      "left": -296,
+      "right": -282,
+      "width": 14
+    },
+    {
+      "tag": "path",
+      "className": "",
+      "left": -292.5,
+      "right": -285.5,
+      "width": 7
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-grouptext",
+      "left": -274,
+      "right": -205.78125,
+      "width": 68.21875
+    },
+    {
+      "tag": "DIV",
+      "className": "deskshell-groupitems",
+      "left": -308,
+      "right": -12,
+      "width": 296
+    },
+    {
+      "tag": "A",
+      "className": "deskshell-link ",
+      "left": -308,
+      "right": -12,
+      "width": 296
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-icon",
+      "left": -296,
+      "right": -276,
+      "width": 20
+    },
+    {
+      "tag": "svg",
+      "className": "",
+      "left": -296,
+      "right": -276,
+      "width": 20
+    },
+    {
+      "tag": "rect",
+      "className": "",
+      "left": -293.5,
+      "right": -287.6666564941406,
+      "width": 5.833343505859375
+    },
+    {
+      "tag": "rect",
+      "className": "",
+      "left": -284.3333435058594,
+      "right": -278.5,
+      "width": 5.833343505859375
+    },
+    {
+      "tag": "rect",
+      "className": "",
+      "left": -284.3333435058594,
+      "right": -278.5,
+      "width": 5.833343505859375
+    },
+    {
+      "tag": "rect",
+      "className": "",
+      "left": -293.5,
+      "right": -287.6666564941406,
+      "width": 5.833343505859375
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-linktext",
+      "left": -268,
+      "right": -230.59375,
+      "width": 37.40625
+    },
+    {
+      "tag": "A",
+      "className": "deskshell-link ",
+      "left": -308,
+      "right": -12,
+      "width": 296
+    },
+    {
+      "tag": "SPAN",
+      "className": "deskshell-icon",
+      "left": -296,
+      "right": -276,
+      "width": 20
+    },
+    {
+      "tag": "svg",
+      "className": "",
+      "left": -296,
+      "right": -276,
+      "width": 20
+    },
+    {
+      "tag": "path",
+      "className": "",
+      "left": -286,
+      "right": -282.6666564941406,
+      "width": 3.333343505859375
+    }
+  ],
+  "status": "before-fix diagnostic; superseded by final dry-run captures",
+  "focusedFollowup": {
+    "viewport": 390,
+    "documentWidth": 410,
+    "offender": {
+      "tag": "BUTTON",
+      "className": "btn btn-secondary btn-sm",
+      "text": "Copiar JSON",
+      "right": 410.328125,
+      "width": 137.40625
+    },
+    "fix": "Move Copy JSON from the non-wrapping icon-card header into its own wrapping content row; no clipping or shared CSS."
+  }
+}

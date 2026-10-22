@@ -1,0 +1,15 @@
+{
+  "feature": "OT-02",
+  "base": "http://127.0.0.1:5193",
+  "checks": [
+    "held async loading",
+    "empty resolution",
+    "read rejection contained",
+    "retry restores local workspace",
+    "creation unavailable while loading/read-error"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev provider prototype injection only; no external backend read claim."
+  ]
+}

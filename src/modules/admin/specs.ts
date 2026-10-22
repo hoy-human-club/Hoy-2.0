@@ -339,14 +339,14 @@ export const M10a = defineSpec({
   data: ['integrations', 'tenants', 'hours_overrides', 'audit_log'],
   roles: ['super_admin', 'admin'],
   logic: [
-    'HoyOS is the source of truth and pushes one way (D-0017): on save in M-08a / M-08g and nightly, the server calls locations.patch with updateMask=regularHours,specialHours and the body toGoogleBusinessHours() builds (src/tenant/hours.ts). Nightly it reads the location back and flags drift; nothing is pulled into HoyOS silently.',
+    'Future authorized server contract: HoyOS is the source of truth and pushes one way (D-0017). On save in M-08a / M-08g and nightly, the server will call locations.patch with updateMask=regularHours,specialHours and the body toGoogleBusinessHours() builds (src/tenant/hours.ts). Nightly it reads the location back and flags drift; nothing is pulled into HoyOS silently.',
     'Tokens never reach the browser: the OAuth client id / secret are platform env vars; each location’s refresh token is a server secret named per tenant (GOOGLE_BUSINESS_REFRESH_TOKEN_<TENANT>). The integrations row keeps only locationName, accountEmail and placeId.',
-    'Status reads the google_business integrations row; “last push” is the newest hours_overrides.google_synced_at, which only the server writes (none yet).',
+    'This disconnected view always shows Simulated. Non-secret Google config and recorded timestamps are not proof of provider connection; the local dry-run never changes integrations, hours settings or google_synced_at.',
     'Special hours are one period per date (Google allows endDate at most one day after startDate), so multi-day overrides are expanded; past overrides are left out.',
-    'Connect with Google and Push now are Placeholders until the server exists; Copy (JSON and text) and the Google link work today.',
+    'Real Connect with Google and Push now remain disabled until an authorized server exists. Local prepare/progress/simulated success/error/cancel/retry uses immutable reception-hours/holiday snapshots, warns about unconfirmed hours, and rejects changed-source snapshots. Copy (JSON and text) and the Google link remain available.',
   ],
   integrations: ['Google Business Profile (Business Information API v1, Account Management API)', 'Google OAuth 2.0 (scope business.manage)'],
-  states: ['Loading', 'Simulated (seed)', 'Configured (location filled, server pending)', 'Connected', 'No special hours upcoming', 'Copied'],
+  states: ['Loading', 'Simulated (seed)', 'Configured (location filled, server pending)', 'No special hours upcoming', 'Copied', 'Unconfirmed draft hours', 'Prepared local snapshot', 'Simulated validating/previewing', 'Simulated success/error', 'Cancelled with retry', 'Source changed; prepare again'],
   actions: ADMIN_ACTIONS['M-10a'],
   notes: ['Sub-page of M-10, linked from the google_business card (“Open”) and from the M-08a Opening hours card.', 'Multi-tenant: the platform steps happen once for every studio on HoyOS; each studio only connects its own location.'],
 });

@@ -1,7 +1,7 @@
 {
   "schema": "hoy.frontend-routes/1",
   "baseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
-  "capturedAt": "2026-10-21",
+  "capturedAt": "2026-10-22",
   "source": "Rendered runtime registry after continuation edits; route presence/built badge is not acceptance. Current release commit is recorded in completion README.",
   "routes": [
     {
@@ -389,6 +389,7 @@
         "class_sessions",
         "payments",
         "class_ledger",
+        "vouchers",
         "message_log",
         "consents",
         "audit_log",
@@ -459,6 +460,7 @@
         "class_sessions",
         "payments",
         "class_ledger",
+        "vouchers",
         "message_log",
         "consents",
         "audit_log",
@@ -722,9 +724,14 @@
         "Loading",
         "Simulated (seed)",
         "Configured (location filled, server pending)",
-        "Connected",
         "No special hours upcoming",
-        "Copied"
+        "Copied",
+        "Unconfirmed draft hours",
+        "Prepared local snapshot",
+        "Simulated validating/previewing",
+        "Simulated success/error",
+        "Cancelled with retry",
+        "Source changed; prepare again"
       ],
       "tables": [
         "integrations",
@@ -2222,7 +2229,8 @@
         "automation: live previews off (navigator.webdriver)",
         "framed (inside a preview or the simulator)",
         "no captures yet (idle tiles)",
-        "English"
+        "English",
+        "local report draft: edit / invalid / preview / storage failure / retry / saved without dispatch"
       ],
       "tables": [
         "users",
@@ -2256,6 +2264,39 @@
       ],
       "tables": [
         "user_roles"
+      ]
+    },
+    {
+      "path": "/staff/maintenance",
+      "code": "S-10",
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "maintenance"
+      ],
+      "source": "src/modules/maintenance/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "read failure/retry",
+        "empty",
+        "fictional examples",
+        "edit",
+        "invalid payload",
+        "cancel",
+        "save failure/retry",
+        "revision conflict",
+        "same-request replay",
+        "new record",
+        "preview without saving",
+        "new record cancel/failure/retry"
+      ],
+      "tables": [
+        "maintenance_records",
+        "rooms",
+        "audit_log"
       ]
     },
     {
@@ -2454,7 +2495,10 @@
         "saved quote",
         "withdrawn"
       ],
-      "source": "src/modules/products/index.ts"
+      "source": "src/modules/products/index.ts",
+      "tables": [
+        "plans"
+      ]
     },
     {
       "path": "/admin/products",
@@ -2480,6 +2524,10 @@
         "publication failure with retry",
         "local published snapshot",
         "withdrawn"
+      ],
+      "source": "src/modules/products/index.ts",
+      "tables": [
+        "plans"
       ]
     },
     {
@@ -3018,7 +3066,14 @@
         "approved",
         "rejected"
       ],
-      "source": "src/modules/transfers/index.ts"
+      "source": "src/modules/transfers/index.ts",
+      "tables": [
+        "transfer_receipts",
+        "payments",
+        "class_ledger",
+        "bookings",
+        "audit_log"
+      ]
     },
     {
       "path": "/staff/vouchers",

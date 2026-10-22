@@ -64,6 +64,10 @@ for (const t of tables) {
   for (const c of t.columns.filter((c) => c.references)) sql += `create index if not exists ${t.name}_${c.name}_idx on public.${t.name}(${columnName(c.name)});\n`;
   sql += `create trigger ${t.name}_touch before update on public.${t.name} for each row execute function public.touch_updated_at();\n`;
   sql += `alter table public.${t.name} enable row level security;\n`;
+  if (t.name === 'maintenance_records') {
+    sql += '-- DEFAULT DENY: fictional future maintenance contract only; no client read/write policies or operational actions approved.\n\n';
+    continue;
+  }
   if (t.name === 'transfer_receipts') {
     sql += '-- DEFAULT DENY: fictional browser contract only; no receipt read/write policies or storage access are approved.\n\n';
     continue;
