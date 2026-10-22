@@ -1,0 +1,12 @@
+{
+  "base": "http://127.0.0.1:5276",
+  "checks": [
+    "en/light: actual shared expense feedback default/saved/stopped/conflict/busy/retry/readerror fit390/1280; read-only example leaves database unchanged",
+    "en/dark: actual shared expense feedback default/saved/stopped/conflict/busy/retry/readerror fit390/1280; read-only example leaves database unchanged",
+    "es/light: actual shared expense feedback default/saved/stopped/conflict/busy/retry/readerror fit390/1280; read-only example leaves database unchanged",
+    "es/dark: actual shared expense feedback default/saved/stopped/conflict/busy/retry/readerror fit390/1280; read-only example leaves database unchanged"
+  ],
+  "errors": [],
+  "browserClosed": true,
+  "limits": "Fictional library feedback examples only; no accounting, role or backend acceptance."
+}

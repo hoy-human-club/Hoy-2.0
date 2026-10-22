@@ -1,7 +1,7 @@
 {
   "schema": "hoy.frontend-classification-reconciliation/1",
   "historicalBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
-  "sourceCheckpoint": "Future integration32/33 plus independently reproduced FI04 baseline atede03f3",
+  "sourceCheckpoint": "Root operational integration: isolated34/35/36 source saved; combined/release pending",
   "features": 124,
   "baselineFindings": {
     "unverified": 5,
@@ -11,8 +11,8 @@
   },
   "currentFindings": {
     "unverified": 5,
-    "absent": 8,
-    "partial": 100,
+    "absent": 7,
+    "partial": 101,
     "implemented": 11
   },
   "changedFindings": [
@@ -51,8 +51,15 @@
       "id": "FI-04",
       "baseline": "implemented",
       "current": "partial",
-      "verification": "not-run",
-      "scope": "Actual baseline defect repro; bounded35 repaired source/browser/integration gates tracked separately."
+      "verification": "focused-frontend-pass",
+      "scope": "Actual baseline5 repro and isolated six-command batch35 frontend proof; combined/release gates pending, generic direct-provider enforcement separate."
+    },
+    {
+      "id": "NT-03",
+      "baseline": "absent",
+      "current": "partial",
+      "verification": "focused-frontend-pass",
+      "scope": "Actual receipt-upload intent/result and explicit local rehearsal tested; no actual staff message/delivery/owner acceptance."
     }
   ],
   "preservation": "All124 IDs and literal original criteria/roles/source statuses/phases/priorities/relatedTests preserved.",

@@ -1,0 +1,17 @@
+{
+  "base": "3b752e5fb3e21a85eddab041ee377ca14148eaa6",
+  "method": "Exact current approval handler extracted before editing, esbuild write:false, real MockProvider isolated Map; no network/browser/Git.",
+  "handlerSourceSha256": "9a79536c024fb531d96538c60d8988cdb413347b107d0fdc09d331e12b3030cb",
+  "observed": {
+    "stalePaidRegressedToApproved": true,
+    "existingPaidStampRetained": true,
+    "auditFailureLeftPersistedApproval": true
+  },
+  "source": "src/modules/admin/PayoutsPage.tsx:152",
+  "reproducer": "node scripts/test-payroll-approval.mjs",
+  "historicalHandlerFixture": "scripts/fixtures/payroll-approval-before.ts",
+  "limitations": [
+    "Controlled fictional Map-storage reproduction; not a production incident.",
+    "Approval-only fix; settlement and provider/payment paths remain separately partial."
+  ]
+}

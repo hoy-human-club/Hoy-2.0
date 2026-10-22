@@ -1,0 +1,10 @@
+{
+  "batch": 35,
+  "developmentTestCorrection": {
+    "observed": "An initial instance-only read fault was reached after commit because detached transaction stages use the actual prototype; expecting rollback there was incorrect.",
+    "correction": "Required staged read/canary tests now inject into existing MockProvider prototype, covering root and detached stage. Separate explicit postcommit read-failure test requires one durable result/audit, withheld acknowledgement and read-only restored retry.",
+    "assertionsWeakened": false,
+    "runtimeBugInferred": false
+  },
+  "data": "All fixtures fictional browser/memory only; assertions output booleans/counts rather than body diffs."
+}

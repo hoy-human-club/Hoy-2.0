@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:5276",
+  "checks": [
+    "en usr_cust: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "en usr_teach: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "en usr_super: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "es usr_cust: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "es usr_teach: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "es usr_super: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
+    "usr_admin: existing C04 route denied",
+    "usr_desk: existing C04 route denied",
+    "usr_coord: existing C04 route denied",
+    "usr_fin: existing C04 route denied",
+    "usr_mkt: existing C04 route denied",
+    "usr_dev: existing C04 route denied",
+    "usr_maint: existing C04 route denied",
+    "usr_public: existing C04 route denied"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-local intent/rehearsal only; no staff delivery, channel, cross-device persistence or acceptance."
+  ]
+}

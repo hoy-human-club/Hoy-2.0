@@ -1,0 +1,1177 @@
+{
+  "requirements": [
+    "NT-03",
+    "NT-05",
+    "FI-03",
+    "FI-04"
+  ],
+  "literalIdCheck": "Actual manifest IDs verified separately; no original criteria/phase/status changes",
+  "checkedLocalCheckout": "0a09975aae2f581bd82e694b0654002466b79181",
+  "runtimeFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+  "localBuild": {
+    "session": 42290,
+    "exit": 0,
+    "beforeAfterEqual": true,
+    "logSHA256": "cc8a3f05b2af4ae024a2abf92e2ca456215dd9cf75fb9c6657a1d97cb3537cae"
+  },
+  "domain": {
+    "session": 21373,
+    "exit": 0,
+    "failureGatedCommands": [
+      "test-email-edit.mjs",
+      "test-email-edit-hook.mjs (16)",
+      "test-expense-ledger.mjs (10)",
+      "test-receipt-alert-intent.mjs",
+      "test-transfer-receipts.mjs",
+      "test-operational-quotes.mjs",
+      "test-trial-eligibility.mjs",
+      "test-payroll-approval.mjs",
+      "test-payroll-approval-hook.mjs (12)",
+      "test-operational-active-account.mjs (8)"
+    ]
+  },
+  "rendered": "combined-34-35-36-37-ui.json",
+  "visualInspection": [
+    "M-04/es-active-account-blocked.jpg: full-page existing email layout, contained missing-account notice with Reload; Save absent",
+    "M-09c/es-390-dark-inventory-6.jpg: bilingual disconnected/retry states fit visible mobile section",
+    "C-04/es-390-receipt-alert-completed-dark.jpg: local-only/no-staff-message boundary visible",
+    "M-09b/en-1280-dark-approval-confirmed.jpg: approved local result; explicit no payroll paid; signed adjustment preserved"
+  ],
+  "captures": [
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-attempt-error-dark.jpg",
+      "sha256": "d66b31ace3dd2620303f08296dd8fc35080dcd4239845a33ad8a9d94438ae267"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-attempt-error-light.jpg",
+      "sha256": "22c16b8d9fb9e01100e82e434e362fe212551ead2c83eff50bd245315375c460"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-dark-usr_super.jpg",
+      "sha256": "d3f845fe79c1278737d83309c6b4229463e9357b50a515a9010cc15cab7d3073"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-dark-usr_teach.jpg",
+      "sha256": "ed33aaeb3e0d28ffacb2d53bb3be4f65f52205a3bed09de3ddee5410df87efe0"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-dark.jpg",
+      "sha256": "3e2592fd035381fbede498ef1e9fb66d9d235a0cd3d15964694f2ba31b761bea"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-light-usr_super.jpg",
+      "sha256": "30cc8ba31db22204c13562c3280458a224e7279f2139f3d8a8137e9d609f010f"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-light-usr_teach.jpg",
+      "sha256": "60db63f5e472e4acb43a5d77ea66b5d38d4634aa161c270c5d63c0663cde1f76"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-completed-light.jpg",
+      "sha256": "dbe5786a0a907cf1437355b980f91993f52ac23db989f392f811b2121b843d5f"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-pending-dark.jpg",
+      "sha256": "50fae32696611b29f63722493ef27eac63e06bd392ef14fd934a9d230e149c74"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-receipt-alert-pending-light.jpg",
+      "sha256": "efe56c51a38c4fd5a35afe9911dd4da0756c2368db14d87052776945263276b8"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-transfer-pending.jpg",
+      "sha256": "5b63eb18c39162590fe9790dad9ad4524fd3af9a7e621f9c254d1e8b5b2c03bc"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-1280-transfer-preview.jpg",
+      "sha256": "91466faecc46d6059b44cc43d78e2ea4de855f2c9fb7752c5d553c2b07232a26"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-alert-read-error.jpg",
+      "sha256": "663c223dd2872b33647752969f49c8469440478f8190cfdb7564a8c052a895df"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-attempt-error-dark.jpg",
+      "sha256": "61e0ddb3d1719d09953cfa56cbd9a47a037b736493bc83affc0e048b90f8a454"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-attempt-error-light.jpg",
+      "sha256": "60fac73cd47c1df8b13af2aef12673a187d98875c7127980646dce03c0f7cc05"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-dark-usr_super.jpg",
+      "sha256": "09906add068abc1d4d74114baa49617085b3caa876dbf9a6b9ea93a23a076e25"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-dark-usr_teach.jpg",
+      "sha256": "6cc7393bbd0c281bb68ff5bc6e403ff03b6b2da8b8904e36dc0623dfa6c7412d"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-dark.jpg",
+      "sha256": "c2b7a24deae83ec8ffa179781df3da91932d2bf285d2df1fa2d3008a250c38b3"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-light-usr_super.jpg",
+      "sha256": "7e16ff6e5b0e2f2cff99b837035aeec489742f67e4aa6b0bc2bdddd8f75743a0"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-light-usr_teach.jpg",
+      "sha256": "fd7397bce3bb629016d3855fbb8921a00ba08642a0dd4b053602577d6686e2aa"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-completed-light.jpg",
+      "sha256": "d7859428c55cd3e125c0c1f2f778221a068d2b1d3273063478dc8f660c650496"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-pending-dark.jpg",
+      "sha256": "c45a49dc16bfec0548275ba9cf4897d198fa59cc728f4f496e2f87278878cec1"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-receipt-alert-pending-light.jpg",
+      "sha256": "8ed398e3e14775391113767ba2fa4f4e853acdd187d6b5a85c610d34a1bf39d8"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-transfer-pending.jpg",
+      "sha256": "5fdb2a0af029a80d4978e847a56f078269551080b0db7cfdbe6bed9afc67fcfa"
+    },
+    {
+      "path": "docs/screenshots/C-04/en-390-transfer-preview.jpg",
+      "sha256": "528c655d299be27d8a198b3a110a0c872ebcbb81ce6a5dd2c31af25c0d92c2d1"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-attempt-error-dark.jpg",
+      "sha256": "054abfcba65a91663fa29aae0306ff5b5d1844e315cc09da8200df6212b7e601"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-attempt-error-light.jpg",
+      "sha256": "f6c9308e52bc124bc8b37588adfcf075e547aade3493db1da5155532e1995d59"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-dark-usr_super.jpg",
+      "sha256": "dd9531794d39ef46059b97c90277051fe466aae6e85388758695b30ca4bb65ca"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-dark-usr_teach.jpg",
+      "sha256": "c6e992fb5e7df788f336fb112fa379f89d05c173717cadbc71e69e2fa955d029"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-dark.jpg",
+      "sha256": "67b55c73f2c80beabbee093972bbb73242d04215e4929ff9ce0831b3a68c6278"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-light-usr_super.jpg",
+      "sha256": "4f3ab3e52d22b45d5af2a4938372fc30a231c99f271403d64aa2336c04afedbc"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-light-usr_teach.jpg",
+      "sha256": "2b464fbaad20f45339b350f1bba00cfac190897341089d6b1afc911baf73d418"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-completed-light.jpg",
+      "sha256": "c7d324007734e72f7c5066f4d7fe00e6c70aa9f24e634c56a7f93807224a52d1"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-pending-dark.jpg",
+      "sha256": "a6eecf3cb471e1d7aa3b59770118cab5b7e7376fcc0170afca0e8bab2338e7e8"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-receipt-alert-pending-light.jpg",
+      "sha256": "80cc4e08f6769ac1f8b9409fb4fcfdc00dd183c93470d35bfbe90ed79d40210c"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-transfer-pending.jpg",
+      "sha256": "468b03ed7b95e087f5e679271e66a77f5e1d9178f2f7a90b70f4b2a6c51b1caf"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-1280-transfer-preview.jpg",
+      "sha256": "cbcf831fb8e91bdb73a16d80970b2c171f886d73dbda3c0abb7ad0b3174853d2"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-alert-read-error.jpg",
+      "sha256": "735d087fc98d20370d6e4f4f7ac273fedc58a7601e3050e5d7092796373a43d2"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-attempt-error-dark.jpg",
+      "sha256": "23c59e35c64446c00de6006958319bf1bc41a1b086422abeca74ed58bcb8fe81"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-attempt-error-light.jpg",
+      "sha256": "844a3837d1c5c01f2f71014d38a0cd03c99186b252817bff74ff6f7a4196ade7"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-dark-usr_super.jpg",
+      "sha256": "39a2ea40a5c44d87ea98d12ecc9ad82650d932cb3ce425f4da20d596b989f67e"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-dark-usr_teach.jpg",
+      "sha256": "10a4765bfc210cc5d2f0688363888bd9dc90c320f3ac1a74d4b8399d6536ccd5"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-dark.jpg",
+      "sha256": "6b964a7fba96e0bbb7805e3b6b21a8e9223b6a84c5f33cbcfedd4aabda13e126"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-light-usr_super.jpg",
+      "sha256": "2061018e5e28b38ef261ed1897d923b3886c3c7c48ce9a7ecab79a50eef425ac"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-light-usr_teach.jpg",
+      "sha256": "e51e7266badbc21bd4e6612c373f1ec1bd2f26c612194043f275b79882ce5da3"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-completed-light.jpg",
+      "sha256": "d630b825bf078d01428234c68fb499c500e576e3640cfd7ff193ab0a42f1b206"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-pending-dark.jpg",
+      "sha256": "e00c15cc90a935e64683c9dbf7b5b4378246e118d1660b6554b185111be26ea1"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-receipt-alert-pending-light.jpg",
+      "sha256": "9a6f07662098e9da9906d4d12605e878a0dfd37409cb17125eb877267fcbb1ee"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-transfer-pending.jpg",
+      "sha256": "695cfc354208771e10fb14ac88d3ef69816d93b9089d1df8eb59de76f74b6416"
+    },
+    {
+      "path": "docs/screenshots/C-04/es-390-transfer-preview.jpg",
+      "sha256": "82b1e6226b362e25929839d37320e731f4f9ffb1cbbe06f546c972c6ac9ec59b"
+    },
+    {
+      "path": "docs/screenshots/C-04/receipt-alert-failure.jpg",
+      "sha256": "5953081310dbc84ae14eac3bcb045cf78c253c19730419249e129fd403417bb9"
+    },
+    {
+      "path": "docs/screenshots/C-04/receipt-alert-maintenance-result.json",
+      "sha256": "cfe98ad5bad01a8d63375e7d49b3344705bdc7fac387e9e587f7d2e14f2bce4d"
+    },
+    {
+      "path": "docs/screenshots/C-04/receipt-alert-results.json",
+      "sha256": "ca22b12d7defe186e539437adaffb6e25b899d5ac50c6b2e9c93e11f82318a8f"
+    },
+    {
+      "path": "docs/screenshots/C-04/receipt-alert-state-results.json",
+      "sha256": "8d4b56251fd2cc1daae4f404e7952732b13ce01a99e5618c966a3e87c80ddc2e"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-1280-transfer-approved-dark.jpg",
+      "sha256": "9fe2620607667e8358143db50cd1cac5971eccab6f743d34a86a77a62fa5281b"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-1280-transfer-approved.jpg",
+      "sha256": "a8b6085a8981c1dea6e379ed096dfaa822319cd31cbeb3ccad28d8c91d7a729a"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-1280-transfer-queue.jpg",
+      "sha256": "dfbf236a1a83f63950ca4c5f92941b86478be4879e84e05c21700030ede5eb08"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-1280-transfer-rejected.jpg",
+      "sha256": "8b701e3c78a31b0df89420ee3f9fb852ab09945d462d9789429638504507479e"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-1280-transfer-review.jpg",
+      "sha256": "284fb3a2755d973933ce3bf27afe126975cc85407cdfca6843f12cdb9cfeb6e2"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-pending-transfer_receipts-error.jpg",
+      "sha256": "b9f5a9cccaa25b051e0a051a04cec6851520c2ca55388804dfbed2af33be30ae"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-approved-dark.jpg",
+      "sha256": "e63e0359e504c0b16617dad80e3e8e55bd592c633004531422c5234718fbc11d"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-approved.jpg",
+      "sha256": "637abc6ccdbe9e69a1c2f8766141fce92ff6c9c6668ca2d740959e2e0a381cfc"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-loading.jpg",
+      "sha256": "451f6d217467108be039281e7375512661b74086fafed07d2f88ff91351065fb"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-queue.jpg",
+      "sha256": "3ec8c2c2d70cb68716f2ecbc797aca77774d3a8126f62ea90a9393775249732d"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-read-error.jpg",
+      "sha256": "b9f5a9cccaa25b051e0a051a04cec6851520c2ca55388804dfbed2af33be30ae"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-rejected.jpg",
+      "sha256": "80c0fb2e39c3a6056fa548bd0810596929e058ceda9226d5ad0e8d35cac11f17"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-390-transfer-review.jpg",
+      "sha256": "166b307662f437f085da37fff76fc134c93964f9cb060d0550c1ef6feb565818"
+    },
+    {
+      "path": "docs/screenshots/S-09/en-transfer-state-results.json",
+      "sha256": "3cb663db3d3233b8ade188d56528ed80cd1b5d66358979d8f63a0ba2010fb678"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-1280-transfer-approved-dark.jpg",
+      "sha256": "ad07cc0470c819440d3553c4953fed4c86c7b71c502a8bf4fe5852b0e6c8ecb2"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-1280-transfer-approved.jpg",
+      "sha256": "da499f8fb5725f47ca18eeaa4d86354444a6b6a57cdebeb0abf75d306ed66b36"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-1280-transfer-queue.jpg",
+      "sha256": "eb8a9e7879306c5dac03be55861986ce813e0600d3e3ec33d68f94a712047073"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-1280-transfer-rejected.jpg",
+      "sha256": "ccdd1155ca4f2edfefd3115dae45a97c1fb13d7c95da537ee2d5ea8ececaa5b6"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-1280-transfer-review.jpg",
+      "sha256": "df68b2e6818c2efa90e13983b3b739bdae326214359144ddf7d03755e052aeaf"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-pending-transfer_receipts-error.jpg",
+      "sha256": "eaf4857bc0499c6f7936063e35333420ca9903cd42bbd309bdd1e33e6ef1c3f8"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-approved-dark.jpg",
+      "sha256": "932c947a22d38d717ac6e01e03969844d1547f62feed4e6f538db1f97431a8ef"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-approved.jpg",
+      "sha256": "9301ecf586f15b494432bafdbf1afacb8994c98d1dff4b0ebf3cb0c276f754cb"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-loading.jpg",
+      "sha256": "9326fb5ffca12bac8d6ab69dfce5124fad9db5b555e4ac2d85bba97d5f864ec2"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-queue.jpg",
+      "sha256": "b655c7deef60247c346130c7def0c6552fd5a46b792efb40eb5c8347a75b3c0c"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-read-error.jpg",
+      "sha256": "eaf4857bc0499c6f7936063e35333420ca9903cd42bbd309bdd1e33e6ef1c3f8"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-rejected.jpg",
+      "sha256": "279472ffaa3ea0958b2b0a75fc6b6431bddec228df26cc95a56acb44c571d75b"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-390-transfer-review.jpg",
+      "sha256": "0ae644ef6f477dff3afd3fb02afd1bcc6fdb05cded9547af0978ae0081f0847c"
+    },
+    {
+      "path": "docs/screenshots/S-09/es-transfer-state-results.json",
+      "sha256": "3cb663db3d3233b8ade188d56528ed80cd1b5d66358979d8f63a0ba2010fb678"
+    },
+    {
+      "path": "docs/screenshots/S-09/transfer-results.json",
+      "sha256": "f3adcad4603d4ba9d102f22167de9ec14d40eb945d3d065b07100582443b19d8"
+    },
+    {
+      "path": "docs/screenshots/M-04/email-edit-state-results.json",
+      "sha256": "26502a60f331a974b05c5b2178fc857d7a9aca62f2a53e9cf5394dbbcaabf016"
+    },
+    {
+      "path": "docs/screenshots/M-04/email-edit-ui-results.json",
+      "sha256": "8024a8b5c6b9b940eb3e87fcd04ebb3b464432171b4d70016948aef70a375d63"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-denied-dark.jpg",
+      "sha256": "c2660a8739584529665fc85faed936fbb4e866aee6d7391ac56a34a5f0577894"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-quota-error-light.jpg",
+      "sha256": "3a1ebb03f92c911f160ade0ee495aac9d8ad856bd55a55073035527be531df66"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-ready-dark.jpg",
+      "sha256": "3cd90c667963a6189a4e1db86e50bdc15aa996232e563a6e721a3db2b5d31974"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-ready-light.jpg",
+      "sha256": "ec110fa3158906b6b3b83d437f7dd6cc4cec2fb5877e84dbddb91c23e7120ee1"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-rollback-light.jpg",
+      "sha256": "3a5b179501019d91dcb6eaf3c6bd3543e1a34943bee960d15e112909b6fa48de"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-saved-light.jpg",
+      "sha256": "9d66dc92cbd380039d50aa2a159497dc745fabd84b1715de9ae4f97dbf1a6e57"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-stale-light.jpg",
+      "sha256": "da3564f4191f32f4096e5d277c6a33361d5c2c33d1b213ec489803f3ca121fc9"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-usr_coord-saved-dark.jpg",
+      "sha256": "4479d0d910c48b6b19819db32429257320a102a2cfb7318f41300fbd96f85187"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-usr_mkt-saved-dark.jpg",
+      "sha256": "3cd7b1d5b2c9f6ff1a36730d7a1d561b3aceea5ad8ccd13fdeb55e1c24406040"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-edit-usr_super-saved-dark.jpg",
+      "sha256": "a2ab7fbc488551344a06840aac36024f66822f93348f0d1b13fc02eca4ed44a4"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-busy-dev.jpg",
+      "sha256": "ae75af9f1437f8f5c4f3749c74dc634b97a3ec8da388fd5f3662bf7fa3fc19fe"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-denied-dark.jpg",
+      "sha256": "754ecc76fdf7003e45fba7acab14a361faf266bd10903908c19efe39afd62336"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-quota-error-light.jpg",
+      "sha256": "51c4515732e34ef18668690717adc64d726fd2ee0a334dcdc0751e410d5bd0bf"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-ready-dark.jpg",
+      "sha256": "791a9eb7ea2c58f9d1a12729cd19c1860a36957ff1ab279ab3ff5e72ec18c5e5"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-ready-light.jpg",
+      "sha256": "aaeb459328f0180dd9eeef89fbf1a4123b0c9f4476ff7e7ce9e68673bf20bc43"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-rollback-light.jpg",
+      "sha256": "201941d654064dc421140d6ee4628abdc81e5cccf8cc950a7a996e87dd88d047"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-saved-light.jpg",
+      "sha256": "d6083ba7913e3ca6d081a9912382a93fe2111877c705a14fc704f0adae045d07"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-stale-light.jpg",
+      "sha256": "0eb207c9a9a6f1d869a51c3b339f4175187e11405eb4519c37553bc792e8d765"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-usr_coord-saved-dark.jpg",
+      "sha256": "cc488be4e5a346ec06e6f33976f5adb6dd0e26d5a0b8e7ee33411547f0a738ba"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-usr_mkt-saved-dark.jpg",
+      "sha256": "1af652105a24316d5a26c2aa4c245df7f12d0af440e77226be5e0162e1fddd17"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-390-email-edit-usr_super-saved-dark.jpg",
+      "sha256": "73f73bef8f2e53e3604cfb3c19770093c0db634a89eb72677a25d24e5ad5452a"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-active-account-blocked.jpg",
+      "sha256": "892e7e11e79908710738a2cc27436c7602bda61c5e05e2b89efe6d52782b2950"
+    },
+    {
+      "path": "docs/screenshots/M-04/en-active-account-diagnostic.jpg",
+      "sha256": "a63a0d66920391a90c26b7390224bdac42914b0c8ef0fd83f982a0fd4f009021"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-denied-dark.jpg",
+      "sha256": "2335d1eeb5557a1e6a3ad073a4e126e2e09d00b1c763484f0e92f2dd48e07420"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-quota-error-light.jpg",
+      "sha256": "0c6f755f783a70fd8a02a38822c458c03dc0664f626c9b0764a1c3e6d97e24bf"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-ready-dark.jpg",
+      "sha256": "322f81af706c67bdcc2eb30935665ae9f5719cde45fe234853eb02e58a915b25"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-ready-light.jpg",
+      "sha256": "a64f8d1c0db863ee6d51e6411c87e10ac1d30c6def1314f4532cf60a8846b8cd"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-rollback-light.jpg",
+      "sha256": "573471ca460b8cd376b9f4d5ca681b88f26cb75c05b3b8388b8b7e477e377f30"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-saved-light.jpg",
+      "sha256": "7524fc5eb93b500d51c16cd3137c7e1379c6524588247cca5f4fb0d97f604da6"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-stale-light.jpg",
+      "sha256": "5f03756e9c4b4b35f12852e703ab30074434cca0e23e7728e44b3b603cddcd0f"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-usr_coord-saved-dark.jpg",
+      "sha256": "03bf63dfe927fcad6bcf9bd73beb0ed1c78716a209f74df22b50e3e9af9c1e76"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-usr_mkt-saved-dark.jpg",
+      "sha256": "7e4d43c5a183eb467c7f22c100b36bac03526edace5c57e77171c744bbc1b0ef"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-1280-email-edit-usr_super-saved-dark.jpg",
+      "sha256": "1516b05a2479ab37f687dd0a95a760a852ffa6774b17392e560f720f9567a788"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-busy-dev.jpg",
+      "sha256": "9bbd7e405736df473957ca2d8971b3a4665ad758eb933f7d7e39cb809fd15033"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-denied-dark.jpg",
+      "sha256": "7a2d9e7d5a69bae8f836a9148aa5a13e45563054e2d5b08f15a847ba8ffcfca0"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-quota-error-light.jpg",
+      "sha256": "2dd4f7191333836757c18a74f0e0e2cd6bc9b82b377c3b9d8c5ad5e40d680d05"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-ready-dark.jpg",
+      "sha256": "3da7b1af473b213e82f5a2b58317ba235ff35a08ec73491680bfeea91ba58915"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-ready-light.jpg",
+      "sha256": "1e4f383ae1fe8ea0006cdfb05cbb9cc8de0959cbc6be4483887891ad47857cad"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-rollback-light.jpg",
+      "sha256": "fac8bcacbd7d610542908587b5424631257afba25d7808eb6bfa638c6e36431f"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-saved-light.jpg",
+      "sha256": "a26839b940925a41de086af72cdb412b8289c676cc6beac2e1a69fcbafdfeb5a"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-stale-light.jpg",
+      "sha256": "274e527011dabb65782a8e61eeff8c61d25ddcbff5602bf8861245ab2c75139a"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-usr_coord-saved-dark.jpg",
+      "sha256": "16d454c95fbf457a4870fd7005f016c4b16b3a0a38c8b51d4f2387548995de9a"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-usr_mkt-saved-dark.jpg",
+      "sha256": "8caa80e4e204ab488ffbf0a95cb368aaa7c2d3f5997f10f0df91c24ad0f4e69b"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-edit-usr_super-saved-dark.jpg",
+      "sha256": "2427317a5fc6a2df8f8155bf928a2192d0409c603e22a2d74fac25d1920bfd5d"
+    },
+    {
+      "path": "docs/screenshots/M-04/es-active-account-blocked.jpg",
+      "sha256": "6ded5e88338c81f7b5ec8fbb76cf8588dc45f5871b0617a26ce051419a0f318e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-busy.jpg",
+      "sha256": "6e291230fb77be7bd6c9c647b742dea3a340ac2bb802a68a1f7fdafec1921221"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-confirmed.jpg",
+      "sha256": "16e6e8589c3d8741ed3a40baf6a18bf0f7b98d0ad28c72afba10d9d1d7f93bb4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-failure.jpg",
+      "sha256": "b9d3a55bce3cfc9acc136592d4b47e83cc466f5a93b6b2aa81dd09f50a356891"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-loading.jpg",
+      "sha256": "936177458072fa84ff85ad63ddea2d51b54eb6e26c8d7ebad87544e78f8700a0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-locked.jpg",
+      "sha256": "b324fc8ddd4373bc1ab19197b5a6deca570f78f72d6131047c8ef29f4f78ca09"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-preview.jpg",
+      "sha256": "33056aec658502e58aab9e18ff02204eaedbb17d0aafc6d7da29414b81a23c5f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-scope-error.jpg",
+      "sha256": "e9d753b5e6ca58c207daea4edbd7caef4cdb46f89043e1d5de3e2245333ad709"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-stale.jpg",
+      "sha256": "4f1959db8bbae5c39981f12dd20496d7e31720949eee0eb2fa7a1e1d069235c9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-busy.jpg",
+      "sha256": "5d7ce606f994e383ad47983bab9dc9fa594037202c982c69198c11c9d1e615b5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-confirmed.jpg",
+      "sha256": "66f491623dc2fb94bfc86affaf1e962b5c1ccd72cd3c0914c5462336ee3b334e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-failure.jpg",
+      "sha256": "696504c17c160cf7c71222281e714e4b8776452366fa3c10db97fe0ee2ea8bc5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-loading.jpg",
+      "sha256": "894cde0fe21c8947160552f71530d8dc9fe5311ba5526dd12a6d6075784e61a9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-locked.jpg",
+      "sha256": "42ffea3d81546e2c75cd9d0848ea516a28c4959423423614ea915a6c937ee6df"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-preview.jpg",
+      "sha256": "205a8e76f70cdef201ed42deb3e0cf1def67d921e83168b8a5e31469e1a246bb"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-scope-error.jpg",
+      "sha256": "25012b4bd8bc060bbed92e86111dae3a4aa77602103c4250ebd96742adf1268f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-stale.jpg",
+      "sha256": "1178391b90b39ec1378c6218554f29f3263e3dbb01f863275819a8e276f9d08f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-closed-aftercommit.jpg",
+      "sha256": "f1650348fb5d108fe0ed6ee91af531f3e6ec0e21bc79a35467c563356c86b7f7"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-inactive-account.jpg",
+      "sha256": "58f415d659bd6645b8c9cbb16ac8a3be6f2877f9e78f7dbe2ef50aad3dd04305"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-inactive-aftercommit.jpg",
+      "sha256": "a8dad950f68d2ce4756fe3d1f0d62632cebd3b89159f87aeb85afb25f0e2df59"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-late-scope-loss.jpg",
+      "sha256": "58f415d659bd6645b8c9cbb16ac8a3be6f2877f9e78f7dbe2ef50aad3dd04305"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-loading.jpg",
+      "sha256": "8ef9bb2923b6339172a3320b9f3a57438ca4fa43b00dc6f17701f8e83702551d"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-lost-ack.jpg",
+      "sha256": "171d0d504a7cf7e117d24814b532ca29ffed8d64fe3ca9c0ea13c095a5cd54d0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-read-error.jpg",
+      "sha256": "8a8c264323681c99a31ae6d81a93e2dcec4202652554718b71b072d9cf00a9c6"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-busy.jpg",
+      "sha256": "eeab3cd0f85718b718a72a421536c7ea505fd147d80cc044196ad0145b874d28"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-confirmed.jpg",
+      "sha256": "6ac64dc8908bfa505f6932e5fdb53a6af1a3f33184811024e97086ee814a8257"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-failure.jpg",
+      "sha256": "a0759402aee6ba6ed03f3cd68038e22d87f5a197ecc71e842c0b2747f6442ec1"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-loading.jpg",
+      "sha256": "76eaf85502abd74a32f5453b4c72b95bf9912c9b956029c353df89426ee63c44"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-locked.jpg",
+      "sha256": "1fc9559a21707fcf19bf4b27bbcba3ed2d551fca561ff4b67964520e09664f68"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-preview.jpg",
+      "sha256": "54685f85568010c0af1f696acc2bfff10da84b2897d3cc845ec4a13a8f060cbb"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-scope-error.jpg",
+      "sha256": "f4da72b181d92e46402795606bf60967bfd25c13d149499897eb85807a85d39d"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-stale.jpg",
+      "sha256": "16610f39d4197cb5b58d414a3f6cb9abb13581304d69db29fdfc31bdede4a5f4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-busy.jpg",
+      "sha256": "2713b6e7327385fe5b9dc5f3f8e720f29735f63f2ef86a02539a4ad19ac9f618"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-confirmed.jpg",
+      "sha256": "8a5a2a0289e07bded5b8b3743a6e2c901eec0afe45923c56a30e78c1edca2e52"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-failure.jpg",
+      "sha256": "6391c051b1cfcd8dd7b5087c24f6178932a4449ef6b697e1aad9b81f20347c93"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-loading.jpg",
+      "sha256": "542dad5457dace587bd9299283416b88004735af8f6255c694cf2b1794d04393"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-locked.jpg",
+      "sha256": "f7f0561191a677b1e80f2d659e54904c6533e3bdece51dd5463124ce7aa83442"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-preview.jpg",
+      "sha256": "51fe7718d6435957424d109f2bad7f2ea2d257e29384a81cdc3306fec9fe53eb"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-scope-error.jpg",
+      "sha256": "380c312ba30c1405d63dd8cec9affe6820973cbab669e230e4ecbae62651d4da"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-stale.jpg",
+      "sha256": "0b2bf657527c06a2847fcbc18b4d65ff88edbfa5885b009ba9a8669647b6f673"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-busy.jpg",
+      "sha256": "7b063136b3ebc1ec43e16e9a962f7c66dc206441f2ff4fcc10949bca2eacc6d9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-confirmed.jpg",
+      "sha256": "58bb50c56b6c5f6814cdee83ba363c2b70cf707344d9d8882f5a187081ae5f70"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-failure.jpg",
+      "sha256": "56e65581bc7e213a6912b4903b6a6bfed41812f651d0483c183155d6bfe9607d"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-loading.jpg",
+      "sha256": "1456d581aade34616abfe5427956bebfa40d00086b62ca600b4b667d698660d9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-locked.jpg",
+      "sha256": "19a93ed912eb3c2436675e07df3a138674bf0c685ee9476daf4459a7c27bcdb8"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-preview.jpg",
+      "sha256": "8c2798fae4d0db04cd2a84ea3cfe0e622dcacd658b3844eb45b3f772c7193406"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-scope-error.jpg",
+      "sha256": "42b6abd02e6a620734907162fbac8c2124c42f0cb5232e12c3a40ff35c92438b"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-stale.jpg",
+      "sha256": "035c76e471ddfe1ffa51ea53785e9be2de62021c11c68855ca5948b4974065ab"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-busy.jpg",
+      "sha256": "39ab17373e164740319b39a811d8e88e0968849aff1ae5e0a785c734ac40f741"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-confirmed.jpg",
+      "sha256": "05789fe7195bb6d5e445a37dcd4e3ed6baff777bdd01ba4a7deec7a2917754cd"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-failure.jpg",
+      "sha256": "45050a45a4010b70e954843ff77b9585748b2c8bd869a9210acc255307ac4844"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-loading.jpg",
+      "sha256": "3d5df57ddf24dd3a6e3febaa5950ac0db697c31c76bcbd113829e15d92662dfa"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-locked.jpg",
+      "sha256": "fa5f263ad6a93cf755e94cee0574d0540353148862fb66e10aed4534d8ef3e52"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-preview.jpg",
+      "sha256": "740e596631ba1b9436a454bd4605e24c68cd970aa414872a167bac75f463c61c"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-scope-error.jpg",
+      "sha256": "8f41f48ed84d57c13543fd6f9281d8e30f53bdbf1f056505ab9587efc2e4ac0f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-stale.jpg",
+      "sha256": "0caed177a67641c4d27d13e415c3717ddeac3dfde442039d888e15fbb33880db"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-closed-aftercommit.jpg",
+      "sha256": "2ef849bce3e1823f13337699668c1159b030e2d8dbe82ef9ae8abf5b6482dd75"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-inactive-account.jpg",
+      "sha256": "5c7cbd3dc238e9999dc01fff1fdabb7b708bada84e694013f794269438a1c75f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-inactive-aftercommit.jpg",
+      "sha256": "92881b02cb024e8bdde9d42fc0fef3defac04a113e5910f527a3ad22580f4559"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-late-scope-loss.jpg",
+      "sha256": "5c7cbd3dc238e9999dc01fff1fdabb7b708bada84e694013f794269438a1c75f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-loading.jpg",
+      "sha256": "ea5139e2c7e97deae14b7950c79c6a65898f13f8bfb81c783a42421e9db3770f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-lost-ack.jpg",
+      "sha256": "9f327010dec99ed657784592ca8ae8249267e13a8bfb1d80fb918708c4bf7d9e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-read-error.jpg",
+      "sha256": "4f0f7b552b5f764a31169e38386a56cc05dbe03e9321e556a01fa5a51ac5be99"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-busy.jpg",
+      "sha256": "c45ed1b020d08ae3fb3faecf3feb69ad6949eb8c88ab07184c621e7824950393"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-confirmed.jpg",
+      "sha256": "4b35cce1dbfbb35e1c0d537b3c1c5ccde7ab58c542b1d29bef8fff468f9ec159"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-failure.jpg",
+      "sha256": "5aa3f821e50af669092e7daa213e7e337dd06e936086d25ff78c6546e9167de9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-loading.jpg",
+      "sha256": "25c7d90a6404922d9f2dce9c084a9168f9ba56f48531765be2ff9214eab6b588"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-locked.jpg",
+      "sha256": "14a14c46982135296615cafd10a225aa2711ed10085695a05889765aeacffc1a"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-preview.jpg",
+      "sha256": "89d84e38d103c8018cc4b6eece3e546977203b3135a6863dc479e5a8a198efc5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-scope-error.jpg",
+      "sha256": "795829619f0ffe15b313cc5589d34738d8e0d389c95c458ad3d7758c2a68cc4f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-stale.jpg",
+      "sha256": "bb8a8ae5015230d6762596a25704f57941fe59060294dd64fc4e2ef92eb749c0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-busy.jpg",
+      "sha256": "656161352bd18b2fad22a7cdf63cb8bc7314dc1f268cc2ba4e3be2cd7547573b"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-confirmed.jpg",
+      "sha256": "40429fa863cd1dc0ce342decbf3c8c87cd92661eeea09d293bd1c9d7cf04d278"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-failure.jpg",
+      "sha256": "bbef431c6f4d04b4bf41f1ec1647ebe572b835f56422397afa95d74cad3a3eb4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-loading.jpg",
+      "sha256": "14c665a08214377865ac0cffe99fd23ea3c9d9995db4afeeaa25958cd7c46966"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-locked.jpg",
+      "sha256": "2f03ff6509d6bb098d8abe3ea4d47c3d2e19c528abbbc907713bd391e4ca47cf"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-preview.jpg",
+      "sha256": "045cc9923ff58cc27ea41aad224e0c8ddb51ad5c1c38cc42d5bd660facb3908c"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-scope-error.jpg",
+      "sha256": "e17388c3eea0d758311526acf4be5bca4de1c1f39f72c60593ac938c44be5408"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-stale.jpg",
+      "sha256": "e67455ce37a06442e906eb7a1756c0c33ca31d43f9356e990bae1499546864c5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-approval-results.json",
+      "sha256": "e7a1020ca350af00eaee4d4295597bb7def6072b69186ce465fd128459f4e6de"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-approval-states.json",
+      "sha256": "fbe9855e67289a7522dc7cefbc0310592b9bde8fb193cb08a14f49aae6e5d67d"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-inventory-1.jpg",
+      "sha256": "0a5c8a7963341c13b5176f881417f0148d0d19a8fce6ae6a9cc620737943f5e8"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-inventory-3.jpg",
+      "sha256": "0a5c8a7963341c13b5176f881417f0148d0d19a8fce6ae6a9cc620737943f5e8"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-inventory-6.jpg",
+      "sha256": "0a5c8a7963341c13b5176f881417f0148d0d19a8fce6ae6a9cc620737943f5e8"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-ledger-generated.jpg",
+      "sha256": "027c97c7dcd8b50f8515c71b493086905497faffaf8c50d011cec49bd17d45f2"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-ledger-pending.jpg",
+      "sha256": "2b37dbd2b4549e77c759e87d3ae8a45a36d7d9580acb7132915c61e6187e5aba"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-ledger-ready.jpg",
+      "sha256": "10dc991fe4754becffc027c42a434f5c3c22a0a30226b79ab6c67becf4df054d"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-dark-ledger-retry.jpg",
+      "sha256": "5a98df033c42ea2e019180419855e0aec07b1b1d750c2b43ea2509eea2c0859c"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-ledger-postcommit.jpg",
+      "sha256": "c7840102eebd4db86a9985122b2ba45b3fc1b747ca80e4252b5d85ff26e89b42"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-inventory-1.jpg",
+      "sha256": "a44f3d53d6b7332bacfff8aba17c2e4307001bdd0d5498bf87cc9d34201b568f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-inventory-3.jpg",
+      "sha256": "a44f3d53d6b7332bacfff8aba17c2e4307001bdd0d5498bf87cc9d34201b568f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-inventory-6.jpg",
+      "sha256": "a44f3d53d6b7332bacfff8aba17c2e4307001bdd0d5498bf87cc9d34201b568f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-ledger-generated.jpg",
+      "sha256": "83ce660622d73cc80f03bb7b22ae84502a0d49165eb52bf97431a5fc140a76ab"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-ledger-pending.jpg",
+      "sha256": "85a77969842a42364ead66c9e572b4da49c8b33d9c702f85c9686635e1cd9efc"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-ledger-ready.jpg",
+      "sha256": "a1c90887aeac91787a65f6139b02b5856f0147247c49f458fabc3a6129a86263"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-1280-light-ledger-retry.jpg",
+      "sha256": "70db33a6d722eb740f75b4c1fa0f356884a1dcb8a76edd489cafa3001be30a5f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-inventory-1.jpg",
+      "sha256": "25c6929d141a11f01b2df0bbbcd9dd4292b555e2a6c6028c0c790564bf2ba2ff"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-inventory-3.jpg",
+      "sha256": "b54609785763c7560b9c73e3f67ba0129496e9c30697ee228a87eb66805ae68d"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-inventory-6.jpg",
+      "sha256": "e9487416528997a766ce9b55b0c0c49f526d0c28ab5eefa3388761bcfc0797c4"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-ledger-generated.jpg",
+      "sha256": "333a89ad67a4b9ddc008c373c3db9f3fa8b5fab8808481357a093ae546a91324"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-ledger-pending.jpg",
+      "sha256": "155b94760723c6de324831e2b2127e2eac8dbddfce0f5892d733e85f46de6904"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-ledger-ready.jpg",
+      "sha256": "0c2aaa0f6ec8de9078e8f56c6c93db30753003207184464112d3e7451465c6d4"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-dark-ledger-retry.jpg",
+      "sha256": "0f11d5e7e7c66dbe4c934338eb29719ff812ae36f9b5dbc7b6ce649d502bdc0c"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-ledger-postcommit.jpg",
+      "sha256": "fa9d52ad22b9851a0410026cf258a24a0efbd348eb2be8759cd53ad952d1e004"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-inventory-1.jpg",
+      "sha256": "aa2847c0574055d5d4f60e54385202fc1594f959ac346ee8da24ab93f6456ad9"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-inventory-3.jpg",
+      "sha256": "9f6bdbd411b3f1c1dd23cbf8188d91d6df2b26569e384d0a9e25512462f7706f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-inventory-6.jpg",
+      "sha256": "60f31b08556c6fd459747a90ffb755a6d5d2c8b712c0ed3ff81ea90fffdb2ca6"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-ledger-generated.jpg",
+      "sha256": "afb0da5ffa055173f38ae4da5047d675419c51d3168b0a5a71d055b8ad35c30b"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-ledger-pending.jpg",
+      "sha256": "de126ac178f5ee9b522e706c734184dfe9b2dc0aef84f2736028207440b5a90c"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-ledger-ready.jpg",
+      "sha256": "9519b008dc1d422098b21ec1e032634ffb053c351abd00b7813eed3d237bb88e"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-390-light-ledger-retry.jpg",
+      "sha256": "1b0cef3e08196b26015cb08d7929df1fa20d2e7d9d84e507b2c3c15a0fe1c222"
+    },
+    {
+      "path": "docs/screenshots/M-09c/en-active-account-blocked.jpg",
+      "sha256": "5e21ced32a74f5c4c73eea7758170cf107c6339bb6d1da90c20b6ce095fc3cff"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-inventory-1.jpg",
+      "sha256": "05221164be69b44d2641b02ebf62371267a8791a3fdd7c32d1788ca2aa3c5300"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-inventory-3.jpg",
+      "sha256": "05221164be69b44d2641b02ebf62371267a8791a3fdd7c32d1788ca2aa3c5300"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-inventory-6.jpg",
+      "sha256": "05221164be69b44d2641b02ebf62371267a8791a3fdd7c32d1788ca2aa3c5300"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-ledger-generated.jpg",
+      "sha256": "b3f5f9f17c0b3eaa7e6ede39063d7a910d8142cd4ae250e14caf68f115a94e20"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-ledger-pending.jpg",
+      "sha256": "a94277f7003571f32a5ca81a31abe9d2d9deb76da5257466a8d981b06032a086"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-ledger-ready.jpg",
+      "sha256": "d21007f62c4fab16ac63bc511b0e59cfde0e0d2ae5c10580209cc78900545a7a"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-dark-ledger-retry.jpg",
+      "sha256": "eadd1ce3e0698ca3e892cb3f3b7a98c3ca71b7fc6287b94ff053fe4dbc084114"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-ledger-postcommit.jpg",
+      "sha256": "8dc9163c334d0df657f59bfd5a511602e26c17cbc55d4e6707d5350c29098d93"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-inventory-1.jpg",
+      "sha256": "22fa780e8346886ca786656551c9f109d3d29fdb1c7f54f0153968e2963d4b37"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-inventory-3.jpg",
+      "sha256": "22fa780e8346886ca786656551c9f109d3d29fdb1c7f54f0153968e2963d4b37"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-inventory-6.jpg",
+      "sha256": "22fa780e8346886ca786656551c9f109d3d29fdb1c7f54f0153968e2963d4b37"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-ledger-generated.jpg",
+      "sha256": "bdc0a4cebcacc68e7cd6cd8831818e0d7e71d699bdd2df0fd85aa65e997dc9b7"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-ledger-pending.jpg",
+      "sha256": "6fea895b681d7f64c519102ad9dfce59a209669a377fc21b2cd2548d81c0e2d6"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-ledger-ready.jpg",
+      "sha256": "cc19d452071b7a958b300afd0c0a28d9d03315545aaae4dc2d5c24586e11222f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-ledger-retry.jpg",
+      "sha256": "2be2b48eccbbd825b17d62938db4d5d1def066fd0e105127a0af2e65288f0bf8"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-inventory-1.jpg",
+      "sha256": "7f6d974dc97120146c6b2bb3b43d42004e13537877512538a7316db00dd88d66"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-inventory-3.jpg",
+      "sha256": "e7ff70364379797dbdca83184d5fcba86624e9c6cbce8d5b6c0a951771e50513"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-inventory-6.jpg",
+      "sha256": "31a839267e89d3d61a01f5f9e97e67666b67675d5c0280f011e0201408e484d7"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-ledger-generated.jpg",
+      "sha256": "c089d0b90d0dd6e97dd73940915438e4330e2e85ff3aa969eebdb066a90320ce"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-ledger-pending.jpg",
+      "sha256": "adf1fe99b30953e226dcc2ade90a25001717a28f890906ea5c93790112167b66"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-ledger-ready.jpg",
+      "sha256": "b709cba1ebbef79e57d3b6b57ef89e1c5b9610b0569810d347edf8061a06a8ce"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-dark-ledger-retry.jpg",
+      "sha256": "a400e2dd05d83a1c9ac351c2127456706fd9cce4252d0d264026a9b8ab95d252"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-ledger-postcommit.jpg",
+      "sha256": "b4ae4e8752a969ffe0090900d73b372446844e616a805c47a5d7a2ec08b00081"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-inventory-1.jpg",
+      "sha256": "c0ec637d8318fd671615bc0bd2546eb3f1d9db5b88bfaf45f425ee395b6ec84a"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-inventory-3.jpg",
+      "sha256": "165dbd593df9ad4fbb2cc21edfe11acc5e15fe00ad7f1d14504c247d3a17b59d"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-inventory-6.jpg",
+      "sha256": "9137f7a6741c770cd984ac93bf9270c7909f4275715f297114eb5385b85e117a"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-ledger-generated.jpg",
+      "sha256": "ed369ccb6382bc5c6e277825bfea3b38648c54fa33d11ccdb5274492fda185da"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-ledger-pending.jpg",
+      "sha256": "d9334dcf0820ed6c9029db06673a5d9f213900a2502fc7079af49eb9ecb6ef02"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-ledger-ready.jpg",
+      "sha256": "13efd44c0712a647393180ce4300b05ed87d473a8afa66ae786bdb1348716fd4"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-390-light-ledger-retry.jpg",
+      "sha256": "91c0d1df4a642cd316243af38f9851828b36da97c9e26e8d169450c8ed2df67f"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-active-account-blocked.jpg",
+      "sha256": "f8f1d51c77b9cec747ca5f7f4ec6edcf9c2652f0b4058c15b8a08b58344b9b16"
+    },
+    {
+      "path": "docs/screenshots/D-02/en-1280-receipt-alert-completed.jpg",
+      "sha256": "5f9f770d9db7474e03e3c85372ea4cafef380755cc576ec347f51075f1a772bf"
+    },
+    {
+      "path": "docs/screenshots/D-02/en-1280-receipt-alert-pending.jpg",
+      "sha256": "1e966b952f8cef74b4bb1d545dc3cdecdea1ffacf54bc583882d01bb3c082147"
+    },
+    {
+      "path": "docs/screenshots/D-02/en-390-receipt-alert-completed.jpg",
+      "sha256": "dde660126dff5fbfa49666b72726ddcba9fa5ffb7bd4e1025b8c7741b1adbc72"
+    },
+    {
+      "path": "docs/screenshots/D-02/en-390-receipt-alert-pending.jpg",
+      "sha256": "7f2588ef12d2f2e453b45d60eb1473b2eff5574581521b9e75b69dbb9e452b4b"
+    },
+    {
+      "path": "docs/screenshots/D-02/es-1280-receipt-alert-completed.jpg",
+      "sha256": "8dfa8a5b6cdd091cb21faf046dae284bae393fb2358f8885a48f275c23138337"
+    },
+    {
+      "path": "docs/screenshots/D-02/es-1280-receipt-alert-pending.jpg",
+      "sha256": "8fdac1632df894096b14e72afd2cda1981f35ec45f52c6681e046f1c236cf620"
+    },
+    {
+      "path": "docs/screenshots/D-02/es-390-receipt-alert-completed.jpg",
+      "sha256": "4ff376641c37f5ac8082bc7ca78e2d19d3842bbdc29896007961c91b067577e7"
+    },
+    {
+      "path": "docs/screenshots/D-02/es-390-receipt-alert-pending.jpg",
+      "sha256": "b6d9165fe2f78d376588032fa6c83ad680e58c18c36282f35cb2cbc5926d26bb"
+    },
+    {
+      "path": "docs/screenshots/D-02/receipt-alert-library-results.json",
+      "sha256": "293ce1be43958d7a3a42c4a967b24839926cde469f269ee2213528328da59b74"
+    }
+  ],
+  "release": {
+    "state": "PENDING final-head CI, merge and Pages exact-source verification",
+    "rollback": "39795c704a1bb9e65b088353a4b9d55be98c9a47"
+  },
+  "remainingGates": [
+    "Anu authenticated server roles and atomic durable mutations",
+    "Private receipt storage issue54 and real notification channel/delivery",
+    "Version retention/backups and owner acceptance",
+    "FI03 settlement separate batch41; generic expense deletion separate batch42",
+    "No real payments, financial writes, credentials, security configuration or external messages"
+  ]
+}

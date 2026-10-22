@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5275",
+  "checks": [
+    "en: StrictMode double mount, contained loading/read error/retry; immediate duplicate guard; cancel/unmount/receipt/actor fences; staged failure/retry; postcommit cancel preserves storage without late completion",
+    "es: StrictMode double mount, contained loading/read error/retry; immediate duplicate guard; cancel/unmount/receipt/actor fences; staged failure/retry; postcommit cancel preserves storage without late completion"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual organism/provider fault harness; no dispatch or delivery."
+  ]
+}

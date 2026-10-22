@@ -1,0 +1,107 @@
+{
+  "batch": 35,
+  "baseCommit": "ede03f34190e06b5b4a9f502c9262036a76cb59f",
+  "build": "npm run build98898 EXIT0: strictTS/spacing/manual lint; Vite20.39s;65.9MB selected shots. Existing circular-reexport/large-chunk warnings retained.",
+  "runtimeSourceSha256": {
+    "src/modules/admin/expenseLedger.ts": "28fa216dd06cfd5a84e78f8eb383836bc95e2e46d7c4c82b70a47592a5ce86d5",
+    "src/modules/admin/useExpenseLedger.ts": "ad5e9c91398c3cf4239ac9726fc6a9aaa9e045892690c71af22825836252c857",
+    "src/modules/admin/ExpensesPage.tsx": "401cf7d766e6eb2f82a186af08a016f5bc4b0d6c2cfac6a481d462102111e3ca",
+    "src/modules/admin/expenses.ts": "cacc16060de369c5c6318816cfc9e571d9cfe61ee6ef1ee62331b2225e7c2088",
+    "src/modules/admin/strings.ts": "3d93b74cff7afb8ec1eb4e20c5b10fde5482b0ed220b681c192d6f5ae0533096",
+    "src/modules/admin/specs.ts": "229dbb8ac2ed7637b1a86ca02bf0b5b3166bbaecdd1a7ad47e3e6e25f6cb67f4",
+    "src/components/organism/ExpenseLedgerStatus/ExpenseLedgerStatus.tsx": "3439374c1da3f46272eddd9e60771fe1eca85138566ef2d665b944a2c0159c06",
+    "src/components/organism/ExpenseLedgerStatus/ExpenseLedgerStatus.meta.ts": "4107b12c70729afc4039ce48099271a89d13b6c783507ed46d40e7c54eb4a689"
+  },
+  "allSourceTreeSha256": "0bd1b2a463ebecc6cb7d24d335c7e35b6158f2efcc26530e98de1b20fa1fbfaa",
+  "assetTreeSha256": "9aad0b3317bd0e13ff721d2bcd8e18a27831441ffe0c3bc2b50e5100e07a2c9a",
+  "treeDigestMethod": "Sorted path then NUL then bytes then NUL; SHA256.",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5262/assets/index-BxAiQOcH.js",
+    "sha256": "3cfe15a2af017c68f8bf46b9a0fcbae7a315664d99c843cd0e77cdee45dff96a",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5262/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "protectedFilesUnchanged": [
+    "src/data/MockProvider.ts",
+    "src/data/schema.ts",
+    "src/data/expenseCalc.ts",
+    "src/data/subscriptionExpenses.ts",
+    "src/modules/admin/AppDirectoryPage.tsx",
+    "src/auth/roles.ts",
+    "src/auth/permissions.ts",
+    "docs/frontend-completion/features.json",
+    "docs/kanban.md"
+  ],
+  "generatedGlobalDiffs": [],
+  "baseline": "Original exact-source fixture5 actual-Mock defects confirmed.",
+  "domain": "10 groups PASS; existing subscription expense preview PASS.",
+  "production": "PASS91197 all8 EN/ES390/1280lightdark combinations +all11roles; all6 commands, immediate duplicate, quota rollback/retry/form reset, paid deletion UI lock, confirmation cancel, template/generation dedupe, lostack replay, held cancellation and actual SPA actor/unmount, no nonledger effects/errors/dispatch.",
+  "development": "PASS72897 actual existing-provider EN/ES staged actorloss/write/read/canary, freshly paid deletion conflict, staged audit cancellation, postcommit actor loss/one durable result+audit/no success/restored replay/form reset, stale older-read completion containment, one read Retry, zero pageerrors.",
+  "limits": [
+    "Dedicated mock M09c only; generic provider/table paid-delete bypass unresolved.",
+    "Finance source role conflict and Nov30/Medium/NotVerified preserved.",
+    "No real money movement/subscription import/backend/security/phase/commercial acceptance. Root alone Git/integration/exact-head CI/release."
+  ],
+  "runtimeSourcesAndAssetTreesUnchangedAfterQa": true,
+  "captures": [
+    "en-1280-dark-ledger-generated.jpg",
+    "en-1280-dark-ledger-pending.jpg",
+    "en-1280-dark-ledger-ready.jpg",
+    "en-1280-dark-ledger-retry.jpg",
+    "en-1280-ledger-postcommit.jpg",
+    "en-1280-light-ledger-generated.jpg",
+    "en-1280-light-ledger-pending.jpg",
+    "en-1280-light-ledger-ready.jpg",
+    "en-1280-light-ledger-retry.jpg",
+    "en-390-dark-ledger-generated.jpg",
+    "en-390-dark-ledger-pending.jpg",
+    "en-390-dark-ledger-ready.jpg",
+    "en-390-dark-ledger-retry.jpg",
+    "en-390-ledger-postcommit.jpg",
+    "en-390-light-ledger-generated.jpg",
+    "en-390-light-ledger-pending.jpg",
+    "en-390-light-ledger-ready.jpg",
+    "en-390-light-ledger-retry.jpg",
+    "es-1280-dark-ledger-generated.jpg",
+    "es-1280-dark-ledger-pending.jpg",
+    "es-1280-dark-ledger-ready.jpg",
+    "es-1280-dark-ledger-retry.jpg",
+    "es-1280-ledger-postcommit.jpg",
+    "es-1280-light-ledger-generated.jpg",
+    "es-1280-light-ledger-pending.jpg",
+    "es-1280-light-ledger-ready.jpg",
+    "es-1280-light-ledger-retry.jpg",
+    "es-390-dark-ledger-generated.jpg",
+    "es-390-dark-ledger-pending.jpg",
+    "es-390-dark-ledger-ready.jpg",
+    "es-390-dark-ledger-retry.jpg",
+    "es-390-ledger-postcommit.jpg",
+    "es-390-light-ledger-generated.jpg",
+    "es-390-light-ledger-pending.jpg",
+    "es-390-light-ledger-ready.jpg",
+    "es-390-light-ledger-retry.jpg"
+  ],
+  "inspectedCaptures": [
+    "es-390-dark-ledger-generated.jpg",
+    "en-1280-light-ledger-ready.jpg",
+    "en-390-light-ledger-retry.jpg",
+    "es-390-ledger-postcommit.jpg"
+  ],
+  "captureNote": "Canonical immutable production captures reset scroll to top. The full-page dev error-state capture retains a sticky header at its current scroll offset; error containment/control state is visible, no runtime defect inferred.",
+  "sourceFreeze": "FINAL local source/build/domain/immutable production+actual development proof complete, all8runtime/fullsrc/fullassets/servedJS+CSS unchanged. Root alone Git/integration/exact-head CI/release. No production/backend/owner/commercial acceptance.",
+  "postQaFormatting": {
+    "change": "Root removed one trailing blank line at EOF in src/modules/admin/expenses.ts after git diff --check flagged it. No executable statements changed.",
+    "sourceFingerprintAfter": "1f5783d21e7af4f857389341dd78785e344f0881cf1e930b9ef453f739b2abaf",
+    "provenance": "Earlier actual browser matrices and source hashes remain the pre-format freeze; clean build/current integration CI recorded separately. No rerun matrix or byte-identical source claim inferred.",
+    "cleanBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "/tmp/hoy-expense-ledger-format-build.log",
+      "scope": "Formatting-only current source; prior actual UI matrices retain original source provenance, no repeat claimed."
+    }
+  }
+}

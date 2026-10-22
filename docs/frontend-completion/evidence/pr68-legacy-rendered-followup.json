@@ -1,0 +1,46 @@
+{
+  "head": "9adcceddfa976c7520836b9555852628276e9e24",
+  "sourceFingerprint": "962c969fa169a01fb2c7b732630b4e97acf62923e78266650481b29ca00a3e0b",
+  "sourceBasis": "Same root path+bytes method as combined-32-33-ui.json; only legacy selectors/docs changed since build58156 at02568f3.",
+  "runs": [
+    {
+      "script": "test-continuation-library-ui.mjs",
+      "base": "http://127.0.0.1:5254",
+      "log": "/tmp/hoy68-legacy-library.log",
+      "exit": 0
+    },
+    {
+      "script": "test-maintenance-states.mjs",
+      "base": "http://127.0.0.1:5253",
+      "log": "/tmp/hoy68-legacy-maintenance-states.log",
+      "exit": 0
+    },
+    {
+      "script": "test-maintenance-fences-states.mjs",
+      "base": "http://127.0.0.1:5253",
+      "log": "/tmp/hoy68-current-maintenance-states.log",
+      "exit": 0
+    }
+  ],
+  "scope": "All3 actual serial corrected legacy/new suites passed, original assertions/timeouts retained, EN/ES desktop/mobile, zero page errors. All browsers closed. Earlier failure receipts retained.",
+  "savedAfterIn": "next operational integration rather than modifying PR68 checked head",
+  "remaining": "Final PR68 exact-head CI/merge/deployment pending. Not owner/provider acceptance.",
+  "resultHashes": {
+    "docs/frontend-completion/routes.json": "ca9a2a3eb168779bb5ff6e15d27df4038539137a1b68f99baeb10c0e90eb3f6b",
+    "docs/screenshots/D-02/continuation-library-results.json": "56f15ddd9ac5971eecad59d2cd348628d1c8c9ef1fd79c76978361f8162b448b",
+    "docs/screenshots/D-02/en-1280-continuation-marketing.jpg": "c8e7f2e479201925a5b940a81a6221545bba865471b70160b29ffe5234b9088e",
+    "docs/screenshots/D-02/en-1280-continuation-quotes.jpg": "c6fad732d8b10c9766f59c351b4207ceeed91ddf9562ac01396541cc11bd463e",
+    "docs/screenshots/D-02/en-390-continuation-marketing.jpg": "d1c5d7fd2db8820558d8decb8380303e751ed8688ee807822a2c7ff30f582d95",
+    "docs/screenshots/D-02/en-390-continuation-quotes.jpg": "bfc80556feff21d26b5cf0563327dfbe6af3b5af687931bce669794ba8318261",
+    "docs/screenshots/D-02/es-1280-continuation-marketing.jpg": "570ecbed1d1afa38837383d96103881b89e93862cce3c74e9b7508387fe7a62a",
+    "docs/screenshots/D-02/es-1280-continuation-quotes.jpg": "f04581f4a489e1ea28ba9282eec57bd5ed3f9575f3485526ecdc50e6c3cbe9f6",
+    "docs/screenshots/D-02/es-390-continuation-marketing.jpg": "0cd29652d1c2ad59dd121ba4fe3650458711f6fb03d033271a30b36243d64735",
+    "docs/screenshots/D-02/es-390-continuation-quotes.jpg": "fa3c24d1324fa6bfe242c55f1ad6255a19200f367c6551617adcd39ce4813cb1",
+    "docs/screenshots/S-10/en-1280-maintenance-read-error.jpg": "9748b081feb3960ba6957b91dcfce6fa40ee6b477d1f82671a197837286ff5a0",
+    "docs/screenshots/S-10/en-390-maintenance-read-error.jpg": "a2b2a792225e864982eeedd323f52652abc72b2a04a2c1eaaa36c0d1b90aacde",
+    "docs/screenshots/S-10/en-maintenance-state-results.json": "4bb439d0858f4ef1ec41a76b8b3e99791c650a0172c765619350aaff6795be87",
+    "docs/screenshots/S-10/es-1280-maintenance-read-error.jpg": "fa4beff71113960254dbfd15d2ce252e7fac3a6e0dc1b30c850e732d4abed320",
+    "docs/screenshots/S-10/es-390-maintenance-read-error.jpg": "94ff5bf4fd507044c6e642c7720b3d794fcb82c469c8eaf363435fad994059ff",
+    "docs/screenshots/S-10/es-maintenance-state-results.json": "4bb439d0858f4ef1ec41a76b8b3e99791c650a0172c765619350aaff6795be87"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "email: inactive account read and write proceeded with unchanged role",
+    "expense: inactive account read and write proceeded with unchanged role"
+  ],
+  "mode": "actual pre-fix counterexample",
+  "limits": "Only scoped fictional command boundary. No auth/session/role policy or production changes.",
+  "beforeSourceCheckpoint": "7cba8cf(before root guard changes)",
+  "helperChanges": "Only require existing users.status==='active' in the two existing owned-account fences; role definitions/session/provider untouched.",
+  "fixtureCorrection": "First root attempt supplied incomplete email edit fields and correctly failed email_edit_unsupported; corrected complete supported fixture then independently reproduced both inactive-account writes.",
+  "regression": "operational-active-account-regression.json: all8 actual helper cases passed; rendered supplement pending current combined freeze"
+}

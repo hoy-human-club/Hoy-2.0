@@ -1,0 +1,159 @@
+{
+  "batch": 36,
+  "requirement": "NT-03",
+  "base": "1560f23052f92a08b2bc82b744ed27ec9e208065",
+  "runtimeBefore": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "runtimeAfter": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "buildExit": 0,
+  "buildLog": "/tmp/hoy36-build-inventory.log",
+  "snapshot": "/tmp/hoy-receipt-alert-qa-da299fc02f39",
+  "productionBase": "http://127.0.0.1:5266",
+  "buildRelease": "source base plus explicitly uncommitted batch36 changes; not deployed",
+  "renderedStatus": "PASS all4 serial suites plus targeted maintenance denial exit0",
+  "limits": [
+    "Local fictional alert intent/rehearsal only; no real staff delivery or source acceptance.",
+    "Parent owns Git/CI/deployment/shared metadata."
+  ],
+  "domainChecks": [
+    {
+      "command": "node scripts/test-receipt-alert-intent.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-intent-final.log"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "log": "/tmp/hoy36-tsc-final.log"
+    },
+    {
+      "command": "node scripts/test-transfer-receipts.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-receipts-final.log"
+    },
+    {
+      "command": "node scripts/test-operational-quotes.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-quotes-final.log"
+    },
+    {
+      "command": "node scripts/test-trial-eligibility.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-trial-final.log"
+    }
+  ],
+  "newFiles": [
+    "src/modules/transfers/receiptAlert.ts",
+    "src/components/organism/ReceiptAlertResult/ReceiptAlertResult.tsx",
+    "src/components/organism/ReceiptAlertResult/ReceiptAlertResult.meta.ts",
+    "scripts/test-receipt-alert-intent.mjs",
+    "scripts/test-receipt-alert-ui.mjs",
+    "scripts/test-receipt-alert-states.mjs",
+    "scripts/receipt-alert-harness.tsx",
+    "src/components/organism/ReceiptAlertResult/ReceiptAlertView.tsx",
+    "scripts/test-receipt-alert-library.mjs"
+  ],
+  "historicalOnly": false,
+  "finalBuildStatus": "PASS exit0",
+  "historicalBuild": {
+    "runtime": "6d608be2908ca48530e225133ad74f9b85fba6e29c9aa995c0020cb0eed2e4a7",
+    "buildExit": 0,
+    "reason": "Direct exported intent helper mock guard and explicit StrictMode mounted setup corrected before rendered QA."
+  },
+  "bundleFingerprint": "a03449f61fd461eaae039bc3147a9067b1e9cd170cf0732ecc40eaa6cf1b7c3f",
+  "ciStatus": "pending parent integration",
+  "deploymentStatus": "not deployed; immutable local QA only",
+  "browserStatus": "all browsers closed; exclusive slot released to parent",
+  "scriptDigests": {
+    "scripts/test-receipt-alert-states.mjs": "8b419ca06d70c6991812df63cbaf4a48b7ed6390ba88afceceee5497b1fd6869",
+    "scripts/test-receipt-alert-ui.mjs": "9e43b0732931b066af1de81920dfe24df61d0919aab9e7132c4ae763f1f158d9",
+    "scripts/test-receipt-alert-maintenance.mjs": "ca30138b9177476aa149bebbb93035ccc496f2552908c381a6d27672c73e849b",
+    "scripts/test-receipt-alert-library.mjs": "da3f59b392d9cc6f56b80a636e2004b5cacb34c311c7b522bd3695130ad30779",
+    "scripts/test-receipt-alert-intent.mjs": "360400a080093a20d7b06947a468f88715682e7a5ac5aaeb6937e325517af4fb",
+    "scripts/receipt-alert-harness.tsx": "842bf1c5c6b36537b79084bc085a8ebf6c54a70c52bb1da6eca30f66dfe745ad"
+  },
+  "previousBuilds": [
+    {
+      "runtime": "6d608be2908ca48530e225133ad74f9b85fba6e29c9aa995c0020cb0eed2e4a7",
+      "exit": 0,
+      "historicalOnly": true
+    },
+    {
+      "runtime": "04564ad9833a18e8856329bdabdc16a9ee4f3ff41bb60e3163c7701e0677bf03",
+      "exit": 0,
+      "historicalOnly": true
+    }
+  ],
+  "renderedChecks": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5266 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-ui.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-alert-ui.log",
+      "results": "docs/screenshots/C-04/receipt-alert-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5265 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-states.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-alert-states.log",
+      "results": "docs/screenshots/C-04/receipt-alert-state-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5266 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-transfer-receipts-ui.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-transfer-regression.log",
+      "results": "docs/screenshots/S-09/transfer-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5266 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-library.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-alert-library.log",
+      "results": "docs/screenshots/D-02/receipt-alert-library-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5266 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-maintenance.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy36-maintenance.log",
+      "results": "docs/screenshots/C-04/receipt-alert-maintenance-result.json",
+      "browserClosed": true,
+      "scope": "Supplemental maintenance denied-role case only; full passed upload matrix not rerun."
+    }
+  ],
+  "inspectedShots": [
+    "docs/screenshots/C-04/en-390-receipt-alert-completed-light.jpg",
+    "docs/screenshots/C-04/en-1280-receipt-alert-attempt-error-dark.jpg",
+    "docs/screenshots/C-04/es-390-receipt-alert-attempt-error-light.jpg",
+    "docs/screenshots/D-02/en-1280-receipt-alert-pending.jpg",
+    "docs/screenshots/C-04/es-1280-receipt-alert-completed-dark-usr_teach.jpg",
+    "docs/screenshots/D-02/es-390-receipt-alert-completed.jpg"
+  ],
+  "visualAssessment": "Inspected EN mobile completed light, EN desktop unconfirmed attempt dark and ES mobile unconfirmed attempt light: clear saved-receipt/local-rehearsal distinction, no clipped alert text or horizontal overflow, explicit no-message/uncertain-result copy and usable retry/cancel controls. Also inspected ES teacher desktop completed dark and D02 EN desktop pending/legacy/preview plus ES mobile completed: readable, wrapped safely; library examples disabled and explicitly fictional.",
+  "runtimeAfterRendered": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "httpFingerprintAfterRendered": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "roleCoverage": {
+    "allowed": [
+      "customer",
+      "teacher",
+      "super_admin (existing guard)"
+    ],
+    "denied": [
+      "admin",
+      "front_desk",
+      "coordinator",
+      "finance",
+      "marketing",
+      "developer",
+      "public",
+      "maintenance"
+    ],
+    "maintenanceSupplement": "Permanent fullprod denied array updated; targeted actual maintenance case passed separately."
+  },
+  "runtimeAfterSupplementalRole": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "runtimeFingerprintBasis": "SHA256 over sorted src file paths (excluding src/app/captureDates.ts): relative UTF8 path + NUL + raw bytes + NUL for each; then vite.config.ts relative UTF8 path + NUL + raw bytes + NUL.",
+  "rootFingerprint": "a553f0a779c689ed39ba62da1581791aeabfc6fbfa770cfd483c72e35082233c",
+  "rootBasis": "SHA256 over sorted src file paths (excluding exact src/app/captureDates.ts): relative UTF8 path then raw bytes for each, no delimiters; then vite.config.ts raw bytes only (no path).",
+  "fingerprintReconciliation": "Both digests computed read-only over identical current source. Different serialization bases only; no runtime source edits after frozen build50963 or production/dev QA. Subsequent changes were tests, screenshots, documentation and evidence only.",
+  "sourceFileHashes": "docs/frontend-completion/evidence/batch-36-source-hashes.json"
+}

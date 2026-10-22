@@ -100,7 +100,7 @@ export const M04 = defineSpec({
   data: ['email_templates', 'message_log', 'audit_log', 'users', 'profiles'],
   integrations: [],
   states: ['Scoped page reads loading / failure / retry', 'Saved-template preview loading / failure / retry', 'Self-only local preview / discard', 'Immediate busy / duplicate submission guarded', 'Atomic quota or staged failure / same-command retry', 'Stale saved version or account / reopen preview', 'Cancel/unmount/template/locale/actor context / no late UI', 'Local simulation recorded / provider delivery disconnected'],
-  notes: [...(canvasSpecs['M-04'].notes ?? []), 'body_mjml stores a JSON {es,en} plain-text body until the MJML designer exists.', '0055: the default set is src/data/emailCatalog.ts (95 emails to customers, teachers and the team: 72 from the 2026-10-02 inventories, 23 proposed); the list is filtered by audience and grouped by priority; every email is a suggestion with a note for the admin.', 'Versions are the audit_log rows of the template; rollback restores the before value.', 'Self-test freezes the saved template version, selected preview locale and current actor email, then records existing-shaped message_log plus email_template.test audit atomically in MockProvider. payload.test and simulation local distinguish legacy sent enum/sent_at from real delivery. Safe digest replay and fresh scoped ownership checks support retry; no real email/provider request occurs.', 'Only current existing role access is observed; it does not prove server isolation. Template save/rollback and generic comms remain separate partial workflows. New MVP auth/durability/delivery/commercial gates remain unaccepted.'],
+  notes: [...(canvasSpecs['M-04'].notes ?? []), 'body_mjml stores a JSON {es,en} plain-text body until the MJML designer exists.', '0055: the default set is src/data/emailCatalog.ts (95 emails to customers, teachers and the team: 72 from the 2026-10-02 inventories, 23 proposed); the list is filtered by audience and grouped by priority; every email is a suggestion with a note for the admin.', 'Versions are the audit_log rows of the template; rollback restores the before value.', 'Self-test freezes the saved template version, selected preview locale and current actor email, then records existing-shaped message_log plus email_template.test audit atomically in MockProvider. payload.test and simulation local distinguish legacy sent enum/sent_at from real delivery. Safe digest replay and fresh scoped ownership checks support retry; no real email/provider request occurs.', 'Only current existing role access is observed; it does not prove server isolation. Batch34 adds bounded atomic mock template save/rollback, immutable versions and contained required-read/cancel/retry/replay states; generic comms remains separate. New MVP auth/durability/delivery/commercial gates remain unaccepted.'],
 });
 
 export const M05 = defineSpec({
@@ -266,7 +266,7 @@ const EXPENSE_NOTES = [
   'An expense is neither a payments row (money in from members) nor a payroll row (teacher pay): it lives in expenses / expense_templates and subtracts in the M-09 balance. Mixing it into payments would corrupt every revenue number.',
   'src/data/expenseCalc.ts is the single arithmetic: dueDatesFor() and fixedExpensesFor() are what the seed and the generator both call, so the fixed rows on screen and the ones a button creates cannot disagree.',
   'Generating a period is idempotent: one row per template per due day; a due day that already has its row is skipped (paid or not), nothing is deleted, inactive templates generate nothing. Regenerating never duplicates, and a paid row is never touched.',
-  'expenses.write gates every action (finance, admin, super_admin); expenses.read is enough to look. Every write appends an audit_log row through useAudit(\'admin\').',
+  'expenses.write gates every action (finance, admin, super_admin); expenses.read is enough to look. M09c mock commands atomically stage ledger changes and an audit_log receipt with source admin; entered bodies are not duplicated in new receipts. Generic provider/table entry paths and production enforcement remain separate.',
 ];
 
 /** M-09c — the expenses ledger. */
@@ -274,7 +274,7 @@ export const M09c = defineSpec({
   code: 'M-09c',
   name: { es: 'Finanzas · Gastos', en: 'Finance · Expenses' },
   purpose: { es: 'El libro de gastos del estudio: fijos recurrentes (arriendo, servicios, aseo por quincena…) generados de plantillas con un botón idempotente, variables registrados a mano, pagado y por pagar, por categoría — la tercera pata del balance de M-09.', en: 'The studio’s expenses ledger: recurring fixed costs (rent, utilities, cleaning by the quincena…) generated from templates with one idempotent button, variable costs recorded by hand, paid and to pay, by category — the third leg of the M-09 balance.' },
-  layout: ['RangeChips (7 / 15 / 30 / 90 días / Todo, los mismos de M-09)', 'KPIRow (fijos, variables, pagado, por pagar)', 'ByCategory (BarList)', 'AddExpenseForm (tipo, concepto, categoría, valor, fecha, pagado/por pagar, método, proveedor, nota)', 'TemplatesPanel (periodo + generar gastos fijos, tabla de plantillas con activar/desactivar, nueva plantilla)', 'ExpensesTable (fecha, concepto, categoría, tipo, método, valor, estado + marcar pagado)'],
+  layout: ['ExpenseLedgerStatus (local-only, owned read error, immutable retry, cancellable wait, honest postcommit feedback)', 'RangeChips (7 / 15 / 30 / 90 días / Todo, los mismos de M-09)', 'KPIRow (fijos, variables, pagado, por pagar)', 'ByCategory (BarList)', 'AddExpenseForm (tipo, concepto, categoría, valor, fecha, pagado/por pagar, método, proveedor, nota)', 'TemplatesPanel (periodo + generar gastos fijos, tabla de plantillas con activar/desactivar, nueva plantilla)', 'ExpensesTable (fecha, concepto, categoría, tipo, método, valor, estado + marcar pagado)'],
   data: ['expenses', 'expense_templates', 'audit_log'],
   roles: ['super_admin', 'admin', 'finance'],
   logic: [
@@ -284,7 +284,7 @@ export const M09c = defineSpec({
     ...EXPENSE_NOTES,
   ],
   integrations: [],
-  states: ['Loading', 'Empty range', 'No templates yet', 'Generate: n created / all skipped', 'Unpaid row: marcar pagado', 'Paid row: locked', 'Read-only (solo expenses.read)', 'Invalid form (empty concept, zero amount)'],
+  states: ['Scoped read error and Retry', 'Immediate busy lock', 'Stale/paid-delete conflict', 'Atomic record/audit rollback', 'Retained immutable retry', 'Stop waiting / unmount / context change', 'Postcommit acknowledgement withheld, saved rows retained', 'Loading', 'Empty range', 'No templates yet', 'Generate: n created / all skipped', 'Unpaid row: marcar pagado', 'Paid row: locked', 'Read-only (solo expenses.read)', 'Invalid form (empty concept, zero amount)'],
   notes: EXPENSE_NOTES,
 });
 

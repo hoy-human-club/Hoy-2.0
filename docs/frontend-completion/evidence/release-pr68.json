@@ -1,0 +1,195 @@
+{
+  "pr": "https://github.com/imagine-os/hoy/pull/68",
+  "checkedHead": "9adcceddfa976c7520836b9555852628276e9e24",
+  "merge": "39795c704a1bb9e65b088353a4b9d55be98c9a47",
+  "version": "0.25.0",
+  "state": "VERIFIED LIVE",
+  "checkedWorkflows": [
+    {
+      "id": 39727828779,
+      "name": "Class Management QA",
+      "conclusion": "success"
+    },
+    {
+      "id": 39727828834,
+      "name": "Media picker QA",
+      "conclusion": "success"
+    },
+    {
+      "id": 39727828792,
+      "name": "Website preview QA",
+      "conclusion": "success"
+    },
+    {
+      "id": 39727828785,
+      "name": "Future frontend mock QA",
+      "conclusion": "success"
+    },
+    {
+      "id": 39727828757,
+      "name": "Photography QA",
+      "conclusion": "success"
+    },
+    {
+      "id": 39727828789,
+      "name": "Frontend continuation QA",
+      "conclusion": "success"
+    }
+  ],
+  "checkedJobs": [
+    {
+      "run": 39727828779,
+      "name": "Class Management QA",
+      "jobs": [
+        {
+          "id": 119655735399,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 39727828834,
+      "name": "Media picker QA",
+      "jobs": [
+        {
+          "id": 119655735225,
+          "name": "picker",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 39727828792,
+      "name": "Website preview QA",
+      "jobs": [
+        {
+          "id": 119655735169,
+          "name": "preview",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 39727828785,
+      "name": "Future frontend mock QA",
+      "jobs": [
+        {
+          "id": 119655735142,
+          "name": "maintenance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119655735310,
+          "name": "marketing-fences",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119655735350,
+          "name": "google-hours",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 39727828757,
+      "name": "Photography QA",
+      "jobs": [
+        {
+          "id": 119655735152,
+          "name": "photography",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 39727828789,
+      "name": "Frontend continuation QA",
+      "jobs": [
+        {
+          "id": 119655734863,
+          "name": "fictional-registration",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119655735108,
+          "name": "studio-calendar",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119655735192,
+          "name": "operational-quotes",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119655735327,
+          "name": "marketing-drafts",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "pagesRun": 39728393641,
+  "pagesJobs": [
+    {
+      "id": 119657542374,
+      "name": "build",
+      "conclusion": "success"
+    },
+    {
+      "id": 119657951742,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 119658241903,
+      "name": "verify-subscriptions",
+      "conclusion": "success"
+    }
+  ],
+  "releaseEvidence": [
+    {
+      "id": 119657542374,
+      "lines": [
+        "2026-10-22T05:30:22.2247838Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +39795c704a1bb9e65b088353a4b9d55be98c9a47:refs/remotes/origin/main",
+        "2026-10-22T05:30:30.8627883Z  * [new ref]         39795c704a1bb9e65b088353a4b9d55be98c9a47 -> origin/main",
+        "2026-10-22T05:30:32.3044843Z 39795c704a1bb9e65b088353a4b9d55be98c9a47",
+        "2026-10-22T05:31:19.9359355Z Release manifest: 0.25.0 39795c704a1bb9e65b088353a4b9d55be98c9a47",
+        "2026-10-22T05:31:33.2874763Z Artifact github-pages.zip successfully finalized. Artifact ID 12403813567",
+        "2026-10-22T05:31:33.2876850Z Artifact github-pages has been successfully uploaded! Final size is 304201089 bytes. Artifact ID is 12403813567"
+      ]
+    },
+    {
+      "id": 119658241903,
+      "lines": [
+        "2026-10-22T05:32:39.5630495Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +39795c704a1bb9e65b088353a4b9d55be98c9a47:refs/remotes/origin/main",
+        "2026-10-22T05:32:47.4978096Z  * [new ref]         39795c704a1bb9e65b088353a4b9d55be98c9a47 -> origin/main",
+        "2026-10-22T05:32:48.9306136Z 39795c704a1bb9e65b088353a4b9d55be98c9a47",
+        "2026-10-22T05:32:54.2329999Z ##[group]Run node scripts/test-subscriptions-live.mjs hoy \"39795c704a1bb9e65b088353a4b9d55be98c9a47\"",
+        "2026-10-22T05:32:54.2330790Z \u001b[36;1mnode scripts/test-subscriptions-live.mjs hoy \"39795c704a1bb9e65b088353a4b9d55be98c9a47\"\u001b[0m",
+        "2026-10-22T05:33:04.9784004Z Verified https://imagine-os.github.io/hoy/#/admin/finance/subscriptions",
+        "2026-10-22T05:33:05.1348337Z   name: subscriptions-live-39795c704a1bb9e65b088353a4b9d55be98c9a47",
+        "2026-10-22T05:33:06.2797548Z Artifact subscriptions-live-39795c704a1bb9e65b088353a4b9d55be98c9a47.zip successfully finalized. Artifact ID 12404455878",
+        "2026-10-22T05:33:06.2799143Z Artifact subscriptions-live-39795c704a1bb9e65b088353a4b9d55be98c9a47 has been successfully uploaded! Final size is 3338914 bytes. Artifact ID is 12404455878"
+      ]
+    }
+  ],
+  "rollback": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "localRenderedSupplement": "pr68-legacy-rendered-followup.json",
+  "limits": [
+    "All6 triggered workflows/all11 jobs passed at exact checked head. Build/deploy/hosted selected-route verification establishes provenance and selected fixture behavior, not full acceptance.",
+    "Original OT01/OT02 After Nov30 phases unchanged; marketing local/draft only, maintenance fictional/no operational actions.",
+    "No further direct local public-manifest GET attempted after prior PR66 HTTP403; ordinary hosted release check passed through existing authorized workflow."
+  ]
+}

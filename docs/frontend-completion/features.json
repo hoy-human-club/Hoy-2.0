@@ -4768,33 +4768,73 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "",
-      "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "implementationStatus": "partial",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
         "src/modules/staff/HomePage.tsx",
-        "src/data/comms.ts"
+        "src/data/comms.ts",
+        "src/modules/transfers/receiptAlert.ts",
+        "src/components/organism/ReceiptAlertResult/ReceiptAlertResult.tsx",
+        "docs/frontend-completion/evidence/batch-36-build.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/checkout/:id?pass=pack12"
+      ],
+      "tests": [
+        "scripts/test-receipt-alert-intent.mjs",
+        "scripts/test-receipt-alert-ui.mjs",
+        "scripts/test-receipt-alert-states.mjs",
+        "scripts/test-receipt-alert-library.mjs",
+        "scripts/test-receipt-alert-maintenance.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-04/receipt-alert-results.json",
+        "docs/screenshots/C-04/receipt-alert-state-results.json",
+        "docs/screenshots/D-02/receipt-alert-library-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract.",
+      "nextAction": "Verify combined exact-head release; separately resolve authorized destinations and implement authenticated durable staff delivery. No staff message sent by the local rehearsal.",
       "candidateRoutes": [
         "/#/app/checkout/sample",
         "/#/staff"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Actual isolated batch36 domain/fullbuild/production/dev/library and all11-role proof at source7da913c; integration/CI/deployment pending. Partial mock slice, never delivery or acceptance. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
-          "No receipt-upload event or new-receipt front-desk/admin alert workflow identified. Generic unread messages/pending payment count is not a receipt alert."
+          "No real staff alert delivery or delivery-status evidence; local intent/rehearsal states explicitly say no message sent.",
+          "Legacy receipts have no inferred/backfilled intent."
         ],
         "remainingBackend": [
-          "Receipt upload event, approved alert destination (PC-03), authorized staff delivery."
+          "Authorized destination/channel decision PC-03, authenticated durable upload/outbox/idempotency and actual staff delivery/readback.",
+          "Private receipt storage issue54 and cross-device persistence remain disconnected."
         ]
       },
       "sourceNextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract.",
-      "baselineImplementationStatus": "absent"
+      "baselineImplementationStatus": "absent",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "absent",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "No receipt-upload event or new-receipt front-desk/admin alert workflow identified. Generic unread messages/pending payment count is not a receipt alert."
+            ],
+            "remainingBackend": [
+              "Receipt upload event, approved alert destination (PC-03), authorized staff delivery."
+            ]
+          },
+          "basis": "Historical source baseline retained before actual bounded batch36 receipt intent/rehearsal; not production acceptance."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
+        }
+      ]
     },
     {
       "id": "NT-04",
@@ -4854,7 +4894,8 @@
       "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/EmailsPage.tsx",
-        "src/components/organism/EmailPreview/EmailPreview.tsx"
+        "src/components/organism/EmailPreview/EmailPreview.tsx",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [
         "/#/admin/emails"
@@ -4862,23 +4903,29 @@
       "tests": [
         "scripts/test-email-test.mjs",
         "scripts/test-email-test-ui.mjs",
-        "scripts/test-email-test-states.mjs"
+        "scripts/test-email-test-states.mjs",
+        "scripts/test-email-edit.mjs",
+        "scripts/test-email-edit-hook.mjs",
+        "scripts/test-email-edit-ui.mjs",
+        "scripts/test-email-edit-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-04/email-test-build-receipt.json",
         "docs/screenshots/M-04/email-test-ui-results.json",
-        "docs/screenshots/M-04/email-test-state-results.json"
+        "docs/screenshots/M-04/email-test-state-results.json",
+        "docs/screenshots/M-04/email-edit-ui-results.json",
+        "docs/screenshots/M-04/email-edit-state-results.json"
       ],
       "blockers": [],
-      "nextAction": "Check exact-head integration/release; separately repair template save/rollback and connect authorized real rendering/delivery/version services.",
+      "nextAction": "Complete combined edit/rollback/self-test regression and exact-head release; separately connect authorized real rendering/delivery/durable version services.",
       "candidateRoutes": [
         "/#/admin/emails"
       ],
       "sourceAssessment": {
-        "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
+        "basis": "Bounded self-test28 and edit/rollback34 isolated actual build/domain/hook/rendered proof; whole feature remains partial, combined operational release pending. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
-          "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
-          "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
+          "Generic comms lifecycle remains separate; saved-template real-provider test/rendering and delivery states remain disconnected.",
+          "Immutable durable version retention and concurrent authenticated backend editing are not established by browser fixtures."
         ],
         "remainingBackend": [
           "Template rendering/send provider, immutable version retention and delivery events."
@@ -4893,6 +4940,16 @@
           "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Provider send/rendering/delivery events, immutable version retention and separate template save/rollback/generic comms remain partial.",
           "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
+        },
+        {
+          "batch": "batch-34.md",
+          "verification": "Isolated fullbuild/domain/actual hook/production/dev checks passed; root combined source integration and exact-head CI/deployment pending.",
+          "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ],
       "priorSourceAssessments": [
@@ -4907,6 +4964,19 @@
             ]
           },
           "basis": "Historical source inspection before batch28; retained without promoting whole feature acceptance."
+        },
+        {
+          "assessment": {
+            "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
+            "missingFrontend": [
+              "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
+              "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
+            ],
+            "remainingBackend": [
+              "Template rendering/send provider, immutable version retention and delivery events."
+            ]
+          },
+          "basis": "Historical pre-integration finding retained; bounded isolated source now saved, combined exact-head release pending."
         }
       ]
     },
@@ -5355,31 +5425,39 @@
         "src/modules/admin/payrollDraft.ts",
         "src/modules/admin/usePayrollDraft.ts",
         "docs/frontend-completion/batch-30.md",
-        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json",
+        "docs/frontend-completion/evidence/payroll-approval-final.json",
+        "docs/frontend-completion/evidence/fi03-approval-followup-audit.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [],
       "tests": [
         "scripts/test-payroll-draft.mjs",
         "scripts/test-payroll-draft-hook.mjs",
-        "scripts/test-payroll-draft-ui.mjs"
+        "scripts/test-payroll-draft-ui.mjs",
+        "scripts/test-payroll-approval.mjs",
+        "scripts/test-payroll-approval-hook.mjs",
+        "scripts/test-payroll-approval-ui.mjs",
+        "scripts/test-payroll-approval-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-09a/payroll-draft-proof.json",
         "docs/screenshots/M-09b/"
       ],
       "blockers": [],
-      "nextAction": "Complete final evidence-head CI and release; separately verify approval/settlement and authenticated backend contracts.",
+      "nextAction": "Complete combined draft/approval regressions and exact-head release; separately repair/verify mock settlement paths without real payout or paid-history rewrite.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
+        "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
-          "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
+          "Settlement, teacher-payment and delayed Wompi simulator paths still require separate repair/verification; approval37 changes none of those handlers.",
+          "Canonical closed-class/rate/status history and authoritative approvals are backend contracts, not established by isolated fixture roles."
         ],
         "remainingBackend": [
-          "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."
+          "Authenticated server transaction/idempotency, unique period/status locks, canonical class/rate history, approval and settlement contracts."
         ]
       },
       "sourceNextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
@@ -5408,6 +5486,31 @@
             ]
           },
           "basis": "Historical finding before bounded fictional batch repair; original full feature remains partial."
+        },
+        {
+          "assessment": {
+            "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
+            "missingFrontend": [
+              "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
+            ],
+            "remainingBackend": [
+              "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."
+            ]
+          },
+          "basis": "Historical draft-only checkpoint before separately verified bounded approval37; settlement remains separate."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-37.md",
+          "source": "55ed4b8",
+          "verification": "Isolated fullbuild91822/domain/hook12/production8matrix+all11roles/devstates passed atcanonicalb47f6586…. New combined exact-head release pending.",
+          "limits": "Approval only; settlement/teacher payment/Wompi unchanged, no real payout or owner/backend acceptance."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ]
     },
@@ -5425,28 +5528,40 @@
       "priority": "Medium",
       "relatedTests": "FIN-11, FIN-12, FIN-13, FIN-14",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/ExpensesPage.tsx",
         "src/modules/admin/expenses.ts",
         "src/modules/admin/AppDirectoryPage.tsx",
         "src/data/subscriptionExpenses.ts",
-        "docs/frontend-completion/evidence/fi04-ledger-source-audit.json"
+        "docs/frontend-completion/evidence/fi04-ledger-source-audit.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/finance/expenses",
+        "/#/admin/finance/subscriptions"
+      ],
+      "tests": [
+        "scripts/test-expense-ledger-baseline.mjs",
+        "scripts/test-expense-ledger.mjs",
+        "scripts/test-expense-ledger-ui.mjs",
+        "scripts/test-expense-ledger-states.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-35-expense-ui.json",
+        "docs/frontend-completion/evidence/batch-35-expense-states.json"
+      ],
       "blockers": [],
-      "nextAction": "Finish bounded35 rendered/integrated release; separately verify authenticated paid-delete enforcement and other entry paths without expanding roles.",
+      "nextAction": "Complete combined ledger/subscription regressions and exact-head release; verify authenticated paid-delete enforcement across all entry paths without expanding roles.",
       "candidateRoutes": [
         "/#/admin/finance/expenses",
         "/#/admin/finance/subscriptions"
       ],
       "sourceAssessment": {
-        "basis": "Exact legacy handler/generator fixtures atede03f3 executed against actual MockProvider; root independently reran all5 baseline defects. Bounded35 repair is not integrated or accepted.",
+        "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
-          "M09c cached unpaid guard can delete a freshly paid expense; pay/delete audit failure persists incomplete history and fixed generation can duplicate rows.",
-          "Bounded six-command mock repair is active in35; final integrated/rendered/release verification and generic provider/direct-entry paid-delete enforcement remain separate."
+          "Generic MockProvider/table and other direct-entry paid-delete enforcement remains separate; bounded M09c guard is not universal protection.",
+          "Subscriptions/expense adapter reconciliation is separate from the six-command ledger repair; no real accounting/settlement acceptance."
         ],
         "remainingBackend": [
           "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
@@ -5465,6 +5580,31 @@
             ]
           },
           "basis": "Historical source-only classification before actual stale paid-delete/partial audit-write/concurrent generation regressions were executed."
+        },
+        {
+          "assessment": {
+            "basis": "Exact legacy handler/generator fixtures atede03f3 executed against actual MockProvider; root independently reran all5 baseline defects. Bounded35 repair is not integrated or accepted.",
+            "missingFrontend": [
+              "M09c cached unpaid guard can delete a freshly paid expense; pay/delete audit failure persists incomplete history and fixed generation can duplicate rows.",
+              "Bounded six-command mock repair is active in35; final integrated/rendered/release verification and generic provider/direct-entry paid-delete enforcement remain separate."
+            ],
+            "remainingBackend": [
+              "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
+            ]
+          },
+          "basis": "Historical pre-integration finding retained; bounded isolated source now saved, combined exact-head release pending."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-35.md",
+          "verification": "Isolated fullbuild/domain and actual production/dev-state checks passed; root combined source integration and exact-head CI/deployment pending.",
+          "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ]
     },

@@ -1,0 +1,34 @@
+{
+  "runtime": "f1c987dc9b8bb8b81a69d2a036b2e2170c3993674d2a99b5cc1b08c1a14a9cf7",
+  "attempts": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5268 node scripts/test-payroll-approval-ui.mjs",
+      "exitCode": 1,
+      "log": "/tmp/hoy-approval37-ui.log",
+      "observed": "Full-DB invariance assertion after cancelled save found unrelated demo class rows dated1970.",
+      "causeEvidence": "settledCapture calls page.clock.runFor; new test did not install its required clock before initial navigation. Playwright started epoch time and existing demo sample refresh inserted epoch-dated classes.",
+      "correction": "Install the fictional2026-10-22 clock before first navigation in both scripts; preserve full-DB equality assertions."
+    },
+    {
+      "command": "same production command after clock setup",
+      "exitCode": 1,
+      "log": "/tmp/hoy-approval37-ui-clock.log",
+      "observed": "Unmount case page.evaluate TypeError:window.qaApprovalRelease is not a function.",
+      "causeEvidence": "Reset fixture page used query parameter; goto without query caused full-document navigation, losing held in-document callback. All earlier invariance assertions passed with clock setup.",
+      "correction": "Use same-document HashRouter navigation to unmount detail while retaining delayed callback; original no-write/no-late-ack assertions unchanged."
+    },
+    {
+      "command": "production full matrix after clock and same-document fixes",
+      "exitCode": 1,
+      "log": "/tmp/hoy-approval37-ui-final.log",
+      "observed": "All8 functional matrices and11role checks passed; final empty-console assertion failed on ERR_FAILED resource entries. Whole suite is not PASS.",
+      "diagnostic": "payroll-approval-resource-diagnostic.json",
+      "causeEvidence": "Focused exact request/console locations identify the two deliberately aborted external Google Fonts CSS resources.",
+      "correction": "Fulfill only those2 exact CSS URLs with explicit fictional offline/system-font fallback CSS fixture; preserve every functional assertion and zero unexpected console/request-failure gates. Other external requests remain blocked and observable."
+    }
+  ],
+  "limits": [
+    "Test-harness failures; no runtime defect inferred from these two attempts.",
+    "Final production and dev results recorded separately."
+  ]
+}
