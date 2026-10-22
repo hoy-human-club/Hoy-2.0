@@ -1,0 +1,28 @@
+{
+  "scope": "OT-01 and OT-02 bounded fictional frontend safeguards; original After Nov 30 phase and Not verified source status retained",
+  "checkout": "02568f37ef49f5999f6665915f7b6051479ed251",
+  "sourceCheckpoints": {
+    "32": "d758c13",
+    "33": "0134622"
+  },
+  "sourceFingerprint": "962c969fa169a01fb2c7b732630b4e97acf62923e78266650481b29ca00a3e0b",
+  "fingerprintBasis": "sorted src paths+bytes excluding generated captureDates.ts, then vite.config.ts; does not imply byte-identical bundled documentation",
+  "build": "clean fullbuild58156 EXIT0",
+  "domain": "27048 EXIT0: original maintenance and marketing suites, maintenance10 fence groups, marketing11 fence groups, receipt schema and additive-cache regressions",
+  "renderedProof": "combined-32-33-ui.json",
+  "rendered": "All5 actual serial suites passed without retry or assertion changes; production EN/ES390/1280 light/dark, all11 roles; actual dev lifecycle/actor/cancel/retry/replay/rollback/lost acknowledgement; D02 marketing preview/cancel. Zero page errors or dispatch.",
+  "routes": [
+    "/#/staff/maintenance",
+    "/#/admin/marketing",
+    "/#/dev/components"
+  ],
+  "coverage": "124 literal source fields compared unchanged with b73c13a. Historical source counts14/94/11/5 retained; current11/100/8/5 source findings after independently reproduced FI04 defects, never acceptance percentages.",
+  "priorRelease": "release-pr67.json: e04afec218eab935debe57a1f6d8ad451b7b9a2f hosted verified",
+  "releaseState": "Pending exact final-head CI, merge and hosted deployed-source verification. Not live.",
+  "remainingGates": [
+    "Real maintenance operational actions, assignments, signoff, procurement and alerts absent.",
+    "Marketing remains one browser-local v1 draft document; no scheduler, dispatch or publication.",
+    "Server authorization/durability and owner/commercial acceptance separate; future phases unchanged.",
+    "Clerk production disconnected; receipt storage/notification delivery and SW07 real provider rendering remain unverified."
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "batch": 32,
-  "base": "http://127.0.0.1:5245",
+  "base": "http://127.0.0.1:5253",
   "mode": "Actual dev UI; existing provider fault injection; immutable production separate",
   "checks": [
     "en:actual MockProvider actor-loss preflight→stage blocked; record/audit staged rollback/retry; fresh missing/duplicate/foreign/read target faults; staged cancel rollback; postcommit actor-loss retains committed record/audit but no success; restored replay no duplicate; loader throw clears stale rows; held older success cannot erase newer read error, one Retry recovers",

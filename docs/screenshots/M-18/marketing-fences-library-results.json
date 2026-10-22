@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5250",
+  "base": "http://127.0.0.1:5254",
   "checks": [
     "en/light: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
     "en/dark: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",

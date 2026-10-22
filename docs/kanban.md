@@ -1,5 +1,12 @@
 # HoyOS kanban
 
+## Current continuation checkpoint (2026-10-22)
+
+- PR67 checked3b752e5 all11 workflows/all12 correctness scopes passed; e04afec deployed and hosted exact-source verified by Pages39724393280.
+- OT01/OT02 combined32/33 clean fullbuild58156/domain27048/all5 serial rendered suites passed at962c969f…, with no runtime/test changes during QA. Exact final-head CI/release pending. Original After Nov30 phases retained; no delivery/publication/operational activation.
+- 34 email edit/rollback and35 expense ledger source/proof checkpoints aa629da/093bbf7 saved;36 receipt-alert local rehearsal checked,37 approval rendered checks active,38 studio cancellation and39 isolated team proposals in progress. Root owns all Git/release mutations.
+- Current source findings11/100/8/5 and historical14/94/11/5 stay separate; all124 literal source fields preserved. No acceptance percentage.
+
 ## Preferences and local email continuation (2026-10-22)
 
 - PR65 checked3c017b4 all10 workflows/all7 correctness jobs passed; deployed840f8e1 with Pages39717548494 all3jobs/source verification passed. Rollback0097dfb. CU06/AD07/RC05/PF03 bounded slices remain partial.

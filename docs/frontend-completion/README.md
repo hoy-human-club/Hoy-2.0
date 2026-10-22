@@ -1,6 +1,6 @@
 # Frontend completion handoff index
 
-Current deployed release: [PR67](https://github.com/imagine-os/hoy/pull/67), checked3b752e5 all11 workflows/all12 correctness scopes; mergee04afec. [Pages39724393280](https://github.com/imagine-os/hoy/actions/runs/39724393280) all3 jobs passed with exact hosted source verification; rollbackede03f3. [Release receipt](evidence/release-pr67.json). Future32/33 integrated build/domain passed; combined rendered/CI/release pending. Historical and current source findings remain separate; no completion percentage or owner/backend acceptance.
+Current deployed release: [PR67](https://github.com/imagine-os/hoy/pull/67), checked3b752e5 all11 workflows/all12 correctness scopes; mergee04afec. [Pages39724393280](https://github.com/imagine-os/hoy/actions/runs/39724393280) all3 jobs passed with exact hosted source verification; rollbackede03f3. [Release receipt](evidence/release-pr67.json). Future32/33 clean combined build/domain and all5 actual rendered suites passed; exact-head CI/release pending. Historical and current source findings remain separate; no completion percentage or owner/backend acceptance.
 
 [Start with the concise current checkpoint](CONTINUE.md); historical receipts below preserve exact evidence and remaining gates.
 

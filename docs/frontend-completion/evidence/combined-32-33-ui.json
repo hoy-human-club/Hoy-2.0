@@ -1,0 +1,157 @@
+{
+  "scope": "Combined batches32/33 frontend mock safeguards; not owner/backend/production acceptance",
+  "checkout": "02568f37ef49f5999f6665915f7b6051479ed251",
+  "sourceFingerprintBefore": "962c969fa169a01fb2c7b732630b4e97acf62923e78266650481b29ca00a3e0b",
+  "sourceFingerprintBasis": "SHA256 sorted src relative path+bytes excluding src/app/captureDates.ts, followed by vite.config.ts bytes",
+  "build": "root fullbuild58156 EXIT0",
+  "immutable": "/tmp/hoy-future-fences-qa-962c969fa169",
+  "production": "http://127.0.0.1:5254",
+  "development": "http://127.0.0.1:5253",
+  "httpEvidenceVerified": true,
+  "originalIsolatedProvenance": {
+    "batch32": "d758c13",
+    "batch33": "0134622",
+    "note": "Current scoped images/results are intentionally overwritten by current combined runners. Earlier checkpointed isolated evidence remains historical, not claimed as current combined artifact."
+  },
+  "runs": [
+    {
+      "command": "env -u QA_FOCUSED QA_BASE=http://127.0.0.1:5254 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-maintenance-fences-ui.mjs",
+      "log": "/tmp/hoy-combined32-maintenance-ui.log",
+      "status": "PASS",
+      "exit": 0
+    },
+    {
+      "command": "env -u QA_FOCUSED QA_BASE=http://127.0.0.1:5254 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-drafts-ui.mjs",
+      "log": "/tmp/hoy-combined33-marketing-ui.log",
+      "status": "PASS",
+      "exit": 0
+    },
+    {
+      "command": "env -u QA_FOCUSED QA_BASE=http://127.0.0.1:5253 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-maintenance-fences-states.mjs",
+      "log": "/tmp/hoy-combined32-maintenance-states.log",
+      "status": "PASS",
+      "exit": 0
+    },
+    {
+      "command": "env -u QA_FOCUSED QA_BASE=http://127.0.0.1:5253 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-draft-fences-states.mjs",
+      "log": "/tmp/hoy-combined33-marketing-states.log",
+      "status": "PASS",
+      "exit": 0
+    },
+    {
+      "command": "env -u QA_FOCUSED QA_BASE=http://127.0.0.1:5254 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-draft-library-ui.mjs",
+      "log": "/tmp/hoy-combined33-marketing-library.log",
+      "status": "PASS",
+      "exit": 0
+    }
+  ],
+  "status": "PASS all5 serial suites EXIT0; all browsers closed",
+  "runtimeChanges": false,
+  "sourceFingerprintAfter": "962c969fa169a01fb2c7b732630b4e97acf62923e78266650481b29ca00a3e0b",
+  "sourceUnchanged": true,
+  "httpEvidence": {
+    "sourceFingerprint": "962c969fa169a01fb2c7b732630b4e97acf62923e78266650481b29ca00a3e0b",
+    "checkout": "02568f3",
+    "build": "Clean checkout fullbuild58156 EXIT0",
+    "scope": "Combined32/33 current src+Vite; no backend/owner acceptance."
+  },
+  "errors": [],
+  "testChanges": false,
+  "gitMutations": false,
+  "browserClosed": true,
+  "resultFiles": {
+    "docs/frontend-completion/evidence/batch-32-maintenance-ui.json": {
+      "sha256": "a0238d0a6488e1e5d03d690cae4f45ae3cd40ff6ae5e897a14f03aa4c8f29be2",
+      "base": "http://127.0.0.1:5254",
+      "checks": [
+        "en/light/390:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "All11 existing roles: maintenance/admin/super allowed;8 denied.",
+        "en/light/1280:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "en/dark/390:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "en/dark/1280:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "es/light/390:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "es/light/1280:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "es/dark/390:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+        "es/dark/1280:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch"
+      ],
+      "errors": [],
+      "dispatch": []
+    },
+    "docs/screenshots/M-18/marketing-results.json": {
+      "sha256": "c01441b144f125513103ff289b6b1a4a9a377d3b7fd58785b5730a8ccb18860f",
+      "base": "http://127.0.0.1:5254",
+      "checks": [
+        "en: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Honolulu, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280",
+        "es: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Kiritimati, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280"
+      ],
+      "errors": [],
+      "dispatch": []
+    },
+    "docs/screenshots/M-18/marketing-fences-state-results.json": {
+      "sha256": "a0bcf724355b3070e10621ffa03ba56b08a68969340ba65f0b0dc5283b22a29c",
+      "base": "http://127.0.0.1:5253",
+      "checks": [
+        "en/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "en/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "es/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "es/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280"
+      ],
+      "errors": [],
+      "dispatch": []
+    },
+    "docs/screenshots/M-18/marketing-fences-library-results.json": {
+      "sha256": "7291e426ff2ae749b9cd23adccf4b4b15d455f43de5e265c1c0c549c5d4771d7",
+      "base": "http://127.0.0.1:5254",
+      "checks": [
+        "en/light: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "en/dark: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "es/light: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "es/dark: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit"
+      ],
+      "errors": [],
+      "dispatch": []
+    },
+    "docs/frontend-completion/evidence/batch-32-maintenance-control-repair-states.json": {
+      "sha256": "b4987425b782f26bc17c49140df196025f794559dced4dc9a17e254271d3e8e8",
+      "base": "http://127.0.0.1:5253",
+      "checks": [
+        "en:actual MockProvider actor-loss preflight\u2192stage blocked; record/audit staged rollback/retry; fresh missing/duplicate/foreign/read target faults; staged cancel rollback; postcommit actor-loss retains committed record/audit but no success; restored replay no duplicate; loader throw clears stale rows; held older success cannot erase newer read error, one Retry recovers",
+        "en:actual browser helper held digest/read retains original live callback/signal despite caller property replacement, rejects with byte-identical persisted fixture",
+        "es:actual MockProvider actor-loss preflight\u2192stage blocked; record/audit staged rollback/retry; fresh missing/duplicate/foreign/read target faults; staged cancel rollback; postcommit actor-loss retains committed record/audit but no success; restored replay no duplicate; loader throw clears stale rows; held older success cannot erase newer read error, one Retry recovers",
+        "es:actual browser helper held digest/read retains original live callback/signal despite caller property replacement, rejects with byte-identical persisted fixture"
+      ],
+      "errors": []
+    }
+  },
+  "servedAssetsVerifiedBeforeAfterByMaintenanceRunner": {
+    "entry": "http://127.0.0.1:5254/assets/index-BWfMz6Tz.js",
+    "sha256": "cdd391189089cd36d13210c8a7d64a7cd33c2fe67d96c7f0ba68992db6df866e",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5254/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "visualInspection": [
+    "S10 en390light quota: full fictional boundary, warning/retry, retained form; readable and inbounds",
+    "S10 es1280dark pending: busy state, disabled fields, Stop waiting and original AfterNov30 boundary visible",
+    "M18 en390light workspace: campaign/calendar/undated content/reference assets and browser-only boundary fit",
+    "M18 es1280dark editor: bilingual fictional draft, existing drawer and date-only hint readable",
+    "D02 es390dark library preview: original fictional future boundary +preview/cancel fits viewport",
+    "D02 en1280light library: actual MarketingDraftBoard usage fits with existing library framing"
+  ],
+  "remainingGates": [
+    "Root exact-head combined CI/release/deployment receipt.",
+    "Original future phases unchanged; real provider/backend, owner decisions and commercial acceptance remain separate.",
+    "Current combined captures/results intentionally supersede current filenames; isolated checkpoint32d758c13 and33-0134622 retain original provenance."
+  ],
+  "inspectedCaptureSha256": {
+    "docs/screenshots/S-10/en-390-light-fences-quota.jpg": "304823221da436a66b91998226837a0200de9c23022b1605750cb28397594fbb",
+    "docs/screenshots/S-10/es-1280-dark-fences-pending.jpg": "03e785173b7e511817c824967c3e2cc512eee0e7735ea9d8b4f961902c8b4289",
+    "docs/screenshots/M-18/en-390-workspace.jpg": "a831d13d161fb7d8a121922e88a424f30186f914eab6b03299c2db78f07a4be3",
+    "docs/screenshots/M-18/es-1280-editor-dark.jpg": "6944170c6537798817458027643eae81b038e469d19aae2e8bff33b1fa9a4fa2",
+    "docs/screenshots/M-18/es-390-dark-fences-library-preview.jpg": "663fd362e4b03f55738f8c9f70f49c9d8764e780867c245af677b4951be6d17e",
+    "docs/screenshots/M-18/en-1280-light-fences-library.jpg": "59417f02aa30d95b6a21700088f06bc87f802ba2953b0ab3eb8cb925c703076f"
+  }
+}

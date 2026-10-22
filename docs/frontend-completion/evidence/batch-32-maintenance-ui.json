@@ -1,12 +1,12 @@
 {
   "batch": 32,
-  "base": "http://127.0.0.1:5246",
+  "base": "http://127.0.0.1:5254",
   "fingerprint": {
-    "entry": "http://127.0.0.1:5246/assets/index-DxhjySJL.js",
-    "sha256": "3ac9df36578b9586b2dbf3eed57e68f66e17314e5b093d1dc556430a359e06a5",
+    "entry": "http://127.0.0.1:5254/assets/index-BWfMz6Tz.js",
+    "sha256": "cdd391189089cd36d13210c8a7d64a7cd33c2fe67d96c7f0ba68992db6df866e",
     "styles": [
       {
-        "url": "http://127.0.0.1:5246/assets/index-BjqHoOBe.css",
+        "url": "http://127.0.0.1:5254/assets/index-BjqHoOBe.css",
         "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
       }
     ]
