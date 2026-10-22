@@ -1,0 +1,439 @@
+{
+  "candidate": "ba856e57a349284aa13668c92b3ed35e8df334ab",
+  "runs": 17,
+  "jobs": 41,
+  "success": 40,
+  "failure": 1,
+  "results": [
+    {
+      "run": 39757682171,
+      "name": "Frontend completion QA",
+      "jobs": [
+        {
+          "id": 119753736397,
+          "name": "crm",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757681970,
+      "name": "Frontend lifecycle mock QA",
+      "jobs": [
+        {
+          "id": 119753734979,
+          "name": "local-lifecycle (studio-cancel)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735328,
+          "name": "local-lifecycle (cash-count)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735375,
+          "name": "local-lifecycle (team-proposals)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682005,
+      "name": "Voucher sandbox QA",
+      "jobs": [
+        {
+          "id": 119753735835,
+          "name": "voucher",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682042,
+      "name": "Frontend control contracts QA",
+      "jobs": [
+        {
+          "id": 119753735274,
+          "name": "pending-payments",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735499,
+          "name": "identity-and-fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682232,
+      "name": "Subscription directory QA",
+      "jobs": [
+        {
+          "id": 119753736175,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682071,
+      "name": "Frontend continuation QA",
+      "jobs": [
+        {
+          "id": 119753735179,
+          "name": "operational-quotes",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735545,
+          "name": "studio-calendar",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735661,
+          "name": "fictional-registration",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735722,
+          "name": "marketing-drafts",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682209,
+      "name": "Timetable QA",
+      "jobs": [
+        {
+          "id": 119753736659,
+          "name": "timetable",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682139,
+      "name": "Booking and payment frontend QA",
+      "jobs": [
+        {
+          "id": 119753736188,
+          "name": "mock-transactions",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682317,
+      "name": "Session Availability QA",
+      "jobs": [
+        {
+          "id": 119753736560,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682123,
+      "name": "Class Management QA",
+      "jobs": [
+        {
+          "id": 119753736490,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682174,
+      "name": "Frontend finance safeguards QA",
+      "jobs": [
+        {
+          "id": 119753735434,
+          "name": "fictional-finance (expense-delete)",
+          "status": "completed",
+          "conclusion": "failure",
+          "failed": [
+            "Verify actual delayed, cancel, actor, retry and uncertain acknowledgement states"
+          ]
+        },
+        {
+          "id": 119753735647,
+          "name": "fictional-finance (payroll-settlement)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682186,
+      "name": "Promotion staff-demo QA",
+      "jobs": [
+        {
+          "id": 119753736837,
+          "name": "promotion",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682203,
+      "name": "Photography QA",
+      "jobs": [
+        {
+          "id": 119753736159,
+          "name": "photography",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682350,
+      "name": "Local problem report frontend QA",
+      "jobs": [
+        {
+          "id": 119753736219,
+          "name": "local-drafts",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682257,
+      "name": "Media picker QA",
+      "jobs": [
+        {
+          "id": 119753736160,
+          "name": "picker",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682058,
+      "name": "Frontend correctness QA",
+      "jobs": [
+        {
+          "id": 119753735201,
+          "name": "mock-correctness (account-marketing)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735500,
+          "name": "mock-correctness (payroll-draft)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735520,
+          "name": "mock-correctness (notification-prefs)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735568,
+          "name": "mock-correctness (expense-ledger)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735595,
+          "name": "mock-correctness (trial-eligibility)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735615,
+          "name": "mock-correctness (email-test)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735629,
+          "name": "mock-correctness (contact-mask)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735644,
+          "name": "mock-correctness (api-key-mutations)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735648,
+          "name": "mock-correctness (email-edit)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735650,
+          "name": "mock-correctness (receipt-alert)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735697,
+          "name": "mock-correctness (recovery)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735718,
+          "name": "mock-correctness (event-rsvp)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735748,
+          "name": "mock-correctness (account-data)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735795,
+          "name": "mock-correctness (profile-save)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735813,
+          "name": "mock-correctness (substitute-request)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753735816,
+          "name": "mock-correctness (payroll-approval)",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    },
+    {
+      "run": 39757682385,
+      "name": "Future frontend mock QA",
+      "jobs": [
+        {
+          "id": 119753736168,
+          "name": "google-hours",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753736507,
+          "name": "marketing-fences",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        },
+        {
+          "id": 119753736767,
+          "name": "maintenance",
+          "status": "completed",
+          "conclusion": "success",
+          "failed": []
+        }
+      ]
+    }
+  ],
+  "failureDetail": {
+    "run": 39757682174,
+    "job": 119753735434,
+    "artifact": 12416971162,
+    "observed": "Actual M03 dev matrix timed out30s waiting for second read_retry fixture heading; fullbuild/domain/production passed, payroll settlement job passed.",
+    "cause": "Exact historical timeout/navigation cause remains unestablished. Local cold scan passed but did not establish CI repair.",
+    "sourceFinding": "Prior test hid nativeApp root but left that whole application mounted beside the actual drawer harness. New dev-only HTML mounts only the same actual drawer, MockProvider and native SessionProvider with actual global CSS. No business components are replaced.",
+    "download": {
+      "action": "GET returned temporary artifact file download",
+      "target": "oaiusercontent file_000000004e2881f58d679445e4f3d19a for GitHub artifact12416971162",
+      "state": "denied",
+      "reason": "urllib failed before bytes with Tunnel connection failed:403 Forbidden",
+      "completed": "GitHub authorized connector returned reusable file reference; no ZIP bytes or server-log/screenshot content obtained by executor",
+      "retry": "None; no alternate access to denied target. Continue with source review and newly generated controlled CI diagnostics."
+    }
+  },
+  "correction": {
+    "files": [
+      "scripts/expense-table-harness.html",
+      "scripts/expense-table-harness.tsx",
+      "scripts/start-finance-dev.mjs",
+      "scripts/test-expense-table-states.mjs",
+      ".github/workflows/frontend-finance-safeguards-qa.yml"
+    ],
+    "scope": "QA host only; real production M03route proof remains separate. NativeApp duplication removed, same actual tested components/provider/session/styles retained. All functional/no-write/error/network/timeouts unchanged; navigation trace plus strictone-initial-navigation-per-matrix assertion and failure diagnostics added. CI prints controlled server/fixture diagnostics on failure.",
+    "local": {
+      "session": 91029,
+      "exit": 0,
+      "base": "http://127.0.0.1:5290",
+      "coldCache": true,
+      "matrices": 8,
+      "navigations": 8,
+      "errors": [],
+      "unexpected": [],
+      "note": "Final navigation-count assertion independently applied to exact saved current receipt after browser run; final-head CI will execute it within runner.",
+      "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815"
+    }
+  },
+  "remaining": "New exact final-head ALL triggered jobs, then authorized expected-head merge/Pages verification. PR70 remains verified live; no merge while checks fail."
+}
