@@ -1,0 +1,10 @@
+{
+  "head": "973528625e67ab0765d70a0bdcb60fbf6de1cd98",
+  "run": 39727450305,
+  "job": 119654527453,
+  "failure": "Legacy test-maintenance-states.mjs:9 waited30s for previous read-failure sentence. Current strings changed to distinguish failed reads from already-committed effects.",
+  "priorChecks": "All domain/build and all3 production maintenance suites passed, including full8 lifecycle matrix. Legacy read-state exact-text wait failed before newer dev fence suite, which was skipped. Marketing+Google jobs passed.",
+  "correction": "Only exact bilingual read notice selector updated to current maintenance.readFailed strings. Original loading/disabled/error/retry/no-pageerror assertions and30s limit preserved.",
+  "runtimeChanges": false,
+  "verification": "Final-head CI and local legacy+newdev suites pending exclusive browser; no successful rerun claimed."
+}
