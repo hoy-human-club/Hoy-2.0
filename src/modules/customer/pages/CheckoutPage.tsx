@@ -3,7 +3,7 @@ import { useOperationalCatalog, useReviewedQuote } from '../../quotes/hooks';
 import { QuoteNotice } from '../../../components/molecule/QuoteNotice/QuoteNotice';
 import { checkSaleQuote, quotedItem } from '../../../data/operationalQuotes';
 import { SessionEditorial } from '../../../components/molecule/SessionEditorial/SessionEditorial';
-import { useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
@@ -34,6 +34,7 @@ import { useActions } from '../../../actions';
 import { need, useAppNavHandlers } from '../actions';
 import { Icon } from '../../../components/atom/Icon/Icon';
 
+import { ReceiptAlertResult } from '../../../components/organism/ReceiptAlertResult/ReceiptAlertResult';
 import { ReceiptUpload } from '../../../components/organism/ReceiptUpload/ReceiptUpload';
 import { submitTransfer, type ReceiptImage } from '../../transfers/receipts';
 
@@ -50,7 +51,10 @@ export function CheckoutPage() {
   const { t, bi, lang } = useI18n();
   const nav = useNavigate();
   const data = useData();
-  const { user, devMode } = useSession();
+  const { user, role, devMode } = useSession();
+  const transferContext=`${user.id}:${role}:${id}`,transferLive=useRef({data,context:transferContext,mounted:true});
+  transferLive.current={data,context:transferContext,mounted:true};
+  useEffect(()=>{transferLive.current.mounted=true;return()=>{transferLive.current.mounted=false;};},[]);
   const { sections, isVisible } = useLayout(spec);
   const { joined, loading } = useSessionJoined(id);
   const ent = useEntitlements();
@@ -83,7 +87,7 @@ export function CheckoutPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [declined, setDeclined] = useState<DeclinedState | null>(null);
-  const [done, setDone] = useState<{ booking: BookingRow | null; pending: boolean } | null>(null);
+  const [done, setDone] = useState<{ booking: BookingRow | null; pending: boolean; receiptId?:string; receiptContext?:string } | null>(null);
 
   const conflict = useMemo(() => joined ? sameDayConflict(myBookings, sessions, joined.session) : null, [joined, myBookings, sessions, sameDayConflict]);
   const selectedItem=review.quote?quotedItem(review.quote):isPass(kind)?priceOf(kind):null;
@@ -102,6 +106,8 @@ export function CheckoutPage() {
     if (!joined) return 'unavailable';
     if(confirmBusy.current)return 'busy';
     if(isPass(kind)&&!review.available)return 'quote_changed';
+    const transferProvider=data,transferOwnerContext=transferContext;
+    const transferValid=()=>transferLive.current.mounted&&transferLive.current.data===transferProvider&&transferLive.current.context===transferOwnerContext;
     confirmBusy.current=true;
     setBusy(true); setError(null); setTransferError(false);
     try {
@@ -118,9 +124,9 @@ export function CheckoutPage() {
         if(!receiptImage){setTransferError(true);return 'receipt_required';}
         const item=selectedItem!;
         try {
-          await submitTransfer(data,{key:transferKey.current,userId:user.id,sessionId:joined.session.id,matNumber:yoga?mat:null,productId:`plan_${item.id}`,productName:item.name,amount,classes:item.classes??1,expiresAt:review.quote!.entitlementExpiresAt!,image:receiptImage,quote:review.quote!});
-          setDone({booking:null,pending:true});return 'fictional transfer pending; no active booking or hold';
-        }catch{setTransferError(true);return 'transfer_save_failed';}
+          const receipt=await submitTransfer(data,{key:transferKey.current,userId:user.id,sessionId:joined.session.id,matNumber:yoga?mat:null,productId:`plan_${item.id}`,productName:item.name,amount,classes:item.classes??1,expiresAt:review.quote!.entitlementExpiresAt!,image:receiptImage,quote:review.quote!},()=>!transferValid());
+          if(transferValid())setDone({booking:null,pending:true,receiptId:receipt.id,receiptContext:transferOwnerContext});return 'fictional transfer pending; no active booking or hold';
+        }catch{if(transferValid())setTransferError(true);return 'transfer_save_failed';}
       }
       const outcome = await data.atomic(async transaction => {
         if(kind==='trial')await assertTrialAvailable(transaction,user.id);
@@ -266,12 +272,13 @@ export function CheckoutPage() {
       {isPass(kind)&&<QuoteNotice catalog={catalog} review={review}/>}
       {/* ≥ 900 px: what you are booking (class + mat) on the left, how you pay + confirm on the right (D-0006). */}
       <SplitSections narrowClassName="stack" className="cust-checkout" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'ClassSummary'} />
-      <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? method==='transfer'?'transfers.pending':'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">
+      <Drawer open={!!done&&(!done.receiptId||done.receiptContext===transferContext)} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? method==='transfer'?'transfers.pending':'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">
         {done && (
           <div className="stack">
             <ClassCard variant="next" title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} />
             {done.booking?.mat_number && <p className="small">{t('site.mat.confirmed', { n: done.booking.mat_number })}</p>}
             {done.pending ? <Notice tone="warn" title={t(method==='transfer'?'transfers.pending':'customer.checkout.pending.title')}>{t(method==='transfer'?'transfers.pendingBody':'customer.checkout.pending.body')}</Notice> : <p className="small muted">{t('customer.checkout.success.body', { min: durationMin(joined) })}</p>}
+            {done.receiptId&&<ReceiptAlertResult receiptId={done.receiptId}/>}
             {done.booking && <Button block size="lg" onClick={() => nav(`/app/booking/${done.booking!.id}`)}>{t('customer.class.viewBooking')}</Button>}
             <Button block variant="ghost" onClick={() => nav('/app/schedule')}>{t('customer.class.backToSchedule')}</Button>
           </div>

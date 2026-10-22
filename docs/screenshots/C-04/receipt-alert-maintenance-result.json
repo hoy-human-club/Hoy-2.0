@@ -1,0 +1,19 @@
+{
+  "base": "http://127.0.0.1:5266",
+  "actor": "usr_maint",
+  "role": "maintenance",
+  "fixtureSource": "src/auth/demoUsers.ts",
+  "runtimeBefore": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "runtimeAfter": "da299fc02f39db3f25fd720da96b9e5379c9ad9d9b0ccb14aecb70c0f53ff659",
+  "checks": [
+    "Actual maintenance demo fixture maps to maintenance role",
+    "C04 redirects to no-access",
+    "No ReceiptAlertResult or upload submit control",
+    "Entire serialized provider DB unchanged, including financial/message/audit tables"
+  ],
+  "errors": [],
+  "browserClosed": true,
+  "limits": [
+    "Targeted supplemental denied-role case only; prior full production matrix remains separate."
+  ]
+}
