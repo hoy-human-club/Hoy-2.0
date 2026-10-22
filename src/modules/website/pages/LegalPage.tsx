@@ -1,3 +1,4 @@
+import {useSearchParams} from 'react-router-dom';
 import { useSiteHref } from '../links';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { LegalDocument } from '../../../components/organism/LegalDocument/LegalDocument';
@@ -15,7 +16,8 @@ import { SiteShell } from '../SiteShell';
 export function LegalPage({ kind }: { kind: LegalKind }) {
   const href = useSiteHref();
   const { t } = useI18n();
-  const view = useLegalDoc(kind);
+  const [params]=useSearchParams();
+  const view = useLegalDoc(kind,{versionId:params.get('version'),publishedOnly:true});
   const props = useLegalDocProps(view);
   return (
     <SiteShell>

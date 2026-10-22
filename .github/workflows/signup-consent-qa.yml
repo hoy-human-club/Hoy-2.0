@@ -1,0 +1,66 @@
+name: Signup consent QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/customer/auth/**'
+      - 'src/modules/customer/legal.tsx'
+      - 'src/modules/customer/strings.ts'
+      - 'src/modules/website/pages/LegalPage.tsx'
+      - 'src/components/organism/SignupLegalConsent/**'
+      - 'src/data/MockProvider.ts'
+      - 'src/modules/admin/TablesPage.tsx'
+      - 'scripts/test-signup-consent*.mjs'
+      - 'scripts/test-customer-registration*.mjs'
+      - 'scripts/test-customer-return-ui.mjs'
+      - 'scripts/customer-registration-harness.tsx'
+      - '.github/workflows/signup-consent-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-registration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify registration and existing audit/report contracts
+        run: |
+          node scripts/test-signup-consent.mjs
+          node scripts/test-customer-registration.mjs
+          node scripts/test-sensitive-audit.mjs
+          node scripts/test-reporting.mjs
+      - run: npm run build
+      - name: Verify production signup, legal versions, guest boundaries and component states
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5333 > /tmp/hoy-signup-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5333/ >/dev/null && break; sleep 1; done
+          node scripts/test-signup-consent-ui.mjs
+          node scripts/test-signup-consent-library.mjs
+          QA_OUTPUT=qa/signup-consent/customer-return node scripts/test-customer-return-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5333
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify real form delayed provider, read failure, retry and cancellation
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5334 > /tmp/hoy-signup-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5334/ >/dev/null && break; sleep 1; done
+          node scripts/test-customer-registration-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5334
+          QA_OUTPUT: qa/signup-consent/async
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signup-consent-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            qa/signup-consent/
+            /tmp/hoy-signup-preview.log
+            /tmp/hoy-signup-dev.log

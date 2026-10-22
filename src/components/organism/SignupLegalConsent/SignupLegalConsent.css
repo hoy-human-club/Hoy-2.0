@@ -1,0 +1,3 @@
+.signup-legal .auth-consent { display: flex; align-items: flex-start; gap: var(--gap-control); min-height: var(--h-ctl); cursor: pointer; }
+.signup-legal .auth-consent input { width: var(--icon-md); height: var(--icon-md); margin: var(--sp-2xs) 0 0; accent-color: var(--color-primary); flex: 0 0 auto; }
+.signup-legal .field-error { color: var(--color-danger); }

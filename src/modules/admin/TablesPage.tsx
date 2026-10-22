@@ -86,7 +86,7 @@ export function TablesPage() {
   const { can, devMode, user } = useSession();
   // Sensitive records are edited through their audited role flows, never generic cells or add/delete.
   const canWrite = can('tables.write');
-  const canWriteRows = canWrite && !['audit_log','voucher_events','vouchers','voucher_bookings','plans','payments','bookings','transfer_receipts'].includes(table ?? '');
+  const canWriteRows = canWrite && !['audit_log','legal_acceptances','consents','voucher_events','vouchers','voucher_bookings','plans','payments','bookings','transfer_receipts'].includes(table ?? '');
   const [prefs, update] = useTablesPrefs();
   const technical = devMode && (prefs.technical ?? true);
   const wide = useMinWidth('shell');

@@ -3,7 +3,7 @@
  * (`/app/legal/:kind`). One renderer (`LegalDocument`), one token resolver, one source of numbers:
  * whatever M-08 says today is what the cancellation policy says today.
  */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
@@ -11,6 +11,7 @@ import { useData, useTable } from '../../data/DataContext';
 import type { LegalAcceptanceRow, LegalDocumentRow, LegalKind } from '../../data/schema';
 import { formatDate, formatDateTime, formatCOP } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
+import {currentLegalDocument} from './auth/signupLegal';
 import { pricing } from '../../tenant/pricing';
 import { usePolicy, contactOf, useSettings } from '../admin/settings';
 import { LegalDocument, resolveLegalTokens, type LegalTokens } from '../../components/organism/LegalDocument/LegalDocument';
@@ -76,12 +77,14 @@ export interface LegalView {
 }
 
 /** Every version of one kind, newest effective date first, with the version the reader is on. */
-export function useLegalDoc(kind: string): LegalView {
+export function useLegalDoc(kind: string, options:{versionId?:string|null;publishedOnly?:boolean}={}): LegalView {
   const { rows, loading } = useTable<LegalDocumentRow>('legal_documents', { where: { kind } });
   const [picked, setPicked] = useState<string | null>(null);
-  const versions = useMemo(() => [...rows].sort((a, b) => b.effective_from.localeCompare(a.effective_from) || b.version.localeCompare(a.version)), [rows]);
-  const inForce = versions.find((d) => d.status === 'published') ?? versions[0];
-  const doc = versions.find((d) => d.id === picked) ?? inForce;
+  useEffect(()=>setPicked(null),[kind,options.versionId]);
+  const versions = useMemo(() => rows.filter(r=>r.tenant_id===tenant.id&&r.kind===kind&&(!options.publishedOnly||r.status==='published')).sort((a, b) => b.effective_from.localeCompare(a.effective_from) || b.version.localeCompare(a.version)), [rows,kind,options.publishedOnly]);
+  const inForce = options.publishedOnly?currentLegalDocument(versions,kind as LegalKind):versions.find((d) => d.status === 'published') ?? versions[0];
+  const requested=picked??options.versionId;
+  const doc = requested?versions.find(d=>d.id===requested):inForce;
   return { doc, versions, pick: setPicked, loading };
 }
 
