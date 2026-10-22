@@ -59,9 +59,6 @@ export function validateDirectory(d: Directory, today: ValidationToday = utcToda
   }
   for (const c of d.charges) if (c.currencyVerified!==undefined && typeof c.currencyVerified!=='boolean') fail('Invalid currency verification.');
   for (const c of d.charges) if (c.receiptUrl && !safeReceiptUrl(c.receiptUrl)) fail('Use a clean HTTPS document link or Gmail message permalink, without sharing tokens.');
-  // Minimize accidental sensitive data entry; this is not a secret vault.
-  const text = JSON.stringify(rows);
-  if (/(?:\d[ -]?){13,19}/.test(text) || /(?:sk_live_|sk_test_|-----BEGIN|Bearer\s)/i.test(text)) fail('Do not store card numbers, credentials, or tokens. Use display labels only.');
   const money = (n: number | null, c: string) => {
     if (n !== null && (!Number.isFinite(n) || n < 0)) fail('Amount must be blank (unknown) or a non-negative number.');
     if (!/^[A-Z]{3}$/.test(c)) fail('Use a three-letter currency code.');
@@ -88,6 +85,20 @@ export function validateDirectory(d: Directory, today: ValidationToday = utcToda
     if (references.has(key)) fail('This charge reference has already been recorded.');
     references.add(key);
   }
+  // Schema and same-workspace links above must pass before UUID identity values
+  // are exempted from the PAN heuristic. User text and unknown fields stay scanned.
+  // Do not change persisted/backup data or make UUID format a requirement for IDs.
+  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const panFields = (row: object, identities: string[]) => Object.fromEntries(
+    Object.entries(row).filter(([key,value]) => !(identities.includes(key) && typeof value === 'string' && uuid.test(value))),
+  );
+  const panText = JSON.stringify([
+    ...d.dependencies.map(r=>panFields(r,['id','workspaceId'])),
+    ...d.subscriptions.map(r=>panFields(r,['id','workspaceId','dependencyId'])),
+    ...d.charges.map(r=>panFields(r,['id','workspaceId','subscriptionId'])),
+  ]);
+  const text = JSON.stringify(rows);
+  if (/(?:\d[ -]?){13,19}/.test(panText) || /(?:sk_live_|sk_test_|-----BEGIN|Bearer\s)/i.test(text)) fail('Do not store card numbers, credentials, or tokens. Use display labels only.');
 }
 export function nextRenewal(s: Pick<Subscription,'nextChargeDate'|'interval'|'anchorDay'>): string | null {
   if (!s.nextChargeDate) return null;

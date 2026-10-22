@@ -5424,32 +5424,49 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "FIN-11, FIN-12, FIN-13, FIN-14",
-      "implementationStatus": "implemented",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/admin/ExpensesPage.tsx",
         "src/modules/admin/expenses.ts",
         "src/modules/admin/AppDirectoryPage.tsx",
-        "src/data/subscriptionExpenses.ts"
+        "src/data/subscriptionExpenses.ts",
+        "docs/frontend-completion/evidence/fi04-ledger-source-audit.json"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Freshly verify fixed/variable/service expense creation and paid-delete prohibition through all allowed frontend entry paths.",
+      "nextAction": "Finish bounded35 rendered/integrated release; separately verify authenticated paid-delete enforcement and other entry paths without expanding roles.",
       "candidateRoutes": [
         "/#/admin/finance/expenses",
         "/#/admin/finance/subscriptions"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
-        "missingFrontend": [],
+        "basis": "Exact legacy handler/generator fixtures atede03f3 executed against actual MockProvider; root independently reran all5 baseline defects. Bounded35 repair is not integrated or accepted.",
+        "missingFrontend": [
+          "M09c cached unpaid guard can delete a freshly paid expense; pay/delete audit failure persists incomplete history and fixed generation can duplicate rows.",
+          "Bounded six-command mock repair is active in35; final integrated/rendered/release verification and generic provider/direct-entry paid-delete enforcement remain separate."
+        ],
         "remainingBackend": [
-          "Paid expense immutability enforced only in page handler, not generic MockProvider/table routes; server ledger must reject deletion."
+          "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
         ]
       },
       "sourceNextAction": "Freshly verify fixed/variable/service expense creation and paid-delete prohibition through all allowed frontend entry paths.",
-      "baselineImplementationStatus": "implemented"
+      "baselineImplementationStatus": "implemented",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "implemented",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [],
+            "remainingBackend": [
+              "Paid expense immutability enforced only in page handler, not generic MockProvider/table routes; server ledger must reject deletion."
+            ]
+          },
+          "basis": "Historical source-only classification before actual stale paid-delete/partial audit-write/concurrent generation regressions were executed."
+        }
+      ]
     },
     {
       "id": "FI-05",
@@ -5772,20 +5789,24 @@
         "src/modules/admin/MediaPage.tsx",
         "src/modules/admin/EmailsPage.tsx",
         "src/modules/marketing/drafts.ts",
-        "docs/frontend-completion/batch-19.md"
+        "docs/frontend-completion/batch-19.md",
+        "docs/frontend-completion/batch-33.md"
       ],
       "routes": [
         "/#/admin/marketing"
       ],
       "tests": [
         "scripts/test-marketing-drafts.mjs",
-        "scripts/test-marketing-drafts-ui.mjs"
+        "scripts/test-marketing-drafts-ui.mjs",
+        "scripts/test-marketing-draft-fences.mjs",
+        "scripts/test-marketing-draft-fences-states.mjs",
+        "scripts/test-marketing-draft-library-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-18/marketing-results.json"
       ],
       "blockers": [],
-      "nextAction": "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance. Repeat integrated exact-head CI and record deployment receipt.",
+      "nextAction": "Finish combined32/33 exact-head proof/release; retain future phase and separate owner/backend/art/operational gates.",
       "candidateRoutes": [
         "/#/hub",
         "/#/admin/content/media"
@@ -5817,6 +5838,12 @@
           "verification": "Isolated full build/domain and immutable production EN/ES390/1280 light/dark/all-role matrix passed; root studio-month integration delta and final integrated build/CI/deployment pending.",
           "limits": "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance.",
           "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
+        },
+        {
+          "batch": "batch-33.md",
+          "behavior": "Immutable scoped command/current-effect replay and contained read/cancel/context/acknowledgement fences in fictional future frontend.",
+          "verification": "Isolated source build/domain and actual rendered gates passed; combined final freeze/CI/release pending.",
+          "acceptance": "Original phase/source status/roles/criterion preserved; no backend, owner or commercial acceptance."
         }
       ]
     },
@@ -5840,7 +5867,8 @@
         "src/modules/staff/rooms.ts",
         "src/modules/staff/HomePage.tsx",
         "src/modules/maintenance/maintenance.ts",
-        "src/components/organism/MaintenanceWorkbench/MaintenanceWorkbench.tsx"
+        "src/components/organism/MaintenanceWorkbench/MaintenanceWorkbench.tsx",
+        "docs/frontend-completion/batch-32.md"
       ],
       "routes": [
         "/#/staff/maintenance"
@@ -5849,14 +5877,17 @@
         "scripts/test-maintenance.mjs",
         "scripts/test-maintenance-ui.mjs",
         "scripts/test-maintenance-create-ui.mjs",
-        "scripts/test-maintenance-states.mjs"
+        "scripts/test-maintenance-states.mjs",
+        "scripts/test-maintenance-fences.mjs",
+        "scripts/test-maintenance-fences-ui.mjs",
+        "scripts/test-maintenance-fences-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/S-10/maintenance-results.json",
         "docs/screenshots/S-10/create-results.json"
       ],
       "blockers": [],
-      "nextAction": "Owner confirms actual checklist/signoff and thresholds; Anu supplies tenant-scoped records and authenticated commands. Continue independent manifest frontend gaps.",
+      "nextAction": "Finish combined32/33 exact-head proof/release; retain future phase and separate owner/backend/art/operational gates.",
       "candidateRoutes": [
         "/#/staff/rooms",
         "/#/staff"
@@ -5878,6 +5909,12 @@
           "verification": "Domain/typecheck, EN/ES390/1280 light/dark production rendered main/create checks at immutable5199, and dev loading/empty/error/retry checks passed with zero page errors. PR61 all12 exact-head checks passed90de752; mergedfe905a8. Pages run39698576160 build/deploy/hosted sourcefe905a8 verification passed.",
           "limits": "No safety signoff, alerts, procurement, attachments, room blocking or device control. Actual thresholds/checklist ownership and backend authorization remain unresolved.",
           "acceptance": "Original After Nov30 phase/source status unchanged."
+        },
+        {
+          "batch": "batch-32.md",
+          "behavior": "Immutable scoped command/current-effect replay and contained read/cancel/context/acknowledgement fences in fictional future frontend.",
+          "verification": "Isolated source build/domain and actual rendered gates passed; combined final freeze/CI/release pending.",
+          "acceptance": "Original phase/source status/roles/criterion preserved; no backend, owner or commercial acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"

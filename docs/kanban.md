@@ -732,3 +732,7 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 ## Future draft fences · 0118
 
 - OT-01 / OT-02 original AfterNov30 phase: source checkpoints33e053498/32f0a7719 combined with clean merge; fullbuild and original/new domain suites passed. Isolated marketing all3 rendered suites passed; repaired maintenance affected QA and combined integration QA/CI/release remain pending. No delivery/publication/operational signoff or backend acceptance.
+
+- PR67 finalhead1560f23:10 workflows passed/all12 correctness scopes passed; service-catalog excluded-count assertion failed. Controlled browser confirmed a valid-generated-UUID PAN false positive; bounded model/regression fix is in fresh build/affected QA. Old CI exact cause remains unresolved; no merge or deployment.
+
+- Catalog UUID correction: freshbuild/domain and both affectedactualUI suites passed atb3f906de…, preserving all card/credential tests. Next exactheadCI/release pending; earlier30/31 localmatrix remains explicitly8e4ee559….
