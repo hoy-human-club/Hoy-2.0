@@ -78,6 +78,7 @@ export async function reviewTransfer(data:DataProvider,input:{id:string;actorId:
       const {subtotal,tax}=splitIva(payment.amount,policy.ivaRate);
       await tx.insert('invoices',{payment_id:payment.id,number:`DEMO-TRANSFER-${receipt.id}`,subtotal,tax,total:payment.amount,issued_at:now,pdf_url:null,dian_cufe:null});
     }
+    if(booking)await tx.insert('audit_log',{actor_id:input.actorId,action:'booking.create',entity:'bookings',entity_id:booking.id,ip:null,diff:{role:input.role,source:'fictional-transfer-review',session_id:booking.session_id,payment_id:payment.id}});
     await tx.insert('audit_log',{actor_id:input.actorId,action:`payment.transfer.${input.decision}`,entity:'transfer_receipts',entity_id:receipt.id,diff:{role:input.role,source:'fictional-transfer-review',payment_id:payment.id},ip:null});
     return tx.update<TransferReceiptRow>('transfer_receipts',receipt.id,{status:input.decision,amount_received:input.amount,review_reason:input.reason.trim(),reviewed_by:input.actorId,reviewed_at:now,booking_id:booking?.id??null});
   });

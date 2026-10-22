@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { saveLocalProduct } from '../../data/catalogRevision';
 import { changeLocalPublication } from '../../data/catalogPublication';
 import { tenant } from '../../tenant/tenant';
 import { useData } from '../../data/DataContext';
@@ -13,14 +14,14 @@ import { Input, Select } from '../../components/atom/Input/Input';
 import { Button } from '../../components/atom/Button/Button';
 import { Toggle } from '../../components/atom/Toggle/Toggle';
 import { Badge } from '../../components/atom/Badge/Badge';
-import { reviseProduct, quoteProduct, validateProduct, type CatalogPlan, type ProductDefinition, type ProductQuote } from '../../data/productCatalog';
+import { quoteProduct, validateProduct, type CatalogPlan, type ProductDefinition, type ProductQuote } from '../../data/productCatalog';
 import './products.css';
 
 const blank = (): ProductDefinition => ({code:'',name:{es:'',en:''},type:'paquetes',classes:1,validityDays:30,active:false,prices:[{id:'price_1',amount:0,startsOn:dateKey(),endsOn:null}]});
 
 /** Draft-only catalog: no legacy/public price fields are changed by saving this screen. */
 export function ProductsPage() {
- const data = useData(), {user} = useSession(), {t,bi,lang} = useI18n();
+ const data = useData(), {user,role} = useSession(), {t,bi,lang} = useI18n();
  const [rows,setRows] = useState<CatalogPlan[]>([]), [loading,setLoading] = useState(true), [readError,setReadError] = useState(false), [refresh,setRefresh] = useState(0);
  const [selected,setSelected] = useState<CatalogPlan | null>(null), [draft,setDraft] = useState<ProductDefinition | null>(null), [saving,setSaving] = useState(false), [error,setError] = useState(''), [notice,setNotice] = useState('');
  const [publicationReview,setPublicationReview] = useState<{plan:CatalogPlan;action:'publish'|'withdraw'} | null>(null);
@@ -41,11 +42,7 @@ export function ProductsPage() {
   if(problem){setError(`products.error.${problem}`);return;}
   setSaving(true);setError('');setNotice('');
   try {
-   const current = selected ? await data.get<CatalogPlan>('plans',selected.id) : null;
-   if(selected && (!current || JSON.stringify(current.frontend_catalog)!==JSON.stringify(selected.frontend_catalog))) throw new Error('conflict');
-   const frontend_catalog=reviseProduct(current?.frontend_catalog ?? null,draft,user.id,new Date().toISOString());
-   if(selected) await data.update<CatalogPlan>('plans',selected.id,{frontend_catalog});
-   else await data.insert<CatalogPlan>('plans',{slug:`draft-${draft.code.toLowerCase()}`,family:draft.type,name_es:draft.name.es,name_en:draft.name.en,description:{es:'Borrador ficticio; no publicado',en:'Fictional draft; unpublished'},price:0,period:'once',classes:draft.classes,validity_days:draft.validityDays,is_from_price:false,badge:null,active:false,sort:999,frontend_catalog});
+   await saveLocalProduct(data,{id:selected?.id??null,before:selected?.frontend_catalog??null,definition:draft,actorId:user.id,role});
    setDraft(null);setSelected(null);setNotice('products.saved');setRefresh(n=>n+1);
   } catch(e) {setError(e instanceof Error && e.message==='conflict'?'products.conflict':'products.saveError');}
   finally {setSaving(false);}

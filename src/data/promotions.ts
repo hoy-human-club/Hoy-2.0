@@ -159,6 +159,9 @@ export function executePromotionCommand(database: VoucherDb, command: PromotionC
       db = claimed.db; voucher = claimed.result.voucher;
       claim = { ...base(), campaignId: campaign.id, shareId: share!.id, userId: c.userId, voucherId: voucher.id, referrerId: share!.createdBy };
       db.promotion_claims.push(claim);
+      (db.audit_log ??= []).push({ id: `promotion_voucher_audit_${claim.id}`, tenant_id: context.tenantId, created_at: now, updated_at: now,
+        actor_id: c.actorId, action: 'voucher.issue', entity: 'vouchers', entity_id: voucher.id, ip: null,
+        diff: { role: c.role, source: 'fictional-promotion-claim', campaign_id: campaign.id, claim_id: claim.id } });
     }
   }
   const event: PromotionEventRow = { ...base(), campaignId: campaign.id, shareId: share?.id ?? null, claimId: claim?.id ?? null,

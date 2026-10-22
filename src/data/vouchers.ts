@@ -146,5 +146,9 @@ export function executeVoucherCommand(database: VoucherDb, command: VoucherComma
   const event: VoucherEventRow = { ...base(), voucherId: voucher.id, bookingId: booking?.id ?? null, kind: c.type, actorId: c.actorId, requestId: c.requestId, fingerprint, payload: c.type === 'preview_delivery' ? { channel: c.channel, deliveryStatus: 'preview_only' } : c.type === 'book' ? { contactConsent: c.contactConsent, consentActorId: c.actorId, consentRecordedAt: now, marketingConsent: false, verificationConfirmed: c.verificationConfirmed === true } : c.type === 'confirm_booking' ? { verificationConfirmed: true } : {} };
   const result = structuredClone({ voucher, ...(booking ? { booking } : {}), event });
   event.payload = { ...event.payload, result }; events.push(event);
+  // Activity keeps operational identifiers only; recipient contacts and message bodies stay out.
+  (db.audit_log ??= []).push({ id: `voucher_audit_${event.id}`, tenant_id: context.tenantId, created_at: now, updated_at: now,
+    actor_id: c.actorId, action: `voucher.${c.type}`, entity: booking ? 'voucher_bookings' : 'vouchers', entity_id: booking?.id ?? voucher.id, ip: null,
+    diff: { role: c.role, source: 'fictional-voucher', voucher_id: voucher.id, event_id: event.id, status: booking?.status ?? voucher.status, balance: voucher.balance } });
   return { db, result };
 }

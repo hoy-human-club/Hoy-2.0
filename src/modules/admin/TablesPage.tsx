@@ -84,7 +84,9 @@ export function TablesPage() {
   const nav = useNavigate();
   const data = useData();
   const { can, devMode, user } = useSession();
+  // Sensitive records are edited through their audited role flows, never generic cells or add/delete.
   const canWrite = can('tables.write');
+  const canWriteRows = canWrite && !['audit_log','voucher_events','vouchers','voucher_bookings','plans','payments','bookings','transfer_receipts'].includes(table ?? '');
   const [prefs, update] = useTablesPrefs();
   const technical = devMode && (prefs.technical ?? true);
   const wide = useMinWidth('shell');
@@ -164,7 +166,7 @@ export function TablesPage() {
   // `also` rides in the same URL update: two setSearchParams calls in one tick would drop the first (the view switch)
   const setCalMode = (m: CalendarMode, also: Record<string, string | null> = {}) => { setCfg((c) => ({ ...c, calendarMode: m })); setParam({ ...also, mode: m }, true); };
   const setTlZoom = (z: TimelineZoom, also: Record<string, string | null> = {}) => { setCfg((c) => ({ ...c, timelineZoom: z })); setParam({ ...also, zoom: z }, true); };
-  const canCreateOnDate = canWrite && !!time.date && time.date !== 'created_at' && time.date !== 'updated_at';
+  const canCreateOnDate = canWriteRows && !!time.date && time.date !== 'created_at' && time.date !== 'updated_at';
   const createOn = (k: string, hhmm?: string) => {
     if (!def || !time.date) return;
     const col = (name: string | null) => (name ? def.allColumns.find((c) => c.name === name) : undefined);
@@ -192,7 +194,7 @@ export function TablesPage() {
     toast(t('admin.tables.exported', { n: sorted.length, format: format.toUpperCase() }), 'success');
   };
   const addRow = async (prefill: Record<string, unknown> = {}) => {
-    if (!def || !canWrite) return;
+    if (!def || !canWriteRows) return;
     const blank: Record<string, unknown> = {};
     for (const c of def.columns) {
       if (c.references) blank[c.name] = c.nullable ? null : rowsOf(c.references)[0]?.id ?? null;
@@ -235,7 +237,7 @@ export function TablesPage() {
     return views.find((v) => v.id === ref) ?? views.find((v) => v.name.es.toLowerCase() === q || v.name.en.toLowerCase() === q);
   };
   const moveCard = async (id: string, column: string, value: string | boolean) => {
-    if (!def || !canWrite) return;
+    if (!def || !canWriteRows) return;
     await data.update(def.name, id, { [column]: value });
     const row = resolve(def.name, id);
     toast(t('admin.tables.kanban.moved', { title: row ? rowTitle(def, row, lang, resolve) : id, value: typeof value === 'boolean' ? t(value ? 'admin.tables.yes' : 'admin.tables.no') : enumLabel(value, lang) }), 'success');
@@ -281,7 +283,7 @@ export function TablesPage() {
       setCfg((cc) => ({ ...cc, filters: [...(cc.filters ?? []), { column, op, value: op === 'in' ? String(p?.value).split(',') : p?.value }] }));
       return `filter ${column} ${op} ${p?.value ?? ''}`;
     },
-    'tables.newRow': async () => { if (!canWrite) throw new Error('needs tables.write'); await addRow(); return 'row added'; },
+    'tables.newRow': async () => { if (!canWriteRows) throw new Error('audited role flow required'); await addRow(); return 'row added'; },
     'tables.export': (p) => { const f = (p?.format ?? 'json') as 'json' | 'csv'; if (f !== 'json' && f !== 'csv') throw new Error('format is json or csv'); exportRows(f); return `exported ${sorted.length} rows as ${f}`; },
     'tables.toggleSidebar': () => { toggleSidebar(); return 'sidebar toggled'; },
     'tables.saveView': async (p) => { if (!canWrite) throw new Error('needs tables.write'); await saveView(need(p, 'name')); return 'view saved'; },
@@ -349,6 +351,7 @@ export function TablesPage() {
                   </div>
                   {technical && <code className="tbl-tech">{def.name}</code>}
                   <p className="tbl-desc">{bi(def.description)}</p>
+                  {canWrite && !canWriteRows && <p className="small muted">{t('admin.tables.auditedOnly')}</p>}
                   <p className="small muted">{t('core.common.rows', { n: rows.length })} · {t('admin.tables.columns', { n: def.allColumns.length })}{filtered.length !== rows.length ? ` · ${t('admin.tables.inView', { n: filtered.length })}` : ''}</p>
                 </div>
                 {devMode && <Toggle size="sm" checked={technical} onChange={setTechnical} label={t('admin.tables.technical')} />}
@@ -370,7 +373,7 @@ export function TablesPage() {
                 <div className="tbl-search"><Input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.tables.search', { table: tableLabel(def, lang) })} aria-label={t('core.common.search')} /></div>
                 {toolBtn('export', 'download', t('admin.tables.export'))}
                 <Chip selected={schema} onClick={() => setSchema((s) => !s)}>{t('admin.tables.schema')}</Chip>
-                {canWrite && <Button size="sm" icon="plus" onClick={() => addRow()}>{t('admin.tables.addRow')}</Button>}
+                {canWriteRows && <Button size="sm" icon="plus" onClick={() => addRow()}>{t('admin.tables.addRow')}</Button>}
               </div>
 
               {filters.length > 0 && (
@@ -404,7 +407,7 @@ export function TablesPage() {
                 {kind === 'grid' && <GridView def={def} rows={filtered} cols={cols} cfg={cfg} setCfg={setCfg} ctx={ctx} onOpen={openRow} selected={selected} technical={technical} canWrite={canWrite} />}
                 {kind === 'list' && <ListView def={def} rows={sorted} cols={cols} cfg={cfg} setCfg={setCfg} ctx={ctx} onOpen={openRow} selected={selected} technical={technical} canWrite={canWrite} />}
                 {kind === 'gallery' && <GalleryView def={def} rows={sorted} cols={cols} cfg={cfg} setCfg={setCfg} ctx={ctx} onOpen={openRow} selected={selected} technical={technical} canWrite={canWrite} />}
-                {kind === 'kanban' && <KanbanView def={def} rows={sorted} cols={cols} cfg={cfg} setCfg={setCfg} ctx={ctx} onOpen={openRow} selected={selected} technical={technical} canWrite={canWrite} onMove={moveCard} />}
+                {kind === 'kanban' && <KanbanView def={def} rows={sorted} cols={cols} cfg={cfg} setCfg={setCfg} ctx={ctx} onOpen={openRow} selected={selected} technical={technical} canWrite={canWriteRows} onMove={moveCard} />}
                 {kind === 'graph' && <GraphView def={def} counts={counts} focus={focusRow} resolve={resolve} rowsOf={rowsOf}
                   onTable={(name) => nav(`/admin/tables/${name}?view=graph`)} onRow={(tbl, id) => nav(`/admin/tables/${tbl}?view=graph&focus=${encodeURIComponent(id)}`)}
                   onOpenRow={(id) => openRow(id)} onRelated={(tbl, column, id) => nav(`/admin/tables/${tbl}?where=${encodeURIComponent(`${column}:${id}`)}`)} onClearFocus={() => setParam({ focus: null })} />}
@@ -419,7 +422,7 @@ export function TablesPage() {
               </div>
             )}
 
-            <RowDrawer def={def} row={selectedRow} canWrite={canWrite} technical={technical} resolve={resolve} rowsOf={rowsOf} onClose={() => openRow(null)}
+            <RowDrawer def={def} row={selectedRow} canWrite={canWriteRows} technical={technical} resolve={resolve} rowsOf={rowsOf} onClose={() => openRow(null)}
               onGraph={(id) => setParam({ id: null, view: 'graph', focus: id })} relatedHref={(tbl, column, id) => `/admin/tables/${tbl}?where=${encodeURIComponent(`${column}:${id}`)}`} />
           </>
         )}

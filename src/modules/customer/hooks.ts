@@ -111,7 +111,7 @@ export function useNow(ms = 30_000) {
 /** The C-04 / C-08 / C-20 transactions, written the same way from every page. */
 export function useBookingActions() {
   const data = useData();
-  const { user } = useSession();
+  const { user, role } = useSession();
 
   /** Rule: one class per person per day. Returns the conflicting booking's session id when there is one. */
   const sameDayConflict = useCallback((myBookings: BookingRow[], sessions: ClassSessionRow[], target: ClassSessionRow): string | null => {
@@ -122,7 +122,7 @@ export function useBookingActions() {
   }, []);
 
   const book = useCallback(async (session: ClassSessionRow, paidWith: EntitlementKind, opts?: { packagePlanId?: string | null; paymentId?: string; matNumber?: number | null; data?: DataProvider }) => {
-    const transaction = opts?.data ?? data;
+    const run = async (transaction: DataProvider) => {
     // Race guard: re-read the session so a spot that filled during checkout is caught (C-04 "Race" state).
     const fresh = await transaction.get<ClassSessionRow>('class_sessions', session.id);
     if (!fresh || fresh.status !== 'scheduled' || !Number.isFinite(Date.parse(fresh.starts_at)) || Date.parse(fresh.starts_at) <= Date.now()) throw new Error('session_unavailable');
@@ -146,8 +146,14 @@ export function useBookingActions() {
       booking.ledger_id = c.id;
     }
     await transaction.update('class_sessions', fresh.id, { booked_count: fresh.booked_count + 1 });
+    await transaction.insert('audit_log', { actor_id: user.id, action: 'booking.create', entity: 'bookings', entity_id: booking.id, ip: null,
+      diff: { role, source: 'app', session_id: fresh.id, paid_with: paidWith } });
     return booking;
-  }, [data, user.id]);
+    };
+    if (opts?.data) return run(opts.data);
+    if (!data.atomic) throw new Error('atomic_adapter_required');
+    return data.atomic(run);
+  }, [data, user.id, role]);
 
   /** Offers the freed spot to the first waiting person (C-20: 30-minute claim window). */
   const promoteWaitlist = useCallback(async (sessionId: string) => {
@@ -163,8 +169,8 @@ export function useBookingActions() {
   /** Reschedule keeps the same entitlement; RS-09 permits it only through the 12-hour deadline. */
   const reschedule = useCallback(async (booking: BookingRow, from: ClassSessionRow, to: ClassSessionRow) => {
     if (!data.atomic) throw new Error('atomic_adapter_required');
-    return data.atomic(tx => rescheduleBooking(tx, { userId: user.id, bookingId: booking.id, fromSessionId: from.id, toSessionId: to.id }), { idempotencyKey: `reschedule:${user.id}:${booking.id}:${from.id}:${to.id}` });
-  }, [data, user.id]);
+    return data.atomic(tx => rescheduleBooking(tx, { userId: user.id, role, bookingId: booking.id, fromSessionId: from.id, toSessionId: to.id }), { idempotencyKey: `reschedule:${user.id}:${booking.id}:${from.id}:${to.id}` });
+  }, [data, user.id, role]);
 
   const joinWaitlist = useCallback(async (session: ClassSessionRow) => {
     const run = async (transaction: DataProvider) => {

@@ -2,6 +2,7 @@ import { reportingStrings } from './reportingStrings';
 import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  'admin.tables.auditedOnly': {es:'Consulta de solo lectura. Usa los flujos de pagos, recepción, bonos o productos para cambios con registro de actividad. El historial de actividad no se puede editar.',en:'Read-only inspection. Use payment, reception, voucher or product flows for changes with an activity record. Activity history cannot be edited.'},
   ...reportingStrings,
   'admin.emails.edit.mock': {es:'Versiones ficticias en este navegador. Editar o restaurar no envía correos ni conecta el proveedor. El historial real y su conservación siguen pendientes.',en:'Fictional versions in this browser. Editing or restoring does not send email or connect a provider. Real history storage and retention remain pending.'},
   'admin.emails.edit.busy': {es:'Guardando la versión local… Dejar de esperar no deshace un cambio que ya terminó.',en:'Saving the local version… Stopping waiting does not undo an already completed change.'},

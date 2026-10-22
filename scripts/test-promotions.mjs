@@ -68,6 +68,7 @@ try {
   const duplicate = exec({ ...claim, shareId: other.id });
   assert.equal(duplicate.voucher.id, claimed.voucher.id); assert.equal(duplicate.claim.shareId, share.id); assert.equal(duplicate.claim.referrerId, 'teacher');
   assert.equal(db.vouchers.length, 1); assert.equal(db.promotion_claims.length, 1); assert.equal(db.voucher_events.length, 1);
+  const issueAudit=db.audit_log.filter(r=>r.action==='voucher.issue'&&r.entity_id===claimed.voucher.id);assert.equal(issueAudit.length,1);assert.equal(issueAudit[0].actor_id,'member');assert.equal(issueAudit[0].created_at,context.now);assert(!JSON.stringify(issueAudit).includes('Fictional private context'));
   const member2 = exec({ ...claim, userId: 'member2', actorId: 'member2' });
   assert.notEqual(member2.voucher.id, claimed.voucher.id); assert.notEqual(member2.voucher.code, claimed.voucher.code);
   // Shared code does not imply shared spendable balance.

@@ -22,7 +22,7 @@ export function assertRescheduleValidity(purchase: ClassLedgerRow | null, starts
 }
 
 /** Execute inside the isolated mock atomic adapter. Production needs an authorized server command. */
-export async function rescheduleBooking(data: DataProvider, input: { userId: string; bookingId: string; fromSessionId: string; toSessionId: string; now?: number }): Promise<BookingRow> {
+export async function rescheduleBooking(data: DataProvider, input: { userId: string; role?: string; bookingId: string; fromSessionId: string; toSessionId: string; now?: number }): Promise<BookingRow> {
   const now = input.now ?? Date.now();
   const booking = await data.get<BookingRow>('bookings', input.bookingId);
   const original = await data.get<ClassSessionRow>('class_sessions', input.fromSessionId);
@@ -51,5 +51,7 @@ export async function rescheduleBooking(data: DataProvider, input: { userId: str
   // MockProvider recalculates both occupancies from bookings; do not add or subtract capacity again.
   const waiting = await data.list('waitlist', { where: { session_id: original.id, status: 'waiting' }, orderBy: { column: 'position' } });
   if (waiting[0]) await data.update('waitlist', waiting[0].id, { status: 'offered', offered_at: new Date(now).toISOString(), claim_until: new Date(now + policy.claimWindowMinutes * MS.min).toISOString() });
+  await data.insert('audit_log', { actor_id: input.userId, action: 'booking.reschedule', entity: 'bookings', entity_id: booking.id, ip: null,
+    diff: { ...(input.role ? {role:input.role} : {}), source: 'app', from_session_id: original.id, to_session_id: target.id, replacement_booking_id: next.id } });
   return next;
 }
