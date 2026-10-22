@@ -1,0 +1,15 @@
+{
+  "batch": 24,
+  "checks": [
+    "explicit scalar field allowlists, own-user+tenant defensive filtering, provider/unknown/internal/third-party omissions, invoices queried only by owned payment IDs",
+    "every export read failure aborts without audit/download; export prepared audit+receipt contain counts/IDs/hash only; write/quota rollback, once-only in-memory preview, forged preview rejected",
+    "request+audit and cancel+audit rollback at both writes; duplicate immediate/concurrent open requests rejected; stable nonce replay once; raw reason absent from audit and receipts",
+    "fresh processing state blocks stale cancel and new request; foreign tenant request never updated",
+    "lost-ack/recreated command metadata replay has no extra effects; nonce changed-intent conflict; cancellation and actor changes abort before commit",
+    "existing customer/teacher and super-admin own-user bypass preserved; eight denied roles and remote provider rejected; no financial/account/booking mutation"
+  ],
+  "limits": [
+    "Mock-only, no deletion/anonymisation or legal export completeness.",
+    "Marketing consent multiwrite remains outside scope."
+  ]
+}

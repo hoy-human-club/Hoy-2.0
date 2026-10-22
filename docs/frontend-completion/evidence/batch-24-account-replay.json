@@ -1,0 +1,13 @@
+{
+  "batch": 24,
+  "checks": [
+    "request fast replay revalidates missing/reassigned required profile/account, required shape and target ownership; owned processing state permits historical metadata without transition",
+    "cancel replay target must still be owned; historical outcome neither imposes a new status rule nor rewrites processing",
+    "export replay and final preview consumption freshly require owned account/profile/shape; failed read never releases body or adds effects; valid preview remains once-only",
+    "ownership loss after atomic commit suppresses acknowledgement/body without falsely rolling back committed prepared audit; restored owner retry is metadata-only and does not duplicate audit"
+  ],
+  "limits": [
+    "All reassignments are fictional fixtures, not account deletion/anonymisation.",
+    "Committed changes are not undone by a subsequent failed ownership fence."
+  ]
+}

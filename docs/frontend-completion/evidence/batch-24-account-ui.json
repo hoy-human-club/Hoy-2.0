@@ -1,0 +1,18 @@
+{
+  "batch": 24,
+  "base": "http://127.0.0.1:5221",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5221/assets/index-CFxaUbaa.js",
+    "sha256": "548a4cef3b42a7a35f8fbbe86c750d069cc17867e3b5a555a8eb68c296ef9ccc"
+  },
+  "checks": [
+    "en: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures",
+    "es: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-only preview, not complete legal export; no deletion/anonymisation.",
+    "No guarantee a browser saves a file.",
+    "Actual per-table thrown read faults additionally covered in dev-state UI/domain tests."
+  ]
+}
