@@ -8,3 +8,7 @@ rejected: Hashing templates alone, or relying solely on disabled editor fields, 
 files: src/data/MockProvider.ts; src/modules/admin/{TablesPage.tsx,settings.ts}; src/modules/customer/{legal.tsx,legalContent.ts,auth/}; src/components/organism/LegalDocument/; scripts/test-signup-consent*; .github/workflows/signup-consent-qa.yml
 
 Regression fixtures cover published/draft writes, resolved policy/contact/branding changes, stale submissions, replay and bilingual evidence. Browser checks cover EN/ES at 390/1280, signup light/dark, library states including 3840, selected-class return and asynchronous failure/cancellation. Fictional browser behavior only; real identity, server storage and integrations remain separate.
+
+Cancellation QA follow-up: the shared-debit fixture copied an occupied mat into a date-dependent seeded class. It now uses an isolated synthetic future class and real provider mat allocation; shared-debit rejection assertions remain intact. The failure reproduces on the unchanged signup baseline.
+
+A-06 now distinguishes the recorded acceptance version/date from the live-resolved text below it in both languages. Regression checks change policy/contact after signup, verify current values and this distinction, and verify the original signup audit snapshot is unchanged. Legacy acceptance rows are not presented as saved text snapshots.

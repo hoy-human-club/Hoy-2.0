@@ -33,7 +33,14 @@ try{
  for(const defect of ['missingDebit','missingGrant','unlinked','multiunit','shared','rejectedPayment','invalidExpiry','foreignGrant','existingReturn']){
   const{data,booking,session}=await setup();
   if(defect==='missingDebit')await data.remove('class_ledger','qa_customer_cancel_debit');if(defect==='missingGrant')await data.remove('class_ledger','qa_customer_cancel_grant');if(defect==='unlinked')await data.update('class_ledger','qa_customer_cancel_debit',{purchase_ledger_id:null});if(defect==='multiunit')await data.update('class_ledger','qa_customer_cancel_debit',{delta:-2});
-  if(defect==='shared'){const seed=data.peek('class_sessions').find(s=>s.status==='scheduled'&&s.id!==session.id&&s.booked_count<s.capacity&&Date.parse(s.starts_at)>Date.now());await data.insert('bookings',{...booking,id:'qa_customer_cancel_shared',session_id:seed.id});}
+  if(defect==='shared'){
+   // Exercise reused debit lineage, independently of today's seeded roster and assigned mats.
+   const startsAt=Math.max(Date.parse(session.starts_at),Date.now()+86400000);
+   const other=await data.insert('class_sessions',{...session,id:'qa_customer_cancel_shared_session',starts_at:new Date(startsAt).toISOString(),ends_at:new Date(startsAt+3000000).toISOString(),booked_count:0});
+   const shared=await data.insert('bookings',{...booking,id:'qa_customer_cancel_shared',session_id:other.id,mat_number:null});
+   assert.equal(shared.ledger_id,booking.ledger_id,'fixture must reuse the same debit');
+   assert.notEqual(shared.session_id,booking.session_id,'fixture must book a second class');
+  }
   if(defect==='rejectedPayment'){await data.insert('payments',{id:'qa_customer_cancel_payment',user_id:who.actorId,plan_id:null,status:'rejected',amount_cop:0,method:'cash',reference:null,approved_at:null});await data.update('class_ledger','qa_customer_cancel_grant',{payment_id:'qa_customer_cancel_payment'});}
   if(defect==='invalidExpiry')await data.update('class_ledger','qa_customer_cancel_grant',{expires_at:'2026-02-30'});if(defect==='foreignGrant')await data.update('class_ledger','qa_customer_cancel_grant',{tenant_id:'qa_foreign'});if(defect==='existingReturn')await data.insert('class_ledger',{id:await customerReturnId(booking.id),user_id:who.actorId,delta:1,reason:'cancel_return',purchase_ledger_id:'qa_customer_cancel_grant',expires_at:'2030-01-31',plan_id:null,payment_id:null});
   const r=await review(data,who,booking.id,session.id,{now:clock});assert(!r.verifiable);await unchanged(data,command(r),{},/unverifiable/);

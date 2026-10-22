@@ -129,7 +129,7 @@ export function LegalAppPage({ kind: fixed }: { kind?: LegalKind } = {}) {
   }
 
   const accepted = forThis
-    ? t('customer.legal.accepted', { date: formatDateTime(forThis.accepted_at, lang), channel: t(`customer.legal.channel.${forThis.channel}`) })
+    ? t('customer.legal.accepted', { v: forThis.version, date: formatDateTime(forThis.accepted_at, lang), channel: t(`customer.legal.channel.${forThis.channel}`) })
     : mine[0]
       ? t('customer.legal.acceptedOther', { v: mine[0].version, date: formatDate(mine[0].accepted_at, lang, { dateStyle: 'long' }) })
       : null;
