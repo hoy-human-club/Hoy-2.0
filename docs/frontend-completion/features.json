@@ -5645,7 +5645,7 @@
       "result": "passed; no console errors",
       "basis": "Preserved PR55 evidence; no new all-route smoke claim in this continuation."
     },
-    "release": "PR62 controls deployed e4257e5 after six triggered exact-head checks and hosted source verification. Batches13/17/18/19 have final combined local-production/domain/recovery proof; checked release pending. No owner/backend acceptance.",
+    "release": "PR63 batches13/17/18/19 deployed after16 exact-head workflows and hosted source verification; no owner/backend acceptance.",
     "directLiveReadback": "No direct public readback attempted in this continuation. Hosted workflow source-SHA verification passed; prior batch reported 403.",
     "implementationCommits": [
       "955d067",
@@ -5655,13 +5655,13 @@
       "377581f53cd386cdb39fcbf69993fee56a9aa470",
       "964a9bb1f921c468b698e7ce42020c10b21a028b"
     ],
-    "mergedCode": "e4257e5bd096898d312cac82f67b6922956c1560",
-    "pullRequest": "https://github.com/imagine-os/hoy/pull/62",
-    "codeCI": "All six triggered exact-head PR62 workflows passed at fb0c318318714b5b54a0049d9528d091ad815f2e; control workflow has two jobs",
-    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39703124987",
-    "deployedCodeSource": "e4257e5bd096898d312cac82f67b6922956c1560",
+    "mergedCode": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+    "pullRequest": "https://github.com/imagine-os/hoy/pull/63",
+    "codeCI": "All16 triggered exact-head workflows passed, including all4 continuation jobs at 075a514c97da2b5b6a472ee1ac45a7ff0e4aa933",
+    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39707891062",
+    "deployedCodeSource": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches13/17/18/19 final integrated local proof passed; exact-head CI/merge/deployment pending. Batch20 source c4dd183 checked locally/backed up separately. Batch21 final corrected build/QA and batches22/23 profile/recovery repairs ongoing. No owner/backend acceptance.",
+    "activeBatch": "Batches20–24 isolated correctness repairs: mock API keys, trial eligibility, own profile, recovery expiry, account-data mock commands; integration/release pending.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5741,13 +5741,21 @@
       "rollback": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab",
       "limits": "New flows local-production and exact-head CI verified; no whole-feature owner/backend acceptance."
     },
-    "pendingPrototypeIntegration": {
+    "prototypeIntegrationCheckpoint": {
       "branch": "codex/frontend-integrated-continuation",
       "sourceCheckpoint": "61fc32265fac67beb9e2e9c35de66629ba74368c",
       "runtimeSourceSha256": "47807b065771c489640e9f49f8bbda7b2943573b5d1f70b9d7a8574fa859293a",
       "localProof": "docs/frontend-completion/evidence/integrated-batches-13-17-18-19.json",
-      "status": "all named integrated local build/domain/production/recovery checks passed; exact-head CI and release pending",
-      "rollback": "e4257e5bd096898d312cac82f67b6922956c1560"
+      "status": "checked merge and ordinary deployment/source verification passed",
+      "rollback": "e4257e5bd096898d312cac82f67b6922956c1560",
+      "pr": "https://github.com/imagine-os/hoy/pull/63",
+      "head": "075a514c97da2b5b6a472ee1ac45a7ff0e4aa933",
+      "merge": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+      "checks": "All16 triggered exact-head workflows passed, including all4 continuation jobs",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39707891062",
+      "deploymentStatus": "build/deploy/hosted exact-source verification passed",
+      "deployedSource": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+      "limits": "Changed flows local-production and exact-head CI verified; hosted provenance/selected existing flows only. No owner/backend acceptance."
     }
   },
   "classificationPolicy": {
