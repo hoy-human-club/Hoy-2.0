@@ -1,0 +1,84 @@
+{
+  "batch": 24,
+  "baseCommit": "075a514c97da2b5b6a472ee1ac45a7ff0e4aa933",
+  "checkpoint": "Isolated uncommitted child snapshot; root alone owns checkpoint/integration/CI/release.",
+  "build": "npm run build PASS (recovered execution74657 EXIT0): strict TypeScript; spacing/manual lint; Vite12.26s;66.3MB public shots under80MB budget. Existing actions reexport circular-chunk warnings remain.",
+  "domainGroups": 6,
+  "productionUi": {
+    "entry": "http://127.0.0.1:5221/assets/index-CFxaUbaa.js",
+    "sha256": "548a4cef3b42a7a35f8fbbe86c750d069cc17867e3b5a555a8eb68c296ef9ccc"
+  },
+  "runtimeUnchangedAfterProductionAndDevQa": true,
+  "productionLanguages": [
+    "en",
+    "es"
+  ],
+  "viewports": [
+    390,
+    1280
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "roles": {
+    "allowedOwnUser": [
+      "customer",
+      "teacher",
+      "existing super_admin route bypass"
+    ],
+    "deniedCount": 8
+  },
+  "productionPageErrors": 0,
+  "developmentStateErrors": 0,
+  "captureCount": 40,
+  "exportBodyCaptures": 0,
+  "inspectedCaptures": [
+    "es-390-account-preview-light.jpg",
+    "en-1280-account-processing-light.jpg",
+    "es-390-account-customer-dark.jpg",
+    "es-390-account-postcommit-ownership-light.jpg"
+  ],
+  "runtimeSourceSha256": {
+    "src/modules/customer/accountData.ts": "bb53a402c4c8302fd1acf748c7a75f15a80666989c18b8fee7488eeabb944a60",
+    "src/modules/customer/pages/AccountPage.tsx": "e2aed2f3a48225d5bc3cc13bf524f50ed987dac02f6b6ab1ba8b5bf1d6a2a297",
+    "src/modules/customer/strings.ts": "b6887f3fb3fa030b86c8aea8f5b8b209e4ce5e00d409425559d7f3ebcbaf0186"
+  },
+  "marketingMultiwriteBodyUnchanged": true,
+  "fifteenBusinessDayCopyUnchanged": {
+    "customer.account.delete.keep.time": true,
+    "customer.account.delete.pending.body": true
+  },
+  "unchangedSourceFiles": {
+    "src/auth/permissions.ts": true,
+    "src/auth/roles.ts": true,
+    "src/data/schema.ts": true,
+    "src/modules/customer/hooks.ts": true,
+    "docs/frontend-completion/features.json": true
+  },
+  "generatedGlobalDiffs": [],
+  "coordinatorReconciliation": [
+    "C-26 shared PageSpec metadata remains coordinator-owned for next integration.",
+    "Exact-head CI, full integration matrix and deployment remain coordinator-owned."
+  ],
+  "limits": [
+    "CU-06 remains partial; all124 literal criteria/source statuses/phases unchanged.",
+    "Fictional selected-field preview; no authenticated complete legal export/correction.",
+    "No deletion/anonymisation/purge, financial/account effect, messages or legal handling/retention guarantee.",
+    "Browser offer is not proof of a saved file.",
+    "Marketing consent multiwrite/shared profile hook gaps remain out of scope.",
+    "Mock per-provider staging is not cross-tab/server idempotency."
+  ],
+  "replayOwnershipGroups": 4,
+  "supersededProductionUi": {
+    "sha256": "99615ba579794149cb7008cb63ce03c8993e165e3d2c686df5c33901b42b49bd",
+    "reason": "Root replay review superseded earlier frozen runtime proof."
+  },
+  "executionRecovery": {
+    "interruptedBuild24944": "UNCERTAIN: executor reset lost process handle and temporary log; surviving index/release predated repaired source. No success inferred.",
+    "replacementBuild74657": "PASS after inspection confirmed no previous build process/server survived.",
+    "serialUi": "Production46058 EXIT0, then devstates92710 EXIT0."
+  },
+  "postcommitSemantics": "Failed acknowledgement/ownership/read fence after commit withholds file but does not undo historical prepared audit; restored owned retry uses same receipt without duplicate audit.",
+  "demoAcceptance": "Fictional frontend evidence only; no real auth, durable server receipts/notifications, server role isolation, MVP/commercial acceptance or phase change."
+}
