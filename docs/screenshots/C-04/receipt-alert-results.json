@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5266",
+  "base": "http://127.0.0.1:5276",
   "checks": [
     "en usr_cust: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
     "en usr_teach: actual C04 committed own receipt, local pending/preview/cancel/quota failure/retry/completion; no staff link/message/financial effect",
@@ -13,6 +13,7 @@
     "usr_fin: existing C04 route denied",
     "usr_mkt: existing C04 route denied",
     "usr_dev: existing C04 route denied",
+    "usr_maint: existing C04 route denied",
     "usr_public: existing C04 route denied"
   ],
   "errors": [],

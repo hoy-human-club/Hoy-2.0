@@ -1,0 +1,101 @@
+{
+  "checkout": "0a09975aae2f581bd82e694b0654002466b79181",
+  "sourceFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+  "build": "fullbuild42290 EXIT0",
+  "immutable": {
+    "checkout": "0a09975aae2f581bd82e694b0654002466b79181",
+    "srcViteFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+    "basis": "Canonical root sorted src relative paths+bytes, excludes exact src/app/captureDates.ts, no delimiters; then vite.config.ts bytes only",
+    "scope": "Combined34/35/36/37 including active-account repair and current feedback inventory; no owner/backend acceptance.",
+    "build": "fullbuild42290 EXIT0, before/after source unchanged",
+    "snapshotMethod": "Same-filesystem hardlinked frozen dist; no further local build before QA completes."
+  },
+  "artifactBefore": {
+    "snapshot": "/workspace/hoy-qa-archive/operational-qa-0ab9598216b4",
+    "sha256": "97b2b6e4ff23b1467972f83964a5c3d2f9bd3fd76518afd0cb026b63779ff749",
+    "files": 4507,
+    "bytes": 367719968,
+    "basis": "sorted relative paths+NUL+filebytes+NUL"
+  },
+  "assetsBefore": [
+    {
+      "url": "http://127.0.0.1:5276/assets/index-CCaUXLAE.js",
+      "sha256": "94faac63865631357114512a05c788c8b8862b4095f0d480f53d95cc268c1dde",
+      "bytes": 1593594
+    },
+    {
+      "url": "http://127.0.0.1:5276/assets/index-BjqHoOBe.css",
+      "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+      "bytes": 80570
+    }
+  ],
+  "runs": [
+    {
+      "name": "operational-active-account-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-operational-active-account-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-operational-active-account-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "email-edit-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-edit-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-email-edit-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "expense-ledger-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-expense-ledger-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "receipt-alert-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-receipt-alert-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "payroll-approval-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-payroll-approval-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-payroll-approval-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "transfer-receipts-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-transfer-receipts-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-transfer-receipts-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "receipt-alert-library",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-library.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-receipt-alert-library.log",
+      "exit": 0
+    },
+    {
+      "name": "operational-inventory-ui",
+      "command": "QA_BASE=http://127.0.0.1:5276 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-operational-inventory-ui.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-operational-inventory-ui.log",
+      "exit": 0
+    },
+    {
+      "name": "email-edit-states",
+      "command": "QA_BASE=http://127.0.0.1:5275 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-edit-states.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-email-edit-states.log",
+      "exit": 0
+    },
+    {
+      "name": "expense-ledger-states",
+      "command": "QA_BASE=http://127.0.0.1:5275 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-states.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-expense-ledger-states.log",
+      "exit": 0
+    },
+    {
+      "name": "receipt-alert-states",
+      "command": "QA_BASE=http://127.0.0.1:5275 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-receipt-alert-states.mjs",
+      "log": "/workspace/hoy-qa-archive/operational-receipt-alert-states.log",
+      "exit": 1
+    }
+  ],
+  "status": "FAILED receipt-alert-states"
+}

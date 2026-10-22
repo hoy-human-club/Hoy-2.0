@@ -1,0 +1,20 @@
+{
+  "sourceFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+  "failedRun": "61196 first suite, notice exact locator30s timeout; subsequent suites not run",
+  "diagnostic": {
+    "url": "http://127.0.0.1:5276/#/admin/emails",
+    "stateText": "Fictional versions in this browser. Editing or restoring does not send email or connect a provider. Real history storage and retention remain pending.\nA valid scoped account, template or historical version was not found. Reload to review.\nReload saved version",
+    "exactOldLocatorCount": 0,
+    "saveControls": 0,
+    "unchanged": true,
+    "accountStatus": "inactive",
+    "beforeSHA": "cc7e453b1159be083c5969e25c403c8647920972f2867238e8d63ee9cb2113b5",
+    "afterSHA": "cc7e453b1159be083c5969e25c403c8647920972f2867238e8d63ee9cb2113b5",
+    "errors": []
+  },
+  "correction": "Scope to actual email edit-state and match the full unchanged sentence within notice including its nested Reload button. Same full message, saved-control absence and complete database-equality assertions retained;30s unchanged.",
+  "beforeScriptSHA": "b2440a2e24a91ee297f7d115dea4c86fefa1f930b472920b7984442d470f2d76",
+  "afterScriptSHA": "15983ea39f086c3ec0b2fa4523345c637fb75d1ea83843afb2c68a86a171a2aa",
+  "runtimeChanges": false,
+  "remaining": "Corrected production suite passed within all12 combined gates; no runtime change."
+}

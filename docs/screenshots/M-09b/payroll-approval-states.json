@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5267",
+  "base": "http://127.0.0.1:5275",
   "checks": [
     "en:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect,exact-active account preview/aftercommit block+reactivation replay;390",
     "es:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect,exact-active account preview/aftercommit block+reactivation replay;390"

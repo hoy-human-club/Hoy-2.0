@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5268/b47f65861ab1",
+  "base": "http://127.0.0.1:5276",
   "checks": [
     "en/light/390:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
     "Existing11 roles:admin/finance/super local preview allowed;8 denied",

@@ -1,0 +1,12 @@
+{
+  "base": "http://127.0.0.1:5276",
+  "checks": [
+    "email/en: actual inactive account command/read blocks writes; restored active account reload recovers existing editor",
+    "expense/en: actual inactive account command/read blocks writes; restored active account reload recovers existing editor",
+    "email/es: actual inactive account command/read blocks writes; restored active account reload recovers existing editor",
+    "expense/es: actual inactive account command/read blocks writes; restored active account reload recovers existing editor"
+  ],
+  "errors": [],
+  "browserClosed": true,
+  "limits": "Local command guard only; no authentication/session/security configuration changed."
+}

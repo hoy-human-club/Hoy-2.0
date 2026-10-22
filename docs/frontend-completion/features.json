@@ -4776,7 +4776,8 @@
         "src/data/comms.ts",
         "src/modules/transfers/receiptAlert.ts",
         "src/components/organism/ReceiptAlertResult/ReceiptAlertResult.tsx",
-        "docs/frontend-completion/evidence/batch-36-build.json"
+        "docs/frontend-completion/evidence/batch-36-build.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [
         "/#/app/checkout/:id?pass=pack12"
@@ -4800,7 +4801,7 @@
         "/#/staff"
       ],
       "sourceAssessment": {
-        "basis": "Actual isolated batch36 domain/fullbuild/production/dev/library and all11-role proof at source7da913c; integration/CI/deployment pending. Partial mock slice, never delivery or acceptance.",
+        "basis": "Actual isolated batch36 domain/fullbuild/production/dev/library and all11-role proof at source7da913c; integration/CI/deployment pending. Partial mock slice, never delivery or acceptance. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
           "No real staff alert delivery or delivery-status evidence; local intent/rehearsal states explicitly say no message sent.",
           "Legacy receipts have no inferred/backfilled intent."
@@ -4825,6 +4826,13 @@
             ]
           },
           "basis": "Historical source baseline retained before actual bounded batch36 receipt intent/rehearsal; not production acceptance."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ]
     },
@@ -4886,7 +4894,8 @@
       "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/EmailsPage.tsx",
-        "src/components/organism/EmailPreview/EmailPreview.tsx"
+        "src/components/organism/EmailPreview/EmailPreview.tsx",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [
         "/#/admin/emails"
@@ -4913,7 +4922,7 @@
         "/#/admin/emails"
       ],
       "sourceAssessment": {
-        "basis": "Bounded self-test28 and edit/rollback34 isolated actual build/domain/hook/rendered proof; whole feature remains partial, combined operational release pending.",
+        "basis": "Bounded self-test28 and edit/rollback34 isolated actual build/domain/hook/rendered proof; whole feature remains partial, combined operational release pending. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
           "Generic comms lifecycle remains separate; saved-template real-provider test/rendering and delivery states remain disconnected.",
           "Immutable durable version retention and concurrent authenticated backend editing are not established by browser fixtures."
@@ -4936,6 +4945,11 @@
           "batch": "batch-34.md",
           "verification": "Isolated fullbuild/domain/actual hook/production/dev checks passed; root combined source integration and exact-head CI/deployment pending.",
           "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ],
       "priorSourceAssessments": [
@@ -5413,7 +5427,8 @@
         "docs/frontend-completion/batch-30.md",
         "docs/frontend-completion/evidence/integrated-batches-30-31.json",
         "docs/frontend-completion/evidence/payroll-approval-final.json",
-        "docs/frontend-completion/evidence/fi03-approval-followup-audit.json"
+        "docs/frontend-completion/evidence/fi03-approval-followup-audit.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [],
       "tests": [
@@ -5436,7 +5451,7 @@
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial.",
+        "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
           "Settlement, teacher-payment and delayed Wompi simulator paths still require separate repair/verification; approval37 changes none of those handlers.",
           "Canonical closed-class/rate/status history and authoritative approvals are backend contracts, not established by isolated fixture roles."
@@ -5491,6 +5506,11 @@
           "source": "55ed4b8",
           "verification": "Isolated fullbuild91822/domain/hook12/production8matrix+all11roles/devstates passed atcanonicalb47f6586…. New combined exact-head release pending.",
           "limits": "Approval only; settlement/teacher payment/Wompi unchanged, no real payout or owner/backend acceptance."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ]
     },
@@ -5514,7 +5534,8 @@
         "src/modules/admin/expenses.ts",
         "src/modules/admin/AppDirectoryPage.tsx",
         "src/data/subscriptionExpenses.ts",
-        "docs/frontend-completion/evidence/fi04-ledger-source-audit.json"
+        "docs/frontend-completion/evidence/fi04-ledger-source-audit.json",
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
       ],
       "routes": [
         "/#/admin/finance/expenses",
@@ -5537,7 +5558,7 @@
         "/#/admin/finance/subscriptions"
       ],
       "sourceAssessment": {
-        "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial.",
+        "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
         "missingFrontend": [
           "Generic MockProvider/table and other direct-entry paid-delete enforcement remains separate; bounded M09c guard is not universal protection.",
           "Subscriptions/expense adapter reconciliation is separate from the six-command ledger repair; no real accounting/settlement acceptance."
@@ -5579,6 +5600,11 @@
           "batch": "batch-35.md",
           "verification": "Isolated fullbuild/domain and actual production/dev-state checks passed; root combined source integration and exact-head CI/deployment pending.",
           "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
+        },
+        {
+          "batch": "integrated-batches-34-37.json",
+          "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
+          "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
         }
       ]
     },

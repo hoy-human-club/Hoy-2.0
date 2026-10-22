@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5266",
+  "base": "http://127.0.0.1:5276",
   "checks": [
     "en: existing super-admin D02, all8 shared actual view states, disabled controls, no provider/database writes, settled390/1280 captures",
     "es: existing super-admin D02, all8 shared actual view states, disabled controls, no provider/database writes, settled390/1280 captures"

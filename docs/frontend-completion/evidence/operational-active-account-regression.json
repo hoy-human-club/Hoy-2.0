@@ -10,6 +10,5 @@
     "expense: postcommit inactive withholds acknowledgement; restored same intent replays without writes"
   ],
   "mode": "actual repaired helper regression",
-  "limits": "Only scoped fictional command boundary. No auth/session/role policy or production changes.",
-  "sourceScope": "Root operational integration helpers only, isolated original34/35 source+QA preserved historical. Fresh combined build/UI pending."
+  "limits": "Only scoped fictional command boundary. No auth/session/role policy or production changes."
 }
