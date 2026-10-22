@@ -1,8 +1,10 @@
+import {signupLegalStrings} from './auth/signupLegalStrings';
 import {cancellationStrings} from './cancellationStrings';
 import type { StringTable } from '../../i18n/types';
 
 /** Every user-facing string of the customer app (C-xx, A-xx, E-xx). Spanish first; English always present. */
 export const strings: StringTable = {
+  ...signupLegalStrings,
   ...cancellationStrings,
   'customer.profile.atomic.loading': {es: 'Cargando tus datos…', en: 'Loading your details…'},
   'customer.profile.atomic.readError': {es: 'No pudimos cargar tus dos registros. No se puede editar todavía.', en: 'We could not load both of your records. Editing is unavailable.'},
@@ -822,7 +824,7 @@ export const strings: StringTable = {
   'customer.legal.effective.draft': { es: 'Propuesta para el {date}', en: 'Proposed for {date}' },
   'customer.legal.counsel': { es: 'Texto redactado por el estudio y pendiente de revisión por abogado. Cita la Ley 1581 de 2012 (datos personales) y la Ley 1480 de 2011 (consumidor); no reemplaza asesoría legal.', en: 'Written by the studio and pending counsel review. It cites Ley 1581 de 2012 (personal data) and Ley 1480 de 2011 (consumer law); it is not legal advice.' },
   'customer.legal.versions': { es: 'Versiones', en: 'Versions' },
-  'customer.legal.accepted': { es: 'Aceptaste esta versión el {date} ({channel}).', en: 'You accepted this version on {date} ({channel}).' },
+  'customer.legal.accepted': { es: 'Aceptación registrada para la versión {v} el {date} ({channel}). El texto de abajo usa la configuración actual de políticas y contacto y puede diferir de lo que viste entonces.', en: 'Acceptance recorded for version {v} on {date} ({channel}). The text below uses current policy and contact settings and may differ from what you saw then.' },
   'customer.legal.acceptedOther': { es: 'Aceptaste la versión {v} el {date}. Esta versión es distinta.', en: 'You accepted version {v} on {date}. This version is a different one.' },
   'customer.legal.notAccepted': { es: 'Todavía no has aceptado este documento.', en: 'You have not accepted this document yet.' },
   'customer.legal.accept': { es: 'Aceptar esta versión', en: 'Accept this version' },

@@ -1,3 +1,4 @@
+import {readSignupLegal,validSignupLegal,signupLegalKey,type SignupLegalReference} from './signupLegal';
 import type { DataProvider } from '../../../data/types';
 import type { BaseRow, UserRow } from '../../../data/schema';
 import { digitsOf, isPhone } from '../../../i18n/format';
@@ -7,14 +8,15 @@ import { tenant } from '../../../tenant/tenant';
 export interface MockRegistration {
   first: string; last: string; email: string; whatsapp: string;
   birthday: string; ecName: string; ecPhone: string; photo: string | null;
-  consent: boolean; marketing: boolean; invite: string | null;
+  consent: boolean; legal: SignupLegalReference[]; marketing: boolean; invite: string | null;
 }
 export async function registerMockCustomer(data: DataProvider, input: MockRegistration, requestId: string, cancelled: () => boolean = () => false): Promise<string> {
   if (data.name !== 'mock' || !data.atomic) throw Error('registration_disconnected');
   if (!/^[A-Za-z0-9_-]{16,80}$/.test(requestId)) throw Error('registration_request');
   const form = { first: input.first.trim(), last: input.last.trim(), email: input.email.trim().toLowerCase(), whatsapp: input.whatsapp.trim(),
-    birthday: input.birthday, ecName: input.ecName.trim(), ecPhone: input.ecPhone.trim(), photo: input.photo, consent: input.consent, marketing: input.marketing, invite: input.invite };
+    birthday: input.birthday, ecName: input.ecName.trim(), ecPhone: input.ecPhone.trim(), photo: input.photo, consent: input.consent, legal: structuredClone(input.legal), marketing: input.marketing, invite: input.invite };
   if (form.first.length < 2 || form.last.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email) || !isPhone(form.whatsapp, 12) || form.ecName.length < 2 || !isPhone(form.ecPhone) || form.consent !== true) throw Error('registration_invalid');
+  if (!validSignupLegal(form.legal)) throw Error('registration_legal_required');
   const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify(form))))].map(v => v.toString(16).padStart(2, '0')).join('');
   const check = () => { if (cancelled()) throw Error('registration_cancelled'); };
   check();
@@ -24,13 +26,17 @@ export async function registerMockCustomer(data: DataProvider, input: MockRegist
     const prior = await tx.get<BaseRow & { action: string; diff: unknown }>('audit_log', receiptId);
     check();
     if (prior) {
-      const receipt = prior.diff as { intent?: string; userId?: string };
+      const receipt = prior.diff as { intent?: string; userId?: string; legal?: SignupLegalReference[]; acceptedAt?:string };
       if (prior.tenant_id !== tenant.id || prior.action !== 'mock.registration' || receipt.intent !== digest || !receipt.userId) throw Error('registration_conflict');
       const user = await tx.get<UserRow>('users', receipt.userId);
       check();
       if (!user || user.tenant_id !== tenant.id) throw Error('registration_conflict');
+      const accepted=await tx.list('legal_acceptances',{where:{tenant_id:tenant.id,user_id:user.id}});check();
+      if(!validSignupLegal(receipt.legal)||signupLegalKey(receipt.legal)!==signupLegalKey(form.legal)||!receipt.acceptedAt||!receipt.legal.every(doc=>accepted.filter(a=>a.tenant_id===tenant.id&&a.document_id===doc.id&&a.kind===doc.kind&&a.version===doc.version&&a.accepted_at===receipt.acceptedAt).length===1))throw Error('registration_conflict');
       return user.id;
     }
+    const currentLegal=await readSignupLegal(tx);check();
+    if(signupLegalKey(currentLegal)!==signupLegalKey(form.legal))throw Error('registration_legal_stale');
     const users = await tx.list<UserRow>('users', { where: { tenant_id: tenant.id } });
     check();
     if (users.some(u => u.tenant_id === tenant.id && (u.email.toLowerCase() === form.email || (u.phone && digitsOf(u.phone) === digitsOf(form.whatsapp))))) throw Error('registration_duplicate');
@@ -41,12 +47,12 @@ export async function registerMockCustomer(data: DataProvider, input: MockRegist
     check();
     await tx.insert('user_roles', { user_id: user.id, role: 'customer', granted_by: null });
     check();
-    for (const legal_document_id of ['leg_terms_es', 'leg_privacy_es']) {
-      await tx.insert('consents', { user_id: user.id, legal_document_id, accepted_at: now, ip: null });
-      check();
+    for (const doc of form.legal) {
+      await tx.insert('consents', { user_id: user.id, legal_document_id:doc.id, accepted_at: now, ip: null });check();
+      await tx.insert('legal_acceptances', { user_id:user.id,document_id:doc.id,kind:doc.kind,version:doc.version,accepted_at:now,channel:'app',ip:null });check();
     }
     await tx.insert('audit_log', { id: receiptId, actor_id: null, action: 'mock.registration', entity: 'users', entity_id: user.id, ip: null,
-      diff: { source: 'fictional-browser-registration', role: 'customer', intent: digest, userId: user.id } });
+      diff: { source: 'fictional-browser-registration', role: 'customer', intent: digest, userId: user.id, legal:form.legal, acceptedAt:now } });
     check();
     return user.id;
   });

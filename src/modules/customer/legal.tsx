@@ -3,16 +3,17 @@
  * (`/app/legal/:kind`). One renderer (`LegalDocument`), one token resolver, one source of numbers:
  * whatever M-08 says today is what the cancellation policy says today.
  */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
 import type { LegalAcceptanceRow, LegalDocumentRow, LegalKind } from '../../data/schema';
-import { formatDate, formatDateTime, formatCOP } from '../../i18n/format';
+import { formatDate, formatDateTime } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
-import { pricing } from '../../tenant/pricing';
-import { usePolicy, contactOf, useSettings } from '../admin/settings';
+import {currentLegalDocument} from './auth/signupLegal';
+import { useSettings } from '../admin/settings';
+import { legalTokens } from './legalContent';
 import { LegalDocument, resolveLegalTokens, type LegalTokens } from '../../components/organism/LegalDocument/LegalDocument';
 import { Button } from '../../components/atom/Button/Button';
 import { Chip } from '../../components/atom/Chip/Chip';
@@ -31,41 +32,9 @@ export const legalTitleKey = (kind: string) => `customer.legal.kind.${kind}`;
  * cancellation window in Settings and the legal page says the new number on the next render.
  */
 function useLegalTokens(): LegalTokens {
-  const { t, lang } = useI18n();
+  const { lang } = useI18n();
   const { settings } = useSettings();
-  const policy = usePolicy();
-  const contact = contactOf(settings);
-  return useMemo<LegalTokens>(() => ({
-    tenant: {
-      name: settings.branding.displayName || tenant.name,
-      legalName: tenant.legalName,
-      city: contact.city,
-      nit: settings.profile.nit || t('customer.legal.token.pending'),
-      address: contact.pendingFields.address ? `${contact.address} (${t('customer.legal.token.pending')})` : `${contact.address}, ${contact.city}`,
-      email: contact.pendingFields.email ? `${contact.email} ${t('customer.legal.token.pending')}` : contact.email,
-      whatsapp: contact.pendingFields.whatsapp ? `${contact.whatsapp} ${t('customer.legal.token.pending')}` : contact.whatsapp,
-      mats: settings.studio.mats,
-      perPersonPerDay: settings.studio.perPersonPerDay,
-      landmark: tenant.contact.landmark[lang],
-      instagram: contact.instagram,
-    },
-    // 0051: {{price.<id>}} — a price from src/tenant/pricing.ts, formatted for the reader.
-    price: Object.fromEntries(pricing.map((p) => [p.id, p.price == null ? '' : formatCOP(p.price, lang)])),
-    policy: {
-      cancellationHours: policy.cancellationHours,
-      waitlistClaimMin: policy.waitlistClaimMin,
-      lateGraceMin: policy.lateGraceMin,
-      freezeMaxDays: policy.freezeMaxDays,
-      freezesPerPackage: policy.freezesPerPackage,
-      // the Terms v1.0 (kept as history) still name the pre-0051 membership-pause tokens
-      pauseDaysPerYear: policy.freezeMaxDays,
-      maxPausesPerYear: policy.freezesPerPackage,
-      chargeNoticeDays: policy.chargeNoticeDays,
-      noShowFeeClause: policy.features.noShowFee && policy.noShowFee > 0
-        ? t('customer.legal.token.noShowFee', { amount: formatCOP(policy.noShowFee, lang) })
-        : '',
-    },
-  }), [settings, policy, t, lang]);
+  return useMemo(() => legalTokens(settings,lang), [settings,lang]);
 }
 
 export interface LegalView {
@@ -76,12 +45,14 @@ export interface LegalView {
 }
 
 /** Every version of one kind, newest effective date first, with the version the reader is on. */
-export function useLegalDoc(kind: string): LegalView {
+export function useLegalDoc(kind: string, options:{versionId?:string|null;publishedOnly?:boolean}={}): LegalView {
   const { rows, loading } = useTable<LegalDocumentRow>('legal_documents', { where: { kind } });
   const [picked, setPicked] = useState<string | null>(null);
-  const versions = useMemo(() => [...rows].sort((a, b) => b.effective_from.localeCompare(a.effective_from) || b.version.localeCompare(a.version)), [rows]);
-  const inForce = versions.find((d) => d.status === 'published') ?? versions[0];
-  const doc = versions.find((d) => d.id === picked) ?? inForce;
+  useEffect(()=>setPicked(null),[kind,options.versionId]);
+  const versions = useMemo(() => rows.filter(r=>r.tenant_id===tenant.id&&r.kind===kind&&(!options.publishedOnly||r.status==='published')).sort((a, b) => b.effective_from.localeCompare(a.effective_from) || b.version.localeCompare(a.version)), [rows,kind,options.publishedOnly]);
+  const inForce = options.publishedOnly?currentLegalDocument(versions,kind as LegalKind):versions.find((d) => d.status === 'published') ?? versions[0];
+  const requested=picked??options.versionId;
+  const doc = requested?versions.find(d=>d.id===requested):inForce;
   return { doc, versions, pick: setPicked, loading };
 }
 
@@ -158,7 +129,7 @@ export function LegalAppPage({ kind: fixed }: { kind?: LegalKind } = {}) {
   }
 
   const accepted = forThis
-    ? t('customer.legal.accepted', { date: formatDateTime(forThis.accepted_at, lang), channel: t(`customer.legal.channel.${forThis.channel}`) })
+    ? t('customer.legal.accepted', { v: forThis.version, date: formatDateTime(forThis.accepted_at, lang), channel: t(`customer.legal.channel.${forThis.channel}`) })
     : mine[0]
       ? t('customer.legal.acceptedOther', { v: mine[0].version, date: formatDate(mine[0].accepted_at, lang, { dateStyle: 'long' }) })
       : null;
