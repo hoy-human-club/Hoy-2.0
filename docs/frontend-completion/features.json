@@ -4768,33 +4768,65 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "",
-      "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "implementationStatus": "partial",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
         "src/modules/staff/HomePage.tsx",
-        "src/data/comms.ts"
+        "src/data/comms.ts",
+        "src/modules/transfers/receiptAlert.ts",
+        "src/components/organism/ReceiptAlertResult/ReceiptAlertResult.tsx",
+        "docs/frontend-completion/evidence/batch-36-build.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/checkout/:id?pass=pack12"
+      ],
+      "tests": [
+        "scripts/test-receipt-alert-intent.mjs",
+        "scripts/test-receipt-alert-ui.mjs",
+        "scripts/test-receipt-alert-states.mjs",
+        "scripts/test-receipt-alert-library.mjs",
+        "scripts/test-receipt-alert-maintenance.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-04/receipt-alert-results.json",
+        "docs/screenshots/C-04/receipt-alert-state-results.json",
+        "docs/screenshots/D-02/receipt-alert-library-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract.",
+      "nextAction": "Verify combined exact-head release; separately resolve authorized destinations and implement authenticated durable staff delivery. No staff message sent by the local rehearsal.",
       "candidateRoutes": [
         "/#/app/checkout/sample",
         "/#/staff"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Actual isolated batch36 domain/fullbuild/production/dev/library and all11-role proof at source7da913c; integration/CI/deployment pending. Partial mock slice, never delivery or acceptance.",
         "missingFrontend": [
-          "No receipt-upload event or new-receipt front-desk/admin alert workflow identified. Generic unread messages/pending payment count is not a receipt alert."
+          "No real staff alert delivery or delivery-status evidence; local intent/rehearsal states explicitly say no message sent.",
+          "Legacy receipts have no inferred/backfilled intent."
         ],
         "remainingBackend": [
-          "Receipt upload event, approved alert destination (PC-03), authorized staff delivery."
+          "Authorized destination/channel decision PC-03, authenticated durable upload/outbox/idempotency and actual staff delivery/readback.",
+          "Private receipt storage issue54 and cross-device persistence remain disconnected."
         ]
       },
       "sourceNextAction": "Implement receipt-upload-result/alert preview with distinct pending/failed/delivered mock statuses after payment upload contract.",
-      "baselineImplementationStatus": "absent"
+      "baselineImplementationStatus": "absent",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "absent",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "No receipt-upload event or new-receipt front-desk/admin alert workflow identified. Generic unread messages/pending payment count is not a receipt alert."
+            ],
+            "remainingBackend": [
+              "Receipt upload event, approved alert destination (PC-03), authorized staff delivery."
+            ]
+          },
+          "basis": "Historical source baseline retained before actual bounded batch36 receipt intent/rehearsal; not production acceptance."
+        }
+      ]
     },
     {
       "id": "NT-04",
@@ -4893,6 +4925,11 @@
           "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Provider send/rendering/delivery events, immutable version retention and separate template save/rollback/generic comms remain partial.",
           "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
+        },
+        {
+          "batch": "batch-34.md",
+          "verification": "Isolated fullbuild/domain/actual hook/production/dev checks passed; root combined source integration and exact-head CI/deployment pending.",
+          "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
         }
       ],
       "priorSourceAssessments": [
@@ -5465,6 +5502,13 @@
             ]
           },
           "basis": "Historical source-only classification before actual stale paid-delete/partial audit-write/concurrent generation regressions were executed."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-35.md",
+          "verification": "Isolated fullbuild/domain and actual production/dev-state checks passed; root combined source integration and exact-head CI/deployment pending.",
+          "limits": "Named fictional slice only; provider, server isolation/durability and owner acceptance remain separate."
         }
       ]
     },

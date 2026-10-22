@@ -15,7 +15,7 @@ Read CLAUDE.md, README.md and features.json after refreshing remote main. No AGE
 
 ## Coverage and limits
 
-All124 original IDs, literal criteria, roles, source statuses, phases, priorities and test links match baselineb73c13a. [Classification](evidence/classification-reconciliation.json) separates historical14/94/11/5 from current11/100/8/5 implemented/partial/absent/unverified source findings. FI03, FI04 and CU05 concrete defects make full features partial. Named fictional frontend passes do not establish a percentage, acceptance, production readiness or durable persistence. Original phases/future features remain.
+All124 original IDs, literal criteria, roles, source statuses, phases, priorities and test links match baselineb73c13a. [Classification](evidence/classification-reconciliation.json) separates historical14/94/11/5 from current11/101/7/5 implemented/partial/absent/unverified source findings. FI03, FI04 and CU05 concrete defects make full features partial. Named fictional frontend passes do not establish a percentage, acceptance, production readiness or durable persistence. Original phases/future features remain.
 
 [Source reconciliation](source-reconciliation-2026-10-22.md) retains real authentication, durable receipts/notifications and isolated server roles as production gates. Parent summary is not independently fetched correspondence or accepted commercial terms. Jas questions, Justin owner actions and Anu contracts remain in [separate queues](owner-queues.md); no questions sent externally.
 
@@ -24,3 +24,7 @@ Clerk lacks production environment/keys/verified hostname; protected/admin signu
 Use one browser suite at a time after prior workspace stalls; failed attempts/harness corrections remain in batch receipts. No process/service cleanup attempted. Release only after all actual exact-head checks pass and deployed source is verified. Historical PR64/65/66 receipts and detailed batch proofs remain in README/evidence; this checkpoint supersedes older pending-state prose.
 
 Active next:36 receipt-alert source frozen da299fc0 fullbuild/all4 rendered gates plus maintenance-role supplement passed, source checkpoint pending. 37 approval ownership-read gaps reproduced and repaired; fullbuild/domain/hook passed f1c987dc…, current serial production/dev QA underway. 38 studio-cancel scoped fictional lineage-return contract and39 isolated team-proposal document continue independently. Root sole Git/release lane; browser serial.
+
+## Next operational integration (active)
+
+Root `/workspace/hoy-operational-integration`, branch `codex/operational-mock-integration`, combines34aa629da/35093bbf7/367da913c; approval37 follows after current QA. Current source findings11/101/7/5 after actual NT03 local-intent prototype, historical14/94/11/5 unchanged. No actual staff delivery. Initial combined fullbuild16410 EXIT0 (before final inventory examples/approval37); domains34/35/36 pass, email hook16 passes. A mistaken root nonexistent expense standalone-hook invocation failed module-not-found after passing domain; CI uses actual dev-state suite instead. PR68 current9adcced waits exact-head rerun after an obsolete legacy library selector correction. Latest verified live remains PR67 e04afec. Future38/39/40 source batches retain isolated fictional boundaries. No real tool/access blocker.

@@ -32,6 +32,17 @@ on:
       - 'scripts/fixtures/payroll-draft-before.ts'
       - 'scripts/test-event-rsvp*.mjs'
       - 'scripts/event-rsvp-harness.tsx'
+      - 'scripts/test-email-edit*.mjs'
+      - 'scripts/email-edit-harness.tsx'
+      - 'scripts/test-expense-ledger*.mjs'
+      - 'scripts/expense-ledger-harness.tsx'
+      - 'scripts/test-receipt-alert*.mjs'
+      - 'scripts/receipt-alert-harness.tsx'
+      - 'scripts/test-payroll-approval*.mjs'
+      - 'scripts/payroll-approval-harness.tsx'
+      - 'scripts/fixtures/**'
+      - 'src/components/organism/ReceiptAlertResult/**'
+      - 'src/components/organism/ExpenseLedgerStatus/**'
       - '.github/workflows/frontend-correctness-qa.yml'
 permissions:
   contents: read
@@ -42,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request, notification-prefs, account-marketing, email-test, payroll-draft, event-rsvp]
+        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request, notification-prefs, account-marketing, email-test, payroll-draft, event-rsvp, email-edit, expense-ledger, receipt-alert, payroll-approval]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -54,7 +65,12 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Verify fictional command invariants
-        run: node scripts/test-${{ matrix.scope }}.mjs
+        run: |
+          if [ '${{ matrix.scope }}' = 'receipt-alert' ]; then
+            node scripts/test-receipt-alert-intent.mjs
+          else
+            node scripts/test-${{ matrix.scope }}.mjs
+          fi
       - name: Verify required-row replay fences
         if: matrix.scope == 'account-data'
         run: node scripts/test-account-data-replay.mjs
@@ -64,6 +80,9 @@ jobs:
       - name: Verify payroll acknowledgement lifecycle
         if: matrix.scope == 'payroll-draft'
         run: node scripts/test-payroll-draft-hook.mjs
+      - name: Verify added command acknowledgement lifecycle
+        if: matrix.scope == 'email-edit' || matrix.scope == 'payroll-approval'
+        run: node scripts/test-${{ matrix.scope }}-hook.mjs
       - name: Verify rendered production behavior
         run: |
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
@@ -72,8 +91,14 @@ jobs:
         env:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify shared receipt alert library inventory
+        if: matrix.scope == 'receipt-alert'
+        run: node scripts/test-receipt-alert-library.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify contained asynchronous states
-        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request' || matrix.scope == 'account-marketing' || matrix.scope == 'email-test' || matrix.scope == 'event-rsvp'
+        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request' || matrix.scope == 'account-marketing' || matrix.scope == 'email-test' || matrix.scope == 'event-rsvp' || matrix.scope == 'email-edit' || matrix.scope == 'expense-ledger' || matrix.scope == 'receipt-alert' || matrix.scope == 'payroll-approval'
         run: |
           npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-correctness-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
@@ -101,4 +126,10 @@ jobs:
             docs/screenshots/M-09a/*draft*
             docs/screenshots/M-09b/*draft*
             docs/screenshots/C-23/*rsvp*
+            docs/screenshots/M-04/*email-edit*
+            docs/screenshots/M-09c/*expense*
+            docs/screenshots/M-09b/*approval*
+            docs/screenshots/C-04/*receipt-alert*
+            docs/screenshots/D-02/*receipt-alert*
+            docs/frontend-completion/evidence/batch-3*.json
           retention-days: 7

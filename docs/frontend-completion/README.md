@@ -1,6 +1,6 @@
 # Frontend completion handoff index
 
-Current deployed release: [PR67](https://github.com/imagine-os/hoy/pull/67), checked3b752e5 all11 workflows/all12 correctness scopes; mergee04afec. [Pages39724393280](https://github.com/imagine-os/hoy/actions/runs/39724393280) all3 jobs passed with exact hosted source verification; rollbackede03f3. [Release receipt](evidence/release-pr67.json). Future32/33 clean combined build/domain and all5 actual rendered suites passed; exact-head CI/release pending. Historical and current source findings remain separate; no completion percentage or owner/backend acceptance.
+Current deployed release: [PR67](https://github.com/imagine-os/hoy/pull/67), checked3b752e5 all11 workflows/all12 correctness scopes; mergee04afec. [Pages39724393280](https://github.com/imagine-os/hoy/actions/runs/39724393280) all3 jobs passed with exact hosted source verification; rollbackede03f3. [Release receipt](evidence/release-pr67.json). Future32/33 clean combined build/domain and all5 actual rendered suites passed; exact-head CI/release pending (PR68 current9adcced). Next operational34/35/36 integration is active,37 QA underway. Historical and current source findings remain separate; no completion percentage or owner/backend acceptance.
 
 [Start with the concise current checkpoint](CONTINUE.md); historical receipts below preserve exact evidence and remaining gates.
 
@@ -94,4 +94,4 @@ Current correctness source checkpoint `79efc21`: full build/domain/complete prod
 
 Next isolated-to-combined checkpoint: [batch24](batch-24.md), [batch25](batch-25.md), [batch26](batch-26.md), [root evidence](evidence/integrated-batches-24-26.json). Root build/domain passed; combined rendered QA/CI/release pending. Notification preferences27 and coupled marketing29 remain separate until compatibility proof; independent28 proceeds. No new owner/backend acceptance.
 
-FI-04 current source finding is partial after executed stale paid-delete, audit-write and duplicate-generation regressions; historical implemented classification remains preserved. [Baseline evidence](evidence/fi04-ledger-source-audit.json). Bounded repair35 is separate from full feature/backend/owner acceptance. Current findings11/100/8/5 are not completion percentages.
+FI-04 current source finding is partial after executed stale paid-delete, audit-write and duplicate-generation regressions; historical implemented classification remains preserved. [Baseline evidence](evidence/fi04-ledger-source-audit.json). Bounded repair35 is separate from full feature/backend/owner acceptance. Current findings11/101/7/5 are not completion percentages.
