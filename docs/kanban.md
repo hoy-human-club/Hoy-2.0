@@ -723,3 +723,8 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 ## Class availability repair (0070)
 ### Doing
 - C-02 / C-02b / W-04: Ghost inactive calendar sessions; preserve waitlist and staff history; fix new-session capacity inheritance. Local domain/build/browser checks pass; hosted release verification pending.
+
+## Frontend integration · 0115
+
+- FI-03 / RS-15: isolated fictional atomic payroll drafts and zero-due event RSVP source/domain/rendered proof passed; combined full build/domain passed, rendered integration/currency readability and exact-head release checks pending. Approval, settlement, paid RSVP, real emails and backend acceptance remain separate.
+- PR66 checked44973d7 deployed asede03f3; Pages39720627884 all3 jobs and exact hosted source verification passed. Receipt: docs/frontend-completion/evidence/release-pr66.json.
