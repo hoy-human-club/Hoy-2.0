@@ -1,0 +1,8 @@
+{
+  "runtime": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+  "archive": "qa/batch39-77-captures.zip",
+  "sha256": "d8019bac11d1c5481f0a914f3c02dc6a1ff87b3d91a6fbbc7be2b587ea727a65",
+  "captures": 108,
+  "purpose": "Preserve exact passed77 rendered captures before current522 UI overwrites scoped filenames. Local archive only; root owns Git/release retention.",
+  "limits": "Source77 library covered two then-current usages plus interactive preview/cancel/role addon, not all12 states."
+}

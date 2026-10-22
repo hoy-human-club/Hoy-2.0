@@ -1,0 +1,39 @@
+{
+  "source": "522609719a05afe4642ba2e5cdfa82d8de74a447c442801926aa83b8bb46c00a",
+  "immutable": "/workspace/hoy-qa-artifacts/team-proposals-522609719a05",
+  "beforeProductionAndLibraryWholeArtifact": {
+    "sha256": "2a98b019af6711ea7e6735fcee56d88a1d2e0a5b8ede443aad60b255d7909201",
+    "fileCount": 4271
+  },
+  "beforeProductionAndLibraryAssets": {
+    "sha256": "e891eb5feff7c049d8e67edd3c8ca35f1cbbec057b3902727b50e70f000c0c32",
+    "fileCount": 3216
+  },
+  "basis": "Sorted relative paths from immutable root, each path+NUL+bytes+NUL, SHA256. Measured after build/copy/sidecar and BEFORE anycurrent522 browser.",
+  "afterProductionAndLibraryWholeArtifact": {
+    "sha256": "2a98b019af6711ea7e6735fcee56d88a1d2e0a5b8ede443aad60b255d7909201",
+    "fileCount": 4271
+  },
+  "afterProductionAndLibraryAssets": {
+    "sha256": "e891eb5feff7c049d8e67edd3c8ca35f1cbbec057b3902727b50e70f000c0c32",
+    "fileCount": 3216
+  },
+  "unchangedBeforeAfterBothUi": true,
+  "httpFiles": {
+    "index.html": {
+      "sha256": "ee96520a223a565faf194da1d8ed5bcbb5acf5dc2568cdb26aa20a4ff013a999",
+      "bytes": 1229,
+      "httpMatchesImmutable": true
+    },
+    "assets/index-BjqHoOBe.css": {
+      "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+      "bytes": 80570,
+      "httpMatchesImmutable": true
+    },
+    "assets/DirectoryPanel-Ciuq2Mt1.js": {
+      "sha256": "fa9ae56c92a35338fee5128c10e5c6481271e4ad002a1ecaa0d1a263770c8a94",
+      "bytes": 208206,
+      "httpMatchesImmutable": true
+    }
+  }
+}

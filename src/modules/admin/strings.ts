@@ -2,6 +2,7 @@ import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
   'admin.team.title': {"es": "Equipo · propuestas ficticias", "en": "Team · fictional proposals"},
+  'admin.team.fixtureBoundary': { es: 'Vista de estado ficticia de D02, solo en memoria. Usa la presentación real; no lee ni guarda documentos, cuentas, sesiones ni permisos.', en: 'Fictional D02 state view, in memory only. Uses the actual presentation; reads or saves no documents, accounts, sessions or permissions.' },
   'admin.team.local': {"es": "Solo documento local", "en": "Local document only"},
   'admin.team.boundary': {"es": "Ejemplos ficticios para este actor y rol en este navegador. No se envía ninguna invitación, no se crea una cuenta y no cambia el acceso real, la sesión ni Clerk. No hay sincronización entre dispositivos ni garantía entre pestañas.", "en": "Fictional examples for this actor and role in this browser. No invitation is sent, no account is created and actual access, sessions and Clerk stay unchanged. No device sync or cross-tab guarantee."},
   'admin.team.policy': {"es": "Solo Recepción y Administración en esta simulación. Las reglas reales de último admin, autoeliminación, caducidad, reenvío, cuentas existentes y múltiples roles siguen pendientes.", "en": "Only Front desk and Admin in this simulation. Real last-admin, self-removal, expiry, resend, existing-account and multiple-role rules remain unresolved."},
