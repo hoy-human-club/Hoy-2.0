@@ -13,3 +13,5 @@ Alternative rejected: counting all declared metadata states as rendered proof wh
 Files: continuation checkpoint and pr69-email-reload-followup.json. No application source changes in this checkpoint. Original124 IDs/phases/source statuses unchanged; no backend or security changes.
 
 Release evidence update: PR69 exacthead0437c4b all12 workflows/all33 jobs passed, merged54f37aa; Pages39734994970 build/deploy/hosted exact-source check allsuccess. Receipt release-pr69.json records jobs, artifact IDs, exact manifest and limited hosted subscription scope. Source34–37 acceptance remains partial; no production/backend acceptance.
+
+Recovery checkpoint: unverified-batch41-recovery.json (13files/4f5aa391…) and unverified-batch39-inventory-recovery.json (11files/1352abca…) preserve exact nonsensitive source/test/doc bytes with base commits and per-file hashes before execution. They are documentation artifacts, never application imports, and explicitly uncompiled/untested/unaccepted. Original branch/worktree work remains untouched. next-gap-audit.md records source-only customer-cancel/attendance/waitlist reproduction plans without claiming executed defects.
