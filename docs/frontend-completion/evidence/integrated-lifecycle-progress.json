@@ -1,0 +1,121 @@
+{
+  "state": "IN PROGRESS; not CI checked/released/accepted",
+  "sourceCheckout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+  "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+  "build": {
+    "session": 58184,
+    "exit": 0
+  },
+  "artifact": {
+    "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+    "srcViteFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+    "buildSession": 58184,
+    "buildState": "Working tree now committed without runtime changes; build manifest records precommit8eb1ddb. Exact-head CI rebuild required.",
+    "buildExit": 0,
+    "path": "/workspace/hoy-qa-archive/lifecycle-qa-44cd9267bbdb",
+    "sha256": "dd31ddeb865f2b0240f19ea9362d9acb3d76f663206340bc1adccb4a807509d7",
+    "basis": "sorted relative UTF8path+NUL+bytes+NUL, including two proof sidecars",
+    "files": 4850,
+    "bytes": 392496662
+  },
+  "domains": [
+    {
+      "command": "node scripts/test-studio-cancel-baseline.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-baseline-domain.log"
+    },
+    {
+      "command": "node scripts/test-studio-cancel.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-domain.log"
+    },
+    {
+      "command": "node scripts/test-private-capture-policy.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-private-capture-policy-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-proposals.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-proposals-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-proposal-hook.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-proposal-hook-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-presentation-fixtures.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-presentation-fixtures-domain.log"
+    },
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-draft-domain.log"
+    }
+  ],
+  "rendered": {
+    "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+    "sourceFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+    "immutable": {
+      "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+      "srcViteFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+      "buildSession": 58184,
+      "buildState": "Working tree now committed without runtime changes; build manifest records precommit8eb1ddb. Exact-head CI rebuild required.",
+      "buildExit": 0
+    },
+    "assetsBefore": [
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BiItx32Q.js",
+        "sha256": "ec69caa8b162133a7ff2afa0c57dea81b539018dc0f31110bc769ca04cf92073",
+        "bytes": 1609906
+      },
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570
+      }
+    ],
+    "runs": [
+      {
+        "name": "studio-cancel-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "cancelled-seat-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cancelled-seat-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cancelled-seat-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "studio-cancel-library",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-library.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-library.log",
+        "exit": 1
+      }
+    ],
+    "status": "FAILED studio-cancel-library",
+    "priorFailure": "Preserved lifecycle-qa-hidden-heading-failure.json"
+  },
+  "failures": [
+    {
+      "case": "cancelled-seat readiness",
+      "cause": "Test waited deliberately sr-only heading; use visible actual ClassCard",
+      "correction": "Same30second timeout and allrole/no-write/captionassertions retained",
+      "result": "Corrected actual24capture testPASS"
+    },
+    {
+      "case": "studio library wait",
+      "cause": "UNRESOLVED; precise stage/currentbrowserdiagnostic nowrunning",
+      "result": "FAIL pendingdiagnosis; no relaxedtimeout/assertion"
+    }
+  ],
+  "otherCheckpoint": {
+    "batch41": "2e3c49f pushed; isolatedlocalgatespassed, not integrated/released"
+  },
+  "screenshots": "Protectedqa/studio-cancel+studio-cancel-seat ignored/local; hashes/results and future Actions artifacts underexistingpolicy. No publication.",
+  "remaining": "Finish actualcombinedgates/currentvisual/artifact/sourcechecks, exact-headCI, expected-headmerge,Pagesverification. No backend or owneracceptance."
+}

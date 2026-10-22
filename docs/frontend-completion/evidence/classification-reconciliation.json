@@ -1,7 +1,7 @@
 {
   "schema": "hoy.frontend-classification-reconciliation/1",
   "historicalBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
-  "sourceCheckpoint": "Root operational integration: isolated34/35/36 source saved; combined/release pending",
+  "sourceCheckpoint": "Active root70 local source819ae0b combines checked main69 plus bounded38/39; combined rendered/release pending. Verified live69 remains54f37aa.",
   "features": 124,
   "baselineFindings": {
     "unverified": 5,
@@ -11,8 +11,8 @@
   },
   "currentFindings": {
     "unverified": 5,
-    "absent": 7,
-    "partial": 101,
+    "absent": 5,
+    "partial": 103,
     "implemented": 11
   },
   "changedFindings": [
@@ -60,6 +60,20 @@
       "current": "partial",
       "verification": "focused-frontend-pass",
       "scope": "Actual receipt-upload intent/result and explicit local rehearsal tested; no actual staff message/delivery/owner acceptance."
+    },
+    {
+      "id": "AD-02",
+      "baseline": "absent",
+      "current": "partial",
+      "verification": "focused-frontend-pass",
+      "scope": "Named isolated38/39 fictional prototype and presentation checks only; root combined rendered/exact-head CI/release and actual backend/owner acceptance remain pending."
+    },
+    {
+      "id": "AD-06",
+      "baseline": "absent",
+      "current": "partial",
+      "verification": "focused-frontend-pass",
+      "scope": "Named isolated38/39 fictional prototype and presentation checks only; root combined rendered/exact-head CI/release and actual backend/owner acceptance remain pending."
     }
   ],
   "preservation": "All124 IDs and literal original criteria/roles/source statuses/phases/priorities/relatedTests preserved.",

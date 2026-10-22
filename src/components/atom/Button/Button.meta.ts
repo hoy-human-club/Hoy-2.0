@@ -23,5 +23,5 @@ export default defineMeta({
       h('div', { className: 'row wrap' }, h(Button, { variant: 'tonal', icon: 'check' }, 'Tonal md'), h(Button, { variant: 'outline', icon: 'undo' }, 'Outline md'))) },
   ],
   a11y: [{ es: 'Tonal y outline: hover sube el tinte / rellena surface-2, active baja 1 px, foco con el anillo global.', en: 'Tonal and outline: hover deepens the tint / fills surface-2, active drops 1 px, focus uses the global ring.' }, { es: 'Usa <button>; aria-busy en carga; foco visible con anillo de 2px.', en: 'Native <button>; aria-busy while loading; 2px visible focus ring.' }],
-  usedBy: ['C-23', 'M-09a', 'M-09b', 'M-18', 'D-07', 'MaintenanceWorkbench', 'M-10a', 'ProblemReport', 'M-17', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'C-01', 'P-01', 'M-03', 'HUB-01', 'S-02', 'S-03'],
+  usedBy: ['S-04', 'M-08a', 'C-23', 'M-09a', 'M-09b', 'M-18', 'D-07', 'MaintenanceWorkbench', 'M-10a', 'ProblemReport', 'M-17', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'C-01', 'P-01', 'M-03', 'HUB-01', 'S-02', 'S-03'],
 });

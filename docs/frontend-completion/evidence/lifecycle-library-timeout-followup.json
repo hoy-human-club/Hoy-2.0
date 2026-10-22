@@ -1,0 +1,23 @@
+{
+  "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+  "firstAttempt": {
+    "status": "FAIL timeout30000",
+    "preciseStage": "Unavailable; original script truncated fullerror tofirstline and screenshot capture failed",
+    "cause": "UNRESOLVED"
+  },
+  "diagnostic": {
+    "script": "Local ignored diagnose-lifecycle-library.mjs",
+    "result": "Exact immutable route visible with5actualreviewstates; superadminsession hydrated; no pageerror/crash observed. Two intentionally blocked externalfont requests logged consoleERR_FAILED.",
+    "limits": "Successful single-page diagnostic does not explain initial timeout or establish absence of intermittentfailure."
+  },
+  "instrumentedSameGate": {
+    "status": "PASS",
+    "exit": 0,
+    "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-library.mjs",
+    "session": 9879,
+    "coverage": "All5actualstates ENES3901280lightdark, unchanged30second timeout/allcontrols/noDBwrite/contrast/bounds/assertions. Onlytestdiagnostics changed.",
+    "change": "Stage/title logging, fullerror retained, gatherDOMbeforeviewport-onlydiagnosticcapture; no productsource/assertion/timeout changes.",
+    "log": "Local ignored lifecycle-library-diagnostic-run.log"
+  },
+  "next": "Remainingcombinedgates and exact-headCI; firsttimeoutremainsknownverificationlimitation, not aclaimedproductfix."
+}

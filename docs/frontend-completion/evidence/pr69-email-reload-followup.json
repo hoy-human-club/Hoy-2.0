@@ -1,0 +1,22 @@
+{
+  "head": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+  "runtime": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+  "frozenCheckout": "0a09975aae2f581bd82e694b0654002466b79181",
+  "suite": "scripts/test-email-edit-ui.mjs",
+  "session": 40201,
+  "exit": 0,
+  "browserClosed": true,
+  "checks": [
+    "EN/ES390/1280lightdark",
+    "4allowed7denied",
+    "quota no partial write",
+    "duplicate retained retry once",
+    "stale draft preserved and saved current value protected",
+    "explicit reload exact actual input acknowledgement",
+    "rollback literal original with one audit",
+    "no mail/other table changes"
+  ],
+  "correction": "Same45s timeout, exact input expected equality replaces already-visible v9 text wait; no runtime change",
+  "logSHA256": "deec03f797384e709b25379326f689394059ac04518ab6a594a39f28d35bc026",
+  "release": "Exact final-head CI/merge/Pages pending"
+}

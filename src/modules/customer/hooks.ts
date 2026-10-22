@@ -4,10 +4,11 @@ import { useSession } from '../../auth/SessionProvider';
 import type { DataProvider } from '../../data/types';
 import { useData, useTable } from '../../data/DataContext';
 import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedgerRow, EventRow, EventRsvpRow, FaqEntryRow, InviteRow, MembershipRow, ModalityRow, NotificationRow, PaymentMethodRow, PaymentRow, PlanRow, ProfileRow, ReviewRow, RoomRow, TeacherRow, UserRow } from '../../data/schema';
-import { dateKey, isSameDay, MS } from '../../i18n/format';
+import { dateKey, isSameDay } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem, type PriceItem } from '../../tenant/pricing';
 import { insideCancelWindow, policy } from './policy';
+import { guardStudioWaitlist, promoteStudioWaitlist } from './studioWaitlist';
 import { rescheduleBooking } from './rescheduleCommand';
 import { approvedPackageRows, freezePatch, packageState, resumePatch, selectPackagePurchase } from '../../data/packages';
 
@@ -150,19 +151,16 @@ export function useBookingActions() {
 
   /** Offers the freed spot to the first waiting person (C-20: 30-minute claim window). */
   const promoteWaitlist = useCallback(async (sessionId: string) => {
-    const waiting = (await data.list<WaitlistRow>('waitlist', { where: { session_id: sessionId, status: 'waiting' }, orderBy: { column: 'position' } }));
-    const first = waiting[0];
-    if (!first) return;
-    const now = Date.now();
-    await data.update('waitlist', first.id, { status: 'offered', offered_at: new Date(now).toISOString(), claim_until: new Date(now + policy.claimWindowMinutes * MS.min).toISOString() });
+    await promoteStudioWaitlist(data, sessionId);
   }, [data]);
 
   const cancel = useCallback(async (booking: BookingRow, session: ClassSessionRow, reason: 'customer' | 'studio' = 'customer') => {
+    if (reason === 'studio') throw new Error('studio_cancellation_admin_required');
     const late = reason === 'customer' && insideCancelWindow(session.starts_at);
     const status = late ? 'late_cancel' : 'cancelled';
     await data.update('bookings', booking.id, { status, cancelled_at: new Date().toISOString() });
-    // The class returns to the package outside the window, or always when the studio cancelled (E-03).
-    if (booking.paid_with === 'package' && !late) await data.insert('class_ledger', { user_id: booking.user_id, plan_id: null, payment_id: null, delta: 1, reason: reason === 'studio' ? 'refund' : 'cancel_return', expires_at: null });
+    // Existing customer cancellation behavior; studio cancellation uses the scoped admin command.
+    if (booking.paid_with === 'package' && !late) await data.insert('class_ledger', { user_id: booking.user_id, plan_id: null, payment_id: null, delta: 1, reason: 'cancel_return', expires_at: null });
     if (session.status === 'scheduled') {
       await data.update('class_sessions', session.id, { booked_count: Math.max(0, session.booked_count - 1) });
       await promoteWaitlist(session.id);
@@ -177,9 +175,13 @@ export function useBookingActions() {
   }, [data, user.id]);
 
   const joinWaitlist = useCallback(async (session: ClassSessionRow) => {
-    const existing = await data.list<WaitlistRow>('waitlist', { where: { session_id: session.id } });
+    const run = async (transaction: DataProvider) => {
+      await guardStudioWaitlist(transaction, session.id);
+    const existing = await transaction.list<WaitlistRow>('waitlist', { where: { session_id: session.id } });
     const position = existing.filter((w) => w.status === 'waiting' || w.status === 'offered').length + 1;
-    return data.insert<WaitlistRow>('waitlist', { user_id: user.id, session_id: session.id, position, status: 'waiting', offered_at: null, claim_until: null } as Partial<WaitlistRow>);
+    return transaction.insert<WaitlistRow>('waitlist', { user_id: user.id, session_id: session.id, position, status: 'waiting', offered_at: null, claim_until: null } as Partial<WaitlistRow>);
+    };
+    return data.atomic ? data.atomic(run) : run(data);
   }, [data, user.id]);
 
   const leaveWaitlist = useCallback(async (entry: WaitlistRow) => data.update('waitlist', entry.id, { status: 'left' }), [data]);

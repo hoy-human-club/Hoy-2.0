@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5281",
+  "checks": [
+    "en: actual StrictMode double mount; payments/account/storage read failure/retry and foreign/duplicate/missing/wrong-account read rejection without canary render; same-tick busy guard; precommit cancel/unmount/actor mask; lostack strict retry once; postcommit cancel keeps factual local doc without late acknowledgement; provider payments unchanged",
+    "es: actual StrictMode double mount; payments/account/storage read failure/retry and foreign/duplicate/missing/wrong-account read rejection without canary render; same-tick busy guard; precommit cancel/unmount/actor mask; lostack strict retry once; postcommit cancel keeps factual local doc without late acknowledgement; provider payments unchanged"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual component/provider/storage faults. No real till close or provider write."
+  ]
+}

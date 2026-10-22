@@ -1,0 +1,61 @@
+{
+  "batch": 40,
+  "requirement": "PG-12",
+  "checkedBase": "4da63f5a81cac807f9fce7c75f4a20dd1a2af7e7",
+  "uncommittedRuntimeChanges": [
+    "src/components/organism/DailyCountDraft/DailyCountView.tsx",
+    "src/modules/staff/strings.ts"
+  ],
+  "runtimeBefore": "2c2afc3d92304fa121b6d7702a3680be06355855a4f38d44566698783b0c14ba",
+  "runtimeAfterBuild": "2c2afc3d92304fa121b6d7702a3680be06355855a4f38d44566698783b0c14ba",
+  "rootBasis": "SHA256 sorted src relative path + bytes, no delimiters excluding exact src/app/captureDates.ts; then vite.config.ts bytes only.",
+  "checks": [
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy40-localized-domain.log"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "session": "47796",
+      "log": "/tmp/hoy40-localized-tsc.log"
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "session": "57260",
+      "log": "/tmp/hoy40-localized-build.log"
+    }
+  ],
+  "snapshot": "/workspace/hoy-qa-archive/batch40-cash-count-2c2afc3d9230",
+  "archiveMode": "Whole dist hardlinked; all per-file SHA256/inodes and path/NUL/bytes/NUL whole-tree hash verified before/after. No further local build until QA.",
+  "distWholeHash": "5b07a478eb17cf183db5cb29be23ebc14633c2b7e7107126987119fda0b8514f",
+  "archiveWholeHash": "5b07a478eb17cf183db5cb29be23ebc14633c2b7e7107126987119fda0b8514f",
+  "archiveHashBasis": "SHA256 sorted archive-relative UTF8 path + NUL + raw bytes + NUL, all files included.",
+  "fileCount": 4170,
+  "files": "docs/frontend-completion/evidence/batch-40-dist-2c2-historical-hashes.json",
+  "historicalProof": "docs/frontend-completion/evidence/batch-40-build-c65-historical.json",
+  "historicalArchiveHashAfterNewBuild": "06257497c0fad5fcc2925cff568d726df726b3814a5bf50ee9e26aac784f87d8",
+  "productionBase": "http://127.0.0.1:5274",
+  "devBase": "http://127.0.0.1:5273",
+  "renderedStatus": "PENDING actual production/dev/library runs next",
+  "ciStatus": "pending parent integration",
+  "deploymentStatus": "not deployed; local immutable QA only",
+  "limits": [
+    "Original PG12 Nov 30 delivery criterion remains Not verified/unaccepted.",
+    "Fictional own count draft only; no actual close, expenses/customer joins, provider writes, adjustments or dispatch.",
+    "Exact grouping/arithmetic/ownership preserved; terminal mapping/cutoff/amount/refund/expense policies unresolved."
+  ],
+  "historicalOnly": true,
+  "functionalUIBeforeReadability": {
+    "command": "QA_BASE=http://127.0.0.1:5274 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-ui.mjs",
+    "session": "71972",
+    "exit": 0,
+    "browserClosed": true,
+    "log": "/tmp/hoy40-ui.log"
+  },
+  "visualGate": "Actual frozen preview12345 computed composited contrast3.38558457293675<4.5 at disabled opacity0.5. Dev/library not run on this superseded source.",
+  "historyProof": "docs/frontend-completion/evidence/batch-40-2c2-readability-history.json",
+  "currentStatus": "Superseded by authorized own-view readOnly readability correction; exact-source reruns/build/newarchive/all3QA pending."
+}

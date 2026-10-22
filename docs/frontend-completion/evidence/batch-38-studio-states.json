@@ -1,0 +1,12 @@
+{
+  "batch": 38,
+  "base": "http://127.0.0.1:5281",
+  "checks": [
+    "en: held scoped loading, read-failure and foreign-row denial/reload, immediate busy+sibling lock, stop/staged-write rollback, retained retry, postcommit inactive account withholds success, restoredaccount/lostack afterstart exact replay, unmount abort",
+    "es: held scoped loading, read-failure and foreign-row denial/reload, immediate busy+sibling lock, stop/staged-write rollback, retained retry, postcommit inactive account withholds success, restoredaccount/lostack afterstart exact replay, unmount abort"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual provider faults; no real backend or email."
+  ]
+}

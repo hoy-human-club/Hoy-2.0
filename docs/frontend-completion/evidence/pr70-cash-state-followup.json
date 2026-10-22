@@ -1,0 +1,21 @@
+{
+  "failedHead": "e50d109ffa7d7e3a1264be71a0f54cc9087f44d5",
+  "workflow": 39746389429,
+  "job": 119715768887,
+  "failedGate": "Verify actual asynchronous loading, cancel, failure and retry states",
+  "exactAssertion": "scripts/test-cash-count-states.mjs5:703: expected no localdraft, actual usr_desk count12 persisted after held digest release.",
+  "observedOtherGates": "Thisjob domain/production/all11state library/permanentcontrast passed; studio/team lifecycle jobs and all16correctness scopes passed.",
+  "sourceFinding": "Harness calls SessionProvider.switchUser, which schedules React setState and returnsvoid, then releases heldcallback before waiting committed provider/childcontext. UI can finish old account command before switchcommits. Similar direct unmount scheduling lacked actualdestination acknowledgement. No current product defect established by this sequencing.",
+  "testCorrection": [
+    "Wait actual FICTIONAL COUNT DESTINATION before releasing after unmount.",
+    "Wait persisted native usr_admin and visible actual masked loading state before releasing pendingoldaccount save.",
+    "Wait persisted usr_desk and actual ready state before initiatingnext command after switching back."
+  ],
+  "unchanged": [
+    "All no-localdraft/no-providerwrite/cancel/unmount/actor/lostack assertions",
+    "45second timeout",
+    "Runtime/source44cd and allapplicationfiles"
+  ],
+  "verification": "Corrected test NOT YET RUN;42exclusivebrowser/compiler. Newexact-headCI and localcurrenttest rerun required beforemerge. No blanketCIrerun or runtimechange.",
+  "logs": "Original GitHubjob119715768887 retained; finalActionsartifact12411896090 has failurecaptures/results14days."
+}

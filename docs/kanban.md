@@ -752,4 +752,24 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 
 - Operational34–37: combined fullbuild42290/domain10/all12 serial rendered gates PASS at0ab95982…; proof in frontend-completion/evidence/integrated-batches-34-37.json. Final-head CI/release pending; live PR68 unchanged. Inactive-account guards follow existing contract. Named local slices only; backend/delivery/owner acceptance pending. 38/39 visual repairs and40 browser QA queued;41/42 source-only untested.
 
+- PR69 head0437: corrected exact editor-field acknowledgement wait passes local fullENES/roles40201; finalCI/release pending.39 saved7053518 footer77proof passes, but root found two D02usages do not show all12declaredstates; source-only inventory correction active.38 new201a fullbuild/domain pass; current rendered QA exclusive.40/41/42 remain queued, no acceptance.
 PR69 head13832d5 correctness CI email-edit production test failed on an invalid reload wait (v9 label was already present before acknowledgement). Exact input-value wait replaces it at unchanged45s; all draft/no-write/rollback assertions retained, no runtime change. Evidence: frontend-completion/evidence/pr69-email-reload-test-correction.json. Final-head checks and narrow local follow-up pending; do not merge yet.
+
+- PR69 release: checked0437c4b all12 workflows/all33 jobs (16correctness) passed; merged54f37aa. Pages39734994970 all3 jobs passed with exactsource/selected subscription hosted verification; release-pr69.json saved.34–37 partialmock slices deployed, all124sourcecriteria/phases unchanged.38/39currentinventory/40QA and41/42untested remain independent; no backend/owner acceptance.
+
+- Durable recovery only: exact unverified39inventory/41 source bundles saved as evidence JSON with base/runtime/per-file hashes. Not imported, executed, accepted or deployed. Preserve original worktrees; actual compiler/browser gates still pending.
+
+- Recovery checkpoint: livePR69 unchanged54f37aa;38 current1c0a all local gates pass, proof pendingrootcheck;39 current522 fixture24/domain/hook22 pass, remainingQAexclusive;40 new2c2 localized source unexecuted;41/42 source bundles remain unverified. No38–42 application merge or owner/backend acceptance.
+Root visual review: current1c0a named command/lifecycle/library/contrast gates pass, but the legacy BookedPage ClassSummary still shows a confirmed mat caption below the studio-cancelled result. This is a remaining visual truthfulness gap, not a full acceptance pass. Root70 will guard that caption for studioCancelled/myCancelled and assert active bookings retain it; combined release waits for that fix/current proof. All82 final fictional images are mirrored locally with exact hashes under ignored M14, never committed.
+
+Protected-capture clarification: M14 schedule/pay screenshots remain local/ignored under explicit repository policy, even for synthetic fixtures. Per-file hashes are committed; upcoming CI Actions artifacts retain actual images. No public screenshot copy was committed or policy changed.
+
+- Root70 staged38 integration: narrow cancelled-seat caption guard and actual active/cancelled read-only regression added; fullbuild/current render pending. Protected captures remain excluded from publication; upcoming CI artifacts required.
+
+- Team39 current522/0d4c845 all isolated gates passed; local root70 integration staged with actual M08a shared-widget usages. Combined build/rendered/CI/release pending; no real role/invitation effects.
+
+- Active root70 source classification: AD02/AD06 actual bounded prototype source partial, total11/103/5/5 versus historical14/94/11/5; focused isolated checks only, no owner/backend acceptance. Current combined caption/runtime QA pending;40exclusive new2c2,41/42unexecuted.
+
+- Root70 CI prepared:3 new mock lifecycle scopes and14-day Actions screenshot artifacts, protected captures excluded from site/repo. Existing16 correctness scopes retained. New workflow has not run; cash40source/currentcombinedQA still pending.
+
+- Current40 readable5dc fullbuild/contrast8.67 pass, freshfullmatrix underway;43 new branch9bce78e reserved with existingagent for initial read-only RS10contract/repro audit only. No43 runtimeimplementation, compiler, browser or acceptance.

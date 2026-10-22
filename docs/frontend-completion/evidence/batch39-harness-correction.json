@@ -1,0 +1,32 @@
+{
+  "runtimeUnchanged": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "firstLibraryRun": {
+    "exit": 1,
+    "log": "/tmp/hoy-team-library.log",
+    "failure": "Coordinator team-panel absence asserted0, actual1 after first ENlight actual-super settings flow.",
+    "scriptSHA256": "f45b8703823b7705fafccf7c24de12a0eb73021ffe05a7853dc37ff69917af1f"
+  },
+  "actualDiagnostic": "batch39-role-fixture-probe.json",
+  "provedCause": "Library addInitScript reset usr_super on every new document; coordinator session changed back to super_admin before assertion. Once-per-sessionStorage preserved coordinator with panel absent.",
+  "correction": "Test-only fixture-once guard plus explicit observed coordinator identity assertion; no application/source changes or weakened assertions.",
+  "correctedScriptSHA256": "10d3122252948b71565e25912648a5f0c82828c94d8a1c6afdec6adbf79f1e89",
+  "correctedFullLibraryRun": "QUEUED rootsignal; no rerun yet",
+  "correctedFirstLibraryRerun": {
+    "exit": 1,
+    "log": "/tmp/hoy-team-library-final.log",
+    "failure": "Initial D02 Preview fictional team locator timed out30000ms before role addon.",
+    "scriptSHA256": "10d3122252948b71565e25912648a5f0c82828c94d8a1c6afdec6adbf79f1e89",
+    "cause": "Unresolved; separate executor read failed sandbox mount creation ENOSPC. No causal attribution without evidence.",
+    "browserClosure": "Confirmed zero live non-Z Chromium processes after runner exit."
+  },
+  "diagnosticOnlyScriptSHA256": "3ee3eeb6e1b099618fe3f11612efece3bc98d5a3d821daccabfa9a71ad77ccba",
+  "diagnosticChange": "Added safe scoped component/actor/control screenshot/console diagnostics on failure, no assertion/timeout/source change. No new browser run yet; queued by root.",
+  "startupDiagnostic": "batch39-d02-startup-diagnostic.json: bounded original30s selector PASS; usr_super/component1/panels2; zero pageerrors, exactly two deliberately aborted Googlefont CSS console failures. Earlier startup timeout cause remains unresolved.",
+  "offlineFontCorrection": {
+    "basis": "Exact two public font stylesheet URLs independently observed in bounded diagnostic; parent authorized test-only offline fixtures and strict unexpected-error/request assertions.",
+    "sourceRuntimeUnchanged": true,
+    "previousScriptSHA256": "3ee3eeb6e1b099618fe3f11612efece3bc98d5a3d821daccabfa9a71ad77ccba",
+    "preparedScriptSHA256": "a8ae84681f19c0332615022f1f4bcf26d096f60cc51078eda2059c3292144996",
+    "status": "Prepared; browser HOLD until root69 fullbuild completes. No new run claimed."
+  }
+}

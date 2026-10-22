@@ -1,0 +1,16 @@
+{
+  "batch": 38,
+  "source": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "fixtureSha256": {
+    "scripts/fixtures/studio-cancel-original-cancel.ts.txt": "09d22f40aacc654300acd174d0099f3e99020ed882e30f209ffc254fc8da1882",
+    "scripts/fixtures/studio-cancel-original-waitlist.ts.txt": "b52fae8b04a04de14f8a2f44417496097bd65b7936926002ce56ad67d2374dfd",
+    "scripts/fixtures/studio-cancel-original-editor.ts.txt": "1c363e2dc50b1f8e2c836a5f29e14363cd5bcedbb564b1e277e89dd743d8be10"
+  },
+  "method": "Exact original fixtures bundled write:false; actual MockProvider with fictional Map cache only. No browser/customer data/external action/body output.",
+  "checks": [
+    "Original session editor rejects status cancellation without effects.",
+    "Original studio-reason hook creates unlinked nonexpiring +1 beyond purchased expiry.",
+    "Repeating original studio-reason hook creates another return.",
+    "Original waitlist promotion offers a seat in a cancelled occurrence."
+  ]
+}

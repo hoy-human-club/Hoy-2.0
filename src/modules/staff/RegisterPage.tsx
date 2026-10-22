@@ -1,3 +1,4 @@
+import {DailyCountDraft} from '../../components/organism/DailyCountDraft/DailyCountDraft';
 import {useTrialAssessment} from '../customer/useTrialAssessment';
 import {trialErrorKey} from '../../data/trialEligibility';
 import {useOperationalCatalog,useReviewedQuote} from '../quotes/hooks';
@@ -246,6 +247,7 @@ export function RegisterPage() {
     <div className="stack">
       <div className="page-head"><div><h1>{t('staff.register.title')}</h1><p className="muted small">{t('staff.register.subtitle')}</p></div></div>
       <p className="xs muted">{t('staff.booking.mock')}</p>
+      <DailyCountDraft/>
       {!special.on&&<QuoteNotice catalog={catalog} review={review}/>}
       <div className="register">
         <div className="register-steps">

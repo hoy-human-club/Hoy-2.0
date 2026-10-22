@@ -1,0 +1,24 @@
+{
+  "batch": 38,
+  "base": "http://127.0.0.1:5270",
+  "entry": "./assets/index-BZ0JJq8U.js",
+  "entryHash": "fcb848a947f6a9bc2e01f1041dd76e800910e03ff94d1d426f32ed1b6b0a30ba",
+  "checks": [
+    "en/light/390: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
+    "en/light/1280: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged, 11 roles",
+    "en/dark/390: review/discard, immediate double click, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
+    "en/dark/1280: review/discard, immediate double click, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
+    "es/light/390: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
+    "es/light/1280: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged, 11 roles",
+    "es/dark/390: review/discard, immediate double click, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
+    "es/dark/1280: review/discard, immediate double click, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "captures": "qa/studio-cancel (ignored fictional protected-screen captures)",
+  "limits": [
+    "Browser-local mock only; no real email, payment, refund, server authorization or production acceptance.",
+    "Email previews do not settle contact, preference or recipient policy."
+  ],
+  "status": "HISTORICAL201a production functionalPASS; visualcontrastFAIL superseded"
+}

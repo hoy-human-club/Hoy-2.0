@@ -1,0 +1,1945 @@
+{
+  "base": "http://127.0.0.1:5282",
+  "checks": [
+    "en usr_desk: S04 deep-link, studio day in Honolulu, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "en usr_admin: S04 deep-link, studio day in Honolulu, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "en usr_super: S04 deep-link, studio day in Honolulu, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "es usr_desk: S04 deep-link, studio day in Tokyo, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "es usr_admin: S04 deep-link, studio day in Tokyo, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "es usr_super: S04 deep-link, studio day in Tokyo, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
+    "usr_coord: existing route/page guard shows no count panel",
+    "usr_fin: existing route/page guard shows no count panel",
+    "usr_teach: existing route/page guard shows no count panel",
+    "usr_maint: existing route/page guard shows no count panel",
+    "usr_mkt: existing route/page guard shows no count panel",
+    "usr_dev: existing route/page guard shows no count panel",
+    "usr_cust: existing route/page guard shows no count panel",
+    "usr_public: existing route/page guard shows no count panel"
+  ],
+  "errors": [],
+  "bounds": [
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "preview",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "error",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_desk",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_admin",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "light",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "light",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "dark",
+      "width": 390,
+      "card": {
+        "width": 356,
+        "scrollWidth": 356
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "actor": "usr_super",
+      "label": "saved",
+      "theme": "dark",
+      "width": 1280,
+      "card": {
+        "width": 974,
+        "scrollWidth": 974
+      },
+      "controls": [
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "INPUT",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        },
+        {
+          "tag": "BUTTON",
+          "left": 297,
+          "right": 1223,
+          "width": 926,
+          "height": 44
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Fictional browser draft and exact payment-field references only; no actual close, settlement, net discrepancy, expense access, provider write or acceptance."
+  ]
+}

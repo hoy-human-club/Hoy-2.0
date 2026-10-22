@@ -89,7 +89,7 @@ export function BookedPage({ change = false }: { change?: boolean }) {
       );
     },
     ClassSummary: () => (
-      <div className="stack-sm"><ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} onClick={() => nav(`/app/class/${s.id}`)} />{booking.mat_number && <p className="small" style={{ textAlign: 'center' }}>{t('site.mat.confirmed', { n: booking.mat_number })}</p>}</div>
+      <div className="stack-sm"><ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} onClick={() => nav(`/app/class/${s.id}`)} />{booking.mat_number && !studioCancelled && !myCancelled && <p className="small" style={{ textAlign: 'center' }}>{t('site.mat.confirmed', { n: booking.mat_number })}</p>}</div>
     ),
     PrepReminder: () => active ? (
       <Card eyebrow={t('customer.class.prep')} padding="md">
