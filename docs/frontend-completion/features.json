@@ -2264,7 +2264,7 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "",
-      "implementationStatus": "absent",
+      "implementationStatus": "partial",
       "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/CheckoutPage.tsx",
@@ -2362,7 +2362,7 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "FIN-05",
-      "implementationStatus": "absent",
+      "implementationStatus": "partial",
       "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/RegisterPage.tsx",
@@ -2423,7 +2423,7 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "",
-      "implementationStatus": "absent",
+      "implementationStatus": "partial",
       "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/HomePage.tsx",
@@ -4990,7 +4990,7 @@
       "priority": "Low",
       "relatedTests": "INT-07",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/GoogleBusinessPage.tsx",
         "src/tenant/hours.ts"
@@ -5024,7 +5024,7 @@
         {
           "batch": "batch-11.md",
           "behavior": "Immutable local hours/holiday payload; simulated progress/success/error/cancel/retry and stale-source guard. Real Google controls disabled; unconfirmed hours stay draft.",
-          "verification": "Domain/hours/typecheck and EN/ES390/1280 light/dark production-bundle rendered checks passed at immutable5198 with zero page errors; exact-head CI/release pending.",
+          "verification": "Domain/hours/typecheck and EN/ES390/1280 light/dark production-bundle rendered checks passed at immutable5198 with zero page errors. PR61 all12 exact-head checks passed90de752; mergedfe905a8. Pages run39698576160 build/deploy/hosted sourcefe905a8 verification passed.",
           "limits": "No Google request/readback, OAuth/credentials or settings writes. Original Google-shows-hours criterion remains unmet.",
           "acceptance": "Original After Nov30 phase/source status unchanged."
         }
@@ -5123,7 +5123,7 @@
       "priority": "Low",
       "relatedTests": "MAN-04, MAN-05",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/RoomsPage.tsx",
         "src/modules/staff/rooms.ts",
@@ -5164,7 +5164,7 @@
         {
           "batch": "batch-12.md",
           "behavior": "Fictional four-kind checklist/incident/supply/equipment records and independent intake with bilingual labels, preview/cancel, local staged save/retry/revision/idempotency. Existing maintenance.write role previews only.",
-          "verification": "Domain/typecheck, EN/ES390/1280 light/dark production rendered main/create checks at immutable5199, and dev loading/empty/error/retry checks passed with zero page errors; exact-head CI/release pending.",
+          "verification": "Domain/typecheck, EN/ES390/1280 light/dark production rendered main/create checks at immutable5199, and dev loading/empty/error/retry checks passed with zero page errors. PR61 all12 exact-head checks passed90de752; mergedfe905a8. Pages run39698576160 build/deploy/hosted sourcefe905a8 verification passed.",
           "limits": "No safety signoff, alerts, procurement, attachments, room blocking or device control. Actual thresholds/checklist ownership and backend authorization remain unresolved.",
           "acceptance": "Original After Nov30 phase/source status unchanged."
         }
@@ -5297,7 +5297,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches6–10 merged/deployed PR60 source7667ab8 after all12 checks at2f33480. Batches11/12 future prototypes passed production QA; exact-head CI/release pending. No owner/backend acceptance.",
+    "activeBatch": "Batches6–10 deployed PR60. Batches11/12 deployed PR61 after all12 exact-head checks and hosted source verification. Batches13–16 independent quote/API simulator/all-pending queue/teacher ownership frontend in progress. No owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5354,6 +5354,17 @@
       "merge": "7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24",
       "deployment": "https://github.com/imagine-os/hoy/actions/runs/39696839648",
       "deployedSource": "7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24"
+    },
+    "futurePrototypeCheckpoint": {
+      "pr": "https://github.com/imagine-os/hoy/pull/61",
+      "head": "90de752fb2af65b72c12ff525ce7d3afe4f963fc",
+      "checks": "All12 exact-head workflows passed, including both future Google/maintenance jobs",
+      "merge": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39698576160",
+      "deploymentStatus": "passed build/deploy/hosted exact-source-SHA verification",
+      "rollback": "7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24",
+      "limits": "New behavior verified with local production bundles and exact-head CI; original future phase and source acceptance unchanged.",
+      "deployedSource": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab"
     }
   }
 }
