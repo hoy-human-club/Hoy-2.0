@@ -57,9 +57,11 @@ jobs:
             node scripts/test-team-proposal-library-ui.mjs
           else
             node scripts/test-cash-count-library.mjs
+            node scripts/test-cash-count-contrast.mjs
           fi
         env:
           QA_BASE: http://127.0.0.1:5187
+          QA_RUNTIME: ${{ github.event.pull_request.head.sha }}
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify actual asynchronous loading, cancel, failure and retry states
         if: matrix.scope != 'team-proposals'

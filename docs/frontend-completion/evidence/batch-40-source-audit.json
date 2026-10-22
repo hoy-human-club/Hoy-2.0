@@ -1,0 +1,81 @@
+{
+  "batch": 40,
+  "base": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "requirement": {
+    "id": "PG-12",
+    "module": "Payments",
+    "feature": "Daily cash close",
+    "criterion": "The close reconciles cash, card terminal and transfers against recorded payments.",
+    "phase": "Nov 30 delivery",
+    "priority": "High",
+    "role": "Recepción",
+    "source": {
+      "status": "Not verified",
+      "demoStatus": "No visto / Not seen"
+    },
+    "relatedTests": "REC-18"
+  },
+  "auditScope": "Authorized repository only, read before implementation; no provider/database/browser/Git mutation.",
+  "sources": [
+    {
+      "path": "docs/ops-manual/en/14-pagos-y-caja.md",
+      "section": "1–4,8",
+      "facts": [
+        "Front desk counts cash after last class and compares payments they recorded; pending transfers go to finance.",
+        "Finance reconciles closing sheet, payment log and Wompi; cash expenses enter till closing but front desk/coordinator cannot read expenses.",
+        "Wompi matched to sale date, not deposit date; settlement cycle/account are pending.",
+        "Manual says terminal confirmed by Wompi, unlike current S04 card/manual mapping.",
+        "cash_difference_threshold is unresolved template token; no fixed closing hour/window/signoff/reopen contract identified."
+      ]
+    },
+    {
+      "path": "src/modules/staff/RegisterPage.tsx",
+      "facts": [
+        "Existing /staff/register route permits super_admin/admin/coordinator/front_desk; actual payments.write early guard permits panel only super_admin/admin/front_desk, preserving coordinator noPermission.",
+        "cash→cash/manual; datafono→card/manual; transfer→transfer/manual; QR→qr/wompi; link→card/wompi.",
+        "Only Wompi link is pending; other current desk methods locally approved. Pending links still contain amount_paid although paid_at is null.",
+        "Different amount_paid is allowed with observation; amount is invoiced total."
+      ]
+    },
+    {
+      "path": "src/data/schema.ts",
+      "facts": [
+        "Payment statuses pending/approved/declined/refunded/voided; method/provider/currency/amount/amount_paid/created_at/paid_at/taken_by exist.",
+        "No settlement date, close batch, opening float, cash movement ledger or per-refund amount/date contract."
+      ]
+    },
+    {
+      "path": "src/modules/transfers/receipts.ts",
+      "facts": [
+        "Review sets taken_by to reviewer; this is attribution, not proof of original creator/collector.",
+        "Approved transfer requires exact payment amount and sets paid_at; rejection can have amount_paid but no paid_at."
+      ]
+    },
+    {
+      "path": "src/modules/admin/FinancePage.tsx",
+      "facts": [
+        "Existing rolling range uses paid_at fallback created_at, approved amount totals, method grouping without provider distinction.",
+        "Finance route is admin/super/finance, not Reception; do not expand it.",
+        "Refund flips status but preserves original amount_paid; no actual refund amount/date or net-cash proof."
+      ]
+    }
+  ],
+  "safeSlice": [
+    "Contained S04 browser-only count draft/preview, existing actual payments.write gate.",
+    "Read only exact tenant/current actor taken_by payment rows and own active account; no customer/profile/expense/invoice/ledger joins.",
+    "Expose exact method/provider/status/currency references; no guessed terminal confirmation or Wompi settlement.",
+    "Separate created_at record-day and paid_at confirmation-day using studio calendar labels; no fallback for missing timestamps.",
+    "Reference amount and amount_paid independently; unknown/missing values never become zero; unresolved overall expected/net/closed/reconciled totals withheld.",
+    "Neutral initially blank cash/card-manual/transfer-manual counted COP fields; explicit preview/save/cancel/discard; browser-only actor/role/tenant/day scoped revision/request replay.",
+    "No provider writes, real close, adjustments, message dispatch or cross-device/cross-tab transaction guarantee."
+  ],
+  "unresolvedOwnerGates": [
+    "Terminal versus Wompi confirmation/source mapping.",
+    "Approved accounting amount basis, staff attribution/scope, close cutoff/shift ownership, opening float/withdrawals and expense treatment without broadening access.",
+    "Difference threshold/escalation, signature/signoff/reopen and refund/netting policy; old no-refunds versus future PG11/FI01 remains unresolved."
+  ],
+  "backendGates": [
+    "Authenticated scoped authoritative reconciliation/immutable close and audit; bank/provider settlement and durable storage."
+  ],
+  "classification": "Original PG12 remains unaccepted/Not verified; this audit does not promote implementation status."
+}

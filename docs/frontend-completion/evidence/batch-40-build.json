@@ -1,0 +1,158 @@
+{
+  "batch": 40,
+  "requirement": "PG-12",
+  "checkedBase": "4da63f5a81cac807f9fce7c75f4a20dd1a2af7e7",
+  "uncommittedRuntimeChanges": [
+    "src/components/organism/DailyCountDraft/DailyCountView.tsx",
+    "src/modules/staff/strings.ts"
+  ],
+  "runtimeBefore": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "runtimeAfterBuild": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "rootBasis": "SHA256 sorted src relative path+bytes no delimiters excluding exact src/app/captureDates.ts; finally vite.config.ts bytes only.",
+  "checks": [
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy40-readable-domain.log"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "session": "5031",
+      "log": "/tmp/hoy40-readable-tsc.log"
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "session": "71298",
+      "log": "/tmp/hoy40-readable-build.log"
+    }
+  ],
+  "snapshot": "/workspace/hoy-qa-archive/batch40-cash-count-5dc6009bd2fa",
+  "archiveMode": "Whole-dist hardlinked; every file SHA256 and inode plus whole-tree hash checked before/after copy. No local build until QA.",
+  "distWholeHash": "9af29c9804861c5b13cf7de5e1a680173cf56e063ee643e93ed313c765b4d756",
+  "archiveWholeHash": "9af29c9804861c5b13cf7de5e1a680173cf56e063ee643e93ed313c765b4d756",
+  "archiveHashBasis": "SHA256 over sorted relative UTF8 path + NUL + bytes + NUL for every file.",
+  "fileCount": 4210,
+  "files": "docs/frontend-completion/evidence/batch-40-dist-hashes.json",
+  "historicalProofs": [
+    "docs/frontend-completion/evidence/batch-40-build-c65-historical.json",
+    "docs/frontend-completion/evidence/batch-40-build-2c2-historical.json",
+    "docs/frontend-completion/evidence/batch-40-2c2-readability-history.json"
+  ],
+  "historical2c2ArchiveHashAfterNewBuild": "5b07a478eb17cf183db5cb29be23ebc14633c2b7e7107126987119fda0b8514f",
+  "productionBase": "http://127.0.0.1:5274",
+  "devBase": "http://127.0.0.1:5273",
+  "renderedStatus": "PASS all3 fresh serial suites +actual contrast gate; every browser closed",
+  "ciStatus": "pending parent integration",
+  "deploymentStatus": "not deployed; local immutable QA only",
+  "limits": [
+    "Original PG12 Nov 30 delivery criterion unaccepted/Not verified; this is a fictional count draft only.",
+    "No actual close, expense/customer joins, net expected till, financial adjustments, provider writes or dispatch.",
+    "Known enum display localized; exact raw grouping/arithmetic and immutable command snapshot unchanged."
+  ],
+  "runtimeAfterRendered": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "httpRuntimeAfterRendered": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "archiveWholeHashAfterRendered": "9af29c9804861c5b13cf7de5e1a680173cf56e063ee643e93ed313c765b4d756",
+  "browserStatus": "Exclusive slot released to parent; no further browser/build planned",
+  "roleCoverage": {
+    "allowed": [
+      "front_desk",
+      "admin",
+      "super_admin"
+    ],
+    "deniedOrExistingPageGuard": [
+      "coordinator",
+      "finance",
+      "teacher",
+      "maintenance",
+      "marketing",
+      "developer",
+      "customer",
+      "public"
+    ]
+  },
+  "boundsSummary": {
+    "captures": 40,
+    "measuredControls": 200,
+    "minWidth": 324,
+    "minHeight": 44,
+    "allCardsAndDocumentFit": true
+  },
+  "renderedChecks": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5274 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-ui.mjs",
+      "session": "44954",
+      "exit": 0,
+      "log": "/tmp/hoy40-readable-ui.log",
+      "results": "docs/screenshots/S-04/cash-count-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5273 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-states.mjs",
+      "session": "43485",
+      "exit": 0,
+      "log": "/tmp/hoy40-readable-states.log",
+      "results": "docs/screenshots/S-04/cash-count-state-results.json",
+      "browserClosed": true
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5274 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-library.mjs",
+      "session": "43100",
+      "exit": 0,
+      "log": "/tmp/hoy40-readable-library.log",
+      "results": "docs/screenshots/D-02/cash-count-library-results.json",
+      "browserClosed": true
+    }
+  ],
+  "readability": {
+    "diagnosticCommand": "QA_BASE=http://127.0.0.1:5274 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-contrast.mjs",
+    "session": "84407",
+    "exit": 0,
+    "browserClosed": true,
+    "log": "/tmp/hoy40-contrast-after.log",
+    "results": "docs/screenshots/S-04/cash-count-contrast-5dc6009bd2fa.json",
+    "contrastBefore": 3.38558457293675,
+    "contrastAfter": 8.669931884571552,
+    "threshold": 4.5,
+    "conditions": "Actual onInput-backed preview fields readOnly=true/disabled=false; keyboard attempts cannot change displayed counts/frozen saved command. D02 without callbacks stays disabled.",
+    "computedModel": "CSS RGBA alpha compositing including input opacity; recorded texture gradients/shadows not pixel-sampled.",
+    "historicalFailure": "docs/frontend-completion/evidence/batch-40-2c2-readability-history.json"
+  },
+  "inspectedShots": [
+    "docs/screenshots/S-04/en-390-cash-count-preview-contrast-5dc6009bd2fa.jpg",
+    "docs/screenshots/S-04/es-390-cash-count-saved-light.jpg",
+    "docs/screenshots/S-04/en-1280-cash-count-error-dark.jpg",
+    "docs/screenshots/D-02/es-390-cash-count-library-references-light.jpg"
+  ],
+  "visualAssessment": "Current EN/ES mobile/desktop light/dark preview/error/saved and library reference renders inspected. Frozen values now legible; explicit local-only/no-official-close/unknown-amount distinctions; wrapped labels/raw tuples; controls fit viewport without horizontal overflow.",
+  "scriptDigests": {
+    "scripts/cash-count-harness.tsx": "a1e8fb95adc6d22bbbb3846b5e23a50c82940903f6e52fa06f54cc998e98a9c6",
+    "scripts/test-cash-count-library.mjs": "6e5cff0fe8aa82e22c9dc61b6a6cd8dde0584077fcf87b582553d4ec3c0e9af4",
+    "scripts/test-cash-count-states.mjs": "3f20ad97579d3a403de5d7d7bfb6c6ee1d0cdd47991525b632e33234b31446e7",
+    "scripts/test-cash-count-draft.mjs": "b7d508659a3a768163687f50bf2c4c314dc043f61b99ec915bd7298a6c650ffb",
+    "scripts/test-cash-count-contrast.mjs": "a2f5d5f954717e113c5c0e6c52e115722c0669f402223c16bf02beb1f490b9e1",
+    "scripts/test-cash-count-ui.mjs": "395b7b3cd8f1c5a021556cc7e4eb8e31aa0523f161139eb51760ca33b2cdf130"
+  },
+  "sourceFileHashes": "docs/frontend-completion/evidence/batch-40-final-source-hashes.json",
+  "archiveBytes": 345345460,
+  "fileCountCorrection": {
+    "priorReported": 4170,
+    "currentEnumerated": 4210,
+    "reason": "Earlier count was carried forward from historical c65/2c2 archives. Comparing exact manifests: final5dc adds40 JPG assets captured by prior2c2 QA and included by the subsequent build;55 JS names replace55 JS names, with no net JS count. Artifact unchanged; no files added during this correction.",
+    "addedBySuffix": {
+      ".jpg": 40,
+      ".js": 55
+    },
+    "removedBySuffix": {
+      ".js": 55
+    }
+  },
+  "testOnlyPostQaChange": {
+    "file": "scripts/test-cash-count-contrast.mjs",
+    "change": "After diagnostic JSON is written and browser closed, assert contrastRatio>=4.5, readOnly===true, disabled===false.",
+    "status": "Not rerun after assertion addition; parent combined CI/rendered gate pending. Prior measured JSON independently passed these checks. No runtime/source or frozen artifact change.",
+    "currentSha256": "248c54864584332734442e7be245755deceb911ec59c76316dbf15a62181e235",
+    "markerContract": "Standalone script currently requires cash-count-evidence.json runtime marker; parent owns combined CI marker integration."
+  }
+}

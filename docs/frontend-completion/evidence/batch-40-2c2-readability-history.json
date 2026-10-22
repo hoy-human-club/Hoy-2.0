@@ -1,0 +1,197 @@
+{
+  "runtime": "2c2afc3d92304fa121b6d7702a3680be06355855a4f38d44566698783b0c14ba",
+  "functionalProductionUI": {
+    "command": "QA_BASE=http://127.0.0.1:5274 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-ui.mjs",
+    "session": "71972",
+    "exit": 0,
+    "browserClosed": true,
+    "log": "/tmp/hoy40-ui.log"
+  },
+  "remainingVisualGate": "Actual frozen preview12345 computed composited contrast3.38558457293675<4.5 at disabled opacity0.5. Dev/library not run on this superseded source.",
+  "contrastDiagnostic": {
+    "script": "scripts/test-cash-count-contrast.mjs",
+    "session": "97765",
+    "exit": 0,
+    "browserClosed": true,
+    "log": "/tmp/hoy40-contrast-before.log",
+    "result": "docs/screenshots/S-04/cash-count-contrast-2c2afc3d9230.json",
+    "screenshotSha256": "d8efe2d4ee8e76dc5b3b178ac1b86fc53a220626cdf45dccce440e67a7e53d92"
+  },
+  "historicalArtifacts": "/workspace/hoy-qa-archive/batch40-ui-2c2-before-readability",
+  "historicalArtifactsHash": "e92564bc3e85bb5519c3945c6a496b17558e21bc287fcc653ebeb1b4736bad88",
+  "hashBasis": "Sorted relative filename + NUL + bytes + NUL SHA256",
+  "files": [
+    {
+      "file": "cash-count-contrast-2c2afc3d9230.json",
+      "sha256": "23d86aeb8dd51dddad22c7a0fdd1eff555e56ad4cc02db06d50d6d5909d81603"
+    },
+    {
+      "file": "cash-count-results.json",
+      "sha256": "55ba4d583550e3db6eedfee952e50a27e21f48b154b8965d5c05929bec72db71"
+    },
+    {
+      "file": "en-1280-cash-count-error-dark.jpg",
+      "sha256": "40f8101acacfcd558145725c5dd71180c85242ea3118b53eba968edff519195c"
+    },
+    {
+      "file": "en-1280-cash-count-error-light.jpg",
+      "sha256": "5fad7e6b8fee82644df9d69b2e757cb004d1dd0dbfda36e45f2c02826283d788"
+    },
+    {
+      "file": "en-1280-cash-count-preview-dark.jpg",
+      "sha256": "34a1761e1701716da46723f030ca51ba215112e54214f3c26f825cd6e0e1219e"
+    },
+    {
+      "file": "en-1280-cash-count-preview-light.jpg",
+      "sha256": "8175062860748d83335495d19afae3946b70535b614634b70ee58d9b8ca20307"
+    },
+    {
+      "file": "en-1280-cash-count-saved-dark-usr_admin.jpg",
+      "sha256": "64c6c78a0192e0d78faa8bdffb02bdcb14c1ca4da1ccf4de5cdecfd08954ceda"
+    },
+    {
+      "file": "en-1280-cash-count-saved-dark-usr_super.jpg",
+      "sha256": "33e69b795e8a43d1724877b0a85f4a16d7e796131f5aa552ebd45b732fd57492"
+    },
+    {
+      "file": "en-1280-cash-count-saved-dark.jpg",
+      "sha256": "2a47f88b297003677b031245e45e71e32337c413a3565ef0e1fd0b96d494efa4"
+    },
+    {
+      "file": "en-1280-cash-count-saved-light-usr_admin.jpg",
+      "sha256": "01248ebeee15c9fa0684f478fa0c46bc5e8ae97ce5b051f07ca53bf56cf4be50"
+    },
+    {
+      "file": "en-1280-cash-count-saved-light-usr_super.jpg",
+      "sha256": "88c5322507d6cbbe9925a9b8844f4cdf64f5164b56ac9c8b7e561f6820a96aea"
+    },
+    {
+      "file": "en-1280-cash-count-saved-light.jpg",
+      "sha256": "664c519d14ed277f7c94b9a25b684741581e7328abc759dc9e700ac3c6f37371"
+    },
+    {
+      "file": "en-390-cash-count-error-dark.jpg",
+      "sha256": "62eafb2ab2993aab5190a0d3eb80a727235c0f92b2d7eb8d50b5b01c7d4d99d1"
+    },
+    {
+      "file": "en-390-cash-count-error-light.jpg",
+      "sha256": "f66dcdd3df62391a513b5488975bcc6a2356309f19da3af65bcd2317fb6eb0e7"
+    },
+    {
+      "file": "en-390-cash-count-preview-contrast-2c2afc3d9230.jpg",
+      "sha256": "d8efe2d4ee8e76dc5b3b178ac1b86fc53a220626cdf45dccce440e67a7e53d92"
+    },
+    {
+      "file": "en-390-cash-count-preview-dark.jpg",
+      "sha256": "94c0fdaf188eccae1ba8c87e37d0b676037230c21a9f003b9a25873e63d32d8d"
+    },
+    {
+      "file": "en-390-cash-count-preview-light.jpg",
+      "sha256": "1c1914dab7ee728328da649fb220e0e9d35b25559908f08199886c8e58cd4750"
+    },
+    {
+      "file": "en-390-cash-count-saved-dark-usr_admin.jpg",
+      "sha256": "bb340dbc54cc04e08f4f4d3ff35e9c888e3d6c3957bd7e89b83677903bf44a03"
+    },
+    {
+      "file": "en-390-cash-count-saved-dark-usr_super.jpg",
+      "sha256": "a4c67103566d6348523e3fae80b0c7b9b60ad5ca45523b3008b5f6ba8183b5ac"
+    },
+    {
+      "file": "en-390-cash-count-saved-dark.jpg",
+      "sha256": "98a130c18a66c13b666fa4b79067192f6469b580f897a7a5052c42b2f2641618"
+    },
+    {
+      "file": "en-390-cash-count-saved-light-usr_admin.jpg",
+      "sha256": "3457edb2faa16b7045fec47a37c94c692b847e31b833af78dcb58471d0f0d794"
+    },
+    {
+      "file": "en-390-cash-count-saved-light-usr_super.jpg",
+      "sha256": "724f34b2657801579d37beb0a0708e6437dc25e1be8d49e4018ffbcbad6b570c"
+    },
+    {
+      "file": "en-390-cash-count-saved-light.jpg",
+      "sha256": "bf51e933b221f981e810450d5fbb0a5ba5b1b950f73f311d133392229237161a"
+    },
+    {
+      "file": "es-1280-cash-count-error-dark.jpg",
+      "sha256": "49ad86f97a78833c58482bcf7363a8e3ece9e38cb9e8357c33ce58303e18f150"
+    },
+    {
+      "file": "es-1280-cash-count-error-light.jpg",
+      "sha256": "c24e2f921f1002dcf4ceab012e1247f0a0c07a3b40e6016d944857b8ed2aee08"
+    },
+    {
+      "file": "es-1280-cash-count-preview-dark.jpg",
+      "sha256": "914f4e0ddacc2aa7c4f2a0ced1eb666cab2161ca71cfce36b74381c7fd164592"
+    },
+    {
+      "file": "es-1280-cash-count-preview-light.jpg",
+      "sha256": "dbd41865114360de0124c7eb590ab0de38a64612bfdc37fa8be2276565e8755d"
+    },
+    {
+      "file": "es-1280-cash-count-saved-dark-usr_admin.jpg",
+      "sha256": "b57cf9b52751f7dd92ae6879b788c11b06adb3710234a1523e89934d46e012d2"
+    },
+    {
+      "file": "es-1280-cash-count-saved-dark-usr_super.jpg",
+      "sha256": "5ad6f16497e732609ee93e9e4762385bf778198a4f84f18378cc4d11a58e6ce4"
+    },
+    {
+      "file": "es-1280-cash-count-saved-dark.jpg",
+      "sha256": "77a36bb7b064a9f8fea4fde1e19211255a99dfd36febcc1aaa529609ecae3bdd"
+    },
+    {
+      "file": "es-1280-cash-count-saved-light-usr_admin.jpg",
+      "sha256": "c4a6dd931f3bf8d081b88e58df717ba207510079d9fa479b38fa64d467cf8edb"
+    },
+    {
+      "file": "es-1280-cash-count-saved-light-usr_super.jpg",
+      "sha256": "e4f38f9725e866288c800af258cc274c9431653b40a6e8f98956f35af322f351"
+    },
+    {
+      "file": "es-1280-cash-count-saved-light.jpg",
+      "sha256": "583b80e61dd30af0e2794f886cb6247eebcff1f4f11e8f4908c5e69f6bf3019b"
+    },
+    {
+      "file": "es-390-cash-count-error-dark.jpg",
+      "sha256": "c00bea2fcef2348f513907e4c48cbda2752298656929ac13b24fb72310b2da9e"
+    },
+    {
+      "file": "es-390-cash-count-error-light.jpg",
+      "sha256": "f7ae36f0aebf9ae00caf4c67ba738e700424b3c73b680dd24d276982c8deb847"
+    },
+    {
+      "file": "es-390-cash-count-preview-dark.jpg",
+      "sha256": "6f18274611214780086100b8d4616f0c44131682dc5220e2e27ba87a44667129"
+    },
+    {
+      "file": "es-390-cash-count-preview-light.jpg",
+      "sha256": "091db69c15de92249995c045ea6b9968b5fd7cdffcca291af222668bb2199dd9"
+    },
+    {
+      "file": "es-390-cash-count-saved-dark-usr_admin.jpg",
+      "sha256": "5181d86216a4c24eaa0a3e92351a3bf071bb20d8d622f7cf749bc60fd4360842"
+    },
+    {
+      "file": "es-390-cash-count-saved-dark-usr_super.jpg",
+      "sha256": "19ee8930d14dc251efe58303c1a5df8595bbeb76914deba2c06a779861bbd30b"
+    },
+    {
+      "file": "es-390-cash-count-saved-dark.jpg",
+      "sha256": "5181d86216a4c24eaa0a3e92351a3bf071bb20d8d622f7cf749bc60fd4360842"
+    },
+    {
+      "file": "es-390-cash-count-saved-light-usr_admin.jpg",
+      "sha256": "f24554deeb5303d4621e104f90e692630ab58ac0622b49f4d495678d63aec22b"
+    },
+    {
+      "file": "es-390-cash-count-saved-light-usr_super.jpg",
+      "sha256": "b69b88d506fc7c314c389f573986679db636374eec825a8d983d02ff7bf6bd4c"
+    },
+    {
+      "file": "es-390-cash-count-saved-light.jpg",
+      "sha256": "abfa9e9e4552a42d022663f3da85cb34bf0f2ef6e5ab512a28d854ce4249df7c"
+    }
+  ]
+}

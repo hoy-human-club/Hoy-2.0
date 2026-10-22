@@ -1,0 +1,134 @@
+{
+  "base": "http://127.0.0.1:5274",
+  "runtime": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "metrics": {
+    "value": "12345",
+    "disabled": false,
+    "readOnly": true,
+    "chain": [
+      {
+        "tag": "INPUT",
+        "class": "input  ",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgb(34, 56, 79)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "LABEL",
+        "class": "stack-sm",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "stack",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "card card-pad-md card-surface   ",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgb(34, 56, 79)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "SECTION",
+        "class": "stack",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "stack",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "MAIN",
+        "class": "deskshell-main",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "deskshell-col",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "deskshell  ",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      },
+      {
+        "tag": "BODY",
+        "class": "",
+        "color": "rgb(228, 218, 198)",
+        "backgroundColor": "rgb(27, 46, 68)",
+        "backgroundImage": "none, linear-gradient(170deg, rgb(29, 49, 72), rgb(27, 46, 68))",
+        "opacity": "1"
+      },
+      {
+        "tag": "HTML",
+        "class": "",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(27, 46, 68)",
+        "backgroundImage": "none",
+        "opacity": "1"
+      }
+    ],
+    "compositedText": [
+      228,
+      218,
+      198,
+      1
+    ],
+    "compositedBackground": [
+      34,
+      56,
+      79,
+      1
+    ],
+    "contrastRatio": 8.669931884571552,
+    "threshold": 4.5,
+    "passes": true,
+    "basis": "Computed CSS RGBA alpha compositing of element/ancestor background colors, including element opacity; textured background-image highlights/shadows are recorded separately, not sampled."
+  },
+  "screenshot": "docs/screenshots/S-04/en-390-cash-count-preview-contrast-5dc6009bd2fa.jpg",
+  "screenshotSha256": "478896f24d28ba1c7d118c599c30c89e7adbc38fb398a10f1dd42e16c5a2aed0",
+  "browserClosed": true
+}

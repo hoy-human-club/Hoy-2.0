@@ -3140,22 +3140,57 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "REC-18",
-      "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "implementationStatus": "partial",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/FinancePage.tsx",
         "src/modules/staff/RegisterPage.tsx",
-        "src/data/schema.ts"
+        "src/data/schema.ts",
+        "src/modules/staff/cashCountDraft.ts",
+        "src/components/organism/DailyCountDraft/DailyCountDraft.tsx",
+        "src/components/organism/DailyCountDraft/DailyCountView.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/staff/register?panel=count-draft&day=2026-10-22"
+      ],
+      "tests": [
+        "scripts/test-cash-count-draft.mjs",
+        "scripts/test-cash-count-ui.mjs",
+        "scripts/test-cash-count-states.mjs",
+        "scripts/test-cash-count-library.mjs",
+        "scripts/test-cash-count-contrast.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-04/cash-count-results.json",
+        "docs/screenshots/D-02/cash-count-library-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Create fictional daily close prototype with method counts, discrepancies and review/close contract.",
+      "nextAction": "Verify combined lifecycle head and strengthened contrast assertion; preserve local count draft until accounting/terminal/attribution/cutoff/refund/expense/signoff decisions and authenticated durable close contract exist.",
       "candidateRoutes": [
         "/#/admin/finance"
       ],
       "sourceAssessment": {
+        "basis": "Actual bounded fictional count-draft source and isolated5dc domain/build/rendered evidence; original full close criterion remains unaccepted.",
+        "missingFrontend": [
+          "Local own-attributed method references and blank/zero counts implemented; no official close, expected till, discrepancy, netting, signoff or reconciliation.",
+          "Combined38–40 current proof, strengthened contrast assertion and exact-head CI/deployment pending."
+        ],
+        "remainingBackend": [
+          "Authenticated immutable durable concurrent close/reconciliation contract.",
+          "Authoritative payment/movement/refund/expense/terminal confirmation data and owner accounting decisions."
+        ]
+      },
+      "sourceNextAction": "Create fictional daily close prototype with method counts, discrepancies and review/close contract.",
+      "baselineImplementationStatus": "absent",
+      "continuationEvidence": {
+        "batch": 40,
+        "sourceCommit": "5483f67",
+        "runtimeFingerprint": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+        "proof": "docs/frontend-completion/evidence/batch-40-build.json",
+        "rootReview": "docs/frontend-completion/evidence/batch-40-root-review.json",
+        "verificationBoundary": "Named isolated domain/type/fullbuild/ENES3901280lightdark/all11roles/dev/all11library states pass. New permanent contrast assertions and current combined source/CI/deployment pending; not owner accepted/backend-ready."
+      },
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "Revenue by method exists; no counted-vs-recorded daily cash-close screen/entity identified."
@@ -3163,9 +3198,7 @@
         "remainingBackend": [
           "Immutable daily close/reconciliation command."
         ]
-      },
-      "sourceNextAction": "Create fictional daily close prototype with method counts, discrepancies and review/close contract.",
-      "baselineImplementationStatus": "absent"
+      }
     },
     {
       "id": "PG-13",
