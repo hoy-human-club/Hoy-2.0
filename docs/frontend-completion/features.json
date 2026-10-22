@@ -5921,5 +5921,10 @@
     "verificationStatus": "Only named tested frontend slices are verified; consult continuationEvidence and batch receipts for exact scope. A focused pass never promotes the whole row to accepted/backend-ready.",
     "source": "Original owner/source status, role, criterion and phase remain unchanged. No completion percentage is inferred from these categories.",
     "assessments": "Rows touched by current batches keep historicalSourceAssessment/priorSourceAssessments separately from the current bounded sourceAssessment and named continuationEvidence. Other source-only findings are not fresh verification."
+  },
+  "sourceReconciliation": {
+    "note": "docs/frontend-completion/source-reconciliation-2026-10-22.md",
+    "basis": "Trusted parent summary; detailed source comparison pending parent, underlying email not independently read here.",
+    "policy": "No commercial acceptance, production acceptance, ownership/phase/criterion changes or credential connection. Existing frontend authorization continues; production requirements remain distinct."
   }
 }
