@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'src/data/**'
+      - 'src/auth/permissions.ts'
+      - 'src/modules/admin/FinancePage.tsx'
+      - 'scripts/test-audit*.mjs'
+      - 'scripts/test-reception-attendance.mjs'
       - 'src/modules/customer/**'
       - 'src/modules/staff/**'
       - 'src/modules/transfers/**'
@@ -37,6 +41,8 @@ jobs:
       - run: npm run build
       - name: Verify isolated mock rules and transactions
         run: |
+          node scripts/test-audit-policy.mjs
+          node scripts/test-reception-attendance.mjs
           node scripts/test-mock-additive-upgrade.mjs
           node scripts/test-release-source.mjs
           node scripts/test-draft-receipt-schema.mjs
@@ -50,6 +56,7 @@ jobs:
         run: |
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-booking-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-audit-repairs-ui.mjs
           node scripts/test-desk-package-ui.mjs
           node scripts/test-desk-sale-ui.mjs
           node scripts/test-pending-package-ui.mjs
@@ -72,6 +79,7 @@ jobs:
         with:
           name: booking-payment-${{ github.event.pull_request.head.sha }}
           path: |
+            qa/audit-repairs/
             docs/screenshots/S-02/*package*
             docs/screenshots/S-04/*atomic*
             docs/screenshots/C-04/*pending*

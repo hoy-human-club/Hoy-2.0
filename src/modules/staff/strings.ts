@@ -142,6 +142,8 @@ export const strings: StringTable = {
   'staff.checkin.noMatch.body': { es: 'Mira “Walk-in” a la derecha para agregar a alguien que no reservó.', en: 'See “Walk-in” on the right to add someone who did not book.' },
   'staff.checkin.checkin': { es: 'Check-in', en: 'Check in' },
   'staff.checkin.noShow': { es: 'No vino', en: 'No-show' },
+  'staff.checkin.undoPolicy': { es: 'Deshacer no está habilitado para esta clase en la demo. La política de corrección de asistencia requiere confirmación.', en: 'Undo is not enabled for this class in the demo. Attendance correction policy needs confirmation.' },
+  'staff.checkin.attendanceFailed': { es: 'No se guardó el cambio de asistencia. Recarga la lista y vuelve a intentar.', en: 'Attendance change was not saved. Reload the roster and retry.' },
   'staff.checkin.undo': { es: 'Deshacer', en: 'Undo' },
   'staff.checkin.promote': { es: 'Dar cupo', en: 'Promote' },
   'staff.checkin.noPlan': { es: 'Sin plan', en: 'No plan' },

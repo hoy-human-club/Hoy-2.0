@@ -782,3 +782,5 @@ Protected-capture clarification: M14 schedule/pay screenshots remain local/ignor
 - Root70 CI prepared:3 new mock lifecycle scopes and14-day Actions screenshot artifacts, protected captures excluded from site/repo. Existing16 correctness scopes retained. New workflow has not run; cash40source/currentcombinedQA still pending.
 
 - Current40 readable5dc fullbuild/contrast8.67 pass, freshfullmatrix underway;43 new branch9bce78e reserved with existingagent for initial read-only RS10contract/repro audit only. No43 runtimeimplementation, compiler, browser or acceptance.
+
+- PR72 independent audit repair draft: isolated codex/frontend-audit-repairs-pr72 from e30a4d21. Removes new refund actions, aligns fresh fictional :00–:50 fixtures and makes reception attendance/audit atomic. After-start undo visibly awaits policy; no hold/cancellation rule invented. Prior email/component-library work untouched. Focused and aggregate evidence/checkpoint: frontend-completion/audit-repair-checkpoint.md. No merge/deployment/sheet update; Library service discovery currently blocked before upload.

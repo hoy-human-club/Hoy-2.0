@@ -332,13 +332,13 @@ export function buildSeed(): Record<string, BaseRow[]> {
       if (mine.has(dayOf(ses.starts_at)) || bookings.some((bk) => bk.user_id === 'usr_cust' && bk.session_id === ses.id)) continue;
       checkIn('usr_cust', ses); mine.add(dayOf(ses.starts_at)); have++;
     }
-    // Then her usual slot — Tuesday and Thursday at 08:10 ("practica en la mañana") — on days with no class yet.
+    // Then her usual slot — Tuesday and Thursday at 08:00 ("practica en la mañana") — on days with no class yet.
     for (const weekday of [2, 4, 1, 3, 5, 6]) {
       if (have >= need) break;
       const day = atStudioTime(addDays(fromDateKey(week), weekday - 1), 0);
       const key = dateKey(day);
       if (mine.has(key) || key >= dateKey(NOW)) continue;
-      const row = TIMETABLE.find(t => t.weekday === weekday && t.time === '08:10');
+      const row = TIMETABLE.find(t => t.weekday === weekday && t.time === '08:00');
       if (!row) continue;
       const { time: start, modality: mod, teacher: tea, title } = row;
       const id = `ses_${key}_1`;

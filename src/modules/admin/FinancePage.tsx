@@ -1,8 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
-import { useSession } from '../../auth/SessionProvider';
-import { useData, useTable } from '../../data/DataContext';
+import { useTable } from '../../data/DataContext';
 import type { BaseRow, PaymentRow, PlanRow } from '../../data/schema';
 import { formatCOP, formatDate, formatDateTime, MS, addMonths } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
@@ -13,7 +12,6 @@ import { Badge, toneForStatus } from '../../components/atom/Badge/Badge';
 import { BarList } from '../../components/molecule/BarList/BarList';
 import { DataTable, type DataTableColumn } from '../../components/organism/DataTable/DataTable';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
-import { useAudit } from '../staff/audit';
 import { usePayroll } from './payouts';
 import { expenseTotals, inRange as onOrAfter, payrollInRange, sinceDay, useExpenses } from './expenses';
 import { usePeople } from '../staff/people';
@@ -27,9 +25,6 @@ type Range = '7d' | '15d' | '30d' | '90d' | 'all';
 /** M-09 — revenue by product and method, pending, refunds, the teacher-payroll roll-up (M-09a) and invoices with the DIAN reference. */
 export function FinancePage() {
   const { t, lang, bi } = useI18n();
-  const data = useData();
-  const { can } = useSession();
-  const audit = useAudit('admin');
   const { settings } = useSettings();
   const { rows: payments, loading } = useTable<PaymentRow>('payments', { orderBy: { column: 'created_at', dir: 'desc' } });
   const { rows: invoices } = useTable<InvoiceRow>('invoices', { orderBy: { column: 'issued_at', dir: 'desc' } });
@@ -51,7 +46,6 @@ export function FinancePage() {
   const byProduct = useMemo(() => { const m = new Map<string, number>(); for (const p of approved) { const k = p.plan_id ?? 'special'; m.set(k, (m.get(k) ?? 0) + p.amount); } return [...m.entries()].map(([id, value]) => ({ id, label: planMap.get(id) ? bi({ es: planMap.get(id)!.name_es, en: planMap.get(id)!.name_en }) : id === 'special' ? t('admin.finance.product.special') : id, value })).sort((a, b) => b.value - a.value); }, [approved, planMap, bi, t]);
   const byMethod = useMemo(() => { const m = new Map<string, number>(); for (const p of approved) m.set(p.method, (m.get(p.method) ?? 0) + p.amount); return [...m.entries()].map(([id, value]) => ({ id, label: t(`admin.finance.method.${id}`), value })).sort((a, b) => b.value - a.value); }, [approved, t]);
   const wompiShare = revenue ? Math.round((approved.filter((p) => p.provider === 'wompi').reduce((a, p) => a + p.amount, 0) / revenue) * 100) : 0;
-  const canRefund = can('payments.refund');
   const invByPayment = new Map(invoices.map((i) => [i.payment_id, i]));
   // M-09a payroll roll-up: the three numbers that used to be an em dash.
   const nextRun = runs.find((r) => r.status === 'draft');
@@ -68,12 +62,6 @@ export function FinancePage() {
   const spend = useMemo(() => expenseTotals(expenses.filter((e) => onOrAfter(e.incurred_on, sinceD))), [expenses, sinceD]);
   const balance = revenue - payrollCost - spend.total;
 
-  const refund = async (p: PaymentRow) => {
-    if (!canRefund || !confirm(t('admin.finance.refund.confirm', { amount: formatCOP(p.amount, lang) }))) return;
-    await data.update('payments', p.id, { status: 'refunded' });
-    await audit('payment.refund', 'payments', p.id, { before: p.status, after: 'refunded', amount: p.amount, user_id: p.user_id });
-  };
-
   const payCols: DataTableColumn<PaymentRow>[] = [
     { key: 'paid_at', label: t('admin.finance.col.when'), render: (p) => <span className="mono small">{formatDateTime(p.paid_at ?? p.created_at, lang)}</span> },
     { key: 'user_id', label: t('admin.finance.col.member'), render: (p) => (p.user_id ? byId.get(p.user_id)?.name ?? p.user_id : <span className="muted">{t('admin.finance.col.contact')}</span>) },
@@ -82,7 +70,6 @@ export function FinancePage() {
     { key: 'method', label: t('admin.finance.col.method'), render: (p) => `${t(`admin.finance.method.${p.method}`)} · ${t(`admin.finance.provider.${p.provider}`)}` },
     { key: 'status', label: t('admin.finance.col.status'), render: (p) => <Badge tone={toneForStatus(p.status)}>{t(`admin.finance.status.${p.status}`)}</Badge> },
     { key: 'invoice', label: 'DIAN', sortable: false, render: (p) => { const inv = invByPayment.get(p.id); return inv ? <span className="xs mono" title={inv.dian_cufe ?? t('admin.finance.noCufe')}>{inv.number}{inv.dian_cufe ? ` · ${inv.dian_cufe.slice(0, 8)}…` : ''}</span> : <span className="muted">—</span>; } },
-    ...(canRefund ? [{ key: 'actions', label: '', sortable: false, render: (p: PaymentRow) => p.status === 'approved' ? <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); refund(p); }}>{t('admin.finance.refund')}</Button> : null }] : []),
   ];
   const invCols: DataTableColumn<InvoiceRow>[] = [
     { key: 'number', label: t('admin.finance.col.invoice'), mono: true },
@@ -131,7 +118,7 @@ export function FinancePage() {
         <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.payouts.body')} <Link to="/admin/settings/payments">{t('core.nav.settings')}</Link></p>
       </Card>
       <section className="stack-sm">
-        <div className="row-between wrap"><div className="eyebrow">{t('admin.finance.payments')}</div>{!canRefund && <span className="xs muted">{t('admin.finance.refund.noPermission')}</span>}</div>
+        <div className="row-between wrap"><div className="eyebrow">{t('admin.finance.payments')}</div><span className="xs muted">{t('admin.finance.refund.disabled')}</span></div>
         <DataTable columns={payCols} rows={inRange} rowKey={(p) => p.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} />
       </section>
       <section className="stack-sm">

@@ -898,6 +898,7 @@ export const strings: StringTable = {
   'admin.finance.payments': { es: 'Pagos', en: 'Payments' },
   'admin.finance.refund': { es: 'Reembolsar', en: 'Refund' },
   'admin.finance.refund.confirm': { es: '¿Reembolsar {amount}? El pago pasa a “refunded” y queda en el registro.', en: 'Refund {amount}? The payment becomes “refunded” and is logged.' },
+  'admin.finance.refund.disabled': { es: 'No se realizan reembolsos.', en: 'Refunds are not available.' },
   'admin.finance.refund.noPermission': { es: 'Solo finanzas y administración reembolsan.', en: 'Only finance and admin can refund.' },
   'admin.finance.col.when': { es: 'Cuándo', en: 'When' },
   'admin.finance.col.member': { es: 'Miembro', en: 'Member' },

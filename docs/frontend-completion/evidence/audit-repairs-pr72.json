@@ -1,0 +1,170 @@
+{
+  "schema": "hoy.audit-repairs/1",
+  "base": "e30a4d21b158bdfcbe9cf37ae7026cbdf6ccd579",
+  "branch": "codex/frontend-audit-repairs-pr72",
+  "releaseState": "draft parent review; no merge/deployment/sheet edits",
+  "runtime": "79a8aa545ec864a8fe24116f322a4c8882e64f894abf129a666b3d8370e9845d",
+  "runtimeMethod": "sorted src relative path UTF8 then bytes, excluding captureDates.ts; append vite.config.ts bytes",
+  "fullBuild": "full npm build documented/final checkpoint gates recorded in local evidence",
+  "checks": [
+    {
+      "script": "scripts/test-audit-policy.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.4
+    },
+    {
+      "script": "scripts/test-reception-attendance.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.5
+    },
+    {
+      "script": "scripts/test-timetable.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.24
+    },
+    {
+      "script": "scripts/test-seed-samples.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 1.21
+    },
+    {
+      "script": "scripts/test-class-capacity.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.53
+    },
+    {
+      "script": "scripts/test-mat-bookings.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.43
+    },
+    {
+      "script": "scripts/test-desk-transactions.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.92
+    },
+    {
+      "script": "scripts/test-reschedule-atomic.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.75
+    },
+    {
+      "script": "scripts/test-customer-cancel.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 21.18
+    },
+    {
+      "script": "scripts/test-studio-cancel.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 14.9
+    },
+    {
+      "script": "scripts/test-class-management.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.07
+    },
+    {
+      "script": "scripts/test-class-management-provider.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.33
+    },
+    {
+      "script": "scripts/test-class-pay-rules.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.07
+    },
+    {
+      "script": "scripts/test-analytics.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.36
+    },
+    {
+      "script": "scripts/test-mock-additive-upgrade.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 0.32
+    },
+    {
+      "script": "scripts/test-timezone-cache.mjs",
+      "kind": "domain",
+      "exit": 0,
+      "seconds": 7.6
+    },
+    {
+      "script": "scripts/test-audit-repairs-ui.mjs",
+      "kind": "rendered",
+      "exit": 0,
+      "seconds": 29.22
+    },
+    {
+      "script": "scripts/test-desk-package-ui.mjs",
+      "kind": "rendered",
+      "exit": 0,
+      "seconds": 6.12
+    },
+    {
+      "script": "scripts/test-desk-sale-ui.mjs",
+      "kind": "rendered",
+      "exit": 0,
+      "seconds": 20.78
+    },
+    {
+      "script": "scripts/test-transfer-receipts-ui.mjs",
+      "kind": "rendered",
+      "exit": 0,
+      "seconds": 21.9
+    },
+    {
+      "script": "scripts/test-timetable-ui.mjs",
+      "kind": "rendered",
+      "exit": 0,
+      "seconds": 15.63
+    }
+  ],
+  "freshRenderedMatrix": "8 EN/ES \u00d7390/1280\u00d7light/dark",
+  "featureSlices": {
+    "PG-11": "approved no-refunds frontend behavior passes; historical refund criterion superseded by explicit user rule",
+    "AD-01": "fresh fixture/default slice passes; existing history/caches preserved; broader CRUD acceptance separate",
+    "RC-02": "eligible status+audit atomic slice passes; undo after start/no-show correction decision open",
+    "PL-10": "reception audit slice passes; every sensitive producer not fully assessed"
+  },
+  "retainedFailures": [
+    "baseline-policy.log",
+    "attendance-domain-first-fixture-failure.log",
+    "repair-ui-initial.log",
+    "analytics-fixture-slot-regression.log",
+    "timetable-ui-during-rebuild-failure.log",
+    "fullbuild-frozen.log (missing changelog date header; corrected)"
+  ],
+  "librarySave": {
+    "state": "blocked-before-upload",
+    "action": "save original audit report and JSON",
+    "targets": [
+      "/workspace/hoy-independent-audit/REPORT.md",
+      "/workspace/hoy-independent-audit/feature-acceptance.json"
+    ],
+    "reason": "required helper tools/list service discovery failed: network; no writes performed; network-enabled retry same failure"
+  },
+  "policyDependencies": [
+    "After-start/no-show attendance correction",
+    "No-show occupancy semantics",
+    "Customer cancellation/reschedule/studio-cancel versus no customer recovery",
+    "Payment hold anchors and out-of-hours rules"
+  ],
+  "backendBoundary": "mock only; real integrations remain separate delivery track, not an automatic frontend rejection",
+  "evidenceDirectory": "/workspace/hoy-repair-evidence",
+  "oldEmailReadinessAndLibraryWork": "untouched"
+}

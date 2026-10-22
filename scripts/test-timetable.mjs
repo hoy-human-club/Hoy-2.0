@@ -18,7 +18,7 @@ try {
   assert.equal(TIMETABLE.length,30);
   assert.deepEqual([0,1,2,3,4,5,6].map(day=>TIMETABLE.filter(t=>t.weekday===day).length),[2,5,5,5,5,5,3]);
   assert.equal(new Set(TIMETABLE.map(timetableId)).size,30);
-  assert(TIMETABLE.every(t=>t.time.endsWith(':10')));
+  assert(TIMETABLE.every(t=>t.time.endsWith(':00')));
   for (const [day,teacher] of [[1,'tea_raghu'],[2,'tea_jennifer']]) assert(TIMETABLE.filter(t=>t.weekday===day&&t.time>'16:00').every(t=>t.teacher===teacher));
   const seed=buildSeed();
   assert.equal(seed.class_templates.length,30);
@@ -33,7 +33,7 @@ try {
   const fresh=structuredClone(seed);
   const legacy=structuredClone(seed);
   legacy.class_templates=[];
-  for(let day=1;day<=6;day++)for(const time of day===6?['08:00','09:15','10:30','11:45']:['06:30','08:00','17:30','19:00']) legacy.class_templates.push({...seed.class_templates[0],id:`tpl_${legacy.class_templates.length}`,weekday:day,start_time:time,title:seed.modalities.find(m=>m.id===`mod_${oldClasses[legacy.class_templates.length]}`).name_es,modality_id:`mod_${oldClasses[legacy.class_templates.length]}`,teacher_id:`tea_${oldTeachers[oldClasses[legacy.class_templates.length]]}`});
+  for(let day=1;day<=6;day++)for(const time of day===6?['08:00','09:15','10:30','11:45']:['06:30','08:00','17:30','19:00']) legacy.class_templates.push({...seed.class_templates[0],id:`tpl_${legacy.class_templates.length}`,duration_min:60,weekday:day,start_time:time,title:seed.modalities.find(m=>m.id===`mod_${oldClasses[legacy.class_templates.length]}`).name_es,modality_id:`mod_${oldClasses[legacy.class_templates.length]}`,teacher_id:`tea_${oldTeachers[oldClasses[legacy.class_templates.length]]}`});
   legacy.class_sessions=[{...seed.class_sessions[0],id:'keep-booked',template_id:'tpl_0',starts_at:'2099-01-01T12:00:00Z',status:'scheduled',booked_count:1},{...seed.class_sessions[0],id:'remove-empty',template_id:'tpl_1',starts_at:'2099-01-01T13:00:00Z',status:'scheduled',booked_count:0}];
   legacy.bookings=[{...seed.bookings[0],session_id:'keep-booked'}];legacy.voucher_bookings=[];
   const bookings=JSON.stringify(legacy.bookings), teachers=JSON.stringify(legacy.teachers);
