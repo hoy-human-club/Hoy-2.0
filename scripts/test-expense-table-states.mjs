@@ -12,7 +12,7 @@ try{for(const lang of ['en','es'])for(const width of [390,1280])for(const theme 
  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/,r=>{if(knownFonts.includes(r.request().url()))return r.fulfill({status:200,contentType:'text/css',body:'/* Exact known offline font fixture. */'});unexpected.push(r.request().url());return r.abort();});
  await ctx.addInitScript(({lang,theme})=>{localStorage.setItem('hoyos.session',JSON.stringify({userId:'usr_super',viewAs:null,devMode:false}));localStorage.setItem('hoyos.lang',lang);localStorage.setItem('hoyos.theme',JSON.stringify({theme,skin:'styled'}));},{lang,theme});
  const p=await ctx.newPage();active=p;p.setDefaultTimeout(30000);p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});p.on('request',r=>{if(!['GET','HEAD'].includes(r.method()))unexpected.push(r.method()+':'+r.url());});
- await p.clock.install({time:new Date('2026-10-22T15:00:00Z')});await p.goto(base+'/#/coming-soon');
+ await p.clock.install({time:new Date('2026-10-22T15:00:00Z')});await p.goto(base+'/#/admin/tables/expenses?view=grid');
  // Import failures must reject; no silent skip/fallback component.
  await p.evaluate(async()=>{const module=await import('/scripts/expense-table-harness.tsx');await module.mountExpenseTableHarness();});
  const identity=id=>p.locator(`[data-qa-actor="${id}"]`),drawer=()=>p.getByRole('dialog'),del=()=>drawer().getByRole('button',{name:en?'Delete':'Eliminar',exact:true});

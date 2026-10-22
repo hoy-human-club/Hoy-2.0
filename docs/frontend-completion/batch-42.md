@@ -54,3 +54,7 @@ Anu must enforce authenticated durable paid-history invariants across every API/
 ## Combined integration follow-up
 
 The actual M03 drawer/session/provider timing harness is now copied into the next integration. Its prepared source receipt is `evidence/batch42-table-dev-prepared.json`; execution is pending. Earlier M09c dev results do not establish this new M03 matrix. The combined integration also addresses the independently measured shared danger-button dark-theme contrast failure; before/after proof remains separately gated.
+
+## Current combined verification
+
+Source6f7d6e7/canonicaldd7e0f14f4b1 passed fullbuild50157, all seven domain/lifecycle and all four production/three dev suites. [Combined proof](evidence/finance-combined-final.json) preserves exact frozen artifact and failed M03startup-console attempt/correction; same functional assertions and strict error/network checks retained. Named fictional slice only; exact-head CI/release and owner/backend gates remain. Earlier isolated/prepared/pending sections above are historical checkpoints.

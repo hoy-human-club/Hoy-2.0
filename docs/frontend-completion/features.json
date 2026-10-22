@@ -5618,7 +5618,10 @@
         "docs/frontend-completion/evidence/integrated-batches-30-31.json",
         "docs/frontend-completion/evidence/payroll-approval-final.json",
         "docs/frontend-completion/evidence/fi03-approval-followup-audit.json",
-        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json",
+        "src/modules/admin/payrollSettlement.ts",
+        "src/modules/admin/usePayrollSettlement.ts",
+        "docs/frontend-completion/evidence/payroll-settlement-final.json"
       ],
       "routes": [],
       "tests": [
@@ -5628,23 +5631,27 @@
         "scripts/test-payroll-approval.mjs",
         "scripts/test-payroll-approval-hook.mjs",
         "scripts/test-payroll-approval-ui.mjs",
-        "scripts/test-payroll-approval-states.mjs"
+        "scripts/test-payroll-approval-states.mjs",
+        "scripts/test-payroll-settlement.mjs",
+        "scripts/test-payroll-settlement-hook.mjs",
+        "scripts/test-payroll-settlement-ui.mjs",
+        "scripts/test-payroll-settlement-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-09a/payroll-draft-proof.json",
         "docs/screenshots/M-09b/"
       ],
       "blockers": [],
-      "nextAction": "Complete combined draft/approval regressions and exact-head release; separately repair/verify mock settlement paths without real payout or paid-history rewrite.",
+      "nextAction": "Finish exact-head CI/release checks. Resolve remaining payroll business cases with owners separately; connect authoritative server approval/settlement without real payouts in this demo.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
+        "basis": "Bounded isolated41/42 proof plus current combined source6f7d6e7/canonicaldd7e0f14f4b1: fullbuild50157, seven domain/lifecycle suites and all seven production/dev rendered suites passed. Exact-head CI/release pending; full feature partial/unaccepted.",
         "missingFrontend": [
-          "Settlement, teacher-payment and delayed Wompi simulator paths still require separate repair/verification; approval37 changes none of those handlers.",
-          "Canonical closed-class/rate/status history and authoritative approvals are backend contracts, not established by isolated fixture roles."
+          "Zero/net-negative, empty, mixed-method, within-teacher partial or inconsistent paid histories remain visibly unresolved; no business policy or historical repair is inferred.",
+          "Exact-head CI/release remain pending. Canonical closed-class/rate/status/approval history remains a backend contract."
         ],
         "remainingBackend": [
           "Authenticated server transaction/idempotency, unique period/status locks, canonical class/rate history, approval and settlement contracts."
@@ -5688,6 +5695,19 @@
             ]
           },
           "basis": "Historical draft-only checkpoint before separately verified bounded approval37; settlement remains separate."
+        },
+        {
+          "assessment": {
+            "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
+            "missingFrontend": [
+              "Settlement, teacher-payment and delayed Wompi simulator paths still require separate repair/verification; approval37 changes none of those handlers.",
+              "Canonical closed-class/rate/status history and authoritative approvals are backend contracts, not established by isolated fixture roles."
+            ],
+            "remainingBackend": [
+              "Authenticated server transaction/idempotency, unique period/status locks, canonical class/rate history, approval and settlement contracts."
+            ]
+          },
+          "basis": "Historical pre-batch41/42 source assessment; earlier PR69 release receipt remains authoritative for its named slices."
         }
       ],
       "continuationEvidence": [
@@ -5708,6 +5728,12 @@
           "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
           "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
           "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
+        },
+        {
+          "batch": "batch-41.md",
+          "source": "6f7d6e7de9d1b6a839abb08941dcfcdf54368414",
+          "verification": "finance-combined-final.json: actual fullbuild50157, seven domain/lifecycle suites and all seven production/dev rendered suites passed; original failed runner preserved and corrected without weakening assertions. Exact-head CI/release pending.",
+          "limits": "Fictional browser-local records only; no real money/provider confirmation, owner/backend acceptance or phase change."
         }
       ]
     },
@@ -5732,7 +5758,10 @@
         "src/modules/admin/AppDirectoryPage.tsx",
         "src/data/subscriptionExpenses.ts",
         "docs/frontend-completion/evidence/fi04-ledger-source-audit.json",
-        "docs/frontend-completion/evidence/integrated-batches-34-37.json"
+        "docs/frontend-completion/evidence/integrated-batches-34-37.json",
+        "src/modules/admin/tables/expenseDelete.ts",
+        "src/modules/admin/tables/RowDrawer.tsx",
+        "docs/frontend-completion/evidence/batch42-source.json"
       ],
       "routes": [
         "/#/admin/finance/expenses",
@@ -5742,23 +5771,29 @@
         "scripts/test-expense-ledger-baseline.mjs",
         "scripts/test-expense-ledger.mjs",
         "scripts/test-expense-ledger-ui.mjs",
-        "scripts/test-expense-ledger-states.mjs"
+        "scripts/test-expense-ledger-states.mjs",
+        "scripts/test-expense-delete-guard.mjs",
+        "scripts/test-expense-delete-guard-ui.mjs",
+        "scripts/test-expense-table-lifecycle.mjs",
+        "scripts/test-expense-table-states.mjs",
+        "scripts/test-danger-button-contrast.mjs"
       ],
       "screenshots": [
         "docs/frontend-completion/evidence/batch-35-expense-ui.json",
         "docs/frontend-completion/evidence/batch-35-expense-states.json"
       ],
       "blockers": [],
-      "nextAction": "Complete combined ledger/subscription regressions and exact-head release; verify authenticated paid-delete enforcement across all entry paths without expanding roles.",
+      "nextAction": "Finish combined exact-head CI/release checks. Hand off authenticated paid-delete enforcement and canonical accounting history without expanding the existing roles.",
       "candidateRoutes": [
         "/#/admin/finance/expenses",
-        "/#/admin/finance/subscriptions"
+        "/#/admin/finance/subscriptions",
+        "/#/admin/tables/expenses?view=grid&id=:id"
       ],
       "sourceAssessment": {
-        "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
+        "basis": "Bounded isolated41/42 proof plus current combined source6f7d6e7/canonicaldd7e0f14f4b1: fullbuild50157, seven domain/lifecycle suites and all seven production/dev rendered suites passed. Exact-head CI/release pending; full feature partial/unaccepted.",
         "missingFrontend": [
-          "Generic MockProvider/table and other direct-entry paid-delete enforcement remains separate; bounded M09c guard is not universal protection.",
-          "Subscriptions/expense adapter reconciliation is separate from the six-command ledger repair; no real accounting/settlement acceptance."
+          "Exact-head CI/release remain pending; current actual M03 delayed-state matrix passed. Generic paid-expense remove/paid-marker-clear safeguards and drawer replay have isolated and combined domain/production evidence, not server enforcement.",
+          "Subscription adapter reconciliation and canonical accounting history remain separate; mock paid-delete protection does not establish authenticated backend durability or full feature acceptance."
         ],
         "remainingBackend": [
           "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
@@ -5790,6 +5825,19 @@
             ]
           },
           "basis": "Historical pre-integration finding retained; bounded isolated source now saved, combined exact-head release pending."
+        },
+        {
+          "assessment": {
+            "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial. Combined34–37 fullbuild/domain/all12 actual rendered suites now pass at frozen0a09975/canonical0ab95982; exact final-head CI/merge/deployment pending.",
+            "missingFrontend": [
+              "Generic MockProvider/table and other direct-entry paid-delete enforcement remains separate; bounded M09c guard is not universal protection.",
+              "Subscriptions/expense adapter reconciliation is separate from the six-command ledger repair; no real accounting/settlement acceptance."
+            ],
+            "remainingBackend": [
+              "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
+            ]
+          },
+          "basis": "Historical pre-batch41/42 source assessment; earlier PR69 release receipt remains authoritative for its named slices."
         }
       ],
       "continuationEvidence": [
@@ -5809,6 +5857,12 @@
           "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
           "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
           "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
+        },
+        {
+          "batch": "batch-42.md",
+          "source": "6f7d6e7de9d1b6a839abb08941dcfcdf54368414",
+          "verification": "finance-combined-final.json: actual fullbuild50157, seven domain/lifecycle suites and all seven production/dev rendered suites passed; original failed runner preserved and corrected without weakening assertions. Exact-head CI/release pending.",
+          "limits": "Fictional browser-local records only; no real money/provider confirmation, owner/backend acceptance or phase change."
         }
       ]
     },

@@ -1,3 +1,5 @@
+Current unmerged finance checkpoint: batches41/42 source6f7d6e7/canonicaldd7e0f14f4b1 passed fullbuild50157, seven domain/lifecycle and all seven production/dev rendered suites. [Combined proof](evidence/finance-combined-final.json) records exact source/artifact, role/device/ENES evidence and preserved failed-run correction. Final-head CI/release remain pending; latest verified live release below remains PR70.
+
 Latest verified release: [PR70](https://github.com/imagine-os/hoy/pull/70), checked4c062d9 all12 workflows/all34jobs, merged50449d0/v0.25.0. [Pages39748513571](https://github.com/imagine-os/hoy/actions/runs/39748513571) build/deploy/hosted exact-source verification passed. [Receipt](evidence/release-pr70.json) records role/device artifacts and expiry. AD02/AD06/PG12 bounded fictional slices only; current continuation41–45 and exact remaining gates in CONTINUE.md. Original124 criteria/phases and owner/backend acceptance remain unchanged. Earlier release/pending entries below are historical.
 
 # Frontend completion handoff index

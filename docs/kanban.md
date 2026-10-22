@@ -3,7 +3,7 @@
 ## Active frontend program (2026-10-22)
 
 - Verified live: PR70, checked `4c062d9`, merged `50449d0` / v0.25.0. All 12 workflows / 34 jobs and Pages `39748513571` exact-source hosted verification passed. See `frontend-completion/evidence/release-pr70.json`. Earlier release and pending entries below are historical.
-- Finance batches 41/42 are integrated locally at `6f7d6e7`, based on current remote main. Full build and seven combined domain/lifecycle suites passed; frozen production and actual dev timing matrices are in progress. The shared danger-button contrast regression and token fix are included. No next PR or release yet.
+- Finance batches 41/42 are integrated locally at `6f7d6e7`, based on current remote main. Full build and seven combined domain/lifecycle suites passed; all four frozen production and all three actual dev timing suites passed; exact-head CI/release pending. The shared danger-button contrast regression and token fix are included. No next PR or release yet.
 - Batch43 customer cancellation is source-only and unexecuted. Batch44 is a bounded static audit; PL06 remains unverified. Batch45 attendance undo has a saved read-only contract, with implementation/execution pending. Root owns the single Git/release lane.
 - All 124 original IDs, criteria and phases remain. Historical source counts 14/94/11/5 and current findings 11/104/4/5 are separate from acceptance; no owner-accepted row or overall completion percentage. Mock workflows establish no real payment, server authorization or durable cross-device receipt storage.
 

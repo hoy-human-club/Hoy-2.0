@@ -1,0 +1,21 @@
+{
+  "first": {
+    "exit": 1,
+    "completeFunctionalMatrices": 8,
+    "errors": 8,
+    "distinctErrors": 1,
+    "unexpectedRequests": 0,
+    "cause": "Strict console assertion captured existing React18 fetchPriority warning from unrelated ComingSoonLanding startup route; all actual drawer functional matrices completed.",
+    "receipt": "batch42-table-dev-failure-comingsoon-console.json",
+    "failureCapture": "Attempted screenshot unavailable after all contexts closed; no capture claimed."
+  },
+  "checkpointMistake": {
+    "reason": "Checkpoint Python renamed failure receipt, then attempted to rename nonexistent capture; shell continued and started an unintended unchanged repeat.",
+    "ownNodePid": 157119,
+    "state": "Exact owned node and ten-process descendant tree terminated; session62210 exit1, no runtime/source writes or deployment.",
+    "log": "/workspace/hoy-qa-archive/finance-table-dev-current.log"
+  },
+  "correction": "Start from actual M03expenses route before importing actual harness; strict console/pageerror/unexpected-request assertions unchanged, no warning filter, timeout or functional assertion weakened.",
+  "state": "Corrected actual M03route run85575 exit0; eight ENES3901280lightdark matrices, zero console/page errors and unexpected requests.",
+  "currentProof": "batch42-table-dev-states.json"
+}

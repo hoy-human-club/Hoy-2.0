@@ -1,0 +1,491 @@
+{
+  "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
+  "scope": "Changed/new current public fictional capture outputs only; complete executed case lists live in individual runner receipts. Historical before/isolated/failed evidence retained separately at checked commits.",
+  "files": [
+    {
+      "path": "docs/screenshots/M-03/danger-contrast-dd7e0f14f4b1.json",
+      "bytes": 7751,
+      "sha256": "3197c63fb6757d8d957e0dda47cbeb8c26d3b12b02d1701cea6e3413ae938e3f"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 53281,
+      "sha256": "4c7ada221464638026fbc38233c0bcc49f5eb9fb218eef376dff1226c6690684"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-clear-rejected.jpg",
+      "bytes": 69006,
+      "sha256": "10b0d669aa486b3685de4826912561f38af1c014822f0cebf552645cb2f9991c"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-dev-held-read.jpg",
+      "bytes": 52687,
+      "sha256": "8e0fe72be65999ddbb378c88b6eddefada54fdda9ad519e2bba223f91902a22e"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-dev-read-error.jpg",
+      "bytes": 52851,
+      "sha256": "93be8e770993047c3b71fdb3358aa7af12d27065b88c1b528b53c64e0fae65ea"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-dev-readonly.jpg",
+      "bytes": 44532,
+      "sha256": "8e187a85702397ca0691208a5afd50b8f2b34e3ad63aebcfc21d9c76215e8c0b"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-dev-replay-rejected.jpg",
+      "bytes": 52588,
+      "sha256": "04e15dbc10c4d65935e3202d3eda89e48838cfbda8574ca9428caaf2ba3913c1"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-field-quota-error.jpg",
+      "bytes": 69272,
+      "sha256": "d03fb2261d0c9b1056a239d901d29ab3719e34ab123f98f0cc1faf627b349d4e"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-paid-protected.jpg",
+      "bytes": 62897,
+      "sha256": "fe6431c701b7e7b837d8132db47e031c93df595940967691851924836c2fe601"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-dark-expense-quota-error.jpg",
+      "bytes": 65567,
+      "sha256": "7021e275113a7aa7be160a168a97e68d0e2851668125d973e37f5a74fb65f01c"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 61694,
+      "sha256": "518c5aa9ca8c9a76dbcb12372017970b22debb7911c475669b4a10766bffb4e1"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-clear-rejected.jpg",
+      "bytes": 77999,
+      "sha256": "8712df0f5a6cd55d8e5722859fc9077afac1a1285264648d8e5930941de3599b"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-dev-held-read.jpg",
+      "bytes": 59411,
+      "sha256": "f64caa68d00aff58f193e36e093366a4be907c6b31fc7115724e2be8c49d07f2"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-dev-read-error.jpg",
+      "bytes": 58448,
+      "sha256": "8f18ad6c5cd054462b65502c5b5b1d34a92cf76a374dbd9d463bbd3151e64079"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-dev-readonly.jpg",
+      "bytes": 50353,
+      "sha256": "f38dd9546145cc7c97253bb167c96b65c7e03460ce2df5a1c53ff60aad5f12db"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-dev-replay-rejected.jpg",
+      "bytes": 58180,
+      "sha256": "764c139033494de9a96d2dbf8c1fbfedf01820dbfbc3ff340946e1ac9b4df5bd"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-field-quota-error.jpg",
+      "bytes": 78526,
+      "sha256": "2e1c052dbeca2084fe03a833c62bf8793d7fcf27d9f502671a2349e33b480286"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-paid-protected.jpg",
+      "bytes": 71978,
+      "sha256": "589185531a1f857e396221ce9c3b44c68214ff5af5b8d0438299ea51cabb31f9"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-1280-light-expense-quota-error.jpg",
+      "bytes": 74489,
+      "sha256": "fb96421db6eb44828e3638ceb187b041fa7aebc304cc73b74887832c7eb442c5"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 29261,
+      "sha256": "4a63209f56877ef232286c2e7c9c665b47790261dc3afcc7e7a0c473d03c4bdc"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-clear-rejected.jpg",
+      "bytes": 35972,
+      "sha256": "6cd3dc860403578179e984e472b55a7142806e66118a5c75e4e01c6fc3fc286c"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-dev-held-read.jpg",
+      "bytes": 31301,
+      "sha256": "1ea621353d4aa956980b77ba11b13c8c8b6d9ba12e7736ac9c0c2292ce358945"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-dev-read-error.jpg",
+      "bytes": 31862,
+      "sha256": "6624bda515e707e7912de4daf59ccbb2ca095eb85b15fb36a9f11c81a20a86d1"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-dev-readonly.jpg",
+      "bytes": 28774,
+      "sha256": "f78343814cac223d17bed3b3c69b5cadf661b3f8e1f03e89c67e062642382eb8"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-dev-replay-rejected.jpg",
+      "bytes": 31684,
+      "sha256": "d91a7831d615d6b2a3f9d46baa2aeb7ab96c32e39bc641b834ce2406cc973b95"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-field-quota-error.jpg",
+      "bytes": 35102,
+      "sha256": "59880a982db2600610db6ec73d499376d652e40341b91ed7827b091383f448f5"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-paid-protected.jpg",
+      "bytes": 30809,
+      "sha256": "b8ee19d8458fdc8275bc7a9e01eab930973477be1d21fbe67eb87c2242096d4c"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-dark-expense-quota-error.jpg",
+      "bytes": 32910,
+      "sha256": "ec8db01163da50d5bf94eb2535a0c8ac00ed956845416b5c7fb336febe0b8e48"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 32624,
+      "sha256": "098f7308a8675ee5e6b183aacbdb0da20c1c7f826b3729aae2f7f378c7da9015"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-clear-rejected.jpg",
+      "bytes": 38885,
+      "sha256": "fd6191ae91ee688bc157b2b35eafba7b8aaf419a382444fee607463af1ee35a9"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-dev-held-read.jpg",
+      "bytes": 34663,
+      "sha256": "b0ad0c2a5e518860dc52d79f358601ade0b66f8f7151a385c9a5a872b0d9373e"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-dev-read-error.jpg",
+      "bytes": 34666,
+      "sha256": "4b77c3acbc3be4b3cc74215fa6a24e5227c6f6bd9fba65d2b30d1eabf176edbe"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-dev-readonly.jpg",
+      "bytes": 31832,
+      "sha256": "d2d6120fec2d18965cf9761b3c6d42f8b6f32dbe08161736f478591399beeaf2"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-dev-replay-rejected.jpg",
+      "bytes": 34501,
+      "sha256": "569bec4d6e2f6a933f052dcac255cc9285c9f1409ea20315f5b34ef16800b79a"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-field-quota-error.jpg",
+      "bytes": 38115,
+      "sha256": "2066c80a37e860c0acf48135303e19b0b6a8298aa0aa3ffab69f59c7eb56ca1e"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-paid-protected.jpg",
+      "bytes": 33946,
+      "sha256": "cf5d8a5f657a28f416fbc073b436cb8e8bddff6b86aa80c794b5a6011cb440fd"
+    },
+    {
+      "path": "docs/screenshots/M-03/en-390-light-expense-quota-error.jpg",
+      "bytes": 35708,
+      "sha256": "c3327bc282c1e0aff92d9e14bd8f85fa59e3c9af88d73bd4680604bc186feab2"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 55719,
+      "sha256": "c4a481c240d6f9d2e8faf3c7b40912b0d4f2deb958bd52ff174b19d25a881d71"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-clear-rejected.jpg",
+      "bytes": 70596,
+      "sha256": "810367846afec5de2ba12bb61a2dce82d0f0abf82b27e8cff01c124d55520c11"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-dev-held-read.jpg",
+      "bytes": 54596,
+      "sha256": "ede88ec40aa7af3d3d5e044cf734c8646d4c8ec38e2d96c9df49c47101a278f6"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-dev-read-error.jpg",
+      "bytes": 54028,
+      "sha256": "9fb3096a4cbbc3c4018310c5bea7bd1ed8bd4f6996ab2f4a54fa17f1a33b49db"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-dev-readonly.jpg",
+      "bytes": 44685,
+      "sha256": "91b0efeaec57966ca92739519d9855c3a35c278a03fa7456d367d8cf283b2cd4"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-dev-replay-rejected.jpg",
+      "bytes": 53790,
+      "sha256": "d5a4b8621f97e651e78c4852477ecf5742ed4dc3687478548898e87753d40b72"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-field-quota-error.jpg",
+      "bytes": 70932,
+      "sha256": "aefcd7919c0775625755970ca3ebc93dd0e13a952a451a0b1fc77d68be2e514d"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-paid-protected.jpg",
+      "bytes": 64685,
+      "sha256": "06817b207b511a92f6fcf328eefeaf8eb2b8a6257805db1c325bcd38443fd593"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-dark-expense-quota-error.jpg",
+      "bytes": 67734,
+      "sha256": "d50441fee583875a2b79b570e00f2e249e50584d3b2dba3f48515a94ea4c9541"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 64251,
+      "sha256": "d830d537586e2be30e451754af959a4cd09ce9b040d0a03520fe297ab66efa87"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-clear-rejected.jpg",
+      "bytes": 80107,
+      "sha256": "12188c0f80601fc95c3df5016ab4f2bf6e47673d25d5a1e5208211abc026483e"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-dev-held-read.jpg",
+      "bytes": 61597,
+      "sha256": "eba0fe62e3fe86e3e915132ce1251125800701a1b9c81dc94aa53449cccdd902"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-dev-read-error.jpg",
+      "bytes": 59989,
+      "sha256": "ee125e3594a10ff6b3e90f82eca3bf2277478feca7accd6a7331028ea88856f8"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-dev-readonly.jpg",
+      "bytes": 50650,
+      "sha256": "f917c36b05cd8fc3f65c6ea4a0f5d22ad54de3ddaa7ece79a51487af125cbba5"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-dev-replay-rejected.jpg",
+      "bytes": 59742,
+      "sha256": "31e005982ca9bc3211bf4834ffb4c8e775250dc76ddabdcc91c38a803d8a0b7c"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-field-quota-error.jpg",
+      "bytes": 80691,
+      "sha256": "9f628ebb732d748bcdc7784e73d100d2d8d03c6a0e8fe810c4bdcbaea9df5c67"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-paid-protected.jpg",
+      "bytes": 74286,
+      "sha256": "f3666c5455cd36a5986f734c89976078645b6be6b1953eb639305edd488870f2"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-1280-light-expense-quota-error.jpg",
+      "bytes": 77341,
+      "sha256": "b3d22e32684d4900866badaaa00a3617e6a8a5b888ad64a82a449ecbbfd42763"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 30041,
+      "sha256": "d9cb255d337e91f2ff663fc5039238668b04fa15720c805715e17c16f4f3a04f"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-clear-rejected.jpg",
+      "bytes": 36124,
+      "sha256": "c0898957cd2eed91dccfc31ca9e5ae62c7457776b1fb67bea2ed6a4515a6fd4d"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-dev-held-read.jpg",
+      "bytes": 31962,
+      "sha256": "426107f7f771a3924d2584ca4d46e3649dfca2e1a1efc4e8faa079465e5bd034"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-dev-read-error.jpg",
+      "bytes": 31816,
+      "sha256": "b86acab8a6398d0772379ffab37a9ee19f16865b5ed0f2a0baf57782f49b2d30"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-dev-readonly.jpg",
+      "bytes": 28727,
+      "sha256": "2638e7d464ae8408611a02745d55e8516d43f694e598d85ee3a0cd63ac5b721a"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-dev-replay-rejected.jpg",
+      "bytes": 31639,
+      "sha256": "815c3da43da199607475a66aa682eda6ff17384cab5eeefd1985f733b4ef0116"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-field-quota-error.jpg",
+      "bytes": 35509,
+      "sha256": "665003b9ad89dd6ad05b713a49bd0b48455aa715258f2e0aeef4c07221630db2"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-paid-protected.jpg",
+      "bytes": 30746,
+      "sha256": "bd6693a796ebbc1c901405645354cb626e28faafb9dc38b85a85a1f410b8b85d"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-dark-expense-quota-error.jpg",
+      "bytes": 32795,
+      "sha256": "c06ccee4c060e20adc2de3c75a9c167192cf1c5dddc902b0a2968270d7e70c1a"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-danger-contrast-dd7e0f14f4b1.jpg",
+      "bytes": 33500,
+      "sha256": "ada3f28edcd705f91d60d54302c56b20b4c913ae9fde6a104b206eb79fb267fb"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-clear-rejected.jpg",
+      "bytes": 39072,
+      "sha256": "e218278e7c70925ef32c367416ce49117227e4dbe65b6ae090266b8e066aeac6"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-dev-held-read.jpg",
+      "bytes": 35177,
+      "sha256": "aafe705c7ae74ab6b417ea37fae824d74a5375f22cd0d67e803f39f87921aac4"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-dev-read-error.jpg",
+      "bytes": 34737,
+      "sha256": "a3ca2c0e796c7edcf1342d3a15a6a1478b8d3105966219ffd0e92ecbc041a275"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-dev-readonly.jpg",
+      "bytes": 31788,
+      "sha256": "24f37504f5349425baec0d7562a0dd6136acde217f8e5b5bf9211f29b38fe874"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-dev-replay-rejected.jpg",
+      "bytes": 34542,
+      "sha256": "3a4bfc991e7d77df36ea9d97d33d402de7e6130875d6294126a49799c643817e"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-field-quota-error.jpg",
+      "bytes": 38671,
+      "sha256": "b33f0a10ac6ddf7639befa1872bcc064105c9ec198f2757214774b66a507d5c5"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-paid-protected.jpg",
+      "bytes": 33934,
+      "sha256": "f1716266b67e600b79da2fa9d09b85fb568af72c765fdf1672cfae6b3119d7d6"
+    },
+    {
+      "path": "docs/screenshots/M-03/es-390-light-expense-quota-error.jpg",
+      "bytes": 35477,
+      "sha256": "06d90cb20fbeade0e3f4f96f278f8227434486f3507f450da4cc5298a8041624"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-failure.jpg",
+      "bytes": 54382,
+      "sha256": "d85079be02689eeb6238dabea81bd56e7568620601225af9bbc8d7ed128d445e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-preview.jpg",
+      "bytes": 47413,
+      "sha256": "c440ca5c45993d06f860b68de98c0e7fff3c04c71baa05ab68b8be49e43c807c"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-recorded.jpg",
+      "bytes": 86117,
+      "sha256": "7798d164e7ace1b060db3d1b5e41826cd0e4649c1a9f55a9bc2d2f854de1284e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-rehearsal-accepted.jpg",
+      "bytes": 87193,
+      "sha256": "cf4c5380555da597bd395af695e5fdece4a486182c50ea408c27cd812f2106fc"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-teacher-wompi-preview.jpg",
+      "bytes": 54403,
+      "sha256": "c42f42479680c8e34487775cd928de0ca2e3246de8bd1bccb957c0195a49059e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-rehearsal-accepted.jpg",
+      "bytes": 109062,
+      "sha256": "a1548e590f26eca1af8728eb0e50814226c0c610a6888adefb1623d7ca6bceda"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-manual-recorded.jpg",
+      "bytes": 34271,
+      "sha256": "ab6acff1dd827a475293f3403f9244e420866d495b4b8f31d6df9c585905ff07"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-rehearsal-accepted.jpg",
+      "bytes": 34797,
+      "sha256": "322231965ccbfaa6c30c6662af2c4d376ebe70b0b125ed86ff8c79e701db7445"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-manual-failure.jpg",
+      "bytes": 35450,
+      "sha256": "830d7df7ca8350ea716324ee3e1aaa05944ce17c04d5a184bb87ae33184af3b0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-rehearsal-accepted.jpg",
+      "bytes": 40373,
+      "sha256": "f481dcbbca71596d3db90ec542f6c98d0733ab6a405db254caec4968ce5053b2"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-lost-ack.jpg",
+      "bytes": 35415,
+      "sha256": "214decf5cb03a737a266270bc78de65a345c6c9dde19eb8bdf65a9638b0ece32"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-busy.jpg",
+      "bytes": 53467,
+      "sha256": "6db11779613c8c2e47f034e5f70e37885dee74a9c111f0181f4baed0d1ec5310"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-rehearsal-accepted.jpg",
+      "bytes": 91290,
+      "sha256": "8d6824a074fbf6721ab6caf423c8a564e8e754b955984b8f7d0d7f90b9bc2092"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-rehearsal-rejected.jpg",
+      "bytes": 97221,
+      "sha256": "f8b2838211e5aa9dc170993cb41817e563dc38c156ff2ded6df793eaaff046c0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-teacher-partial.jpg",
+      "bytes": 96774,
+      "sha256": "04923a74863c01507cec0b433c96bb34b38888b4cea2d9f80442481f9c348014"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-teacher-wompi-preview.jpg",
+      "bytes": 57418,
+      "sha256": "c8b1fa3fca34bbdb98ea77b80cce60723b42ad78e3ee977406f4701bb8c55e58"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-unresolved.jpg",
+      "bytes": 53442,
+      "sha256": "f047c20ee1349277f34f8295c4d870bce82160790500b0ad528dba85c5c0991a"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-rehearsal-accepted.jpg",
+      "bytes": 113248,
+      "sha256": "a6ba1e643c3cd6e681c98cafa69a2b0bef58660ab1f5435ed4b86e47c7e66846"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-rehearsal-rejected.jpg",
+      "bytes": 119893,
+      "sha256": "e18da5a2ddfdf27545a953902f9a3976a9b8ce4d5f0588c49ece3fc703f7e0f1"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-rehearsal-accepted.jpg",
+      "bytes": 36916,
+      "sha256": "0e4316dccd60a1a66ce069f5c8dfe205d3804d74f25a9159870dcf7815635a30"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-rehearsal-accepted.jpg",
+      "bytes": 42827,
+      "sha256": "34d625a33cf9937a9efbf6d38bffe3bbe5fee74b83b6b74ef99346ac3ebbf063"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-settlement-results.json",
+      "bytes": 8663,
+      "sha256": "79d9d316ce6c58e1160f5d4ef932c0c406dc60d4957812c0bb263a3c3e65fa4e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-settlement-states.json",
+      "bytes": 943,
+      "sha256": "fcbc4b85c9eebb23c574dcb399bdec8b1b7c41460ecf962fbb5de1d3ddfdbbf0"
+    },
+    {
+      "path": "docs/screenshots/M-09c/es-1280-light-ledger-generated.jpg",
+      "bytes": 330256,
+      "sha256": "5b508bceac7423029a33082648808583204c33c451baa071fadb50bb9340bee2"
+    }
+  ]
+}

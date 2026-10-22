@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5278",
+  "base": "http://127.0.0.1:5286",
   "checks": [
     "en/light/390:44px manual preview,quota rollback/stable retry/one audit,signed/approval/paid-history invariance,teacher last-close,local rejected/accepted rehearsal,teacher-wompi no provider confirmation,busy/cancel/unmount,unresolved zero/paid-inconsistent readonly;no payment/outbox effects",
     "Existing11 roles:super/admin/finance allowed;8 denied;no grant/access-policy change",
