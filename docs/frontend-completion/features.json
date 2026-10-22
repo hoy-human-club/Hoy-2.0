@@ -4833,6 +4833,13 @@
           "batch": "integrated-batches-34-37.json",
           "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
           "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
+        },
+        {
+          "release": "release-pr69.json",
+          "checkedHead": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+          "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
+          "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
+          "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
         }
       ]
     },
@@ -4950,6 +4957,13 @@
           "batch": "integrated-batches-34-37.json",
           "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
           "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
+        },
+        {
+          "release": "release-pr69.json",
+          "checkedHead": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+          "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
+          "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
+          "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
         }
       ],
       "priorSourceAssessments": [
@@ -5511,6 +5525,13 @@
           "batch": "integrated-batches-34-37.json",
           "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
           "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
+        },
+        {
+          "release": "release-pr69.json",
+          "checkedHead": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+          "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
+          "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
+          "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
         }
       ]
     },
@@ -5605,6 +5626,13 @@
           "batch": "integrated-batches-34-37.json",
           "verification": "Combined fullbuild42290/domain10commands/all12 serial actual production/dev/library suites pass; source and whole frozen artifact unchanged. Final-head CI/release pending.",
           "limits": "Named fictional slices only; all original phases/source statuses preserved, no backend/owner acceptance."
+        },
+        {
+          "release": "release-pr69.json",
+          "checkedHead": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+          "merge": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
+          "verification": "All12 workflows/all33 jobs including16 correctness scopes and Pages exact-source/selected subscription hosted check passed. Named34–37 fictional frontend slices only.",
+          "acceptance": "Full feature remains partial/unaccepted; all original phases and source statuses retained."
         }
       ]
     },

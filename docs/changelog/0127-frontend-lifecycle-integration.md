@@ -11,3 +11,5 @@ Decision: keep one root mutation lane and serial compiler/browser resources; req
 Alternative rejected: counting all declared metadata states as rendered proof when only two usages were tested; treating local drafts or mock writes as production delivery/permission/accounting acceptance.
 
 Files: continuation checkpoint and pr69-email-reload-followup.json. No application source changes in this checkpoint. Original124 IDs/phases/source statuses unchanged; no backend or security changes.
+
+Release evidence update: PR69 exacthead0437c4b all12 workflows/all33 jobs passed, merged54f37aa; Pages39734994970 build/deploy/hosted exact-source check allsuccess. Receipt release-pr69.json records jobs, artifact IDs, exact manifest and limited hosted subscription scope. Source34–37 acceptance remains partial; no production/backend acceptance.

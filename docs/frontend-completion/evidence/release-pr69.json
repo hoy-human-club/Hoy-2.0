@@ -1,0 +1,319 @@
+{
+  "pr": 69,
+  "url": "https://github.com/imagine-os/hoy/pull/69",
+  "checkedHead": "0437c4bf4405efc83b703dd5502cf9fb2f6d7ece",
+  "mergeCommit": "54f37aad7c5fa934241b4724030de0f7e28c05cf",
+  "version": "0.25.0",
+  "requirements": [
+    "NT-05",
+    "FI-04",
+    "NT-03",
+    "FI-03"
+  ],
+  "workflows": 12,
+  "totalJobs": 33,
+  "ci": [
+    {
+      "id": 39734376829,
+      "jobs": [
+        {
+          "id": 119676537024,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734377002,
+      "jobs": [
+        {
+          "id": 119676537877,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376830,
+      "jobs": [
+        {
+          "id": 119676537463,
+          "name": "crm",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376865,
+      "jobs": [
+        {
+          "id": 119676537047,
+          "name": "fictional-registration",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676537321,
+          "name": "operational-quotes",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676537400,
+          "name": "studio-calendar",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676537443,
+          "name": "marketing-drafts",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376919,
+      "jobs": [
+        {
+          "id": 119676537375,
+          "name": "picker",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734377001,
+      "jobs": [
+        {
+          "id": 119676537812,
+          "name": "preview",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376957,
+      "jobs": [
+        {
+          "id": 119676538356,
+          "name": "mock-transactions",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734377080,
+      "jobs": [
+        {
+          "id": 119676538236,
+          "name": "maintenance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538566,
+          "name": "google-hours",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538658,
+          "name": "marketing-fences",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376851,
+      "jobs": [
+        {
+          "id": 119676788900,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376993,
+      "jobs": [
+        {
+          "id": 119676538632,
+          "name": "photography",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376861,
+      "jobs": [
+        {
+          "id": 119676538340,
+          "name": "identity-and-fixtures",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538715,
+          "name": "pending-payments",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39734376874,
+      "jobs": [
+        {
+          "id": 119676537928,
+          "name": "mock-correctness (profile-save)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538124,
+          "name": "mock-correctness (receipt-alert)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538160,
+          "name": "mock-correctness (api-key-mutations)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538172,
+          "name": "mock-correctness (expense-ledger)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538173,
+          "name": "mock-correctness (trial-eligibility)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538178,
+          "name": "mock-correctness (email-test)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538179,
+          "name": "mock-correctness (notification-prefs)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538217,
+          "name": "mock-correctness (payroll-draft)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538221,
+          "name": "mock-correctness (account-marketing)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538263,
+          "name": "mock-correctness (substitute-request)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538323,
+          "name": "mock-correctness (recovery)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538365,
+          "name": "mock-correctness (email-edit)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538375,
+          "name": "mock-correctness (account-data)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538391,
+          "name": "mock-correctness (payroll-approval)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538422,
+          "name": "mock-correctness (event-rsvp)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119676538460,
+          "name": "mock-correctness (contact-mask)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "pages": {
+    "run": 39734994970,
+    "url": "https://github.com/imagine-os/hoy/actions/runs/39734994970",
+    "jobs": [
+      {
+        "id": 119678486983,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119678908069,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119679051837,
+        "name": "verify-subscriptions",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "manifest": "Release manifest: 0.25.0 54f37aad7c5fa934241b4724030de0f7e28c05cf",
+    "buildArtifact": 12406368234,
+    "verificationArtifact": 12406552834,
+    "verified": "https://imagine-os.github.io/hoy/#/admin/finance/subscriptions",
+    "evidence": "Hosted job invoked test-subscriptions-live.mjs with exact merge SHA and logged Verified; this is exact public release source plus selected subscription fixture QA, not a claim all new behavior was re-exercised publicly."
+  },
+  "local": {
+    "checkout": "0a09975aae2f581bd82e694b0654002466b79181",
+    "sourceFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+    "proof": "integrated-batches-34-37.json",
+    "rendered": "combined-34-35-36-37-ui.json",
+    "followup": "pr69-email-reload-followup.json"
+  },
+  "rollback": "39795c704a1bb9e65b088353a4b9d55be98c9a47",
+  "limits": [
+    "All124 original source statuses/phases preserved; no owner acceptance or percentage",
+    "NT03 only own metadata intent/local rehearsal; no staff message sent",
+    "Private storage issue54/version durability/server isolation remain pending",
+    "FI03 settlement and generic expense guard are separate batches41/42, untested at this release",
+    "No real payments/customer data/credentials/config/security/provisioning changes"
+  ]
+}
