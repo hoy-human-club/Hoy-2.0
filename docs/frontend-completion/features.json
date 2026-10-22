@@ -5468,7 +5468,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "PR60/61 checked/deployed. Batches14–16 source checkpoint6ad8814 and final immutable5200 production evidence passed; exact-head CI/release pending. Isolated quote13, timezone17, auth18 and marketing19 continue. No owner/backend acceptance.",
+    "activeBatch": "Batches14–16 deployed PR62; batches13/17/18/19 frozen in isolated worktrees and integrating next. All124 IDs and original future phases preserved; no accepted/backend-ready promotion.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5536,6 +5536,17 @@
       "rollback": "7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24",
       "limits": "New behavior verified with local production bundles and exact-head CI; original future phase and source acceptance unchanged.",
       "deployedSource": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab"
+    },
+    "controlCheckpoint": {
+      "pr": "https://github.com/imagine-os/hoy/pull/62",
+      "head": "fb0c318318714b5b54a0049d9528d091ad815f2e",
+      "checks": "All six triggered exact-head workflows passed; control contracts has two jobs",
+      "merge": "e4257e5bd096898d312cac82f67b6922956c1560",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39703124987",
+      "deploymentStatus": "build/deploy/hosted exact-source verification passed",
+      "deployedSource": "e4257e5bd096898d312cac82f67b6922956c1560",
+      "rollback": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab",
+      "limits": "New flows local-production and exact-head CI verified; no whole-feature owner/backend acceptance."
     }
   },
   "classificationPolicy": {
