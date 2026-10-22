@@ -3,7 +3,7 @@ import {useTrialAssessment} from './useTrialAssessment';
 import { useSession } from '../../auth/SessionProvider';
 import type { DataProvider } from '../../data/types';
 import { useData, useTable } from '../../data/DataContext';
-import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedgerRow, EventRow, EventRsvpRow, FaqEntryRow, InviteRow, MembershipRow, ModalityRow, NotificationPrefRow, NotificationRow, PaymentMethodRow, PaymentRow, PlanRow, ProfileRow, ReviewRow, RoomRow, TeacherRow, UserRow } from '../../data/schema';
+import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedgerRow, EventRow, EventRsvpRow, FaqEntryRow, InviteRow, MembershipRow, ModalityRow, NotificationRow, PaymentMethodRow, PaymentRow, PlanRow, ProfileRow, ReviewRow, RoomRow, TeacherRow, UserRow } from '../../data/schema';
 import { dateKey, isSameDay, MS } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem, type PriceItem } from '../../tenant/pricing';
@@ -230,30 +230,8 @@ export function useMyNotifications() {
   return { rows, loading, unread, markRead, markAllRead };
 }
 
-export const NOTIF_CHANNELS = ['whatsapp', 'email', 'push'] as const;
-export const NOTIF_CATEGORIES = ['bookings', 'waitlist', 'payments', 'events', 'marketing'] as const;
-export type NotifChannel = (typeof NOTIF_CHANNELS)[number];
-export type NotifCategory = (typeof NOTIF_CATEGORIES)[number];
-
-/**
- * C-24 / C-19 notification preferences. No row means enabled, so only real choices are stored:
- * `set` inserts the first time and updates afterwards (upsert), and `setChannel` is the C-19
- * master switch that writes every category of one channel at once.
- */
-export function useNotificationPrefs() {
-  const data = useData();
-  const { user } = useSession();
-  const { rows } = useTable<NotificationPrefRow>('notification_prefs', { where: { user_id: user.id } });
-  const isEnabled = useCallback((channel: NotifChannel, category: NotifCategory) => rows.find((p) => p.channel === channel && p.category === category)?.enabled ?? true, [rows]);
-  const set = useCallback(async (channel: NotifChannel, category: NotifCategory, enabled: boolean) => {
-    const existing = rows.find((p) => p.channel === channel && p.category === category);
-    if (existing) await data.update('notification_prefs', existing.id, { enabled });
-    else await data.insert<NotificationPrefRow>('notification_prefs', { user_id: user.id, channel, category, enabled } as Partial<NotificationPrefRow>);
-  }, [data, rows, user.id]);
-  const channelOn = useCallback((channel: NotifChannel) => NOTIF_CATEGORIES.some((c) => isEnabled(channel, c)), [isEnabled]);
-  const setChannel = useCallback(async (channel: NotifChannel, enabled: boolean) => { for (const c of NOTIF_CATEGORIES) await set(channel, c, enabled); }, [set]);
-  return { rows, isEnabled, set, channelOn, setChannel };
-}
+export { NOTIF_CHANNELS, NOTIF_CATEGORIES, type NotifChannel, type NotifCategory } from './notificationPrefs';
+export { useAtomicNotificationPrefs as useNotificationPrefs } from './useNotificationPrefs';
 
 /** C-10: the reviews this person wrote, and the writer that records one. */
 export function useMyReviews() {
