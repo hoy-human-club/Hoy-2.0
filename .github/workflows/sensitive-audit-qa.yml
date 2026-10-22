@@ -7,6 +7,9 @@ on:
       - 'src/data/promotions.ts'
       - 'src/modules/customer/hooks.ts'
       - 'src/modules/customer/payments.ts'
+      - 'src/modules/customer/pages/EventPage.tsx'
+      - 'scripts/test-paid-event-audit-ui.mjs'
+      - 'scripts/test-event-rsvp*.mjs'
       - 'src/modules/customer/rescheduleCommand.ts'
       - 'src/modules/transfers/receipts.ts'
       - 'src/data/catalog*.ts'
@@ -59,6 +62,8 @@ jobs:
           npm run preview -- --host 127.0.0.1 --strictPort --port 5332 > /tmp/hoy-sensitive-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5332/ >/dev/null && break; sleep 1; done
           node scripts/test-sensitive-audit-ui.mjs
+          node scripts/test-paid-event-audit-ui.mjs
+          QA_OUTPUT=qa/sensitive-audit/event-rsvp node scripts/test-event-rsvp-ui.mjs
           node scripts/test-audit-repairs-ui.mjs
           QA_OUTPUT=qa/sensitive-audit/reschedule node scripts/test-reschedule-future-ui.mjs
           QA_OUTPUT=qa/sensitive-audit/checkout node scripts/test-pending-package-ui.mjs

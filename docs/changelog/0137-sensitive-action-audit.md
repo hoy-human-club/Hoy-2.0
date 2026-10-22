@@ -1,12 +1,14 @@
 version: 0.25.0
 date: 2026-10-22
-codes: M-03 M-07 M-13 M-16 S-02 S-09
+codes: M-03 M-07 M-13 M-16 S-02 S-09 C-23
 
 # Sensitive action Activity receipts
 
 Intent: make the browser demo's sensitive actions visible and retain their audit history.
 
 Decision: audit rows reject update/delete and duplicate identifiers. Voucher commands append compact Activity receipts without recipient contacts or messages and persist the staged result before publishing it to subscribers. Product revisions and their price-window audit receipt commit atomically; prior revisions and legacy checkout prices remain unchanged. Local publication/withdrawal also append receipts. Customer booking creation/rescheduling, transfer-created bookings and promotion-created vouchers append receipts inside their existing mock transactions. Simulated checkout results are explicitly logged as mock outcomes. Rescheduling, payment and voucher policy rules are unchanged. Generic table inspection remains available, while sensitive-record mutation uses the audited product, voucher, payment and reception flows instead of add/edit/delete or board movement.
+
+A review finding on paid-event checkout is corrected: fictional payment, invoice, audit and RSVP now stage in one mock transaction. Audit/RSVP storage-failure regressions preserve all prior records before retry; real settlement and paid cancellation policy remain separate.
 
 Legacy corrupt-history regression fixtures use a test-only storage injection helper, preserving their replay assertions while the public provider API stays append-only. Existing email application/components are unchanged.
 

@@ -1,3 +1,4 @@
+import type { EventRsvpRow } from '../../../data/schema';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -56,7 +57,7 @@ export function EventPage() {
   const data = useData();
   const { user, role } = useSession();
   const { snapshot, loading, error: readError, retry } = useEventSnapshot();
-  const { going, cancel } = useEventRsvp();
+  const { cancel } = useEventRsvp();
   const context=`${user.id}|${role}|${id}`;
   const contextRef=useRef({context,data});contextRef.current={context,data};
   const mounted=useRef(true);
@@ -100,14 +101,20 @@ export function EventPage() {
     if(inFlight.current)return;inFlight.current=true;
     setBusy(true);
     try {
-      let paymentId: string | null = null;
-      if (amount > 0) {
-        const result = await wompiCheckout({ amount, method: 'card' }); // INTEGRATION SEAM: Wompi
-        const payment = await recordPayment(data, { userId: user.id, planId: null, amount, method: 'card', result, ivaRate: policy.ivaRate });
-        if (result.status !== 'approved') return;
-        paymentId = payment.id;
-      }
-      await going(ev, paymentId);
+      if (!data.atomic || data.name !== 'mock') throw Error('event_disconnected');
+      const result = await wompiCheckout({ amount, method: 'card' }); // Fictional result only.
+      const current = () => mounted.current && contextRef.current.context === context && contextRef.current.data === data;
+      if (!current()) throw Error('event_cancelled');
+      await data.atomic(async tx => {
+        const payment = await recordPayment(tx, { userId: user.id, planId: null, amount, method: 'card', result, ivaRate: policy.ivaRate });
+        if (!current()) throw Error('event_cancelled');
+        if (result.status === 'approved') {
+          const rsvp = await tx.insert<EventRsvpRow>('event_rsvps', { event_id: ev.id, user_id: user.id, status: 'going', payment_id: payment.id, guests: 0 });
+          await tx.insert('audit_log', { actor_id: user.id, action: 'event.rsvp.paid_mock', entity: 'event_rsvps', entity_id: rsvp.id, ip: null,
+            diff: { role, source: 'fictional-paid-event', event_id: ev.id, payment_id: payment.id, simulated: true } });
+        }
+        if (!current()) throw Error('event_cancelled');
+      });
     } catch { if(mounted.current&&contextRef.current.context===context)setFailure({context,key:'event_paid_partial'}); } finally { inFlight.current=false;if(mounted.current)setBusy(false); }
   };
 
