@@ -1,0 +1,9 @@
+{
+  "base": "6d4e9bc1cd753ed386efe976b4a10a66fb7822fc",
+  "independentlyReportedMain": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+  "reproduction": "Pause WebCrypto digest after command serialization; mutate caller nested title; release.",
+  "observed": "Mutated title saved under original command fingerprint; same caller retry conflicts.",
+  "expected": "Saved contents and fingerprint derive from one owned snapshot; caller mutation cannot change effect.",
+  "result": "REPRODUCED BEFORE FIX",
+  "fictionalOnly": true
+}

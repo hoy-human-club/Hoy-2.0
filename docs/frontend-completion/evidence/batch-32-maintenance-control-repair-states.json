@@ -1,0 +1,12 @@
+{
+  "batch": 32,
+  "base": "http://127.0.0.1:5253",
+  "mode": "Actual dev UI; existing provider fault injection; immutable production separate",
+  "checks": [
+    "en:actual MockProvider actor-loss preflight→stage blocked; record/audit staged rollback/retry; fresh missing/duplicate/foreign/read target faults; staged cancel rollback; postcommit actor-loss retains committed record/audit but no success; restored replay no duplicate; loader throw clears stale rows; held older success cannot erase newer read error, one Retry recovers",
+    "en:actual browser helper held digest/read retains original live callback/signal despite caller property replacement, rejects with byte-identical persisted fixture",
+    "es:actual MockProvider actor-loss preflight→stage blocked; record/audit staged rollback/retry; fresh missing/duplicate/foreign/read target faults; staged cancel rollback; postcommit actor-loss retains committed record/audit but no success; restored replay no duplicate; loader throw clears stale rows; held older success cannot erase newer read error, one Retry recovers",
+    "es:actual browser helper held digest/read retains original live callback/signal despite caller property replacement, rejects with byte-identical persisted fixture"
+  ],
+  "errors": []
+}

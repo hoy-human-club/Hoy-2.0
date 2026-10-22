@@ -1,0 +1,111 @@
+{
+  "batch": 32,
+  "baseCommit": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+  "build": "npm run build25320 EXIT0; strict TypeScript/spacing/manual lint; Vite23.83s,66.7MB shots; existing reexport warnings unchanged.",
+  "runtimeSourceSha256": {
+    "src/modules/maintenance/maintenance.ts": "6ded1a055b7e909dc78c8bb59587d719cb4c836fce34589f19690ecaa6f0bd63",
+    "src/modules/maintenance/MaintenancePage.tsx": "e1472050566ef399eca55edbebcf0580dd715cbfbe96663d4672307ed9a6e573",
+    "src/modules/maintenance/strings.ts": "708fd7780067fca3d1fa7b8f2cad8a0f7c14fc424236a63a07cac9e139e1d7ba",
+    "src/modules/maintenance/specs.ts": "fc5d4c5027ac34d5bbfd5a6fc2921f34956bd35e9ad8922d25d71db0ff446ed1",
+    "src/components/organism/MaintenanceWorkbench/MaintenanceWorkbench.tsx": "9546c51701220bcae879e6627a06b76a316a89e8b88b6d2d9192aee78c10b664",
+    "src/components/organism/MaintenanceWorkbench/MaintenanceWorkbench.meta.ts": "a9b776a14ad04950433deea5e282da9884c32a3a4af6fb7469ad2cad9b71357f"
+  },
+  "allSourceTreeSha256": "1ce54ac6d836b24344af46b97f2d358ca9c04c74f12d2386773185760d645007",
+  "assetTreeSha256": "066ed9d90a32344a1d848f86a71fe6561551ba63ee77e79a4955d37f0a47eee1",
+  "entry": {
+    "url": "http://127.0.0.1:5246/assets/index-DW3lsyuZ.js",
+    "sha256": "910fedd76e3683e232b444e9e16c498100a93d193580a9c72bcbe5cd8e976a6d"
+  },
+  "protectedFilesUnchanged": [
+    "src/data/MockProvider.ts",
+    "src/data/schema.ts",
+    "src/auth/roles.ts",
+    "src/auth/permissions.ts",
+    "docs/frontend-completion/features.json"
+  ],
+  "baselineReproductions": 2,
+  "newDomainGroups": 10,
+  "productionUi": "PASS10587 focused repaired immutable production lifecycle EN1280light+ES390dark and all11roles; zero errors/dispatch, fingerprint unchanged. Earlier complete8matrix remains historical runtime evidence.",
+  "developmentUi": "PASS68804 actual dev EN/ES existing-provider lifecycle faults and retained original live callback/signal despite caller replacement during held digest/read (4 browser assertions/language); zero page errors.",
+  "limits": [
+    "OT02 AfterNov30/Low/sourceNotVerified unchanged; no operational/safety/assignment/threshold/procurement/alert action.",
+    "Fictional mock stage only, no real server/cross-tab/authenticated persistence/security or commercial acceptance.",
+    "Root alone owns Git/checkpoint/integration/exact-head CI/release."
+  ],
+  "productionFingerprint": {
+    "entry": "http://127.0.0.1:5246/assets/index-DW3lsyuZ.js",
+    "sha256": "910fedd76e3683e232b444e9e16c498100a93d193580a9c72bcbe5cd8e976a6d",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5246/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "runtimeSourceAndAssetTreesUnchangedAfterBothSuites": true,
+  "captureCount": 60,
+  "inspectedFinalCaptures": [
+    "en-390-dark-fences-quota.jpg",
+    "es-390-dark-fences-pending.jpg",
+    "es-390-fences-postcommit.jpg",
+    "en-1280-light-fences-equipment.jpg"
+  ],
+  "privateBodyCaptures": 0,
+  "newAuditBodyDuplication": false,
+  "legacyReceiptSemantics": "Historical full-row receipts are read-only verified against current owned row digests; no cache reset/schema/storage version or historical receipt rewrite.",
+  "postcommitSemantics": "Cancellation/ownership/read failure after commit suppresses acknowledgement; committed record/audit are not undone. Restored valid retry checks target digest and does not duplicate audit.",
+  "generatedGlobalTrackedDiffs": [],
+  "sourceFreeze": "FINAL repaired runtime source/build/domain/focused production/dev proof complete. Six runtime/full source/full assets exact hashes unchanged after affected QA; earlier8matrix historical only. Root owns integration/exact-head CI/release.",
+  "controlRepair": {
+    "confirmedBaseline": [
+      "Mutable control.currentActor replacement during held digest permits old-actor commit.",
+      "Mutable control.signal replacement hides original abort.",
+      "Mutable workspace-read callback replacement returns old workspace."
+    ],
+    "source": "Capture original signal/currentActor/failAfterWrites references synchronously at both exported entries; live callback and signal continue observing changes.",
+    "domain": "PASS10 groups, including held digest/read and postcommit control replacement.",
+    "build": "PASS25320 EXIT0; original maintenance suite and10 fence groups PASS.",
+    "affectedBrowserQa": "PASS focused production10587 and actual dev68804; both browsers closed, separate repaired receipts retain historical full-matrix distinction."
+  },
+  "historicalFullMatrix": {
+    "build": "npm run build40257 EXIT0, strictTS/spacing/manual lint; Vite13.89s;66.7MB shots. Existing actions reexport circular-chunk warnings remain.",
+    "entry": {
+      "url": "http://127.0.0.1:5246/assets/index-DxhjySJL.js",
+      "sha256": "3ac9df36578b9586b2dbf3eed57e68f66e17314e5b093d1dc556430a359e06a5"
+    },
+    "productionUi": "PASS78639:complete8 EN/ES×390/1280×light/dark,11roles, no errors/dispatch. Test-only mode-readiness correction; runtime unchanged.",
+    "developmentUi": "PASS22227:actual existing-provider EN/ES staged actor/target/write/read/cancel/postcommit/stale-generation faults; no errors. Test-only absent-control correction, runtime unchanged.",
+    "productionFingerprint": {
+      "entry": "http://127.0.0.1:5246/assets/index-DxhjySJL.js",
+      "sha256": "3ac9df36578b9586b2dbf3eed57e68f66e17314e5b093d1dc556430a359e06a5",
+      "styles": [
+        {
+          "url": "http://127.0.0.1:5246/assets/index-BjqHoOBe.css",
+          "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+        }
+      ]
+    },
+    "sourceFreeze": "Superseded for current runtime; retained unchanged historical full-matrix receipt."
+  },
+  "treeDigestMethod": "Sorted path then NUL then file bytes then NUL; SHA256.",
+  "repairedCaptures": [
+    "en-1280-control-repair-postcommit.jpg",
+    "en-1280-light-control-repair-checklist.jpg",
+    "en-1280-light-control-repair-equipment.jpg",
+    "en-1280-light-control-repair-incident.jpg",
+    "en-1280-light-control-repair-pending.jpg",
+    "en-1280-light-control-repair-quota.jpg",
+    "en-1280-light-control-repair-read-error.jpg",
+    "en-1280-light-control-repair-supply.jpg",
+    "en-390-control-repair-postcommit.jpg",
+    "es-1280-control-repair-postcommit.jpg",
+    "es-390-control-repair-postcommit.jpg",
+    "es-390-dark-control-repair-checklist.jpg",
+    "es-390-dark-control-repair-equipment.jpg",
+    "es-390-dark-control-repair-incident.jpg",
+    "es-390-dark-control-repair-pending.jpg",
+    "es-390-dark-control-repair-quota.jpg",
+    "es-390-dark-control-repair-read-error.jpg",
+    "es-390-dark-control-repair-supply.jpg"
+  ]
+}

@@ -16,12 +16,12 @@ try {
  const fromStorage=JSON.parse(values.get('hoyos.db.v1'));delete fromStorage.db.maintenance_records;data.onStorage({key:'hoyos.db.v1',newValue:JSON.stringify(fromStorage)});assert.deepEqual(data.peek('class_ledger').find(row=>row.id===marker.id),marker);assert.deepEqual(data.peek('maintenance_records'),[]);
  const input={type:'examples',actorId:'usr_maint',role:'maintenance',requestId:'qa_examples',day:'2026-10-21'};
  const snapshot=()=>JSON.stringify([data.peek('maintenance_records'),data.peek('audit_log')]);const operationalBefore=JSON.stringify(['class_ledger','bookings','space_bookings','payments','class_sessions','expenses'].map(table=>data.peek(table)));
- const failingProvider=n=>({name:'mock',get:data.get.bind(data),atomic:fn=>data.atomic(fn,{failAfterWrites:n})});let events=0;data.subscribe('*',()=>events++);
+ const failingProvider=n=>({name:'mock',get:data.get.bind(data),list:data.list.bind(data),atomic:fn=>data.atomic(fn,{failAfterWrites:n})});let events=0;data.subscribe('*',()=>events++);
  for(const n of [1,2,3,4,5]) {const before=snapshot(),count=events;await assert.rejects(runMaintenance(failingProvider(n),input),/mock_injected/);assert.equal(snapshot(),before);assert.equal(events,count);}
  storageFailure=true;await assert.rejects(runMaintenance(data,input),/quota/);storageFailure=false;assert.equal(data.peek('maintenance_records').length,0);
- const [one,two]=await Promise.all([runMaintenance(data,input),runMaintenance(data,input)]);assert.deepEqual(one,two);assert.equal(data.peek('maintenance_records').length,4);assert.equal(data.peek('audit_log').filter(row=>row.action==='maintenance.demo'&&row.id.endsWith('_qa_examples')).length,1);
+ const [one,two]=await Promise.all([runMaintenance(data,input),runMaintenance(data,input)]);assert.deepEqual(one,two);assert.equal(data.peek('maintenance_records').length,4);assert.equal(data.peek('audit_log').filter(row=>row.action==='maintenance.demo').length,1);
  await assert.rejects(runMaintenance(data,{...input,day:'2026-10-22'}),/request_conflict/);
- await runMaintenance(data,{...input,actorId:'usr_admin',role:'admin'});assert.equal(data.peek('audit_log').filter(row=>row.action==='maintenance.demo'&&row.id.endsWith('_qa_examples')).length,2,'request receipts are actor-scoped');
+ await runMaintenance(data,{...input,actorId:'usr_admin',role:'admin'});assert.equal(data.peek('audit_log').filter(row=>row.action==='maintenance.demo').length,2,'request receipts are actor-scoped');
  for(const role of ['coordinator','front_desk','finance','teacher','marketing','developer','customer','public'])await assert.rejects(runMaintenance(data,{...input,role}),/denied/);
  await assert.rejects(runMaintenance(data,{...input,actorId:'qa_unknown'}),/scope/);
  await assert.rejects(runMaintenance({...data,name:'supabase',get:data.get.bind(data),atomic:data.atomic.bind(data)},input),/disconnected/);
@@ -45,7 +45,7 @@ try {
   const [made,replayed]=await Promise.all([runMaintenance(data,create),runMaintenance(data,create)]);assert.deepEqual(made,replayed);assert.equal(made[0].revision,0);assert.equal(made[0].created_by,'usr_maint');assert.equal(data.peek('maintenance_records').filter(row=>row.id===create.id).length,1);
   await assert.rejects(runMaintenance(data,{...create,requestId:`qa_duplicate_${kind}`}),/record_exists/);
  }
- const receiptBefore=snapshot();await assert.rejects(runMaintenance({...data,get:async()=>{throw Error('qa_read_failure');},atomic:data.atomic.bind(data)},input),/qa_read_failure/);assert.equal(snapshot(),receiptBefore);
+ const receiptBefore=snapshot();await assert.rejects(runMaintenance({...data,list:async()=>{throw Error('qa_read_failure');},atomic:data.atomic.bind(data)},input),/qa_read_failure/);assert.equal(snapshot(),receiptBefore);
  assert.equal(JSON.stringify(['class_ledger','bookings','space_bookings','payments','class_sessions','expenses'].map(table=>data.peek(table))),operationalBefore,'maintenance never mutates purchases/bookings/payments/room operations/Finance');
  console.log('PASS OT-02 additive cache preservation, four fixture types, every write/storage rollback with no intermediate events, exact retry/idempotency, changed-request/revision conflict, existing-role denial, missing actor/atomic/read failure, invalid dates/checks/quantities/notes; no operational-table changes.');
 } finally {await rm(scratch,{recursive:true,force:true});}

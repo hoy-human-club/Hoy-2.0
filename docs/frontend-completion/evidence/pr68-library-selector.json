@@ -1,0 +1,11 @@
+{
+  "head": "234de512ee49aab29ddecb4e2db03161169701a4",
+  "run": 39727118137,
+  "job": 119653474597,
+  "failure": "test-continuation-library-ui.mjs:30 waited30s for exact obsolete Cancel without saving label. Prior marketing production suite passed in same job; new focused marketing library job119653473903 passed current exact Cancel / close label.",
+  "sourceEvidence": "marketing.strings marketing.cancel changed to Cancel / close / Cancelar / cerrar to describe pending cancellation plus committed-fact containment; original helper test selector was not updated.",
+  "correction": "Update only legacy exact button name to current shared bilingual label; additionally await actual dialog hidden. Existing full database/localdraft equality and hub assertions retained, original30s assertion limits retained.",
+  "runtimeChanges": false,
+  "localRerun": "Pending exclusive browser37; hosted final-head full rerun required.",
+  "remainingGates": "All final-head workflows + exact merge/deployment verification."
+}

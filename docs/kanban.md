@@ -1,5 +1,12 @@
 # HoyOS kanban
 
+## Current continuation checkpoint (2026-10-22)
+
+- PR67 checked3b752e5 all11 workflows/all12 correctness scopes passed; e04afec deployed and hosted exact-source verified by Pages39724393280.
+- OT01/OT02 combined32/33 clean fullbuild58156/domain27048/all5 serial rendered suites passed at962c969f…, with no runtime/test changes during QA. Exact final-head CI/release pending. Original After Nov30 phases retained; no delivery/publication/operational activation.
+- 34 email edit/rollback and35 expense ledger source/proof checkpoints aa629da/093bbf7 saved;36 receipt-alert local rehearsal checked,37 approval rendered checks active,38 studio cancellation and39 isolated team proposals in progress. Root owns all Git/release mutations.
+- Current source findings11/100/8/5 and historical14/94/11/5 stay separate; all124 literal source fields preserved. No acceptance percentage.
+
 ## Preferences and local email continuation (2026-10-22)
 
 - PR65 checked3c017b4 all10 workflows/all7 correctness jobs passed; deployed840f8e1 with Pages39717548494 all3jobs/source verification passed. Rollback0097dfb. CU06/AD07/RC05/PF03 bounded slices remain partial.
@@ -729,6 +736,12 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - FI-03 / RS-15: isolated fictional atomic payroll drafts and zero-due event RSVP source/domain/rendered proof passed; combined full build/domain and all3 serial rendered suites passed with currency readability assertions/inspection; final evidence-head CI and release checks pending. Approval, settlement, paid RSVP, real emails and backend acceptance remain separate.
 - PR66 checked44973d7 deployed asede03f3; Pages39720627884 all3 jobs and exact hosted source verification passed. Receipt: docs/frontend-completion/evidence/release-pr66.json.
 
+## Future draft fences · 0118
+
+- OT-01 / OT-02 original AfterNov30 phase: source checkpoints33e053498/32f0a7719 combined with clean merge; fullbuild and original/new domain suites passed. Isolated marketing all3 rendered suites passed; repaired maintenance affected QA and combined integration QA/CI/release remain pending. No delivery/publication/operational signoff or backend acceptance.
+
 - PR67 finalhead1560f23:10 workflows passed/all12 correctness scopes passed; service-catalog excluded-count assertion failed. Controlled browser confirmed a valid-generated-UUID PAN false positive; bounded model/regression fix is in fresh build/affected QA. Old CI exact cause remains unresolved; no merge or deployment.
 
 - Catalog UUID correction: freshbuild/domain and both affectedactualUI suites passed atb3f906de…, preserving all card/credential tests. Next exactheadCI/release pending; earlier30/31 localmatrix remains explicitly8e4ee559….
+
+- PR67 checked3b752e5 all11 workflows/all12 correctness scopes, deployed e04afec; Pages39724393280 all3 jobs and exact source/hosted subscription flow passed. Root32/33 combined fullbuild/domain passed; final combined rendered/CI/release gates remain pending.
