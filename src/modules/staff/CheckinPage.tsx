@@ -15,7 +15,7 @@ import { RosterRow } from '../../components/molecule/RosterRow/RosterRow';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useSessionsJoined } from '../website/hooks';
 import { useSettings } from '../admin/settings';
-import { useAudit } from './audit';
+import { receptionUndoEligible, setReceptionAttendance } from '../../data/receptionAttendance';
 import { maskPhone, personMatches, usePeople, type Person } from './people';
 import { S02 } from './specs';
 import { tenant } from '../../tenant/tenant';
@@ -33,7 +33,6 @@ export function CheckinPage() {
   const { t, lang } = useI18n();
   const data = useData();
   const { can, user, role } = useSession();
-  const audit = useAudit('front_desk');
   const { settings } = useSettings();
   const { sections, isVisible } = useLayout(S02);
   const [params, setParams] = useSearchParams();
@@ -41,6 +40,11 @@ export function CheckinPage() {
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const attendanceBusy = useRef(false);
+  const attendanceRequests = useRef(new Map<string, string>());
+  const attendanceContext = useRef({ data, actorId: user.id, role, mounted: true });
+  attendanceContext.current = { data, actorId: user.id, role, mounted: true };
+  useEffect(() => { attendanceContext.current.mounted = true; return () => { attendanceContext.current.mounted = false; }; }, []);
   const canWrite = can('checkin.write');
   const canBookAny = can('bookings.write_any');
 
@@ -73,13 +77,21 @@ export function CheckinPage() {
   const graceMs = settings.policies.lateGraceMin * MS.min;
   const isLate = (b: BookingRow) => !!selected && !!b.checked_in_at && new Date(b.checked_in_at).getTime() > new Date(selected.session.starts_at).getTime() + graceMs;
 
-  const setStatus = async (b: BookingRow, status: BookingRow['status']) => {
-    if (!canWrite) return;
+  const setStatus = async (b: BookingRow, status: 'booked' | 'checked_in' | 'no_show') => {
+    if (!canWrite || attendanceBusy.current || busy) return;
+    const actorId = user.id, effectiveRole = role, provider = data;
+    const isCurrent = () => { const c = attendanceContext.current; return c.mounted && c.data === provider && c.actorId === actorId && c.role === effectiveRole; };
+    const key = JSON.stringify([actorId, effectiveRole, b.id, b.status, b.checked_in_at, b.updated_at, status]);
+    const requestId = attendanceRequests.current.get(key) ?? crypto.randomUUID();
+    attendanceRequests.current.set(key, requestId);
+    attendanceBusy.current = true;
     setBusy(b.id); setError(null);
     try {
-      await data.update('bookings', b.id, { status, checked_in_at: status === 'checked_in' ? new Date().toISOString() : null });
-      await audit(status === 'checked_in' ? 'booking.checkin' : status === 'no_show' ? 'booking.no_show' : 'booking.undo', 'bookings', b.id, { before: b.status, after: status, session_id: b.session_id, user_id: b.user_id });
-    } catch (e) { setError(String(e)); } finally { setBusy(null); }
+      await setReceptionAttendance(data, { actorId, role: effectiveRole, bookingId: b.id, sessionId: b.session_id, userId: b.user_id, requestId, status, before: { status: b.status, checked_in_at: b.checked_in_at, updated_at: b.updated_at } }, { isCurrent });
+      attendanceRequests.current.delete(key);
+    } catch (e) {
+      if (isCurrent()) setError(t((e as Error).message === 'attendance_undo_policy_pending' ? 'staff.checkin.undoPolicy' : 'staff.checkin.attendanceFailed'));
+    } finally { attendanceBusy.current = false; if (isCurrent()) setBusy(null); }
   };
   const commandError = (error: unknown) => {
     const code = error instanceof Error ? error.message : '';
@@ -192,15 +204,16 @@ export function CheckinPage() {
         {!loading && roster.length === 0 && waitlist.length === 0 && <EmptyState compact title={q ? t('staff.checkin.noMatch') : t('staff.checkin.emptyRoster')} body={q ? t('staff.checkin.noMatch.body') : undefined} />}
         <Group title={t('staff.checkin.expected')} n={expected.length}>
           {expected.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={planLabel(p, b, lang, t)} status="booked" showStatus={false} flag={p?.notes ?? undefined}
-            actions={canWrite && <><Button size="sm" variant="tonal" loading={busy === b.id} onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button><Button size="sm" variant="outline" onClick={() => setStatus(b, 'no_show')} icon="user-x">{t('staff.checkin.noShow')}</Button></>} />)}
+            actions={canWrite && <><Button size="sm" variant="tonal" disabled={!!busy} loading={busy === b.id} onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button><Button size="sm" variant="outline" disabled={!!busy} onClick={() => setStatus(b, 'no_show')} icon="user-x">{t('staff.checkin.noShow')}</Button></>} />)}
         </Group>
         <Group title={t('staff.checkin.arrived')} n={arrived.length}>
+          {canWrite && arrived.length > 0 && !receptionUndoEligible(selected.session) && <p className="xs muted" role="status">{t('staff.checkin.undoPolicy')}</p>}
           {arrived.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={planLabel(p, b, lang, t)} status="checked_in" late={isLate(b)} time={b.checked_in_at ? formatTime(b.checked_in_at, lang) : undefined} flag={p?.notes ?? undefined}
-            actions={canWrite && <Button size="sm" variant="outline" onClick={() => setStatus(b, 'booked')} icon="undo">{t('staff.checkin.undo')}</Button>} />)}
+            actions={canWrite && <Button size="sm" variant="outline" disabled={!!busy || !receptionUndoEligible(selected.session)} title={!receptionUndoEligible(selected.session) ? t('staff.checkin.undoPolicy') : undefined} onClick={() => setStatus(b, 'booked')} icon="undo">{t('staff.checkin.undo')}</Button>} />)}
         </Group>
         {missed.length > 0 && <Group title={t('staff.checkin.missed')} n={missed.length}>
           {missed.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} plan={planLabel(p, b, lang, t)} status={b.status as 'no_show' | 'late_cancel'}
-            actions={canWrite && b.status === 'no_show' && <Button size="sm" variant="tonal" onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button>} />)}
+            actions={canWrite && b.status === 'no_show' && <Button size="sm" variant="tonal" disabled={!!busy} loading={busy === b.id} onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button>} />)}
         </Group>}
         {waitlist.length > 0 && <Group title={t('core.common.waitlist')} n={waitlist.length}>
           {waitlist.sort((a, b) => a.position - b.position).map((w) => { const p = byId.get(w.user_id); return <RosterRow key={w.id} name={p?.name ?? w.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={`${packageLabel(w.user_id)}${unavailable(w.user_id) ? ` · ${unavailable(w.user_id)}` : ''}`} status="waiting" showStatus={false} time={`#${w.position}`}
