@@ -13,6 +13,13 @@ on:
       - 'src/modules/products/**'
       - 'src/modules/admin/TablesPage.tsx'
       - 'scripts/test-sensitive-audit*.mjs'
+      - 'scripts/qa-corrupt-audit-fixture.mjs'
+      - 'scripts/test-maintenance-fences.mjs'
+      - 'scripts/test-email-edit.mjs'
+      - 'scripts/test-expense-ledger.mjs'
+      - 'scripts/test-email-test.mjs'
+      - 'scripts/test-substitute-request.mjs'
+      - 'scripts/test-receipt-alert-intent.mjs'
       - '.github/workflows/sensitive-audit-qa.yml'
 permissions:
   contents: read
@@ -32,6 +39,12 @@ jobs:
       - name: Verify audit contracts and existing producers
         run: |
           node scripts/test-sensitive-audit.mjs
+          node scripts/test-maintenance-fences.mjs
+          node scripts/test-email-edit.mjs
+          node scripts/test-expense-ledger.mjs
+          node scripts/test-email-test.mjs
+          node scripts/test-substitute-request.mjs
+          node scripts/test-receipt-alert-intent.mjs
           node scripts/test-vouchers.mjs
           node scripts/test-promotions.mjs
           node scripts/test-reschedule-atomic.mjs

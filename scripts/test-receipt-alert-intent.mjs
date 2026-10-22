@@ -1,3 +1,4 @@
+import {corruptAuditFixture} from './qa-corrupt-audit-fixture.mjs';
 // Fictional local-only intent; no network/provider/customer directory access.
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
@@ -35,7 +36,7 @@ try{
  before=snap();await simulateReceiptAlert(data,retry);assert.equal(snap(),before);await assert.rejects(simulateReceiptAlert(data,{...command,revision:'stale'}),/request_conflict/);assert((await readReceiptAlert(data,owner,receipt.id)).completed);
  await data.update('transfer_receipts',receipt.id,{image_data_url:'data:image/png;base64,corrupt'});await assert.rejects(readReceiptAlert(data,owner,receipt.id),/intent_conflict/);await assert.rejects(simulateReceiptAlert(data,retry),/intent_conflict/);await data.update('transfer_receipts',receipt.id,{image_data_url:input.image.dataUrl});
  // A matching legacy receipt remains untouched and has no inferred alert intent.
- const legacy=await submitTransfer(data,{...input,key:'fictional-legacy'});await data.remove('audit_log',alertIntentId(owner,legacy.id));before=snap();await submitTransfer(data,{...input,key:legacy.id});assert.equal(snap(),before);assert.equal((await readReceiptAlert(data,owner,legacy.id)).intentId,null);await assert.rejects(simulateReceiptAlert(data,{owner,receiptId:legacy.id,revision:'none'}),/intent_missing/);
+ const legacy=await submitTransfer(data,{...input,key:'fictional-legacy'});await corruptAuditFixture(data,'remove',alertIntentId(owner,legacy.id));before=snap();await submitTransfer(data,{...input,key:legacy.id});assert.equal(snap(),before);assert.equal((await readReceiptAlert(data,owner,legacy.id)).intentId,null);await assert.rejects(simulateReceiptAlert(data,{owner,receiptId:legacy.id,revision:'none'}),/intent_missing/);
 
  const ackReceipt=await submitTransfer(data,{...input,key:'fictional-ack'}),ackState=await readReceiptAlert(data,owner,ackReceipt.id),ackCommand={owner,receiptId:ackReceipt.id,revision:ackState.revision};
  for(const table of ['users','payments','transfer_receipts','audit_log']){const get=data.get.bind(data);data.get=async(t,id)=>{if(t===table)throw Error('required_read');return get(t,id);};await assert.rejects(readReceiptAlert(data,owner,ackReceipt.id),/required_read/);data.get=get;}
