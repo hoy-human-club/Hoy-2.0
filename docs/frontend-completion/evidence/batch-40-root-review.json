@@ -1,0 +1,33 @@
+{
+  "batch": 40,
+  "requirement": "PG-12",
+  "state": "Root independent review of named isolated source/artifact and two actual captures; combined source/test/CI/deployment remain pending. No owner/backend acceptance.",
+  "runtime": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
+  "sourceCheck": "Canonical sorted src path+bytes excluding captureDates, then Vite bytes independently matched. All6 pre-assertion test digests matched build proof.",
+  "artifact": "/workspace/hoy-qa-archive/batch40-cash-count-5dc6009bd2fa",
+  "artifactSha256": "9af29c9804861c5b13cf7de5e1a680173cf56e063ee643e93ed313c765b4d756",
+  "artifactBasis": "Sorted relative path+NUL+bytes+NUL",
+  "files": 4210,
+  "bytes": 345345460,
+  "visualReview": [
+    {
+      "path": "docs/screenshots/S-04/es-390-cash-count-preview-dark.jpg",
+      "sha256": "5ad5d618a6ef21dc98d442558225178dbb473836bd6969bd148b09a1da9a4928",
+      "finding": "Readable frozen numeric values and draft/local/uncertain acknowledgement distinctions; controls within viewport, no visible horizontal overflow."
+    },
+    {
+      "path": "docs/screenshots/S-04/en-1280-cash-count-error-dark.jpg",
+      "sha256": "4b43bec5b234e85820643935768d3be41d67b08f5f28e70e08bcdeb0373b4eb7",
+      "finding": "Readable frozen numeric values and draft/local/uncertain acknowledgement distinctions; controls within viewport, no visible horizontal overflow."
+    }
+  ],
+  "reviewCorrection": "Initial root suspicion about __proto__ request key was incorrect: actual helper uses safe computed own property, existing domain line21 saves/replays it. No runtime fix or executed defect claimed.",
+  "testFollowup": "Contrast diagnostic printed passes but lacked failure assertions. Agent adds threshold/readOnly/not-disabled assertions after persisting diagnostic; strengthened test must run at combined head and CI. Prior actual metric8.6699>=4.5 remains measured evidence.",
+  "remainingGates": [
+    "Final isolated source/docs checkpoint",
+    "Combined38\u201340 new fullbuild/domain/rendered proof including new assertions",
+    "All exact-head CI workflows",
+    "Expected-head merge and Pages exact-source verification",
+    "PG12 accounting basis/cutoff/terminal/attribution/refund/expense/signoff decisions and Anu durable authenticated close"
+  ]
+}
