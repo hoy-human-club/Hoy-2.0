@@ -1,0 +1,33 @@
+{
+  "base": "0a09975aae2f581bd82e694b0654002466b79181",
+  "runtime": "4f5aa39174daa4a6fde3724d112bee2b7d421df4e2540badc52dab47c7a003f6",
+  "runtimeMethod": "Canonical root: sorted src relative path bytes followed by file bytes, no separators; exclude src/app/captureDates.ts; append vite.config.ts bytes only.",
+  "state": "SOURCE-ONLY UNVERIFIED; compilation/tests/build/render QA pending root serialized resource grant.",
+  "noExecutions": true,
+  "files": {
+    "src/modules/admin/payrollSettlement.ts": "71d81b88082f71c590a038dd71893465a5085e40b1f2a6adb762f48cbea2ed6c",
+    "src/modules/admin/usePayrollSettlement.ts": "9a443e6f7c770bb10b1217d046bd480e804b8832c6b2ce4426505b75f188265a",
+    "src/modules/admin/PayoutsPage.tsx": "661c9874ee5ae8b91da0f2614b5a87f041bce66501f003f8d2f052be1d990725",
+    "src/modules/admin/strings.ts": "f813a963fc00e5b544c9945d83519f75ee412e7512e112060aa73535ebf12e03",
+    "scripts/test-payroll-settlement.mjs": "ca80ce61fffd2eba6a9e8f31afbfad2297dc6d29228fa058f0801bee13a7e2c6",
+    "scripts/test-payroll-settlement-hook.mjs": "ff489625970d007cfe339067c831c4d0e942a802fd7c31eb90528520ca105bc4",
+    "scripts/test-payroll-settlement-ui.mjs": "1f6c623b30ac8f1965072041feb48ca4d3cadd36e2bb39e5ef976b86a407647b",
+    "scripts/test-payroll-settlement-states.mjs": "3846cef12e35a12448ad88e86d0b5f7a8198f497fe4e73bd40e589aa114c68b7"
+  },
+  "unchangedBoundaries": [
+    "approval37",
+    "payroll calculator",
+    "schema",
+    "roles",
+    "settings",
+    "existing pure-local Wompi stub",
+    "global metadata/manifest",
+    "Git"
+  ],
+  "testsWrittenNotRun": [
+    "scripts/test-payroll-settlement.mjs",
+    "scripts/test-payroll-settlement-hook.mjs",
+    "scripts/test-payroll-settlement-ui.mjs",
+    "scripts/test-payroll-settlement-states.mjs"
+  ]
+}

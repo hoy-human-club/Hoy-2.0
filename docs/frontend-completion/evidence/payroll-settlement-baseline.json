@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-10-22T06:04:30.515923+00:00",
+  "base": "0a09975aae2f581bd82e694b0654002466b79181",
+  "requirement": "FI-03",
+  "phase": "Nov 30 delivery",
+  "sourceStatus": "Not verified",
+  "criterion": "Draft without duplicates using closed classes times rate; Draft, Approved and Paid statuses; total equals the sum per teacher.",
+  "scope": "Batch41 fictional settlement only; no owner/backend acceptance.",
+  "baselineSource": [
+    {
+      "path": "src/modules/admin/PayoutsPage.tsx",
+      "sha256": "f392b58dfa7f75a318ca5bf5c4aa5534622cc126641e88692da8eaa1f4088dd1"
+    },
+    {
+      "path": "src/modules/admin/payouts.ts",
+      "sha256": "aed05e03007150af98ed105b73954655874f59e3da0f15afaf50cd8177e774e9"
+    },
+    {
+      "path": "src/modules/admin/payrollApproval.ts",
+      "sha256": "b77fe492d871298dc06babfac8e7b2f739a328a95932bec5ec0b647d9fc828be"
+    },
+    {
+      "path": "src/data/payrollCalc.ts",
+      "sha256": "1322a617e7adc45dc5c9adfd106b907c1a31e68e0abb1f01837da267c969feaa"
+    },
+    {
+      "path": "src/data/schema.ts",
+      "sha256": "35ee85e2db065a9a6a85c9279c7915bf686bfe1bfa36525e1975207c8f229933"
+    },
+    {
+      "path": "src/auth/permissions.ts",
+      "sha256": "593caa1eb4e43b5d4e797100a96cdfa51f85d90db0c78bf3cc92672aad02f80b"
+    }
+  ],
+  "settlementSliceSha256": "cb21f50189c22c274e392bd74646137c4065ad5d9380afda07df3f9c4a8b7bcc",
+  "priorExecutedBaseline": "fi03-approval-followup-audit.json; existing7-case historical audit referenced, not rerun. Settlement slice still unchanged; approval37 separately repaired.",
+  "contract": [
+    "ALL3 mutating settlement entrypoints share one mock-only immutable atomic engine and immediate latch.",
+    "Fresh exact scoped active account/run/lines; reject contaminated required reads; end-of-read and final digest/ack ownership checks.",
+    "Preserve exact approved financial fields/amounts/signed lines/rates/periods/approval history; paid history never repaired or rewritten.",
+    "Clean positive whole manual cash/transfer and whole-teacher progression, plus entirely local run Wompi accepted/rejected rehearsal.",
+    "Teacher wompi mark is a local record with NO provider confirmation; no per-teacher provider call or invented reference.",
+    "Zero/netnegative/empty/mixed/inconsistent/within-teacher partial and remaining-provider amount are visibly unresolved prototype cases, not production policy.",
+    "One atomic line/run+existing-audit commit; stable metadata-only receipt replay before eligibility, fresh current-target read acknowledgment; cancel/role/context/unmount/postcommit/lostack guarded.",
+    "No real provider/payment/email/outbox/credential/security/schema/role/settings/calculator changes."
+  ],
+  "resourceState": "Source/test writing only. No tsc/esbuild/fullbuild/browser until root grant; root69 exclusive QA. All new artifacts under workspace.",
+  "owner": "Existing receipt_frontend agent only; root owns Git/globalmanifest/metadata/release and worktree creation."
+}
