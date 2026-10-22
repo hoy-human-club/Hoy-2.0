@@ -124,7 +124,7 @@ export const M07 = defineSpec({
   ...canvasSpecs['M-07'],
   layout: ['FilterBar (range, actor, entity, action)', 'SortableTable (When · Who · Action · Object · Source)', 'DetailDrawer (before / after)', 'ExportButton (CSV)', 'RetentionNotice'],
   data: ['audit_log', 'users', 'profiles', 'user_roles'],
-  notes: [...(canvasSpecs['M-07'].notes ?? []), 'Append-only: the page has no write path.'],
+  notes: [...(canvasSpecs['M-07'].notes ?? []), 'Append-only: the page has no write path.', 'AD-10: range, actor, area and displayed-text search select one shared row set for count, table, detail and CSV. CSV quotes multiline values and neutralises spreadsheet formulas; export failure is visible and does not alter provider data.'],
 });
 
 /**
@@ -202,12 +202,12 @@ export const M09 = defineSpec({
   code: 'M-09',
   name: { es: 'Finanzas', en: 'Finance' },
   purpose: { es: 'Ingresos por producto y método, pagos pendientes, reembolsos, facturas con referencia DIAN y el resumen de la nómina de profesores.', en: 'Revenue by product and method, pending payments, refunds, invoices with the DIAN reference and the teacher-payroll roll-up.' },
-  layout: ['KPIRow', 'BalanceCard (Ingresos − Nómina − Gastos = Balance, enlaces a M-09a y M-09c)', 'RevenueByProduct', 'RevenueByMethod', 'PayoutsSummary (M-09a: próxima, por aprobar, pagado en el trimestre)', 'PaymentsList + Refund', 'InvoicesTable (DIAN) + StatusFilter'],
+  layout: ['KPIRow', 'BalanceCard (Ingresos − Nómina − Gastos = Balance, enlaces a M-09a y M-09c)', 'RevenueByProduct', 'RevenueByMethod', 'PayoutsSummary (M-09a: próxima, por aprobar, pagado en el trimestre)', 'ConfirmedPaymentReport (inclusive Bogotá date range and CSV)', 'PaymentsList (read-only history)', 'InvoicesTable (DIAN) + StatusFilter'],
   data: ['payments', 'invoices', 'plans', 'users', 'profiles', 'payroll_runs', 'payroll_lines', 'expenses', 'audit_log', 'tenants'],
   roles: ['super_admin', 'admin', 'finance'],
   logic: [
     'Revenue = approved payments in the selected range grouped by plan and by method.',
-    'Refund flips payments.status to refunded and writes audit_log payment.refund; returning the class to the package is a follow-up.',
+    'Approved permanent no refunds: no refund command is available. Historical statuses remain readable.', 'PG-10: confirmed payments export uses explicit inclusive Bogotá paid-at dates, approved COP rows only, product/method and recorded confirmer. Quote and received amounts stay separate; missing facts remain blank and invalid source rows are reported as excluded. The report is read-only and does not change the dashboard accounting basis.',
     'E-invoicing requires a DIAN resolution in M-08; until then the CUFE column shows a badge instead.',
     'The invoice filter is the status of the payment behind the invoice (invoices carry no status of their own).',
     'Ranges are 7 / 15 / 30 / 90 days and all time: 15 days is there because Colombian studios settle biweekly, and it drives both the KPI tiles and the invoice table.',
@@ -215,9 +215,9 @@ export const M09 = defineSpec({
     'Balance = approved payments in the range − payroll (every payroll_runs row whose period overlaps the range, at its current total; a draft counts because the classes were taught) − expenses (expenses rows with incurred_on in the range, paid or not). The card links to M-09a and M-09c; nothing on it is written here.',
   ],
   integrations: ['Wompi', 'DIAN e-invoicing'],
-  states: ['Loading', 'Empty range', 'No refund permission: action hidden', 'E-invoicing off: notice', 'No draft run yet', 'Negative balance (expenses above revenue in the range)'],
-  toggles: [{ label: 'Wompi payouts', on: true }, { label: 'Refunds', on: true }, { label: 'DIAN column', on: true }],
-  notes: ['Payouts are real rows now (payroll_runs / payroll_lines); only the Wompi dispersion call is simulated, and the page says so.', 'The balance card (0.6.1) is the answer to “what did the studio spend”: it reads payments, payroll_runs and expenses with the same range chips, so the three numbers always describe one window.'],
+  states: ['Loading', 'Empty range', 'No new refunds under approved policy', 'Report: ready / empty / invalid period / excluded records / browser download failure', 'E-invoicing off: notice', 'No draft run yet', 'Negative balance (expenses above revenue in the range)'],
+  toggles: [{ label: 'Wompi payouts', on: true }, { label: 'Refunds', on: false }, { label: 'DIAN column', on: true }],
+  notes: ['Payroll records are browser-local mock rows (payroll_runs / payroll_lines); real settlement remains a separate backend gate.', 'The balance card (0.6.1) is the answer to “what did the studio spend”: it reads payments, payroll_runs and expenses with the same range chips, so the three numbers always describe one window.'],
 });
 
 const PAYOUT_NOTES = [

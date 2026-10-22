@@ -1,0 +1,84 @@
+{
+  "schema": "hoy.reporting-tranche/1",
+  "base": "40dc879d4f59ab02b6f7919516449e5cc4cc5711",
+  "ids": [
+    "PG-10",
+    "AD-10"
+  ],
+  "state": "Locally tested frontend demo; remote CI and deployment pending",
+  "runtime": "25fabd55eddbfeaadf353d4c90048d5cb18cd15ff0c9998931b38f0424716258",
+  "runtimeMethod": "sorted src relative path UTF8 then bytes, excluding captureDates.ts; append vite.config.ts bytes",
+  "fullBuild": {
+    "command": "npm run build",
+    "exit": 0
+  },
+  "checks": [
+    {
+      "script": "scripts/test-reporting.mjs",
+      "exit": 0,
+      "seconds": 0.07
+    },
+    {
+      "script": "scripts/test-audit-policy.mjs",
+      "exit": 0,
+      "seconds": 0.45
+    },
+    {
+      "script": "scripts/test-reception-attendance.mjs",
+      "exit": 0,
+      "seconds": 0.52
+    },
+    {
+      "script": "scripts/test-analytics.mjs",
+      "exit": 0,
+      "seconds": 0.35
+    },
+    {
+      "script": "scripts/test-date-keys.mjs",
+      "exit": 0,
+      "seconds": 0.07
+    },
+    {
+      "script": "scripts/test-class-capacity.mjs",
+      "exit": 0,
+      "seconds": 0.58
+    },
+    {
+      "script": "scripts/test-desk-transactions.mjs",
+      "exit": 0,
+      "seconds": 0.94
+    },
+    {
+      "script": "scripts/test-reporting-baseline.mjs",
+      "exit": 0,
+      "seconds": 1.65
+    },
+    {
+      "script": "scripts/test-reporting-ui.mjs",
+      "exit": 0,
+      "seconds": 25.12
+    },
+    {
+      "script": "scripts/test-reporting-library.mjs",
+      "exit": 0,
+      "seconds": 7.34
+    },
+    {
+      "script": "scripts/test-audit-repairs-ui.mjs",
+      "exit": 0,
+      "seconds": 29.35
+    }
+  ],
+  "frontendEvidence": [
+    "PG-10: approved tenant/COP records; inclusive Bogotá dates; distinct quoted/received amounts; product/method/recorded confirmer; actual decoded CSV; missing and malformed facts not inferred; loading/empty/invalid/download-error retry.",
+    "AD-10: one actor/area/date/search-selected row set for count/table/detail/export; actual reception command action/object exported; empty/failed-download states; safe text CSV.",
+    "EN/ES 390/1280 light/dark eight actual page matrices; seven real widget library usages; existing repair regression passes."
+  ],
+  "sourceWrites": "Reports perform no DataProvider writes; testing used isolated fictional fixtures only.",
+  "backend": "Real data authorization, durable accounting and server exports remain separate; mocking does not automatically block frontend-demo acceptance.",
+  "limits": [
+    "High-volume browser performance and external spreadsheet applications unverified",
+    "Not every activity producer/date-filter combination tested",
+    "Real authorization, canonical accounting data and durable audit storage require backend integration"
+  ]
+}

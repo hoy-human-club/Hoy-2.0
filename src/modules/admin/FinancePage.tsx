@@ -1,3 +1,4 @@
+import { ConfirmedPaymentReport } from '../../components/organism/ConfirmedPaymentReport/ConfirmedPaymentReport';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -117,6 +118,7 @@ export function FinancePage() {
         </div>
         <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.payouts.body')} <Link to="/admin/settings/payments">{t('core.nav.settings')}</Link></p>
       </Card>
+      <ConfirmedPaymentReport payments={payments} loading={loading} productName={id=>{const p=planMap.get(id);return p?bi({es:p.name_es,en:p.name_en}):id;}} personName={id=>byId.get(id)?.name??id}/>
       <section className="stack-sm">
         <div className="row-between wrap"><div className="eyebrow">{t('admin.finance.payments')}</div><span className="xs muted">{t('admin.finance.refund.disabled')}</span></div>
         <DataTable columns={payCols} rows={inRange} rowKey={(p) => p.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} />

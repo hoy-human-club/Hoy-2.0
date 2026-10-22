@@ -1,0 +1,18 @@
+import type { StringTable } from '../../i18n/types';
+export const reportingStrings: StringTable = {
+ 'admin.reporting.title': {es:'Reporte de pagos confirmados',en:'Confirmed payments report'},
+ 'admin.reporting.scope': {es:'CSV de pagos aprobados de este navegador. Ambas fechas se incluyen según la hora de Bogotá. No confirma pagos ni modifica registros.',en:'CSV of approved payments in this browser. Both dates are included using Bogotá time. It does not confirm payments or change records.'},
+ 'admin.reporting.from': {es:'Desde',en:'From date'}, 'admin.reporting.to': {es:'Hasta',en:'To date'},
+ 'admin.reporting.download': {es:'Descargar pagos confirmados CSV',en:'Download confirmed payments CSV'},
+ 'admin.reporting.summary': {es:'{n} pagos confirmados · valor registrado {total}',en:'{n} confirmed payments · recorded amount {total}'},
+ 'admin.reporting.invalid': {es:'Selecciona dos fechas válidas.',en:'Choose two valid dates.'},
+ 'admin.reporting.inverted': {es:'La fecha inicial debe ser anterior o igual a la final.',en:'The start date must be on or before the end date.'},
+ 'admin.reporting.totalUnavailable': {es:'total fuera del rango de precisión',en:'total outside the precision range'},
+ 'admin.reporting.empty': {es:'No hay pagos confirmados en este periodo.',en:'No confirmed payments in this period.'},
+ 'admin.reporting.skipped': {es:'{n} registros aprobados carecen de fecha de pago verificable, moneda COP o importe válido y no se exportan. Revisa su origen.',en:'{n} approved records lack a verifiable payment date, COP currency or valid amount and are not exported. Review their source.'},
+ 'admin.reporting.missing': {es:'Los importes recibidos o responsables no registrados quedan en blanco; no se infieren.',en:'Unrecorded received amounts or confirmers are left blank; they are not inferred.'},
+ 'admin.reporting.failed': {es:'No se pudo iniciar la descarga. Reintenta; no se cambió ningún registro.',en:'Could not start the download. Retry; no record was changed.'},
+ 'admin.reporting.prepared': {es:'CSV preparado para descargar en el navegador.',en:'CSV prepared for browser download.'},
+ 'admin.reporting.activitySearch': {es:'Buscar en la actividad visible…',en:'Search visible activity…'},
+ 'admin.reporting.activityFailed': {es:'No se pudo iniciar el CSV de actividad. Reintenta la descarga.',en:'Could not start the activity CSV. Retry the download.'},
+};

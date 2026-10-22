@@ -1,6 +1,8 @@
+import { reportingStrings } from './reportingStrings';
 import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  ...reportingStrings,
   'admin.emails.edit.mock': {es:'Versiones ficticias en este navegador. Editar o restaurar no envía correos ni conecta el proveedor. El historial real y su conservación siguen pendientes.',en:'Fictional versions in this browser. Editing or restoring does not send email or connect a provider. Real history storage and retention remain pending.'},
   'admin.emails.edit.busy': {es:'Guardando la versión local… Dejar de esperar no deshace un cambio que ya terminó.',en:'Saving the local version… Stopping waiting does not undo an already completed change.'},
   'admin.emails.edit.saved': {es:'Versión local v{v} leída de nuevo. No se envió ningún correo.',en:'Local version v{v} read back. No email was sent.'},
