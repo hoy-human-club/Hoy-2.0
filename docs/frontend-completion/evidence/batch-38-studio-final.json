@@ -586,10 +586,9 @@
   "captureSafety": {
     "confirmed": "All82 finalcaptures come only from fresh isolated browser contexts using actual MockProvider synthetic seed/demo UI plus unmistakable QA FICTIONAL fixture records or provider-free bilingual fictional component examples.",
     "excluded": "No real/private customer data, source correspondence, contact export, tokens, raw keys, credentials or real payment data. Existing teacher/catalog labels are the demo/public-facing catalog, not customer records. No real provider or external recipient was used.",
-    "durability": "Root authorized to mirror exact final82, preserving listed SHA256 hashes, into docs/screenshots/M-14/studio-cancel/ or appropriate E03/D02 groups with a hash mapping receipt/page links. This own receipt lists pre-mirror local sources; root performs the durable-copy and Git lane.",
+    "durability": "Local82 mirrored under explicitly ignored M14 only; NO screenshot staged/committed. Repository policy excludes protected schedule/pay captures even when synthetic. Keep hashes in repository, upcoming exact-head CI stores screenshots as Actions artifacts; reference actual artifact/job after it exists.",
     "historicalBeforeContrast": "qa/studio-cancel/historical-201a-es-390-dark-review.jpg is the same fictional fixture, safe to mirror only with explicit historical/failedcontrast marking. Earlier failure captures may remain local/hashed."
   },
-  "repositoryCaptures": "batch-38-repository-captures.json",
   "rootReview": {
     "canonicalSource": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
     "fullDistAndSnapshot": "Independently matched28d3b520\u2026 using documented componentwise relative path+bytes, NO delimiters. Initial root NUL-delimited computation differed only by hash basis; artifact was unchanged.",
@@ -599,5 +598,6 @@
       "es-390-dark-own-return.jpg"
     ],
     "remainingVisualGap": "Legacy BookedPage ClassSummary still renders confirmed mat caption when session/booking is cancelled. Actual saved own-return screenshot shows it below cancellation result. Root70 must hide confirmed-seat caption for studioCancelled/myCancelled and verify active caption retained before release. No purchase/cancellation policy change."
-  }
+  },
+  "protectedCaptures": "batch-38-protected-captures.json"
 }
