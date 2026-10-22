@@ -1,0 +1,39 @@
+{
+  "batch": 20,
+  "baseCommit": "e4257e5bd096898d312cac82f67b6922956c1560",
+  "checkpoint": "Uncommitted isolated child worktree; root owns Git/integration/release.",
+  "build": "npm run build passed: strict TypeScript, spacing/manual lint,5429 modules,36.63s Vite,65.1MB public shots under80MB budget",
+  "domain": "node scripts/test-api-key-mutations.mjs passed7groups; symbolic fixture domain passed",
+  "productionUi": {
+    "entry": "http://127.0.0.1:5213/assets/index-B2TaM7jb.js",
+    "sha256": "fa6425c6218cdfc4c0c7510a5baeb175557f63ec71b224f7ec4ef9a27cc32be6"
+  },
+  "runtimeUnchangedThroughQa": true,
+  "captures": 24,
+  "rawCaptures": 0,
+  "browserErrors": 0,
+  "inspectedCaptures": [
+    "en-390-key-atomic-create-failure-light.jpg",
+    "en-390-key-atomic-success-dark.jpg",
+    "es-1280-key-atomic-success-dark.jpg",
+    "en-1280-key-atomic-replay-light.jpg"
+  ],
+  "runtimeSourceSha256": {
+    "src/modules/dev/apiKeyMutation.ts": "469de6418606947d3b80f8aff39e5586e2fdbc829fc89e7c18a5c228165fe223",
+    "src/modules/dev/ApiKeysPage.tsx": "d192f91dea9c9d73756e98ff7982fedc506a1503282dfc39ac9840aefebc59e4",
+    "src/modules/dev/apiKeys.ts": "63e83738579252624922b0390b0d4902815ae8e1321e93798e4b821c6dc38dde",
+    "src/modules/dev/strings.ts": "52a9422cbe20f455bc7e5b99d04cbe4a9467639a3f62bde589dc255b51594a86",
+    "src/modules/dev/specs.ts": "b9646dd31cff944a027465e03d175a81288500eb4a6abbb623280252e542d55c",
+    "src/data/MockProvider.ts": "1e73c1e37ce94299977351ddbeda3688958c4288e9dde9049caa80905906d6c9"
+  },
+  "generatedGlobalFilesForRootRegeneration": [
+    "src/app/captureDates.ts"
+  ],
+  "remainingLimits": [
+    "Real API/authentication and server idempotency disconnected; IN-04 remains Not verified/After Nov30.",
+    "Existing generic table-editor admin sensitive-hash/read-only policy conflict unchanged.",
+    "Mock transactions serialize within one provider, not across browser tabs.",
+    "Root must integrate/checkpoint and rerun exact-head CI and release checks."
+  ],
+  "uiLostAcknowledgement": "PASS EN/ES: committed snapshot via real storageevent path, acknowledgement failure, retry metadata only, one key/audit, no raw redisplay."
+}

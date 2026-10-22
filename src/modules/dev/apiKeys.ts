@@ -43,11 +43,12 @@ export async function sha256Hex(raw: string): Promise<string> {
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-export type ApiKeyStatus = 'active' | 'expiring' | 'expired' | 'revoked';
+export type ApiKeyStatus = 'active' | 'expiring' | 'expired' | 'revoked' | 'invalid';
 
 export function keyStatus(k: Pick<ApiKeyRow, 'revoked_at' | 'expires_at'>, now: Date = new Date()): ApiKeyStatus {
   if (k.revoked_at) return 'revoked';
-  if (!k.expires_at) return 'active';
+  if (k.expires_at === null) return 'active';
+  if (typeof k.expires_at !== 'string' || !Number.isFinite(Date.parse(k.expires_at))) return 'invalid';
   const left = new Date(k.expires_at).getTime() - now.getTime();
   if (left <= 0) return 'expired';
   return left <= EXPIRING_WINDOW_MS ? 'expiring' : 'active';
@@ -55,6 +56,7 @@ export function keyStatus(k: Pick<ApiKeyRow, 'revoked_at' | 'expires_at'>, now: 
 
 /** A row ready to insert, plus the raw key to show once. The raw key never goes into the row. */
 export async function newKeyRow(input: { name: string; environment: ApiKeyEnvironment; scopes: string[]; expiresAt: string | null; createdBy: string | null; replacesId?: string | null }): Promise<{ raw: string; row: Partial<ApiKeyRow> }> {
+  if (!input.name.trim() || !['test','live'].includes(input.environment) || !input.scopes.length || input.scopes.some(s=>!(API_KEY_SCOPES as readonly string[]).includes(s)) || input.expiresAt!==null && !Number.isFinite(Date.parse(input.expiresAt))) throw new Error('api_key_invalid');
   const raw = generateApiKey(input.environment);
   return {
     raw,

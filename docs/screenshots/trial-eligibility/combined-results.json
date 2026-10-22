@@ -1,0 +1,83 @@
+{
+  "recordedAt": "2026-10-22T02:23:28.939009+00:00",
+  "requirement": "PR-04",
+  "runtimeFingerprint": "ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6",
+  "checkpoint": "79efc21",
+  "buildCheckoutBase": "35b8512",
+  "productionBase": "http://127.0.0.1:5222",
+  "scope": "Combined batches20–23 local immutable production QA plus dev-only async states. Build metadata explicitly predates final checked/deployed head.",
+  "serialProductionOrder": [
+    "test-trial-eligibility-ui.mjs",
+    "test-desk-sale-ui.mjs",
+    "test-transfer-receipts-ui.mjs"
+  ],
+  "receipts": [
+    {
+      "script": "test-trial-eligibility-ui.mjs",
+      "artifact": "docs/screenshots/trial-eligibility/results.json",
+      "base": "http://127.0.0.1:5222",
+      "exitCode": 0,
+      "errors": [],
+      "checks": [
+        "en: actual pass exclusion; forced trial disabled; live active/frozen/legacy and unlinked-debit exhaustion changes; prepaid-single eligible/cancel no effects; pending fictional receipt rechecked after package activation, rejection enabled, cancel unchanged; review storage failure rollback/retry/doubleclick once; desk exclusion/clarification; preserved reviewer/denied roles;3901280 lightdark",
+        "es: actual pass exclusion; forced trial disabled; live active/frozen/legacy and unlinked-debit exhaustion changes; prepaid-single eligible/cancel no effects; pending fictional receipt rechecked after package activation, rejection enabled, cancel unchanged; review storage failure rollback/retry/doubleclick once; desk exclusion/clarification; preserved reviewer/denied roles;3901280 lightdark"
+      ],
+      "localLog": "/tmp/hoy-combined-trial-ui.log"
+    },
+    {
+      "script": "test-desk-sale-ui.mjs",
+      "artifact": "docs/screenshots/S-04/atomic-sale-results.json",
+      "base": "http://127.0.0.1:5222",
+      "exitCode": 0,
+      "errors": [],
+      "checks": [
+        "en: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",
+        "es: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",
+        "administrator sale retains actual actor/effective role and front-desk source in every staged audit row",
+        "returning-expired: approved new single sale checks in once, spends exact new payment, preserves historical purchased terms",
+        "returning-frozen: approved new single sale checks in once, spends exact new payment, preserves historical purchased terms",
+        "full: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+        "duplicate: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+        "pending: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged",
+        "storage: rejected counter sale leaves users/consents/payments/invoices/ledger/bookings/counters unchanged"
+      ],
+      "localLog": "/tmp/hoy-combined-desk-ui.log"
+    },
+    {
+      "script": "test-transfer-receipts-ui.mjs",
+      "artifact": "docs/screenshots/S-09/transfer-results.json",
+      "base": "http://127.0.0.1:5222",
+      "exitCode": 0,
+      "errors": [],
+      "checks": [
+        "en: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots",
+        "es: valid PNG/JPG plus invalid type/size/decode, preview/remove and cancel during read, upload failure/retry, pending no grant/booking, customer denied, front desk deep-link/cancel/amount validation/storage rollback/retry/approval, admin rejection, duplicate trial approval rollback/message, Finance/coordinator/teacher/marketing/public denied; 390/1280 screenshots"
+      ],
+      "localLog": "/tmp/hoy-combined-receipt-ui.log"
+    },
+    {
+      "script": "test-trial-eligibility-states.mjs",
+      "artifact": "docs/screenshots/trial-eligibility/states.json",
+      "base": "http://127.0.0.1:5223",
+      "exitCode": 0,
+      "errors": [],
+      "checks": [
+        "en: contained loading/no trial offer, scoped delayed read, same-mounted actor change suppresses late eligibility, read failure/retry, unmount/cancel suppresses late read without financial effects, inclusive expiry refreshes across studio midnight;390",
+        "es: contained loading/no trial offer, scoped delayed read, same-mounted actor change suppresses late eligibility, read failure/retry, unmount/cancel suppresses late read without financial effects, inclusive expiry refreshes across studio midnight;390"
+      ],
+      "localLog": "/tmp/hoy-combined-trial-states.log"
+    }
+  ],
+  "visuallyInspected": [
+    "trial-eligibility/en-390-checkout-unlinked-allocation.jpg",
+    "trial-eligibility/en-390-review-active-blocked-light-controls.jpg",
+    "trial-eligibility/es-1280-review-clarification-light-controls.jpg",
+    "S-04/es-1280-dark-atomic-sale.jpg",
+    "S-09/es-390-transfer-review.jpg"
+  ],
+  "limits": [
+    "No runtime source changes during QA; full fingerprint matched before/after.",
+    "Fictional browser mock only; no backend/payment/storage/auth/policy acceptance.",
+    "Root exact checked-head CI and ordinary demo deployment receipt remain separate."
+  ]
+}

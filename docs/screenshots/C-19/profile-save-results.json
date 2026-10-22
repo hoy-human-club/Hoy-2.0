@@ -1,0 +1,12 @@
+{
+  "base": "http://127.0.0.1:5222",
+  "checks": [
+    "en: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark",
+    "es: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark"
+  ],
+  "errors": [],
+  "limits": [
+    "Mock-only browser persistence; no cross-device or cross-tab transaction guarantee.",
+    "Emergency contact CRM visibility remains unresolved; photo and WhatsApp verification behavior unchanged."
+  ]
+}

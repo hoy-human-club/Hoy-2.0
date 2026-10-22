@@ -1,0 +1,68 @@
+name: Frontend correctness QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/customer/**'
+      - 'src/modules/dev/**'
+      - 'src/modules/transfers/**'
+      - 'src/modules/desk/**'
+      - 'src/data/**'
+      - 'src/i18n/**'
+      - 'src/tenant/**'
+      - 'scripts/test-api-key-mutations*.mjs'
+      - 'scripts/test-trial-eligibility*.mjs'
+      - 'scripts/trial-eligibility-harness.tsx'
+      - 'scripts/test-profile-save*.mjs'
+      - 'scripts/profile-save-harness.tsx'
+      - 'scripts/test-recovery*.mjs'
+      - '.github/workflows/frontend-correctness-qa.yml'
+permissions:
+  contents: read
+jobs:
+  mock-correctness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: [api-key-mutations, trial-eligibility, profile-save, recovery]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify fictional command invariants
+        run: node scripts/test-${{ matrix.scope }}.mjs
+      - name: Verify rendered production behavior
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-${{ matrix.scope }}-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify contained asynchronous states
+        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save'
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-correctness-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-${{ matrix.scope }}-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: correctness-${{ matrix.scope }}-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/frontend-completion/evidence/batch-2*.json
+            docs/screenshots/C-19/*profile*
+            docs/screenshots/C-21/*recovery*
+            docs/screenshots/D-07/*key-atomic*
+            docs/screenshots/S-09/*trial*
+          retention-days: 7

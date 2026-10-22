@@ -1,0 +1,144 @@
+{
+  "schema": "hoy.frontend-correctness-integrated-proof/1",
+  "requirements": [
+    "IN-04",
+    "PR-04",
+    "CU-05",
+    "CU-03",
+    "CU-07"
+  ],
+  "relatedRegressions": [
+    "PG-02",
+    "PG-04",
+    "PG-05",
+    "PR-01",
+    "PR-02",
+    "PF-01"
+  ],
+  "sourceCheckpoint": "79efc21157129a7e3a2ef784620897ac1127a368",
+  "runtimeSourceSha256": "ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6",
+  "fingerprintBasis": "sorted src relative paths+bytes except generated captureDates.ts, then vite.config.ts bytes",
+  "build": "passed; unchanged before/after fingerprint; strict TypeScript/Vite, spacing60 unchanged, manual0;948published shots66.5MB within80MB",
+  "immutableBundle": "local5222 /tmp/hoy-correctness-qa-ef93b66cd930, buildCheckoutBase35b8512 plus frozen root metadata; local build proof, not final checked/deployed head",
+  "isolatedCheckpoints": {
+    "20": "c4dd183bea37d6407e71b0ab6ff4b96d935de93d",
+    "21": "9d2691a9fa36d8ef34464ad95ab13b686c3912c1",
+    "22": "663abcf11597b35bcd7d059fe0df1f780448a33d",
+    "23": "60f86cc747a4b25e9cf27cebb1fef4a0e39913ff"
+  },
+  "domainPassed": [
+    "test-api-key-mutations.mjs",
+    "test-trial-eligibility.mjs",
+    "test-profile-save.mjs",
+    "test-recovery.mjs",
+    "test-operational-quotes.mjs (UTC/Tokyo)",
+    "test-transfer-receipts.mjs",
+    "test-package-lots.mjs",
+    "test-pending-payments.mjs",
+    "test-teacher-ownership.mjs"
+  ],
+  "productionGate": "passed all named complete production and asynchronous-state matrices against frozen5222/5223; all reported page-error arrays empty",
+  "releaseGate": "pending final exact-head CI/checked merge/deployment/source verification",
+  "limits": [
+    "Fictional mock commands and in-memory recovery only; no backend or owner acceptance.",
+    "No real API keys/delivery/payments/storage/auth/security configuration.",
+    "Ambiguous trial active/frozen/legacy/future provenance pauses fictional tests; no production rule or purchased-history rewrite.",
+    "Profile emergency-contact CRM readership unresolved; existing roles preserved.",
+    "All124 original source fields/phases and historical baseline classifications retained."
+  ],
+  "productionPassed": [
+    "test-api-key-mutations-ui.mjs (ENES3901280 lightdark/all11roles/no raw captures/metadata-only lost-ack replay)",
+    "test-recovery-ui.mjs (all8 ENES3901280 lightdark public deep link; exact expiry/resend/wrong/cancel/retry/unmount; local storage/session unchanged; no provider calls)",
+    "test-trial-eligibility-ui.mjs (ENES3901280 lightdark/customer/desk/review/all11reviewroles; explicit allocation ambiguity; zero page errors)",
+    "test-profile-save-ui.mjs (ENES3901280 lightdark; customer/teacher/super and8denied; quota/retry/cancel/stale/reopen and existing CRM name/phone/birthday readback)",
+    "test-desk-sale-ui.mjs (serial ENES returning/new customer, exact package attribution, full/duplicate/pending/write failures, cancel/retry/idempotency)",
+    "test-transfer-receipts-ui.mjs (serial ENES upload validation/cancel/write failure/retry, approval/rejection, trial guard, permitted/denied roles)",
+    "test-operational-quotes-ui.mjs (complete serial ENES9checks: public/customer/desk/gift/booking transfer, required fictional upload and frozen terms)",
+    "test-pending-payments-ui.mjs (complete serial ENES3901280lightdark, frozen/corrupt metadata, readonly/deeplink/reload and3permitted/8denied)"
+  ],
+  "productionEntrySha256": "dac8d3a614cd1809d3bf7e5afe868bbadc63e8ef022d7f9b4fede16fda5c2060",
+  "inspectedCaptures": [
+    "docs/screenshots/D-07/es-390-key-atomic-replay-light.jpg",
+    "docs/screenshots/C-21/es-390-dark-complete.jpg",
+    "docs/screenshots/trial-eligibility/en-390-checkout-unlinked-allocation.jpg",
+    "docs/screenshots/operational-quotes/en-390-customer-gift-draft-result.jpg",
+    "docs/screenshots/S-09/es-390-pending-frozen-detail.jpg"
+  ],
+  "devStatePassed": [
+    "test-profile-save-states.mjs (ENES actual ProfilePage loading/readfailure/retry, immediate busy, staged-second-write failure, cancel/unmount/context, postcommit navigation)",
+    "test-trial-eligibility-states.mjs (loading/readerror/retry/staleactor/unmount/studio-midnight)"
+  ],
+  "remainingGates": {
+    "Jas": [
+      "Production meaning/timing of active/frozen packages and ambiguous legacy/gift/adjustment provenance (batch21).",
+      "Emergency-contact field readership before any CRM projection (batch22)."
+    ],
+    "Justin": [
+      "Owner acceptance/configuration actions remain separate; none needed for the bounded mock repairs."
+    ],
+    "Anu": [
+      "Authenticated atomic eligibility/purchase/review and canonical historical/same-person identity.",
+      "Authorized own-profile reads/writes, field permissions and safe idempotency/conflict audit.",
+      "Real API/key enforcement and real identity recovery/delivery/session contracts; no production auth/security provisioning performed.",
+      "Private receipt storage tracked by issue54; bank/review/timing services remain disconnected. Fictional browser receipts may reset daily and do not persist across devices."
+    ],
+    "rootRelease": [
+      "New exact-head CI after test startup/unmount readiness corrections, checked merge and ordinary deployment/source verification."
+    ]
+  },
+  "initialRegressionFailures": [
+    {
+      "suite": "test-operational-quotes-ui.mjs",
+      "result": "Timed out locating gift Name field after intro; no failure-time DOM retained. Isolated same-fixture gift reproduction found one correctly associated field and no page errors. Cause unresolved; serial complete rerun with retained diagnostics pending.",
+      "resolution": "Complete unchanged-assertion serial9check rerun passed against the same immutable bundle. No product defect reproduced; original timeout cause remains undetermined."
+    },
+    {
+      "suite": "test-pending-payments-ui.mjs",
+      "result": "Failure screenshot timed out and obscured original error. Diagnostics now preserve original failure and use bounded best-effort capture; serial rerun pending. No application assertions relaxed.",
+      "resolution": "Complete serial ENES/role matrix passed after diagnostic-only correction; application runtime unchanged. Original obscured failure cause remains undetermined."
+    }
+  ],
+  "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+  "initialCIFailure": {
+    "head": "23ebce3402707f99ab7ea3ae46c72e7d7915d50c",
+    "cause": "Integration changelog0105 added after local build omitted required date header; gen-hub-map failed before application build. Corrected header; fresh full build and new exact-head CI pending. Runtime unchanged.",
+    "observedRuns": [
+      39712180576,
+      39712180847,
+      39712180795
+    ],
+    "resolution": "Required version/date/prompt header corrected. Fresh post-recovery full build EXIT0 with unchanged runtime fingerprint; new exact-head CI pending."
+  },
+  "postRecoveryBuild": {
+    "result": "passed",
+    "sourceCheckout": "23ebce3402707f99ab7ea3ae46c72e7d7915d50c plus corrected changelog header",
+    "beforeAfterRuntimeSourceSha256": "ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6",
+    "log": ".vite/correctness-final-build.log (ignored workspace log; temporary pre-recovery logs were lost)",
+    "checks": "strict TypeScript/Vite, spacing60 unchanged, manual0,948shots66.5MB within80MB",
+    "scope": "Business/runtime source fingerprint unchanged; earlier named complete UI matrices remain historical proof; exact new-head CI must pass before merge."
+  },
+  "metadataCorrectedCI": {
+    "head": "f633d8519290ebaf4f1bf54ba577338ee4895659",
+    "correctnessRun": 39713654205,
+    "builds": "passed all4 correctness builds",
+    "passedScopes": [
+      "api-key-mutations",
+      "profile-save"
+    ],
+    "failedAssertions": [
+      {
+        "scope": "trial-eligibility",
+        "step": "dev-state startup",
+        "error": "Execution context destroyed during initial awaited harness import",
+        "repair": "Test-only per-document startup bootstrap; exact error reproduced under controlled reload; unchanged behavioral assertions passed normal/reload; failed import still fails. See readiness-results.json."
+      },
+      {
+        "scope": "recovery",
+        "step": "production rendered behavior",
+        "error": "Prepare fictional code disabled on second unmount setup; original CI cause remains unresolved.",
+        "repair": "Test waits actual sign-in mount/recovery unmount before clock advance and asserts cancelled send cannot renew cooldown. Original and hardened8 local cases passed; transport ambiguity prevents terminal exit claim for hardened run. Runtime unchanged."
+      }
+    ],
+    "otherWorkflows": "10 passed; Website preview cancelled. New exact-head all-triggered checks required before merge."
+  }
+}

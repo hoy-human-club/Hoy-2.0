@@ -1,4 +1,7 @@
+import {useTrialAssessment} from '../customer/useTrialAssessment';
+import {trialErrorKey} from '../../data/trialEligibility';
 import {useOperationalCatalog,useReviewedQuote} from '../quotes/hooks';
+import {Notice} from '../../components/molecule/Notice/Notice';
 import {QuoteNotice} from '../../components/molecule/QuoteNotice/QuoteNotice';
 import {checkSaleQuote,quotedItem,withQuoteTotals} from '../../data/operationalQuotes';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -74,6 +77,7 @@ export function RegisterPage() {
   const [form, setForm] = useState({ first: '', last: '', phone: '', email: '', birthday: '', emergency: '', consent: false });
   const [existingQ, setExistingQ] = useState('');
   const [personId, setPersonId] = useState<string | null>(null);
+  const trial=useTrialAssessment(mode==='existing'?personId:null);
   const [itemId, setItemId] = useState('trial');
   const catalog=useOperationalCatalog(),review=useReviewedQuote(catalog,special.on?null:itemId,1,null);
   const [method, setMethod] = useState<Method>('cash');
@@ -133,7 +137,7 @@ export function RegisterPage() {
   const paidDiffers = amountPaid !== totals.total;
   const noteOk = !paidDiffers || note.trim().length > 0;
   const who = mode === 'existing' ? !!person : mode === 'contact' ? special.on && contactName.trim().length > 0 : form.first.trim() && form.phone.trim() && form.consent;
-  const valid = who && noteOk && specialOk && (special.on||review.available);
+  const valid = who && noteOk && specialOk && (special.on||review.available)&&(special.on||itemId!=='trial'||trial.status==='eligible');
   const displayName = mode === 'existing' ? person?.name ?? '' : mode === 'contact' ? contactName.trim() : `${form.first.trim()} ${form.last.trim()}`.trim();
 
   const complete = async () => {
@@ -162,7 +166,7 @@ export function RegisterPage() {
       }
       const db = METHOD_DB[method];
       const pending = method === 'wompi';
-      if(frozen?.itemId==='trial'&&!pending&&userId)await assertTrialAvailable(data,userId);
+      if(frozen?.itemId==='trial'&&userId)await assertTrialAvailable(data,userId);
       const payment = await data.insert<PaymentRow>('payments', { ...(frozen?{frontend_quote:structuredClone(frozen)}:{}),user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
       const number = `${tenant.invoicePrefix}-${1000 + (await data.list('invoices')).length + 1}`;
       await data.insert('invoices', { payment_id: payment.id, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, issued_at: now.toISOString(), pdf_url: null, dian_cufe: null });
@@ -214,7 +218,7 @@ export function RegisterPage() {
       return { payment, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, customer: displayName, contact, item, checkedIn, isNew, booking: bookingTitle, payout: payoutDone };
       }, { idempotencyKey: saleKey.current });
       setDone(result);
-    } catch (e) { const code = e instanceof Error ? e.message : ''; setError(['payment_confirmation_required','session_unavailable','session_full','booking_exists','same_day_conflict','insufficient_classes','package_frozen','package_expired','mock_atomic_adapter_required'].includes(code) ? code : 'failed'); } finally { setBusy(false); saleBusy.current = false; }
+    } catch (e) { const code = e instanceof Error ? e.message : ''; setError(trialErrorKey(e)??(['payment_confirmation_required','session_unavailable','session_full','booking_exists','same_day_conflict','insufficient_classes','package_frozen','package_expired','mock_atomic_adapter_required'].includes(code) ? code : 'failed')); } finally { setBusy(false); saleBusy.current = false; }
   };
 
   const reset = () => { saleKey.current = crypto.randomUUID(); setDone(null); setForm({ first: '', last: '', phone: '', email: '', birthday: '', emergency: '', consent: false }); setPersonId(null); setExistingQ(''); setMode('new'); setItemId('trial'); setMethod('cash'); setPaidRaw(null); setNote(''); setSpecial(NO_SPECIAL); setContactName(''); };
@@ -281,10 +285,11 @@ export function RegisterPage() {
 
           <Card eyebrow={t('staff.register.step2')} title={t('staff.register.what')}>
             <p className="xs muted" style={{ marginBottom: 'var(--sp-md)' }}>{t('staff.register.what.hint')}</p>
+            {!special.on&&trial.status!=='eligible'&&<Notice tone="warn" action={trial.status==='trial_check_failed'?<Button onClick={trial.retry}>{t('core.common.retry')}</Button>:undefined}>{t(`customer.trialGuard.${trial.status}`)}</Notice>}
             {SELLABLE.map((fam) => (
               <div key={fam} className="register-family">
                 <div className="eyebrow">{bi(FAMILY_LABEL[fam])}</div>
-                {items.filter((p) => p.family === fam).map((p) => <div key={p.id} className={`register-item ${!special.on && p.id === itemId ? 'is-selected' : ''}`}><PriceRow item={p} onSelect={() => pickItem(p.id)} /></div>)}
+                {items.filter((p) => p.family === fam&&(p.id!=='trial'||trial.status==='eligible')).map((p) => <div key={p.id} className={`register-item ${!special.on && p.id === itemId ? 'is-selected' : ''}`}><PriceRow item={p} onSelect={() => pickItem(p.id)} /></div>)}
               </div>
             ))}
             <div className="register-family">
@@ -369,7 +374,7 @@ export function RegisterPage() {
               <Field label={t('staff.register.checkinTo')} hint={settings.features.autoCheckinOnSale ? t('staff.register.checkinTo.hint') : t('staff.register.checkinTo.off')}>
                 {(id) => <Select id={id} value={sessionId} onChange={(e) => setSessionId(e.target.value)} disabled={!settings.features.autoCheckinOnSale || special.on || mode === 'contact'}><option value="">{t('staff.register.checkinTo.none')}</option>{upcoming.map(({ session: s, teacher: te }) => <option key={s.id} value={s.id}>{formatTime(s.starts_at, lang)} · {s.title} · {te?.display_name} ({s.booked_count}/{s.capacity})</option>)}</Select>}
               </Field>
-              {error && <EmptyState compact tone="error" title={t('core.common.error')} body={t(`staff.booking.error.${error}`)} />}
+              {error && <EmptyState compact tone="error" title={t('core.common.error')} body={t(error.startsWith('customer.')?error:`staff.booking.error.${error}`)} />}
               <Button block size="lg" disabled={!valid} loading={busy} onClick={complete} icon={method === 'wompi' ? 'link' : 'payment'}>{method === 'wompi' ? t('staff.register.cta.link') : t('staff.register.cta')}</Button>
               <p className="xs muted">{t('staff.register.audit', { staff: user.name })}</p>
             </div>

@@ -29,7 +29,7 @@ try{
  const audit=data.peek('audit_log').find(a=>a.entity_id===one.id);assert.equal(audit.diff.role,'front_desk');assert.equal(audit.diff.source,'fictional-transfer-review');
  const after=snap();await reviewTransfer(data,decision);assert.equal(snap(),after,'same-decision replay has no duplicate effect');await assert.rejects(reviewTransfer(data,{...decision,decision:'rejected'}),/already_reviewed/);assert.equal(snap(),after);
  const rejected=await submitTransfer(data,{...input,key:'qa_receipt_2',sessionId:null});await reviewTransfer(data,{...decision,id:rejected.id,decision:'rejected',amount:0,reason:'Fictional mismatch'});assert.equal(data.peek('payments').find(p=>p.id===rejected.payment_id).status,'declined');assert.equal(data.peek('class_ledger').filter(r=>r.user_id===userId).length,2,'rejection adds no entitlement');
- const trialUser='qa_trial_receipts';
+ const trialUser='qa_trial_receipts';await data.insert('users',{id:trialUser,email:'fictional-trial-receipts@example.invalid',status:'active',locale:'en'});
  const trial1=await submitTransfer(data,{...input,key:'qa_trial_1',userId:trialUser,productId:'plan_trial',classes:1,sessionId:null});
  const trial2=await submitTransfer(data,{...input,key:'qa_trial_2',userId:trialUser,productId:'plan_trial',classes:1,sessionId:null});
  await reviewTransfer(data,{...decision,id:trial1.id});const trialBefore=snap();

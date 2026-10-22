@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5223",
+  "checks": [
+    "en: contained loading/no trial offer, scoped delayed read, same-mounted actor change suppresses late eligibility, read failure/retry, unmount/cancel suppresses late read without financial effects, inclusive expiry refreshes across studio midnight;390",
+    "es: contained loading/no trial offer, scoped delayed read, same-mounted actor change suppresses late eligibility, read failure/retry, unmount/cancel suppresses late read without financial effects, inclusive expiry refreshes across studio midnight;390"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual-component/provider harness; no production auth/eligibility approval."
+  ]
+}

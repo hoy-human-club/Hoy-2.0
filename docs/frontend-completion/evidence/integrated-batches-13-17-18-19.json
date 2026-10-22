@@ -84,7 +84,18 @@
     "docs/screenshots/D-02/en-390-continuation-quotes.jpg"
   ],
   "checks": "All named local matrices passed with zero recorded browser errors; representative final renders inspected. Initial tall library/receipt captures were corrected to real viewports without hiding/editing UI; functional assertions retained.",
-  "releaseGate": "pending final exact-head CI, checked merge and ordinary deployment/source verification",
+  "releaseGate": "passed exact-head CI, checked merge and ordinary deployment/source verification; owner/backend gates remain",
   "rollback": "e4257e5bd096898d312cac82f67b6922956c1560",
-  "limits": "All124 original source fields/phases preserved. Fictional browser data only, daily mock reset, no durable cross-device receipts/sharing or real provider/auth/security/owner acceptance. Backend/owner/art gates stay separate."
+  "limits": "All124 original source fields/phases preserved. Fictional browser data only, daily mock reset, no durable cross-device receipts/sharing or real provider/auth/security/owner acceptance. Backend/owner/art gates stay separate.",
+  "releaseReceipt": {
+    "pr": "https://github.com/imagine-os/hoy/pull/63",
+    "head": "075a514c97da2b5b6a472ee1ac45a7ff0e4aa933",
+    "merge": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+    "checks": "All16 triggered exact-head workflows passed, including all4 continuation jobs",
+    "deployment": "https://github.com/imagine-os/hoy/actions/runs/39707891062",
+    "deploymentStatus": "build/deploy/hosted exact-source verification passed",
+    "deployedSource": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+    "rollback": "e4257e5bd096898d312cac82f67b6922956c1560",
+    "limits": "Changed flows local-production and exact-head CI verified; hosted provenance/selected existing flows only. No owner/backend acceptance."
+  }
 }

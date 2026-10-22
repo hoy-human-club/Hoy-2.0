@@ -13,9 +13,11 @@
  * desk, cash and the desk's other methods. No Nequi, no Daviplata. Cash never touches Wompi: it creates a `payments`
  * row with provider 'manual' and status 'pending' that the front desk settles (S-04).
  */
+import { assertTrialAvailable } from '../../data/trialEligibility';
+export { assertTrialAvailable } from '../../data/trialEligibility';
 import { checkSaleQuote, readPaymentQuote, type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
-import type { BookingRow, ClassLedgerRow, PaymentRow } from '../../data/schema';
+import type { ClassLedgerRow, PaymentRow } from '../../data/schema';
 import { splitIva } from '../../data/tax';
 import { tenant } from '../../tenant/tenant';
 import type { IconName } from '../../components/atom/Icon/Icon';
@@ -61,19 +63,12 @@ export async function wompiCheckout(input: { amount: number; method: ElectronicM
   return { status: 'approved', ref: ref() };
 }
 
-/** Existing once-per-person trial rule; called within the staged quoted sale. */
-export async function assertTrialAvailable(data:DataProvider,userId:string):Promise<void>{
- const prior=await data.list<PaymentRow>('payments',{where:{user_id:userId}});
- const bookings=await data.list<BookingRow>('bookings',{where:{user_id:userId}});
- if(prior.some(p=>p.tenant_id===tenant.id&&p.plan_id==='plan_trial'&&p.status==='approved')||bookings.some(b=>b.tenant_id===tenant.id&&b.paid_with==='trial'))throw Error('trial_used');
-}
-
 /** Writes the payment (+ invoice on approval) the way the seed does, so history and admin agree. */
 export async function recordPayment(data: DataProvider, input: { userId: string; planId: string | null; amount: number; method: PayMethod; result?: WompiResult; takenBy?: string | null; ivaRate: number; quote?: FrozenSaleQuote }): Promise<PaymentRow> {
   if(input.quote){await checkSaleQuote(data,input.quote);if(input.quote.planId!==input.planId||input.quote.chargedAmount!==input.amount)throw Error('quote_scope');}
   const manual = input.method === 'transfer' || input.method === 'cash';
   const status = manual ? 'pending' : input.result?.status === 'approved' ? 'approved' : 'declined';
-  if(input.quote?.itemId==='trial'&&status==='approved')await assertTrialAvailable(data,input.userId);
+  if(input.planId==='plan_trial'&&status!=='declined')await assertTrialAvailable(data,input.userId);
   const now = new Date().toISOString();
   const payment = await data.insert<PaymentRow>('payments', {
     ...(input.quote?{frontend_quote:structuredClone(input.quote)}:{}), user_id: input.userId, plan_id: input.planId, amount: input.amount, amount_paid: status === 'approved' ? input.amount : null, note: null, currency: 'COP', method: input.method,

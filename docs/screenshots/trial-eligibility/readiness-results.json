@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-10-22T03:13:33.015149+00:00",
+  "requirement": "PR-04",
+  "scope": "Dev-only harness startup readiness; no runtime or production policy change.",
+  "checkout": "9d2691a9fa36d8ef34464ad95ab13b686c3912c1",
+  "qaBase": "http://127.0.0.1:5224",
+  "behavioralAssertionBlockUnchanged": true,
+  "runs": [
+    {
+      "case": "original warm baseline",
+      "exitCode": 0,
+      "log": "/tmp/hoy-trial-readiness-before.log"
+    },
+    {
+      "case": "fixed normal EN/ES full state suite",
+      "exitCode": 0,
+      "log": "/tmp/hoy-trial-readiness-after.log"
+    },
+    {
+      "case": "original test, first harness import held while document reloaded",
+      "exitCode": 1,
+      "expectedFailure": "page.evaluate: Execution context was destroyed, most likely because of a navigation.",
+      "log": "/tmp/hoy-trial-readiness-before-reload.log"
+    },
+    {
+      "case": "fixed test, same document reload during first harness import, EN/ES full state suite",
+      "exitCode": 0,
+      "log": "/tmp/hoy-trial-readiness-after-reload.log"
+    },
+    {
+      "case": "fixed test, harness import aborted without reload",
+      "exitCode": 1,
+      "expectedFailure": "Trial harness startup: TypeError: Failed to fetch dynamically imported module",
+      "log": "/tmp/hoy-trial-readiness-failed-import.log"
+    }
+  ],
+  "limits": [
+    "Controlled document reload reproduces exact CI failure; automatic Vite optimization as the CI trigger is inferred, not independently proven.",
+    "No retries or catches around behavioral assertions; real startup failures still fail explicitly.",
+    "Pre-existing src/app/captureDates.ts change left untouched.",
+    "Root owns integration and exact-head CI; local fixture pass is not backend or owner acceptance."
+  ]
+}

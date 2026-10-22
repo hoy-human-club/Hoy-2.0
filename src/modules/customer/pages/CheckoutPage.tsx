@@ -1,3 +1,4 @@
+import {assertTrialAvailable,trialErrorKey} from '../../../data/trialEligibility';
 import { useOperationalCatalog, useReviewedQuote } from '../../quotes/hooks';
 import { QuoteNotice } from '../../../components/molecule/QuoteNotice/QuoteNotice';
 import { checkSaleQuote, quotedItem } from '../../../data/operationalQuotes';
@@ -80,7 +81,7 @@ export function CheckoutPage() {
   const [transferError,setTransferError]=useState(false);
   const [simulateDecline, setSimulateDecline] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<'full' | 'unavailable' | 'conflict' | 'mat' | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [declined, setDeclined] = useState<DeclinedState | null>(null);
   const [done, setDone] = useState<{ booking: BookingRow | null; pending: boolean } | null>(null);
 
@@ -93,7 +94,7 @@ export function CheckoutPage() {
 
   const choices: { id: Choice; title: string; sub: string; price: string; available: boolean }[] = [
     { id: 'package', title: t('customer.checkout.package'), sub: ent.pkg.frozen ? t('customer.classes.frozen.title') : t('customer.checkout.package.sub', { n: ent.classBalance }), price: t('core.common.included'), available: ent.classBalance > 0 },
-    ...BUYABLE.map((pid) => { const q=catalog.quote(pid),p=q?quotedItem(q):priceOf(pid);return {id:pid as Choice,title:bi(p.name),sub:bi(p.description),price:q?formatCOP(q.amount,lang):t('quotes.unavailable'),available:!!q&&(pid!=='trial'||!ent.trialUsed)}; }),
+    ...BUYABLE.map((pid) => { const q=catalog.quote(pid),p=q?quotedItem(q):priceOf(pid);return {id:pid as Choice,title:bi(p.name),sub:bi(p.description),price:q?formatCOP(q.amount,lang):t('quotes.unavailable'),available:!!q&&(pid!=='trial'||ent.trial.status==='eligible')}; }),
   ];
 
   /** Books (and pays, when a pass is chosen). Resolves the outcome so the WebMCP action can report it. */
@@ -122,6 +123,7 @@ export function CheckoutPage() {
         }catch{setTransferError(true);return 'transfer_save_failed';}
       }
       const outcome = await data.atomic(async transaction => {
+        if(kind==='trial')await assertTrialAvailable(transaction,user.id);
         let paidWith: EntitlementKind = kind === 'package' ? 'package' : kind === 'membership' ? 'membership' : kind === 'trial' ? 'trial' : kind === 'single' ? 'single' : 'package';
         let packagePlanId: string | null = null;
         let packagePaymentId: string | undefined;
@@ -154,7 +156,7 @@ export function CheckoutPage() {
       setDone(outcome);
       return outcome.booking ? `booked ${outcome.booking.id}` : 'payment pending; no classes activated or spot held';
     } catch (e) {
-      const code = (e as Error).message.startsWith('mat_') ? 'mat' : (e as Error).message === 'session_full' ? 'full' : 'unavailable';
+      const code = trialErrorKey(e) ?? ((e as Error).message.startsWith('mat_') ? 'mat' : (e as Error).message === 'session_full' ? 'full' : 'unavailable');
       setError(code);
       return code;
     } finally { setBusy(false);confirmBusy.current=false; }
@@ -216,6 +218,7 @@ export function CheckoutPage() {
             </button>
           ))}
         </div>
+        {kind==='trial'&&ent.trial.status!=='eligible'&&<Notice tone="warn" action={ent.trial.status==='trial_check_failed'?<Button onClick={ent.trial.retry}>{t('core.common.retry')}</Button>:undefined}>{t(`customer.trialGuard.${ent.trial.status}`)}</Notice>}
         {kind === 'trial' && <p className="xs muted">{t('customer.checkout.trialNote')}</p>}
         {(kind === 'pack12' || kind === 'pack12_smtc') && <p className="xs muted">{t('quotes.classToday', {n:(selectedItem?.classes??12)-1,date:review.quote?.entitlementExpiresAt??'—'})}</p>}
         {kind === 'pack12_smtc' && <p className="xs muted">{t('customer.plans.benefit.affiliates')}</p>}
@@ -242,12 +245,13 @@ export function CheckoutPage() {
     ) : (
       <div className="stack-sm cust-sticky">
         {transferError&&<Notice tone="danger">{t('transfers.submitError')}</Notice>}
+        {error?.startsWith('customer.trialGuard.')&&<Notice tone="warn">{t(error)}</Notice>}
         {error === 'mat' && <Notice tone="warn">{t('site.mat.error')}</Notice>}
         {alreadyBooked && <Notice tone="warn">{t('customer.home.booked')}</Notice>}
         {error === 'full' && <Notice tone="warn" title={t('customer.checkout.race.title')} action={<Button size="sm" onClick={() => nav(`/app/waitlist/${s.id}`)}>{t('core.common.waitlist')}</Button>}>{t('customer.checkout.race.body')}</Notice>}
         {error === 'unavailable' && <Notice tone="danger" title={t('core.common.error')}>{t('customer.checkout.unavailable')}</Notice>}
         {(error === 'conflict' || conflict) && <Notice tone="warn">{t('customer.book.oneADay')} {conflict && <Link to={`/app/class/${conflict}`}>{t('customer.class.seeOther')}</Link>}</Notice>}
-        <Button block size="lg" loading={busy} disabled={(isPass(kind)&&!review.available)||(method==='transfer'&&amount>0&&!receiptImage) || !!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
+        <Button block size="lg" loading={busy} disabled={(kind==='trial'&&ent.trial.status!=='eligible')||(isPass(kind)&&!review.available)||(method==='transfer'&&amount>0&&!receiptImage) || !!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
           {isPass(kind)&&!review.available?t('quotes.review'):method==='transfer'&&amount>0 ? t('transfers.submit') : amount > 0 ? (methodOpt.provider === 'wompi' ? t('customer.checkout.payWompi', { amount: formatCOP(amount, lang) }) : t('customer.checkout.confirmManual', { amount: formatCOP(amount, lang) })) : t('customer.checkout.confirm')}
         </Button>
         <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.checkout.policy', { h: policy.cancelWindowHours })}</p>
