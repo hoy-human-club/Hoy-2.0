@@ -1,0 +1,111 @@
+{
+  "recordedAt": "2026-10-22T03:23:46.253004+00:00",
+  "batches": [
+    24,
+    25,
+    26
+  ],
+  "buildBaseCommit": "4f0551496b5b037e7a425e97a9bca0b7c150e759",
+  "runtimeFingerprint": "31e61c5962b24917db05fa94ea927ec1853e41224e73acb286fc7d30549129cb",
+  "runtimeFingerprintAfterQa": "31e61c5962b24917db05fa94ea927ec1853e41224e73acb286fc7d30549129cb",
+  "buildEvidence": "http://127.0.0.1:5235/frontend-evidence.json",
+  "scope": "Immutable local combined fictional24–26 bundle; checked/deployed acceptance remains separate.",
+  "execution": "Six suites serial, one browser at a time. All completed; browser slot released.",
+  "receipts": [
+    {
+      "script": "test-account-data-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5235",
+      "artifact": "docs/frontend-completion/evidence/batch-24-account-ui.json",
+      "checks": [
+        "en: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures",
+        "es: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-account-ui.log"
+    },
+    {
+      "script": "test-contact-mask-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5235",
+      "artifact": "docs/screenshots/M-06/contact-mask-results.json",
+      "checks": [
+        "en/light/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "Existing roles: CRM6allowed5denied; desk4allowed7denied; no new readership",
+        "en/light/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "en/dark/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "en/dark/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "es/light/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "es/light/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "es/dark/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+        "es/dark/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-contact-ui.log"
+    },
+    {
+      "script": "test-substitute-request-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5235",
+      "artifact": "docs/screenshots/S-03/substitute-ui-results.json",
+      "checks": [
+        "en: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark",
+        "es: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-substitute-ui.log"
+    },
+    {
+      "script": "test-account-data-states.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5234",
+      "artifact": "docs/frontend-completion/evidence/batch-24-account-states.json",
+      "checks": [
+        "en: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved",
+        "es: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-account-states.log"
+    },
+    {
+      "script": "test-substitute-request-states.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5234",
+      "artifact": "docs/screenshots/S-03/substitute-state-results.json",
+      "checks": [
+        "en: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer",
+        "es: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-substitute-states.log"
+    },
+    {
+      "script": "test-profile-save-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5235",
+      "artifact": "docs/screenshots/C-19/profile-save-results.json",
+      "checks": [
+        "en: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark",
+        "es: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark"
+      ],
+      "errors": [],
+      "localLog": "/tmp/hoy-account-teacher-profile-ui.log"
+    }
+  ],
+  "visuallyInspected": [
+    "C-26/es-390-account-request-failure-light.jpg",
+    "M-06/es-390-dark-contact-mask-member.jpg",
+    "S-03/es-390-substitute-usr_coord-draft-dark.jpg"
+  ],
+  "roleCoverage": {
+    "accountAndProfile": "customer,teacher,super_admin own-account allowed; eight existing roles denied",
+    "contactMask": "CRM six allowed/five denied; desk four allowed/seven denied",
+    "substitute": "teacher,coordinator,admin,super_admin allowed; seven existing roles denied"
+  },
+  "limits": [
+    "Only fictional fixtures; no export bodies or raw fixture phone values copied into proof/logs.",
+    "No runtime/source/Git changes; only result/capture/proof outputs.",
+    "No actual export/deletion/backend/storage/message delivery/substitution approval/auth/access-policy acceptance.",
+    "Root exact-head CI and ordinary demo deployment receipt remain separate."
+  ]
+}

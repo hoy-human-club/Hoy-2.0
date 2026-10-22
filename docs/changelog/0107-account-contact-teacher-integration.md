@@ -12,4 +12,4 @@ Alternative rejected: legal-export/deletion or actual message claims, new role g
 
 Files: customer/teacher shared PageSpecs, Notice metadata, focused CI matrix, feature evidence, kanban and durable handoff. Batches24–26 contain detailed source/tests/screenshots and remaining owner/backend gates. No new tokens/components/schema/dependencies/security configuration.
 
-Validation: isolated build/domain/production/applicable dev-state matrices passed. Root combined source freeze/build/rendered QA/exact-head CI/deployment remain pending until recorded in the integration receipt. Root alone owns all Git/release mutations.
+Validation: isolated build/domain/production/applicable dev-state matrices passed. Root combined full build/domain/all6 serial production/dev/regression suites passed with unchanged runtime31e61c…; exact-head CI/deployment remain pending. Existing C26 dark highlight-card contrast is recorded as a separate presentation gap;29 follows with a bounded fix, no whole-screen polish acceptance. Root alone owns all Git/release mutations.

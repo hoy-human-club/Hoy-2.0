@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5226",
+  "base": "http://127.0.0.1:5234",
   "checks": [
     "en: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer",
     "es: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer"
