@@ -359,7 +359,30 @@
   "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
   "deployment": {
     "runId": 39763267697,
-    "state": "pending public verification"
+    "state": "verified live",
+    "head": "016c16f8ce81f25e3ac125da275f985bebd4b1e5",
+    "jobs": [
+      {
+        "id": 119772410550,
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "id": 119772981046,
+        "name": "deploy",
+        "conclusion": "success"
+      },
+      {
+        "id": 119773172679,
+        "name": "verify-subscriptions",
+        "conclusion": "success"
+      }
+    ],
+    "hostedVerification": {
+      "command": "node scripts/test-subscriptions-live.mjs hoy \"016c16f8ce81f25e3ac125da275f985bebd4b1e5\"",
+      "result": "Verified https://imagine-os.github.io/hoy/#/admin/finance/subscriptions",
+      "limits": "Exact hosted source and selected subscription fixture only; finance flows exercised locally/CI."
+    }
   },
   "rollback": "50449d0298ceb01118bd3aaa9ddc00c9b189c8d6",
   "limits": [

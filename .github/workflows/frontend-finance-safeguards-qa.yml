@@ -7,6 +7,7 @@ on:
       - 'scripts/test-expense-delete-guard*.mjs'
       - 'scripts/test-expense-table*.mjs'
       - 'scripts/expense-table-harness.tsx'
+      - 'scripts/expense-table-harness.html'
       - 'scripts/start-finance-dev.mjs'
       - 'scripts/test-expense-ledger-baseline.mjs'
       - 'scripts/fixtures/expense-ledger-original-provider.ts.txt'
@@ -68,6 +69,13 @@ jobs:
         env:
           QA_BASE: http://127.0.0.1:5190
           CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Print controlled QA failure diagnostics
+        if: failure()
+        run: |
+          cat /tmp/hoy-finance-dev.log 2>/dev/null || true
+          if [ -f docs/frontend-completion/evidence/batch42-table-dev-failure.json ]; then
+            cat docs/frontend-completion/evidence/batch42-table-dev-failure.json
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

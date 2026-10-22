@@ -1,5 +1,7 @@
 // Development-only controlled actual M03 drawer. Never imported by production.
 import * as React from 'react';
+import '../src/design/tokens.css';
+import '../src/styles/global.css';
 import {createRoot} from 'react-dom/client';
 import {MemoryRouter} from 'react-router-dom';
 import {MockProvider} from '../src/data/MockProvider';

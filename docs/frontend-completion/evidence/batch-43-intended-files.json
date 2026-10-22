@@ -18,11 +18,11 @@
     },
     {
       "path": "docs/frontend-completion/CONTINUE.md",
-      "sha256": "557a2a10e51d29185f58cdb7f0196b3aecc1a9575d7401dbf71b9cd98a94cecb"
+      "sha256": "46b616e45938b60f56d8d2915260acd1afc87b345b68ba7351a3673f4ebbe7b0"
     },
     {
       "path": "docs/frontend-completion/README.md",
-      "sha256": "ef150806bfa55b557d19b2d9dee3eda5d78893a5eafbfaa61842bdc86941d0c4"
+      "sha256": "0f453e61dbc302b325dc004145a14602916e47ee662468f2a2fd639f2f699af6"
     },
     {
       "path": "docs/frontend-completion/batch-43.md",
@@ -130,7 +130,7 @@
     },
     {
       "path": "docs/frontend-completion/evidence/release-pr71.json",
-      "sha256": "95016fb93ad95411b7d4f2a099d697e2f1fa47fd27b75c931b0e6ae1e7a8503c"
+      "sha256": "8ba9d6c264bb523e931385fe63b184d44b46206d43c72b30155c1de0333d324a"
     },
     {
       "path": "docs/frontend-completion/features.json",

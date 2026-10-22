@@ -1,0 +1,26 @@
+{
+  "batch": 29,
+  "base": "http://127.0.0.1:5286",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5286/assets/index-Bsyq3xLz.js",
+    "sha256": "a5fc05ec2219d09e90f16239bbf1b91df98a14f399cef418cd1b9de33e9acce1",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5286/assets/index-DT9rnSxu.css",
+        "sha256": "cbb4659e624b733deef25f8cfd5cc10ef3388abe8197f959ad0c88c885aab98c"
+      }
+    ]
+  },
+  "checks": [
+    "en/light/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "11 existing roles: own customer/teacher/super access;8 denied",
+    "en/light/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "en/dark/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "en/dark/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "es/light/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "es/light/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "es/dark/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+    "es/dark/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26→C24→C19→C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects"
+  ],
+  "errors": []
+}
