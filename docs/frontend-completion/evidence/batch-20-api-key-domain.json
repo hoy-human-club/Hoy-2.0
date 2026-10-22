@@ -1,0 +1,17 @@
+{
+  "batch": 20,
+  "scope": "Fictional browser-only D-07 commands",
+  "checks": [
+    "create/key-write and audit-write rollback; stable retry; metadata replay; show once; no raw persistence",
+    "rotation failures at all three writes; concurrent identical receipt yields one replacement/audit; lifetime and 24h grace preserved",
+    "revoke update/audit rollback; duplicate retry has one audit; changed target rejected; sooner/never rotation preserved; cancellation after commit cannot redisplay",
+    "commit with lost acknowledgement: retry/reload return metadata only, no extra key, no raw redisplay; changed-intent receipt rejected",
+    "cancel before execution and during staged writes; role/tenant change before commit rolls back all effects",
+    "all 11 existing roles; only developer/super_admin issue; nonmock, foreign actor and foreign target rejected",
+    "malformed expiry/scopes/environment/name rejected; default90/never0/fractional numeric action durations preserved; corrupt expiry diagnosed and revocable"
+  ],
+  "limits": [
+    "No production authentication or real credential issuance.",
+    "Existing admin table-editor sensitive-read policy conflict unchanged."
+  ]
+}
