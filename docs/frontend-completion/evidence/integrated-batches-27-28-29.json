@@ -1,0 +1,67 @@
+{
+  "schema": "hoy.frontend-proof/1",
+  "date": "2026-10-22",
+  "requirementIDs": [
+    "NT-06",
+    "NT-05",
+    "CU-06"
+  ],
+  "checkpoints": {
+    "27": "1ca217b",
+    "28": "c1b759a",
+    "29": "f5f1f27",
+    "rootMetadata": "6fb0c66"
+  },
+  "build": {
+    "result": "passed EXIT0",
+    "checkout": "58bc08e52cf36e6d2ecd676ae177be32a1e974a8 plus frozen root metadata committed6fb0c66; later main65/evidence merges do not change runtime",
+    "runtimeFingerprint": "ac8f6d47a38fc710690ac6dd12e7104ba3189a88b8c8af27754bb6e6c4d179da",
+    "definition": "Sorted src path+bytes excluding generatedcaptureDates, then vite.config.ts bytes",
+    "immutableBundle": "/tmp/hoy-preferences-email-qa-ac8f6d47a38f",
+    "productionBase": "http://127.0.0.1:5244",
+    "developmentBase": "http://127.0.0.1:5243",
+    "log": ".vite/preferences-email-integrated-build.log (ignored workspace log)",
+    "checks": "Strict TS/Vite/manual0/spacing60,948shots65.9MB within80MB"
+  },
+  "domain": {
+    "result": "passed",
+    "commands": [
+      "node scripts/test-notification-prefs.mjs",
+      "node scripts/test-notification-prefs-hook.mjs",
+      "node scripts/test-account-marketing.mjs",
+      "node scripts/test-email-test.mjs"
+    ],
+    "scope": "Scoped reads/defaults/atomic staged or quota failure, independent and overlapping concurrency, ambiguity/current ownership/replay, actual-hook14 cancellation/unconfirmed acknowledgement cases, coupled marketing8 groups, self-only saved-version email simulation."
+  },
+  "renderedQA": {
+    "status": "active, not yet all passed",
+    "receipt": "docs/frontend-completion/evidence/combined-27-28-29-ui.json",
+    "scope": "Seven serial suites covering three actual production workflows, two dev asynchronous state suites and existing own-data/profile production regressions. No more than2 browser suites globally."
+  },
+  "routes": [
+    "/#/app/profile",
+    "/#/app/notifications",
+    "/#/app/account",
+    "/#/admin/emails"
+  ],
+  "ownerAcceptance": "unchanged; all124 original statuses/criteria/roles/phases preserved; named fictional slices remain partial",
+  "remainingGates": {
+    "root": [
+      "Complete combined rendered/regression QA, exact-head CI, checked merge, ordinary deployment/source verification."
+    ],
+    "Jas": [
+      "Urgent/mandatory message classification and approved reader/delivery policy stay unresolved."
+    ],
+    "Justin": [
+      "Owner scope/commercial acceptance separate; no new terms adopted."
+    ],
+    "Anu": [
+      "Real auth, durable isolated scoped services and server idempotency/authorization.",
+      "Actual notification provider/outbox preference enforcement and delivery reconciliation; simulated sent is not provider delivery.",
+      "Template send/rendering/immutable version retention; generic comms and template save/rollback remain separately partial.",
+      "Complete legal export/deletion/retention/SLA and private storage issue54 remain separate."
+    ]
+  },
+  "rollback": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+  "sourceFindingCorrection": "FI03 baselineimplemented preserved; currentpartial after reproduced partial draft writes/concurrent duplicate runs. Independent30repair unshipped; current12/99/8/5 source counts are not completion/acceptance percentage."
+}

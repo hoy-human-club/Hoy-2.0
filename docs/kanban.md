@@ -1,5 +1,11 @@
 # HoyOS kanban
 
+## Preferences and local email continuation (2026-10-22)
+
+- PR65 checked3c017b4 all10 workflows/all7 correctness jobs passed; deployed840f8e1 with Pages39717548494 all3jobs/source verification passed. Rollback0097dfb. CU06/AD07/RC05/PF03 bounded slices remain partial.
+- Root combines27/28/29: local preferences, existing coupled marketing command and self-only email simulation. Isolated final checks and combined build/domain passed; seven combined browser/regression suites active, CI/release pending. Original124 criteria/statuses/roles/phases preserved.
+- FI03 corrected from historical implemented to current partial after actual draft failure/concurrency reproduction; current source findings12/99/8/5 are not completion counts. Independent30 draft-only payroll and31 zero-due RSVP continue, with real settlement/delivery/server authorization separate.
+
 ## Account, contact and teacher integration (2026-10-22)
 
 - CU-06 fictional own-data preview/request replay repair, AD-07/RC-05 compatible contact masking and PF-03 atomic local team queue are isolated-build/domain/rendered verified. Root combined QA/exact-head CI/deployment pending. Batches24–26 remain partial; no production auth, real notification delivery, legal export/deletion or SLA acceptance.

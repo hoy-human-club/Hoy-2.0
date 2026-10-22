@@ -1,7 +1,7 @@
 {
   "schema": "hoy.frontend-classification-reconciliation/1",
   "historicalBaseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
-  "sourceCheckpoint": "61fc322",
+  "sourceCheckpoint": "29c9ec7 plus current classification reconciliation",
   "features": 124,
   "baselineFindings": {
     "unverified": 5,
@@ -12,15 +12,15 @@
   "currentFindings": {
     "unverified": 5,
     "absent": 8,
-    "partial": 98,
-    "implemented": 13
+    "partial": 99,
+    "implemented": 12
   },
   "changedFindings": [
     {
       "id": "CU-05",
       "baseline": "implemented",
       "current": "partial",
-      "verification": "not-run"
+      "verification": "focused-frontend-pass"
     },
     {
       "id": "PG-02",
@@ -39,9 +39,15 @@
       "baseline": "absent",
       "current": "partial",
       "verification": "focused-frontend-pass"
+    },
+    {
+      "id": "FI-03",
+      "baseline": "implemented",
+      "current": "partial",
+      "verification": "not-run"
     }
   ],
   "preservation": "All124 IDs and literal original criteria/roles/source statuses/phases/priorities/relatedTests preserved.",
   "limits": "Counts are source findings, not completed/accepted/backend-ready features or a reliable completion percentage. Focused verification applies only to named slices in batch receipts.",
-  "currentAuditNote": "CU-05 current finding is partial after a concrete own-profile failure-path/customer-record projection gap was identified; original source status and historical classification remain unchanged."
+  "currentAuditNote": "CU-05 remains partial after concrete own-profile/record gaps. FI-03 changed from historical implemented to current partial after baseline draft-generation partial writes and concurrent duplicate runs were reproduced. Named repairs remain separate from full feature/owner/backend acceptance; all124 source statuses unchanged."
 }
