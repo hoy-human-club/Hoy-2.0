@@ -4150,33 +4150,74 @@
       "phase": "MVP Oct 30",
       "priority": "High",
       "relatedTests": "COO-12",
-      "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "implementationStatus": "partial",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/data/sessionEditorial.ts",
         "src/modules/classSchedule/pages.tsx",
-        "src/modules/customer/pages/StatePages.tsx"
+        "src/modules/customer/pages/StatePages.tsx",
+        "src/modules/classSchedule/studioCancellation.ts",
+        "src/modules/classSchedule/StudioCancellationPanel.tsx",
+        "docs/frontend-completion/evidence/batch-38-studio-final.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/class-schedule",
+        "/#/app/state/cancelled",
+        "/#/app/booking/:id"
+      ],
+      "tests": [
+        "scripts/test-studio-cancel-baseline.mjs",
+        "scripts/test-studio-cancel.mjs",
+        "scripts/test-studio-cancel-ui.mjs",
+        "scripts/test-studio-cancel-states.mjs",
+        "scripts/test-studio-cancel-library.mjs",
+        "scripts/test-cancelled-seat-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-38-protected-captures.json"
+      ],
       "blockers": [],
-      "nextAction": "Implement fictional cancellation command/preview/confirmation with attendee and credit outcomes, preserving phase/publication boundaries.",
+      "nextAction": "Verify combined cancellation/active-seat readback and exact-head release; separately resolve unsupported lineage and authenticated real delivery, preserving original purchases and policy.",
       "candidateRoutes": [
         "/#/admin/class-schedule",
         "/#/app/state/cancelled"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Sourcef4f9818 isolated1c0a fullbuild/domain15/prod8+11roles/dev/all5D02/contrast passed. Root70 found and narrowly repaired confirmed-mat caption; new combined rendered/CI/release pending. Named local slice only.",
         "missingFrontend": [
-          "No dated-class cancellation action identified; applySessionEdit whitelist excludes status. Cancelled customer edge preview is not cancellation orchestration. Missing attendee impact preview, credit restoration result and notification status."
+          "Mixed voucher/unknown/ambiguous unit lineage is explicitly unverifiable; the prototype never partially restores or rewrites purchases.",
+          "Real recipient/preference/notification coverage remains unresolved; every email result is preview-only.",
+          "Root70 cancelled-seat caption repair needs current active/cancelled rendered proof before release."
         ],
         "remainingBackend": [
-          "Atomic cancellation, entitlement restoration and idempotent attendee-email dispatch."
+          "Authenticated durable cancellation/entitlement transaction/idempotency; real attendee-email destination/preference/delivery evidence and owner acceptance."
         ]
       },
       "sourceNextAction": "Implement fictional cancellation command/preview/confirmation with attendee and credit outcomes, preserving phase/publication boundaries.",
-      "baselineImplementationStatus": "absent"
+      "baselineImplementationStatus": "absent",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "absent",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "No dated-class cancellation action identified; applySessionEdit whitelist excludes status. Cancelled customer edge preview is not cancellation orchestration. Missing attendee impact preview, credit restoration result and notification status."
+            ],
+            "remainingBackend": [
+              "Atomic cancellation, entitlement restoration and idempotent attendee-email dispatch."
+            ]
+          },
+          "basis": "Historical source-only finding retained before bounded fictional source38/39; no owner/backend acceptance."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-38.md",
+          "verification": "Sourcef4f9818 isolated1c0a fullbuild/domain15/prod8+11roles/dev/all5D02/contrast passed. Root70 found and narrowly repaired confirmed-mat caption; new combined rendered/CI/release pending. Named local slice only.",
+          "limits": "Isolated mock command/lifecycle/five-state inventory proof only; current root70 caption change not rendered yet. Protected screenshots remain local/CI artifacts, never repository publication.",
+          "acceptance": "Original criterion/source status/phase unchanged; partial and unaccepted."
+        }
+      ]
     },
     {
       "id": "AD-03",
@@ -4316,30 +4357,71 @@
       "phase": "MVP Oct 30",
       "priority": "Urgent",
       "relatedTests": "SAD-01",
-      "implementationStatus": "absent",
-      "verificationStatus": "not-run",
+      "implementationStatus": "partial",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/index.ts",
         "src/modules/admin/TablesPage.tsx",
-        "src/auth/SessionProvider.tsx"
+        "src/auth/SessionProvider.tsx",
+        "src/modules/admin/teamProposals.ts",
+        "src/modules/admin/useTeamProposals.ts",
+        "src/components/organism/TeamProposalPanel/TeamProposalPanel.tsx",
+        "docs/frontend-completion/evidence/batch39-source.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/settings"
+      ],
+      "tests": [
+        "scripts/test-team-proposals.mjs",
+        "scripts/test-team-proposals-hook.mjs",
+        "scripts/test-team-proposals-ui.mjs",
+        "scripts/test-team-presentation-fixtures.mjs",
+        "scripts/test-team-proposal-library-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-08a/team-proposal-library-results.json",
+        "docs/frontend-completion/evidence/batch39-source.json"
+      ],
       "blockers": [],
-      "nextAction": "Build isolated fictional team administration frontend and document invitation/role lifecycle contract; do not mutate real permissions.",
-      "candidateRoutes": [],
+      "nextAction": "Verify combined actual settings and all12 presentation states, exact-head release; separately supply approved invitation/permission lifecycle without silently mutating actual access.",
+      "candidateRoutes": [
+        "/#/admin/settings"
+      ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Source0d4c845 current522 isolated fixture24/domain/hook22/tsc/fullbuild/prod8+all11roles/all12D02 ENES3901280lightdark passed. New root combined rendered/CI/release pending; whole real access feature remains partial.",
         "missingFrontend": [
-          "No dedicated team-user invitation, role change or removal screen found. Generic table editing and demo role switching do not satisfy this workflow."
+          "Only a separate fictional proposal/membership document changes; no actual account, invite delivery/acceptance, user role, immediate session/permission change or Clerk effect.",
+          "Self/last-admin/TTL/resend/existing-account/multiple-role/removal meaning remain unresolved scenario previews without an apply action."
         ],
         "remainingBackend": [
-          "Authenticated staff invite acceptance, immediate session/permission invalidation and audit."
+          "Authorized staff invite delivery/acceptance; authenticated membership roles/session invalidation, durable tenant isolation/audit/idempotency; owner decisions for unresolved scenarios."
         ]
       },
       "sourceNextAction": "Build isolated fictional team administration frontend and document invitation/role lifecycle contract; do not mutate real permissions.",
-      "baselineImplementationStatus": "absent"
+      "baselineImplementationStatus": "absent",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "absent",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "No dedicated team-user invitation, role change or removal screen found. Generic table editing and demo role switching do not satisfy this workflow."
+            ],
+            "remainingBackend": [
+              "Authenticated staff invite acceptance, immediate session/permission invalidation and audit."
+            ]
+          },
+          "basis": "Historical source-only finding retained before bounded fictional source38/39; no owner/backend acceptance."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-39.md",
+          "verification": "Source0d4c845 current522 isolated fixture24/domain/hook22/tsc/fullbuild/prod8+all11roles/all12D02 ENES3901280lightdark passed. New root combined rendered/CI/release pending; whole real access feature remains partial.",
+          "limits": "Fictional document/real presentation only; no actual role changes, account creation, delivery or owner/backend acceptance.",
+          "acceptance": "Original criterion/source status/phase unchanged; partial and unaccepted."
+        }
+      ]
     },
     {
       "id": "AD-07",

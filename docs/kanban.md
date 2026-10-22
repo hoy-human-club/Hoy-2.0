@@ -767,3 +767,5 @@ Protected-capture clarification: M14 schedule/pay screenshots remain local/ignor
 - Root70 staged38 integration: narrow cancelled-seat caption guard and actual active/cancelled read-only regression added; fullbuild/current render pending. Protected captures remain excluded from publication; upcoming CI artifacts required.
 
 - Team39 current522/0d4c845 all isolated gates passed; local root70 integration staged with actual M08a shared-widget usages. Combined build/rendered/CI/release pending; no real role/invitation effects.
+
+- Active root70 source classification: AD02/AD06 actual bounded prototype source partial, total11/103/5/5 versus historical14/94/11/5; focused isolated checks only, no owner/backend acceptance. Current combined caption/runtime QA pending;40exclusive new2c2,41/42unexecuted.
