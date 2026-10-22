@@ -1,0 +1,35 @@
+{
+  "immutable": "/workspace/hoy-qa-artifacts/team-proposals-77c9280ff8a1",
+  "assetsSha256": "97624af5dc27c1761ae5d313cb8d5b270f4b1181c8f9b7ae0c0130812c9e56fc",
+  "assetCount": 3219,
+  "measurement": "After fullbuild/copy and HTTP manifest validation; production suite already running, before library suite. Not measured before production suite.",
+  "httpEntrySha256": "2a875b77696678489eeeae1d011a808e729eee34bd784b8539bc217fd835a0f4",
+  "diskEntrySha256": "2a875b77696678489eeeae1d011a808e729eee34bd784b8539bc217fd835a0f4",
+  "afterBothUiAssetsSha256": "97624af5dc27c1761ae5d313cb8d5b270f4b1181c8f9b7ae0c0130812c9e56fc",
+  "unchangedAfterBothUi": true,
+  "httpFiles": {
+    "assets/index-BjqHoOBe.css": {
+      "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+      "bytes": 80570,
+      "httpMatchesDisk": true
+    },
+    "assets/DirectoryPanel-Bk_VOerN.js": {
+      "sha256": "3236170ec99d5960b71b91fab586e762715bb8a00426f1cd2a0286c8cc3686ec",
+      "bytes": 207661,
+      "httpMatchesDisk": true
+    }
+  },
+  "wholeArtifactAfterBothUi": {
+    "sha256": "be3133ce128c09b319c73fbaa3b9c423d898fe936e1edf54d8db9e5df97c16f3",
+    "fileCount": 4274
+  },
+  "immutableWithoutSidecarAfterBothUi": {
+    "sha256": "1ffd1bef94904f15303efddc756cf46bc21aba49f5e3c6f661aa862db1a1a13d",
+    "fileCount": 4273
+  },
+  "buildDistAfterBothUi": {
+    "sha256": "1ffd1bef94904f15303efddc756cf46bc21aba49f5e3c6f661aa862db1a1a13d",
+    "fileCount": 4273
+  },
+  "wholeArtifactMeasurementLimit": "Whole-tree measurement taken after both UI suites. Exact dist/copy equality confirmed then. No pre-production whole-tree hash was recorded; assets were measured during production/before library and again after both."
+}

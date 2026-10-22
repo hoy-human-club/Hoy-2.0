@@ -1,0 +1,295 @@
+{
+  "requirement": "AD-06",
+  "phase": "MVP Oct30",
+  "priority": "Urgent",
+  "relatedTest": "SAD-01",
+  "criterionAcceptance": "Unaccepted; fictional document readback is not real immediate permissions",
+  "baseCommit": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "runtimeFingerprint": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+  "fingerprintBasis": "SHA256 sorted src relative path+bytes excluding src/app/captureDates.ts; then vite.config.ts bytes",
+  "sourceUnchangedBeforeAfterBuild": true,
+  "buildCommand": "npm run build",
+  "buildLog": "qa/batch39-final-build.log",
+  "buildExit": 0,
+  "immutable": "/workspace/hoy-qa-artifacts/team-proposals-77c9280ff8a1",
+  "production": "http://127.0.0.1:5272",
+  "development": "http://127.0.0.1:5271",
+  "sourceStatus": "Current77 fresh fullbuild + production8/allroles + then-current TWO D02 usages/roleaddon + physicalfooterbounds PASS. Representative rendered captures inspected; no hosted/acceptance claim.",
+  "sourceFiles": {
+    "src/modules/admin/SettingsPage.tsx": "24af7667e1ed8a6cbe502291ae7f9619f1bb5aa8093180a5f75e5e5acc35e17c",
+    "src/modules/admin/strings.ts": "89bf4114ea19d941039dbd3e3494add21b7de142ca8a1f2f992e5ffe404c4587",
+    "src/modules/admin/teamProposals.ts": "f33f80c53f9806a427143829f357549c058402ef952ddba9f7efc362c2b194f6",
+    "src/modules/admin/useTeamProposals.ts": "737dd37fe95d5588b889b22ed0116b2fec8893c293fa826f546c426a17831230",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.tsx": "152852fa91cf232d1c4d18ff95132c61aa3624fcf87d5d51218fdcd5b71164ca",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.meta.ts": "d440b3dc7b803b49f9c12444364147f0f9cebd7913528ba4a5cf110d056b50a9"
+  },
+  "checks": {
+    "domain": "PASS /tmp/hoy-team-domain.log",
+    "actualHook22": "PASS /tmp/hoy-team-hook.log",
+    "typecheck": "Footer-wrap9170 EXIT0 completed before root40 compile HOLD arrived.",
+    "fullbuild": "PASS new77 build8889 EXIT0 source unchanged before/after",
+    "productionUi": "PASS77 immutable5272 production55904 EXIT0:8 ENES3901280lightdark +all11roles/failure/cancel/retry/lostack/no-provider/session-write, physicalfooterbounds.",
+    "libraryUi": "PASS77 immutable5272 library31784 EXIT0:all THEN-CURRENT TWO D02usages(default+readerror), interactivepreview/cancel+roleaddon ENES3901280lightdark, physicalfooterbounds; zero page/console/unexpectedrequests. Only two exact offline fontCSSfixtures."
+  },
+  "historicalIntermediateCheck": "Earlier interim tsc6840 exited137, cause unconfirmed; final-source typecheck76947 and fullbuild8168 EXIT0 supersede it.",
+  "remainingGates": [
+    "Real staff invitation delivery/acceptance and canonical membership authorization.",
+    "Server immediate permission/session invalidation, tenant isolation and durable audit/idempotency.",
+    "Owner rules for self/lastadmin/TTL/resend/existingaccount/multirole/removal meaning.",
+    "Root integration/exact-headCI/merge/deployment receipt."
+  ],
+  "runtimeAfterProductionUi": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+  "browserState": "All production55904/library31784 browsers CLOSED via finally; no further browser/compile requested. Idle static5272 remains.",
+  "scriptSHA256": {
+    "scripts/test-team-proposals-ui.mjs": "15ac5b1df685057b56d6c04ec582bfa3bc8bf1d64dec5c885ce449a3d3dc4ac6",
+    "scripts/test-team-proposal-library-ui.mjs": "78f4e6752cc55fe80b27c410114315e075e899df3c0721448c176e6ffefcd128"
+  },
+  "httpEvidence": {
+    "source": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+    "base": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+    "checkpoint": "9d907591822b9a330dff5f23b0c0abd9f659675a",
+    "uncommitted": "private footer wrap + bound assertion test/doc updates",
+    "buildExit": 0
+  },
+  "servedAssets": {
+    "immutable": "/workspace/hoy-qa-artifacts/team-proposals-77c9280ff8a1",
+    "assetsSha256": "97624af5dc27c1761ae5d313cb8d5b270f4b1181c8f9b7ae0c0130812c9e56fc",
+    "assetCount": 3219,
+    "measurement": "After fullbuild/copy and HTTP manifest validation; production suite already running, before library suite. Not measured before production suite.",
+    "httpEntrySha256": "2a875b77696678489eeeae1d011a808e729eee34bd784b8539bc217fd835a0f4",
+    "diskEntrySha256": "2a875b77696678489eeeae1d011a808e729eee34bd784b8539bc217fd835a0f4",
+    "afterBothUiAssetsSha256": "97624af5dc27c1761ae5d313cb8d5b270f4b1181c8f9b7ae0c0130812c9e56fc",
+    "unchangedAfterBothUi": true,
+    "httpFiles": {
+      "assets/index-BjqHoOBe.css": {
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570,
+        "httpMatchesDisk": true
+      },
+      "assets/DirectoryPanel-Bk_VOerN.js": {
+        "sha256": "3236170ec99d5960b71b91fab586e762715bb8a00426f1cd2a0286c8cc3686ec",
+        "bytes": 207661,
+        "httpMatchesDisk": true
+      }
+    },
+    "wholeArtifactAfterBothUi": {
+      "sha256": "be3133ce128c09b319c73fbaa3b9c423d898fe936e1edf54d8db9e5df97c16f3",
+      "fileCount": 4274
+    },
+    "immutableWithoutSidecarAfterBothUi": {
+      "sha256": "1ffd1bef94904f15303efddc756cf46bc21aba49f5e3c6f661aa862db1a1a13d",
+      "fileCount": 4273
+    },
+    "buildDistAfterBothUi": {
+      "sha256": "1ffd1bef94904f15303efddc756cf46bc21aba49f5e3c6f661aa862db1a1a13d",
+      "fileCount": 4273
+    },
+    "wholeArtifactMeasurementLimit": "Whole-tree measurement taken after both UI suites. Exact dist/copy equality confirmed then. No pre-production whole-tree hash was recorded; assets were measured during production/before library and again after both."
+  },
+  "runtimeCheckpoint": "9d907591822b9a330dff5f23b0c0abd9f659675a plus uncommitted private footer wrap; root Git pending",
+  "historicalC389Finding": "Domain/hook/type/build/functional UI/D02 passed, but final visual inspection found Spanish390 Cancel footer clipped. c389 is NOT full visualPASS; before-wrap capture retained in batch39-footer-before-wrap.json.",
+  "newFooterFix": {
+    "runtimeFingerprint": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+    "scope": "Only TeamProposalPanel footer uses existing row/wrap container; no shared CSS/Drawer/role changes. Test adds actual footer button viewport bounds.",
+    "status": "Fullbuild8889/production55904/library31784 EXIT0; visual footer clipping repaired on current77.",
+    "typecheck": "9170 completed EXIT0 before root compile-hold instruction; no compiler/browser currently started."
+  },
+  "historicalRuntimeFingerprint": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "historicalBuild": {
+    "runtime": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+    "buildExit": 0,
+    "immutable": "/tmp/hoy-team-proposals-qa-c3899e89a6ce",
+    "functionalProduction": "PASS8matrix plus roles",
+    "functionalLibrary": "PASS all4 language/theme contexts\u00d7widths; original plusroleaddon; stricterrors empty",
+    "visual": "FAIL Spanish390 Cancel footer clipping; explicit before-wrap capture retained"
+  },
+  "historicalImmutable": "/tmp/hoy-team-proposals-qa-c3899e89a6ce",
+  "historicalSourceFiles": {
+    "src/modules/admin/SettingsPage.tsx": "24af7667e1ed8a6cbe502291ae7f9619f1bb5aa8093180a5f75e5e5acc35e17c",
+    "src/modules/admin/strings.ts": "89bf4114ea19d941039dbd3e3494add21b7de142ca8a1f2f992e5ffe404c4587",
+    "src/modules/admin/teamProposals.ts": "f33f80c53f9806a427143829f357549c058402ef952ddba9f7efc362c2b194f6",
+    "src/modules/admin/useTeamProposals.ts": "737dd37fe95d5588b889b22ed0116b2fec8893c293fa826f546c426a17831230",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.tsx": "9429fd98e204771edb25d9bb2af06097ac4ba0b0b29d2b58e01d84257a09950a",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.meta.ts": "d440b3dc7b803b49f9c12444364147f0f9cebd7913528ba4a5cf110d056b50a9"
+  },
+  "historicalC389HttpEvidence": {
+    "sourceFingerprint": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+    "baseCommit": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+    "source": "base plus uncommitted batch39; fictional separate document only",
+    "buildExit": 0,
+    "scope": "No real permissions, identity, invitations, provider/session or backend changes"
+  },
+  "historicalC389ServedAssets": {
+    "timing": "Captured after production suite and bounded role diagnostic, before corrected final library rerun; no claim of before-production-suite asset measurement.",
+    "immutableAssetTreeSha256": "10fec8ab49d33a8396b5c90cbcaf97ee6c417aa2ea32a439e74ceaddc4abe535",
+    "assetTreeBasis": "Sorted paths relative to immutable snapshot root for files under assets/, each path+NUL+bytes+NUL. SHA256.",
+    "fileCount": 3115,
+    "httpFiles": {
+      "assets/DirectoryPanel-B1alAKRO.js": {
+        "sha256": "e4688be33ff24902f5d8abf0a3364f9a55ee6dbb931f491b4e75b1cffe7c483f",
+        "bytes": 207598,
+        "httpMatchesImmutableFile": true
+      },
+      "assets/index-BjqHoOBe.css": {
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570,
+        "httpMatchesImmutableFile": true
+      },
+      "assets/index-Dl4jukkl.js": {
+        "sha256": "29b522fe7e80f089b8a43c407cf315c366355dd6de0fa8126bd3f1b93d219840",
+        "bytes": 1576772,
+        "httpMatchesImmutableFile": true
+      }
+    },
+    "runtimeFingerprint": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206"
+  },
+  "historicalC389RuntimeAfterProductionUi": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "historicalC389ScriptSHA256": {
+    "scripts/test-team-proposals.mjs": "e00ffe4140248ef7b16283fc7d94f9b8290f5679955590e0b1cb85d3cf2d713a",
+    "scripts/test-team-proposal-hook.mjs": "12993ab4e9137c530994401da738c872ba4b9bcb6f48a8b162751bad587a587d",
+    "scripts/test-team-proposals-ui.mjs": "15ac5b1df685057b56d6c04ec582bfa3bc8bf1d64dec5c885ce449a3d3dc4ac6",
+    "scripts/test-team-proposal-library-ui.mjs": "78f4e6752cc55fe80b27c410114315e075e899df3c0721448c176e6ffefcd128"
+  },
+  "runtimeAfterBothUi": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58",
+  "canonicalCaptures": {
+    "docs/screenshots/M-08a/en-390.jpg": {
+      "source": "docs/screenshots/M-08a/en-390-light-team-super-settings.jpg",
+      "sha256": "95e7382d5f2603c299d282102bff285508efa8eb506f4e316077e01268eb6a7f",
+      "runtime": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58"
+    },
+    "docs/screenshots/M-08a/en-1280.jpg": {
+      "source": "docs/screenshots/M-08a/en-1280-light-team-super-settings.jpg",
+      "sha256": "d0db77cfc9df426a47055d9e131fce758dc0fe1b888e4811617f3a0e4baa8d60",
+      "runtime": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58"
+    },
+    "docs/screenshots/M-08a/es-390.jpg": {
+      "source": "docs/screenshots/M-08a/es-390-light-team-super-settings.jpg",
+      "sha256": "aace980b4148c4c6cf1067000a7855650fbd3b0660cad6dde429fb0954c41a3d",
+      "runtime": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58"
+    },
+    "docs/screenshots/M-08a/es-1280.jpg": {
+      "source": "docs/screenshots/M-08a/es-1280-light-team-super-settings.jpg",
+      "sha256": "e0883f3d101e920960ce6b2588df6afe9b8f903b06806f412505f3709326c758",
+      "runtime": "77c9280ff8a14a89a4679c18c15e1988102a0eeaf53f91f953d02c653cd4bf58"
+    }
+  },
+  "renderedCapturesSha256": {
+    "docs/screenshots/M-08a/en-1280-dark-team-coordinator-existing-settings.jpg": "42ac1172a354c185b813ee8e341a8787d6e1786bb8434409d7cdc6f3e8be0b76",
+    "docs/screenshots/M-08a/en-1280-dark-team-empty.jpg": "e264de242c69acd9399658af7762e6f07ce731124ee85b92fc3f06b16465bebc",
+    "docs/screenshots/M-08a/en-1280-dark-team-invitation-preview.jpg": "4840ca576ed9acfcf9c5bbb3ec988c9d196e1880e5850f98e1b6809ce32e53a2",
+    "docs/screenshots/M-08a/en-1280-dark-team-library-preview.jpg": "9e22280c5060519b8b102eaaf0da44c76ecd14135e4a0f68cadde564c151f2d4",
+    "docs/screenshots/M-08a/en-1280-dark-team-library.jpg": "7cc7f67d60ff9f27f40636252e12e97a1995579424e2af0842a2d936b65e7f9d",
+    "docs/screenshots/M-08a/en-1280-dark-team-pending.jpg": "38e3c9ad8dea3609447738698796348fb2ad193c39d07b873320d06437aebd00",
+    "docs/screenshots/M-08a/en-1280-dark-team-prepared.jpg": "2a7c8bc59f81ba7581a80914e696e6a6f647630ecee1bee1619042178645385b",
+    "docs/screenshots/M-08a/en-1280-dark-team-quota.jpg": "5c327d30c85e464bd17cbb3edcfe944e3c91ca80625add49ef170bbf1bfe6282",
+    "docs/screenshots/M-08a/en-1280-dark-team-read-error.jpg": "9a8896c4f1cdd80162fe091b5d4744c20b7c8fa41ca6c05292d6c4f3dea4eac4",
+    "docs/screenshots/M-08a/en-1280-dark-team-readback.jpg": "2e6bacd7cf55eb29da620a50843681256d590387e7091f1e46e2d82e9f69d765",
+    "docs/screenshots/M-08a/en-1280-dark-team-stale.jpg": "c7ffe7ded941beeb23a3c6b9f0ec8025d4b375997c763ae2ceed40815edc92b8",
+    "docs/screenshots/M-08a/en-1280-dark-team-super-settings.jpg": "6549dd1f6d62234e9105f941e028f9209636de2c3581db985e670fb0f7c98b72",
+    "docs/screenshots/M-08a/en-1280-dark-team-unresolved.jpg": "6b6456ab09f4578a3a20f9d171babcda5a99821646f1069040083f6f93133c14",
+    "docs/screenshots/M-08a/en-1280-light-team-coordinator-existing-settings.jpg": "4e2348b8feea9e4f3dd92cb41b6188a10cd3231a0613c90f7815773083912aab",
+    "docs/screenshots/M-08a/en-1280-light-team-empty.jpg": "27b8908daf67c73949e9c0f88a2032e8cca1875cdc91f2c11e2928ce1f861ecf",
+    "docs/screenshots/M-08a/en-1280-light-team-invitation-preview.jpg": "a468e99e19735b358e81fc13bc633649bc0c2310865579fc9230582721a15a16",
+    "docs/screenshots/M-08a/en-1280-light-team-library-preview.jpg": "45a7172cab810265e668d392abc50ec87d5853bafb64211b262c6a6daf987d99",
+    "docs/screenshots/M-08a/en-1280-light-team-library.jpg": "b23c75a23f60f9a26bf8d559730c2ede98e0c96bbba8d236b1c176866ddae479",
+    "docs/screenshots/M-08a/en-1280-light-team-pending.jpg": "8c538c4d6e78ca582a6a8c06cc5b58ad57b24a4f0dc2d2dba0bb58f97f2a8fa6",
+    "docs/screenshots/M-08a/en-1280-light-team-prepared.jpg": "943c720dda82919a96f25afa1634eb4ba645c680fc0fed9a85f8998d844b7e81",
+    "docs/screenshots/M-08a/en-1280-light-team-quota.jpg": "d4f19893ed756ff8f1d612e0de9b76c96e9dd3699c6c5b6bcb86633c5d47ccbf",
+    "docs/screenshots/M-08a/en-1280-light-team-read-error.jpg": "03481b8192d815ee560371358e4efec1f90bbf47e00456041c74ac49a4c69531",
+    "docs/screenshots/M-08a/en-1280-light-team-readback.jpg": "2ef0a29c36926de0ae722af45bc5cbf838a29d2216f74f15fa1f2c24ac13c835",
+    "docs/screenshots/M-08a/en-1280-light-team-stale.jpg": "f96f3ac807c7cf2935480c5ea172b7624ecc470c11f639322b8126ff9e6d016a",
+    "docs/screenshots/M-08a/en-1280-light-team-super-settings.jpg": "d0db77cfc9df426a47055d9e131fce758dc0fe1b888e4811617f3a0e4baa8d60",
+    "docs/screenshots/M-08a/en-1280-light-team-unresolved.jpg": "d3ae7daebb0d00e4aa9e6594669b38b7c0a97d8873d3311bc449e8d791cc11ac",
+    "docs/screenshots/M-08a/en-390-dark-team-coordinator-existing-settings.jpg": "96857e050ecd126a4f303c054ad5d58d03a24f314028e1938c748fb51352cbbc",
+    "docs/screenshots/M-08a/en-390-dark-team-empty.jpg": "8a53ef531e1c1d98c9d0cad2f58f1d0060831bffd4fce5d36649f7dc2cbe2f0e",
+    "docs/screenshots/M-08a/en-390-dark-team-invitation-preview.jpg": "b5f210c6852bda728d65502880630b859fc2ba13fa2575ddf738444bcb714310",
+    "docs/screenshots/M-08a/en-390-dark-team-library-preview.jpg": "cd454c2933d96a9a531ca64cba6f046f1c18173c7d2d81fa144d50c78fb86417",
+    "docs/screenshots/M-08a/en-390-dark-team-library.jpg": "f6a514d5cd54311a7c3bc7ff324e057248e019e901a71ee1206979d7753b9107",
+    "docs/screenshots/M-08a/en-390-dark-team-pending.jpg": "3f0069c994c65bb1e31462ef11602890e2d617a7496867f8ff71a5941c3720ba",
+    "docs/screenshots/M-08a/en-390-dark-team-prepared.jpg": "7de63c8964894b51122b676122b4d9a608ef9f420d24bf5320d58af4dcdb506c",
+    "docs/screenshots/M-08a/en-390-dark-team-quota.jpg": "07ad47525a2081411f781ccfc524b97fc37453ad2cea7ae1036e7bc00bea868b",
+    "docs/screenshots/M-08a/en-390-dark-team-read-error.jpg": "778f38ad62f5ac689ac09f5a0f4c9ab306910c8d92946ed31ed2ca25f71d34b2",
+    "docs/screenshots/M-08a/en-390-dark-team-readback.jpg": "e9210286e60c06f920cee8fd458d5b0e69c389be14115370304e4961dea863c1",
+    "docs/screenshots/M-08a/en-390-dark-team-stale.jpg": "6eeaed2763bfbfb327c5129d2f59f3767af43ec1814917577f3beef294f73b0b",
+    "docs/screenshots/M-08a/en-390-dark-team-super-settings.jpg": "fcd4667b10d1040be693fbb451599c0be40cff4541b2f1b02929947beedfed30",
+    "docs/screenshots/M-08a/en-390-dark-team-unresolved.jpg": "15c48990634ce0cffcf72a5ba721bb82f71b3c5671b1633cc99ef8a92243ddad",
+    "docs/screenshots/M-08a/en-390-light-team-coordinator-existing-settings.jpg": "13644b1d1fcdad769f8b00d27c621c54b4b1a054c0310b6a2a99d112c9f0826f",
+    "docs/screenshots/M-08a/en-390-light-team-empty.jpg": "2ca37e6d3fbae0703214bb9dc6301447056470d8570e91088b4958a434c0dcf2",
+    "docs/screenshots/M-08a/en-390-light-team-invitation-preview.jpg": "43af729628de366f7a4a810f5e8690bb038ec2fb460d3864ced5de4b63bb7138",
+    "docs/screenshots/M-08a/en-390-light-team-library-preview.jpg": "966336fb2143656350b1e98cdd612f6c3afdf46e568063b19f9dadcd0818a069",
+    "docs/screenshots/M-08a/en-390-light-team-library.jpg": "3a902c088c9116af17af18fdd4ec9331750ca1f49d99549b24a585659b07067c",
+    "docs/screenshots/M-08a/en-390-light-team-pending.jpg": "809632a71fc3b38c581db01d16f113436a496e1c4c31b927799d2220559fbd69",
+    "docs/screenshots/M-08a/en-390-light-team-prepared.jpg": "f073479677cdd65efffdc397ccfc12f59c5e81e25d5bfaa191f334b9b6d6a949",
+    "docs/screenshots/M-08a/en-390-light-team-quota.jpg": "8d658c4b32616d0108c34f014076218c2defba2a62226de42fbf1a7eb22c6778",
+    "docs/screenshots/M-08a/en-390-light-team-read-error.jpg": "920633ae81f0e42abf3a3d5f81bf698a51d67249645fa59778995c0a72708f03",
+    "docs/screenshots/M-08a/en-390-light-team-readback.jpg": "bc41a55f921d529e5e81d9a3469e61a186a38b407246bed822db106edfbafcdb",
+    "docs/screenshots/M-08a/en-390-light-team-stale.jpg": "1e91bebd3a431698660dde9cb0d1f764c60518fb4d438a2c88b316f816231bdf",
+    "docs/screenshots/M-08a/en-390-light-team-super-settings.jpg": "95e7382d5f2603c299d282102bff285508efa8eb506f4e316077e01268eb6a7f",
+    "docs/screenshots/M-08a/en-390-light-team-unresolved.jpg": "ee08be616e6e3a0ed18bb7d35f10522c2509b6601eedf44880c647f1ea2683aa",
+    "docs/screenshots/M-08a/es-1280-dark-team-coordinator-existing-settings.jpg": "140c0a98bf1fd6152a3f521c60bcfec6f6db0e05fc92721f949a7330d04db623",
+    "docs/screenshots/M-08a/es-1280-dark-team-empty.jpg": "2a2650fe5d3cdfd277407291fb696d604997e401b3bcf81661a0fbe8c27bfe98",
+    "docs/screenshots/M-08a/es-1280-dark-team-invitation-preview.jpg": "68ca3340527e6085a2763ac0120ea8af8837d4ff5773150622f3b8b11ea25bb7",
+    "docs/screenshots/M-08a/es-1280-dark-team-library-preview.jpg": "c7344f450a93e2e7732ed5875bc4bf77b9972342fd6298204ff8a446863190b5",
+    "docs/screenshots/M-08a/es-1280-dark-team-library.jpg": "90e0a49666bd89ff6ecd9452e350447b3ec3a76197c2e80c4ab9ffaac83012fe",
+    "docs/screenshots/M-08a/es-1280-dark-team-pending.jpg": "ca6f5fdc968734e77e308587cb72a5238957e0700b67d964ecf167dee5afebbe",
+    "docs/screenshots/M-08a/es-1280-dark-team-prepared.jpg": "015039080449e85914ba4db8f66c5651b3f78fbdfe5bf5eda63cc3c76445f54b",
+    "docs/screenshots/M-08a/es-1280-dark-team-quota.jpg": "e512a0f8cd74bb00aa3c66b4a0c4773c30baa8da384c0e2435e51336fee34174",
+    "docs/screenshots/M-08a/es-1280-dark-team-read-error.jpg": "311f098eef2a3ed251cb75209de556760d18c7bcea593ced78a71aa5578eedf8",
+    "docs/screenshots/M-08a/es-1280-dark-team-readback.jpg": "001478db78e2836eff3798a183822be4f2dfed0104115cb27732140990631e6f",
+    "docs/screenshots/M-08a/es-1280-dark-team-stale.jpg": "aba295d617c313565257ede81ec1e36a1429a1b67d0c9aa8e10b0c5210173157",
+    "docs/screenshots/M-08a/es-1280-dark-team-super-settings.jpg": "1bcb71fb26f72c631d6a55400ed5c976d344d10bea316461b8513b2850c8fb19",
+    "docs/screenshots/M-08a/es-1280-dark-team-unresolved.jpg": "680137fa23da580fe8b702d756c5b50358de5fcd9629b0cecec2e00177e004a8",
+    "docs/screenshots/M-08a/es-1280-light-team-coordinator-existing-settings.jpg": "11f06d339aea25182614ea6729f17e5f337214a44fc2b748b76f6387adba6b46",
+    "docs/screenshots/M-08a/es-1280-light-team-empty.jpg": "da26800b61e345414f98fe7f95331d21a11c11fa7f90460f2d28ddcaff6390dc",
+    "docs/screenshots/M-08a/es-1280-light-team-invitation-preview.jpg": "4da47c95f70e3f33f006bfbdfd56ce1dfee21651a7c988779c292dc270878683",
+    "docs/screenshots/M-08a/es-1280-light-team-library-preview.jpg": "b2a325e53d25907a29b2cc48aeb0fbb55a35a56295fbae93e2e1fbd4e86e2697",
+    "docs/screenshots/M-08a/es-1280-light-team-library.jpg": "41be09f4cd5c558f52940e1371b343ca0d8a5401e3b92446b28d445343cb2298",
+    "docs/screenshots/M-08a/es-1280-light-team-pending.jpg": "a7f739402a28de04aa593224ef160bb9a4d0de0b397902ae384b928992b8e40b",
+    "docs/screenshots/M-08a/es-1280-light-team-prepared.jpg": "7eede69cf0313df3711744ef0c08955218bd91c37640bb1ed1bcc1d7755221a7",
+    "docs/screenshots/M-08a/es-1280-light-team-quota.jpg": "1d643136ac0179750edbdc71d8a73d665d6dfaac3b04b0cb7b2951f4942c8776",
+    "docs/screenshots/M-08a/es-1280-light-team-read-error.jpg": "32ad9b1f9ff14f04a2c44c5e17bc5fc9139fc5f7c82e2f39392fc8192595ac4c",
+    "docs/screenshots/M-08a/es-1280-light-team-readback.jpg": "eb316a48ac8882d552064737945cb007d33f79d6845aaacd8874655667d60cc0",
+    "docs/screenshots/M-08a/es-1280-light-team-stale.jpg": "6c23d0c247fa03b330b5424ee99809eb9b1fb7621df7af7cf1be92bd19991b8d",
+    "docs/screenshots/M-08a/es-1280-light-team-super-settings.jpg": "e0883f3d101e920960ce6b2588df6afe9b8f903b06806f412505f3709326c758",
+    "docs/screenshots/M-08a/es-1280-light-team-unresolved.jpg": "a14337d3f4ade88dd04fc117bd6892fa2e5e26be8468a17e2125b9f7c25a7937",
+    "docs/screenshots/M-08a/es-390-dark-team-coordinator-existing-settings.jpg": "3baf383d4e83d763361e309ac63e34fd8efbb312a02b0bafc34b817a6da9fc84",
+    "docs/screenshots/M-08a/es-390-dark-team-empty.jpg": "219ef3865a866033e0ebb46c3c75e39f9e75fe7a16085753c8ac3afa09cc05dd",
+    "docs/screenshots/M-08a/es-390-dark-team-invitation-preview.jpg": "bc1bc2d099b4ee6dedc326f5a508ec587b906316209636ce89e4c669ea8450ac",
+    "docs/screenshots/M-08a/es-390-dark-team-library-preview.jpg": "3ee606439dd5861f2941258c03654eb567349bd92492059dfea5512678f3a658",
+    "docs/screenshots/M-08a/es-390-dark-team-library.jpg": "79a860ae456efa76121acc94f590e1f679c0035e002da3b440962d39aa5d4cbb",
+    "docs/screenshots/M-08a/es-390-dark-team-pending.jpg": "9a8d32353ed79376cfd3a0d33910b27b92ce6fedeb766b76646a56df77a8e81a",
+    "docs/screenshots/M-08a/es-390-dark-team-prepared.jpg": "1703eb4c941ec503aab1e44e05234de39bf1b7a7012a9bf2576d837a04058d44",
+    "docs/screenshots/M-08a/es-390-dark-team-quota.jpg": "9ae011e87157b2c5a55d27857baca1a966b1365ebd1fcf49f8e0d19a5a23eb37",
+    "docs/screenshots/M-08a/es-390-dark-team-read-error.jpg": "7f34202282e8bd32d398873067614a32208aa209c323f77267c2c274e84de144",
+    "docs/screenshots/M-08a/es-390-dark-team-readback.jpg": "186e8b48b60db75ef29db88725bc07244289e849d69e2b9b53de998dba9d5332",
+    "docs/screenshots/M-08a/es-390-dark-team-stale.jpg": "9d58fdaf0e0737f8b12b4897fe8143625b6c2d3eee946aac787a8105e9382efd",
+    "docs/screenshots/M-08a/es-390-dark-team-super-settings.jpg": "0e707f5867abb5fc6122e05cdcd9df4172486187667ddf293521524d503d9a9e",
+    "docs/screenshots/M-08a/es-390-dark-team-unresolved.jpg": "ec1817a93b40c76c021f83bf646e4335ece7955ebefcc3af6cd30b659152d3f8",
+    "docs/screenshots/M-08a/es-390-light-team-coordinator-existing-settings.jpg": "33ba28e8d3cb3d18cc6f9879be7b192e220513f829f030be042f4efcc1e8607b",
+    "docs/screenshots/M-08a/es-390-light-team-empty.jpg": "fc5e46c2cd1931216cd187b49c525922da8390234ce3a8f6cb948cad078def31",
+    "docs/screenshots/M-08a/es-390-light-team-invitation-preview.jpg": "5c56282cd0d97580033701ab31709f5528e9281d8ce84d37410ebd14ab3928dc",
+    "docs/screenshots/M-08a/es-390-light-team-library-preview.jpg": "53cfc1523d92e538f6053f60366861965433edbde79b8c7211426a5671f32037",
+    "docs/screenshots/M-08a/es-390-light-team-library.jpg": "5a47a246911c2d45f8a99fc1f3e1e1921d429f9b086596a7a284e9f6ee507437",
+    "docs/screenshots/M-08a/es-390-light-team-pending.jpg": "d536c4691be0a7ceb4f38f0e1a06225f3c517431e64d09214ac19d53e18db6f6",
+    "docs/screenshots/M-08a/es-390-light-team-prepared.jpg": "394b933b6e2236c5e30d5e5ec52cf1ab5cce3140fae255574da8e23bb0e75d07",
+    "docs/screenshots/M-08a/es-390-light-team-quota.jpg": "9da46be913ebfbb77e29d18fca29ab329b7d5cab3e9302de7d1a542fcc6b2da2",
+    "docs/screenshots/M-08a/es-390-light-team-read-error.jpg": "71809f5f27eafa20b7863b1ea609108943ceb0f8b280326615d405b8367c5ec2",
+    "docs/screenshots/M-08a/es-390-light-team-readback.jpg": "c5459575f4109c6c06450cc8c314d61dff1bd07cd74f044db95143430c710e57",
+    "docs/screenshots/M-08a/es-390-light-team-stale.jpg": "6815799904809cc225bf3b59c44f13e7af5293f1a14256bb98c1a79412dfdef2",
+    "docs/screenshots/M-08a/es-390-light-team-super-settings.jpg": "aace980b4148c4c6cf1067000a7855650fbd3b0660cad6dde429fb0954c41a3d",
+    "docs/screenshots/M-08a/es-390-light-team-unresolved.jpg": "31d0c7c1f7ef423d03387ffafbf379018706df0586acfc1c6c9a41e5fc6fd883"
+  },
+  "inspectedRepresentatives": [
+    "en-390-dark-team-prepared.jpg",
+    "es-390-light-team-pending.jpg",
+    "en-390-dark-team-library-preview.jpg",
+    "es-390-dark-team-library-preview.jpg",
+    "es-1280-dark-team-library-preview.jpg",
+    "en-1280-light-team-super-settings.jpg"
+  ],
+  "finalLogs": {
+    "build": "qa/batch39-final-build.log",
+    "production": "qa/batch39-final-production-ui.log",
+    "library": "qa/batch39-final-library-ui.log"
+  }
+}

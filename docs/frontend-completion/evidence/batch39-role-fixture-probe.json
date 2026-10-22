@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:5272",
+  "runtime": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "results": [
+    {
+      "initialization": "unconditional-every-document",
+      "beforeNavigation": "usr_coord",
+      "afterNavigation": "usr_super",
+      "teamPanelCount": 1
+    },
+    {
+      "initialization": "once-per-sessionStorage",
+      "beforeNavigation": "usr_coord",
+      "afterNavigation": "usr_coord",
+      "teamPanelCount": 0
+    }
+  ],
+  "scope": "Bounded actual session-value diagnostic; fixture IDs only; no source changes",
+  "roleBasis": "Observed fixture IDs map to canonical demoUsers.ts roles: usr_super=super_admin; usr_coord=coordinator. Team panel counts additionally observe corresponding actual route UI restriction."
+}

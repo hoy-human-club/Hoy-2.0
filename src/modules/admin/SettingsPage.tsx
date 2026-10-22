@@ -1,3 +1,4 @@
+import {TeamProposalPanel} from '../../components/organism/TeamProposalPanel/TeamProposalPanel';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -121,6 +122,7 @@ export function SettingsPage({ group = 'general' }: { group?: SettingsGroup }) {
           {group === 'general' && (
             <>
               <GeneralActions />
+              <TeamProposalPanel />
               {S('profile', t('admin.settings.sec.profile'), (d, set) => (
                 <>
                   <div className="row-between wrap">

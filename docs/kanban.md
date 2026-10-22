@@ -765,3 +765,5 @@ Root visual review: current1c0a named command/lifecycle/library/contrast gates p
 Protected-capture clarification: M14 schedule/pay screenshots remain local/ignored under explicit repository policy, even for synthetic fixtures. Per-file hashes are committed; upcoming CI Actions artifacts retain actual images. No public screenshot copy was committed or policy changed.
 
 - Root70 staged38 integration: narrow cancelled-seat caption guard and actual active/cancelled read-only regression added; fullbuild/current render pending. Protected captures remain excluded from publication; upcoming CI artifacts required.
+
+- Team39 current522/0d4c845 all isolated gates passed; local root70 integration staged with actual M08a shared-widget usages. Combined build/rendered/CI/release pending; no real role/invitation effects.
