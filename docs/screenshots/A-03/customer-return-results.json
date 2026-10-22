@@ -1,0 +1,17 @@
+{
+  "requirements": [
+    "SW-03",
+    "CU-01"
+  ],
+  "phase": "MVP Oct 30",
+  "base": "http://127.0.0.1:5205",
+  "checks": [
+    "en: real website selected class+mat → sign-in↔signup preserved; public checkout denied without booking; required validation/duplicate offer; quota rollback and retry/doubleclick one customer+exact consents; no password persistence/registration booking; existing demo sign-in waitlist; unsafe returns discarded; existing administrator home preserved;390/1280 lightdark captures",
+    "es: real website selected class+mat → sign-in↔signup preserved; public checkout denied without booking; required validation/duplicate offer; quota rollback and retry/doubleclick one customer+exact consents; no password persistence/registration booking; existing demo sign-in waitlist; unsafe returns discarded; existing administrator home preserved;390/1280 lightdark captures"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-local registration only; Clerk/server auth and dynamic-account sign-in remain disconnected.",
+    "Original acceptance/source status and existing fields/consent IDs are preserved; no legal-version/email-code acceptance."
+  ]
+}

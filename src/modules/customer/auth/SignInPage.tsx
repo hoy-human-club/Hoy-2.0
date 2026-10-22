@@ -19,6 +19,7 @@ import { useActions } from '../../../actions';
 import { need } from '../actions';
 
 const spec = canvasSpecs['A-02'];
+import { customerAuthLink, customerReturn } from './customerReturn';
 import { MS } from '../../../i18n/format';
 
 export const ATTEMPTS_KEY = 'hoyos.auth.attempts';
@@ -39,7 +40,7 @@ export function SignInPage() {
   const [busy, setBusy] = useState(false);
   const people = demoUsers.filter((u) => u.role !== 'public');
 
-  const enterAs = (id: string) => { const u = demoUsers.find((x) => x.id === id)!; switchUser(u.id); try { sessionStorage.removeItem(ATTEMPTS_KEY); } catch { /* ignore */ } nav(next && next.startsWith('/') && u.role === 'customer' ? next : ROLE_HOME[u.role]); };
+  const enterAs = (id: string) => { const u = demoUsers.find((x) => x.id === id)!; switchUser(u.id); try { sessionStorage.removeItem(ATTEMPTS_KEY); } catch { /* ignore */ } nav(u.role === 'customer' && customerReturn(next) ? customerReturn(next)! : ROLE_HOME[u.role]); };
 
   // WebMCP (0025): auth.signIn enters as a demo user and follows ?next= exactly like a tap on the picker.
   const enterRef = useRef(enterAs); enterRef.current = enterAs;
@@ -97,7 +98,7 @@ export function SignInPage() {
             <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.signin.providersNote')}</p>
           </div>
         </Card>
-        <p className="small" style={{ textAlign: 'center' }}>{t('customer.signin.new')} <Link to="/auth/sign-up">{t('customer.signin.create')}</Link></p>
+        <p className="small" style={{ textAlign: 'center' }}>{t('customer.signin.new')} <Link to={customerAuthLink('/auth/sign-up', params)}>{t('customer.signin.create')}</Link></p>
       </div>
     </AuthShell>
   );
