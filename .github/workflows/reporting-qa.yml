@@ -1,0 +1,47 @@
+name: Frontend reporting QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/*Report.ts'
+      - 'src/data/reportCsv.ts'
+      - 'src/components/organism/ConfirmedPaymentReport/**'
+      - 'src/modules/admin/ActivityPage.tsx'
+      - 'src/modules/admin/FinancePage.tsx'
+      - 'src/modules/admin/reportingStrings.ts'
+      - 'scripts/test-reporting*.mjs'
+      - '.github/workflows/reporting-qa.yml'
+permissions:
+  contents: read
+jobs:
+  local-reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/test-reporting.mjs
+      - run: npm run build
+      - name: Verify actual read-only browser reports and library
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5331 > /tmp/hoy-reporting-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5331/ >/dev/null && break; sleep 1; done
+          node scripts/test-reporting-baseline.mjs
+          node scripts/test-reporting-ui.mjs
+          node scripts/test-reporting-library.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5331
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reporting-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            qa/reporting/
+            /tmp/hoy-reporting-preview.log

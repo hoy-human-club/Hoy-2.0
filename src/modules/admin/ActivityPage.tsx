@@ -1,3 +1,5 @@
+import { activitySearch, activityReportCsv } from '../../data/activityReport';
+import { downloadCsv } from '../../data/reportCsv';
 import { useMemo, useState } from 'react';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
@@ -27,10 +29,11 @@ export function ActivityPage() {
   const [actor, setActor] = useState('');
   const [entity, setEntity] = useState('');
   const [search, setSearch] = useState('');
+  const [exportError,setExportError] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
   const since = range === 'all' ? 0 : range === 'today' ? startOfDay(new Date()).getTime() : Date.now() - (range === '7d' ? 7 : 30) * MS.day;
-  const filtered = useMemo(() => rows.filter((r) => new Date(r.created_at).getTime() >= since && (!actor || r.actor_id === actor) && (!entity || r.entity === entity)).map((r) => ({ ...r, who: byId.get(r.actor_id ?? '')?.name ?? (r.diff?.source === 'automation' ? t('admin.activity.automation') : t('admin.activity.system')), roleLabel: r.diff?.role ? bi(ROLE_LABEL[r.diff.role as Role] ?? { es: String(r.diff.role), en: String(r.diff.role) }) : '', object: `${r.entity}${r.entity_id ? `#${r.entity_id}` : ''}`, source: r.diff?.source ? bi(SOURCE_LABEL[r.diff.source] ?? { es: r.diff.source, en: r.diff.source }) : '—' })), [rows, since, actor, entity, byId, bi, t]);
+  const filtered = useMemo(() => activitySearch(rows.filter((r) => new Date(r.created_at).getTime() >= since && (!actor || r.actor_id === actor) && (!entity || r.entity === entity)).map((r) => ({ ...r, who: byId.get(r.actor_id ?? '')?.name ?? (r.diff?.source === 'automation' ? t('admin.activity.automation') : t('admin.activity.system')), roleLabel: r.diff?.role ? bi(ROLE_LABEL[r.diff.role as Role] ?? { es: String(r.diff.role), en: String(r.diff.role) }) : '', object: `${r.entity}${r.entity_id ? `#${r.entity_id}` : ''}`, source: r.diff?.source ? bi(SOURCE_LABEL[r.diff.source] ?? { es: r.diff.source, en: r.diff.source }) : '—' })),search), [rows, since, actor, entity, byId, bi, t, search]);
   type Row = (typeof filtered)[number];
   const actors = [...new Set(rows.map((r) => r.actor_id).filter(Boolean))] as string[];
   const entities = [...new Set(rows.map((r) => r.entity))].sort();
@@ -45,11 +48,7 @@ export function ActivityPage() {
   ];
 
   const exportCsv = () => {
-    const head = ['when', 'actor', 'role', 'action', 'entity', 'entity_id', 'source', 'diff'];
-    const esc = (v: unknown) => `"${String(v ?? '').replaceAll('"', '""')}"`;
-    const lines = filtered.map((r) => [r.created_at, r.who, r.diff?.role ?? '', r.action, r.entity, r.entity_id ?? '', r.diff?.source ?? '', JSON.stringify(r.diff ?? {})].map(esc).join(','));
-    const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `audit_${range}.csv`; a.click(); URL.revokeObjectURL(a.href);
+    try { downloadCsv(activityReportCsv(filtered),`audit_${range}.csv`); setExportError(false); } catch { setExportError(true); }
   };
 
   return (
@@ -58,15 +57,16 @@ export function ActivityPage() {
         <div><h1>{t('admin.activity.title')}</h1><p className="muted small">{t('admin.activity.subtitle')}</p></div>
         <Button size="sm" variant="secondary" onClick={exportCsv} disabled={filtered.length === 0}>{t('admin.activity.export')}</Button>
       </div>
+      {exportError&&<p role="alert">{t('admin.reporting.activityFailed')}</p>}
       <Card padding="sm" className="row wrap act-filters">
         <Select value={range} onChange={(e) => setRange(e.target.value as Range)} aria-label={t('admin.activity.range')}>{RANGES.map((r) => <option key={r} value={r}>{t(`admin.activity.range.${r}`)}</option>)}</Select>
         <Select value={actor} onChange={(e) => setActor(e.target.value)} aria-label={t('admin.activity.col.who')}><option value="">{t('admin.activity.anyone')}</option>{actors.map((a) => <option key={a} value={a}>{byId.get(a)?.name ?? a}</option>)}</Select>
         <Select value={entity} onChange={(e) => setEntity(e.target.value)} aria-label={t('admin.activity.col.object')}><option value="">{t('admin.activity.anyArea')}</option>{entities.map((e) => <option key={e} value={e}>{e}</option>)}</Select>
-        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.activity.searchAction')} aria-label={t('core.common.search')} style={{ flex: '1 1 160px' }} />
+        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.reporting.activitySearch')} aria-label={t('core.common.search')} style={{ flex: '1 1 160px' }} />
         <span className="xs muted">{t('core.common.rows', { n: filtered.length })}</span>
       </Card>
       {loading && rows.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : filtered.length === 0 ? <EmptyState title={t('admin.activity.empty')} body={t('admin.activity.empty.body')} /> : (
-        <DataTable<Row> columns={columns} rows={filtered} rowKey={(r) => r.id} search={search} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense pageSize={100} />
+        <DataTable<Row> columns={columns} rows={filtered} rowKey={(r) => r.id} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense pageSize={100} />
       )}
       <p className="xs muted">{t('admin.activity.retention')}</p>
       <Drawer open={!!row} onClose={() => setSelected(null)} title={row ? <div className="row wrap"><code>{row.action}</code><Badge>{row.source}</Badge></div> : undefined} width={520}>
