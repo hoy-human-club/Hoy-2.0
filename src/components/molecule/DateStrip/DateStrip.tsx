@@ -1,5 +1,5 @@
 import { useI18n } from '../../../i18n/I18nProvider';
-import { formatDate } from '../../../i18n/format';
+import { formatDate, studioParts } from '../../../i18n/format';
 import './DateStrip.css';
 
 export interface DateStripProps {
@@ -23,7 +23,7 @@ export function DateStrip({ days, value, onChange, counts, disabledIndex }: Date
         return (
           <button key={d.toISOString()} type="button" role="tab" aria-selected={value === i} disabled={disabled} className={`datestrip-day ${value === i ? 'is-active' : ''} ${disabled ? 'is-disabled' : ''}`} onClick={() => onChange(i)}>
             <span className="datestrip-dow">{i === 0 ? t('core.common.today') : formatDate(d.toISOString(), lang, { weekday: 'short' })}</span>
-            <strong className="datestrip-num">{d.getDate()}</strong>
+            <strong className="datestrip-num">{studioParts(d).day}</strong>
             {counts && <span className="datestrip-dots" aria-hidden>{Array.from({ length: Math.min(4, counts[i] ?? 0) }, (_, k) => <i key={k} />)}</span>}
           </button>
         );

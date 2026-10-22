@@ -27,8 +27,13 @@ export function safeUrl(value: string): boolean {
   if (!value) return true;
   try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password && !u.search && !u.hash; } catch { return false; }
 }
-export function validateDirectory(d: Directory): void {
+/** Optional host calendar; evaluated at each validation, with the portable UTC default retained. */
+export type ValidationToday = () => string;
+const utcToday: ValidationToday = () => new Date().toISOString().slice(0,10);
+export function validateDirectory(d: Directory, today: ValidationToday = utcToday): void {
   const fail = (message: string) => { throw new Error(message); };
+  const currentDay = today();
+  if (!validDate(currentDay)) fail('Invalid validation calendar date.');
   if (d.version !== 1 || !d.workspaceId || !Array.isArray(d.dependencies) || !Array.isArray(d.subscriptions) || !Array.isArray(d.charges)) fail('Invalid directory format.');
   const rows = [...d.dependencies, ...d.subscriptions, ...d.charges];
   if (new Set(rows.map(r => r.id)).size !== rows.length) fail('Duplicate record ID.');
@@ -36,7 +41,7 @@ export function validateDirectory(d: Directory): void {
     if (Object.keys(r).some(k=>k!=='passwordManagerRef' && /password|secret|token|credential|cardnumber|cvv|cvc/i.test(k))) fail('Secret fields are not allowed in directory backups.');
     if (typeof r.id!=='string' || typeof r.evidence!=='string' || (r.lastVerified!==null && typeof r.lastVerified!=='string')) fail('Invalid record metadata.');
     if (!r.id || r.workspaceId !== d.workspaceId) fail('Workspace mismatch.');
-    if (r.lastVerified && (!validDate(r.lastVerified) || !r.evidence.trim() || r.lastVerified > new Date().toISOString().slice(0,10))) fail('Verification needs evidence and a valid past or current date.');
+    if (r.lastVerified && (!validDate(r.lastVerified) || !r.evidence.trim() || r.lastVerified > currentDay)) fail('Verification needs evidence and a valid past or current date.');
   }
   for (const a of d.dependencies) {
     if (!Array.isArray(a.relatedProjects) || a.relatedProjects.some(p=>typeof p!=='string') || ['provider','product','purpose','category','officialUrl','manageUrl'].some(k=>typeof (a as unknown as Record<string,unknown>)[k]!=='string')) fail('Invalid app metadata.');
@@ -110,15 +115,15 @@ export function chargeTotals(charges: ActualCharge[]) {
   return totals;
 }
 export const storageKey = (workspaceId: string) => `hub.app-subscriptions.v1:${workspaceId}`;
-export function readDirectory(storage: Pick<Storage,'getItem'>, workspaceId: string): Directory {
+export function readDirectory(storage: Pick<Storage,'getItem'>, workspaceId: string, today: ValidationToday = utcToday): Directory {
   const raw = storage.getItem(storageKey(workspaceId));
   if (!raw) return emptyDirectory(workspaceId);
   const d = JSON.parse(raw) as Directory;
   if (d.workspaceId !== workspaceId) throw new Error('Workspace mismatch.');
-  validateDirectory(d); return d;
+  validateDirectory(d, today); return d;
 }
-export function saveDirectory(storage: Pick<Storage,'setItem'|'getItem'>, d: Directory, expectedRaw: string | null) {
-  validateDirectory(d);
+export function saveDirectory(storage: Pick<Storage,'setItem'|'getItem'>, d: Directory, expectedRaw: string | null, today: ValidationToday = utcToday) {
+  validateDirectory(d, today);
   if (storage.getItem(storageKey(d.workspaceId)) !== expectedRaw) throw new Error('Records changed in another tab. Reload before saving.');
   storage.setItem(storageKey(d.workspaceId), JSON.stringify(d));
 }
@@ -133,8 +138,8 @@ export function receiptSearch(provider: string, s: Subscription) {
   return `${s.receiptInbox ? `to:${s.receiptInbox} ` : ''}"${provider.replace(/["\r\n]/g,'')}" (invoice OR receipt)`;
 }
 /** Explicit backup import, scoped to the current workspace; never silently merges or imports another tenant. */
-export function parseBackup(raw: string, workspaceId: string): Directory {
+export function parseBackup(raw: string, workspaceId: string, today: ValidationToday = utcToday): Directory {
   const d=JSON.parse(raw) as Directory;
   if (d.workspaceId!==workspaceId) throw new Error('Workspace mismatch.');
-  validateDirectory(d);return d;
+  validateDirectory(d, today);return d;
 }

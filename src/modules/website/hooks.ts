@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTable } from '../../data/DataContext';
 import type { BaseRow, ClassSessionRow, FaqEntryRow, MediaAssetRow, ModalityRow, TeacherRow } from '../../data/schema';
-import { isSameDay } from '../../i18n/format';
+import { isSameDay, addDays, startOfDay } from '../../i18n/format';
 
 /** Sessions joined with modality and teacher — shared by site and customer pages. */
 export function useSessionsJoined(filter?: (s: ClassSessionRow) => boolean) {
@@ -23,7 +23,7 @@ export function useTodaySessions(all = false) {
 }
 
 export function dayList(n = 7): Date[] {
-  return Array.from({ length: n }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
+  return Array.from({ length: n }, (_, i) => { return addDays(startOfDay(new Date()), i); });
 }
 
 /** 0051 — every published FAQ entry, grouped by section in `sort` order (W-10 shows them all on one page). */

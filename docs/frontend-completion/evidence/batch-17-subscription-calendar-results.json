@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "browser": "Chromium",
+  "fixture": "fictional isolated directory data",
+  "cases": [
+    {
+      "timezoneId": "UTC",
+      "passed": true,
+      "checks": [
+        "future verification rejected before05Z without write",
+        "same form accepted at05Z without reload",
+        "read preserves invalid-for-current-day saved data",
+        "read recovers at05Z",
+        "import rejects before05Z without write",
+        "explicit restore accepted at05Z",
+        "no page errors"
+      ]
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "passed": true,
+      "checks": [
+        "future verification rejected before05Z without write",
+        "same form accepted at05Z without reload",
+        "read preserves invalid-for-current-day saved data",
+        "read recovers at05Z",
+        "import rejects before05Z without write",
+        "explicit restore accepted at05Z",
+        "no page errors"
+      ]
+    }
+  ],
+  "captures": 4
+}

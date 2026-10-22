@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import { useT } from '../../../i18n/I18nProvider';
 import type { Lang } from '../../../i18n/types';
-import { addDays, dateKey, formatDate, formatTime, fromDateKey, MS } from '../../../i18n/format';
+import { addDays, dateKey, formatDate, formatTime, fromDateKey, MS, studioParts, studioDate, startOfDay } from '../../../i18n/format';
 import { useMinWidth } from '../../../layout/useMinWidth';
 import { SegmentedControl, type SegmentOption } from '../../molecule/SegmentedControl/SegmentedControl';
 import { Button } from '../../atom/Button/Button';
@@ -43,15 +43,15 @@ export interface TimelineViewProps<T> extends EventAccessors<T> {
 /** The range a zoom shows around a cursor: [from, to) as local moments, plus the tick marks. */
 export function timelineRange(zoom: TimelineZoom, cursor: string): { from: Date; to: Date; ticks: Date[] } {
   const c = fromDateKey(cursor);
-  const at0 = (d: Date) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
-  if (zoom === 'day') { const from = at0(c); return { from, to: addDays(from, 1), ticks: Array.from({ length: 24 }, (_, h) => new Date(from.getFullYear(), from.getMonth(), from.getDate(), h)) }; }
+  const at0 = startOfDay;
+  if (zoom === 'day') { const from = at0(c); return { from, to: addDays(from, 1), ticks: Array.from({ length: 24 }, (_, h) => studioDate(studioParts(from).year, studioParts(from).month, studioParts(from).day, h)) }; }
   if (zoom === 'week') { const from = at0(mondayOf(c)); return { from, to: addDays(from, 7), ticks: Array.from({ length: 7 }, (_, i) => addDays(from, i)) }; }
   if (zoom === 'month') {
-    const from = new Date(c.getFullYear(), c.getMonth(), 1); const to = new Date(c.getFullYear(), c.getMonth() + 1, 1);
+    const from = studioDate(studioParts(c).year, studioParts(c).month, 1); const to = studioDate(studioParts(c).year, studioParts(c).month + 1, 1);
     return { from, to, ticks: Array.from({ length: Math.round((to.getTime() - from.getTime()) / MS.day) }, (_, i) => addDays(from, i)) };
   }
-  const q = Math.floor(c.getMonth() / 3) * 3;
-  const from = new Date(c.getFullYear(), q, 1); const to = new Date(c.getFullYear(), q + 3, 1);
+  const q = Math.floor(studioParts(c).month / 3) * 3;
+  const from = studioDate(studioParts(c).year, q, 1); const to = studioDate(studioParts(c).year, q + 3, 1);
   const ticks: Date[] = [];
   for (let d = at0(mondayOf(from)); d < to; d = addDays(d, 7)) ticks.push(d < from ? from : d);
   return { from, to, ticks };
@@ -62,7 +62,7 @@ export function shiftTimeline(zoom: TimelineZoom, cursor: string, n: number): st
   const c = fromDateKey(cursor);
   if (zoom === 'day') return dateKey(addDays(c, n));
   if (zoom === 'week') return dateKey(addDays(c, 7 * n));
-  return dateKey(new Date(c.getFullYear(), c.getMonth() + n * (zoom === 'month' ? 1 : 3), 1, 12));
+  return dateKey(studioDate(studioParts(c).year, studioParts(c).month + n * (zoom === 'month' ? 1 : 3), 1, 12));
 }
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -140,10 +140,10 @@ export function TimelineView<T>(props: TimelineViewProps<T>) {
   const tickLabel = (d: Date, i: number) => {
     if (zoom === 'day') return formatTime(d, lang);
     if (zoom === 'week') return cap(formatDate(d, lang, { weekday: 'short', day: 'numeric' }));
-    if (zoom === 'month') return String(d.getDate());
-    return i === 0 || d.getDate() <= 7 ? cap(formatDate(d, lang, { day: 'numeric', month: 'short' })) : String(d.getDate());
+    if (zoom === 'month') return String(studioParts(d).day);
+    return i === 0 || studioParts(d).day <= 7 ? cap(formatDate(d, lang, { day: 'numeric', month: 'short' })) : String(studioParts(d).day);
   };
-  const isMajor = (d: Date, i: number) => (zoom === 'day' ? d.getHours() % 6 === 0 : zoom === 'month' ? d.getDay() === 1 : zoom === 'quarter' ? i === 0 || d.getDate() <= 7 : true);
+  const isMajor = (d: Date, i: number) => (zoom === 'day' ? studioParts(d).hour % 6 === 0 : zoom === 'month' ? studioParts(d).weekday === 1 : zoom === 'quarter' ? i === 0 || studioParts(d).day <= 7 : true);
   const title = zoom === 'day' ? cap(formatDate(from, lang, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }))
     : zoom === 'week' ? `${formatDate(from, lang, { day: 'numeric', month: 'short' })} – ${formatDate(addDays(to, -1), lang, { day: 'numeric', month: 'short', year: 'numeric' })}`
       : zoom === 'month' ? cap(formatDate(from, lang, { month: 'long', year: 'numeric' }))

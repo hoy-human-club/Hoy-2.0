@@ -1,0 +1,45 @@
+# Batch17 — PL-09 studio calendar and formatting
+
+Scope: exact source criterion “Times in America/Bogota, Colombian holidays and pesos without decimals.” Source branch `codex/frontend-timezone`, isolated from integration work. Baseline `ef5a46d`. This is frontend evidence, not owner acceptance or server verification.
+
+## Contract
+
+- `tenant.ts` owns the timezone literal; formatting derives and exports `STUDIO_TIMEZONE` from that configuration. `studioParts` reads an instant in Bogotá; `studioDate` and `atStudioTime` convert explicitly selected studio wall clocks into instants using Intl offsets, including historical offset data. Month remains zero based. Existing date/month overflow semantics remain.
+- Date keys remain calendar labels. `fromDateKey` uses studio noon; callers use studio parts rather than device getters. `dateKey`, day/month arithmetic, start-of-day and same-day comparisons use the studio calendar. Display formatters enforce the studio zone in both languages; COP retains whole-peso display.
+- Shared session calendars, generic calendar/timeline placement, room grid/input, customer morning/evening filters, analytics, payroll/expense periods, quiet hours, contact holiday year, content inputs, date-only table cells, birthday filters and operational date displays use that contract. New fictional seeds, recurrence previews and publishing-horizon generation use explicitly selected studio clocks. The source timetable, including :10 starts, financial amounts, policies, purchased terms and historical session timestamps are unchanged.
+- No seed-version bump or cached timestamp rewrite. New snapshot metadata records a studio date key and timezone. Valid legacy snapshots without a marker accept either the current device legacy date or current studio legacy date/key; their first migration write preserves the database exactly. Old-tab storage snapshots retain the existing acceptance behavior; recognized current-day unmarked snapshots receive metadata-only migration. Once marked, the existing daily demo-reset policy follows the studio day.
+- Invalid display inputs still throw `RangeError`; invalid helper Dates retain invalid/NaN behavior and compare unequal. Impossible day keys retain Date rollover (`2026-02-30` → March2), and malformed month/day ranges remain invalid. No fallback to the current day or current price is introduced.
+
+## Verification
+
+- `node scripts/test-studio-timezone.mjs`: Bogotá/UTC/Tokyo/LA domain matrix, midnight/year/leap boundaries, historical/date-only labels, COP, holiday observed dates, day/month arithmetic, calendar periods and clamping, timeline ticks, all-day/cross-midnight placement, analytics week, payroll/expense periods, :10 recurrence and room-input conversion, invalid behavior and unchanged parsing of offsetless strings.
+- `node scripts/test-timezone-cache.mjs`: all four zones; migration write DB equality, ledger/purchased terms/content/bookings/session timestamp preservation on load and old-tab storage events; marked cache daily reset at Bogotá midnight.
+- Existing dates, analytics, holidays, additive cache, class management, subscription expenses, timetable, cached sample clock, atomic reschedule and package-lot regressions are run for the affected contracts. UTC-sliced expiry dates in the reschedule fixture were corrected to studio date keys; the existing inclusive-expiry policy is unchanged.
+- `node scripts/test-studio-timezone-ui.mjs`: actual Chromium-rendered ES/EN390/1280 public/customer schedules in four device zones; :10 and late-night labels, Today before/after Bogotá midnight, date input/week/month navigation, morning filter, shared admin calendar/timeline, voucher event/session-option labels, holiday date, whole-peso plans, no overflow/page errors. Captures under W-04/C-02/M-03/M-08g/C-28; machine-readable receipt at ignored `qa/studio-timezone.json`.
+- Rendered production matrix passed: 32 schedule cases, 52 captures, four device zones, no page errors or schedule overflow. Representative Tokyo schedule/timeline, UTC voucher and Tokyo dark customer captures were visually inspected. The rendered bundle used source fingerprint `bbbafeeef860c2536335109f0c16eb24359910015acb487d06bd6a4a71e0e1bd`; the subsequent ownership-only refactor derives the same timezone value from tenant.ts. Final source build/domain proof follows below; integration CI must repeat the full matrix at its exact head. No new UI component/state or spacing value is introduced.
+
+## Limits and integration
+
+The existing `src/data/packages.ts` UTC-date prefix used only when reconstructing an unlinked historical lot remains unchanged, because changing historical attribution is outside an approved migration. This is not evidence of full application timezone acceptance. The portable subscription verification gate now accepts an optional host-day callback; its default stays UTC for other projects, while HOY passes the fresh studio dateKey function through read/save/import/validation.
+
+Offsetless persisted datetime strings retain their original JavaScript parsing semantics. Their source timezone is ambiguous; this batch does not guess or rewrite it. Explicit offsets/Z remain authoritative instants. The frozen website archive is untouched. Server business-day consistency, production persistence and owner acceptance remain separate gates. No real integrations, private data, credentials or access policies changed.
+
+Root owns manifest/tracker/kanban integration, exact-head CI, PR, merge, normal deployment and release provenance. This branch creates no PR and performs no deployment.
+
+## Frozen handoff result
+
+Ownership milestone tree fingerprint (sorted src paths+bytes, then vite.config.ts bytes): `217e2dc334d81c32980887b008948ab47c5aa78d5032b14983cff57ee62dfdf6`; unchanged before/after final full build. `npm run build` passed with zero TypeScript errors, spacing60 unchanged, manual lint0; existing Rollup action-barrel warnings remain. Dates, the four-zone studio-domain matrix and four-zone cache matrix passed again after the ownership cleanup. The 37/37 cached-clock checks, timetable, analytics, holidays, hours, contacts, class management/class pay, subscription expenses, atomic reschedule, package-lot and voucher regressions passed during this batch.
+
+Production Chromium QA passed32 schedule cases and52 captures. It ran before the behavior-identical constant-ownership cleanup, on the frozen bundle documented above; the later build had not reached asset output when that QA finished. Final exact-head integration CI is still the coordinator's gate. No local Git checkpoint, push, PR, merge or deployment was performed by this worker. Generated `public/hub-map.json` and `src/app/captureDates.ts` diffs are left separate for the coordinator's regeneration; their contents are included in the build fingerprint, not claimed as manually owned changes.
+
+
+## Scoped subscription verification clock
+
+Portable `validateDirectory`, `readDirectory`, `saveDirectory` and `parseBackup` accept an optional validation-day callback, defaulting to the existing UTC behavior. DirectoryPanel forwards it; HOY injects the `dateKey` function, evaluated at command time. Existing future-dated saved assertions produce the existing read-error state without discarding or rewriting records; they become valid when the studio day arrives. No provider, monetary, expense or permission contract changes.
+
+`node --experimental-strip-types scripts/test-subscription-calendar.mjs` covers all four commands, default UTC preservation, before/exact05Z, fresh callback evaluation and failed-write preservation. `scripts/test-subscription-calendar-ui.mjs` exercises the real HOY editor in UTC/Tokyo: same open form rejected before05Z and accepted at05Z; read/import failure preserves the original records, and read/explicit restore succeeds at05Z. The browser clock is paused at each asserted boundary. Supplemental production Chromium checks passed in UTC/Tokyo with four captures; the earlier development run passed the same flows. The clock is paused so form entry cannot accidentally cross the asserted boundary. Existing portable subscription/expense regressions and the four-zone studio-domain matrix passed again.
+
+Nonsensitive tracked results: [four-zone matrix](evidence/batch-17-timezone-results.json) and [subscription calendar](evidence/batch-17-subscription-calendar-results.json). Scripts write these summaries from isolated fictional fixtures; protected/full QA stays ignored.
+
+
+Final command-clock source fingerprint: `9ceb33374da31eacf11ea5b6ee09339615cfd197fcc97f3aff071acf11ffa352`; unchanged during `npm run build` (strict TypeScript passed, spacing60 unchanged, manual lint0, Vite completed). Focused production UI passed on this bundle at local5194. The full32-case schedule matrix remains the earlier frozen-bundle proof; the coordinator's exact-head CI repeats both scripts after integration. Remaining timezone ambiguity is limited to offsetless stored datetimes and the unchanged historical unlinked-lot attribution rule, alongside server/owner gates. No Git mutation or external release by this worker.

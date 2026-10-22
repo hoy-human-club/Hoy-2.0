@@ -12,7 +12,7 @@
 import type { MessageLogRow } from '../schema';
 import { tenant } from '../../tenant/tenant';
 import { pricing } from '../../tenant/pricing';
-import { formatCOP, MS } from '../../i18n/format';
+import { formatCOP, MS, studioParts, addDays, atStudioTime } from '../../i18n/format';
 import { NOW, base, iso } from './catalog';
 
 const studio = tenant.name;
@@ -36,9 +36,9 @@ type Draft = Pick<MessageLogRow, 'user_id' | 'channel' | 'direction' | 'source' 
  * (America/Bogota for the studio). Rows are anchored to plausible hours — customers write 07:00–21:30, the desk
  * answers in opening hours, newsletters go out at 09:30, a class reminder lands 2 h before the 5:30 p. m. class.
  */
-const at = (daysAgo: number, hhmm: string) => { const d = new Date(NOW); d.setDate(d.getDate() - daysAgo); const [h, m] = hhmm.split(':').map(Number); d.setHours(h, m, 0, 0); return iso(d); };
+const at = (daysAgo: number, hhmm: string) => { const d = addDays(NOW, -daysAgo); const [h, m] = hhmm.split(':').map(Number); return iso(atStudioTime(d, h, m)); };
 /** Newsletters go out on a weekday: a Saturday or Sunday anchor moves back to the Friday. */
-const weekday = (daysAgo: number) => { const d = new Date(NOW); d.setDate(d.getDate() - daysAgo); const wd = d.getDay(); return wd === 0 ? daysAgo + 2 : wd === 6 ? daysAgo + 1 : daysAgo; };
+const weekday = (daysAgo: number) => { const d = addDays(NOW, -daysAgo); const wd = studioParts(d).weekday; return wd === 0 ? daysAgo + 2 : wd === 6 ? daysAgo + 1 : daysAgo; };
 const plus = (ts: string, minutes: number) => iso(new Date(new Date(ts).getTime() + minutes * MS.min));
 const recent = (ts: string) => NOW.getTime() - new Date(ts).getTime() < MS.day;
 

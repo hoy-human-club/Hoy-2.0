@@ -5,7 +5,7 @@ import { rateFor } from '../../data/payrollCalc';
 import { useSettings } from '../admin/settings';
 import { useData, useTable } from '../../data/DataContext';
 import type { BookingRow, ClassSessionRow, MessageLogRow, RoomRow, SpaceBookingRow, SpecialChargeRow } from '../../data/schema';
-import { formatCOP, formatDate, formatTime, isSameDay, MS } from '../../i18n/format';
+import { formatCOP, formatDate, formatTime, isSameDay, MS, addDays, dateKey } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
@@ -32,7 +32,7 @@ export function TeacherHomePage() {
   const audit = useAudit('teacher_app');
   const { me, linked, teachers, choose } = useTeacherSelf();
   const now = new Date();
-  const weekEnd = new Date(now); weekEnd.setDate(weekEnd.getDate() + 7);
+  const weekEnd = addDays(now, 7);
   const meId = me?.id;
   const mine = useSessionsJoined(useCallback((s: ClassSessionRow) => !!meId && s.teacher_id === meId && new Date(s.ends_at) >= new Date(Date.now() - MS.day * 7) && new Date(s.starts_at) <= weekEnd, [meId, weekEnd.getTime()]));
   const upcoming = mine.filter((x) => x.session.status === 'scheduled' && new Date(x.session.ends_at) >= now);
@@ -42,7 +42,7 @@ export function TeacherHomePage() {
   const todayIds = useMemo(() => today.map((x) => x.session.id), [today]);
   const { rows: bookings } = useTable<BookingRow>('bookings', { where: { session_id: todayIds } });
   const arrived = (id: string) => bookings.filter((b) => b.session_id === id && b.status === 'checked_in').length;
-  const monthTaught = mine.filter((x) => x.session.status === 'completed' && new Date(x.session.starts_at).getMonth() === now.getMonth()).length;
+  const monthTaught = mine.filter((x) => x.session.status === 'completed' && dateKey(new Date(x.session.starts_at)).slice(0, 7) === dateKey(now).slice(0, 7)).length;
   // Especiales (0017): rooms booked with this teacher outside the timetable, last 7 days and ahead.
   const { rows: mySpace } = useTable<SpaceBookingRow>('space_bookings', meId ? { where: { teacher_id: meId }, orderBy: { column: 'starts_at' } } : { limit: 0 });
   const { rows: mySpecials } = useTable<SpecialChargeRow>('special_charges', meId ? { where: { teacher_id: meId } } : { limit: 0 });

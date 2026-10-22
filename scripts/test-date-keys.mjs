@@ -1,8 +1,20 @@
 // Proves the date-key helpers are local-time safe: at 20:00 in America/Bogota (UTC−5) the ISO string
 // already says tomorrow, but dateKey() must still name today, and fromDateKey() must round-trip.
-// Run: npm run test:dates   (no dependencies; node --experimental-strip-types imports the TS source)
+// Run: npm run test:dates (existing esbuild resolves the tenant configuration imports).
 process.env.TZ = 'America/Bogota';
-const { dateKey, fromDateKey, addDays, addDaysKey, addMonths, MS } = await import('../src/i18n/format.ts');
+import { build } from 'esbuild';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+const scratch = await mkdtemp(join(tmpdir(), 'hoy-date-keys-'));
+let helpers;
+try {
+  const outfile = join(scratch, 'format.mjs');
+  await build({ entryPoints: ['src/i18n/format.ts'], bundle: true, platform: 'node', format: 'esm', outfile, logLevel: 'silent' });
+  helpers = await import(pathToFileURL(outfile));
+} finally { await rm(scratch, { recursive: true, force: true }); }
+const { dateKey, fromDateKey, addDays, addDaysKey, addMonths, MS } = helpers;
 
 let failed = 0;
 const check = (name, ok, detail = '') => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${name}${detail ? ` — ${detail}` : ''}`); if (!ok) failed++; };

@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useData, useTable } from './DataContext';
 import { useSession } from '../auth/SessionProvider';
-import { dateKey } from '../i18n/format';
+import { dateKey, fromDateKey } from '../i18n/format';
 import type { ActivityEventRow, BookingRow, ClassSessionRow, ClassLedgerRow, GoalSource, MembershipRow, ModalityRow, PracticeGoalRow, ProfileRow, ReviewRow, TeacherRow, UserRow } from './schema';
 import { activeGoalOf, practiceStats, studioStats, teacherStats, type PracticeStats, type StudioStats, type TeacherStats } from './analytics';
 
@@ -78,13 +78,13 @@ export function useMilestoneRecorder(stats: PracticeStats): void {
       const key = `m:${m.at}`;
       if (have.has(key) || inFlight.current.has(key)) continue;
       inFlight.current.add(key);
-      jobs.push(data.insert<ActivityEventRow>('activity_events', { user_id: user.id, kind: 'milestone', occurred_at: new Date(`${m.on}T12:00:00`).toISOString(), ref_table: 'bookings', ref_id: null, payload: { count: m.at } }));
+      jobs.push(data.insert<ActivityEventRow>('activity_events', { user_id: user.id, kind: 'milestone', occurred_at: fromDateKey(m.on).toISOString(), ref_table: 'bookings', ref_id: null, payload: { count: m.at } }));
     }
     for (const week of streak.savedWeeks) {
       const key = `s:${week}`;
       if (have.has(key) || inFlight.current.has(key)) continue;
       inFlight.current.add(key);
-      jobs.push(data.insert<ActivityEventRow>('activity_events', { user_id: user.id, kind: 'streak.saved', occurred_at: new Date(`${week}T12:00:00`).toISOString(), ref_table: null, ref_id: null, payload: { week } }));
+      jobs.push(data.insert<ActivityEventRow>('activity_events', { user_id: user.id, kind: 'streak.saved', occurred_at: fromDateKey(week).toISOString(), ref_table: null, ref_id: null, payload: { week } }));
     }
     if (jobs.length) void Promise.all(jobs).catch(() => { /* a failed insert is retried on the next change */ });
   }, [data, user.id, events, loading, milestoneDates, streak.savedWeeks]);

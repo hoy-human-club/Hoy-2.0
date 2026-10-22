@@ -1,3 +1,4 @@
+import { studioParts, studioDate } from '../../i18n/format';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -78,6 +79,10 @@ export const toLocalInput = (iso: string | null | undefined) => {
   if (!iso) return '';
   const d = new Date(iso);
   const pad = (n: number) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return `${studioParts(d).year}-${pad(studioParts(d).month + 1)}-${pad(studioParts(d).day)}T${pad(studioParts(d).hour)}:${pad(studioParts(d).minute)}`;
 };
-export const fromLocalInput = (v: string) => (v ? new Date(v).toISOString() : null);
+export const fromLocalInput = (v: string) => {
+  if (!v) return null;
+  const [date, time] = v.split('T'), [y, m, d] = date.split('-').map(Number), [h, min] = (time ?? '').split(':').map(Number);
+  return studioDate(y, m - 1, d, h, min).toISOString();
+};

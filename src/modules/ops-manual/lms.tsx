@@ -1,3 +1,4 @@
+import { formatDate } from '../../i18n/format';
 // The manual as a staff LMS (0031): the lens selector, the per-role cover ("Tu manual"), the level chip and
 // the read toggle and foot of a chapter, the audience matrix directive, the training sign-off and the team view.
 import { useMemo, useState, type ReactNode } from 'react';
@@ -27,7 +28,7 @@ import { useLens, type Lens } from './lens';
 import { useManualCtx } from './context';
 
 const isRole = (s: string): s is Role => (ROLES as readonly string[]).includes(s);
-const shortDate = (iso: string | undefined, lang: string) => (iso ? new Date(iso).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-CO', { day: 'numeric', month: 'short' }) : '');
+const shortDate = (iso: string | undefined, lang: string) => (iso ? formatDate(iso, lang === 'en' ? 'en' : 'es', { day: 'numeric', month: 'short' }) : '');
 
 export function useRoleName() {
   const { bi } = useI18n();

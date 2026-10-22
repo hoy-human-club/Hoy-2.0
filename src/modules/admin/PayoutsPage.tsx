@@ -5,7 +5,7 @@ import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
 import type { ClassSessionRow, PayrollLineRow, PayrollRunRow, SpaceBookingRow, SpecialChargeRow } from '../../data/schema';
 import { specialServiceDate } from '../../data/payrollCalc';
-import { formatCOP, formatDate, formatDateTime } from '../../i18n/format';
+import { formatCOP, formatDate, formatDateTime, addMonths } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
@@ -42,7 +42,7 @@ export function PayoutsPage() {
   const periods = periodsForMonth(cadence, offset);
   const draft = runs.find((r) => r.status === 'draft');
   const pending = runs.filter((r) => r.status === 'approved');
-  const quarterStart = new Date(); quarterStart.setMonth(quarterStart.getMonth() - 3);
+  const quarterStart = addMonths(new Date(), -3);
   const paidQuarter = runs.filter((r) => r.status === 'paid' && r.paid_at && new Date(r.paid_at) >= quarterStart);
 
   const run = async () => {

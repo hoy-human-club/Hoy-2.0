@@ -1,3 +1,4 @@
+import { studioParts, addDays, atStudioTime } from '../../i18n/format';
 /**
  * Especiales (0017) — the edge cases handled by hand, seeded so S-05, S-04's receipt, M-09b and S-03
  * open with something real to look at:
@@ -21,9 +22,9 @@ interface InvoiceRow extends BaseRow { payment_id: string; number: string; subto
 interface AuditRow extends BaseRow { actor_id: string | null; action: string; entity: string; entity_id: string | null; diff: Record<string, unknown> | null; ip: string | null }
 
 /** A date `days` from today at `h:m` local time. */
-const at = (days: number, h: number, m = 0) => { const d = new Date(NOW); d.setDate(d.getDate() + days); d.setHours(h, m, 0, 0); return d; };
+const at = (days: number, h: number, m = 0) => { return atStudioTime(addDays(NOW, days), h, m); };
 /** Days until the next Saturday strictly after today. */
-const toSaturday = () => ((6 - NOW.getDay() + 7) % 7) || 7;
+const toSaturday = () => ((6 - studioParts(NOW).weekday + 7) % 7) || 7;
 const split = (total: number) => splitIva(total, DEFAULT_IVA_PCT / 100);
 
 export function buildSpecials(input: { invoiceCount: number }): { bookings: SpaceBookingRow[]; charges: SpecialChargeRow[]; payments: PaymentRow[]; invoices: InvoiceRow[]; audit: AuditRow[] } {

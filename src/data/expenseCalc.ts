@@ -10,7 +10,7 @@
  */
 import type { ExpenseRow, ExpenseTemplateRow } from './schema';
 import type { Period } from './payrollCalc';
-import { fromDateKey, dateKey } from '../i18n/format';
+import { fromDateKey, dateKey, studioParts, studioDate, addMonths } from '../i18n/format';
 
 export type { Period };
 
@@ -21,12 +21,12 @@ export function dueDatesFor(t: Pick<ExpenseTemplateRow, 'cadence' | 'anchor_day'
   const end = fromDateKey(period.end);
   const day = Math.min(31, Math.max(1, t.anchor_day || 1));
   // Walk month by month from the month before the period (a biweekly second due date can cross in).
-  for (let m = new Date(first.getFullYear(), first.getMonth() - 1, 1); m <= end; m.setMonth(m.getMonth() + 1)) {
-    const lastDay = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
-    const candidates = [new Date(m.getFullYear(), m.getMonth(), Math.min(day, lastDay))];
+  for (let m = studioDate(studioParts(first).year, studioParts(first).month - 1, 1); m <= end; m = addMonths(m, 1)) {
+    const lastDay = studioParts(studioDate(studioParts(m).year, studioParts(m).month + 1, 0)).day;
+    const candidates = [studioDate(studioParts(m).year, studioParts(m).month, Math.min(day, lastDay))];
     if (t.cadence === 'biweekly') {
-      const second = new Date(m.getFullYear(), m.getMonth(), day + 15);
-      const lastOfMonth = new Date(m.getFullYear(), m.getMonth() + 1, 0);
+      const second = studioDate(studioParts(m).year, studioParts(m).month, day + 15);
+      const lastOfMonth = studioDate(studioParts(m).year, studioParts(m).month + 1, 0);
       candidates.push(second > lastOfMonth ? lastOfMonth : second);
     }
     for (const c of candidates) {

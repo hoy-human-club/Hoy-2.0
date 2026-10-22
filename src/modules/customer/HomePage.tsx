@@ -7,7 +7,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useTable } from '../../data/DataContext';
 import type { ActivityEventRow, BookingRow, MembershipRow, PracticeGoalRow } from '../../data/schema';
-import { formatDate, isSameDay } from '../../i18n/format';
+import { formatDate, isSameDay, fromDateKey } from '../../i18n/format';
 import { useLayout } from '../../layout/useLayout';
 import { canvasSpecs } from './specs';
 import { Card } from '../../components/molecule/Card/Card';
@@ -175,7 +175,7 @@ function useMilestoneToast(stats: PracticeStats, loading: boolean) {
     if (!baseline.current) { baseline.current = new Set(events.map((e) => Number(e.payload?.count))); return; }
     const recorded = new Set(events.map((e) => Number(e.payload?.count)));
     const since = Date.now() - 14 * 86_400_000;
-    const fresh = stats.milestoneDates.filter((d) => recorded.has(d.at) && !baseline.current!.has(d.at) && !shown.current.has(d.at) && new Date(`${d.on}T12:00:00`).getTime() >= since);
+    const fresh = stats.milestoneDates.filter((d) => recorded.has(d.at) && !baseline.current!.has(d.at) && !shown.current.has(d.at) && fromDateKey(d.on).getTime() >= since);
     for (const d of fresh) shown.current.add(d.at);
     const top = fresh.map((d) => d.at).sort((a, b) => b - a)[0];
     if (top) toast(t('customer.home.milestone', { n: top }), 'success', 6000);

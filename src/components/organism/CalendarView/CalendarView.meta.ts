@@ -1,12 +1,12 @@
 import { createElement as h, useState } from 'react';
 import { defineMeta } from '../../../design/meta';
-import { addDaysKey, dateKey } from '../../../i18n/format';
+import { addDaysKey, dateKey, atStudioTime, addDays, fromDateKey } from '../../../i18n/format';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { Badge } from '../../atom/Badge/Badge';
 import { CalendarView, type CalendarMode } from './CalendarView';
 
 interface DemoRow { id: string; title: string; starts_at: string; ends_at: string | null; status: string; tone: 'moss' | 'river' | 'clay' | 'sun' }
-const at = (days: number, h: number, m = 0) => { const d = new Date(); d.setDate(d.getDate() + days); d.setHours(h, m, 0, 0); return d.toISOString(); };
+const at = (days: number, h: number, m = 0) => { return atStudioTime(addDays(new Date(), days), h, m).toISOString(); };
 const ROWS: DemoRow[] = [
   { id: 'c1', title: 'Fuego', starts_at: at(0, 6, 30), ends_at: at(0, 7, 30), status: 'scheduled', tone: 'clay' },
   { id: 'c2', title: 'Pilates Mat', starts_at: at(0, 7, 0), ends_at: at(0, 7, 50), status: 'scheduled', tone: 'river' },
@@ -26,7 +26,7 @@ function Demo({ initial, create }: { initial: CalendarMode; create?: boolean }) 
     getDate: (r) => r.starts_at, getEnd: (r) => r.ends_at, getTitle: (r) => r.title, getTone: (r) => r.tone, getMuted: (r) => r.status === 'cancelled',
     getDetail: (r) => h(Badge, { tone: r.status === 'cancelled' ? 'danger' : 'neutral' }, r.status),
     onOpen: () => {},
-    onCreate: create ? (k: string, time?: string) => setRows((rs) => [...rs, { id: `n${rs.length}`, title: 'Nueva', starts_at: time ? new Date(`${k}T${time}`).toISOString() : k, ends_at: null, status: 'scheduled', tone: 'river' }]) : undefined,
+    onCreate: create ? (k: string, time?: string) => setRows((rs) => [...rs, { id: `n${rs.length}`, title: 'Nueva', starts_at: time ? atStudioTime(fromDateKey(k), ...time.split(':').map(Number) as [number, number]).toISOString() : k, ends_at: null, status: 'scheduled', tone: 'river' }]) : undefined,
   });
 }
 

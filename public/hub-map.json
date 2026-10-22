@@ -4751,6 +4751,9 @@
       "shots": {
         "thumbs": {},
         "full": {
+          "es-390": "hub-map/shots/S-10/es-390.jpg",
+          "en-390": "hub-map/shots/S-10/en-390.jpg",
+          "es-1280": "hub-map/shots/S-10/es-1280.jpg",
           "en-1280": "hub-map/shots/S-10/en-1280.jpg"
         }
       },

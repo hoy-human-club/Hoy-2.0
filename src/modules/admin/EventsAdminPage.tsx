@@ -3,7 +3,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
 import type { EventRow, EventRsvpRow, RoomRow, TeacherRow } from '../../data/schema';
 import type { Bi } from '../../specs/types';
-import { formatCOP, formatDateTime, MS } from '../../i18n/format';
+import { formatCOP, formatDateTime, MS, atStudioTime, addDays } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem } from '../../tenant/pricing';
 import { DataTable, type DataTableColumn } from '../../components/organism/DataTable/DataTable';
@@ -39,7 +39,7 @@ export function EventsAdminPage() {
   const shown = rows.filter((r) => filter === 'all' || r.status === filter);
 
   const add = async () => {
-    const start = new Date(); start.setDate(start.getDate() + 14); start.setHours(18, 0, 0, 0);
+    const start = atStudioTime(addDays(new Date(), 14), 18);
     const end = new Date(start.getTime() + 90 * MS.min);
     const body: Partial<EventRow> = {
       slug: '', title: { es: '', en: '' }, kind: { es: 'Taller', en: 'Workshop' }, description: { es: '', en: '' }, bring: null,

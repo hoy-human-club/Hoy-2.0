@@ -1,3 +1,4 @@
+import { studioDate, studioParts } from '../../i18n/format';
 /**
  * Especiales (0017) — the room calendar rules shared by S-05 (book a room) and S-04 (sell an
  * Especial with a room window). One place decides what "the room is taken" means.
@@ -57,8 +58,8 @@ export const localIso = (date: string, time: string): string => {
   if (!date || !time) return '';
   const [y, m, d] = date.split('-').map(Number);
   const [h, mi] = time.split(':').map(Number);
-  return new Date(y, m - 1, d, h, mi, 0, 0).toISOString();
+  return studioDate(y, m - 1, d, h, mi, 0, 0).toISOString();
 };
 
-export const dateInputValue = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-export const timeInputValue = (iso: string) => { const d = new Date(iso); return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
+export const dateInputValue = (d: Date) => `${studioParts(d).year}-${String(studioParts(d).month + 1).padStart(2, '0')}-${String(studioParts(d).day).padStart(2, '0')}`;
+export const timeInputValue = (iso: string) => { const d = new Date(iso); return `${String(studioParts(d).hour).padStart(2, '0')}:${String(studioParts(d).minute).padStart(2, '0')}`; };

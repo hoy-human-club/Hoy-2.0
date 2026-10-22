@@ -1,3 +1,4 @@
+import { studioParts } from '../../i18n/format';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link, NavLink } from './links';
@@ -129,7 +130,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="container site-foot-bottom">
           {edition === "sanctuary" && version !== 'photos' && <p className="site-concept-note">{t("site.new.demo")}</p>}
           <a className="small" href="https://github.com/imagine-os/hoy/blob/main/docs/website-versions.md" target="_blank" rel="noreferrer">{t("site.edition.history")} ↗</a>
-          <span className="xs muted">{t('site.footer.rights', { year: new Date().getFullYear(), name: tenant.legalName })}</span>
+          <span className="xs muted">{t('site.footer.rights', { year: studioParts(new Date()).year, name: tenant.legalName })}</span>
         </div>
       </footer>
     </div>

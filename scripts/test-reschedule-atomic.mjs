@@ -10,14 +10,14 @@ const values = new Map(); let storageFailure = false;
 globalThis.localStorage = { getItem: k => values.get(k) ?? null, setItem: (k,v) => { if(storageFailure) throw Error('quota'); values.set(k,v); } };
 try {
  const out=join(scratch,'adapter.mjs');
- await build({stdin:{contents:"export { MockProvider } from './src/data/MockProvider'; export { rescheduleBooking } from './src/modules/customer/rescheduleCommand';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',outfile:out,logLevel:'silent'});
- const {MockProvider,rescheduleBooking}=await import(pathToFileURL(out));
+ await build({stdin:{contents:"export { dateKey } from './src/i18n/format'; export { MockProvider } from './src/data/MockProvider'; export { rescheduleBooking } from './src/modules/customer/rescheduleCommand';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',outfile:out,logLevel:'silent'});
+ const {MockProvider,rescheduleBooking,dateKey}=await import(pathToFileURL(out));
  const data=new MockProvider(), userId='qa_reschedule', now=Date.now(), stamp=new Date(now).toISOString();
  const day=n=>new Date(now+n*86400000).toISOString();
  const template=data.peek('class_sessions').find(s=>s.status==='scheduled');
  const original=await data.insert('class_sessions',{...template,id:'qa_rs_from',starts_at:day(2),ends_at:day(2.04),status:'scheduled',booked_count:0,capacity:4,template_id:null});
  const target=await data.insert('class_sessions',{...original,id:'qa_rs_to',starts_at:day(4),ends_at:day(4.04),booked_count:0});
- const purchase=await data.insert('class_ledger',{id:'qa_rs_lot',user_id:userId,delta:1,reason:'purchase',expires_at:day(5).slice(0,10),created_at:new Date(now-86400000).toISOString()});
+ const purchase=await data.insert('class_ledger',{id:'qa_rs_lot',user_id:userId,delta:1,reason:'purchase',expires_at:dateKey(new Date(day(5))),created_at:new Date(now-86400000).toISOString()});
  const debit=await data.insert('class_ledger',{id:'qa_rs_debit',user_id:userId,delta:-1,reason:'booking',purchase_ledger_id:purchase.id,created_at:stamp});
  const booking=await data.insert('bookings',{id:'qa_rs_booking',user_id:userId,session_id:original.id,status:'booked',paid_with:'package',ledger_id:debit.id});
  const waiting=await data.insert('waitlist',{id:'qa_rs_wait',user_id:'qa_waiter',session_id:original.id,status:'waiting',position:1});
@@ -39,7 +39,7 @@ try {
  await data.update('bookings',booking.id,{ledger_id:null});await reject(/reschedule_entitlement_unresolved/);
  await data.update('bookings',booking.id,{ledger_id:debit.id,paid_with:'package'});
  await data.update('class_sessions',target.id,{starts_at:day(4)});
- await data.update('class_ledger',purchase.id,{frozen_from:day(3).slice(0,10),frozen_until:day(5).slice(0,10)});await reject(/package_frozen/);
+ await data.update('class_ledger',purchase.id,{frozen_from:dateKey(new Date(day(3))),frozen_until:dateKey(new Date(day(5)))});await reject(/package_frozen/);
  await data.update('class_ledger',purchase.id,{frozen_from:null,frozen_until:null});
  await data.update('class_sessions',target.id,{tenant_id:'qa_other_tenant'});await reject(/session_unavailable/);
  await data.update('class_sessions',target.id,{tenant_id:original.tenant_id,status:'cancelled'});await reject(/session_unavailable/);
