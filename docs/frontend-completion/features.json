@@ -1238,23 +1238,35 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-19",
-      "implementationStatus": "implemented",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/pages/ProfilePage.tsx",
         "src/modules/staff/people.ts",
-        "src/modules/admin/MemberPage.tsx"
+        "src/modules/admin/MemberPage.tsx",
+        "docs/frontend-completion/next-customer-audit.md"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
+      "nextAction": "Batch22 isolates mock-only atomic own-profile saving and contained reads without expanding field readership; verify authorized CRM name/phone/birthday readback and preserve emergency-contact display gap.",
       "candidateRoutes": [
         "/#/app/profile",
         "/#/admin/crm/:id"
       ],
       "sourceAssessment": {
+        "basis": "Current read-only source audit at61fc322; not freshly reproduced or owner accepted. Historical source-only finding retained separately.",
+        "missingFrontend": [
+          "Own profile/account writes can partially persist and missing rows can still show success; failure/loading/retry and exact idempotency need repair. Emergency contact is not projected in the CRM customer record; readership must be reviewed separately."
+        ],
+        "remainingBackend": [
+          "Authenticated own-profile writes and cross-device persistence."
+        ]
+      },
+      "sourceNextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
+      "baselineImplementationStatus": "implemented",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "No identified missing source path: profile editor writes name/phone/birthday/emergency_contact read by shared CRM people join; fresh rendering/validation still unverified."
@@ -1262,9 +1274,7 @@
         "remainingBackend": [
           "Authenticated own-profile writes and cross-device persistence."
         ]
-      },
-      "sourceNextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
-      "baselineImplementationStatus": "implemented"
+      }
     },
     {
       "id": "CU-06",
@@ -5635,7 +5645,7 @@
       "result": "passed; no console errors",
       "basis": "Preserved PR55 evidence; no new all-route smoke claim in this continuation."
     },
-    "release": "Core batches 3–5 source f660f20cb88d9e39e6cf8be8126d77c91fd947a7 deployed with hosted source-SHA readback. Final demo-copy/evidence checkpoint0080 uses its associated checked PR receipt; owner/backend acceptance remains separate.",
+    "release": "PR62 controls deployed e4257e5 after six triggered exact-head checks and hosted source verification. Batches13/17/18/19 have final combined local-production/domain/recovery proof; checked release pending. No owner/backend acceptance.",
     "directLiveReadback": "No direct public readback attempted in this continuation. Hosted workflow source-SHA verification passed; prior batch reported 403.",
     "implementationCommits": [
       "955d067",
@@ -5645,13 +5655,13 @@
       "377581f53cd386cdb39fcbf69993fee56a9aa470",
       "964a9bb1f921c468b698e7ce42020c10b21a028b"
     ],
-    "mergedCode": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
-    "pullRequest": "https://github.com/imagine-os/hoy/pull/57",
-    "codeCI": "All 10 exact-head PR57 workflows passed at 964a9bb1f921c468b698e7ce42020c10b21a028b",
-    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
-    "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
+    "mergedCode": "e4257e5bd096898d312cac82f67b6922956c1560",
+    "pullRequest": "https://github.com/imagine-os/hoy/pull/62",
+    "codeCI": "All six triggered exact-head PR62 workflows passed at fb0c318318714b5b54a0049d9528d091ad815f2e; control workflow has two jobs",
+    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39703124987",
+    "deployedCodeSource": "e4257e5bd096898d312cac82f67b6922956c1560",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches14–16 deployed PR62; batches13/17/18/19 frozen in isolated worktrees and integrating next. All124 IDs and original future phases preserved; no accepted/backend-ready promotion.",
+    "activeBatch": "Batches13/17/18/19 final integrated local proof passed; exact-head CI/merge/deployment pending. Batch20 source c4dd183 checked locally/backed up separately. Batch21 final corrected build/QA and batches22/23 profile/recovery repairs ongoing. No owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5730,6 +5740,14 @@
       "deployedSource": "e4257e5bd096898d312cac82f67b6922956c1560",
       "rollback": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab",
       "limits": "New flows local-production and exact-head CI verified; no whole-feature owner/backend acceptance."
+    },
+    "pendingPrototypeIntegration": {
+      "branch": "codex/frontend-integrated-continuation",
+      "sourceCheckpoint": "61fc32265fac67beb9e2e9c35de66629ba74368c",
+      "runtimeSourceSha256": "47807b065771c489640e9f49f8bbda7b2943573b5d1f70b9d7a8574fa859293a",
+      "localProof": "docs/frontend-completion/evidence/integrated-batches-13-17-18-19.json",
+      "status": "all named integrated local build/domain/production/recovery checks passed; exact-head CI and release pending",
+      "rollback": "e4257e5bd096898d312cac82f67b6922956c1560"
     }
   },
   "classificationPolicy": {

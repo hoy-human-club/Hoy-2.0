@@ -43,3 +43,7 @@ Nonsensitive tracked results: [four-zone matrix](evidence/batch-17-timezone-resu
 
 
 Final command-clock source fingerprint: `9ceb33374da31eacf11ea5b6ee09339615cfd197fcc97f3aff071acf11ffa352`; unchanged during `npm run build` (strict TypeScript passed, spacing60 unchanged, manual lint0, Vite completed). Focused production UI passed on this bundle at local5194. The full32-case schedule matrix remains the earlier frozen-bundle proof; the coordinator's exact-head CI repeats both scripts after integration. Remaining timezone ambiguity is limited to offsetless stored datetimes and the unchanged historical unlinked-lot attribution rule, alongside server/owner gates. No Git mutation or external release by this worker.
+
+Final integrated local QA: all domain/default-clock/cache checks passed on the combined source; actual immutable5210 production matrix passed32 schedule cases/52 captures across four device zones, and the UTC/Tokyo live subscription save/read/import midnight checks passed. Safe tracked evidence files were regenerated. This closes the earlier local constant-ownership fingerprint distinction for frontend testing; exact final checked-head CI/deployment and server/owner gates remain separate.
+
+Final combined local build/production/domain/recovery proof: [integrated receipt](evidence/integrated-batches-13-17-18-19.json). All named matrices passed; final exact-head CI/merge/deployment receipt remains pending. Existing backend/owner/source acceptance limits above are unchanged.

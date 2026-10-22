@@ -8,6 +8,7 @@ on:
       - 'src/modules/transfers/**'
       - 'src/components/organism/ReceiptUpload/**'
       - 'scripts/test-transfer*.mjs'
+      - 'scripts/qa-rendered-capture.mjs'
       - 'scripts/test-package-lots.mjs'
       - 'scripts/test-mock-additive-upgrade.mjs'
       - 'scripts/test-release-source.mjs'

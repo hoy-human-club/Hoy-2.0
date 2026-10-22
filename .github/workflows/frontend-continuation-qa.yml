@@ -12,6 +12,7 @@ on:
       - 'scripts/test-customer-return-ui.mjs'
       - 'scripts/customer-registration-harness.tsx'
       - 'scripts/test-marketing-drafts*.mjs'
+      - 'scripts/test-continuation-library-ui.mjs'
       - 'scripts/gen-hub-map.mjs'
       - 'vite.config.ts'
       - '.github/workflows/frontend-continuation-qa.yml'
@@ -164,6 +165,7 @@ jobs:
           npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-continuation-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
           node scripts/test-marketing-drafts-ui.mjs
+          node scripts/test-continuation-library-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
@@ -173,4 +175,5 @@ jobs:
           name: marketing-drafts-${{ github.event.pull_request.head.sha }}
           path: |
             docs/screenshots/M-18/*
+            docs/screenshots/D-02/*continuation*
           retention-days: 7

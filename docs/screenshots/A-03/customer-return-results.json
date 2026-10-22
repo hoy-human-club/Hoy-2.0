@@ -4,7 +4,7 @@
     "CU-01"
   ],
   "phase": "MVP Oct 30",
-  "base": "http://127.0.0.1:5205",
+  "base": "http://127.0.0.1:5210",
   "checks": [
     "en: real website selected class+mat → sign-in↔signup preserved; public checkout denied without booking; required validation/duplicate offer; quota rollback and retry/doubleclick one customer+exact consents; no password persistence/registration booking; existing demo sign-in waitlist; unsafe returns discarded; existing administrator home preserved;390/1280 lightdark captures",
     "es: real website selected class+mat → sign-in↔signup preserved; public checkout denied without booking; required validation/duplicate offer; quota rollback and retry/doubleclick one customer+exact consents; no password persistence/registration booking; existing demo sign-in waitlist; unsafe returns discarded; existing administrator home preserved;390/1280 lightdark captures"

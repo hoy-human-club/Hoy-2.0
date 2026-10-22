@@ -1,7 +1,7 @@
 {
   "requirement": "IN-04",
   "phase": "After Nov 30",
-  "base": "http://127.0.0.1:5200",
+  "base": "http://127.0.0.1:5210",
   "checks": [
     "en: developer symbolic200/wrong-revoked-expired401/scope403, loading/cancel/503retry, zero database mutation; one-time raw absent from persistence and hidden after close/reload; admin read-only console; eight denied roles;390/1280 light/dark screenshots",
     "es: developer symbolic200/wrong-revoked-expired401/scope403, loading/cancel/503retry, zero database mutation; one-time raw absent from persistence and hidden after close/reload; admin read-only console; eight denied roles;390/1280 light/dark screenshots"

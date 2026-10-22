@@ -2,7 +2,7 @@
   "schema": "hoy.frontend-routes/1",
   "baseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
   "capturedAt": "2026-10-22",
-  "source": "Rendered runtime registry after continuation edits; route presence/built badge is not acceptance. Current release commit is recorded in completion README.",
+  "source": "Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.",
   "routes": [
     {
       "path": "/admin/finance/subscriptions",
@@ -22,8 +22,7 @@
         "saved",
         "conflict",
         "storage failure"
-      ],
-      "tables": []
+      ]
     },
     {
       "path": "/admin",
@@ -42,17 +41,6 @@
         "Loading: KPI skeletons",
         "Flag conflict: dependency warning before saving",
         "No permission: switches render read-only"
-      ],
-      "tables": [
-        "memberships",
-        "payments",
-        "class_sessions",
-        "bookings",
-        "modalities",
-        "teachers",
-        "audit_log",
-        "users",
-        "profiles"
       ]
     },
     {
@@ -75,17 +63,6 @@
         "No milestones in range",
         "No goals set yet",
         "Heatmap scrolls inside its card on phones"
-      ],
-      "tables": [
-        "bookings",
-        "class_sessions",
-        "memberships",
-        "class_ledger",
-        "practice_goals",
-        "profiles",
-        "users",
-        "teachers",
-        "modalities"
       ]
     },
     {
@@ -106,13 +83,6 @@
         "Validation: field-level errors in the drawer",
         "Conflict: concurrent edit warning",
         "Empty: 'Create the first class type'"
-      ],
-      "tables": [
-        "class_templates",
-        "teachers",
-        "modalities",
-        "rooms",
-        "audit_log"
       ]
     },
     {
@@ -136,10 +106,6 @@
         "Invalid slug",
         "Read-only (sin content.write)",
         "Unsaved changes"
-      ],
-      "tables": [
-        "content_articles",
-        "audit_log"
       ]
     },
     {
@@ -162,10 +128,6 @@
         "Unpublished entry",
         "Read-only",
         "New empty section"
-      ],
-      "tables": [
-        "faq_entries",
-        "audit_log"
       ]
     },
     {
@@ -190,13 +152,6 @@
         "End before start: blocked",
         "Delete blocked by RSVPs",
         "Read-only"
-      ],
-      "tables": [
-        "events",
-        "event_rsvps",
-        "rooms",
-        "teachers",
-        "audit_log"
       ]
     },
     {
@@ -220,13 +175,6 @@
         "Ready video",
         "Invalid URL",
         "Read-only"
-      ],
-      "tables": [
-        "media_assets",
-        "teachers",
-        "modalities",
-        "events",
-        "audit_log"
       ]
     },
     {
@@ -258,11 +206,6 @@
         "Calendar / timeline disabled (no date column)",
         "Saved view rename / delete confirm",
         "Technical names on (dev mode)"
-      ],
-      "tables": [
-        "table_views",
-        "any table in src/data/schema.ts (tableRegistry)",
-        "tenants"
       ]
     },
     {
@@ -294,11 +237,6 @@
         "Calendar / timeline disabled (no date column)",
         "Saved view rename / delete confirm",
         "Technical names on (dev mode)"
-      ],
-      "tables": [
-        "table_views",
-        "any table in src/data/schema.ts (tableRegistry)",
-        "tenants"
       ]
     },
     {
@@ -318,11 +256,6 @@
         "Unsaved changes: sticky save bar",
         "Missing translation: blocked from activation",
         "Provider error: banner with retry"
-      ],
-      "tables": [
-        "email_templates",
-        "message_log",
-        "audit_log"
       ]
     },
     {
@@ -343,15 +276,6 @@
         "Template pending approval: automation disabled with reason",
         "Rate limited: queue depth shown",
         "Opt-out: preview marked undeliverable"
-      ],
-      "tables": [
-        "automations",
-        "wa_templates",
-        "message_log",
-        "profiles",
-        "users",
-        "tenants",
-        "audit_log"
       ]
     },
     {
@@ -379,21 +303,6 @@
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
         "Sistema filter: events only, no composer"
-      ],
-      "tables": [
-        "users",
-        "profiles",
-        "memberships",
-        "plans",
-        "bookings",
-        "class_sessions",
-        "payments",
-        "class_ledger",
-        "vouchers",
-        "message_log",
-        "consents",
-        "audit_log",
-        "practice_goals"
       ]
     },
     {
@@ -417,12 +326,6 @@
         "Done / cancelled (locked, read-only)",
         "Public request without an account",
         "Read-only (not admin)"
-      ],
-      "tables": [
-        "deletion_requests",
-        "users",
-        "profiles",
-        "audit_log"
       ]
     },
     {
@@ -450,21 +353,6 @@
         "WhatsApp blocked (unverified number)",
         "Quiet hours (queued hint)",
         "Sistema filter: events only, no composer"
-      ],
-      "tables": [
-        "users",
-        "profiles",
-        "memberships",
-        "plans",
-        "bookings",
-        "class_sessions",
-        "payments",
-        "class_ledger",
-        "vouchers",
-        "message_log",
-        "consents",
-        "audit_log",
-        "practice_goals"
       ]
     },
     {
@@ -485,12 +373,6 @@
         "Empty: 'no activity in this range'",
         "Large range: paginated with a count",
         "Export running: progress + email on completion"
-      ],
-      "tables": [
-        "audit_log",
-        "users",
-        "profiles",
-        "user_roles"
       ]
     },
     {
@@ -511,12 +393,6 @@
         "All confirmed",
         "Saving",
         "Read-only"
-      ],
-      "tables": [
-        "tenants",
-        "hours_overrides",
-        "rooms",
-        "audit_log"
       ]
     },
     {
@@ -539,11 +415,6 @@
         "Validation error",
         "Import done (n added) / nothing new",
         "Read-only (no hours.write)"
-      ],
-      "tables": [
-        "hours_overrides",
-        "tenants",
-        "audit_log"
       ]
     },
     {
@@ -564,16 +435,6 @@
         "Read-only (sin features.write)",
         "Flag bloqueado",
         "Guardado"
-      ],
-      "tables": [
-        "tenants",
-        "feature_flags",
-        "rooms",
-        "modalities",
-        "teachers",
-        "legal_documents",
-        "hours_overrides",
-        "audit_log"
       ]
     },
     {
@@ -594,12 +455,6 @@
         "Rate row empty (falls through)",
         "Saving",
         "Read-only"
-      ],
-      "tables": [
-        "tenants",
-        "modalities",
-        "teachers",
-        "audit_log"
       ]
     },
     {
@@ -619,16 +474,6 @@
         "Validation: DIAN range exhausted warning",
         "Integration down: amber status with last check",
         "No permission: section renders read-only"
-      ],
-      "tables": [
-        "tenants",
-        "feature_flags",
-        "rooms",
-        "modalities",
-        "teachers",
-        "legal_documents",
-        "hours_overrides",
-        "audit_log"
       ]
     },
     {
@@ -647,16 +492,6 @@
         "Validation: DIAN range exhausted warning",
         "Integration down: amber status with last check",
         "No permission: section renders read-only"
-      ],
-      "tables": [
-        "tenants",
-        "feature_flags",
-        "rooms",
-        "modalities",
-        "teachers",
-        "legal_documents",
-        "hours_overrides",
-        "audit_log"
       ]
     },
     {
@@ -676,12 +511,6 @@
         "Map none / osm / google",
         "Legal: n of 7 published",
         "Read-only"
-      ],
-      "tables": [
-        "tenants",
-        "legal_documents",
-        "media_assets",
-        "audit_log"
       ]
     },
     {
@@ -703,10 +532,6 @@
         "Dirty card (unsaved)",
         "Saved",
         "Read-only (no settings.write)"
-      ],
-      "tables": [
-        "integrations",
-        "audit_log"
       ]
     },
     {
@@ -732,12 +557,6 @@
         "Simulated success/error",
         "Cancelled with retry",
         "Source changed; prepare again"
-      ],
-      "tables": [
-        "integrations",
-        "tenants",
-        "hours_overrides",
-        "audit_log"
       ]
     },
     {
@@ -759,18 +578,6 @@
         "E-invoicing off: notice",
         "No draft run yet",
         "Negative balance (expenses above revenue in the range)"
-      ],
-      "tables": [
-        "payments",
-        "invoices",
-        "plans",
-        "users",
-        "profiles",
-        "payroll_runs",
-        "payroll_lines",
-        "expenses",
-        "audit_log",
-        "tenants"
       ]
     },
     {
@@ -791,16 +598,6 @@
         "Draft exists for the period: regenerated",
         "Period already approved/paid: blocked",
         "Read-only (solo payroll.read)"
-      ],
-      "tables": [
-        "payroll_runs",
-        "payroll_lines",
-        "class_sessions",
-        "bookings",
-        "teachers",
-        "special_charges",
-        "space_bookings",
-        "audit_log"
       ]
     },
     {
@@ -823,16 +620,6 @@
         "Wompi rejected: reason shown",
         "Run not found",
         "Negative adjustment line"
-      ],
-      "tables": [
-        "payroll_runs",
-        "payroll_lines",
-        "class_sessions",
-        "bookings",
-        "teachers",
-        "special_charges",
-        "space_bookings",
-        "audit_log"
       ]
     },
     {
@@ -856,11 +643,6 @@
         "Paid row: locked",
         "Read-only (solo expenses.read)",
         "Invalid form (empty concept, zero amount)"
-      ],
-      "tables": [
-        "expenses",
-        "expense_templates",
-        "audit_log"
       ]
     },
     {
@@ -886,10 +668,6 @@
         "Conflict",
         "Error",
         "Read-only history"
-      ],
-      "tables": [
-        "class_pay_rules",
-        "class_templates"
       ]
     },
     {
@@ -914,14 +692,6 @@
         "Conflict",
         "Error",
         "Read-only history"
-      ],
-      "tables": [
-        "class_sessions",
-        "class_templates",
-        "teachers",
-        "modalities",
-        "rooms",
-        "audit_log"
       ]
     },
     {
@@ -952,8 +722,7 @@
         "motion paused",
         "reduced motion",
         "video unavailable"
-      ],
-      "tables": []
+      ]
     },
     {
       "path": "/coming-soon",
@@ -983,8 +752,7 @@
         "motion paused",
         "reduced motion",
         "video unavailable"
-      ],
-      "tables": []
+      ]
     },
     {
       "path": "/app",
@@ -1002,20 +770,6 @@
         "Empty: no bookings → 'Reserve your first class'",
         "Error: cached feed + retry chip",
         "Offline: last fetch with stale badge"
-      ],
-      "tables": [
-        "bookings",
-        "classes",
-        "announcements",
-        "memberships",
-        "credits",
-        "practice_stats",
-        "feedback_requests",
-        "events",
-        "class_sessions",
-        "class_ledger",
-        "practice_goals",
-        "activity_events"
       ]
     },
     {
@@ -1035,14 +789,6 @@
         "Error: retry",
         "Past days: rows read-only",
         "Week view (C-02b)"
-      ],
-      "tables": [
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "rooms",
-        "bookings",
-        "waitlist"
       ]
     },
     {
@@ -1061,13 +807,6 @@
         "Empty day: dash in the column",
         "Past days: chips dimmed",
         "Booked: chip outlined"
-      ],
-      "tables": [
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "rooms",
-        "bookings"
       ]
     },
     {
@@ -1088,14 +827,6 @@
         "Already booked: CTA opens the booking",
         "Same-day conflict: CTA disabled with reason",
         "Not found"
-      ],
-      "tables": [
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "rooms",
-        "bookings",
-        "waitlist"
       ]
     },
     {
@@ -1114,15 +845,6 @@
         "Declined: inline reason + alternate method",
         "Race: class filled during checkout → waitlist offer",
         "Success: confirmation sheet"
-      ],
-      "tables": [
-        "class_sessions",
-        "bookings",
-        "class_ledger",
-        "memberships",
-        "plans",
-        "payments",
-        "invoices"
       ]
     },
     {
@@ -1143,11 +865,6 @@
         "Expired card: inline warning",
         "Saving: tokenising a new method",
         "One default: every other row offers “make default”"
-      ],
-      "tables": [
-        "payment_methods",
-        "payments",
-        "invoices"
       ]
     },
     {
@@ -1165,11 +882,6 @@
         "Loading: card skeletons",
         "Existing member: current plan marked, others show 'change'",
         "Promotion active: badge + strike price"
-      ],
-      "tables": [
-        "plans",
-        "class_ledger",
-        "payments"
       ]
     },
     {
@@ -1188,12 +900,6 @@
         "Trial already used: that row drops to a note",
         "Existing member: banner offers C-06 instead",
         "Loading: four skeleton rows"
-      ],
-      "tables": [
-        "plans",
-        "payments",
-        "class_ledger",
-        "bookings"
       ]
     },
     {
@@ -1212,12 +918,6 @@
         "Trial already used: that row drops to a note",
         "Existing member: banner offers C-06 instead",
         "Loading: four skeleton rows"
-      ],
-      "tables": [
-        "class_ledger",
-        "plans",
-        "payments",
-        "bookings"
       ]
     },
     {
@@ -1235,15 +935,6 @@
         "Inside window: destructive confirm sheet",
         "Past class: read-only + rate CTA",
         "Cancelled by studio: banner + alternatives"
-      ],
-      "tables": [
-        "bookings",
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "rooms",
-        "class_ledger",
-        "waitlist"
       ]
     },
     {
@@ -1262,13 +953,6 @@
         "Inside window: destructive confirm naming the forfeited credit",
         "No replacement available: waitlist offer",
         "Past class: sheet cannot open"
-      ],
-      "tables": [
-        "bookings",
-        "class_sessions",
-        "modalities",
-        "class_ledger",
-        "waitlist"
       ]
     },
     {
@@ -1286,12 +970,6 @@
         "Multiple pending: queue one at a time",
         "Submitted: thank-you with review link",
         "Error: keep local draft"
-      ],
-      "tables": [
-        "reviews",
-        "bookings",
-        "class_sessions",
-        "teachers"
       ]
     },
     {
@@ -1309,15 +987,6 @@
         "Empty: 'Your first class is waiting'",
         "Loading: rows shimmer",
         "Error: retry"
-      ],
-      "tables": [
-        "bookings",
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "payments",
-        "invoices",
-        "plans"
       ]
     },
     {
@@ -1334,10 +1003,6 @@
       "declaredStates": [
         "Video missing: textured placeholder with intended shot noted",
         "Untranslated: falls back to Spanish with a note"
-      ],
-      "tables": [
-        "content_articles",
-        "legal_documents"
       ]
     },
     {
@@ -1356,9 +1021,6 @@
         "One expanded",
         "No match in search: offers the concierge",
         "Untranslated entry: falls back to Spanish"
-      ],
-      "tables": [
-        "faq_entries"
       ]
     },
     {
@@ -1377,9 +1039,6 @@
         "One expanded",
         "Untranslated entry: falls back to Spanish",
         "Studio closed today: hours row shows next opening"
-      ],
-      "tables": [
-        "faq_entries"
       ]
     },
     {
@@ -1397,12 +1056,6 @@
         "Empty: channel row only",
         "Pass used: row collapses to a result",
         "Limit hit: explains the cap"
-      ],
-      "tables": [
-        "invites",
-        "class_ledger",
-        "class_sessions",
-        "profiles"
       ]
     },
     {
@@ -1420,11 +1073,6 @@
         "Custom amount: min/max validation",
         "Delivery in the past: blocked inline",
         "Success: preview of what the recipient receives"
-      ],
-      "tables": [
-        "gift_cards",
-        "payments",
-        "invoices"
       ]
     },
     {
@@ -1441,11 +1089,6 @@
       "declaredStates": [
         "No portrait: textured placeholder marked 'teacher portrait'",
         "Pending approval: staff-only draft badge"
-      ],
-      "tables": [
-        "teachers",
-        "modalities",
-        "class_sessions"
       ]
     },
     {
@@ -1462,11 +1105,6 @@
       "declaredStates": [
         "No portrait: textured placeholder marked 'teacher portrait'",
         "Pending approval: staff-only draft badge"
-      ],
-      "tables": [
-        "teachers",
-        "modalities",
-        "class_sessions"
       ]
     },
     {
@@ -1484,13 +1122,6 @@
         "Loading: header skeleton",
         "Unverified WhatsApp: verify chip",
         "Saving: inline confirmation"
-      ],
-      "tables": [
-        "profiles",
-        "users",
-        "memberships",
-        "plans",
-        "consents"
       ]
     },
     {
@@ -1509,14 +1140,6 @@
         "Offered: banner + live countdown",
         "Expired: 'the spot passed on' + rejoin",
         "Class started: row goes read-only"
-      ],
-      "tables": [
-        "waitlist",
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "bookings",
-        "class_ledger"
       ]
     },
     {
@@ -1538,14 +1161,6 @@
         "No events published yet",
         "Going: RSVP notice with cancel",
         "Member price included"
-      ],
-      "tables": [
-        "events",
-        "event_rsvps",
-        "payments",
-        "invoices",
-        "teachers",
-        "memberships"
       ]
     },
     {
@@ -1567,14 +1182,6 @@
         "No events published yet",
         "Going: RSVP notice with cancel",
         "Member price included"
-      ],
-      "tables": [
-        "events",
-        "event_rsvps",
-        "payments",
-        "invoices",
-        "teachers",
-        "memberships"
       ]
     },
     {
@@ -1595,10 +1202,6 @@
         "Offline: cached list",
         "All read",
         "Muted category in the prefs matrix"
-      ],
-      "tables": [
-        "notifications",
-        "notification_prefs"
       ]
     },
     {
@@ -1616,12 +1219,6 @@
         "Loading: identity skeleton",
         "No membership: card shows the plan prompt",
         "Outside hours: the WhatsApp row states the reply window"
-      ],
-      "tables": [
-        "profiles",
-        "memberships",
-        "plans",
-        "class_ledger"
       ]
     },
     {
@@ -1643,19 +1240,6 @@
         "Request processing (no cancel)",
         "Privacy policy not accepted yet",
         "Exporting"
-      ],
-      "tables": [
-        "deletion_requests",
-        "profiles",
-        "users",
-        "notification_prefs",
-        "legal_acceptances",
-        "legal_documents",
-        "payments",
-        "invoices",
-        "bookings",
-        "audit_log",
-        "tenants"
       ]
     },
     {
@@ -1678,16 +1262,6 @@
         "No goal (sin meta): no ring, no streak, counts stay",
         "Rest week used / rest week available",
         "Month with no-shows or late cancels (neutral tiles, shown only when > 0)"
-      ],
-      "tables": [
-        "bookings",
-        "class_sessions",
-        "practice_goals",
-        "activity_events",
-        "memberships",
-        "class_ledger",
-        "modalities",
-        "teachers"
       ]
     },
     {
@@ -1709,12 +1283,6 @@
         "Accepted an older version",
         "Not accepted yet: accept action",
         "Kind not found"
-      ],
-      "tables": [
-        "legal_documents",
-        "legal_acceptances",
-        "consents",
-        "tenants"
       ]
     },
     {
@@ -1732,10 +1300,6 @@
         "Empty (this screen)",
         "Loading: skeleton rows",
         "Error: retry with cached announcements"
-      ],
-      "tables": [
-        "bookings",
-        "memberships"
       ]
     },
     {
@@ -1754,10 +1318,6 @@
         "Retrying: button spinner, methods locked",
         "Hold expired: spot released, rebook offered",
         "Recovered: confirmation sheet"
-      ],
-      "tables": [
-        "payments",
-        "class_sessions"
       ]
     },
     {
@@ -1776,13 +1336,6 @@
         "Cancelled, none available: waitlist offer",
         "Already rebooked: confirmation",
         "Past class: read-only"
-      ],
-      "tables": [
-        "class_sessions",
-        "bookings",
-        "class_ledger",
-        "modalities",
-        "teachers"
       ]
     },
     {
@@ -1808,10 +1361,6 @@
       "declaredStates": [
         "breathing",
         "reduced motion"
-      ],
-      "tables": [
-        "users",
-        "feature_flags"
       ]
     },
     {
@@ -1837,12 +1386,8 @@
       "declaredStates": [
         "default",
         "wrong credentials: attempts left",
-        "locked → E-04"
-      ],
-      "tables": [
-        "users",
-        "user_roles",
-        "audit_log"
+        "locked → E-04",
+        "validated website return destination preserved through sign-up"
       ]
     },
     {
@@ -1869,14 +1414,12 @@
         "default",
         "validation errors",
         "duplicate email → sign-in offer",
-        "created"
-      ],
-      "tables": [
-        "users",
-        "profiles",
-        "user_roles",
-        "consents",
-        "legal_documents"
+        "created",
+        "fictional browser-only boundary",
+        "saving with cancel",
+        "storage/write failure → same-intent retry",
+        "cancelled/unmounted → no late sign-in",
+        "validated chosen class return"
       ]
     },
     {
@@ -1904,10 +1447,6 @@
         "Wrong code: cells shake, attempts left shown",
         "Expired: 'code expired' + resend",
         "Rate limited: wait time stated"
-      ],
-      "tables": [
-        "users",
-        "wa_templates"
       ]
     },
     {
@@ -1934,9 +1473,6 @@
         "Locked (this screen)",
         "Countdown finished: form re-enabled",
         "Escalated: contact-support copy"
-      ],
-      "tables": [
-        "users"
       ]
     },
     {
@@ -1953,10 +1489,6 @@
       "declaredStates": [
         "default",
         "filtered by family"
-      ],
-      "tables": [
-        "components",
-        "page_layouts"
       ]
     },
     {
@@ -1975,15 +1507,6 @@
         "Styled × dark",
         "Wireframe × light",
         "Wireframe × dark"
-      ],
-      "tables": [
-        "design_tokens",
-        "materials",
-        "textures",
-        "shadow_scale",
-        "radius_scale",
-        "type_scale",
-        "themes"
       ]
     },
     {
@@ -1999,13 +1522,6 @@
       "verification": "unverified",
       "declaredStates": [
         "Default / hover / active / focus / disabled / loading / empty / error"
-      ],
-      "tables": [
-        "components",
-        "variants",
-        "props",
-        "usage_examples",
-        "a11y_notes"
       ]
     },
     {
@@ -2022,10 +1538,6 @@
       "declaredStates": [
         "default",
         "filtered by family"
-      ],
-      "tables": [
-        "components",
-        "page_layouts"
       ]
     },
     {
@@ -2043,9 +1555,6 @@
         "default (spec order)",
         "custom order saved",
         "page not wired"
-      ],
-      "tables": [
-        "page_layouts"
       ]
     },
     {
@@ -2063,9 +1572,6 @@
         "default (spec order)",
         "custom order saved",
         "page not wired"
-      ],
-      "tables": [
-        "page_layouts"
       ]
     },
     {
@@ -2082,15 +1588,6 @@
       "declaredStates": [
         "Current version",
         "Historic version (read-only banner)"
-      ],
-      "tables": [
-        "plan_phases",
-        "tasks",
-        "task_status",
-        "changelog_entries",
-        "decisions",
-        "prompt_notes",
-        "versions"
       ]
     },
     {
@@ -2109,10 +1606,6 @@
         "zoom S / L / XL",
         "sin capturas todavía (mosaicos inactivos)",
         "modo dev (badges de esbozo)"
-      ],
-      "tables": [
-        "page_layouts",
-        "components"
       ]
     },
     {
@@ -2139,10 +1632,6 @@
         "Fictional 200/401/403 response",
         "Local request preparing / cancelled",
         "Fictional503 / retry"
-      ],
-      "tables": [
-        "api_keys",
-        "audit_log"
       ]
     },
     {
@@ -2164,10 +1653,6 @@
         "rol sin acceso a la ruta (el marco muestra E-05)",
         "oscuro",
         "English"
-      ],
-      "tables": [
-        "users",
-        "user_roles"
       ]
     },
     {
@@ -2195,9 +1680,6 @@
         "doc not found",
         "index pages (changelog, prompts, screenshots)",
         "screenshots empty"
-      ],
-      "tables": [
-        "docs_entries"
       ]
     },
     {
@@ -2234,12 +1716,6 @@
         "no captures yet (idle tiles)",
         "English",
         "local report draft: edit / invalid / preview / storage failure / retry / saved without dispatch"
-      ],
-      "tables": [
-        "users",
-        "user_roles",
-        "feature_flags",
-        "page_layouts"
       ]
     },
     {
@@ -2264,9 +1740,6 @@
       "verification": "unverified",
       "declaredStates": [
         "default"
-      ],
-      "tables": [
-        "user_roles"
       ]
     },
     {
@@ -2295,11 +1768,34 @@
         "new record",
         "preview without saving",
         "new record cancel/failure/retry"
+      ]
+    },
+    {
+      "path": "/admin/marketing",
+      "code": "M-18",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
       ],
-      "tables": [
-        "maintenance_records",
-        "rooms",
-        "audit_log"
+      "source": "src/modules/marketing/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "empty",
+        "read error/retry",
+        "edit",
+        "validation",
+        "preview/cancel",
+        "local save",
+        "storage failure/retry",
+        "stale revision",
+        "request replay",
+        "calendar/undated",
+        "discard confirmation/linked guard"
       ]
     },
     {
@@ -2341,23 +1837,6 @@
         "untranslated (ES fallback)",
         "search results",
         "print"
-      ],
-      "tables": [
-        "docs_entries",
-        "tenants",
-        "profiles",
-        "users",
-        "user_roles",
-        "memberships",
-        "class_sessions",
-        "teachers",
-        "bookings",
-        "manual_progress",
-        "manual_training",
-        "manual_overrides",
-        "manual_requests",
-        "studio_policies",
-        "audit_log"
       ]
     },
     {
@@ -2386,12 +1865,6 @@
         "no open requests",
         "requests (lead)",
         "requests hidden (not a lead)"
-      ],
-      "tables": [
-        "docs_entries",
-        "manual_requests",
-        "profiles",
-        "audit_log"
       ]
     },
     {
@@ -2433,23 +1906,6 @@
         "untranslated (ES fallback)",
         "search results",
         "print"
-      ],
-      "tables": [
-        "docs_entries",
-        "tenants",
-        "profiles",
-        "users",
-        "user_roles",
-        "memberships",
-        "class_sessions",
-        "teachers",
-        "bookings",
-        "manual_progress",
-        "manual_training",
-        "manual_overrides",
-        "manual_requests",
-        "studio_policies",
-        "audit_log"
       ]
     },
     {
@@ -2475,9 +1931,6 @@
         "default",
         "one document opened (?doc=)",
         "viewer fullscreen"
-      ],
-      "tables": [
-        "docs_entries"
       ]
     },
     {
@@ -2488,6 +1941,7 @@
         "super_admin",
         "admin"
       ],
+      "source": "src/modules/products/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -2497,10 +1951,6 @@
         "unpriced date",
         "saved quote",
         "withdrawn"
-      ],
-      "source": "src/modules/products/index.ts",
-      "tables": [
-        "plans"
       ]
     },
     {
@@ -2511,6 +1961,7 @@
         "super_admin",
         "admin"
       ],
+      "source": "src/modules/products/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -2527,10 +1978,6 @@
         "publication failure with retry",
         "local published snapshot",
         "withdrawn"
-      ],
-      "source": "src/modules/products/index.ts",
-      "tables": [
-        "plans"
       ]
     },
     {
@@ -2554,13 +2001,6 @@
         "Booked",
         "Attended",
         "Error"
-      ],
-      "tables": [
-        "promotion_campaigns",
-        "promotion_shares",
-        "promotion_claims",
-        "promotion_events",
-        "voucher_bookings"
       ]
     },
     {
@@ -2592,13 +2032,6 @@
         "Booked",
         "Attended",
         "Error"
-      ],
-      "tables": [
-        "promotion_campaigns",
-        "promotion_shares",
-        "promotion_claims",
-        "promotion_events",
-        "voucher_bookings"
       ]
     },
     {
@@ -2630,13 +2063,6 @@
         "Booked",
         "Attended",
         "Error"
-      ],
-      "tables": [
-        "promotion_campaigns",
-        "promotion_shares",
-        "promotion_claims",
-        "promotion_events",
-        "voucher_bookings"
       ]
     },
     {
@@ -2660,13 +2086,6 @@
         "Booked",
         "Attended",
         "Error"
-      ],
-      "tables": [
-        "promotion_campaigns",
-        "promotion_shares",
-        "promotion_claims",
-        "promotion_events",
-        "voucher_bookings"
       ]
     },
     {
@@ -2702,9 +2121,6 @@
         "Spanish",
         "English",
         "Dark theme"
-      ],
-      "tables": [
-        "page_layouts"
       ]
     },
     {
@@ -2728,17 +2144,6 @@
       "declaredStates": [
         "No role assigned: read-only student view",
         "Context switch: full re-route"
-      ],
-      "tables": [
-        "class_sessions",
-        "bookings",
-        "waitlist",
-        "payments",
-        "message_log",
-        "users",
-        "profiles",
-        "audit_log",
-        "teachers"
       ]
     },
     {
@@ -2766,15 +2171,6 @@
         "Quiet hours (queued hint)",
         "Thread not found (old link)",
         "Narrow: list, then thread (≤ 900 px)"
-      ],
-      "tables": [
-        "message_log",
-        "users",
-        "profiles",
-        "memberships",
-        "plans",
-        "tenants",
-        "audit_log"
       ]
     },
     {
@@ -2802,15 +2198,6 @@
         "Quiet hours (queued hint)",
         "Thread not found (old link)",
         "Narrow: list, then thread (≤ 900 px)"
-      ],
-      "tables": [
-        "message_log",
-        "users",
-        "profiles",
-        "memberships",
-        "plans",
-        "tenants",
-        "audit_log"
       ]
     },
     {
@@ -2834,19 +2221,6 @@
         "Future-session booking on behalf of a customer",
         "Confirmed balance and expiry preview",
         "Pending-only / frozen / expired / insufficient balance blocks booking"
-      ],
-      "tables": [
-        "class_sessions",
-        "bookings",
-        "waitlist",
-        "users",
-        "profiles",
-        "memberships",
-        "plans",
-        "teachers",
-        "modalities",
-        "audit_log",
-        "tenants"
       ]
     },
     {
@@ -2871,21 +2245,6 @@
         "Sale complete: receipt view",
         "Capacity / duplicate / pending check-in rejected with entire sale rolled back",
         "Storage or injected write failure: no partial user, consent, payment, invoice, ledger or booking"
-      ],
-      "tables": [
-        "users",
-        "profiles",
-        "user_roles",
-        "consents",
-        "payments",
-        "invoices",
-        "memberships",
-        "class_ledger",
-        "bookings",
-        "class_sessions",
-        "message_log",
-        "audit_log",
-        "tenants"
       ]
     },
     {
@@ -2912,17 +2271,6 @@
         "Read-only (no bookings.write_any)",
         "Selected class → open check-in",
         "Selected booking → confirm / done / cancel / charge"
-      ],
-      "tables": [
-        "rooms",
-        "class_sessions",
-        "space_bookings",
-        "special_charges",
-        "teachers",
-        "modalities",
-        "users",
-        "profiles",
-        "audit_log"
       ]
     },
     {
@@ -2941,22 +2289,6 @@
         "No class today: schedule promoted",
         "Attendance locked: read-only with reason",
         "Payroll pending: 'run closes on the 15th'"
-      ],
-      "tables": [
-        "teachers",
-        "class_sessions",
-        "bookings",
-        "modalities",
-        "users",
-        "profiles",
-        "audit_log",
-        "space_bookings",
-        "special_charges",
-        "rooms",
-        "reviews",
-        "memberships",
-        "class_ledger",
-        "practice_goals"
       ]
     },
     {
@@ -2980,16 +2312,6 @@
         "Foreign / missing link / cross-tenant denied before detail mount",
         "Contained read error / Retry",
         "Reassignment revokes details and rejects stale writes"
-      ],
-      "tables": [
-        "teachers",
-        "class_sessions",
-        "bookings",
-        "modalities",
-        "users",
-        "profiles",
-        "audit_log",
-        "reviews"
       ]
     },
     {
@@ -3015,17 +2337,6 @@
         "Negative adjustment",
         "No payout method on file",
         "Not linked to a teacher profile"
-      ],
-      "tables": [
-        "payroll_runs",
-        "payroll_lines",
-        "special_charges",
-        "teachers",
-        "class_sessions",
-        "bookings",
-        "class_templates",
-        "payment_methods",
-        "tenants"
       ]
     },
     {
@@ -3043,11 +2354,6 @@
       "declaredStates": [
         "Saved: sent for review",
         "Not linked to a teacher profile"
-      ],
-      "tables": [
-        "teachers",
-        "modalities",
-        "audit_log"
       ]
     },
     {
@@ -3059,6 +2365,7 @@
         "admin",
         "front_desk"
       ],
+      "source": "src/modules/transfers/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -3072,16 +2379,6 @@
         "atomic failure / retry",
         "approved",
         "rejected"
-      ],
-      "source": "src/modules/transfers/index.ts",
-      "tables": [
-        "transfer_receipts",
-        "payments",
-        "profiles",
-        "plans",
-        "class_ledger",
-        "bookings",
-        "audit_log"
       ]
     },
     {
@@ -3109,16 +2406,6 @@
         "Attended",
         "Expired",
         "Cancelled"
-      ],
-      "tables": [
-        "vouchers",
-        "voucher_bookings",
-        "voucher_events",
-        "class_sessions",
-        "bookings",
-        "promotion_campaigns",
-        "promotion_shares",
-        "promotion_claims"
       ]
     },
     {
@@ -3141,12 +2428,6 @@
         "Attended (test)",
         "Error",
         "Revoked"
-      ],
-      "tables": [
-        "vouchers",
-        "voucher_bookings",
-        "voucher_events",
-        "class_sessions"
       ]
     },
     {
@@ -3171,12 +2452,6 @@
         "Attended (test)",
         "Error",
         "Revoked"
-      ],
-      "tables": [
-        "vouchers",
-        "voucher_bookings",
-        "voucher_events",
-        "class_sessions"
       ]
     },
     {
@@ -3201,12 +2476,6 @@
         "Attended (test)",
         "Error",
         "Revoked"
-      ],
-      "tables": [
-        "vouchers",
-        "voucher_bookings",
-        "voucher_events",
-        "class_sessions"
       ]
     },
     {
@@ -3233,12 +2502,6 @@
         "default",
         "no classes today",
         "no published reviews"
-      ],
-      "tables": [
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "reviews"
       ]
     },
     {
@@ -3263,8 +2526,7 @@
       "verification": "unverified",
       "declaredStates": [
         "default"
-      ],
-      "tables": []
+      ]
     },
     {
       "path": "/site/classes",
@@ -3288,9 +2550,6 @@
       "verification": "unverified",
       "declaredStates": [
         "default"
-      ],
-      "tables": [
-        "modalities"
       ]
     },
     {
@@ -3317,9 +2576,6 @@
         "default",
         "no matching modality",
         "unknown slug"
-      ],
-      "tables": [
-        "modalities"
       ]
     },
     {
@@ -3344,9 +2600,6 @@
       "verification": "unverified",
       "declaredStates": [
         "default"
-      ],
-      "tables": [
-        "modalities"
       ]
     },
     {
@@ -3373,12 +2626,6 @@
         "default",
         "day without classes",
         "login prompt open"
-      ],
-      "tables": [
-        "class_sessions",
-        "modalities",
-        "teachers",
-        "rooms"
       ]
     },
     {
@@ -3404,10 +2651,6 @@
       "declaredStates": [
         "default",
         "no portrait yet"
-      ],
-      "tables": [
-        "teachers",
-        "modalities"
       ]
     },
     {
@@ -3435,16 +2678,6 @@
         "IVA included",
         "IVA added at checkout",
         "freeze rule from M-08"
-      ],
-      "tables": [
-        "plans",
-        "plan_prices",
-        "packages",
-        "memberships",
-        "gift_cards",
-        "space_rentals",
-        "orders",
-        "tenants"
       ]
     },
     {
@@ -3472,9 +2705,6 @@
         "search: matches (answers open)",
         "search: no matches",
         "loading"
-      ],
-      "tables": [
-        "faq_entries"
       ]
     },
     {
@@ -3501,9 +2731,6 @@
         "default",
         "form empty",
         "form filled"
-      ],
-      "tables": [
-        "tenants"
       ]
     },
     {
@@ -3532,11 +2759,6 @@
         "validation: bad email / phone",
         "switch off → button disabled",
         "sent (reference shown)"
-      ],
-      "tables": [
-        "deletion_requests",
-        "audit_log",
-        "tenants"
       ]
     },
     {
@@ -3559,12 +2781,7 @@
       "source": "src/modules/website/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
-      "declaredStates": [],
-      "tables": [
-        "legal_documents",
-        "document_versions",
-        "consents"
-      ]
+      "declaredStates": []
     },
     {
       "path": "/site/legal/privacy",
@@ -3586,12 +2803,7 @@
       "source": "src/modules/website/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
-      "declaredStates": [],
-      "tables": [
-        "legal_documents",
-        "document_versions",
-        "consents"
-      ]
+      "declaredStates": []
     },
     {
       "path": "/docs/*",
@@ -3618,9 +2830,6 @@
         "doc not found",
         "index pages (changelog, prompts, screenshots)",
         "screenshots empty"
-      ],
-      "tables": [
-        "docs_entries"
       ]
     }
   ],

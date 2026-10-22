@@ -21,7 +21,8 @@ try{
    await page.setViewportSize({width,height:900});await page.evaluate(()=>document.fonts.ready);
    for(const [name,element] of [['quotes',quote],['marketing',marketing]]){
     await element.scrollIntoViewIfNeeded();assert(await element.evaluate(e=>e.scrollWidth<=e.clientWidth+1),`${name} ${lang}${width} component overflow`);
-    await element.screenshot({path:`${out}/${lang}-${width}-continuation-${name}.jpg`,quality:72,animations:'disabled'});
+    await element.evaluate(e=>window.scrollTo(0,window.scrollY+e.getBoundingClientRect().top-80));
+    await page.screenshot({path:`${out}/${lang}-${width}-continuation-${name}.jpg`,quality:72,fullPage:false,animations:'disabled'});
    }
   }
   const before=await page.evaluate(()=>({db:localStorage.getItem('hoyos.db.v1'),drafts:Object.keys(localStorage).filter(k=>k.startsWith('hoyos.marketing-drafts.')).map(k=>[k,localStorage.getItem(k)])}));
@@ -38,7 +39,7 @@ try{
  }
  assert.deepEqual(errors,[]);
  const prior=JSON.parse(await readFile('docs/frontend-completion/routes.json','utf8')),sources=new Map(prior.routes.map(r=>[r.path,r.source]));
- const manifest={...prior,capturedAt:'2026-10-22',source:'Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.',routes:routes.map(r=>({path:r.path,code:r.code,surface:r.surface,roles:r.roles,source:sources.get(r.path)??(r.path==='/admin/marketing'?'src/modules/marketing/index.ts':'unverified'),sourceDeclaredStatus:r.status,verification:'unverified',declaredStates:r.spec.states??[]}))};
+ const manifest={...prior,capturedAt:new Date().toISOString().slice(0,10),source:'Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.',routes:routes.map(r=>({path:r.path,code:r.code,surface:r.surface,roles:r.roles,source:sources.get(r.path)??(r.path==='/admin/marketing'?'src/modules/marketing/index.ts':'unverified'),sourceDeclaredStatus:r.status,verification:'unverified',declaredStates:r.spec.states??[]}))};
  await writeFile('docs/frontend-completion/routes.json',JSON.stringify(manifest,null,2)+'\n');
  await writeFile(`${out}/continuation-library-results.json`,JSON.stringify({base,checks,registeredRoutes:routes.length,pageErrors:errors,limits:'Fixture library and local hub only; no real provider render, production authorization or owner acceptance.'},null,2)+'\n');
  console.log(`PASS continuation library/hub ${checks.length} language matrices, ${routes.length} runtime routes; zero page errors`);
