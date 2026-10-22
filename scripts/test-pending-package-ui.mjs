@@ -1,3 +1,4 @@
+import {settledCapture} from './qa-rendered-capture.mjs';
 // PR-06 fictional deterministic frontend-only fixture. Blocks all external requests.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright-core';
@@ -26,7 +27,7 @@ try {
   await page.getByText(lang==='en'?'Pending payment at the desk':'Pendiente de pago en recepción',{exact:true}).first().waitFor();
   const result=await page.evaluate(()=>{const db=JSON.parse(localStorage.getItem('hoyos.db.v1')).db;return {payments:db.payments.filter(p=>p.user_id==='usr_cust'),ledger:db.class_ledger.filter(r=>r.user_id==='usr_cust'),bookings:db.bookings.filter(r=>r.user_id==='usr_cust'),count:db.class_sessions.find(s=>s.id==='qa_pending_class').booked_count};});
   assert.equal(result.payments.length,1);assert.equal(result.payments[0].status,'pending');assert.equal(result.ledger.length,0);assert.equal(result.bookings.length,0);assert.equal(result.count,0);
-  for(const width of [390,1280]) {await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:`${output}/${lang}-${width}-pending-package.jpg`,quality:72});}
+  for(const width of [390,1280]) {await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await settledCapture(page,{path:`${output}/${lang}-${width}-pending-package.jpg`,quality:72,fullPage:false});}
   checks.push(`${lang}: pending package request creates one payment, no purchase/debit/booking/capacity; EN/ES mobile and desktop pending notice`);
   // Confirmed demo payment activates the package and uses one class atomically.
   // An independent, earlier-expiring grant must survive an explicit fresh package purchase unchanged.
@@ -51,7 +52,7 @@ try {
   const afterFailure=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db);
   for(const table of ['payments','invoices','class_ledger','bookings'])assert.deepEqual(afterFailure[table],beforeFailure[table],`${table} unchanged after package purchase save failure`);
   await mkdir('docs/screenshots/C-06',{recursive:true});
-  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:`docs/screenshots/C-06/${lang}-${width}-purchase-failure.jpg`,quality:72});}
+  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await settledCapture(page,{path:`docs/screenshots/C-06/${lang}-${width}-purchase-failure.jpg`,quality:72,fullPage:false});}
   checks.push(`${lang}: package-only persistence failure reports retry, rolls back payment/invoice/grant, EN/ES desktop/mobile error notice`);
   await ctx.close();
  }

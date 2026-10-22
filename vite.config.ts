@@ -25,6 +25,7 @@ function countFiles(dir: string, suffix: string): number {
 // lazy import.meta.glob would have created one chunk per meta just to count them.
 export default defineConfig({
   base: './',
+  cacheDir: join(here, '.vite'),
   define: {
     __COMPONENT_COUNT__: JSON.stringify(countFiles(join(here, 'src/components'), '.meta.ts')),
   },

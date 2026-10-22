@@ -1,0 +1,15 @@
+{
+  "base": "http://127.0.0.1:5203",
+  "checks": [
+    "en: public supported/unsupported CTAs, package dated quote, cancel, midnight stale explicit review, persistence rollback/retry/double-click one grant, retained metadata",
+    "en: matched paired gift snapshot saved atomically as monetary draft only",
+    "en: desk quote/receipt amount and immutable terms, double-click one sale",
+    "es: public supported/unsupported CTAs, package dated quote, cancel, midnight stale explicit review, persistence rollback/retry/double-click one grant, retained metadata",
+    "es: matched paired gift snapshot saved atomically as monetary draft only",
+    "es: desk quote/receipt amount and immutable terms, double-click one sale",
+    "en: published booking quote + required fictional receipt remains pending with frozen terms and zero grants/bookings",
+    "es: published booking quote + required fictional receipt remains pending with frozen terms and zero grants/bookings",
+    "gift/base mismatch renders blocked without payment or gift"
+  ],
+  "pageErrors": []
+}

@@ -1,3 +1,4 @@
+import { type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
 import type { BookingRow, PaymentRow, TransferReceiptRow } from '../../data/schema';
 import type { Bi } from '../../specs/types';
@@ -31,7 +32,7 @@ export async function fictionalReceipt(): Promise<ReceiptImage> {
   const blob=await new Promise<Blob>(r=>canvas.toBlob(b=>r(b!),'image/png'));
   return readReceipt(new File([blob],'fictional-demo-receipt.png',{type:'image/png'}));
 }
-export interface TransferRequest { key:string; userId:string; sessionId:string|null; matNumber:number|null; productId:string; productName:Bi; amount:number; classes:number; expiresAt:string; image:ReceiptImage }
+export interface TransferRequest { quote?:FrozenSaleQuote; key:string; userId:string; sessionId:string|null; matNumber:number|null; productId:string; productName:Bi; amount:number; classes:number; expiresAt:string; image:ReceiptImage }
 /** Fictional browser-only staged request. No booking/hold/grant before explicit review. */
 export async function submitTransfer(data:DataProvider,input:TransferRequest):Promise<TransferReceiptRow> {
   if(data.name!=='mock' || !data.atomic)throw Error('disconnected');
@@ -39,7 +40,8 @@ export async function submitTransfer(data:DataProvider,input:TransferRequest):Pr
     const existing=await tx.get<TransferReceiptRow>('transfer_receipts',input.key);
     if(existing){if(existing.user_id!==input.userId||existing.tenant_id!==tenant.id)throw Error('scope');return existing;}
     if(!Number.isInteger(input.amount)||input.amount<1||!Number.isInteger(input.classes)||input.classes<1||!input.image.dataUrl.startsWith(`data:${input.image.mimeType};base64,`)||!Number.isInteger(input.image.bytes)||input.image.bytes<1||input.image.bytes>RECEIPT_MAX_BYTES)throw Error('invalid');
-    const payment=await recordPayment(tx,{userId:input.userId,planId:input.productId,amount:input.amount,method:'transfer',ivaRate:policy.ivaRate});
+    if(input.quote&&(input.quote.kind!=='class'||input.quote.quantity!==1||input.quote.classes!==input.classes||input.quote.entitlementExpiresAt!==input.expiresAt||JSON.stringify(input.quote.name)!==JSON.stringify(input.productName)))throw Error('quote_scope');
+    const payment=await recordPayment(tx,{userId:input.userId,planId:input.productId,amount:input.amount,method:'transfer',ivaRate:policy.ivaRate,quote:input.quote});
     return tx.insert<TransferReceiptRow>('transfer_receipts',{id:input.key,user_id:input.userId,payment_id:payment.id,session_id:input.sessionId,mat_number:input.matNumber,product_id:input.productId,product_name:input.productName,classes:input.classes,expires_at:input.expiresAt,image_data_url:input.image.dataUrl,file_name:input.image.fileName,mime_type:input.image.mimeType,byte_size:input.image.bytes,status:'pending',amount_received:null,review_reason:null,reviewed_by:null,reviewed_at:null,booking_id:null});
   },{idempotencyKey:`transfer-submit:${input.userId}:${input.key}`});
 }

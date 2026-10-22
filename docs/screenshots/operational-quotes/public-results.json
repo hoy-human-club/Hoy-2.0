@@ -1,0 +1,8 @@
+{
+  "base": "http://127.0.0.1:5203",
+  "checks": [
+    "en: actual public role published fictional offer, responsive layout and internal sign-in deep link",
+    "es: actual public role published fictional offer, responsive layout and internal sign-in deep link"
+  ],
+  "pageErrors": []
+}
