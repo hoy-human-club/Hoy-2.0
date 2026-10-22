@@ -1,0 +1,48 @@
+{
+  "batch": 40,
+  "requirementId": "PG-12",
+  "base": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "branch": "codex/cash-count-draft-mock",
+  "status": "SOURCE ONLY / UNACCEPTED; build/rendered/CI/deploy pending",
+  "rootFingerprint": "c65ca92ae87369d56014fbec8e7998d31575f14acef58986860807e695ee27d0",
+  "rootBasis": "SHA256: sorted src paths excluding exact src/app/captureDates.ts; each relative UTF8 path then raw bytes, no delimiters; finally vite.config.ts bytes only, no path.",
+  "fileCount": 736,
+  "sourceFileHashes": "docs/frontend-completion/evidence/batch-40-source-hashes.json",
+  "checks": [
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy40-domain.log",
+      "status": "Historical source-check pass before latest postcommit/replay reference-ack hardening; exact final source NOT rerun."
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "session": "34767",
+      "log": "/tmp/hoy40-tsc-review.log",
+      "status": "Historical source-check pass before latest postcommit/replay reference-ack hardening; exact final source NOT rechecked."
+    }
+  ],
+  "pending": [
+    "Re-run domain after latest reference-ack hardening and controlled postcommit reference-change test.",
+    "TypeScript and full build on exact frozen final source.",
+    "Immutable production QA actual EN/ES390/1280 light/dark canonical11roles; developer and maintenance denial included.",
+    "Dev StrictMode required reads, contaminated provider query/account, cancellation/context/lostack/storage cases.",
+    "D02 eleven pure read-only states and unchanged provider/local-doc storage.",
+    "Parent CI/integration/deployment."
+  ],
+  "unexecutedScripts": [
+    "scripts/test-cash-count-ui.mjs",
+    "scripts/test-cash-count-states.mjs",
+    "scripts/test-cash-count-library.mjs",
+    "scripts/cash-count-harness.tsx"
+  ],
+  "processState": "No compiles/esbuild/browser active. Dev5273 serving current worktree; no browser has been run. Holding root exclusive resource queue.",
+  "scope": [
+    "Local fictional own attributed count draft/preview only, never actual close/adjustment/dispatch.",
+    "Existing S04 payments.write page guard; no role/schema/policy or provider-write changes.",
+    "Exact amount/amount_paid and created_at/paid_at references; no inferred terminal/Wompi mapping or missing-date fallback.",
+    "No expenses/customer reads or expected/net/closed/reconciled totals."
+  ],
+  "releaseState": "No source acceptance/build/rendered/CI/deployment claim. Root owns all Git mutations."
+}
