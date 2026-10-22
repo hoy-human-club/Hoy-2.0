@@ -1,0 +1,10 @@
+.marketing-calendar{border:1px solid var(--color-border);border-radius:var(--r-lg);background:var(--color-surface);overflow:hidden}
+.marketing-weekdays,.marketing-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.marketing-weekdays>strong{padding:var(--sp-sm);text-align:center;font-size:var(--fs-sm)}
+.marketing-day{min-height:calc(var(--h-ctl)*2);padding:var(--sp-xs);border-top:1px solid var(--color-border);border-right:1px solid var(--color-border);overflow-wrap:anywhere;min-width:0}
+.marketing-day.is-blank{background:var(--color-surface-2)}
+.marketing-day .btn{white-space:normal;overflow-wrap:anywhere;max-width:100%;height:auto;min-height:var(--h-ctl);padding:var(--sp-xs);font-size:var(--fs-xs)}
+.marketing-brand{display:block;max-width:100%;height:calc(var(--h-ctl)*2);object-fit:contain;background:var(--brand-cream);border-radius:var(--r-md)}
+.marketing-copy{white-space:pre-wrap;overflow-wrap:anywhere}.marketing-editor{overflow-wrap:anywhere}.marketing-editor fieldset{border:1px solid var(--color-border);border-radius:var(--r-md);padding:var(--sp-md);min-width:0}
+.marketing-date-marker{font-size:var(--fs-xl);line-height:1;color:var(--color-primary)}
+.marketing-brand.is-light-reference{background:var(--brand-deepBlue)}

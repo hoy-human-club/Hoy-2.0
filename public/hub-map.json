@@ -710,6 +710,7 @@
         "M-12",
         "M-02",
         "M-14",
+        "M-18",
         "M-03",
         "M-13",
         "M-16",
@@ -4762,6 +4763,46 @@
         "label": {
           "es": "Recepción",
           "en": "Front desk"
+        },
+        "order": 10
+      }
+    },
+    {
+      "code": "M-18",
+      "route": "/admin/marketing",
+      "name": {
+        "es": "Marketing · borradores locales",
+        "en": "Marketing · local drafts"
+      },
+      "purpose": {
+        "es": "Preparar borradores ficticios y fechas orientativas sin publicar ni enviar.",
+        "en": "Prepare fictional drafts and planning date labels without publishing or sending."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "experienceId": "admin",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-18/es-390.jpg",
+          "en-390": "hub-map/shots/M-18/en-390.jpg",
+          "es-1280": "hub-map/shots/M-18/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-18/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "admin",
+        "label": {
+          "es": "Administración",
+          "en": "Admin"
         },
         "order": 10
       }

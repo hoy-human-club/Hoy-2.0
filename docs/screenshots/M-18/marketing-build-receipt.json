@@ -1,0 +1,17 @@
+{
+  "artifact": "/tmp/hoy-marketing-qa-40b3041cffad",
+  "runtimeFingerprint": "40b3041cffad63b6434f5afa0e509d2fe1cb5fba17bc86e4ccc29aec483c8cc9",
+  "bundleFingerprint": "edbbc1416914e11fb028594bd7664ec54004e1023ea0b0a87bc7d448ee649143",
+  "release": {
+    "version": "0.25.0",
+    "sourceCommit": "6ad8814bc076d3d3760ef1425b9e71319eb6ea9d"
+  },
+  "uncommittedPrototype": true,
+  "base": "6ad8814bc076d3d3760ef1425b9e71319eb6ea9d",
+  "baseUrl": "http://127.0.0.1:5209",
+  "fullBuild": "passed",
+  "uiResults": "marketing-results.json",
+  "domain": "scripts/test-marketing-drafts.mjs passed",
+  "deployment": "Not deployed; coordinator checked commit/CI/hosting receipt pending.",
+  "scope": "Local immutable production bundle includes uncommitted OT-01 prototype over base; sourceCommit is the base, runtimeFingerprint identifies tested module sources."
+}
