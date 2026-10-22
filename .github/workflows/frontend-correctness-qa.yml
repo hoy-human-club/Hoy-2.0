@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'src/modules/customer/**'
+      - 'src/modules/admin/**'
       - 'src/modules/dev/**'
       - 'src/modules/transfers/**'
       - 'src/modules/desk/**'
@@ -23,6 +24,10 @@ on:
       - 'scripts/test-contact-mask*.mjs'
       - 'scripts/test-substitute-request*.mjs'
       - 'scripts/substitute-request-harness.tsx'
+      - 'scripts/test-notification-prefs*.mjs'
+      - 'scripts/test-account-marketing*.mjs'
+      - 'scripts/test-email-test*.mjs'
+      - 'scripts/email-test-harness.tsx'
       - '.github/workflows/frontend-correctness-qa.yml'
 permissions:
   contents: read
@@ -33,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request]
+        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request, notification-prefs, account-marketing, email-test]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,6 +54,9 @@ jobs:
       - name: Verify required-row replay fences
         if: matrix.scope == 'account-data'
         run: node scripts/test-account-data-replay.mjs
+      - name: Verify public preference acknowledgement lifecycle
+        if: matrix.scope == 'notification-prefs'
+        run: node scripts/test-notification-prefs-hook.mjs
       - name: Verify rendered production behavior
         run: |
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
@@ -58,7 +66,7 @@ jobs:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify contained asynchronous states
-        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request'
+        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request' || matrix.scope == 'account-marketing' || matrix.scope == 'email-test'
         run: |
           npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-correctness-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
@@ -80,4 +88,7 @@ jobs:
             docs/screenshots/M-06/*contact-mask*
             docs/screenshots/S-04/*contact-mask*
             docs/screenshots/S-03/*substitute*
+            docs/screenshots/C-24/*prefs*
+            docs/screenshots/C-26/*marketing*
+            docs/screenshots/M-04/*email-test*
           retention-days: 7
