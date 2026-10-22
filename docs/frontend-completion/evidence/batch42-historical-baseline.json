@@ -1,0 +1,19 @@
+{
+  "batch": 42,
+  "historicalBatch": 35,
+  "source": "ede03f3",
+  "providerSource": "0a09975aae2f581bd82e694b0654002466b79181",
+  "fixtureSha256": {
+    "scripts/fixtures/expense-ledger-original-handlers.ts.txt": "725e57a84f45060d852eef766b416084fbd6c199f13edfe7de433a3c94afada6",
+    "scripts/fixtures/expense-ledger-original-generator.ts.txt": "269a241785b061ce8847803b82f09bfc218665076633551f0814bf0318f49e5e",
+    "scripts/fixtures/expense-ledger-original-provider.ts.txt": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7"
+  },
+  "method": "Exact frozen original handler and hook source, bundled in memory with frozen pre-batch42 MockProvider (0a09975) and fictional Map cache. No browser, actual financial action or body output.",
+  "checks": [
+    "Original pay persists despite audit rejection.",
+    "Original stale unpaid selection deletes freshly paid row changed during confirmation.",
+    "Original delete persists despite audit rejection.",
+    "Two original cached generation commands create duplicate template/day rows.",
+    "Original multiple-row generation leaves first row after later insert failure."
+  ]
+}

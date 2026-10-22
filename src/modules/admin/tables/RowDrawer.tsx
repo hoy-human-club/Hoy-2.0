@@ -1,6 +1,7 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
+import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
 import type { BaseRow, ColumnDef } from '../../../data/schema';
 import { tableRegistry } from '../../../data/schema';
@@ -16,6 +17,7 @@ import { Badge } from '../../../components/atom/Badge/Badge';
 import { toast } from '../../../app/toast';
 import { allowedColumns, type Def, type Resolve } from './model';
 import { formatWhen } from './cells';
+import { removeExpenseRow } from './expenseDelete';
 
 const LOCKED = ['id', 'tenant_id', 'created_at', 'updated_at'];
 
@@ -35,18 +37,39 @@ export interface RowDrawerProps {
 export function RowDrawer({ def, row, canWrite, technical, resolve, rowsOf, onClose, onGraph, relatedHref }: RowDrawerProps) {
   const { t, lang } = useI18n();
   const data = useData();
+  const { user, role } = useSession();
   const [confirming, setConfirming] = useState(false);
+  const [busy, setBusy] = useState(false), [error, setError] = useState(''), [saved, setSaved] = useState<string | null>(null);
+  const scope = `${def.name}:${row?.id ?? ''}:${user.id}:${role}:${canWrite}`;
+  const live = useRef({ scope, data, epoch: 0, mounted: true, busy: false });
+  if (live.current.scope !== scope || live.current.data !== data) live.current = { scope, data, epoch: live.current.epoch + 1, mounted: true, busy: false };
+  useEffect(() => { live.current.mounted = true; setConfirming(false); setBusy(false); setError(''); setSaved(null); return () => { live.current.mounted = false; live.current.epoch++; live.current.busy = false; }; }, [scope, data]);
+  useEffect(() => { if (!saved) return; const timer = setTimeout(() => setSaved(null), 1400); return () => clearTimeout(timer); }, [saved]);
+  const cancel = () => { const wasBusy = live.current.busy; live.current.epoch++; live.current.busy = false; setBusy(false); setConfirming(false); setError(wasBusy ? 'admin.tables.writeCancelled' : ''); };
+  const close = () => { cancel(); onClose(); };
+  const deleteBefore = useRef<{row:BaseRow;requestId:string} | null>(null);
+  const paid = def.name === 'expenses' && !!row?.paid_on;
+  const execute = async (field?: string, value?: unknown) => {
+    if (!row || !canWrite || live.current.busy || !live.current.mounted || live.current.scope !== scope || live.current.data !== data) return;
+    const state = live.current, epoch = state.epoch, id = row.id, table = def.name;
+    const current = () => live.current === state && state.mounted && state.epoch === epoch;
+    state.busy = true; setBusy(true); setError(''); setSaved(null);
+    try {
+      if (field) await data.update(table, id, { [field]: value }); else if (table === 'expenses') { if (!deleteBefore.current || deleteBefore.current.row.id !== id) throw Error('expense_delete_stale'); await removeExpenseRow(data, deleteBefore.current.row, {requestId:deleteBefore.current.requestId,actorId:user.id,role}, current); } else await data.remove(table, id);
+      if (!current()) return; // Cancellation cannot undo an already committed local write.
+      const acknowledged = await data.get(table, id);
+      if (!current()) return;
+      if (field ? !acknowledged || JSON.stringify(acknowledged[field]) !== JSON.stringify(value) : acknowledged !== null) throw Error('table_ack_unconfirmed');
+      if (field) setSaved(field);
+      else { toast(t('admin.tables.deleted', { title }), 'success'); setConfirming(false); onClose(); }
+    } catch (failure) {
+      if (current()) setError(failure instanceof Error && /^expense_paid_/.test(failure.message) ? 'admin.tables.paidProtected' : 'admin.tables.writeFailed');
+    } finally { if (current()) { state.busy = false; setBusy(false); } }
+  };
   const title = row ? rowTitle(def, row, lang, resolve) : '';
   const incoming = useMemo(() => (row ? getRelations().filter((e) => e.to === def.name).map((e) => ({ e, n: rowsOf(e.from).filter((r) => r[e.column] === row.id).length })).filter((x) => x.n > 0) : []), [row, def.name, rowsOf]);
-  const remove = async () => {
-    if (!row) return;
-    await data.remove(def.name, row.id);
-    toast(t('admin.tables.deleted', { title }), 'success');
-    setConfirming(false);
-    onClose();
-  };
   return (
-    <Drawer open={!!row} onClose={() => { setConfirming(false); onClose(); }} width={560}
+    <Drawer open={!!row} onClose={close} width={560}
       title={
         <div className="tbl-drawer-title">
           <span className="eyebrow">{tableLabel(def, lang)}</span>
@@ -56,17 +79,20 @@ export function RowDrawer({ def, row, canWrite, technical, resolve, rowsOf, onCl
       }
       footer={row ? (
         confirming ? (
-          <Notice tone="danger" title={t('admin.tables.deleteConfirm')} action={<div className="row wrap"><Button size="sm" variant="ghost" onClick={() => setConfirming(false)}>{t('core.common.cancel')}</Button><Button size="sm" variant="danger" icon="trash" onClick={remove}>{t('core.common.delete')}</Button></div>}>{t('admin.tables.deleteBody')}</Notice>
+          <Notice tone="danger" title={t('admin.tables.deleteConfirm')} action={<div className="row wrap"><Button size="sm" variant="ghost" onClick={cancel}>{t('core.common.cancel')}</Button><Button size="sm" variant="danger" icon="trash" loading={busy} disabled={busy || paid} onClick={() => void execute()}>{t('core.common.delete')}</Button></div>}>{t('admin.tables.deleteBody')}</Notice>
         ) : (
           <div className="row-between wrap tbl-drawer-foot">
             <Button size="sm" variant="secondary" icon="graph" onClick={() => onGraph(row.id)}>{t('admin.tables.graph.open')}</Button>
-            {canWrite && <Button variant="danger" size="sm" icon="trash" onClick={() => setConfirming(true)}>{t('core.common.delete')}</Button>}
+            {canWrite && <Button variant="danger" size="sm" icon="trash" disabled={busy || paid} onClick={() => { deleteBefore.current = {row:structuredClone(row),requestId:crypto.randomUUID()}; setError(''); setConfirming(true); }}>{t('core.common.delete')}</Button>}
           </div>
         )
       ) : undefined}>
       {row && (
         <div className="stack">
-          <RowEditor key={row.id} def={def} row={row} readOnly={!canWrite} technical={technical} rowsOf={rowsOf} />
+          {paid && <Notice tone="info">{t('admin.tables.paidProtected')}</Notice>}
+          {busy && <Notice tone="info" action={<Button variant="ghost" onClick={cancel}>{t('core.common.cancel')}</Button>}>{t('admin.tables.pendingWrite')}</Notice>}
+          {error && <Notice tone="warn">{t(error)}</Notice>}
+          <RowEditor key={row.id} def={def} row={row} readOnly={!canWrite} busy={busy} technical={technical} rowsOf={rowsOf} save={execute} saved={saved} />
           <section className="stack-sm tbl-related" aria-labelledby="tbl-related-h">
             <h4 id="tbl-related-h" className="tbl-h4">{t('admin.tables.related')}</h4>
             {incoming.length === 0 ? <p className="small muted">{t('admin.tables.related.none')}</p> : (
@@ -90,12 +116,9 @@ function typeWord(c: ColumnDef, t: (k: string) => string) {
   return t(`admin.tables.type.${c.type}`);
 }
 
-function RowEditor({ def, row, readOnly, technical, rowsOf }: { def: Def; row: BaseRow; readOnly: boolean; technical: boolean; rowsOf: (table: string) => BaseRow[] }) {
+function RowEditor({ def, row, readOnly, technical, rowsOf, save, saved, busy }: { def: Def; row: BaseRow; readOnly: boolean; technical: boolean; rowsOf: (table: string) => BaseRow[]; save: (name: string, value: unknown) => Promise<void>; saved: string | null; busy: boolean }) {
   const { t, lang } = useI18n();
-  const data = useData();
-  const [saved, setSaved] = useState<string | null>(null);
-  const save = async (name: string, value: unknown) => { await data.update(def.name, row.id, { [name]: value }); setSaved(name); setTimeout(() => setSaved((s) => (s === name ? null : s)), 1400); };
-  const locked = (c: ColumnDef) => readOnly || LOCKED.includes(c.name);
+  const locked = (c: ColumnDef) => readOnly || busy || LOCKED.includes(c.name);
   const all = allowedColumns(def, !readOnly);
   // the row's own fields first; id, studio and the two timestamps last, under "Datos del sistema"
   const cols = [...all.filter((c) => !LOCKED.includes(c.name)), ...all.filter((c) => LOCKED.includes(c.name))];

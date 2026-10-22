@@ -1,0 +1,7 @@
+{
+  "base": "http://127.0.0.1:5280",
+  "phase": "expense-save-quota",
+  "error": "Error: locator.waitFor: Error: strict mode violation: getByRole('dialog').getByRole('alert') resolved to 2 elements:\n    1) <div role=\"alert\">…</div> aka getByRole('alert').first()\n    2) <div role=\"alert\" class=\"notice notice-warn \">…</div> aka getByRole('alert').nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByRole('dialog').getByRole('alert') to be visible\u001b[22m\n",
+  "checks": [],
+  "errors": []
+}

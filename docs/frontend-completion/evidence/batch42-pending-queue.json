@@ -1,0 +1,94 @@
+{
+  "state": "LOCAL QUEUE COMPLETE currentc51. Root Git/integration/CI/deployment remain; no child execution pending.",
+  "base": "0a09975aae2f581bd82e694b0654002466b79181",
+  "fullRuntime": "803ec590b59e20591070675f062430aa85921eb1ff7478665362611e67575fcf",
+  "scoped4Files": "96fea267ba7e6e521228190750d314fab42e86159dead94da522e599042f3c57",
+  "readOnlyRecheck": {
+    "headUnchanged": true,
+    "all4ScriptHashesMatchSourceProof": true,
+    "originalProviderBytesEqualGitHead": true,
+    "originalProviderSha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7",
+    "allFiveHistoricalAssertionsRetained": true,
+    "diffCheck": "PASS",
+    "qaLogs": "No batch42 execution logs/directory yet"
+  },
+  "orderedQueue": [
+    {
+      "stage": "historical baseline",
+      "command": "node scripts/test-expense-ledger-baseline.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history",
+      "assertions": "All five original defect assertions retained against exact frozen provider; write new batch42 historical receipt, preserve batch35 receipt."
+    },
+    {
+      "stage": "current domain",
+      "command": "node scripts/test-expense-delete-guard.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history",
+      "assertions": "Direct/staged paid/marker guards, quota/full bytes/events/timestamps, duplicate/races/nonce replay/exact recreation, actor ID/status/readend/postcommit/replay."
+    },
+    {
+      "stage": "actual drawer lifecycle",
+      "command": "node scripts/test-expense-table-lifecycle.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history",
+      "assertions": "Immediate latch, failure/retry, cancelled/unmounted/actor/role/selection/provider results, no late saved; controlled actual component."
+    },
+    {
+      "stage": "existing ledger domain",
+      "command": "node scripts/test-expense-ledger.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "subscription adapter regression",
+      "command": "node scripts/test-subscription-expenses.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "type",
+      "command": "npx tsc --noEmit",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "full build",
+      "command": "npm run build",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "freeze before rendered QA",
+      "command": "Verify actual source unchanged before/after build; copy dist under /workspace/hoy-qa-artifacts; write explicit base+uncommitted sidecar; hash whole artifact/assets BEFORE QA; bind127.0.0.1:5280 to immutable copy",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "production generic table",
+      "command": "QA_BASE=http://127.0.0.1:5280 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-delete-guard-ui.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history",
+      "assertions": "ENES3901280lightdark superadmin paid/clearing/field-quota/delete-quota/cancel/retry; existing finance/developer read-only."
+    },
+    {
+      "stage": "production existing ledger",
+      "command": "QA_BASE=http://127.0.0.1:5280 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-ui.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    },
+    {
+      "stage": "existing controlled dev faults",
+      "command": "QA_BASE=http://127.0.0.1:5279 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-states.mjs",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history",
+      "setup": "Owned dev server strict127.0.0.1:5279; one browser serial only after granted."
+    },
+    {
+      "stage": "close and receipt",
+      "command": "Close all browsers/builds, inspect actual representative M03/M09c renders, assert same source+whole artifact/assets after QA, save exact outcomes/errors/capture hashes/remaining backend gates; root alone checkpoints/integrates/releases",
+      "status": "PASS / completed, see batch42-source.json exact commands/exits and failure history"
+    }
+  ],
+  "restrictions": [
+    "No Git/PR/deployment/global manifest/schema/role/RLS changes.",
+    "Report actual failure before altering assertions/source; source fix invalidates build/bundle.",
+    "Workspace QA/log storage, not /tmp.",
+    "Original FI04 Nov30 criterion remains partial/unaccepted against real server enforcement."
+  ],
+  "historicalInitialState": "Await explicit root exclusive compiler/browser grant. No batch42 baseline/domain/type/build/browser has executed.",
+  "finalSource": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "remaining": [
+    "Root integrates with checked latest main/combined41, regenerates metadata, validates exact source and CI, then ordinary authorized demo release/hosted receipt.",
+    "Anu real authenticated durable business invariant and canonical accounting/idempotency across database/API paths; original FI04 remains partial."
+  ]
+}

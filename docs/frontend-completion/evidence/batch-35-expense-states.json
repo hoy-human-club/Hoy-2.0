@@ -1,6 +1,6 @@
 {
   "batch": 35,
-  "base": "http://127.0.0.1:5261",
+  "base": "http://127.0.0.1:5279",
   "checks": [
     "en:existing MockProvider actor loss preflight→stage; each record/audit failure+retry; fresh staged missing/duplicate/foreign/read failures; fresh paid-delete conflict; held audit cancellation; postcommit actor loss retains one durable mock result/audit, no acknowledgement, restored replay no duplicate/form reset; late older success cannot erase newer error; scoped foreign canary never rendered",
     "es:existing MockProvider actor loss preflight→stage; each record/audit failure+retry; fresh staged missing/duplicate/foreign/read failures; fresh paid-delete conflict; held audit cancellation; postcommit actor loss retains one durable mock result/audit, no acknowledgement, restored replay no duplicate/form reset; late older success cannot erase newer error; scoped foreign canary never rendered"
