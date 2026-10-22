@@ -1349,17 +1349,28 @@
       "priority": "High",
       "relatedTests": "CLI-22, COO-13",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
       "candidateEvidence": [
         "src/modules/customer/pages/AccountPage.tsx",
         "src/modules/customer/pages/ProfilePage.tsx",
         "src/modules/admin/DeletionsPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/account"
+      ],
+      "tests": [
+        "scripts/test-account-data.mjs",
+        "scripts/test-account-data-replay.mjs",
+        "scripts/test-account-data-ui.mjs",
+        "scripts/test-account-data-states.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-24-account-build.json",
+        "docs/frontend-completion/evidence/batch-24-account-ui.json",
+        "docs/frontend-completion/evidence/batch-24-account-states.json"
+      ],
       "blockers": [],
-      "nextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract.",
+      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
       "candidateRoutes": [
         "/#/app/account",
         "/#/app/profile",
@@ -1375,7 +1386,16 @@
         ]
       },
       "sourceNextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-24.md",
+          "behavior": "Explicit allowlisted own-data fictional preview/confirmation and atomic request/cancel, with required-row replay and postcommit ownership fences.",
+          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "limits": "Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+        }
+      ]
     },
     {
       "id": "CU-07",
@@ -3756,7 +3776,7 @@
       "priority": "High",
       "relatedTests": "REC-05, REC-07, REC-08",
       "implementationStatus": "partial",
-      "verificationStatus": "focused-frontend-pass",
+      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
       "candidateEvidence": [
         "src/modules/staff/CheckinPage.tsx",
         "src/modules/staff/RegisterPage.tsx",
@@ -3770,15 +3790,18 @@
         "scripts/test-desk-transactions.mjs",
         "scripts/test-desk-package-ui.mjs",
         "scripts/test-desk-sale-ui.mjs",
-        "scripts/test-package-lots.mjs"
+        "scripts/test-package-lots.mjs",
+        "scripts/test-contact-mask.mjs",
+        "scripts/test-contact-mask-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/S-02/package-booking-results.json",
         "docs/screenshots/S-04/atomic-sale-results.json",
-        "docs/screenshots/M-06/balance-results.json"
+        "docs/screenshots/M-06/balance-results.json",
+        "docs/screenshots/M-06/contact-mask-results.json"
       ],
       "blockers": [],
-      "nextAction": "Server atomicity, authorization and authoritative migration pending.",
+      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3806,6 +3829,13 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Server atomicity, authorization and authoritative migration pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-25.md",
+          "behavior": "Existing desk selection uses compatible masked separated phone formats; raw search matches and own stored contact remains unchanged.",
+          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "limits": "Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4286,7 +4316,7 @@
       "priority": "High",
       "relatedTests": "COO-02",
       "implementationStatus": "partial",
-      "verificationStatus": "focused-frontend-pass",
+      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
       "candidateEvidence": [
         "src/modules/admin/CrmPage.tsx",
         "src/modules/admin/MemberPage.tsx",
@@ -4299,7 +4329,9 @@
       ],
       "tests": [
         "scripts/test-crm-balances-ui.mjs",
-        "scripts/test-package-lots.mjs"
+        "scripts/test-package-lots.mjs",
+        "scripts/test-contact-mask.mjs",
+        "scripts/test-contact-mask-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-06/en-390-balances.jpg",
@@ -4307,13 +4339,14 @@
         "docs/screenshots/M-06/en-1280-balances.jpg",
         "docs/screenshots/M-06/es-1280-balances.jpg",
         "docs/screenshots/M-06/balance-results.json",
-        "docs/screenshots/S-02/package-booking-results.json"
+        "docs/screenshots/S-02/package-booking-results.json",
+        "docs/screenshots/M-06/contact-mask-results.json"
       ],
       "blockers": [
         "Shared data hooks have no asynchronous rejection/retry path; loading/error integration unverified.",
         "Backend tenant/role enforcement and cross-device consistency excluded from this frontend batch."
       ],
-      "nextAction": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
+      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
       "candidateRoutes": [
         "/#/admin/crm",
         "/#/admin/crm/usr_cust"
@@ -4342,6 +4375,13 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-25.md",
+          "behavior": "Existing masked contact views handle separated fictional phone formats without raw fallback; stored/search/editor values and roles unchanged.",
+          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "limits": "Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4949,17 +4989,28 @@
       "priority": "Medium",
       "relatedTests": "PRO-05",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
       "candidateEvidence": [
         "src/modules/teacher/HomePage.tsx",
         "src/modules/admin/WhatsAppPage.tsx",
         "src/modules/staff/audit.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/teach",
+        "/#/admin/whatsapp"
+      ],
+      "tests": [
+        "scripts/test-substitute-request.mjs",
+        "scripts/test-substitute-request-ui.mjs",
+        "scripts/test-substitute-request-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-03/substitute-build-receipt.json",
+        "docs/screenshots/S-03/substitute-ui-results.json",
+        "docs/screenshots/S-03/substitute-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach.",
+      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
       "candidateRoutes": [
         "/#/teach",
         "/#/admin/whatsapp"
@@ -4974,7 +5025,16 @@
         ]
       },
       "sourceNextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-26.md",
+          "behavior": "Existing teacher request stages audit plus team-only queued log atomically with scoped fresh ownership, safe replay and contained cancellation/retry; Administration log reads same fictional row.",
+          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "limits": "No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+        }
+      ]
     },
     {
       "id": "PF-04",
@@ -5913,7 +5973,12 @@
       "localProof": "docs/frontend-completion/evidence/integrated-batches-20-23.json",
       "status": "all named combined fullbuild/domain/production/dev-state checks passed; final exact-head CI/release pending",
       "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca"
-    }
+    },
+    "nextIndependentBatches": [
+      "batch-27.md notification preferences: corrected public acknowledgement behavior frozen; root integration/CI pending alongside C26 marketing consumer compatibility.",
+      "batch-28.md local email self-test: source/build/rendered checks active.",
+      "batch-29.md existing C26 marketing mirror atomicity: isolated source/domain/build active."
+    ]
   },
   "classificationPolicy": {
     "baselineImplementationStatus": "Historical source-only classification recovered from b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e; retained for comparison, not acceptance.",

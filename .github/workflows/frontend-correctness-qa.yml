@@ -6,6 +6,9 @@ on:
       - 'src/modules/dev/**'
       - 'src/modules/transfers/**'
       - 'src/modules/desk/**'
+      - 'src/modules/teacher/**'
+      - 'src/modules/staff/maskPhone.ts'
+      - 'src/modules/staff/people.ts'
       - 'src/data/**'
       - 'src/i18n/**'
       - 'src/tenant/**'
@@ -15,6 +18,11 @@ on:
       - 'scripts/test-profile-save*.mjs'
       - 'scripts/profile-save-harness.tsx'
       - 'scripts/test-recovery*.mjs'
+      - 'scripts/test-account-data*.mjs'
+      - 'scripts/account-data-harness.tsx'
+      - 'scripts/test-contact-mask*.mjs'
+      - 'scripts/test-substitute-request*.mjs'
+      - 'scripts/substitute-request-harness.tsx'
       - '.github/workflows/frontend-correctness-qa.yml'
 permissions:
   contents: read
@@ -25,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: [api-key-mutations, trial-eligibility, profile-save, recovery]
+        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,6 +46,9 @@ jobs:
       - run: npm run build
       - name: Verify fictional command invariants
         run: node scripts/test-${{ matrix.scope }}.mjs
+      - name: Verify required-row replay fences
+        if: matrix.scope == 'account-data'
+        run: node scripts/test-account-data-replay.mjs
       - name: Verify rendered production behavior
         run: |
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
@@ -47,7 +58,7 @@ jobs:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify contained asynchronous states
-        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save'
+        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request'
         run: |
           npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-correctness-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
@@ -65,4 +76,8 @@ jobs:
             docs/screenshots/C-21/*recovery*
             docs/screenshots/D-07/*key-atomic*
             docs/screenshots/S-09/*trial*
+            docs/screenshots/C-26/*account*
+            docs/screenshots/M-06/*contact-mask*
+            docs/screenshots/S-04/*contact-mask*
+            docs/screenshots/S-03/*substitute*
           retention-days: 7
