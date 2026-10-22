@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5175",
+  "checks": [
+    "en: owned read held before child mount, late response after ID change suppressed, ownership read error/retry, detail read error/retry, same mounted actor switch, live reassignment removes roster/notes and causes no write",
+    "es: owned read held before child mount, late response after ID change suppressed, ownership read error/retry, detail read error/retry, same mounted actor switch, live reassignment removes roster/notes and causes no write"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only harness mounts real providers/components; production route/role flow checked separately."
+  ]
+}

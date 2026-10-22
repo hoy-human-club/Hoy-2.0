@@ -22,5 +22,5 @@ export default defineMeta({
     { es: 'aria-describedby en el control envuelto con el texto “Aún no conectado: {qué}”.', en: 'aria-describedby on the wrapped control with the “Not wired yet: {what}” text.' },
     { es: 'Bloquea clic, Enter y Espacio en captura, así el control conserva su foco y su rol.', en: 'Blocks click, Enter and Space in the capture phase, so the control keeps its focus and role.' },
   ],
-  usedBy: ['HUB-01', 'M-10a', 'D-07'],
+  usedBy: ['HUB-01', 'M-10a'],
 });

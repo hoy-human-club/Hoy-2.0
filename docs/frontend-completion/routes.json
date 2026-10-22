@@ -2135,7 +2135,10 @@
         "Key shown once",
         "Rotating (grace 24 h)",
         "Revoke confirm",
-        "Read-only (admin)"
+        "Read-only (admin)",
+        "Fictional 200/401/403 response",
+        "Local request preparing / cancelled",
+        "Fictional503 / retry"
       ],
       "tables": [
         "api_keys",
@@ -2972,7 +2975,11 @@
         "Before start: roster only",
         "After start: Close class (own class, or coordinator override)",
         "Completed",
-        "Class not found"
+        "Class not found",
+        "Ownership loading",
+        "Foreign / missing link / cross-tenant denied before detail mount",
+        "Contained read error / Retry",
+        "Reassignment revokes details and rejects stale writes"
       ],
       "tables": [
         "teachers",
@@ -3070,6 +3077,8 @@
       "tables": [
         "transfer_receipts",
         "payments",
+        "profiles",
+        "plans",
         "class_ledger",
         "bookings",
         "audit_log"

@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
@@ -17,13 +17,13 @@ import { Field } from '../../components/molecule/Field/Field';
 import { Toggle } from '../../components/atom/Toggle/Toggle';
 import { Badge, type BadgeTone } from '../../components/atom/Badge/Badge';
 import { Notice } from '../../components/molecule/Notice/Notice';
-import { Placeholder } from '../../components/atom/Placeholder/Placeholder';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { DataTable, type DataTableColumn } from '../../components/organism/DataTable/DataTable';
 import { Drawer } from '../../components/organism/Drawer/Drawer';
 import { useAudit } from '../staff/audit';
 import { API_KEY_SCOPES, ROTATION_GRACE_MS, keyStatus, newKeyRow, type ApiKeyStatus } from './apiKeys';
 import { apiKeysSpec } from './specs';
+import { API_REQUEST_SCENARIOS, fictionalApiResponse, type ApiRequestScenario, type ApiFixtureResponse } from './apiRequestFixture';
 import './dev.css';
 
 const STATUS_TONE: Record<ApiKeyStatus, BadgeTone> = { active: 'success', expiring: 'warn', expired: 'neutral', revoked: 'danger' };
@@ -49,6 +49,26 @@ export function ApiKeysPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [confirmRevoke, setConfirmRevoke] = useState<string | null>(null);
+
+  const [scenario, setScenario] = useState<ApiRequestScenario>('valid');
+  const [requestBusy, setRequestBusy] = useState(false);
+  const [requestResult, setRequestResult] = useState<ApiFixtureResponse | null>(null);
+  const [failNext, setFailNext] = useState(false);
+  const requestTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (requestTimer.current) clearTimeout(requestTimer.current); }, []);
+  const cancelRequest = () => {
+    if (requestTimer.current) clearTimeout(requestTimer.current);
+    requestTimer.current = null; setRequestBusy(false); setRequestResult(null);
+  };
+  const tryFictionalRequest = () => {
+    cancelRequest(); setRequestBusy(true);
+    const selected = scenario, fail = failNext;
+    setFailNext(false);
+    requestTimer.current = setTimeout(() => {
+      requestTimer.current = null;
+      setRequestResult(fictionalApiResponse(selected, fail)); setRequestBusy(false);
+    }, 450);
+  };
 
   // Handlers read the provider, not the rendered rows, so quick successive calls (an agent) see each other's writes.
   const find = async (idOrPrefix: string) => (await data.list<ApiKeyRow>('api_keys')).find((k) => k.id === idOrPrefix || k.prefix === idOrPrefix);
@@ -182,11 +202,18 @@ export function ApiKeysPage() {
       </Card>
     ),
     TryRequest: () => (
-      <Card icon="code" title={t('dev.apiKeys.try')} tone="muted">
-        <div className="stack">
-          <p className="small">{t('dev.apiKeys.try.body')}</p>
-          <pre className="apikeys-curl" tabIndex={0}>{'curl -H "Authorization: Bearer hoy_test_…" \\\n  https://api.<hoyos-host>/v1/hours'}</pre>
-          <div className="row"><Placeholder what={t('dev.apiKeys.try.cta')}><Button variant="secondary" icon="play">{t('dev.apiKeys.try.cta')}</Button></Placeholder></div>
+      <Card icon="code" title={t('dev.apiFixture.title')} tone="muted">
+        <div className="stack" data-testid="api-fixture-console">
+          <Notice tone="warn">{t('dev.apiFixture.boundary')}</Notice>
+          <p className="small">{t('dev.apiFixture.endpoint')} <code>MOCK /v1/hours</code></p>
+          <Field label={t('dev.apiFixture.scenario')}>{(id) => <Select id={id} value={scenario} disabled={requestBusy} onChange={e => { setScenario(e.target.value as ApiRequestScenario); setRequestResult(null); }}>{API_REQUEST_SCENARIOS.map(value => <option key={value} value={value}>{t(`dev.apiFixture.${value}`)}</option>)}</Select>}</Field>
+          <Toggle checked={failNext} disabled={requestBusy} onChange={setFailNext} label={t('dev.apiFixture.failNext')} />
+          <div className="row wrap">
+            <Button variant="secondary" icon="play" disabled={requestBusy} onClick={tryFictionalRequest}>{t(requestResult?.status === 503 ? 'dev.apiFixture.retry' : 'dev.apiFixture.run')}</Button>
+            <Button variant="ghost" onClick={cancelRequest}>{t('dev.apiFixture.cancel')}</Button>
+          </div>
+          {requestBusy && <p role="status">{t('dev.apiFixture.loading')}</p>}
+          {requestResult && <div className="stack-sm" role="status"><Badge tone={requestResult.status === 200 ? 'success' : requestResult.status === 503 ? 'warn' : 'danger'}>{t('dev.apiFixture.status', { status: requestResult.status })}</Badge><pre className="apikeys-curl" tabIndex={0} data-testid="api-fixture-response">{JSON.stringify(requestResult.body, null, 2)}</pre><p className="small muted">{t('dev.apiFixture.resultBoundary')}</p></div>}
         </div>
       </Card>
     ),

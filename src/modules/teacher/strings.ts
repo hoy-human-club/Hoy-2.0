@@ -1,5 +1,11 @@
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  'teacher.access.unlinked':{es:'Tu cuenta no está vinculada a un perfil de profesor.',en:'Your account is not linked to a teacher profile.'},
+  'teacher.access.unavailable':{es:'Clase no disponible',en:'Class unavailable'},
+  'teacher.access.body':{es:'Solo puedes abrir clases vinculadas a tu cuenta de profesor.',en:'You can only open classes linked to your teacher account.'},
+  'teacher.access.readError':{es:'No se pudo cargar la clase.',en:'Could not load the class.'},
+  'teacher.access.retry':{es:'Reintentar',en:'Retry'},
+  'teacher.access.saveError':{es:'No se pudo guardar. La clase pudo cambiar de profesor. Vuelve a cargar antes de reintentar.',en:'Could not save. The class may have been reassigned. Reload before retrying.'},
   'teacher.home.title': { es: 'Mis clases', en: 'My classes' },
   'teacher.home.notLinked': { es: 'Este usuario no está vinculado a un perfil de profesor. Elige uno para revisar la app.', en: 'This user is not linked to a teacher profile. Pick one to review the app.' },
   'teacher.home.viewAs': { es: 'Ver como profesor', en: 'View as teacher' },

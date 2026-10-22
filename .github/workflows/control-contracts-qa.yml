@@ -1,0 +1,95 @@
+name: Frontend control contracts QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/dev/**'
+      - 'src/modules/teacher/**'
+      - 'src/modules/transfers/**'
+      - 'src/data/MockProvider.ts'
+      - 'src/data/schema.ts'
+      - 'src/i18n/format.ts'
+      - 'vite.config.ts'
+      - 'scripts/test-api-request*.mjs'
+      - 'scripts/test-teacher-ownership*.mjs'
+      - 'scripts/teacher-ownership-harness.tsx'
+      - 'scripts/test-pending-payments*.mjs'
+      - '.github/workflows/control-contracts-qa.yml'
+permissions:
+  contents: read
+jobs:
+  identity-and-fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/test-api-request-fixture.mjs
+      - run: node scripts/test-teacher-ownership.mjs
+      - name: Verify symbolic responses and existing teacher ownership
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-controls-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-api-request-fixture-ui.mjs
+          node scripts/test-teacher-ownership-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify teacher loading and ownership changes
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-teacher-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-teacher-ownership-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: identity-fixture-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/D-07/*api-fixture*
+            docs/screenshots/S-03/*ownership*
+          retention-days: 7
+  pending-payments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/test-pending-payments.mjs
+      - name: Verify all pending payment entries
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-pending-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-pending-payments-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify contained pending queue read failures
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-pending-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-pending-payments-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pending-queue-${{ github.event.pull_request.head.sha }}
+          path: docs/screenshots/S-09/*pending*
+          retention-days: 7
