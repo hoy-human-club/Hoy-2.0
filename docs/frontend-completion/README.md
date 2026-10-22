@@ -1,6 +1,6 @@
 # Frontend completion handoff index
 
-Current deployed release: [PR65](https://github.com/imagine-os/hoy/pull/65), checked3c017b4 all10 workflows/all7 correctness scopes passed; merge840f8e1. [Pages39717548494](https://github.com/imagine-os/hoy/actions/runs/39717548494) build/deploy/hosted source verification passed; rollback0097dfb. Next27/28/29 combined build/domain passed, seven serial browser/regression suites active; release pending. Current source findings12/99/8/5 preserve historical14/94/11/5; FI03 is partial after reproduced draft failures, isolated repair30pending. No completion percentage or backend/owner acceptance. The concise current checkpoint below supersedes older historical status notes.
+Current deployed release: [PR65](https://github.com/imagine-os/hoy/pull/65), checked3c017b4 all10 workflows/all7 correctness scopes passed; merge840f8e1. [Pages39717548494](https://github.com/imagine-os/hoy/actions/runs/39717548494) build/deploy/hosted source verification passed; rollback0097dfb. Next27/28/29 combined build/domain passed, all7 serial browser/regression suites passed; CI/release pending. Current source findings12/99/8/5 preserve historical14/94/11/5; FI03 is partial after reproduced draft failures, isolated repair30pending. No completion percentage or backend/owner acceptance. The concise current checkpoint below supersedes older historical status notes.
 
 [Start with the concise current checkpoint](CONTINUE.md); historical receipts below preserve exact evidence and remaining gates.
 

@@ -12,4 +12,4 @@ Alternative rejected: resolving cancelled/unconfirmed commands into awaiting leg
 
 Files: shared page/component metadata, correctness CI, bounded batch27/28/29 source/tests/docs/proof and root integration receipts. No schema/dependency/security/provider configuration or real financial/storage action.
 
-Validation: isolated complete checks passed. Root combined full build/domain including actual-hook lifecycle passed, runtimeac8f6d47…; combined rendered/regression QA, exact-head CI and deployment remain pending until the receipt records them.
+Validation: isolated complete checks passed. Root combined full build/domain including actual-hook lifecycle passed, runtimeac8f6d47…; all7 serial combined rendered/dev/regression suites passed with unchanged runtime. Exact-head CI and deployment remain pending until the receipt records them.

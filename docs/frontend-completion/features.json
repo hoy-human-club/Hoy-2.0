@@ -1401,7 +1401,7 @@
         {
           "batch": "batch-29.md",
           "behavior": "Existing C26 selected marketing preference/profile any-channel mirror/consent audit commit atomically with fresh required rows, stale selected target and owned replay; no dispatch/legal processing. Existing request Card contrast corrected locally.",
-          "verification": "Isolated final full build/domain8+account6/replay4/production8matrix11roles/devstates passed; root combined build/domain passed, combined browser/CI/release pending.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Existing C19/C24 retain separate semantics. Actual legal data rights, email preference enforcement, urgency policy and authenticated server/durable acceptance remain open.",
           "acceptance": "Source phase/statuses unchanged; no full CU06/NT06 acceptance."
         }
@@ -4825,7 +4825,7 @@
       "priority": "Medium",
       "relatedTests": "COO-04",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-combined-qa-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/EmailsPage.tsx",
         "src/components/organism/EmailPreview/EmailPreview.tsx"
@@ -4844,14 +4844,15 @@
         "docs/screenshots/M-04/email-test-state-results.json"
       ],
       "blockers": [],
-      "nextAction": "Freshly exercise edit/variables/version rollback plus simulated send failure; clearly distinguish local test preview from external delivery.",
+      "nextAction": "Check exact-head integration/release; separately repair template save/rollback and connect authorized real rendering/delivery/version services.",
       "candidateRoutes": [
         "/#/admin/emails"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
         "missingFrontend": [
-          "Template subject/body editor, variables, version counter/audit and rollback exist. Test send merely inserts sent message_log; failure/retry and genuine provider test state remain disconnected."
+          "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
+          "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
         ],
         "remainingBackend": [
           "Template rendering/send provider, immutable version retention and delivery events."
@@ -4863,9 +4864,23 @@
         {
           "batch": "batch-28.md",
           "behavior": "Atomic self-only local email simulation with immutable saved template version/preview locale/current actor recipient, contained scoped reads/lifecycle/retry/replay and readable dark paper. No email delivery.",
-          "verification": "Isolated full build/domain/rendered matrices and applicable actual-hook/dev-state checks passed; root combined build/domain passed, combined browser/CI/release pending.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Provider send/rendering/delivery events, immutable version retention and separate template save/rollback/generic comms remain partial.",
           "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
+        }
+      ],
+      "priorSourceAssessments": [
+        {
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "Template subject/body editor, variables, version counter/audit and rollback exist. Test send merely inserts sent message_log; failure/retry and genuine provider test state remain disconnected."
+            ],
+            "remainingBackend": [
+              "Template rendering/send provider, immutable version retention and delivery events."
+            ]
+          },
+          "basis": "Historical source inspection before batch28; retained without promoting whole feature acceptance."
         }
       ]
     },
@@ -4883,7 +4898,7 @@
       "priority": "Medium",
       "relatedTests": "CLI-21",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-combined-qa-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/NotificationsPage.tsx",
         "src/modules/customer/hooks.ts",
@@ -4903,7 +4918,7 @@
         "docs/screenshots/C-24/notification-prefs-results.json"
       ],
       "blockers": [],
-      "nextAction": "Define mandatory vs optional notification categories; enforce preference selection in mock send/preview and verify immediate effect.",
+      "nextAction": "Check exact-head integration/release; retain explicit unresolved urgency/mandatory policy and real preference-aware provider dispatch/authenticated persistence gates.",
       "candidateRoutes": [
         "/#/app/notifications",
         "/#/app/profile"
@@ -4923,14 +4938,14 @@
         {
           "batch": "batch-27.md",
           "behavior": "Scoped local category/master preference commands preserve channels/categories/defaults, atomic failures and safe replay; public API rejects cancelled/unconfirmed acknowledgements. No actual dispatch enforcement.",
-          "verification": "Isolated full build/domain/rendered matrices and applicable actual-hook/dev-state checks passed; root combined build/domain passed, combined browser/CI/release pending.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Actual nonurgent/mandatory policy and provider/outbox enforcement, authenticated persistence and durable cross-device behavior remain disconnected.",
           "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
         },
         {
           "batch": "batch-29.md",
           "behavior": "Existing C26 selected marketing preference/profile any-channel mirror/consent audit commit atomically with fresh required rows, stale selected target and owned replay; no dispatch/legal processing. Existing request Card contrast corrected locally.",
-          "verification": "Isolated final full build/domain8+account6/replay4/production8matrix11roles/devstates passed; root combined build/domain passed, combined browser/CI/release pending.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
           "limits": "Existing C19/C24 retain separate semantics. Actual legal data rights, email preference enforcement, urgency policy and authenticated server/durable acceptance remain open.",
           "acceptance": "Source phase/statuses unchanged; no full CU06/NT06 acceptance."
         }

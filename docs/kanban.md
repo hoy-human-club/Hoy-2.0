@@ -3,7 +3,7 @@
 ## Preferences and local email continuation (2026-10-22)
 
 - PR65 checked3c017b4 all10 workflows/all7 correctness jobs passed; deployed840f8e1 with Pages39717548494 all3jobs/source verification passed. Rollback0097dfb. CU06/AD07/RC05/PF03 bounded slices remain partial.
-- Root combines27/28/29: local preferences, existing coupled marketing command and self-only email simulation. Isolated final checks and combined build/domain passed; seven combined browser/regression suites active, CI/release pending. Original124 criteria/statuses/roles/phases preserved.
+- Root combines27/28/29: local preferences, existing coupled marketing command and self-only email simulation. Isolated final checks and combined build/domain passed; all7 combined browser/regression suites passed, CI/release pending. Original124 criteria/statuses/roles/phases preserved.
 - FI03 corrected from historical implemented to current partial after actual draft failure/concurrency reproduction; current source findings12/99/8/5 are not completion counts. Independent30 draft-only payroll and31 zero-due RSVP continue, with real settlement/delivery/server authorization separate.
 
 ## Account, contact and teacher integration (2026-10-22)

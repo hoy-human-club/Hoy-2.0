@@ -34,9 +34,11 @@
     "scope": "Scoped reads/defaults/atomic staged or quota failure, independent and overlapping concurrency, ambiguity/current ownership/replay, actual-hook14 cancellation/unconfirmed acknowledgement cases, coupled marketing8 groups, self-only saved-version email simulation."
   },
   "renderedQA": {
-    "status": "active, not yet all passed",
+    "status": "passed all7 serial suites EXIT0",
     "receipt": "docs/frontend-completion/evidence/combined-27-28-29-ui.json",
-    "scope": "Seven serial suites covering three actual production workflows, two dev asynchronous state suites and existing own-data/profile production regressions. No more than2 browser suites globally."
+    "scope": "Seven serial suites covering three actual production workflows, two dev asynchronous state suites and existing own-data/profile production regressions. No more than2 browser suites globally.",
+    "runtimeBeforeAfter": "ac8f6d47a38fc710690ac6dd12e7104ba3189a88b8c8af27754bb6e6c4d179da",
+    "result": "All7 serial suites EXIT0; zero errors;8 representative shots inspected. Full exact command/check/capture results are in the referenced companion receipt."
   },
   "routes": [
     "/#/app/profile",
@@ -47,7 +49,7 @@
   "ownerAcceptance": "unchanged; all124 original statuses/criteria/roles/phases preserved; named fictional slices remain partial",
   "remainingGates": {
     "root": [
-      "Complete combined rendered/regression QA, exact-head CI, checked merge, ordinary deployment/source verification."
+      "Exact-head CI, checked merge, ordinary deployment/source verification."
     ],
     "Jas": [
       "Urgent/mandatory message classification and approved reader/delivery policy stay unresolved."
