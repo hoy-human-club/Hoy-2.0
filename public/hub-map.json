@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-21T00:00:00.000Z",
+  "generatedAt": "2026-10-22T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -585,6 +585,7 @@
         "S-02",
         "S-09",
         "S-05",
+        "S-10",
         "S-08"
       ],
       "shots": {
@@ -4724,6 +4725,42 @@
           "en": "Account"
         },
         "order": 30
+      }
+    },
+    {
+      "code": "S-10",
+      "route": "/staff/maintenance",
+      "name": {
+        "es": "Mantenimiento futuro",
+        "en": "Future maintenance"
+      },
+      "purpose": {
+        "es": "Probar checklists, incidentes no médicos, insumos y equipos ficticios sin operar el estudio.",
+        "en": "Try fictional checklists, nonmedical incidents, supplies and equipment without operating the studio."
+      },
+      "surface": "staff",
+      "roles": [
+        "super_admin",
+        "admin",
+        "maintenance"
+      ],
+      "experienceId": "desk",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "en-1280": "hub-map/shots/S-10/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "desk",
+        "label": {
+          "es": "Recepción",
+          "en": "Front desk"
+        },
+        "order": 10
       }
     },
     {

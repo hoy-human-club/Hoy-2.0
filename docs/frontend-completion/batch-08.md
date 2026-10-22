@@ -11,3 +11,5 @@ Validation: `scripts/test-reschedule-atomic.mjs` covers every staged write and l
 Next: Anu supplies authoritative original-purchase allocation/migration and an authenticated atomic reschedule contract; owner resolves PC-05/PC-04 independently. Frontend evidence is not owner acceptance. No real payments, database writes or external notifications occur.
 
 Final local production verification: EN/ES390/1280 light/dark future-date/cancel-edit/storage-failure/retry checks and before/exact/after cutoff checks passed, with no browser errors. `future-day-results.json` and cutoff captures under C-08b. PR60 initial booking/payment CI passed at e38ddd5; final correction-head checks and deployment follow in the shared release receipt.
+
+Release receipt: final checked head `2f3348007072382eb0fd25047c1b52ab424f244d`, all12 workflows passed, [PR60](https://github.com/imagine-os/hoy/pull/60) merged `7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24`; [Pages build/deploy/hosted source verification passed](https://github.com/imagine-os/hoy/actions/runs/39696839648). Original source/owner/backend acceptance remains unchanged.

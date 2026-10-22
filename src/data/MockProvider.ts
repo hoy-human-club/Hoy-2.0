@@ -55,7 +55,7 @@ interface Stored { seededOn: string; version?: number; db: Db }
  */
 function upgradeAdditiveMockTables(db: Db) {
   if (!db || typeof db !== 'object') return;
-  for (const table of ['class_pay_rules', 'transfer_receipts']) {
+  for (const table of ['class_pay_rules', 'transfer_receipts', 'maintenance_records']) {
     if (!Object.prototype.hasOwnProperty.call(db, table)) db[table] = [];
   }
 }

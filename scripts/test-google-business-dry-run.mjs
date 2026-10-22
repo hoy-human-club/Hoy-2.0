@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const dir=await mkdtemp(join(tmpdir(),'hoy-google-dry-run-'));
+const file=join(dir,'dry-run.mjs');
+await build({entryPoints:['src/modules/admin/googleBusinessDryRun.ts'],bundle:true,platform:'node',format:'esm',outfile:file});
+const {prepareHoursDryRun,hoursDryRunSourceKey,simulateHoursDryRun}=await import(pathToFileURL(file));
+let sideEffects=0;globalThis.fetch=()=>{sideEffects++;throw Error('no real requests');};globalThis.localStorage={setItem(){sideEffects++;throw Error('no storage writes');}};
+const payload={regularHours:{periods:[{openDay:'MONDAY',openTime:{hours:6,minutes:10},closeDay:'MONDAY',closeTime:{hours:20,minutes:10}}]},specialHours:{specialHourPeriods:[{startDate:{year:2026,month:12,day:25},endDate:{year:2026,month:12,day:25},closed:true}]}};
+const original=structuredClone(payload),prepared=prepareHoursDryRun(payload,false,'2026-10-21T12:00:00Z');payload.regularHours.periods[0].openTime.hours=9;
+assert.deepEqual(prepared.payload,original);assert.equal(prepared.hoursConfirmed,false);assert.equal(prepared.sourceKey,hoursDryRunSourceKey(original,false));
+let progress=[];const options=()=>({signal:new AbortController().signal,outcome:'success',onProgress:p=>progress.push(p),wait:async()=>{}});
+const result=await simulateHoursDryRun(prepared,prepared.sourceKey,options());assert.equal(result.sentToGoogle,false);assert.equal(result.status,'simulated_success');assert.deepEqual(progress,['validating','previewing']);assert.deepEqual(result.payload,original);
+result.payload.regularHours.periods[0].openTime.hours=22;assert.deepEqual(prepared.payload,original);
+await assert.rejects(simulateHoursDryRun(prepared,'new-source',options()),/source_changed/);
+await assert.rejects(simulateHoursDryRun(prepared,prepared.sourceKey,{...options(),outcome:'failure'}),/simulated_failure/);
+const retry=await simulateHoursDryRun(prepared,prepared.sourceKey,options());assert.equal(retry.sentToGoogle,false);assert.deepEqual(retry.payload,original);
+const aborted=new AbortController();aborted.abort();await assert.rejects(simulateHoursDryRun(prepared,prepared.sourceKey,{...options(),signal:aborted.signal}),/cancelled/);
+let release;const mid=new AbortController();const running=simulateHoursDryRun(prepared,prepared.sourceKey,{...options(),signal:mid.signal,wait:()=>new Promise(resolve=>{release=resolve;})});mid.abort();release();await assert.rejects(running,/cancelled/);
+assert.throws(()=>prepareHoursDryRun({},false),/invalid_payload/);const malformed=structuredClone(original);malformed.regularHours.periods[0].openTime.minutes=99;assert.throws(()=>prepareHoursDryRun(malformed,false),/invalid_payload/);const invalidDate=structuredClone(original);invalidDate.specialHours.specialHourPeriods[0].startDate.day=32;assert.throws(()=>prepareHoursDryRun(invalidDate,false),/invalid_payload/);assert.equal(sideEffects,0);
+console.log('PASS IN03 local immutable payload, unconfirmed stays draft, progress/success, simulated failure/retry, pre/mid cancel, changed-source guard, zero network/storage side effects');
+
+await rm(dir,{recursive:true,force:true});

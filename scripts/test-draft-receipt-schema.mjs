@@ -9,5 +9,6 @@ try{
  execFileSync(process.execPath,['--experimental-strip-types','scripts/gen-sql.mjs'],{cwd:dir,stdio:'pipe'});
  const sql=await readFile(join(dir,'supabase/schema.sql'),'utf8');const docs=await readFile(join(dir,'docs/data-model.md'),'utf8');
  assert.match(sql,/create table if not exists public\.transfer_receipts \(/);assert.match(sql,/image_data_url text not null/);assert.match(sql,/alter table public\.transfer_receipts enable row level security;/);assert(!/create policy "transfer_receipts:/.test(sql),'mock receipts receive no client access policy');assert.match(docs,/#### `transfer_receipts`/);
+ assert.match(sql,/create table if not exists public\.maintenance_records \(/);assert.match(sql,/alter table public\.maintenance_records enable row level security;/);assert(!/create policy "maintenance_records:/.test(sql),'fictional maintenance receives no client access policy');assert.match(docs,/#### `maintenance_records`/);
  console.log('PASS isolated draft generator retains receipt contract and RLS/default-deny without client policies; no SQL executed.');
 }finally{await rm(dir,{recursive:true,force:true});}

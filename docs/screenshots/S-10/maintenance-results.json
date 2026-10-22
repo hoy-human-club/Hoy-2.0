@@ -1,0 +1,16 @@
+{
+  "feature": "OT-02",
+  "phase": "After Nov 30",
+  "base": "http://127.0.0.1:5199",
+  "checks": [
+    "en:maintenance/admin/super_admin route;8 denied roles;390/1280 light/dark four-kind captures;checklist cancel/save;incident and quantity validation;storage rollback/retry;no operations or dispatch",
+    "es:maintenance/admin/super_admin route;8 denied roles;390/1280 light/dark four-kind captures;checklist cancel/save;incident and quantity validation;storage rollback/retry;no operations or dispatch"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "limits": [
+    "Fictional browser-only prototype; no operational readiness, signoff, alerts, procurement, attachments or device control.",
+    "Frontend role routes do not prove server authorization.",
+    "Backend and real checklist ownership/thresholds remain pending."
+  ]
+}

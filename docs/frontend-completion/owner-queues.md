@@ -42,3 +42,9 @@ No messages sent. Source: acceptance workbook stable IDs/PC questions, read 2026
 - Older on-the-hour starts versus newer :10 timetable: keep separate from booking/payment logic.
 - Clerk development adapter/tests allowed separately; production host and access policy unresolved. No security configuration changes in this batch.
 - Six-month validity/private max6, teacher biographies (Jennifer pending), class descriptions, customer mat removal with retained capacity, 50-minute display, analytics custom dates, transfer-first receipt flow, focus-cycle start and teacher export/Cuentas require source reconciliation; do not overwrite past purchases.
+
+## Future frontend prototype contracts (batches11–12)
+
+- IN-03 / Anu: authorized Google OAuth/server push and provider readback; owner confirms reception hours before operational sync. Local dry-run never updates Google or sync timestamps.
+- OT-02 / owner: actual checklist location, signoff and operational thresholds remain unresolved. Sample minimum is optional/null by default. No operational safety guidance inferred.
+- OT-02 / Anu: authenticated tenant-scoped maintenance reads/commands, revision/idempotency and attachments contract. Current records are explicitly fictional browser-local drafts; no alerts, orders, assignments, class blocking or device control.

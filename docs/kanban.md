@@ -1,5 +1,11 @@
 # HoyOS kanban
 
+## Independent future prototypes · 0087/0088 (2026-10-22)
+
+- IN-03 local hours dry-run; OT-02 fictional maintenance records/intake. Original AfterNov30 phases preserved; production QA/checked release in progress.
+- PR60 merged7667ab8 after all12 exact-head checks at2f33480; Pages deploy/hosted source verification passed. [Receipt](frontend-completion/README.md).
+- Real sync/storage/operations/authorization and owner acceptance remain separate. No external messages or real financial actions.
+
 ## Frontend continuation · 0082–0085 (2026-10-21)
 
 - Integration baseline b73c13a / PR59; no previous task/environment files accessed.

@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useLayout } from '../../layout/useLayout';
@@ -12,7 +12,9 @@ import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
 import { Badge } from '../../components/atom/Badge/Badge';
 import { Notice } from '../../components/molecule/Notice/Notice';
-import { Placeholder } from '../../components/atom/Placeholder/Placeholder';
+import { Select } from '../../components/atom/Input/Input';
+import { Field } from '../../components/molecule/Field/Field';
+import { hoursDryRunSourceKey, prepareHoursDryRun, simulateHoursDryRun, type HoursDryRun, type HoursDryRunResult } from './googleBusinessDryRun';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { Icon } from '../../components/atom/Icon/Icon';
 import { useOpeningHours } from './settings';
@@ -28,7 +30,7 @@ const API_BASE = 'https://mybusinessbusinessinformation.googleapis.com/v1';
 /**
  * M-10a `/admin/integrations/google-business` (0041, D-0017) — what HoyOS will send to Google Business Profile.
  * Nothing here talks to Google: the preview is the real `locations.patch` body, the copy buttons work, and the
- * connect / push controls are Placeholders until the server that holds the tokens exists.
+ * real connect / push controls remain disabled; only the explicit in-memory dry-run can execute.
  */
 export function GoogleBusinessPage() {
   const { t, bi, lang } = useI18n();
@@ -37,7 +39,8 @@ export function GoogleBusinessPage() {
   const { byKey, loading } = useIntegrations();
   const def = integrationDef('google_business');
   const row = byKey.get('google_business');
-  const status = row?.status ?? 'simulated';
+  // Configuration rows cannot prove a real Google session or provider readback.
+  const status = 'simulated' as const;
   const locationName = row?.config?.locationName?.trim() || '';
 
   const body = useMemo(() => toGoogleBusinessHours(hours.weekly, hours.overrides, hours.todayKey), [hours.weekly, hours.overrides, hours.todayKey]);
@@ -45,6 +48,31 @@ export function GoogleBusinessPage() {
   const text = useMemo(() => hoursForGoogleText(hours.weekly, hours.overrides, hours.todayKey, lang), [hours.weekly, hours.overrides, hours.todayKey, lang]);
   const lastPush = hours.overrides.map((o) => o.google_synced_at).filter((v): v is string => !!v).sort().pop() ?? null;
   const soon = upcomingOverrides(hours.overrides, hours.todayKey, 366);
+  const [prepared,setPrepared] = useState<HoursDryRun | null>(null);
+  const [phase,setPhase] = useState('idle');
+  const [outcome,setOutcome] = useState<'success'|'failure'>('success');
+  const [result,setResult] = useState<HoursDryRunResult | null>(null);
+  const running = useRef<AbortController | null>(null);
+  const sourceKey = hoursDryRunSourceKey(body,hours.confirmed);
+  const stale = !!prepared && prepared.sourceKey !== sourceKey;
+  const busy = phase==='validating'||phase==='previewing';
+  useEffect(()=>()=>running.current?.abort(),[]);
+  const prepare = () => {
+    if(running.current)return;
+    setResult(null);
+    try{setPrepared(prepareHoursDryRun(body,hours.confirmed));setPhase('prepared');}
+    catch{setPrepared(null);setPhase('invalid');}
+  };
+  const simulate = async () => {
+    if(!prepared||running.current)return;
+    const controller=new AbortController();running.current=controller;setResult(null);
+    try {
+      const receipt=await simulateHoursDryRun(prepared,sourceKey,{signal:controller.signal,outcome,onProgress:setPhase});
+      if(!controller.signal.aborted){setResult(receipt);setPhase('success');}
+    }catch(e){setPhase(e instanceof Error&&e.message==='cancelled'?'cancelled':e instanceof Error&&e.message==='source_changed'?'stale':'error');}
+    finally{if(running.current===controller)running.current=null;}
+  };
+
 
   const copy = async (what: 'json' | 'text') => {
     const ok = await copyText(what === 'json' ? json : text);
@@ -81,12 +109,23 @@ export function GoogleBusinessPage() {
               </dl>
               <p className="xs muted">{t('admin.gbp.lastPush.hint')}</p>
               <div className="row wrap">
-                <Placeholder what={t('admin.gbp.connect')}><Button icon="link">{t('admin.gbp.connect')}</Button></Placeholder>
-                <Placeholder what={t('admin.gbp.push')}><Button variant="secondary" icon="refresh-cw">{t('admin.gbp.push')}</Button></Placeholder>
+                <Button icon="link" disabled>{t('admin.gbp.connect')}</Button>
+                <Button variant="secondary" icon="refresh-cw" disabled>{t('admin.gbp.push')}</Button>
                 <Link to="/admin/integrations" className="btn btn-ghost btn-md"><span className="btn-icon" aria-hidden><Icon name="edit" size="sm" /></span><span className="btn-label">{t('admin.gbp.fillFields')}</span></Link>
               </div>
             </div>
           )}
+        </Card>
+        <Card title={t('admin.gbp.dry.title')}>
+          <div className="stack" data-testid="gbp-dry-run">
+            <p>{t('admin.gbp.dry.notice')}</p>
+            {!hours.confirmed&&<Notice tone="warn" title={t('admin.gbp.dry.unconfirmed')}/>}
+            <div className="row wrap"><Button onClick={prepare} disabled={busy||hours.loading}>{t('admin.gbp.dry.prepare')}</Button><Button variant="secondary" onClick={()=>void simulate()} disabled={!prepared||busy||stale}>{t(phase==='error'||phase==='cancelled'?'admin.gbp.dry.retry':'admin.gbp.dry.run')}</Button>{busy&&<Button variant="ghost" onClick={()=>running.current?.abort()}>{t('admin.gbp.dry.cancel')}</Button>}</div>
+            <Field label={t('admin.gbp.dry.outcome')}>{id=><Select id={id} disabled={busy} value={outcome} onChange={e=>setOutcome(e.target.value as 'success'|'failure')}><option value="success">{t('admin.gbp.dry.outcome.success')}</option><option value="failure">{t('admin.gbp.dry.outcome.failure')}</option></Select>}</Field>
+            <p role={phase==='error'||phase==='invalid'?'alert':'status'} data-testid="gbp-dry-status">{t(`admin.gbp.dry.${stale?'stale':phase}`)}</p>
+            {result&&<p className="small" data-testid="gbp-dry-result">{t('admin.gbp.dry.result')} · {formatDateTime(result.finishedAt,lang)}</p>}
+            {prepared&&<details open><summary>{t('admin.gbp.dry.snapshot')}</summary><pre className="gbp-json" tabIndex={0} aria-label={t('admin.gbp.dry.snapshot')} data-testid="gbp-prepared-json">{JSON.stringify(prepared.payload,null,2)}</pre></details>}
+          </div>
         </Card>
       </>
     ),
@@ -112,8 +151,9 @@ export function GoogleBusinessPage() {
             </div>
           </div>
         </Card>
-        <Card icon="code" title={t('admin.gbp.preview.json')} actions={<Button size="sm" variant="secondary" icon="copy" onClick={() => { void copy('json'); }}>{t('admin.gbp.copyJson')}</Button>}>
+        <Card icon="code" title={t('admin.gbp.preview.json')}>
           <div className="stack">
+            <div className="row wrap"><Button size="sm" variant="secondary" icon="copy" onClick={() => { void copy('json'); }}>{t('admin.gbp.copyJson')}</Button></div>
             <p className="xs mono gbp-endpoint">PATCH {API_BASE}/{locationName || 'locations/{id}'}?updateMask={GOOGLE_HOURS_UPDATE_MASK}</p>
             <pre className="gbp-json" tabIndex={0} aria-label={t('admin.gbp.preview.json')}>{json}</pre>
             <p className="xs muted">{t('admin.gbp.preview.json.note')}</p>

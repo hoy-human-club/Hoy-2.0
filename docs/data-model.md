@@ -549,6 +549,26 @@ _Quién va a un evento y con qué pago (C-23)._
 - customer: insert + read + cancel own rows (user_id = auth.uid())
 - front_desk/coordinator/admin: read all, mark attended
 
+#### `maintenance_records`
+After Nov30 browser-only prototype: fictional checklists, nonmedical incidents, supplies and equipment. No studio operations or real alerts.
+_Prototipo posterior al 30 de noviembre: checklists, incidentes no médicos, insumos y equipos ficticios locales. No opera el estudio._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `kind` | enum (checklist \| incident \| supply \| equipment) |  |
+| `room_id` | uuid, null | → `rooms`  |
+| `label` | json | {es,en}; unmistakably fictional demo label |
+| `payload` | json | Validated kind-specific fictional draft; no people, medical details, attachments or actual alerts. |
+| `revision` | int | Mock optimistic revision; production needs authoritative server transaction. |
+| `created_by` | uuid | → `users`  |
+
+**Who may read / write**
+- DEFAULT DENY draft only; no deployed policies. Authenticated tenant-scoped maintenance commands and approved read rules remain backend work.
+
 ### Practice & analytics · Práctica y analítica
 
 #### `practice_goals`

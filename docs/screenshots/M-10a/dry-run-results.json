@@ -1,0 +1,17 @@
+{
+  "featureIds": [
+    "IN-03"
+  ],
+  "phase": "After Nov 30",
+  "base": "http://127.0.0.1:5198",
+  "checks": [
+    "admin disconnected real connect/push; mock connected status cannot claim real connection; unconfirmed hours remain draft; immutable prepared payload with fictional holiday; local progress/success; failure/retry; cancel/retry; duplicate-click guard; unchanged settings/integrations/overrides",
+    "EN/ES390/1280 light/dark rendered capture and viewport fit; front desk/customer deep links denied"
+  ],
+  "errors": [],
+  "limits": [
+    "In-memory local simulation only; Google OAuth/PATCH/provider readback remain disconnected.",
+    "No Google-visible hours acceptance.",
+    "Source-change guard also covered by isolated domain tests."
+  ]
+}

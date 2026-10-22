@@ -1,0 +1,15 @@
+{
+  "feature": "OT-02",
+  "phase": "After Nov 30",
+  "base": "http://127.0.0.1:5199",
+  "checks": [
+    "en:four-type creation with bilingual titles/type/optional room;invalid/cancel/preview never save;minimum defaults null;atomic storage failure/retry creates once;local reload;390/1280 captures;no operational writes or dispatch",
+    "es:four-type creation with bilingual titles/type/optional room;invalid/cancel/preview never save;minimum defaults null;atomic storage failure/retry creates once;local reload;390/1280 captures;no operational writes or dispatch"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "limits": [
+    "Fictional mock intake only, no operational signoff or backend acceptance.",
+    "Real thresholds, checklist owner/location and authenticated persistence remain unresolved."
+  ]
+}
