@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5227",
+  "checks": [
+    "en: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark",
+    "es: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional local queue; no WhatsApp delivery, cross-device sync or substitution approval. Existing recipients/roles/eligibility retained."
+  ]
+}
