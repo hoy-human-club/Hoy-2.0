@@ -28,6 +28,10 @@ on:
       - 'scripts/test-account-marketing*.mjs'
       - 'scripts/test-email-test*.mjs'
       - 'scripts/email-test-harness.tsx'
+      - 'scripts/test-payroll-draft*.mjs'
+      - 'scripts/fixtures/payroll-draft-before.ts'
+      - 'scripts/test-event-rsvp*.mjs'
+      - 'scripts/event-rsvp-harness.tsx'
       - '.github/workflows/frontend-correctness-qa.yml'
 permissions:
   contents: read
@@ -38,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request, notification-prefs, account-marketing, email-test]
+        scope: [api-key-mutations, trial-eligibility, profile-save, recovery, account-data, contact-mask, substitute-request, notification-prefs, account-marketing, email-test, payroll-draft, event-rsvp]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,6 +61,9 @@ jobs:
       - name: Verify public preference acknowledgement lifecycle
         if: matrix.scope == 'notification-prefs'
         run: node scripts/test-notification-prefs-hook.mjs
+      - name: Verify payroll acknowledgement lifecycle
+        if: matrix.scope == 'payroll-draft'
+        run: node scripts/test-payroll-draft-hook.mjs
       - name: Verify rendered production behavior
         run: |
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
@@ -66,7 +73,7 @@ jobs:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify contained asynchronous states
-        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request' || matrix.scope == 'account-marketing' || matrix.scope == 'email-test'
+        if: matrix.scope == 'trial-eligibility' || matrix.scope == 'profile-save' || matrix.scope == 'account-data' || matrix.scope == 'substitute-request' || matrix.scope == 'account-marketing' || matrix.scope == 'email-test' || matrix.scope == 'event-rsvp'
         run: |
           npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-correctness-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
@@ -91,4 +98,7 @@ jobs:
             docs/screenshots/C-24/*prefs*
             docs/screenshots/C-26/*marketing*
             docs/screenshots/M-04/*email-test*
+            docs/screenshots/M-09a/*draft*
+            docs/screenshots/M-09b/*draft*
+            docs/screenshots/C-23/*rsvp*
           retention-days: 7

@@ -1,0 +1,94 @@
+{
+  "recordedAt": "2026-10-22T04:04:40.659359+00:00",
+  "requirement": "RS-15",
+  "phase": "Nov 30 delivery",
+  "criterion": "Customers sign up and cancel; capacity, confirmation and emails work.",
+  "baseCommit": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+  "runtimeFingerprintBeforeQa": "269984dea005209e2ad570b253bde71e80d649f52d3c615adac25f64e3e82673",
+  "runtimeFingerprintAfterQa": "269984dea005209e2ad570b253bde71e80d649f52d3c615adac25f64e3e82673",
+  "scope": "Final local fictional zero-due RSVP31 with command input/context correction; not checked/deployed or full source acceptance",
+  "checks": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-input-snapshot-build.log"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-mutation-typecheck.log"
+    },
+    {
+      "command": "node scripts/test-event-rsvp.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-input-snapshot-domain-final.log"
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5242 node scripts/test-event-rsvp-ui.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-input-snapshot-ui.log",
+      "artifact": "docs/screenshots/C-23/event-rsvp-results.json"
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5241 node scripts/test-event-rsvp-states.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-input-snapshot-states.log",
+      "artifact": "docs/screenshots/C-23/event-rsvp-states.json"
+    }
+  ],
+  "productionChecks": [
+    "en/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "en/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "es/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "es/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark"
+  ],
+  "devChecks": [
+    "en: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390",
+    "es: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390"
+  ],
+  "errors": [],
+  "visuallyInspected": [
+    "docs/screenshots/C-23/es-390-dark-rsvp-preview.jpg",
+    "docs/screenshots/C-23/es-390-dark-rsvp-going.jpg",
+    "docs/screenshots/C-23/en-1280-light-rsvp-preview.jpg",
+    "docs/screenshots/C-23/es-390-rsvp-read-error.jpg",
+    "docs/screenshots/C-23/en-1280-dark-rsvp-cancel-preview.jpg",
+    "docs/screenshots/C-23/es-390-light-rsvp-failure.jpg"
+  ],
+  "priorFindings": [
+    "Legacy direct insert duplicate/overcapacity absence reproduced.",
+    "Initial dev QA found stale draft could reopen after actor return; synchronous context invalidation fixed, explicit actor-return regression now passes.",
+    "Test-only theme control selector and screenshot duplicate heading selector fixed without weakening business assertions.",
+    "One corrected production attempt timed out DB readiness during a coincident shell stall; cause unproven, unchanged exclusive repeat passed."
+  ],
+  "limits": [
+    "Paid reserve and paid legacy cancellation preserved as existing partial branch; no paid atomic/refund acceptance.",
+    "No approved production cutoff/member/cancellation policy added; ambiguous past/malformed/non-going facts pause fictional testing.",
+    "No email/WhatsApp/outbox/provider delivery; local confirmation only.",
+    "Server authenticated atomicity/concurrency/identity and owner acceptance remain pending.",
+    "Root owns exact-head CI, metadata, checked commit/merge/deployment receipt; no child Git mutation.",
+    "Current status is observed within the mock command/read, not a guarantee against later edits. Context fences do not provide authenticated server or cross-tab concurrency guarantees."
+  ],
+  "priorRuntimeFingerprints": [
+    "4c6b1fdec0a1a0677fb18a03f5c17a2ba206289344dfd4f9e7a22b54fb278075",
+    "e4d47ffb680b4c8265f094c0febac19e39d427558efa544df0f1c5cf3a03dde8"
+  ],
+  "inputIsolationProof": {
+    "beforeFix": {
+      "exitCode": 1,
+      "log": "/tmp/hoy-event-mutation-repro.log",
+      "observation": "Held first digest, mutated nested event/action/userId/rsvpId; wrong other fictional RSVP cancelled under original user nonce hash."
+    },
+    "afterFix": {
+      "exitCode": 0,
+      "log": "/tmp/hoy-event-input-snapshot-domain-final.log",
+      "cases": [
+        "Mutation during first digest preserves original command primitives/effect and replay.",
+        "Mutation during second digest preserves original command primitives/effect and replay.",
+        "Unknown runtime action rejected without cancellation.",
+        "Original live isCurrent callback retained despite caller replacement.",
+        "Postcommit ownership loss suppresses acknowledgment without rollback; restored same intent replays once."
+      ]
+    }
+  }
+}

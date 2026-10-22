@@ -233,17 +233,17 @@ export const M09a = defineSpec({
   name: { es: 'Finanzas · Nóminas', en: 'Finance · Payroll runs' },
   purpose: { es: 'Las liquidaciones mensuales de profesores: qué se debe, qué está aprobado y qué ya se pagó, y el botón que genera el borrador del periodo.', en: 'The monthly teacher payroll runs: what is owed, what is approved and what is paid, plus the button that generates the period’s draft.' },
   layout: ['KPIRow (próxima corrida, por aprobar, pagado en el trimestre)', 'GeneratePanel (periodo + generar borrador)', 'RunsTable (periodo, estado, profesores, clases, total, medio, liquidada)', 'SeamNote'],
-  data: ['payroll_runs', 'payroll_lines', 'class_sessions', 'bookings', 'teachers', 'special_charges', 'space_bookings', 'audit_log'],
+  data: ['payroll_runs', 'payroll_lines', 'class_sessions', 'bookings', 'teachers', 'special_charges', 'space_bookings', 'audit_log', 'users', 'tenants'],
   roles: ['super_admin', 'admin', 'finance'],
   logic: [
-    'Generating a draft is idempotent: an existing draft for the same period has its lines deleted and recomputed, so pressing the button twice cannot double-pay. An approved or paid run is refused with a reason.',
+    'Mock draft generation snapshots one or two selected periods, reads scoped actor/configuration/calculation inputs freshly and atomically replaces affected draft rows/lines plus existing audit. Approved/paid rows and paid lines block regeneration. Safe request/result fingerprints and fresh replay effect/overlap checks prevent stale duplicate acknowledgement. No payroll is paid by this command.',
     'The draft is class lines + manual lines: every special_charges row with a teacher and a teacher_payout whose service date (its space booking, else the sale) falls in the period becomes one payroll_lines row of kind manual, sourced by special_charge_id (src/data/payrollCalc.ts draftLinesFor). 0017.',
     'payroll.write gates every action; payroll.read is enough to look.',
     ...PAYOUT_NOTES,
   ],
   integrations: ['Wompi'],
-  states: ['Loading', 'No runs yet', 'Draft exists for the period: regenerated', 'Period already approved/paid: blocked', 'Read-only (solo payroll.read)'],
-  notes: PAYOUT_NOTES,
+  states: ['Draft basis loading / read failure / reload', 'Missing/foreign account or duplicate periods / generation paused', 'Draft prepare / immediate busy / stop waiting', 'Each staged or quota failure / same-command retry', 'Stale calculation/status/overlap / reload', 'Committed result unconfirmed / unchanged retry', 'No runs yet / monthly or biweekly draft regeneration', 'Approved/paid overlap blocked', 'Existing read-only route'],
+  notes: [...PAYOUT_NOTES, 'Only draft generation/regeneration is newly verified in batch30. Existing approval/settlement actions remain separate partial mock workflows and real Wompi/server status locks are disconnected. Currency rows use a contained responsive layout without changing rates or totals.'],
 });
 
 /** M-09b — one run, with the per-teacher statement. */
@@ -253,7 +253,7 @@ export const M09b = defineSpec({
   name: { es: 'Finanzas · Detalle de nómina', en: 'Finance · Payroll run' },
   purpose: { es: 'Una corrida: el extracto por profesor con sus clases, bonos y ajustes, y las cuatro acciones de finanzas — aprobar, enviar por Wompi, marcar pagada por transferencia o efectivo, exportar CSV.', en: 'One run: the per-teacher statement with their classes, bonuses and adjustments, and finance’s four actions — approve, send via Wompi, mark paid by transfer or cash, export CSV.' },
   layout: ['RunHeader (periodo, estado, simulado)', 'KPIRow (total, medio, estado)', 'ActionBar (regenerar · aprobar · Wompi · transferencia · efectivo · CSV · imprimir)', 'Statement → TeacherCard (estado de pago, clases, líneas, subtotal, marcar como pagado)'],
-  states: ['Draft: regenerate + approve', 'Approved: pay by Wompi / transfer / cash', 'Approved: one teacher settled, the rest pending', 'Paid: locked, read-only', 'Wompi rejected: reason shown', 'Run not found', 'Negative adjustment line'],
+  states: [...(M09a.states ?? []), 'Draft: regenerate + approve', 'Approved: pay by Wompi / transfer / cash', 'Approved: one teacher settled, the rest pending', 'Paid: locked, read-only', 'Wompi rejected: reason shown', 'Run not found', 'Negative adjustment line'],
   logic: [
     'A run can be settled teacher by teacher: payroll_lines.paid_at + paid_method carry the stamp, so a bounced transfer for one teacher does not hold the other seven. The run closes itself as paid once every teacher is settled.',
     'Each teacher card shows the classes taught, the total attendance, the payment method and the settlement date — the payment detail finance is asked for on the phone.',

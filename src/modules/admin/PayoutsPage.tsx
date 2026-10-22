@@ -20,6 +20,7 @@ import { useSettings } from './settings';
 import { useIntegrationStatus } from './integrations';
 import { downloadCsv, monthPeriodFor, payrollCsv, periodLabel, periodsForMonth, statementOf, useGenerateDraft, usePayroll, wompiPayout, type PayoutMethod, type TeacherStatement } from './payouts';
 import './admin.css';
+import './PayoutsPage.css';
 
 const STATUS_TONE = { draft: 'warn', approved: 'primary', paid: 'success' } as const;
 
@@ -307,7 +308,7 @@ function LineRow({ line, session, when: serviceAt, lang }: { line: PayrollLineRo
   // A manual line prints its source: "Especial: <concept>" is written into note by payrollCalc.manualLineNote.
   const what = session ? session.title : manual && line.note ? line.note : t(`admin.payouts.kind.${line.kind}`);
   return (
-    <div className="adm-line" data-kind={line.kind}>
+    <div className="adm-line payout-line" data-kind={line.kind}>
       <span className="xs mono adm-line-when">{when}</span>
       <span className="grow small">
         {what}
@@ -315,8 +316,8 @@ function LineRow({ line, session, when: serviceAt, lang }: { line: PayrollLineRo
         {line.attendees != null && <span className="xs muted"> · {t('admin.payouts.attendees', { n: line.attendees })}</span>}
         {line.note && !session && !manual && <span className="xs muted"> · {line.note}</span>}
       </span>
-      <span className="xs muted">{line.rate ? formatCOP(line.rate, lang) : ''}</span>
-      <span className={`small mono ${line.amount < 0 ? 'adm-neg' : ''}`}>{formatCOP(line.amount, lang)}</span>
+      <span className="xs muted payout-line-money">{line.rate ? formatCOP(line.rate, lang) : ''}</span>
+      <span className={`small mono payout-line-money ${line.amount < 0 ? 'adm-neg' : ''}`}>{formatCOP(line.amount, lang)}</span>
     </div>
   );
 }

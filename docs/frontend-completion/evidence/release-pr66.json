@@ -1,0 +1,16 @@
+{
+  "pr": "https://github.com/imagine-os/hoy/pull/66",
+  "checkedHead": "44973d7fdaa71c85f92e5edbb99530a64abe5579",
+  "checks": "All 11 triggered workflows passed, including correctness 39720166462 with ten scopes.",
+  "merge": "ede03f34190e06b5b4a9f502c9262036a76cb59f",
+  "pagesRun": 39720627884,
+  "jobs": {
+    "build": 119633000999,
+    "deploy": 119633372022,
+    "verify-subscriptions": 119633458109
+  },
+  "conclusion": "All three completed success; log explicitly checks ede03f34190e06b5b4a9f502c9262036a76cb59f and verifies public subscriptions route.",
+  "public": "https://imagine-os.github.io/hoy/",
+  "rollback": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+  "limits": "Hosted check proves release provenance and selected existing subscription behavior; new preferences, marketing and email self-test flows have local immutable rendered and exact-head CI proof, not owner/backend acceptance."
+}
