@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
-import { useData, useTable } from '../../data/DataContext';
+import { useTable } from '../../data/DataContext';
 import type { ClassSessionRow, PayrollLineRow, PayrollRunRow, SpaceBookingRow, SpecialChargeRow } from '../../data/schema';
 import { specialServiceDate } from '../../data/payrollCalc';
 import { formatCOP, formatDate, formatDateTime, addMonths } from '../../i18n/format';
@@ -18,9 +18,10 @@ import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useAudit } from '../staff/audit';
 import { useSettings } from './settings';
 import { useIntegrationStatus } from './integrations';
-import { downloadCsv, monthPeriodFor, payrollCsv, periodLabel, periodsForMonth, statementOf, useGenerateDraft, usePayroll, wompiPayout, type PayoutMethod, type TeacherStatement } from './payouts';
+import { downloadCsv, monthPeriodFor, payrollCsv, periodLabel, periodsForMonth, statementOf, useGenerateDraft, usePayroll, type PayoutMethod, type TeacherStatement } from './payouts';
 import { Drawer } from '../../components/organism/Drawer/Drawer';
 import { usePayrollApproval } from './usePayrollApproval';
+import { usePayrollSettlement } from './usePayrollSettlement';
 import './admin.css';
 import './PayoutsPage.css';
 
@@ -125,7 +126,6 @@ export function PayoutsPage() {
 export function PayoutRunPage() {
   const { id } = useParams();
   const { t, lang } = useI18n();
-  const data = useData();
   const { can } = useSession();
   const audit = useAudit('admin');
   const { runs, linesOf, teacherName, loading } = usePayroll();
@@ -136,11 +136,11 @@ export function PayoutRunPage() {
   const { rows: spaceBookings } = useTable<SpaceBookingRow>('space_bookings');
   /** Service date of each Especial (its room window, else the sale day) — what a manual line prints as "when". */
   const specialWhen = useMemo(() => new Map(specials.map((sc) => [sc.id, specialServiceDate(sc, spaceBookings)])), [specials, spaceBookings]);
-  const [busy, setBusy] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ tone: 'ok' | 'bad'; text: string } | null>(null);
   const canWrite = can('payroll.write');
 
   const approval = usePayrollApproval(id);
+  const settlement = usePayrollSettlement(id);
   const run = runs.find((r) => r.id === id);
   const generate = useGenerateDraft(run?[{start:run.period_start,end:run.period_end}]:[],run?.method??'wompi');
   const lines = run ? linesOf(run.id) : [];
@@ -154,53 +154,14 @@ export function PayoutRunPage() {
 
   const approve = () => { setNotice(null); void approval.begin(); };
 
-  /** Stamps the settlement on the lines, so a teacher-by-teacher payment and a run payment agree. */
-  const stampLines = async (which: typeof lines, method: PayoutMethod, at: string) => {
-    for (const l of which) if (!l.paid_at) await data.update('payroll_lines', l.id, { paid_at: at, paid_method: method });
+  const markPaid = (method: Exclude<PayoutMethod, 'wompi'>) => {
+    setNotice(null); void settlement.begin({action:'run-manual',method});
   };
-
-  const markPaid = async (method: Exclude<PayoutMethod, 'wompi'>) => {
-    setBusy(method); setNotice(null);
-    try {
-      const at = new Date().toISOString();
-      await stampLines(lines, method, at);
-      await data.update('payroll_runs', run.id, { status: 'paid', method, paid_at: at, provider_ref: null });
-      await audit('payroll.pay', 'payroll_runs', run.id, { before: run.status, after: 'paid', method, total: run.total, teachers: statement.length });
-      setNotice({ tone: 'ok', text: t('admin.payouts.msg.paid', { method: t(`admin.payouts.method.${method}`) }) });
-    } finally { setBusy(null); }
+  const payTeacher = (group: TeacherStatement, method: PayoutMethod) => {
+    setNotice(null); void settlement.begin({action:'teacher-mark',teacherId:group.teacherId,method});
   };
-
-  /** One teacher settled: their lines are stamped, and the run closes itself once nobody is left. */
-  const payTeacher = async (g: TeacherStatement, method: PayoutMethod) => {
-    setBusy(`t-${g.teacherId}`); setNotice(null);
-    try {
-      const at = new Date().toISOString();
-      await stampLines(g.lines, method, at);
-      await audit('payroll.pay.teacher', 'payroll_lines', g.teacherId, { after: { method, amount: g.subtotal, classes: g.classes, run: run.id, paid_at: at } });
-      const rest = statement.filter((x) => x.teacherId !== g.teacherId);
-      const allPaid = rest.every((x) => x.settled);
-      if (allPaid) {
-        await data.update('payroll_runs', run.id, { status: 'paid', method, paid_at: at });
-        await audit('payroll.pay', 'payroll_runs', run.id, { before: run.status, after: 'paid', method, total: run.total, viaTeachers: true });
-      }
-      setNotice({ tone: 'ok', text: `${t('admin.payouts.msg.teacherPaid', { name: teacherName.get(g.teacherId) ?? g.teacherId, total: formatCOP(g.subtotal, lang), method: t(`admin.payouts.method.${method}`) })}${allPaid ? ` ${t('admin.payouts.msg.allPaid')}` : ''}` });
-    } finally { setBusy(null); }
-  };
-
-  const sendWompi = async () => {
-    setBusy('wompi'); setNotice(null);
-    try {
-      const result = await wompiPayout({ amount: run.total, recipients: statement.length }); // INTEGRATION SEAM: Wompi dispersion
-      if (result.status === 'rejected') {
-        await audit('payroll.payout.rejected', 'payroll_runs', run.id, { after: { ref: result.ref, reason: result.reason?.es } });
-        setNotice({ tone: 'bad', text: `${t('admin.payouts.msg.rejected')} ${result.reason ? (lang === 'en' ? result.reason.en : result.reason.es) : ''}` });
-        return;
-      }
-      const at = new Date().toISOString();
-      await data.update('payroll_runs', run.id, { status: 'paid', method: 'wompi', paid_at: at, provider_ref: result.ref });
-      await audit('payroll.payout.wompi', 'payroll_runs', run.id, { before: run.status, after: 'paid', total: run.total, teachers: statement.length, ref: result.ref, simulated: true });
-      setNotice({ tone: 'ok', text: t('admin.payouts.msg.sent', { ref: result.ref }) });
-    } finally { setBusy(null); }
+  const sendWompi = () => {
+    setNotice(null); void settlement.begin({action:'wompi-rehearsal',method:'wompi',simulate:'accepted'});
   };
 
   const regenerate = async (retry=false) => {
@@ -235,6 +196,12 @@ export function PayoutRunPage() {
         <StatTile label={t('admin.payouts.kpi.state')} value={t(`admin.payouts.status.${run.status}`)} hint={run.paid_at ? formatDateTime(run.paid_at, lang) : run.approved_at ? t('admin.payouts.approvedOn', { date: formatDateTime(run.approved_at, lang) }) : t('admin.payouts.notApproved')} />
       </div>
 
+      <section className="stack-sm" data-payroll-settlement-summary>
+        <Notice tone="info">{t('admin.settlement.mock')}</Notice>
+        {settlement.saved && <Notice tone={settlement.saved.kind==='rejected'?'warn':'success'}>{t(settlement.saved.kind==='rejected'?'admin.settlement.rejected':settlement.saved.action==='wompi-rehearsal'?'admin.settlement.rehearsed':settlement.saved.action==='teacher-mark'&&settlement.saved.method==='wompi'?'admin.settlement.teacherWompiSaved':'admin.settlement.saved')}</Notice>}
+        {run.status==='paid'&&lines.some(l=>!l.paid_at||!l.paid_method)&&<Notice tone="warn">{t('admin.settlement.unresolved')}</Notice>}
+      </section>
+
       {approval.saved && <section data-payroll-approval-saved><Notice tone="success">{t('admin.approval.saved')}</Notice></section>}
 
       {notice && <div className={`adm-notice ${notice.tone === 'bad' ? 'adm-notice-bad' : ''} small`}>{notice.text}</div>}
@@ -251,11 +218,11 @@ export function PayoutRunPage() {
 
       <Card title={t('admin.payouts.actions')} tone="muted">
         <div className="row wrap">
-          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy||!!busy||approval.busy} onClick={()=>void regenerate()}>{t('admin.payouts.action.regenerate')}</Button>}
-          {run.status === 'draft' && <Button data-payroll-approval-open loading={approval.busy} disabled={!canWrite||generate.busy||!!busy||approval.busy} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
-          {run.status === 'approved' && <Button size="sm" loading={busy === 'wompi'} disabled={!canWrite} onClick={sendWompi}>{t('admin.payouts.action.wompi')}</Button>}
-          {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'transfer'} disabled={!canWrite} onClick={() => markPaid('transfer')}>{t('admin.payouts.action.transfer')}</Button>}
-          {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'cash'} disabled={!canWrite} onClick={() => markPaid('cash')}>{t('admin.payouts.action.cash')}</Button>}
+          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy||settlement.busy||approval.busy} onClick={()=>void regenerate()}>{t('admin.payouts.action.regenerate')}</Button>}
+          {run.status === 'draft' && <Button data-payroll-approval-open loading={approval.busy} disabled={!canWrite||generate.busy||settlement.busy||approval.busy} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
+          {run.status === 'approved' && <Button data-payroll-settlement-wompi disabled={!canWrite||settlement.busy} onClick={sendWompi}>{t('admin.settlement.action.wompi')}</Button>}
+          {run.status === 'approved' && <Button variant="ghost" data-payroll-settlement-transfer disabled={!canWrite||settlement.busy} onClick={() => markPaid('transfer')}>{t('admin.settlement.action.transfer')}</Button>}
+          {run.status === 'approved' && <Button variant="ghost" data-payroll-settlement-cash disabled={!canWrite||settlement.busy} onClick={() => markPaid('cash')}>{t('admin.settlement.action.cash')}</Button>}
           <Button size="sm" variant="ghost" onClick={exportCsv}>{t('admin.payouts.action.csv')}</Button>
           <Button size="sm" variant="ghost" onClick={() => window.print()}>{t('admin.payouts.action.print')}</Button>
         </div>
@@ -285,6 +252,36 @@ export function PayoutRunPage() {
         </section>
       </Drawer>
 
+      <Drawer open={settlement.open} onClose={settlement.close} title={t('admin.settlement.title')} side="bottom"
+        footer={<div className="row wrap">
+          <Button variant="secondary" onClick={settlement.close}>{t('admin.settlement.cancel')}</Button>
+          {settlement.error&&<Button variant="secondary" disabled={settlement.busy} onClick={()=>void settlement.reload()}>{t('admin.settlement.reload')}</Button>}
+          {settlement.canRetry&&<Button disabled={settlement.busy} onClick={()=>void settlement.execute()}>{t('admin.settlement.retry')}</Button>}
+          {settlement.phase==='ready'&&<Button data-payroll-settlement-confirm disabled={!canWrite||settlement.busy} onClick={()=>void settlement.execute()}>{t('admin.settlement.confirm')}</Button>}
+        </div>}>
+        <section className="stack" data-payroll-settlement-state aria-busy={settlement.phase==='loading'||settlement.phase==='saving'}>
+          <Notice tone="info">{t('admin.settlement.mock')}</Notice>
+          {settlement.phase==='loading'&&<Notice>{t('admin.settlement.loading')}</Notice>}
+          {settlement.phase==='saving'&&<Notice>{t('admin.settlement.saving')}</Notice>}
+          {settlement.error&&<Notice tone="warn">{t(`admin.settlement.${settlement.error}`)}</Notice>}
+          {settlement.plan&&<Card tone="muted" title={t('admin.settlement.preview')}>
+            <div className="stack-sm">
+              <strong>{periodLabel({start:settlement.plan.periodStart,end:settlement.plan.periodEnd},lang)}</strong>
+              <strong className="mono">{formatCOP(settlement.plan.total,lang)}</strong>
+              <span>{t('admin.settlement.basis',{lines:settlement.plan.lines,teachers:settlement.plan.teachers})}</span>
+              <span>{t(`admin.payouts.method.${settlement.plan.method}`)}</span>
+              {settlement.plan.action==='teacher-mark'&&settlement.plan.method==='wompi'&&<Notice tone="warn">{t('admin.settlement.teacherWompi')}</Notice>}
+              {settlement.plan.action==='wompi-rehearsal'&&<label className="stack-sm">{t('admin.settlement.outcome')}
+                <Select disabled={settlement.busy} value={settlement.plan.simulate} onChange={event=>void settlement.begin({...settlement.plan!,simulate:event.target.value as 'accepted'|'rejected'})}>
+                  <option value="accepted">{t('admin.settlement.acceptedOption')}</option>
+                  <option value="rejected">{t('admin.settlement.rejectedOption')}</option>
+                </Select>
+              </label>}
+            </div>
+          </Card>}
+        </section>
+      </Drawer>
+
       <section className="stack-sm">
         <div className="eyebrow">{t('admin.payouts.statement')}</div>
         {statement.length === 0 && <EmptyState compact title={t('admin.payouts.noLines')} body={t('admin.payouts.noLines.body')} />}
@@ -306,8 +303,8 @@ export function PayoutRunPage() {
                     ? t('admin.payouts.teacherPartial', { n: g.paidCount, total: g.lines.length })
                     : t('admin.payouts.teacherUnpaid', { method: t(`admin.payouts.method.${run.method}`) })}
               </span>
-              {!g.settled && run.status !== 'draft' && canWrite && (
-                <Button size="sm" variant="ghost" loading={busy === `t-${g.teacherId}`} onClick={() => payTeacher(g, run.method)}>{t('admin.payouts.payTeacher')}</Button>
+              {!g.settled && run.status === 'approved' && canWrite && (
+                <Button variant="ghost" data-payroll-settlement-teacher={g.teacherId} disabled={settlement.busy} onClick={() => payTeacher(g, run.method)}>{t('admin.settlement.action.teacher')}</Button>
               )}
             </div>
             <div className="adm-lines">

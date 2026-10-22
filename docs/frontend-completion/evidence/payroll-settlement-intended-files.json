@@ -1,0 +1,458 @@
+{
+  "runtime": "4f5aa39174daa4a6fde3724d112bee2b7d421df4e2540badc52dab47c7a003f6",
+  "scope": "Batch41 intended source/tests/docs/evidence/local fictional captures only; root sole Git mutation lane.",
+  "files": [
+    {
+      "path": "src/modules/admin/payrollSettlement.ts",
+      "sha256": "71d81b88082f71c590a038dd71893465a5085e40b1f2a6adb762f48cbea2ed6c"
+    },
+    {
+      "path": "src/modules/admin/usePayrollSettlement.ts",
+      "sha256": "9a443e6f7c770bb10b1217d046bd480e804b8832c6b2ce4426505b75f188265a"
+    },
+    {
+      "path": "src/modules/admin/PayoutsPage.tsx",
+      "sha256": "661c9874ee5ae8b91da0f2614b5a87f041bce66501f003f8d2f052be1d990725"
+    },
+    {
+      "path": "src/modules/admin/strings.ts",
+      "sha256": "f813a963fc00e5b544c9945d83519f75ee412e7512e112060aa73535ebf12e03"
+    },
+    {
+      "path": "scripts/test-payroll-settlement.mjs",
+      "sha256": "ca80ce61fffd2eba6a9e8f31afbfad2297dc6d29228fa058f0801bee13a7e2c6"
+    },
+    {
+      "path": "scripts/test-payroll-settlement-hook.mjs",
+      "sha256": "ff489625970d007cfe339067c831c4d0e942a802fd7c31eb90528520ca105bc4"
+    },
+    {
+      "path": "scripts/test-payroll-settlement-ui.mjs",
+      "sha256": "1f6c623b30ac8f1965072041feb48ca4d3cadd36e2bb39e5ef976b86a407647b"
+    },
+    {
+      "path": "scripts/test-payroll-settlement-states.mjs",
+      "sha256": "3846cef12e35a12448ad88e86d0b5f7a8198f497fe4e73bd40e589aa114c68b7"
+    },
+    {
+      "path": "docs/pages/M-09b.md",
+      "sha256": "c4ddc224c9ecb61778192ea8aeca8739c9acd4f9631e9e953b0e6e81627ef76a"
+    },
+    {
+      "path": "docs/changelog/0125-payroll-settlement-mock.md",
+      "sha256": "d30eef90a046d0a2504470990a6d3ab17796a4212414f3816b02d3e8688827bd"
+    },
+    {
+      "path": "docs/frontend-completion/batch-41.md",
+      "sha256": "d113387030832fad37c7b4a524b336d5e5e4d78e0b1aef98003ef368a02ebcbe"
+    },
+    {
+      "path": "docs/frontend-completion/evidence/payroll-settlement-baseline.json",
+      "sha256": "462485c49f2a3438d9ae34a28953fedfd9e5591b21f9879e5f2d45190d9adc7c"
+    },
+    {
+      "path": "docs/frontend-completion/evidence/payroll-settlement-build.json",
+      "sha256": "c9143a85393b90e8243d48598f20c32f67cf18c0a4b0a6e1e21c75e2541cd511"
+    },
+    {
+      "path": "docs/frontend-completion/evidence/payroll-settlement-final.json",
+      "sha256": "b182f078ff52984a7f7c6b2dfe1cf91d1684054fe1b20e4d71cc8064d4123bb0"
+    },
+    {
+      "path": "docs/frontend-completion/evidence/payroll-settlement-source-checkpoint.json",
+      "sha256": "d547659d06c9d3b2fc75b7cdf9df6760d909aa9b22be1135d44c74865eed4741"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-busy.jpg",
+      "sha256": "b0212c337787fa23bcc12f9ea0b28956c0d9d8f73ccb311eea1968cc11c793b9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-failure.jpg",
+      "sha256": "ecf5c582a43c012a13f00d6303ea404489dad40a2c9e7811d0c512391ca13a35"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-preview.jpg",
+      "sha256": "c1dfd7677efb44672ea972c9b2ba0df0e45c6673fbe1f530d1f619c953664730"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-manual-recorded.jpg",
+      "sha256": "7cb626a61d089d72fc66fec56abf36bb870d0c26ba7cb382dad7f57f3aa68158"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "583f31ff0a40aa573b6576858cf2d36453c02850f6c4d240072ab35bf14e9111"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-rehearsal-accepted.jpg",
+      "sha256": "9190c6f1aaa14ca9990f0e329a43db1a6062dc571cca7b3aaf823d97719c0358"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-rehearsal-rejected.jpg",
+      "sha256": "605ead34d1663ee879a029f111dcd46911afd606699818fbb04eb6fd8bcf4e88"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-teacher-partial.jpg",
+      "sha256": "5de3ea0e8d3d5527c61e41effa705c67871ee7e20a49c25f3d99cd9e8f09c565"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-teacher-wompi-preview.jpg",
+      "sha256": "0a26d1c2fd5cc61942ac6608274da12e485f78c609f2daca590c3ce62e022847"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-settlement-unresolved.jpg",
+      "sha256": "7e229c757d1f76c6c102bfeed2d086aec201943c13f6f86038ed27b3c0f70c76"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-busy.jpg",
+      "sha256": "8300ffada8cec3cbce902dec01763876f0ecc9abe398a84fcaaef12dbaa21f85"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-manual-failure.jpg",
+      "sha256": "0ae7f9c55313a082733b973d87691a1b137a236e02ee6c36e04a9273bdf8aac6"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-manual-preview.jpg",
+      "sha256": "8bfdacde9f0bea6ecd1c6bf2b20b19225473b933227a1e974768d88756fe3943"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-manual-recorded.jpg",
+      "sha256": "833f64be5ac0b09791d59354faff3508a05ffe25ca0e7860c17efa3a0c5b7417"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "d2d95a0775f4f8411c3cc25ff8b98d6bfc7af7f1061b870b22e6a517da29a211"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-rehearsal-accepted.jpg",
+      "sha256": "b47fd5f0721814425edd962eba54f09e43bf028237b3c10f4e7a0a62d375dd02"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-rehearsal-rejected.jpg",
+      "sha256": "f790cf8473199f5bb4ebd1cba65e919d310c20d2820b9f637ca57e0f09055480"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-teacher-partial.jpg",
+      "sha256": "78961a1cef63911375ed4f4287cc914714ed023537939288bdac2df57e7d1be0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-teacher-wompi-preview.jpg",
+      "sha256": "3eeb73214cf3803217a49eae094199a3975494e18c3cf21136ff06d058b88703"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-settlement-unresolved.jpg",
+      "sha256": "17bd1a4b7f5c2bef04ade8233cd6857c25cfc2bb56f2424d15ce1cddc3bc889f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-busy.jpg",
+      "sha256": "2e860d8fc36756d6de36e24699179167c8f97a42c6ceaf951afeb34ca62c5dab"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-manual-failure.jpg",
+      "sha256": "89dc054839b2c1d4a5c3901c3720ea54d0323ec9ec5dad175f85a2469c968b47"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-manual-preview.jpg",
+      "sha256": "dcb1ea7a7f3fa65e44895bfc2ff5d9a352fc1cbf5afe4301ab9e266313e48203"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-manual-recorded.jpg",
+      "sha256": "52f7d05f974d28aee0b2fa02c44120f7ce46831e4cf26213ef51fa30dd998924"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "96d8c4b78bf287218219992bd0796d1d7dba48d76f40337170e27ae2441eb19f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-rehearsal-accepted.jpg",
+      "sha256": "fcf8ec2d518632e8bd00ae0be9b4af75ffec22326a91cf6848ceb1dd24407d9e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-rehearsal-rejected.jpg",
+      "sha256": "fa3c2ba25cd4503a1d30b41014fceea8f8255be79b3d1f991ec0e9778bca4cce"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-teacher-partial.jpg",
+      "sha256": "4b7bbc951c1cae569a5fe1ab6ed3ee9f694b48ac32fbdef03e4da3b718b963f4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-teacher-wompi-preview.jpg",
+      "sha256": "eab7ecc7a3571823f4f6698098f7dd856e8f3a52d55f4c6b45a0b46270573075"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-settlement-unresolved.jpg",
+      "sha256": "941319e3a868653cf2400ad1295f7e62fd68e0ba4479cb523c685dc8c710d2b4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-busy.jpg",
+      "sha256": "870b57b400889da5b75b50990214916fc3eae35cd54376696fe88523c8f4a25e"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-manual-failure.jpg",
+      "sha256": "b0e5e95c77f452488fe08e1606f7de93f04307585ae352d2ec12c2b2b1b7c954"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-manual-preview.jpg",
+      "sha256": "4a1728870305b4c9710041cc582c51801bce66b01b4380d7d92ffd10507995ff"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-manual-recorded.jpg",
+      "sha256": "d45ec7b121ce04fed6e08e627421823c1b9a45de572d9744a555e6af53d5ddfd"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "fa83cf6062c1f0064b9623a3519c5823c3a3b82cab75725edc227d4555256f64"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-rehearsal-accepted.jpg",
+      "sha256": "bc4300cc46c56932b46fd6fd85c843506f9a209f66eb9c67022b0bc7894b42cf"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-rehearsal-rejected.jpg",
+      "sha256": "9c2f68099a63cc0e5377dfae1a99743efb7eae66cb0d53c0c0e3f00db5ced0cc"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-teacher-partial.jpg",
+      "sha256": "9130e6ea58c890b3b1d0e5fde64fa441b02903bcd48e1b5385e69e51516b3363"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-teacher-wompi-preview.jpg",
+      "sha256": "96d8d7ed8786439f4716efac337cbfb09701a932f931db97452ae836474b49be"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-settlement-unresolved.jpg",
+      "sha256": "c4be7cc2d0a23ddee348ae436caaa0c94cea94af70843deb53b6035299f4d8a9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-closed-aftercommit.jpg",
+      "sha256": "e1a1aaf7cb3435e962483186c89d06c0224bc1914aff269c4a2264396722d774"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-inactive-account.jpg",
+      "sha256": "e7ca638c93f2ae8d8853bbb6d3129aed9d7d4090bc1e244b4ef40fdad4883297"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-inactive-aftercommit.jpg",
+      "sha256": "f786bd468c24b9fa20f87af53840d3f33b01299354756d960d946e5e400689e9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-late-scope-loss.jpg",
+      "sha256": "e7ca638c93f2ae8d8853bbb6d3129aed9d7d4090bc1e244b4ef40fdad4883297"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-loading.jpg",
+      "sha256": "47ee272fa4a505cf007d2446e5e1c1cef88ca603354aa5cb6b2f600415c3f774"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-lost-ack.jpg",
+      "sha256": "85f8e3f02e21a855b8ad97b07afc8468a8a594d96bc2970f7b64fc48f5f27030"
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-settlement-dev-read-error.jpg",
+      "sha256": "fcf5a9e760d5b85689f0dba16d9d48b843d1706ccaa5b2661ed5dc189bf612c6"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-busy.jpg",
+      "sha256": "1f94cbc51fba125750e4f8398d861186d1272a2ac657f9d86712bb033b40cdd9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-manual-failure.jpg",
+      "sha256": "0e884b2fe5a8ebb9cd3572ea9ed281c55982e5030d7be72175bd00e2ccde89fe"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-manual-preview.jpg",
+      "sha256": "8e8f61a6eeaa84479566643414397d643482aa8e46957e89dfd309a38e8433c7"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-manual-recorded.jpg",
+      "sha256": "be59f3456a8c078e6c3518dc178164a1037a4ab75eb6df77024e21b42bcf6c81"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "f28ad3b7a08ae8f03b190ba55ae37a13731d895230fb72187dce88251c29ad9c"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-rehearsal-accepted.jpg",
+      "sha256": "bc1004086acef8aa03b7df8a58266cdbbf4b67533126bcd7469c85fae68acb37"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-rehearsal-rejected.jpg",
+      "sha256": "88b32b737ee5fded398f193f1622fa53d8294b82cffe18bec865f6b79ded70cc"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-teacher-partial.jpg",
+      "sha256": "da1d8614e813c4db8007a02c6743b3ba224204f50069ddc801fbd0a18e336ab3"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-teacher-wompi-preview.jpg",
+      "sha256": "64ba0063eb7e0cf84c78cd8989641d355627a584a1a0318990daac0d6d4d40cf"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-settlement-unresolved.jpg",
+      "sha256": "f0df0620942be2550fe83ddcc1c313ea76190d4da380a6aeee152b82548ecaee"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-busy.jpg",
+      "sha256": "1310970ca73f755e8295957540a841e53001e4a895c18b2a27581d8ea1966197"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-manual-failure.jpg",
+      "sha256": "eb836ecf01a64e5c4ea6c5fd87089198b0bf31b22e50da4d5d5f2f3b9aca8957"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-manual-preview.jpg",
+      "sha256": "988c24a71ddcfc813b8acdf0628843ef6559a5c3d9b89b98d3341915600cbf79"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-manual-recorded.jpg",
+      "sha256": "b2b70a53c1269cec7a7bc9fc9601184d95f2b7dc3cc0d6646843cbb7282c5bbc"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "82453d200079838743b43617cb2b7bf3e6a45a12c6d35a34ac39139aec4fe683"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-rehearsal-accepted.jpg",
+      "sha256": "802e475e500b17d3ec4a782fd6209828aa1efa350a3eded566810aa2e1565e79"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-rehearsal-rejected.jpg",
+      "sha256": "b314178a740ba3084d3bd54a10e0cbbb59aef3b7cc7945b01f8aa891da32dca4"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-teacher-partial.jpg",
+      "sha256": "e1188f0dc12492f58ee0979f9e679e7aa56cb4a2963696a5e2582e5568d26a94"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-teacher-wompi-preview.jpg",
+      "sha256": "3f0d240d5edebdc3ab7c3562facc89e9642d6f610a3ea0b5af518462e4290885"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-settlement-unresolved.jpg",
+      "sha256": "b5ce4a0c79e1dc1f04d9559f5250d27f907e8d2a0d4e0c72ef6124965e833881"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-busy.jpg",
+      "sha256": "fba9388578c4bb1420c250d704bdb5846c3525acc03feef4f56ab4f2f39c15c3"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-manual-failure.jpg",
+      "sha256": "f45c0fe6646e9c67ba62ed7c793d6cb0684c718877dcefce7c1ce5d7ca899fbf"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-manual-preview.jpg",
+      "sha256": "20663f894dccf89e7a3e4955b0a68a860e53510beea6b0db195823fb48f96d5f"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-manual-recorded.jpg",
+      "sha256": "07deb478f6fc51a341f3996b633479473d85b6134d48a657125046ebc642b011"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "c9abf761364670b16e1e1693474ccdd66b11522072bfec8624e6b44b9d01f3f5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-rehearsal-accepted.jpg",
+      "sha256": "d98d3988940c4e65ffe92ae423fe972db26282978b3e7fe09a0f4953ab5fe1cc"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-rehearsal-rejected.jpg",
+      "sha256": "9181775c93e845a2191b133823ac7707dccbab9066a7a0f86fe6da84853fe4c5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-teacher-partial.jpg",
+      "sha256": "e19747e75cb554c5c388d73c23ae6aac823ad12d725f10d5d978f4f78f599846"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-teacher-wompi-preview.jpg",
+      "sha256": "0b418fdbfe37b2e22387a0c2a310731d624964506c2bc7bf7110eeac718e97d0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-settlement-unresolved.jpg",
+      "sha256": "d17bb46ec789a412ed5a76195d2c716ec29d897f8b1d2d2d89689efb04dda40d"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-busy.jpg",
+      "sha256": "43259917122d782bb6cfff2c2a1925766641f4aea00362471f6f1826327fb7f2"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-manual-failure.jpg",
+      "sha256": "0e732b1909d3d870a4cb8add2e5b4dee21b0e72114c2e32a75beb902443abeca"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-manual-preview.jpg",
+      "sha256": "ac91253f5bf56b942188d77fd528a687fe6aaf70dba7e988a6c8a024f0687cac"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-manual-recorded.jpg",
+      "sha256": "c42526be076ffb161d48fe508db65a8ac49f28bab6383e40cde6d21bf5fd60f5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-paid-inconsistent-readonly.jpg",
+      "sha256": "3cba92c67dcaeb1f38a38bbf21f382e01dc90401aa71109b45d08b05d1a0c9b0"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-rehearsal-accepted.jpg",
+      "sha256": "1f997d88e12613c56c1654e1c7030868647d42f2de9ec9c212cd09ded780e4e9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-rehearsal-rejected.jpg",
+      "sha256": "b4ec0c95447574f34e455322ce172998fae8d644764dffb151792215112264c2"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-teacher-partial.jpg",
+      "sha256": "4b9344dd3a0bbe2156950cbe6df0c0b615ce2132671dc75c2654138da7eff6d9"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-teacher-wompi-preview.jpg",
+      "sha256": "24a57b6f3493567f448ed7dcd80d6a697c0d316053968fbaf8d96ae0e7046404"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-settlement-unresolved.jpg",
+      "sha256": "c4edc48047beb86077caad6487b23bd75af444b06e2548af68544a4c46de3809"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-closed-aftercommit.jpg",
+      "sha256": "f89c61808c8ca0e164be1a947e0113bc5629f05d932cac2a6580f5aeac64e4a3"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-inactive-account.jpg",
+      "sha256": "d66d5f8241c939e8e70aa4dbfb43cdf6bcecc147dddd445883274f44260798e5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-inactive-aftercommit.jpg",
+      "sha256": "af532403eb3ee97369071de1755e6fe32a4d2283ef17fa6b25331cac24eb74a2"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-late-scope-loss.jpg",
+      "sha256": "d66d5f8241c939e8e70aa4dbfb43cdf6bcecc147dddd445883274f44260798e5"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-loading.jpg",
+      "sha256": "bb15389491a590bcea7a398278326e211414a0f084f2e59d5f6d34834caf84ad"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-lost-ack.jpg",
+      "sha256": "77f9c00e947c3c10dfc46c751dae5402371d744674edf59768f7b3f63eb87623"
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-settlement-dev-read-error.jpg",
+      "sha256": "013924f7ef3c956493e9e21744909f73e97ad49d3d0bef7825fbb2605f7ff188"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-settlement-results.json",
+      "sha256": "0aa62dd9a0a72ea32d58699a361bfd69b52b4ca0e28e88b5924e410e1c28146c"
+    },
+    {
+      "path": "docs/screenshots/M-09b/payroll-settlement-states.json",
+      "sha256": "7a3fd5b24c9dfa300c80983d66568212c52ae9101e5dbe09a80f50bd3f6f469c"
+    }
+  ],
+  "manifestSelf": "docs/frontend-completion/evidence/payroll-settlement-intended-files.json (included as deliverable; self hash intentionally omitted)",
+  "excluded": [
+    "All *.log diagnostics (ignored/local-only; hashes/stdout summary in final JSON)",
+    "Generated src/app/captureDates.ts or other generated source",
+    "Canonical screenshot filenames {en,es}-{390,1280}.jpg",
+    "dist, .vite, node_modules, immutable local artifact and server/log process files",
+    "Global manifest, metadata, PageSpec, kanban, CI, schema, roles, settings, calculators, approval37 and existing provider stub"
+  ]
+}
