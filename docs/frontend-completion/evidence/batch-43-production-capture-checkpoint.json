@@ -1,0 +1,226 @@
+{
+  "stage": "Production pass; dev/library and full acceptance pending",
+  "runtime": "e1412d2975cdf42494517ef53a779ff8d013d07ab2cdb950dcd6fb34dd17488e",
+  "files": [
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-dark-late.jpg",
+      "sha256": "b078f88a4af0700b2653b40aa583ffed38feaba35d63de3765903970ec2a3f64",
+      "bytes": 53936
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-dark-review.jpg",
+      "sha256": "a1a5244cc90fc4214509eb139de4e0d83ca5d8736fcecd49d8162632d78858db",
+      "bytes": 49644
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-dark-single.jpg",
+      "sha256": "6befd6be5348b86ac4979b4a3a37d00263fd0353392193044870ab3aa85c893e",
+      "bytes": 49510
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-dark-unverifiable.jpg",
+      "sha256": "d44c29cb6dc2aa5d3148822985263bd692b1cf5dd7519b4565af7c2add68e9f8",
+      "bytes": 49478
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-dark-verified.jpg",
+      "sha256": "83bcfe088e507bd4d8027124b71566a784d2f1e1ae0e048a254e03fb678f7875",
+      "bytes": 45586
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-late.jpg",
+      "sha256": "4317721738e4bf042db598eefedf44125493ce8643db034ab1676ac3a00c8668",
+      "bytes": 57541
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-quota-unconfirmed.jpg",
+      "sha256": "a9fbd20c79ec9f1b7fe292d2e06123b3dde490417d2e24b0bd8c604e5f007da5",
+      "bytes": 64107
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-review.jpg",
+      "sha256": "72671b6cb6ed94fdca6d85378a8b58b4347da6886fc3a9dc95a8aa2a64a17299",
+      "bytes": 52816
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-single.jpg",
+      "sha256": "eda407c0caf25cb75d6d75455f80168c571e00bcb893c52797f40848d7facc73",
+      "bytes": 52684
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-unverifiable.jpg",
+      "sha256": "695cb92827fee4f4c4285322636511c084742b1901b1d731c29f09d7b1becb07",
+      "bytes": 53814
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-1280-light-verified.jpg",
+      "sha256": "e4807c8c04df6aec8dbba9107878fbb9b96ddefd768a8fa4938f4845ed269d75",
+      "bytes": 49626
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-dark-late.jpg",
+      "sha256": "ce351770d66fa7498ad8a77cdf0af5702a72b8d55fee6f1d6c3a0577949d6ac3",
+      "bytes": 39563
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-dark-review.jpg",
+      "sha256": "59c6e3ff6e82833d9bbdcefc80b9973f630e67c211d5f979a84bc885c10d426e",
+      "bytes": 37985
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-dark-single.jpg",
+      "sha256": "5492a9a8e29c9719ad71a750e6ddead91facee1b28befee1e5ee1756e7c065ba",
+      "bytes": 37882
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-dark-unverifiable.jpg",
+      "sha256": "a2e9fbc865639121d41a8bec142902f10f847006ddb9a5414c087a971df6802a",
+      "bytes": 34485
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-dark-verified.jpg",
+      "sha256": "fa0f528f71a142295efa71ef30943b24d479641ef204bf2b71f3095d6a223365",
+      "bytes": 31315
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-late.jpg",
+      "sha256": "742792327b183317fb9984277f1131b1a6a7dedd30e077c1c25c2ef5dc89619e",
+      "bytes": 41834
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-quota-unconfirmed.jpg",
+      "sha256": "d99feaba8ec3df8314851d7f293fa4f98331909949129effe75f9136102dd4a1",
+      "bytes": 45154
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-review.jpg",
+      "sha256": "d9954e745a8e202e4f1d9adbe512ac6b0d67fb894f8e2521ce122c2cee12a759",
+      "bytes": 40118
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-single.jpg",
+      "sha256": "c4a71775674c394a56d4fd8dca90ada14350b8979579dfbb8722b4aff361ae6a",
+      "bytes": 40045
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-unverifiable.jpg",
+      "sha256": "cb9b180e830bbd69b4c34850c196359c6cf7f04fb944d585ae7cb8c1e49ecd8d",
+      "bytes": 36934
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/en-390-light-verified.jpg",
+      "sha256": "04526cef13c14db1898be3a0d0345cad08b01b48cebf2fd394ad8daa334c39fb",
+      "bytes": 34332
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-dark-late.jpg",
+      "sha256": "78fb5f5629cbf9fe60985d41a7cdbab9b5c9ef8cbff2125bbc0c383d1f5c90ca",
+      "bytes": 55359
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-dark-review.jpg",
+      "sha256": "6e914b58002cd2f5725db1c36d63d388e0727f9fb653559558f09bee5333d417",
+      "bytes": 51983
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-dark-single.jpg",
+      "sha256": "f41c0de962ece197452415181a4b6d7882734f3ecae026b15bfc4f17fd48db83",
+      "bytes": 51188
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-dark-unverifiable.jpg",
+      "sha256": "c1b8021b6068d4ff86824d54984ac21677bffd2ea989f940a1aaa844d832b2be",
+      "bytes": 49869
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-dark-verified.jpg",
+      "sha256": "e9e125f6aad025aba6a6a632d63007864332d9a8231a36c815a7b1798804f60f",
+      "bytes": 47978
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-late.jpg",
+      "sha256": "c409cc38ea102e48671f9fa55344c21be76f7c7368b7b136c6ad170c99d9df77",
+      "bytes": 59152
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-quota-unconfirmed.jpg",
+      "sha256": "c560c969c722261f45b64b9668de0d79e0983b33357378d87c8867d746c9e0d4",
+      "bytes": 65767
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-review.jpg",
+      "sha256": "277f28501e852a78b385207d687efa72d4a738f832d61183d2f351b11055c0f7",
+      "bytes": 55348
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-single.jpg",
+      "sha256": "bb3d02e4694a6f25f7a014944fae1ac3fed852921e731f41e074d96ca42a54ea",
+      "bytes": 54583
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-unverifiable.jpg",
+      "sha256": "9543a723e83ffa5c0ae7f79dbe5ccc4b02148dad605ebaee39c91866e614541b",
+      "bytes": 54251
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-1280-light-verified.jpg",
+      "sha256": "6e2f552e88cecd6dfd167c7fddd3d1c4962d3950291936af43906efb7aae1020",
+      "bytes": 53592
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-dark-late.jpg",
+      "sha256": "dba68d53aa62ce11eafbd1537141c345039cec1fc6bbf590be7374a2b1c5142f",
+      "bytes": 41177
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-dark-review.jpg",
+      "sha256": "d6174d2eec98b782ec5cc26525e5320607636f4723f1c5ff32bbb88ad6235365",
+      "bytes": 39648
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-dark-single.jpg",
+      "sha256": "4658f486bfe2354db31fd311f43454bc553d248ba8c760dbecfe885a900009f3",
+      "bytes": 39010
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-dark-unverifiable.jpg",
+      "sha256": "1d005c67b7cfac3314bf7654cc84db8eba969a80f723756bfdaadf3e8ff5dd78",
+      "bytes": 34537
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-dark-verified.jpg",
+      "sha256": "157649d851b7a7414c944d9697b76007a9a3fac07da919f5d34627f4a1f9cd14",
+      "bytes": 33461
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-late.jpg",
+      "sha256": "94dbba60d814f94c2aef7e2bba5ee8b9f8b357e6befb56b7dc150dad75295a8e",
+      "bytes": 43295
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-quota-unconfirmed.jpg",
+      "sha256": "74c6b84f5f6f52b31f5854801f9bed594b87785ff977c14d5cc68b12b1456893",
+      "bytes": 47641
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-review.jpg",
+      "sha256": "e1093d30ab8b49c1e384493047a066702d1f7869707c7127d02fcd365d0a5fd4",
+      "bytes": 41641
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-single.jpg",
+      "sha256": "89938d1f3668a98874d6c4ed544feafc57d20e85472a5ae563330bea754486b0",
+      "bytes": 40890
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-unverifiable.jpg",
+      "sha256": "60988fccf6ad8d21a2078f5acf3816c795c825e4858327f0c1588d5c8515d1f7",
+      "bytes": 36920
+    },
+    {
+      "path": "docs/screenshots/C-08b/customer-cancel/es-390-light-verified.jpg",
+      "sha256": "6e59826666c20b94c87aaa9463a7b90c5ef27dc9ae4d31f4c21fce26c25352a6",
+      "bytes": 36733
+    }
+  ]
+}

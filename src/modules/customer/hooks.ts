@@ -7,7 +7,7 @@ import type { BaseRow, BookingRow, ClassSessionRow, ContentArticleRow, ClassLedg
 import { dateKey, isSameDay } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { priceItem, type PriceItem } from '../../tenant/pricing';
-import { insideCancelWindow, policy } from './policy';
+import { policy } from './policy';
 import { guardStudioWaitlist, promoteStudioWaitlist } from './studioWaitlist';
 import { rescheduleBooking } from './rescheduleCommand';
 import { approvedPackageRows, freezePatch, packageState, resumePatch, selectPackagePurchase } from '../../data/packages';
@@ -154,18 +154,10 @@ export function useBookingActions() {
     await promoteStudioWaitlist(data, sessionId);
   }, [data]);
 
-  const cancel = useCallback(async (booking: BookingRow, session: ClassSessionRow, reason: 'customer' | 'studio' = 'customer') => {
+  /** Legacy entry point: privileged studio reason stays rejected; customers must use the reviewed command. */
+  const cancel = useCallback(async (_booking: BookingRow, _session: ClassSessionRow, reason: 'customer' | 'studio' = 'customer') => {
     if (reason === 'studio') throw new Error('studio_cancellation_admin_required');
-    const late = reason === 'customer' && insideCancelWindow(session.starts_at);
-    const status = late ? 'late_cancel' : 'cancelled';
-    await data.update('bookings', booking.id, { status, cancelled_at: new Date().toISOString() });
-    // Existing customer cancellation behavior; studio cancellation uses the scoped admin command.
-    if (booking.paid_with === 'package' && !late) await data.insert('class_ledger', { user_id: booking.user_id, plan_id: null, payment_id: null, delta: 1, reason: 'cancel_return', expires_at: null });
-    if (session.status === 'scheduled') {
-      await data.update('class_sessions', session.id, { booked_count: Math.max(0, session.booked_count - 1) });
-      await promoteWaitlist(session.id);
-    }
-    return { late };
+    throw new Error('customer_cancel_review_required');
   }, [data, promoteWaitlist]);
 
   /** Reschedule keeps the same entitlement; RS-09 permits it only through the 12-hour deadline. */

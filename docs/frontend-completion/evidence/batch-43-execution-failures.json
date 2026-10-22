@@ -1,0 +1,23 @@
+{
+  "batch": 43,
+  "failures": [
+    {
+      "gate": "original baseline",
+      "session": 99813,
+      "exit": 1,
+      "error": "TypeError: Cannot assign to read only property 'insert' of object '#<_MockProvider>'",
+      "classification": "Fixture facade inherited read-only detached transaction method; intended FICTIONAL injection never reached.",
+      "correction": "Independent facade with bound original provider methods and explicit injected hooks; exact frozen closure/assertions unchanged.",
+      "sourceRuntimeChanged": false
+    },
+    {
+      "gate": "fullbuild/typecheck",
+      "session": 92407,
+      "exit": 2,
+      "error": "useCustomerCancellation.ts(23,35) TS7030: Not all code paths return a value.",
+      "classification": "Controller execute Promise<CancellationOutcome|undefined> omitted explicit fallback return after handled error/stale result.",
+      "correction": "Explicit return undefined after finally; no policy or lifecycle behavior change.",
+      "sourceRuntimeChanged": true
+    }
+  ]
+}

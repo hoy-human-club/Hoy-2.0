@@ -1,0 +1,158 @@
+{
+  "batch": 43,
+  "baseProvidedByRoot": "9bce78e",
+  "status": "AUTHORIZED SOURCE-ONLY IMPLEMENTATION AND WRITTEN TESTS; uncompiled/unexecuted/unverified",
+  "fixtures": [
+    {
+      "source": "src/modules/customer/pages/BookedPage.tsx",
+      "fixture": "scripts/fixtures/customer-cancel-original/BookedPage.tsx.txt",
+      "kind": "exact full source bytes",
+      "sourceSha256": "d2e8376904199c8892f721ad9a3b74e8c4c60cf8c46cdfd2572b47c096b8e62a",
+      "fixtureSha256": "d2e8376904199c8892f721ad9a3b74e8c4c60cf8c46cdfd2572b47c096b8e62a"
+    },
+    {
+      "source": "src/modules/customer/policy.ts",
+      "fixture": "scripts/fixtures/customer-cancel-original/policy.ts.txt",
+      "kind": "exact full source bytes",
+      "sourceSha256": "d9bea19cf233f5705093a6234ca0d45fb1d5b5407306d10460d7195dc817452b",
+      "fixtureSha256": "d9bea19cf233f5705093a6234ca0d45fb1d5b5407306d10460d7195dc817452b"
+    },
+    {
+      "source": "src/data/packages.ts",
+      "fixture": "scripts/fixtures/customer-cancel-original/packages.ts.txt",
+      "kind": "exact full source bytes",
+      "sourceSha256": "0a518e4dccc0626fe643b9ee0a8cb282c5baa3499d1c1a57a11bf291e45955cd",
+      "fixtureSha256": "0a518e4dccc0626fe643b9ee0a8cb282c5baa3499d1c1a57a11bf291e45955cd"
+    },
+    {
+      "source": "src/modules/customer/studioWaitlist.ts",
+      "fixture": "scripts/fixtures/customer-cancel-original/studioWaitlist.ts.txt",
+      "kind": "exact full source bytes",
+      "sourceSha256": "73403bfaf8d8db0239ce6a2778fb91e08ba8a3e07962b8dd485011bf170d3394",
+      "fixtureSha256": "73403bfaf8d8db0239ce6a2778fb91e08ba8a3e07962b8dd485011bf170d3394"
+    },
+    {
+      "source": "src/tenant/policies.ts",
+      "fixture": "scripts/fixtures/customer-cancel-original/default-policies.ts.txt",
+      "kind": "exact full source bytes",
+      "sourceSha256": "b5187f5085eca865afebc4d97610bd0dced1b27c777122d2e7588efdaaa24228",
+      "fixtureSha256": "b5187f5085eca865afebc4d97610bd0dced1b27c777122d2e7588efdaaa24228"
+    },
+    {
+      "source": "src/modules/customer/hooks.ts",
+      "fixture": "scripts/fixtures/customer-cancel-original/cancel-closure.ts.txt",
+      "kind": "exact original cancellation closure byte substring, no added newline",
+      "sourceWholeSha256": "a71896c6b69914024f53e90b58a924e617781aba3513f736e2bd6440116cce4f",
+      "startByte": 11000,
+      "endByte": 12003,
+      "firstLine": 157,
+      "lastLine": 169,
+      "fixtureSha256": "972c25299ba8a08b60f2c34b3bf3a1fc294e4e65393051c6ed37db562c46577f"
+    }
+  ],
+  "protectedSourceAtAudit": [
+    {
+      "path": "src/data/MockProvider.ts",
+      "sha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7"
+    },
+    {
+      "path": "src/data/schema.ts",
+      "sha256": "35ee85e2db065a9a6a85c9279c7915bf686bfe1bfa36525e1975207c8f229933"
+    },
+    {
+      "path": "src/data/mats.ts",
+      "sha256": "7c6a8da475b522837b489c8a0d83a421ac8c6f5b648a48ce947037938653bdab"
+    },
+    {
+      "path": "src/modules/customer/rescheduleCommand.ts",
+      "sha256": "4d3d1ab6078b4e75d0a61acc4420935c52c97edabad18c349264a7a85c5ad0c3"
+    },
+    {
+      "path": "src/modules/customer/pages/WaitlistPage.tsx",
+      "sha256": "79326949ee1826136716eeeb005ac87ba43a9259f1932cb7a39a33e9dad84c29"
+    },
+    {
+      "path": "src/modules/customer/pages/CheckoutPage.tsx",
+      "sha256": "a8896bb7ca159c720ece780114128b23b651d3acc5015bdf6a2804103d087fdf"
+    },
+    {
+      "path": "src/modules/customer/index.ts",
+      "sha256": "9defed5fa35881cac8a9878e57be5fcf9757db9a8bdd8183799fb51eb327e172"
+    },
+    {
+      "path": "src/modules/admin/settings.ts",
+      "sha256": "3f478c48c9d6b1553f1db2eba073a569e571da8ceb40d1b71f57718f63a1bd70"
+    },
+    {
+      "path": "src/auth/SessionProvider.tsx",
+      "sha256": "9645bfb59de619d0f00cde93a2847e1e63369f4e63b6cbba5bcc61d4dafac554"
+    },
+    {
+      "path": "src/auth/roles.ts",
+      "sha256": "11002363462521d77e8b3aee4cd17ac738fa68d95a370d1f3ef9d03f5f326bc9"
+    },
+    {
+      "path": "src/auth/permissions.ts",
+      "sha256": "593caa1eb4e43b5d4e797100a96cdfa51f85d90db0c78bf3cc92672aad02f80b"
+    },
+    {
+      "path": "docs/frontend-completion/features.json",
+      "sha256": "78dd61620f9981b71521f6aaa720163b65770363a34a7d506954c0ffa3494b71"
+    },
+    {
+      "path": "docs/frontend-completion/owner-queues.md",
+      "sha256": "abf81d4c2294e5c0a7337a042fea9182e9ccbd55edb3445d8bf9f9ef3cce62ff"
+    }
+  ],
+  "execution": "Repository source inspection, bounded source/test/doc writing and Python byte/hash checks only. No Git, compiler/typecheck/esbuild/build/browser or runtime application/test execution.",
+  "data": "Source code and nonsensitive synthetic repro recipes only; no customer data, correspondence, secrets, provider calls or external messages.",
+  "sourceFindings": [
+    {
+      "source": "src/modules/customer/hooks.ts:157-169",
+      "finding": "Sequential trusted-input cancel, unlinked nonexpiring package return, no once receipt; studio reason already rejected."
+    },
+    {
+      "source": "src/modules/customer/pages/BookedPage.tsx:57-66,126,156-163",
+      "finding": "Booked in-progress cancellation reachable; parent preview can differ from fresh callback deadline; no cancel catch/ref latch/lifecycle fence."
+    },
+    {
+      "source": "src/modules/customer/policy.ts:104-108",
+      "finding": "Strict now>deadline means exact cutoff is free; existing live M08 policy/defaults preserved."
+    },
+    {
+      "source": "src/data/MockProvider.ts:130-144,262-285",
+      "finding": "Actual capacity is derived and manual patch recomputes; no demonstrated double-decrement. Started new booking rejected while existing in-progress cancel remains distinct."
+    },
+    {
+      "source": "src/modules/customer/studioWaitlist.ts:8-21",
+      "finding": "Existing promotion only rejects cancelled class, can offer an unclaimable started-class place; wrapper must not be nested inside detached atomic stage."
+    },
+    {
+      "source": "src/data/packages.ts:33-102",
+      "finding": "Exact linked restoration keeps original terms; legacy reconstruction not authoritative allocation or approved history migration."
+    }
+  ],
+  "recommendedScope": "Own-only mock reviewed cancellation with same reachable time/status semantics, no silent cutoff/policy outcome change, one exact package-linked return only when provable, status-only nonpackage/late, provider-derived occupancy, supported future waitlist effect, scoped historical replay and lifecycle fences. Root authorized this bounded source-only repair; execution remains queued.",
+  "plannedBaselineCases": [
+    "duplicate/immortal return",
+    "ledger/counter/waitlist/quota partial failures",
+    "foreign/mismatched/stale actor inputs",
+    "cutoff+1ms and live-policy crossing",
+    "in-progress/exact-end cancellation compatibility",
+    "started waitlist offer versus newbooking guard",
+    "terminal/history no-backfill",
+    "real counter/no_show semantics",
+    "missing/shared/multiunit/ambiguous legacy lineage",
+    "expiry/freeze/nonpackage no money or extra class grant",
+    "committed replay after time advances/lost ack",
+    "allrequiredrows/cancel/context/control mutation/races"
+  ],
+  "gates": "Baseline/domain/typecheck/fullbuild/immutable production/dev/library/visual gates NOT RUN. Written tests are not proof.",
+  "fixtureVerification": "PASS exact copies/substrings and protected source hashes unchanged after audit writing.",
+  "contractDoc": "docs/frontend-completion/batch-43.md",
+  "auditStatusAtCreation": "READ-ONLY source contract audit; no runtime execution or implementation",
+  "auditExecutionAtCreation": "No Git, compiler/typecheck/esbuild/build/browser or runtime source execution used. Only repository reads and exact source fixture/document copies.",
+  "currentSourceCheckpoint": "docs/frontend-completion/evidence/batch-43-customer-cancel-checkpoint.json",
+  "recovery": "One harmless read failed before process creation: exec-server transport disconnected. Source writing paused; root preserved partial files. Root confirmed recovery and a fresh pwd succeeded before source-only continuation. No uncertain compiler/browser/mutation existed for43.",
+  "staticInvariantVerification": "PASS byte-for-byte original fixtures, unchanged original policy/defaults/packages/waitlist, and all13 protected source hashes. This is a file-hash assertion, not a compiler/domain/rendered check."
+}

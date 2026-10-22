@@ -1,0 +1,24 @@
+{
+  "batch": 43,
+  "base": "8fd3fa07c4b39d35490b6d96b82b0631d0b9acc2",
+  "runtimeBefore": "246e8d6e9567d1765af3f7f1bf42aeb21a547765291addf75751c38351e82f1d",
+  "runtimeMethod": "Sorted src relative path bytes+file bytes, no delimiters; exclude exactly src/app/captureDates.ts; append vite.config.ts bytes only.",
+  "baseline": {
+    "failedSession": 99813,
+    "failedExit": 1,
+    "correction": "Test facade inherited detached read-only methods; independent facade fixed injection; original closure/assertions unchanged.",
+    "passedSession": 97628,
+    "exit": 0,
+    "groups": 6,
+    "summary": "CONFIRMED original customer cancellation: 6 groups."
+  },
+  "domain": {
+    "session": 86861,
+    "exit": 0,
+    "groups": 11,
+    "summary": "PASS customer cancellation domain: 11 groups."
+  },
+  "state": "Paused at safe boundary before type/fullbuild for root urgent finance CI domain gate; no browser started.",
+  "logDurability": "All /workspace/*.log diagnostics are ignored/local-only; durable summaries/exit/session values are embedded here.",
+  "boundaries": "No Git/global manifest/kanban/security/provider/backend/payment/role policy changes; source-only45 and original43 worktree untouched."
+}
