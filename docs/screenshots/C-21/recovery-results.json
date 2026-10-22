@@ -1,0 +1,14 @@
+{
+  "base": "http://127.0.0.1:5219",
+  "checks": [
+    "en/light/390: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "en/light/1280: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "en/dark/390: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "en/dark/1280: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "es/light/390: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "es/light/1280: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "es/dark/390: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects",
+    "es/dark/1280: public deeplink, format validation, send doubleclick/cancel/retry/optional-cooldown-storage-failure, exact10min expiry,45s resend,3wrong invalidation, fallback, save doubleclick/cancel/unmount, honest completion, no data/session/network effects"
+  ],
+  "errors": []
+}
