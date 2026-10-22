@@ -1,0 +1,70 @@
+{
+  "requirement": "NT-05",
+  "baseCommit": "f633d8519290ebaf4f1bf54ba577338ee4895659",
+  "version": "0.25.0",
+  "uncommittedPrototype": true,
+  "moduleFiles": [
+    "src/modules/admin/EmailsPage.tsx",
+    "src/modules/admin/emailTest.ts",
+    "src/modules/admin/useEmailTest.ts",
+    "src/modules/admin/emailTest.css",
+    "src/modules/admin/strings.ts"
+  ],
+  "moduleSourceFingerprint": "4ee03b6902d1cb27039c8dd0cbfb94b22b0fd42f8ed6dc48f0db5f802264d09b",
+  "sourceUnchangedDuringFrozenBuild": true,
+  "buildCommand": "npm run build",
+  "buildExit": 0,
+  "buildLog": "/tmp/hoy-email-test-build-final.log",
+  "snapshot": "/tmp/hoy-email-test-qa-4ee03b6902d1",
+  "bundleTreeFingerprint": "95ce37d40ee49021a567ce9d0a70218d2994111404d424dc41814a1faa11fd17",
+  "productionQA": "http://127.0.0.1:5231",
+  "fingerprintAlgorithm": "SHA256 of each listed path + NUL + bytes + NUL; bundle sorted relative paths same encoding",
+  "qaStatus": "PASS: final corrected immutable production and clean actual-component development lifecycle matrices.",
+  "deploymentStatus": "Immutable local production demo only; parent owns checked commits/CI/merge/public deployment; no production/commercial/owner acceptance.",
+  "checks": [
+    {
+      "command": "node scripts/test-email-test.mjs",
+      "exit": 0,
+      "result": "email-test-domain-results.json",
+      "log": "/tmp/hoy-email-test-domain-final.log"
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5231 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-test-ui.mjs",
+      "exit": 0,
+      "result": "email-test-ui-results.json",
+      "log": "/tmp/hoy-email-test-ui-final.log"
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5230 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-test-states.mjs",
+      "exit": 0,
+      "result": "email-test-state-results.json",
+      "log": "/tmp/hoy-email-test-states-final.log"
+    }
+  ],
+  "visualInspection": [
+    "EN390 and ES390 dark preview: fixed cream paper subject, variable and link readable; footer usable; no viewport overflow.",
+    "EN1280 light failure preview: retry/cancel and local-only warning visible.",
+    "ES1280 dark marketing self-preview: correct fictional own recipient/version, local-only warning.",
+    "EN1280 dark log status: local simulation label visible; canvas paper readable."
+  ],
+  "renderedAssertions": {
+    "languages": [
+      "en",
+      "es"
+    ],
+    "widths": [
+      390,
+      1280
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "rolesAllowed": 4,
+    "rolesDenied": 7,
+    "pageErrors": 0,
+    "minimumPaperTextContrast": 4.5,
+    "strictViewportFit": true
+  },
+  "sourceFingerprintAfterFinalQA": "4ee03b6902d1cb27039c8dd0cbfb94b22b0fd42f8ed6dc48f0db5f802264d09b"
+}

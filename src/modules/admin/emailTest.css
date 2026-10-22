@@ -1,0 +1,12 @@
+/* M04's template/log grid must shrink before DataTable's own scroll container does. */
+.emails { min-width: 0; }
+.emails > * { min-width: 0; }
+.email-test-recipient { overflow-wrap: anywhere; }
+
+/* Email paper stays cream in both themes; keep its text in the paper ink. */
+.emails .emailpreview-paper .emailpreview-subject,
+.emails .emailpreview-paper .phonebubble-var,
+.emails .emailpreview-paper .muted,
+.email-test-preview .emailpreview-paper .emailpreview-subject,
+.email-test-preview .emailpreview-paper .phonebubble-var,
+.email-test-preview .emailpreview-paper .muted { color: var(--brand-ink); }
