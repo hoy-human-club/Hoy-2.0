@@ -119,11 +119,18 @@ export function ProfilePage() {
     ),
     PaymentMethods: () => <ListGroup><ListRow icon="credit-card" title={t('customer.pay.title')} subtitle={t('customer.profile.pay.sub')} to="/app/payment-methods" /></ListGroup>,
     'NotificationPrefs (push / email / WhatsApp)': () => (
-      <ListGroup title={t('customer.profile.notifications')}>
-        {NOTIF_CHANNELS.map((k) => <ListRow key={k} icon={k === 'whatsapp' ? 'whatsapp' : k === 'push' ? 'bell' : 'mail'} title={t(`customer.profile.notif.${k}`)} subtitle={t(`customer.profile.notif.${k}.sub`)} trailing={<Toggle size="sm" checked={prefs.channelOn(k)} onChange={(v) => { void prefs.setChannel(k, v); }} label="" />} />)}
-        <ListRow icon="sliders" title={t('customer.notifications.prefs.title')} subtitle={t('customer.notifications.prefs.byCategory')} to="/app/notifications" />
-        <ListRow icon="bell" title={t('customer.notifications.title')} to="/app/notifications" />
-      </ListGroup>
+      <section className="stack-sm" data-preference-surface="master" aria-label={t('customer.profile.notifications')}>
+        <Notice tone="info">{t('customer.prefs.mock')}</Notice>
+        {prefs.status==='loading'&&<Notice>{t('customer.prefs.loading')}</Notice>}
+        {prefs.error&&<Notice tone="warn" action={<Button size="sm" variant="secondary" onClick={()=>void Promise.resolve(prefs.retry()).catch(()=>{})}>{t(prefs.error==='save'?'customer.prefs.retry':'customer.prefs.reload')}</Button>}>{t(`customer.prefs.${prefs.error}`)}</Notice>}
+        {prefs.saved&&<Notice tone="success">{t('customer.prefs.saved')}</Notice>}
+        <ListGroup title={t('customer.profile.notifications')}>
+          {NOTIF_CHANNELS.map((k) => <ListRow key={k} icon={k === 'whatsapp' ? 'whatsapp' : k === 'push' ? 'bell' : 'mail'} title={t(`customer.profile.notif.${k}`)} subtitle={t(`customer.profile.notif.${k}.sub`)} trailing={<Toggle size="sm" disabled={prefs.status!=='ready'||prefs.busy} checked={prefs.channelOn(k)} onChange={(v) => { void prefs.setChannel(k, v).catch(()=>{}); }} label="" />} />)}
+          <ListRow icon="sliders" title={t('customer.notifications.prefs.title')} subtitle={t('customer.notifications.prefs.byCategory')} to="/app/notifications" />
+          <ListRow icon="bell" title={t('customer.notifications.title')} to="/app/notifications" />
+        </ListGroup>
+        {prefs.busy&&<Notice action={<Button size="sm" variant="secondary" onClick={prefs.cancel}>{t('customer.prefs.cancel')}</Button>}>{t('customer.prefs.saving')}</Notice>}
+      </section>
     ),
     'LanguageToggle (EN / ES)': () => <ListGroup><ListRow icon="languages" title={t('customer.profile.language')} subtitle={t('customer.profile.language.sub')} trailing={<LangToggle size="sm" />} /></ListGroup>,
     'LeaveAReview → Google / Instagram': () => (

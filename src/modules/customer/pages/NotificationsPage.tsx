@@ -4,6 +4,7 @@ import { useI18n } from '../../../i18n/I18nProvider';
 import type { NotificationRow } from '../../../data/schema';
 import { formatDate, formatTime, isSameDay } from '../../../i18n/format';
 import { Button } from '../../../components/atom/Button/Button';
+import { Notice } from '../../../components/molecule/Notice/Notice';
 import { Toggle } from '../../../components/atom/Toggle/Toggle';
 import { EmptyState } from '../../../components/molecule/EmptyState/EmptyState';
 import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow';
@@ -49,16 +50,21 @@ export function NotificationsPage() {
         {group(today, t('customer.notifications.today'))}
         {group(earlier, t('customer.notifications.earlier'))}
 
-        <section className="stack-sm">
+        <section className="stack-sm" data-preference-surface="category">
+          <Notice tone="info">{t('customer.prefs.mock')}</Notice>
+          {prefs.status==='loading'&&<Notice>{t('customer.prefs.loading')}</Notice>}
+          {prefs.error&&<Notice tone="warn" action={<Button size="sm" variant="secondary" onClick={()=>void Promise.resolve(prefs.retry()).catch(()=>{})}>{t(prefs.error==='save'?'customer.prefs.retry':'customer.prefs.reload')}</Button>}>{t(`customer.prefs.${prefs.error}`)}</Notice>}
+          {prefs.saved&&<Notice tone="success">{t('customer.prefs.saved')}</Notice>}
           <div><h2 className="cust-h2">{t('customer.notifications.prefs.title')}</h2><p className="small muted">{t('customer.notifications.prefs.sub')}</p></div>
           <SegmentedControl block ariaLabel={t('customer.notifications.prefs.title')} value={channel} onChange={setChannel}
             options={NOTIF_CHANNELS.map((c) => ({ value: c, label: t(`customer.notifications.channel.${c}`) }))} />
           <ListGroup>
             {NOTIF_CATEGORIES.map((cat) => (
               <ListRow key={cat} icon={cat === 'marketing' ? 'sparkle' : 'bell-ring'} title={t(`customer.notifications.cat.${cat}`)} subtitle={t(`customer.notifications.cat.${cat}.sub`)}
-                trailing={<Toggle size="sm" label="" checked={prefs.isEnabled(channel, cat)} onChange={(v) => { void prefs.set(channel, cat, v); }} />} />
+                trailing={<Toggle size="sm" label="" disabled={prefs.status!=='ready'||prefs.busy} checked={prefs.isEnabled(channel, cat)} onChange={(v) => { void prefs.set(channel, cat, v).catch(()=>{}); }} />} />
             ))}
           </ListGroup>
+          {prefs.busy&&<Notice action={<Button size="sm" variant="secondary" onClick={prefs.cancel}>{t('customer.prefs.cancel')}</Button>}>{t('customer.prefs.saving')}</Notice>}
           <p className="xs muted">{t('customer.notifications.prefs.note')}</p>
         </section>
 
