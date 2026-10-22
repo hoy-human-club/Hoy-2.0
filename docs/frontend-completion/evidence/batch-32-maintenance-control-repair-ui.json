@@ -1,0 +1,21 @@
+{
+  "batch": 32,
+  "base": "http://127.0.0.1:5246",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5246/assets/index-DW3lsyuZ.js",
+    "sha256": "910fedd76e3683e232b444e9e16c498100a93d193580a9c72bcbe5cd8e976a6d",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5246/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "checks": [
+    "All11 existing roles: maintenance/admin/super allowed;8 denied.",
+    "en/light/1280:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch",
+    "es/dark/390:4presets, immediate double submit, quota rollback/retry, stale revision, committed lostack replay, pending cancel, actual SPA actor/unmount fence, required actor read containment, foreign canary omission,4kind creation/nullminimum, metadata-only receipts, unchanged operational tables/no dispatch"
+  ],
+  "errors": [],
+  "dispatch": []
+}
