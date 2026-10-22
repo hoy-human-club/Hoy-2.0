@@ -1,0 +1,50 @@
+[
+  {
+    "source": "/tmp/hoy-future-fences-qa-962c969fa169",
+    "archive": "/workspace/hoy-qa-archive/hoy-future-fences-qa-962c969fa169",
+    "before": {
+      "sha256": "e1186080cf9d12a1e94b30aeac136663c3c3e99dd694e65591206eb3514755ce",
+      "files": 4297,
+      "bytes": 349462234
+    },
+    "after": {
+      "sha256": "e1186080cf9d12a1e94b30aeac136663c3c3e99dd694e65591206eb3514755ce",
+      "files": 4297,
+      "bytes": 349462234
+    },
+    "preserved": true,
+    "scope": "Completed historical local QA artifact only; source/proofs/current37/38/39 not touched. Historical HTTP fixture path now archived."
+  },
+  {
+    "source": "/tmp/hoy-receipt-alert-qa-da299fc02f39",
+    "archive": "/workspace/hoy-qa-archive/hoy-receipt-alert-qa-da299fc02f39",
+    "before": {
+      "sha256": "49c84d91691769e047c93e25fbfdb38d63e42785396d8de5b0529cd486f39df5",
+      "files": 4170,
+      "bytes": 341788877
+    },
+    "after": {
+      "sha256": "49c84d91691769e047c93e25fbfdb38d63e42785396d8de5b0529cd486f39df5",
+      "files": 4170,
+      "bytes": 341788877
+    },
+    "preserved": true,
+    "scope": "Completed historical local QA artifact only; source/proofs/current37/38/39 not touched. Historical HTTP fixture path now archived."
+  },
+  {
+    "source": "/tmp/hoy-email-edit-qa-a1e273db618c",
+    "archive": "/workspace/hoy-qa-archive/hoy-email-edit-qa-a1e273db618c",
+    "before": {
+      "sha256": "ad93ccec65b66f91d352448a17da0646f103bf42ac69addc85746c393ce03b34",
+      "files": 4043,
+      "bytes": 336698935
+    },
+    "after": {
+      "sha256": "ad93ccec65b66f91d352448a17da0646f103bf42ac69addc85746c393ce03b34",
+      "files": 4043,
+      "bytes": 336698935
+    },
+    "preserved": true,
+    "scope": "Completed historical local QA artifact only; source/proofs/current37/38/39 not touched. Historical HTTP fixture path now archived."
+  }
+]

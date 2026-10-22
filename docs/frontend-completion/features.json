@@ -5411,31 +5411,38 @@
         "src/modules/admin/payrollDraft.ts",
         "src/modules/admin/usePayrollDraft.ts",
         "docs/frontend-completion/batch-30.md",
-        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json",
+        "docs/frontend-completion/evidence/payroll-approval-final.json",
+        "docs/frontend-completion/evidence/fi03-approval-followup-audit.json"
       ],
       "routes": [],
       "tests": [
         "scripts/test-payroll-draft.mjs",
         "scripts/test-payroll-draft-hook.mjs",
-        "scripts/test-payroll-draft-ui.mjs"
+        "scripts/test-payroll-draft-ui.mjs",
+        "scripts/test-payroll-approval.mjs",
+        "scripts/test-payroll-approval-hook.mjs",
+        "scripts/test-payroll-approval-ui.mjs",
+        "scripts/test-payroll-approval-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-09a/payroll-draft-proof.json",
         "docs/screenshots/M-09b/"
       ],
       "blockers": [],
-      "nextAction": "Complete final evidence-head CI and release; separately verify approval/settlement and authenticated backend contracts.",
+      "nextAction": "Complete combined draft/approval regressions and exact-head release; separately repair/verify mock settlement paths without real payout or paid-history rewrite.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
+        "basis": "Draft30 combined verified release67 and approval37 isolated actual domain/hook/fullbuild/production/dev-state proof at55ed4b8. Operational combined/CI/release pending; whole feature partial.",
         "missingFrontend": [
-          "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
+          "Settlement, teacher-payment and delayed Wompi simulator paths still require separate repair/verification; approval37 changes none of those handlers.",
+          "Canonical closed-class/rate/status history and authoritative approvals are backend contracts, not established by isolated fixture roles."
         ],
         "remainingBackend": [
-          "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."
+          "Authenticated server transaction/idempotency, unique period/status locks, canonical class/rate history, approval and settlement contracts."
         ]
       },
       "sourceNextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
@@ -5464,6 +5471,26 @@
             ]
           },
           "basis": "Historical finding before bounded fictional batch repair; original full feature remains partial."
+        },
+        {
+          "assessment": {
+            "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
+            "missingFrontend": [
+              "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
+            ],
+            "remainingBackend": [
+              "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."
+            ]
+          },
+          "basis": "Historical draft-only checkpoint before separately verified bounded approval37; settlement remains separate."
+        }
+      ],
+      "continuationEvidence": [
+        {
+          "batch": "batch-37.md",
+          "source": "55ed4b8",
+          "verification": "Isolated fullbuild91822/domain/hook12/production8matrix+all11roles/devstates passed atcanonicalb47f6586…. New combined exact-head release pending.",
+          "limits": "Approval only; settlement/teacher payment/Wompi unchanged, no real payout or owner/backend acceptance."
         }
       ]
     },

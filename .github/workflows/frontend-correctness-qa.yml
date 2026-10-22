@@ -33,6 +33,7 @@ on:
       - 'scripts/test-event-rsvp*.mjs'
       - 'scripts/event-rsvp-harness.tsx'
       - 'scripts/test-operational-active-account*.mjs'
+      - 'scripts/test-operational-inventory-ui.mjs'
       - 'scripts/test-email-edit*.mjs'
       - 'scripts/email-edit-harness.tsx'
       - 'scripts/test-expense-ledger*.mjs'
@@ -98,6 +99,12 @@ jobs:
       - name: Verify rendered active-account command boundaries
         if: matrix.scope == 'email-edit'
         run: node scripts/test-operational-active-account-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify shared expense feedback inventory
+        if: matrix.scope == 'expense-ledger'
+        run: node scripts/test-operational-inventory-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome
