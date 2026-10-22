@@ -3165,15 +3165,15 @@
         "docs/screenshots/D-02/cash-count-library-results.json"
       ],
       "blockers": [],
-      "nextAction": "Verify combined lifecycle head and strengthened contrast assertion; preserve local count draft until accounting/terminal/attribution/cutoff/refund/expense/signoff decisions and authenticated durable close contract exist.",
+      "nextAction": "Complete exact-head CI/release for the verified combined local draft; preserve local-only counts until accounting/terminal/attribution/cutoff/refund/expense/signoff decisions and authenticated durable close exist.",
       "candidateRoutes": [
         "/#/admin/finance"
       ],
       "sourceAssessment": {
-        "basis": "Actual bounded fictional count-draft source and isolated5dc domain/build/rendered evidence; original full close criterion remains unaccepted.",
+        "basis": "Actual bounded fictional count-draft source; isolated5dc plus combined44cd fullbuild/domains/all10serial suites including strengthenedcontrast passed. Original fullclose criterion remains unaccepted.",
         "missingFrontend": [
           "Local own-attributed method references and blank/zero counts implemented; no official close, expected till, discrepancy, netting, signoff or reconciliation.",
-          "Combined38–40 current proof, strengthened contrast assertion and exact-head CI/deployment pending."
+          "Exact-head CI/deployment pending. Combined38–40 currentproof and strengthened contrast assertion now pass; fullclose semantics still unresolved."
         ],
         "remainingBackend": [
           "Authenticated immutable durable concurrent close/reconciliation contract.",
@@ -3204,7 +3204,20 @@
         "remainingBackend": [
           "Immutable daily close/reconciliation command."
         ]
-      }
+      },
+      "priorSourceAssessments": [
+        {
+          "basis": "Actual bounded fictional count-draft source and isolated5dc domain/build/rendered evidence; original full close criterion remains unaccepted.",
+          "missingFrontend": [
+            "Local own-attributed method references and blank/zero counts implemented; no official close, expected till, discrepancy, netting, signoff or reconciliation.",
+            "Combined38–40 current proof, strengthened contrast assertion and exact-head CI/deployment pending."
+          ],
+          "remainingBackend": [
+            "Authenticated immutable durable concurrent close/reconciliation contract.",
+            "Authoritative payment/movement/refund/expense/terminal confirmation data and owner accounting decisions."
+          ]
+        }
+      ]
     },
     {
       "id": "PG-13",
@@ -4216,17 +4229,17 @@
         "docs/frontend-completion/evidence/batch-38-protected-captures.json"
       ],
       "blockers": [],
-      "nextAction": "Verify combined cancellation/active-seat readback and exact-head release; separately resolve unsupported lineage and authenticated real delivery, preserving original purchases and policy.",
+      "nextAction": "Complete exact-head CI/release for combined cancellation/active-seat readback; separately resolve unsupported lineage and authenticated real delivery, preserving original purchases and policy.",
       "candidateRoutes": [
         "/#/admin/class-schedule",
         "/#/app/state/cancelled"
       ],
       "sourceAssessment": {
-        "basis": "Sourcef4f9818 isolated1c0a fullbuild/domain15/prod8+11roles/dev/all5D02/contrast passed. Root70 found and narrowly repaired confirmed-mat caption; new combined rendered/CI/release pending. Named local slice only.",
+        "basis": "Sourcef4f9818 isolated1c0a gates passed; root44cd combined fullbuild/domains/production/all5D02/dev plus actual24-capture active/studio-cancelled/customer-cancelled caption regression pass. First librarytimeout unexplained/preserved; unchanged instrumented gate passes. Exact-head CI/release pending. Named local slice only.",
         "missingFrontend": [
           "Mixed voucher/unknown/ambiguous unit lineage is explicitly unverifiable; the prototype never partially restores or rewrites purchases.",
           "Real recipient/preference/notification coverage remains unresolved; every email result is preview-only.",
-          "Root70 cancelled-seat caption repair needs current active/cancelled rendered proof before release."
+          "Exact-head CI/release pending. Actual active retains mat and bothcancelled states suppress confirmed-mat caption, entireproviderbytes unchanged."
         ],
         "remainingBackend": [
           "Authenticated durable cancellation/entitlement transaction/idempotency; real attendee-email destination/preference/delivery evidence and owner acceptance."
@@ -4247,6 +4260,17 @@
             ]
           },
           "basis": "Historical source-only finding retained before bounded fictional source38/39; no owner/backend acceptance."
+        },
+        {
+          "basis": "Sourcef4f9818 isolated1c0a fullbuild/domain15/prod8+11roles/dev/all5D02/contrast passed. Root70 found and narrowly repaired confirmed-mat caption; new combined rendered/CI/release pending. Named local slice only.",
+          "missingFrontend": [
+            "Mixed voucher/unknown/ambiguous unit lineage is explicitly unverifiable; the prototype never partially restores or rewrites purchases.",
+            "Real recipient/preference/notification coverage remains unresolved; every email result is preview-only.",
+            "Root70 cancelled-seat caption repair needs current active/cancelled rendered proof before release."
+          ],
+          "remainingBackend": [
+            "Authenticated durable cancellation/entitlement transaction/idempotency; real attendee-email destination/preference/delivery evidence and owner acceptance."
+          ]
         }
       ],
       "continuationEvidence": [
@@ -4428,12 +4452,12 @@
         "docs/frontend-completion/evidence/batch39-source.json"
       ],
       "blockers": [],
-      "nextAction": "Verify combined actual settings and all12 presentation states, exact-head release; separately supply approved invitation/permission lifecycle without silently mutating actual access.",
+      "nextAction": "Complete exact-head CI/release for combined settings/all12presentationstates; separately supply approved invitation/permission lifecycle without silently mutating actual access.",
       "candidateRoutes": [
         "/#/admin/settings"
       ],
       "sourceAssessment": {
-        "basis": "Source0d4c845 current522 isolated fixture24/domain/hook22/tsc/fullbuild/prod8+all11roles/all12D02 ENES3901280lightdark passed. New root combined rendered/CI/release pending; whole real access feature remains partial.",
+        "basis": "Source0d4c845 isolated522 gates passed; root44cd combinedfullbuild/domains/actualproduction all8+all11roles/all12D02 ENES3901280lightdark pass. Exact-head CI/release pending; whole real access feature remainspartial.",
         "missingFrontend": [
           "Only a separate fictional proposal/membership document changes; no actual account, invite delivery/acceptance, user role, immediate session/permission change or Clerk effect.",
           "Self/last-admin/TTL/resend/existing-account/multiple-role/removal meaning remain unresolved scenario previews without an apply action."
@@ -4457,6 +4481,16 @@
             ]
           },
           "basis": "Historical source-only finding retained before bounded fictional source38/39; no owner/backend acceptance."
+        },
+        {
+          "basis": "Source0d4c845 current522 isolated fixture24/domain/hook22/tsc/fullbuild/prod8+all11roles/all12D02 ENES3901280lightdark passed. New root combined rendered/CI/release pending; whole real access feature remains partial.",
+          "missingFrontend": [
+            "Only a separate fictional proposal/membership document changes; no actual account, invite delivery/acceptance, user role, immediate session/permission change or Clerk effect.",
+            "Self/last-admin/TTL/resend/existing-account/multiple-role/removal meaning remain unresolved scenario previews without an apply action."
+          ],
+          "remainingBackend": [
+            "Authorized staff invite delivery/acceptance; authenticated membership roles/session invalidation, durable tenant isolation/audit/idempotency; owner decisions for unresolved scenarios."
+          ]
         }
       ],
       "continuationEvidence": [
