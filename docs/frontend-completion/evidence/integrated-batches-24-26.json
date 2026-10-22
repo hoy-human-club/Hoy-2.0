@@ -36,7 +36,7 @@
     "scope": "Account6groups/replay4groups; contact compatibility/malformed/no-raw-fallback/search; teacher staged failures/quota/fresh clock/ownership/replay/cancel/no operational changes."
   },
   "combinedRenderedQA": {
-    "status": "queued, no combined pass claim",
+    "status": "passed six serial suites EXIT0; all result files errors: []",
     "commands": [
       "QA_BASE=http://127.0.0.1:5235 node scripts/test-account-data-ui.mjs",
       "QA_BASE=http://127.0.0.1:5235 node scripts/test-contact-mask-ui.mjs",
@@ -44,7 +44,101 @@
       "QA_BASE=http://127.0.0.1:5234 node scripts/test-account-data-states.mjs",
       "QA_BASE=http://127.0.0.1:5234 node scripts/test-substitute-request-states.mjs",
       "QA_BASE=http://127.0.0.1:5235 node scripts/test-profile-save-ui.mjs"
-    ]
+    ],
+    "sourceLabel": {
+      "headAtEvidence": "baa11e948d8e0e1b47a16c60cbe8e5f8c5371995",
+      "runtime": "Frozen combined24–26 local source; no final checked/deployed-head claim."
+    },
+    "runtimeFingerprintBefore": "31e61c5962b24917db05fa94ea927ec1853e41224e73acb286fc7d30549129cb",
+    "runtimeFingerprintAfter": "31e61c5962b24917db05fa94ea927ec1853e41224e73acb286fc7d30549129cb",
+    "commandResults": [
+      {
+        "command": "QA_BASE=http://127.0.0.1:5235 node scripts/test-account-data-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/frontend-completion/evidence/batch-24-account-ui.json",
+        "localLog": "/tmp/hoy-account-teacher-account-ui.log",
+        "errors": [],
+        "checks": [
+          "en: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures",
+          "es: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures"
+        ]
+      },
+      {
+        "command": "QA_BASE=http://127.0.0.1:5235 node scripts/test-contact-mask-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/M-06/contact-mask-results.json",
+        "localLog": "/tmp/hoy-account-teacher-contact-ui.log",
+        "errors": [],
+        "checks": [
+          "en/light/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "Existing roles: CRM6allowed5denied; desk4allowed7denied; no new readership",
+          "en/light/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "en/dark/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "en/dark/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "es/light/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "es/light/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "es/dark/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
+          "es/dark/1280: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone"
+        ]
+      },
+      {
+        "command": "QA_BASE=http://127.0.0.1:5235 node scripts/test-substitute-request-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/S-03/substitute-ui-results.json",
+        "localLog": "/tmp/hoy-account-teacher-substitute-ui.log",
+        "errors": [],
+        "checks": [
+          "en: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark",
+          "es: blank reason guard; preview/cancel no writes; quota rollback/retry doubleclick one team-only queued row+safe audit; no timetable/booking/payment/teacher changes; reassigned-class rejection; existing Admin log readback; teacher/coordinator/admin/super allowed,seven denied;390/1280 lightdark"
+        ]
+      },
+      {
+        "command": "QA_BASE=http://127.0.0.1:5234 node scripts/test-account-data-states.mjs",
+        "exitCode": 0,
+        "artifact": "docs/frontend-completion/evidence/batch-24-account-states.json",
+        "localLog": "/tmp/hoy-account-teacher-account-states.log",
+        "errors": [],
+        "checks": [
+          "en: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved",
+          "es: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved"
+        ]
+      },
+      {
+        "command": "QA_BASE=http://127.0.0.1:5234 node scripts/test-substitute-request-states.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/S-03/substitute-state-results.json",
+        "localLog": "/tmp/hoy-account-teacher-substitute-states.log",
+        "errors": [],
+        "checks": [
+          "en: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer",
+          "es: actual HomePage scoped loading/readerror/retry/empty; immediatebusy duplicate guard; cancel/unmount/actorcontext beforecommit rollback; second-write failure retry once; late postcommit/cancel never reopens drawer"
+        ]
+      },
+      {
+        "command": "QA_BASE=http://127.0.0.1:5235 node scripts/test-profile-save-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/C-19/profile-save-results.json",
+        "localLog": "/tmp/hoy-account-teacher-profile-ui.log",
+        "errors": [],
+        "checks": [
+          "en: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark",
+          "es: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark"
+        ]
+      }
+    ],
+    "roleCoverage": {
+      "accountAndProfile": "customer,teacher,super_admin own-account allowed; eight existing roles denied",
+      "contactMask": "CRM six allowed/five denied; desk four allowed/seven denied",
+      "substitute": "teacher,coordinator,admin,super_admin allowed; seven existing roles denied"
+    },
+    "representativeInspectedShots": [
+      "C-26/es-390-account-request-failure-light.jpg",
+      "M-06/es-390-dark-contact-mask-member.jpg",
+      "S-03/es-390-substitute-usr_coord-draft-dark.jpg"
+    ],
+    "safeEvidence": "Fictional fixtures only; no export body or raw fixture phone copied into logs, machine proof or inspected captures.",
+    "execution": "One browser at a time; six suites serial in listed command order; all browsers closed and slot released.",
+    "machineReceipt": "docs/frontend-completion/evidence/combined-24-26-ui.json"
   },
   "routes": [
     "/#/app/account",
@@ -58,7 +152,7 @@
   "acceptance": "Bounded fictional frontend only; no accepted/backend-ready/completion percentage. Original source phases/statuses/roles unchanged.",
   "remainingGates": {
     "root": [
-      "Combined rendered QA, exact-head CI, checked merge, normal deployment/source verification."
+      "Exact-head CI, checked merge, normal deployment/source verification; combined rendered QA completed as recorded above."
     ],
     "Jas": [
       "Confirmed team recipient/channel/acknowledgment; reader and source policy decisions remain separate."
@@ -76,5 +170,30 @@
   "nextIndependent": [
     "Corrected notification preferences27 with coupled marketing29 compatibility; independent M04 self-test28."
   ],
-  "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca until PR64 checked release receipt supersedes."
+  "rollback": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+  "knownPresentationGaps": [
+    "Pre-existing C-26 dark highlighted card low contrast remains in this24–26 runtime. Batch29 contains a later local default-Card presentation correction; that correction was not part of this immutable bundle. No broad polish acceptance is claimed."
+  ],
+  "rootBaselineRelease": {
+    "pr": 64,
+    "checkedHead": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+    "workflowCount": 12,
+    "allTriggeredWorkflows": "passed",
+    "correctnessRun": 39715880386,
+    "correctnessJobs": {
+      "119617743570": "profile-save passed",
+      "119617743684": "recovery passed",
+      "119617743691": "trial-eligibility passed",
+      "119617743811": "api-key-mutations passed"
+    },
+    "mergedSource": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+    "pagesRun": 39716829673,
+    "pagesJobs": {
+      "119620828518": "build passed",
+      "119621077593": "deploy passed",
+      "119621179549": "hosted source and selected subscription flow passed"
+    },
+    "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+    "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
+  }
 }

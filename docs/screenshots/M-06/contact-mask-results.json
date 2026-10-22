@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5225",
+  "base": "http://127.0.0.1:5235",
   "checks": [
     "en/light/390: CRM list/member/unknown, desk candidate/selected, raw-phone search preserved, own editor exact original value, unchanged data, masked captures contain no raw fixture phone",
     "Existing roles: CRM6allowed5denied; desk4allowed7denied; no new readership",

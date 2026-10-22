@@ -1,9 +1,9 @@
 {
   "batch": 24,
-  "base": "http://127.0.0.1:5221",
+  "base": "http://127.0.0.1:5235",
   "fingerprint": {
-    "entry": "http://127.0.0.1:5221/assets/index-CFxaUbaa.js",
-    "sha256": "548a4cef3b42a7a35f8fbbe86c750d069cc17867e3b5a555a8eb68c296ef9ccc"
+    "entry": "http://127.0.0.1:5235/assets/index-CJ0bzOdo.js",
+    "sha256": "76747153c331e6dffa879d61d19fb915a223bda1d966a8b489a985f5a3ffdb5c"
   },
   "checks": [
     "en: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures",

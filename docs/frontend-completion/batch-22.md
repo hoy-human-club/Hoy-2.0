@@ -22,3 +22,5 @@ Separate observed UI follow-up: existing `maskPhone` only masks contiguous digit
 
 
 Combined integration proof: [batches20–23](evidence/integrated-batches-20-23.json), source checkpoint `79efc21157129a7e3a2ef784620897ac1127a368`, unchanged runtime `ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6`. Full build/domain/all named complete production and dev-state matrices passed at immutable5222/dev5223, including serial quote/pending reruns after retained timeout diagnostics. Final exact-head CI/merge/deployment receipt remains pending. No whole-feature owner/backend acceptance.
+
+Checked release: PR64 head6628c0a all12 triggered workflows and all4 correctness jobs passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. Rollback67f1428. New-flow local production/CI proof is separate from hosted provenance/selected existing flows and owner/backend acceptance.

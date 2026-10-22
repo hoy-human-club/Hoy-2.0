@@ -1,6 +1,6 @@
 {
   "batch": 24,
-  "base": "http://127.0.0.1:5220",
+  "base": "http://127.0.0.1:5234",
   "mode": "Actual development UI, fault injection on existing MockProvider prototype; production matrix separate",
   "checks": [
     "en: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved",
