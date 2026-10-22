@@ -10,11 +10,14 @@ export interface CountViewProps {mode:CountViewMode;day:string;raw:Record<keyof 
 /** Pure local-draft presentation. Library examples do not read or write provider/storage. */
 export function DailyCountView(p:CountViewProps){
  const {t,lang}=useI18n(),busy=p.mode==='busy',preview=['preview','busy','saveError'].includes(p.mode);
+ const knownValues={method:['card','pse','qr','cash','transfer','gift_card'],provider:['wompi','manual'],status:['pending','approved','declined','refunded','voided']} as const;
+ const enumLabel=(kind:keyof typeof knownValues,value:string)=>(knownValues[kind] as readonly string[]).includes(value)?t(`staff.count.${kind}.${value}`):t('staff.count.unrecognized');
  const display=(n:number|null,currency:string)=>n===null?t('staff.count.unknown'):currency==='COP'?formatCOP(n,lang):`${n} ${currency||t('staff.count.unknown')}`;
  function reference(label:string,day:ReferenceDay){return <Card data-count-reference={label.endsWith('recorded')?'recorded':'confirmed'} title={t(label)}><div className="stack-sm">
   <p className="small muted">{t('staff.count.unassigned',{missing:day.missingDate,invalid:day.invalidDate})}</p>
   {!day.groups.length?<p>{t('staff.count.empty')}</p>:day.groups.map((g,index)=><div key={index} className="stack-sm" style={{borderTop:'1px solid var(--border)',paddingTop:'var(--sp-md)',overflowWrap:'anywhere'}}>
-   <strong className="small">{g.method||t('staff.count.unknown')} / {g.provider||t('staff.count.unknown')} · {g.status||t('staff.count.unknown')} · {g.currency||t('staff.count.unknown')}</strong>
+   <strong className="small" data-count-group-heading>{enumLabel('method',g.method)} / {enumLabel('provider',g.provider)} · {enumLabel('status',g.status)} · {g.currency||t('staff.count.unknown')}</strong>
+   <span className="xs muted">{t('staff.count.codes')}: <code>{JSON.stringify([g.method,g.provider,g.status])}</code></span>
    <span className="small">{t('staff.count.rows',{n:g.rows})}</span>
    <span className="small">{t('staff.count.amount')}: {display(g.amount,g.currency)}</span>
    <span className="small">{t('staff.count.amountPaid')}: {display(g.amountPaid,g.currency)}</span>
@@ -32,7 +35,7 @@ export function DailyCountView(p:CountViewProps){
     <Notice tone="info">{t('staff.count.withheld')}</Notice>
     <Card data-count-inputs title={t('staff.count.inputs')}><div className="stack">
      <p className="small muted">{t('staff.count.blank')}</p>
-     {(['cash','cardManual','transferManual'] as const).map(key=><label className="stack-sm" key={key}><span>{t(`staff.count.${key}`)}</span><Input inputMode="numeric" value={p.raw[key]} invalid={p.invalid} disabled={preview||p.mode==='discard'||!p.onInput} onChange={e=>p.onInput?.(key,e.target.value)}/></label>)}
+     {(['cash','cardManual','transferManual'] as const).map(key=><label className="stack-sm" key={key}><span>{t(`staff.count.${key}`)}</span><Input inputMode="numeric" value={p.raw[key]} invalid={p.invalid} readOnly={preview||p.mode==='discard'} disabled={!p.onInput} onChange={e=>{if(!preview&&p.mode!=='discard')p.onInput?.(key,e.target.value);}}/></label>)}
      {p.invalid&&<Notice tone="warn">{t('staff.count.invalid')}</Notice>}
      {p.mode==='saved'&&<Notice tone="info">{t('staff.count.saved')}</Notice>}
      {p.mode==='saveError'&&<Notice tone="warn">{t('staff.count.saveError')}</Notice>}

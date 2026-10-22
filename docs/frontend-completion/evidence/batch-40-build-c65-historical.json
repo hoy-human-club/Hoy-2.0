@@ -1,0 +1,50 @@
+{
+  "batch": 40,
+  "requirement": "PG-12",
+  "checkedCommit": "4da63f5a81cac807f9fce7c75f4a20dd1a2af7e7",
+  "sourceCheckpoint": "docs/frontend-completion/evidence/batch-40-source-checkpoint.json",
+  "runtimeBefore": "c65ca92ae87369d56014fbec8e7998d31575f14acef58986860807e695ee27d0",
+  "runtimeAfterBuild": "c65ca92ae87369d56014fbec8e7998d31575f14acef58986860807e695ee27d0",
+  "rootBasis": "SHA256: sorted src paths excluding exact src/app/captureDates.ts; each relative UTF8 path then bytes, no delimiters; finally vite.config.ts bytes only.",
+  "checks": [
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/tmp/hoy40-domain-final.log"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "session": "96305",
+      "log": "/tmp/hoy40-tsc-final-build.log"
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "session": "21924",
+      "log": "/tmp/hoy40-build.log"
+    }
+  ],
+  "snapshot": "/workspace/hoy-qa-archive/batch40-cash-count-c65ca92ae873",
+  "archiveMode": "Whole dist hardlinked; exact per-file SHA256 and path/NUL/bytes/NUL full-tree hashes verified before/after copy. No further local build until QA.",
+  "distWholeHash": "06257497c0fad5fcc2925cff568d726df726b3814a5bf50ee9e26aac784f87d8",
+  "archiveWholeHash": "06257497c0fad5fcc2925cff568d726df726b3814a5bf50ee9e26aac784f87d8",
+  "archiveHashBasis": "SHA256: sorted archive-relative file paths, each path UTF8 + NUL + raw bytes + NUL, all files included.",
+  "fileCount": 4170,
+  "files": "docs/frontend-completion/evidence/batch-40-dist-c65-historical-hashes.json",
+  "productionBase": "http://127.0.0.1:5274",
+  "devBase": "http://127.0.0.1:5273",
+  "renderedStatus": "PENDING exclusive browser queue; no browser run yet",
+  "ciStatus": "pending parent integration",
+  "deploymentStatus": "not deployed; immutable local QA only",
+  "limits": [
+    "Local fictional count draft, no actual daily close/adjustment/message/provider write.",
+    "No source acceptance or accounting policy decision; all original PG12 fields/phases preserved.",
+    "Historical pre-hardening checks remain separately preserved in source checkpoint."
+  ],
+  "historicalOnly": true,
+  "supersededReason": "Known schema enum display headings lacked bilingual labels; pure view and staff strings corrected source-only.",
+  "correctedSourceFingerprint": "2c2afc3d92304fa121b6d7702a3680be06355855a4f38d44566698783b0c14ba",
+  "correctionProof": "docs/frontend-completion/evidence/batch-40-localization-source.json",
+  "currentVerification": "PENDING all exact-source checks; no compiler/browser run on corrected source."
+}

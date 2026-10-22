@@ -12,4 +12,6 @@ Alternative rejected: treating all cards as terminal, pending amount_paid as set
 
 Files: private staff cash-count domain, DailyCountDraft shared presentation/controller/meta, small S04 insertion, bilingual staff strings, focused domain/rendered/dev/library tests and source audit/batch40/S04 evidence. Parent owns global metadata/Git/CI/release.
 
-Verification: historical domain/TypeScript pass before latest reference-ack hardening; exact current-source reruns plus frozen build/rendered/CI/deployment gates pending until exact evidence is recorded. Original PG12 Nov 30 delivery / High criterion remains Not verified and unaccepted.
+Verification: final5dc source domain/TypeScript/full build and all3 actual production/dev/library suites passed, including11roles, EN/ES390/1280light/dark, frozen keyboard snapshot, computed bounds and no provider writes. Initial2c2 numeric preview contrast3.3856 failed4.5; scoped readOnly correction reached8.6699, with full fresh freeze/QA. Historical proof preserved. Exact hashes/results live in batch40 build evidence. Parent CI/deployment and original PG12 Nov30 source acceptance remain pending.
+
+Post-QA test-only hardening adds explicit contrast/readOnly/not-disabled assertions after diagnostic output. Its new script revision awaits parent combined run; runtime5dc and immutable4210-file artifact remain unchanged.
