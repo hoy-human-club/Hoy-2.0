@@ -1,0 +1,14 @@
+{
+  "base": "http://127.0.0.1:5191",
+  "checks": [
+    "en transfer_receipts: failure contained, no partial results/actions, retry empty",
+    "en payments: failure contained, no partial results/actions, retry empty",
+    "en profiles: failure contained, no partial results/actions, retry empty",
+    "en plans: failure contained, no partial results/actions, retry empty",
+    "es transfer_receipts: failure contained, no partial results/actions, retry empty",
+    "es payments: failure contained, no partial results/actions, retry empty",
+    "es profiles: failure contained, no partial results/actions, retry empty",
+    "es plans: failure contained, no partial results/actions, retry empty"
+  ],
+  "scope": "Dev-only four scoped table read injection; production UI separate."
+}

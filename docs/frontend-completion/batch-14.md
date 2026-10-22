@@ -31,3 +31,5 @@ Source-only findings in existing key management, unchanged here:
 ## Remaining backend gates
 
 Anu: actual HTTP API, authoritative tenant/environment/scope checks, key hashing and revocation lookup, rate limits, expiry/rotation enforcement, server audit/last-used handling and cross-device tests. Real credentials and security configuration are outside this batch. Owner acceptance stays separate. No external questions/messages sent.
+
+Integration capture correction: fixed test-only full-page scroll/finite-animation artifacts. Captures reset to the top; open payment drawers use the actual viewport. The complete corrected UI script passed again at immutable5200 with zero page errors, preserving all role/no-write/retry checks. Four canonical light captures were refreshed from these final renders and manually inspected. No application CSS or business behavior changed.

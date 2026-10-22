@@ -2514,7 +2514,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Unified all-pending mock list and safe read-only non-receipt details implemented; final production QA pending. Countdown requires unresolved confirmation/after-hours timing."
+          "Unified all-pending mock list and safe read-only non-receipt details implemented; focused production QA passed; exact-head release pending. Countdown requires unresolved confirmation/after-hours timing."
         ],
         "remainingBackend": [
           "Pending queue/realtime/read authorization."
@@ -2532,7 +2532,7 @@
         {
           "batch": "batch-15.md",
           "behavior": "Unified same-tenant mock pending-payment projection includes receipt-free manual/provider requests with safe missing fields and read-only payment deeplinks; contained four-table reads/retry.",
-          "verification": "Focused domain checks passed; rendered final production/CI/release pending.",
+          "verification": "Full build and immutable5200 EN/ES390/1280 light/dark rendered QA passed with zero page errors. Domain, failure/cancel/retry, replay/no-duplicate-effect, allowed/denied roles and dev loading/read-error/race suites passed. Existing receipt regression passed5200. Exact-head CI/release pending.",
           "limits": "Countdown/after-hours expiration remains unresolved Jas; real receipt durability, authorization, realtime and settlement remain backend gates.",
           "acceptance": "Original phase, role, literal criterion and source status preserved; no owner/backend acceptance."
         }
@@ -4559,7 +4559,7 @@
       "priority": "High",
       "relatedTests": "PRO-01, PRO-02",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/teacher/HomePage.tsx",
         "src/modules/teacher/ClassPage.tsx",
@@ -4587,7 +4587,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Frontend own-class gate and stored-pick restriction implemented; final production QA pending. Attendance remains read-only at launch; future teacher attendance action/sync still missing."
+          "Frontend own-class gate and stored-pick restriction implemented; focused production QA passed; exact-head release pending. Attendance remains read-only at launch; future teacher attendance action/sync still missing."
         ],
         "remainingBackend": [
           "Authenticated ownership of teacher/session/roster and attendance mutation."
@@ -4598,7 +4598,7 @@
         {
           "batch": "batch-16.md",
           "behavior": "Existing teacher/session ownership resolved before roster/review/note detail reads; stored preview pick ignored for teachers; reassignment and stale command checks; staff previews and launch read-only attendance preserved.",
-          "verification": "Focused domain checks passed; rendered final production/CI/release pending.",
+          "verification": "Full build and immutable5200 EN/ES390/1280 light/dark rendered QA passed with zero page errors. Domain, failure/cancel/retry, replay/no-duplicate-effect, allowed/denied roles and dev loading/read-error/race suites passed. Existing receipt regression passed5200. Exact-head CI/release pending.",
           "limits": "Backend ownership authorization and source future teacher attendance remain unaccepted. No role grants/matrix or server policies changed.",
           "acceptance": "Original phase, role, literal criterion and source status preserved; no owner/backend acceptance."
         }
@@ -5194,7 +5194,7 @@
       "priority": "Low",
       "relatedTests": "DEV-03, DEV-04",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/dev/ApiKeysPage.tsx",
         "src/modules/dev/apiKeys.ts",
@@ -5218,7 +5218,7 @@
       "sourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
-          "Symbolic local response console implemented; final production verification pending. Existing key mutation failure/validation gaps remain separate engineering work."
+          "Symbolic local response console implemented; focused production verification passed; exact-head release pending. Existing key mutation failure/validation gaps remain separate engineering work."
         ],
         "remainingBackend": [
           "Server API key verification, scopes/tenant authorization, revocation and rate limiting."
@@ -5229,7 +5229,7 @@
         {
           "batch": "batch-14.md",
           "behavior": "Symbolic-only disconnected API response console: fictional200/401/403/503, cancel/clear, retry; never accepts or verifies a raw key.",
-          "verification": "Focused domain checks passed; rendered final production/CI/release pending.",
+          "verification": "Full build and immutable5200 EN/ES390/1280 light/dark rendered QA passed with zero page errors. Domain, failure/cancel/retry, replay/no-duplicate-effect, allowed/denied roles and dev loading/read-error/race suites passed. Existing receipt regression passed5200. Exact-head CI/release pending.",
           "limits": "Real HTTP/key validation/auth/rate limits absent. Existing mock key-mutation atomicity/validation gaps remain separate follow-up.",
           "acceptance": "Original phase, role, literal criterion and source status preserved; no owner/backend acceptance."
         }
@@ -5468,7 +5468,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
     "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches6–10 deployed PR60. Batches11/12 deployed PR61 after all12 exact-head checks and hosted source verification. Batches13–16 independent quote/API simulator/all-pending queue/teacher ownership frontend in progress. No owner/backend acceptance.",
+    "activeBatch": "PR60/61 checked/deployed. Batches14–16 source checkpoint6ad8814 and final immutable5200 production evidence passed; exact-head CI/release pending. Isolated quote13, timezone17, auth18 and marketing19 continue. No owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
