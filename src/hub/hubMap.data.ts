@@ -93,7 +93,7 @@ export const HUB_ROLES: HubRole[] = [
   // 0031 · two new roles
   {
     id: 'marketing', label: { es: 'Marketing', en: 'Marketing' },
-    description: { es: 'Contenido, campañas y la voz de la marca: el CMS, los correos y WhatsApp, y el CRM en lectura. El kit de marketing llega pronto.', en: 'Content, campaigns and the brand voice: the CMS, emails and WhatsApp, and the CRM read-only. The marketing kit is coming soon.' },
+    description: { es: 'Contenido, campañas y la voz de la marca: el CMS, los correos y WhatsApp, y el CRM en lectura. El kit tiene un prototipo de borradores locales; sin publicación.', en: 'Content, campaigns and the brand voice: the CMS, emails and WhatsApp, and the CRM read-only. The kit has a local draft prototype; no publication.' },
     band: 'team', home: '/admin/content', device: 'desktop', demoUser: { id: 'usr_mkt', firstName: 'Camila' }, look: 'marketing', props: ['board', 'swatches'],
   },
   {
@@ -141,6 +141,7 @@ export const HUB_GROUP_RULES: { prefix: string; group: string; exact?: boolean }
   { prefix: '/staff/register', group: 'pos' },
   // admin (0048: emails and WhatsApp automations left the content group for their own card, `messages`)
   { prefix: '/admin', group: 'admin' },
+  { prefix: '/admin/marketing', group: 'content' },
   { prefix: '/admin/settings', group: 'admin' },
   { prefix: '/admin/integrations', group: 'admin' },
   { prefix: '/admin/activity', group: 'admin' },
@@ -250,10 +251,9 @@ export const HUB_EXPERIENCES: HubExperienceSeed[] = [
   exp('finance', 'M-09', 'team', 'desktop', '/admin/finance', 'finance', true,
     { es: 'Finanzas', en: 'Finance' },
     { es: 'Ingresos, gastos, nómina de profesores e impuestos, con el libro detrás.', en: 'Revenue, expenses, teacher payroll and tax, with the ledger behind it.' }),
-  exp('marketing', 'M-02', 'team', 'desktop', '/admin/content', 'marketing', true,
-    { es: 'Kit de marketing — próximamente', en: 'Marketing kit — coming soon' },
-    { es: 'Campañas, piezas de marca y calendario de contenido para el equipo de marketing. Aún no está construido; hoy marketing trabaja en Contenido (M-02).', en: 'Campaigns, brand assets and the content calendar for the marketing team. Not built yet; today marketing works in Content (M-02).' },
-    { comingSoon: true }),
+  exp('marketing', 'M-18', 'team', 'desktop', '/admin/marketing', 'marketing', true,
+    { es: 'Marketing · borradores locales', en: 'Marketing · local drafts' },
+    { es: 'Prototipo de fase futura: campañas y calendario ficticios en este navegador, con referencias públicas existentes. Sin publicación, envíos ni aprobación de arte.', en: 'Future-phase prototype: fictional campaigns and calendar in this browser, with existing public references. No publication, delivery or art approval.' }),
   exp('manual', 'K-03', 'build', 'sheet', '/manual', 'admin', false,
     { es: 'Manual de operaciones', en: 'Operations manual' },
     { es: 'El manual del equipo como un curso: cada rol ve lo suyo, marca lo leído y firma su formación; el owner lo ajusta desde aquí.', en: 'The team manual as a course: each role sees its own, marks what it read and signs off its training; the owner adjusts it from here.' }),

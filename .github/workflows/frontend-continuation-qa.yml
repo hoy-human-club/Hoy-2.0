@@ -1,0 +1,176 @@
+name: Frontend continuation QA
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'scripts/test-operational-quotes*.mjs'
+      - 'scripts/qa-rendered-capture.mjs'
+      - 'scripts/test-studio-timezone*.mjs'
+      - 'scripts/test-timezone-cache.mjs'
+      - 'scripts/test-subscription-calendar*.mjs'
+      - 'scripts/test-customer-registration*.mjs'
+      - 'scripts/test-customer-return-ui.mjs'
+      - 'scripts/customer-registration-harness.tsx'
+      - 'scripts/test-marketing-drafts*.mjs'
+      - 'scripts/gen-hub-map.mjs'
+      - 'vite.config.ts'
+      - '.github/workflows/frontend-continuation-qa.yml'
+permissions:
+  contents: read
+jobs:
+  operational-quotes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify isolated fictional contracts
+        run: |
+          node scripts/test-operational-quotes.mjs
+          TZ=Asia/Tokyo node scripts/test-operational-quotes.mjs
+          node scripts/test-package-lots.mjs
+          node scripts/test-transfer-receipts.mjs
+          node scripts/test-catalog-publication.mjs
+      - name: Verify actual production components
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-continuation-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-operational-quotes-ui.mjs
+          node scripts/test-catalog-publication-ui.mjs
+          node scripts/test-pending-package-ui.mjs
+          node scripts/test-desk-sale-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: operational-quotes-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/operational-quotes/
+            docs/screenshots/M-17/*results.json
+          retention-days: 7
+  studio-calendar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify isolated fictional contracts
+        run: |
+          node scripts/test-studio-timezone.mjs
+          node scripts/test-timezone-cache.mjs
+          node scripts/test-cached-sample-clock.mjs
+          node --experimental-strip-types scripts/test-subscription-calendar.mjs
+          npm run test:dates
+          npm run test:holidays
+          npm run test:hours
+          npm run test:analytics
+          npm run test:subscriptions
+          node scripts/test-reschedule-atomic.mjs
+          node scripts/test-package-lots.mjs
+      - name: Verify actual production components
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-continuation-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-studio-timezone-ui.mjs
+          node scripts/test-subscription-calendar-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: studio-calendar-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/frontend-completion/evidence/batch-17*.json
+            docs/screenshots/W-04/timezone*
+            docs/screenshots/C-02/timezone*
+            docs/screenshots/M-09d/timezone*
+          retention-days: 7
+  fictional-registration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify isolated fictional contracts
+        run: |
+          node scripts/test-customer-registration.mjs
+          node scripts/test-clerk-development-adapter.mjs
+      - name: Verify actual production components
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-continuation-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-customer-return-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify delayed commands and cancellation
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5188 > /tmp/hoy-continuation-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-customer-registration-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fictional-registration-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/A-02/*customer-return*
+            docs/screenshots/A-03/*
+          retention-days: 7
+  marketing-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify isolated fictional contracts
+        run: |
+          node scripts/test-marketing-drafts.mjs
+      - name: Verify actual production components
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-continuation-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-marketing-drafts-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marketing-drafts-${{ github.event.pull_request.head.sha }}
+          path: |
+            docs/screenshots/M-18/*
+          retention-days: 7

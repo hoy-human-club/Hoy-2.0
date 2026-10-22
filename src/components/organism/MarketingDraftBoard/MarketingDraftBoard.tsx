@@ -5,6 +5,7 @@ import {useSession} from '../../../auth/SessionProvider';
 import {ROLE_LABEL} from '../../../auth/roles';
 import {useI18n} from '../../../i18n/I18nProvider';
 import {tenant} from '../../../tenant/tenant';
+import {dateKey} from '../../../i18n/format';
 import {Button} from '../../atom/Button/Button';
 import {Input,Select} from '../../atom/Input/Input';
 import {Badge} from '../../atom/Badge/Badge';
@@ -19,7 +20,7 @@ export function MarketingDraftBoard(){
  const context=useMemo(()=>({tenantId:tenant.id,actorId:user.id,role,adapter:data.name}),[user.id,role,data.name]);
  const [snapshot,setSnapshot]=useState<DraftSnapshot|null>(null),[loading,setLoading]=useState(true),[readError,setReadError]=useState(false),[revision,setRevision]=useState(0);
  const [edit,setEdit]=useState<MarketingDraft|null>(null),[expected,setExpected]=useState(0),[request,setRequest]=useState(''),[preview,setPreview]=useState(false),[discard,setDiscard]=useState(false),[invalid,setInvalid]=useState(false),[error,setError]=useState(''),[saved,setSaved]=useState(false),[busy,setBusy]=useState(false);
- const [month,setMonth]=useState(()=>new Date().toISOString().slice(0,7));const generation=useRef(0);
+ const [month,setMonth]=useState(()=>dateKey().slice(0,7));const generation=useRef(0);
  useEffect(()=>{let active=true;const stamp=++generation.current;setLoading(true);setReadError(false);const frame=requestAnimationFrame(()=>{try{const value=readDrafts(localStorage,context);if(active&&stamp===generation.current)setSnapshot(value);}catch{if(active)setReadError(true);}finally{if(active)setLoading(false);}});return()=>{active=false;cancelAnimationFrame(frame);};},[context,revision]);
  useEffect(()=>{const onStorage=(event:StorageEvent)=>{if(event.key===draftKey(context))setRevision(n=>n+1);};window.addEventListener('storage',onStorage);return()=>window.removeEventListener('storage',onStorage);},[context]);
  const ready=!loading&&!readError&&snapshot?.actorId===context.actorId&&snapshot.role===context.role&&snapshot.tenantId===context.tenantId;
