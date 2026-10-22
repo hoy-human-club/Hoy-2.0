@@ -44,7 +44,8 @@
       "id": "FI-03",
       "baseline": "implemented",
       "current": "partial",
-      "verification": "not-run"
+      "verification": "focused-frontend-pass",
+      "scope": "Isolated and combined fictional draft-only proof passed; final release gates pending, full feature remains partial."
     }
   ],
   "preservation": "All124 IDs and literal original criteria/roles/source statuses/phases/priorities/relatedTests preserved.",

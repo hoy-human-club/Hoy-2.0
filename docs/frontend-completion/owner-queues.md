@@ -48,3 +48,10 @@ No messages sent. Source: acceptance workbook stable IDs/PC questions, read 2026
 - IN-03 / Anu: authorized Google OAuth/server push and provider readback; owner confirms reception hours before operational sync. Local dry-run never updates Google or sync timestamps.
 - OT-02 / owner: actual checklist location, signoff and operational thresholds remain unresolved. Sample minimum is optional/null by default. No operational safety guidance inferred.
 - OT-02 / Anu: authenticated tenant-scoped maintenance reads/commands, revision/idempotency and attachments contract. Current records are explicitly fictional browser-local drafts; no alerts, orders, assignments, class blocking or device control.
+
+## Bounded frontend handoff contracts · batches30–35
+
+- FI-03 / Anu: atomic authenticated draft regeneration across all selected cadence periods, unique period/status locks and current-result replay. Approved/paid history remains unchanged. Approval/settlement verification is separate; no real payout tested.
+- RS-15 / Anu: authenticated atomic capacity/RSVP/payment and authoritative event history/clock, followed by actual confirmation delivery. The tested slice is fictional zero-due RSVP and own unpaid cancellation only; paid flows and unresolved cancellation policy remain separate.
+- NT-05 / Anu: durable authenticated immutable template versions and audit history, delivery/rendering contracts. Current local self-tests never deliver email; edit/rollback safeguards are a separate active frontend batch.
+- FI-04 / Anu: authenticated atomic expense/audit commands and server-enforced paid-delete guard across every entry path. The active M09c repair is mock-only; generic provider/direct calls do not establish universal enforcement. Existing route roles and the reception source conflict are unchanged.

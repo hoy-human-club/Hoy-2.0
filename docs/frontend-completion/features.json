@@ -2547,14 +2547,15 @@
       "priority": "Medium",
       "relatedTests": "CLI-18, COO-15",
       "implementationStatus": "partial",
-      "verificationStatus": "focused-mock-pass",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/EventPage.tsx",
         "src/modules/customer/hooks.ts",
         "src/modules/admin/EventsAdminPage.tsx",
         "src/modules/customer/eventRsvp.ts",
         "src/modules/customer/useEventSnapshot.ts",
-        "docs/frontend-completion/batch-31.md"
+        "docs/frontend-completion/batch-31.md",
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
       ],
       "routes": [],
       "tests": [
@@ -2567,14 +2568,14 @@
         "docs/screenshots/C-23/event-rsvp-states.json"
       ],
       "blockers": [],
-      "nextAction": "Complete combined checked release; separately scope paid RSVP/payment/email and unresolved cancellation policy without inventing business decisions.",
+      "nextAction": "Complete final evidence-head checked release; separately scope paid RSVP/payment/email and unresolved cancellation policy without inventing business decisions.",
       "candidateRoutes": [
         "/#/app/events",
         "/#/app/events/:id",
         "/#/admin/content/events"
       ],
       "sourceAssessment": {
-        "basis": "Batch31 isolated actual mock domain/build/production and asynchronous rendered pass after immutable-input fix; combined validation ongoing. Full feature remains partial.",
+        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
         "missingFrontend": [
           "Zero-due RSVP and own unpaid cancellation are atomic fictional local commands; existing paid reserve/cancel remains partial and unchanged.",
           "Actual email delivery, paid atomicity and unresolved cancellation/cutoff policy remain unverified."
@@ -5346,14 +5347,15 @@
       "priority": "High",
       "relatedTests": "FIN-08, FIN-09, FIN-10",
       "implementationStatus": "partial",
-      "verificationStatus": "focused-mock-pass",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/payouts.ts",
         "src/modules/admin/PayoutsPage.tsx",
         "src/data/payrollCalc.ts",
         "src/modules/admin/payrollDraft.ts",
         "src/modules/admin/usePayrollDraft.ts",
-        "docs/frontend-completion/batch-30.md"
+        "docs/frontend-completion/batch-30.md",
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
       ],
       "routes": [],
       "tests": [
@@ -5366,16 +5368,15 @@
         "docs/screenshots/M-09b/"
       ],
       "blockers": [],
-      "nextAction": "Complete combined rendered/currency proof and exact-head checked release; separately verify approval/settlement and authenticated backend contracts.",
+      "nextAction": "Complete final evidence-head CI and release; separately verify approval/settlement and authenticated backend contracts.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Batch30 isolated actual mock domain/hook/build/rendered pass; combined integration validation ongoing. Full feature remains partial.",
+        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
         "missingFrontend": [
-          "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay.",
-          "Combined mobile currency readability correction awaits rendered integration proof."
+          "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
         ],
         "remainingBackend": [
           "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."

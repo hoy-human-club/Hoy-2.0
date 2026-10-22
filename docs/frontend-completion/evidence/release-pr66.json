@@ -12,5 +12,12 @@
   "conclusion": "All three completed success; log explicitly checks ede03f34190e06b5b4a9f502c9262036a76cb59f and verifies public subscriptions route.",
   "public": "https://imagine-os.github.io/hoy/",
   "rollback": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
-  "limits": "Hosted check proves release provenance and selected existing subscription behavior; new preferences, marketing and email self-test flows have local immutable rendered and exact-head CI proof, not owner/backend acceptance."
+  "limits": "Hosted check proves release provenance and selected existing subscription behavior; new preferences, marketing and email self-test flows have local immutable rendered and exact-head CI proof, not owner/backend acceptance.",
+  "additionalLocalRead": {
+    "action": "GET public release.json with expected source query",
+    "target": "https://imagine-os.github.io/hoy/release.json?source=ede03f34190e06b5b4a9f502c9262036a76cb59f",
+    "outcome": "HTTP 403, curl exit22; denied local read, reason beyond HTTP status unknown. Not retried or bypassed.",
+    "completedEvidence": "Hosted Pages verify-subscriptions job119633458109 passed exact source/selected rendered public flow; its evidence is unchanged.",
+    "pending": "No additional independent local manifest response; unrelated frontend work continues."
+  }
 }

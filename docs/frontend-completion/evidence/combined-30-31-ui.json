@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-10-22T04:24:15.065033+00:00",
+  "batches": [
+    30,
+    31
+  ],
+  "buildCheckout": "6f06468ff288d90efe01c965c713bb218586b3fc",
+  "headAtEvidence": "a13ed187d6ac1a52f5f1eea9c32800d98a46dabe",
+  "scope": "Combined local immutable payroll/event source. Later docs-only HEAD is separate; no checked merge/deployment/backend acceptance claim.",
+  "frontendEvidence": "http://127.0.0.1:5248/frontend-evidence.json",
+  "runtimeFingerprintBeforeQa": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+  "runtimeFingerprintAfterQa": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+  "fingerprintDefinition": "Sorted src relative path+bytes excluding src/app/captureDates.ts, then vite.config.ts bytes",
+  "execution": "Three suites serial, one browser at a time; all completed and browser slot released.",
+  "results": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5248 node scripts/test-payroll-draft-ui.mjs",
+      "exitCode": 0,
+      "artifact": "docs/screenshots/M-09a/payroll-draft-results.json",
+      "localLog": "/tmp/hoy-combined-30-31-payroll-ui.log",
+      "checks": [
+        "en/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "Existing payroll roles admin/finance/super allowed;8 denied; no expansion",
+        "en/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "en/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "en/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5248 node scripts/test-event-rsvp-ui.mjs",
+      "exitCode": 0,
+      "artifact": "docs/screenshots/C-23/event-rsvp-results.json",
+      "localLog": "/tmp/hoy-combined-30-31-event-ui.log",
+      "checks": [
+        "en/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+        "en/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+        "es/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+        "es/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5247 node scripts/test-event-rsvp-states.mjs",
+      "exitCode": 0,
+      "artifact": "docs/screenshots/C-23/event-rsvp-states.json",
+      "localLog": "/tmp/hoy-combined-30-31-event-states.log",
+      "checks": [
+        "en: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390",
+        "es: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390"
+      ],
+      "errors": []
+    }
+  ],
+  "roleCoverage": {
+    "payroll": "admin/finance/super allowed; eight existing effective roles denied",
+    "event": "customer/teacher/super allowed; eight existing effective roles denied"
+  },
+  "additionalPayrollAssertion": "Every displayed rate and amount cell stays on one readable line; exactly two monetary cells per payout line.",
+  "visuallyInspected": [
+    "docs/screenshots/M-09b/en-390-light-draft-generated.jpg",
+    "docs/screenshots/M-09b/es-390-light-draft-generated.jpg",
+    "docs/screenshots/C-23/es-1280-light-rsvp-preview.jpg"
+  ],
+  "canonicalCandidatesForRoot": [
+    {
+      "source": "docs/screenshots/M-09a/en-390-light-draft-ready.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09a/en-390.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09a/en-1280-light-draft-ready.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09a/en-1280.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09a/es-390-light-draft-ready.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09a/es-390.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09a/es-1280-light-draft-ready.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09a/es-1280.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09b/en-390-light-draft-generated.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09b/en-390.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09b/en-1280-light-draft-generated.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09b/en-1280.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09b/es-390-light-draft-generated.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09b/es-390.jpg"
+    },
+    {
+      "source": "docs/screenshots/M-09b/es-1280-light-draft-generated.jpg",
+      "rootCopyTarget": "docs/screenshots/M-09b/es-1280.jpg"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Only fictional local data; no real payroll/payment/email/WhatsApp/provider delivery or database changes.",
+    "Paid event reserve/cancel remains explicitly partial; no cutoff/member/refund or access-policy change.",
+    "No source/test/Git/global metadata edits during combined QA; only result/capture/proof output.",
+    "Root owns exact-head CI/merge/deployment/rollback receipt and canonical screenshot copies."
+  ]
+}
