@@ -1,3 +1,5 @@
+Current deployed correctness release: [PR64](https://github.com/imagine-os/hoy/pull/64), checked6628c0a all12 triggered workflows passed; merge0097dfb, [Pages build/deploy/hosted source verification passed](https://github.com/imagine-os/hoy/actions/runs/39716829673). Rollback67f1428. Batches24–26 combined full build/domain/all6 serial rendered/regression suites passed; their exact-head CI/release is next. Detailed older checkpoints below remain historical; [CONTINUE](CONTINUE.md) is the concise current handoff.
+
 # Frontend completion handoff index
 
 [Start with the concise current checkpoint](CONTINUE.md); historical receipts below preserve exact evidence and remaining gates.
@@ -89,3 +91,5 @@ Checked release: [PR63](https://github.com/imagine-os/hoy/pull/63), head `075a51
 
 
 Current correctness source checkpoint `79efc21`: full build/domain/complete production/dev-state proof passed. Two initial regression timeouts and complete serial passes are retained in [the exact combined receipt](evidence/integrated-batches-20-23.json); diagnostics improved, no application assertion relaxed or runtime edit required. Root next gate is final exact-head CI/merge/deployment; active independent24–27 remain isolated.
+
+Next isolated-to-combined checkpoint: [batch24](batch-24.md), [batch25](batch-25.md), [batch26](batch-26.md), [root evidence](evidence/integrated-batches-24-26.json). Root build/domain passed; combined rendered QA/CI/release pending. Notification preferences27 and coupled marketing29 remain separate until compatibility proof; independent28 proceeds. No new owner/backend acceptance.

@@ -50,8 +50,8 @@ export function usePeople(): { people: Person[]; byId: Map<string, Person>; load
   }, [users, profiles, roles, memberships, plans, loading]);
 }
 
-/** Masks a phone for screens seen by many people: +57 300 ··· 4412. */
-export const maskPhone = (phone: string | null | undefined) => (phone ? phone.replace(/(\d{3})\d+(\d{4})$/, '$1 ··· $2') : '—');
+// Existing import contract retained; formatting is pure and never changes joined/stored data.
+export { maskPhone } from './maskPhone';
 
 /** Text match across name, phone and email. */
 export const personMatches = (p: Person, q: string) => {

@@ -1,0 +1,16 @@
+{
+  "requirement": "PF-03",
+  "result": "passed",
+  "checks": [
+    "two staged write failures and quota rollback/no partial events",
+    "cancel before/during staging",
+    "scoped reads without roster/customer rows",
+    "read failure, missing, foreign and reassigned classes",
+    "existing scheduled/not-ended/7day eligibility",
+    "role/disconnected guards",
+    "concurrent identical requests/replay once/changed request conflict",
+    "incomplete receipt replay rejected",
+    "no request body in audit/receipt",
+    "team-only queued row/no sent timestamp/no operational table changes"
+  ]
+}

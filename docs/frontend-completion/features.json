@@ -1197,7 +1197,8 @@
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1316,7 +1317,8 @@
           "verification": "Full build/domain/immutable5217 ENES3901280 lightdark and dev lifecycle passed. Source663abcf merged; combined build/CI/release pending.",
           "limits": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1349,17 +1351,28 @@
       "priority": "High",
       "relatedTests": "CLI-22, COO-13",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/AccountPage.tsx",
         "src/modules/customer/pages/ProfilePage.tsx",
         "src/modules/admin/DeletionsPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/account"
+      ],
+      "tests": [
+        "scripts/test-account-data.mjs",
+        "scripts/test-account-data-replay.mjs",
+        "scripts/test-account-data-ui.mjs",
+        "scripts/test-account-data-states.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-24-account-build.json",
+        "docs/frontend-completion/evidence/batch-24-account-ui.json",
+        "docs/frontend-completion/evidence/batch-24-account-states.json"
+      ],
       "blockers": [],
-      "nextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract.",
+      "nextAction": "Finish exact-head CI and checked deployment; Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
       "candidateRoutes": [
         "/#/app/account",
         "/#/app/profile",
@@ -1375,7 +1388,16 @@
         ]
       },
       "sourceNextAction": "Test export scope, duplicate/cancel request and admin queue; document SLA backend contract.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-24.md",
+          "behavior": "Explicit allowlisted own-data fictional preview/confirmation and atomic request/cancel, with required-row replay and postcommit ownership fences.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
+          "limits": "Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+        }
+      ]
     },
     {
       "id": "CU-07",
@@ -1428,7 +1450,8 @@
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1744,7 +1767,8 @@
           "verification": "Corrected source9d2691a/runtime24a49ae5 full build/domain/immutable5215 ENES3901280 lightdark/all11reviewroles/devstates and desk/receipt regressions passed. Root combined build/CI/release pending.",
           "limits": "No production definition for ambiguous active/frozen/legacy/future entitlements or cross-account real-person identity; no backend acceptance.",
           "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "historicalSourceAssessment": {
@@ -3770,15 +3794,18 @@
         "scripts/test-desk-transactions.mjs",
         "scripts/test-desk-package-ui.mjs",
         "scripts/test-desk-sale-ui.mjs",
-        "scripts/test-package-lots.mjs"
+        "scripts/test-package-lots.mjs",
+        "scripts/test-contact-mask.mjs",
+        "scripts/test-contact-mask-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/S-02/package-booking-results.json",
         "docs/screenshots/S-04/atomic-sale-results.json",
-        "docs/screenshots/M-06/balance-results.json"
+        "docs/screenshots/M-06/balance-results.json",
+        "docs/screenshots/M-06/contact-mask-results.json"
       ],
       "blockers": [],
-      "nextAction": "Server atomicity, authorization and authoritative migration pending.",
+      "nextAction": "Finish exact-head CI and checked deployment; Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3806,6 +3833,13 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Server atomicity, authorization and authoritative migration pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-25.md",
+          "behavior": "Existing desk selection uses compatible masked separated phone formats; raw search matches and own stored contact remains unchanged.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
+          "limits": "Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4299,7 +4333,9 @@
       ],
       "tests": [
         "scripts/test-crm-balances-ui.mjs",
-        "scripts/test-package-lots.mjs"
+        "scripts/test-package-lots.mjs",
+        "scripts/test-contact-mask.mjs",
+        "scripts/test-contact-mask-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-06/en-390-balances.jpg",
@@ -4307,13 +4343,14 @@
         "docs/screenshots/M-06/en-1280-balances.jpg",
         "docs/screenshots/M-06/es-1280-balances.jpg",
         "docs/screenshots/M-06/balance-results.json",
-        "docs/screenshots/S-02/package-booking-results.json"
+        "docs/screenshots/S-02/package-booking-results.json",
+        "docs/screenshots/M-06/contact-mask-results.json"
       ],
       "blockers": [
         "Shared data hooks have no asynchronous rejection/retry path; loading/error integration unverified.",
         "Backend tenant/role enforcement and cross-device consistency excluded from this frontend batch."
       ],
-      "nextAction": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
+      "nextAction": "Finish exact-head CI and checked deployment; Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
       "candidateRoutes": [
         "/#/admin/crm",
         "/#/admin/crm/usr_cust"
@@ -4342,6 +4379,13 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Ambiguous historical allocation/returns need authoritative reconciliation; owner/backend acceptance remains open.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-25.md",
+          "behavior": "Existing masked contact views handle separated fictional phone formats without raw fallback; stored/search/editor values and roles unchanged.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
+          "limits": "Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4949,17 +4993,28 @@
       "priority": "Medium",
       "relatedTests": "PRO-05",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/teacher/HomePage.tsx",
         "src/modules/admin/WhatsAppPage.tsx",
         "src/modules/staff/audit.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/teach",
+        "/#/admin/whatsapp"
+      ],
+      "tests": [
+        "scripts/test-substitute-request.mjs",
+        "scripts/test-substitute-request-ui.mjs",
+        "scripts/test-substitute-request-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/S-03/substitute-build-receipt.json",
+        "docs/screenshots/S-03/substitute-ui-results.json",
+        "docs/screenshots/S-03/substitute-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach.",
+      "nextAction": "Finish exact-head CI and checked deployment; No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
       "candidateRoutes": [
         "/#/teach",
         "/#/admin/whatsapp"
@@ -4974,7 +5029,16 @@
         ]
       },
       "sourceNextAction": "Add administration-facing queue/acknowledgment prototype and verify request ID/audit/link from teacher without actual outreach.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-26.md",
+          "behavior": "Existing teacher request stages audit plus team-only queued log atomically with scoped fresh ownership, safe replay and contained cancellation/retry; Administration log reads same fictional row.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
+          "limits": "No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+        }
+      ]
     },
     {
       "id": "PF-04",
@@ -5533,7 +5597,8 @@
           "verification": "Full build/domain7groups and immutable5213 ENES3901280 lightdark/all11roles/lost-ack UI passed. Root merged source c4dd183; combined build/CI/release pending.",
           "limits": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial",
@@ -5913,6 +5978,33 @@
       "localProof": "docs/frontend-completion/evidence/integrated-batches-20-23.json",
       "status": "all named combined fullbuild/domain/production/dev-state checks passed; final exact-head CI/release pending",
       "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca"
+    },
+    "nextIndependentBatches": [
+      "batch-27.md notification preferences: corrected public acknowledgement behavior frozen; root integration/CI pending alongside C26 marketing consumer compatibility.",
+      "batch-28.md local email self-test: source/build/rendered checks active.",
+      "batch-29.md existing C26 marketing mirror atomicity: isolated source/domain/build active."
+    ],
+    "correctnessRelease": {
+      "pr": 64,
+      "checkedHead": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+      "workflowCount": 12,
+      "allTriggeredWorkflows": "passed",
+      "correctnessRun": 39715880386,
+      "correctnessJobs": {
+        "119617743570": "profile-save passed",
+        "119617743684": "recovery passed",
+        "119617743691": "trial-eligibility passed",
+        "119617743811": "api-key-mutations passed"
+      },
+      "mergedSource": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+      "pagesRun": 39716829673,
+      "pagesJobs": {
+        "119620828518": "build passed",
+        "119621077593": "deploy passed",
+        "119621179549": "hosted source and selected subscription flow passed"
+      },
+      "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+      "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
     }
   },
   "classificationPolicy": {

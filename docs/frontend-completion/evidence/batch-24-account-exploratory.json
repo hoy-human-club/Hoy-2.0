@@ -1,0 +1,25 @@
+{
+  "batch": 24,
+  "attempt": "First production build before final required-row scalar-shape/copy cleanup",
+  "base": "http://127.0.0.1:5221",
+  "english": "Completed all scripted assertions; complete matrix report was not written because Spanish later failed.",
+  "spanish": "UNVERIFIED: first offer click after one-shot quota hook timed out",
+  "error": "locator.click: Timeout 25000ms exceeded.",
+  "scriptLocationAtAttempt": "scripts/test-account-data-ui.mjs:22:355",
+  "target": "dialog button Ofrecer descarga ficticia; first offer attempt before expected quota error/retry",
+  "retainedLog": "/tmp/hoy-account-ui.log",
+  "logEvidence": [
+    "Locator resolved button without disabled attribute.",
+    "Wait remained at visible/enabled/stable; no dispatched click or persistence outcome confirmed."
+  ],
+  "priorCapture": "docs/screenshots/C-26/es-1280-account-preview-light.jpg",
+  "captureLimit": "Prior preview capture shows a fitting visible enabled-looking footer; it is not failure-time DOM/screenshot and cannot rule out a second-preview busy/layout issue.",
+  "unknownOutcome": "Browser context closed in finally. Only fictional browser mock state was involved; complete Spanish outcome and cause remain unverified.",
+  "cause": "Unresolved. Concurrent host load was reported, but not established as the cause.",
+  "next": "Full EN/ES immutable rerun after coordinator resource-clear signal; same timeouts, with safe failure-time control metadata/capture retained.",
+  "finalResolution": "Final runtime-source full EN/ES production rerun passed, including the same first-offer/quota/retry assertions with unchanged25s waits; prior timeout cause remains undetermined.",
+  "finalRuntimeFingerprint": {
+    "entry": "http://127.0.0.1:5221/assets/index-B-OVgGqe.js",
+    "sha256": "99615ba579794149cb7008cb63ce03c8993e165e3d2c686df5c33901b42b49bd"
+  }
+}
