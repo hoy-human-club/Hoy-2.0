@@ -1351,7 +1351,7 @@
       "priority": "High",
       "relatedTests": "CLI-22, COO-13",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/AccountPage.tsx",
         "src/modules/customer/pages/ProfilePage.tsx",
@@ -1372,7 +1372,7 @@
         "docs/frontend-completion/evidence/batch-24-account-states.json"
       ],
       "blockers": [],
-      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
+      "nextAction": "Finish exact-head CI and checked deployment; Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
       "candidateRoutes": [
         "/#/app/account",
         "/#/app/profile",
@@ -1393,7 +1393,7 @@
         {
           "batch": "batch-24.md",
           "behavior": "Explicit allowlisted own-data fictional preview/confirmation and atomic request/cancel, with required-row replay and postcommit ownership fences.",
-          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
           "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
@@ -3780,7 +3780,7 @@
       "priority": "High",
       "relatedTests": "REC-05, REC-07, REC-08",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/staff/CheckinPage.tsx",
         "src/modules/staff/RegisterPage.tsx",
@@ -3805,7 +3805,7 @@
         "docs/screenshots/M-06/contact-mask-results.json"
       ],
       "blockers": [],
-      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
+      "nextAction": "Finish exact-head CI and checked deployment; Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
       "candidateRoutes": [
         "/#/staff/checkin",
         "/#/staff/register"
@@ -3837,7 +3837,7 @@
         {
           "batch": "batch-25.md",
           "behavior": "Existing desk selection uses compatible masked separated phone formats; raw search matches and own stored contact remains unchanged.",
-          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
           "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
@@ -4320,7 +4320,7 @@
       "priority": "High",
       "relatedTests": "COO-02",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/CrmPage.tsx",
         "src/modules/admin/MemberPage.tsx",
@@ -4350,7 +4350,7 @@
         "Shared data hooks have no asynchronous rejection/retry path; loading/error integration unverified.",
         "Backend tenant/role enforcement and cross-device consistency excluded from this frontend batch."
       ],
-      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
+      "nextAction": "Finish exact-head CI and checked deployment; Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
       "candidateRoutes": [
         "/#/admin/crm",
         "/#/admin/crm/usr_cust"
@@ -4383,7 +4383,7 @@
         {
           "batch": "batch-25.md",
           "behavior": "Existing masked contact views handle separated fictional phone formats without raw fallback; stored/search/editor values and roles unchanged.",
-          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
           "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
@@ -4993,7 +4993,7 @@
       "priority": "Medium",
       "relatedTests": "PRO-05",
       "implementationStatus": "partial",
-      "verificationStatus": "isolated-focused-frontend-pass-integration-pending",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/teacher/HomePage.tsx",
         "src/modules/admin/WhatsAppPage.tsx",
@@ -5014,7 +5014,7 @@
         "docs/screenshots/S-03/substitute-state-results.json"
       ],
       "blockers": [],
-      "nextAction": "Finish root combined QA, exact-head CI and checked deployment; No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
+      "nextAction": "Finish exact-head CI and checked deployment; No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
       "candidateRoutes": [
         "/#/teach",
         "/#/admin/whatsapp"
@@ -5034,7 +5034,7 @@
         {
           "batch": "batch-26.md",
           "behavior": "Existing teacher request stages audit plus team-only queued log atomically with scoped fresh ownership, safe replay and contained cancellation/retry; Administration log reads same fictional row.",
-          "verification": "Isolated full build/domain/immutable production and applicable dev-state matrices passed; root combined build, exact-head CI and deployment pending.",
+          "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
           "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
         }
