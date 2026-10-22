@@ -1,0 +1,22 @@
+{
+  "sourceCheckpoint": "382a570dd68bde99040889a8c1ff6fca7052b032",
+  "runtime": "541ae1151ef7d0bd6e123f510429bc6c277f7c277a2c159edd2b45e14c558e09",
+  "sourceDiff": "Only BookedPage status/success guard for retained cancellation drawer since checkpoint; actual fullbuild33787 before new sourcecommit. QA-only host/context/warning/optimizer followups separately recorded.",
+  "fileHashesMatchedBeforeRootMetadataUpdate": 232,
+  "fullArtifact": {
+    "files": 5215,
+    "sha256": "a169113992ee946c117097750572ff587687a84cf4160679cf61deb6719272b4",
+    "algorithm": "Lexicographically sorted RELATIVE PATH STRINGS UTF8 + raw SHA256 digest bytes per file, no separators. This differs from pathlib component ordering and from prior NUL-delimited finance artifact algorithm.",
+    "independentlyMatched": true,
+    "verificationFollowup": "Root first used pathlib path-component order and got710d6583\u2026, a verification-method mismatch. Explicit relative-string ordering matchesa169113\u2026; all5215 actual file hashes match individually. No artifact change or QA rerun."
+  },
+  "visual": "Root EN390light current verified cancellation reviewed; no stale Booked badge; browser-only/expiry/freeze/waitlist boundary readable.",
+  "criterion": "Within the window the class is returned; outside it the late-cancellation policy applies.",
+  "phase": "Nov 30 delivery",
+  "roles": "Existing own customer/teacher/super-admin routes only; all11role proof, no expansion.",
+  "localGates": "Original6/domain11/fullbuild33787/production8+11roles/dev14pageswithoneinitialnaveach/D0216states\u00d78 pass. Known28frameworkwarnings explicitlyretained/asserted, no unexpected errors/dispatch.",
+  "remaining": [
+    "Reconcile checked main afterPR71; exact43headCI andPages receipt",
+    "PC04 owner business decision and authenticated canonical server lineage/capacity/waitlist contracts; no production acceptance."
+  ]
+}

@@ -5058,5 +5058,7 @@
     "video/living-teacher-manuela.mp4": "410060e6be15ec0d3a03e6ae87b364f40c55abe1c779ed80ec3117e50a0350e2",
     "video/living-teacher-paula.mp4": "c0701fe8b3d89451ef28ac68adb4a2cafaa26122957be75536d073b0f2dab79c",
     "video/living-teacher-santiago.mp4": "b04b2846072e28346417ed8444041a1a354a7034054c92ed500c931af2fc19c6"
-  }
+  },
+  "artifactSha256After": "3c2e1ea505113b478de591b023caea3bedb2a63237c8e3c24fd2c6f5f4fc7dd4",
+  "state": "Historical e141 immutable artifact unchanged after full production/dev/library passes; subsequent visual badge correction requires new proof."
 }

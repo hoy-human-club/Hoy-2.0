@@ -1,0 +1,111 @@
+{
+  "batch": 43,
+  "recordedAt": "2026-10-22T10:18:10.224057+00:00",
+  "runtimeBeforeAfter": "541ae1151ef7d0bd6e123f510429bc6c277f7c277a2c159edd2b45e14c558e09",
+  "artifactBeforeAfter": "a169113992ee946c117097750572ff587687a84cf4160679cf61deb6719272b4",
+  "actualColdDev": {
+    "session": 20787,
+    "exit": 0,
+    "base": "http://127.0.0.1:5292",
+    "pages": 14,
+    "documentNavigations": 14,
+    "reloads": 0,
+    "warnings": "28 exact independently confirmed ReactRouter6.30.6 deprecations, retained/asserted; not warning-free",
+    "errors": [],
+    "dispatch": [],
+    "traces": [
+      {
+        "path": "qa/customer-cancel-colddev/en-1.zip",
+        "sha256": "254482e0645c0635cedc78ab67a92ba8fe8a37b0d1be1c0ecebb52d394c12ef2",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-2.zip",
+        "sha256": "a3141ae18cd9b472f4037ab1a1517e46bcbc2076b73c21f298f2f1539578a3cc",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-3.zip",
+        "sha256": "0e6c0a32c39750e88895c4d01cff87f4f4ea1c0d0dc3e38e9170ca71ae4d979e",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-4.zip",
+        "sha256": "b378c06a990b82742bdc567bf930225227d7443363e6c2e5672e9732b45481fc",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-5.zip",
+        "sha256": "518703c710fa8e5125d736ed8fc10b4323e0f3e371329b8ff266d11dcb9dfccf",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-6.zip",
+        "sha256": "7f51d46c11c22e06cc846c5da001a69655e638726116e29dfd224b3f610aba5f",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/en-7.zip",
+        "sha256": "3f6033ab0104bbde30f440f2f1d2dfe7ff27461104fae8ff24d9c269d7f782a9",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-8.zip",
+        "sha256": "19d8c93cd6e65dc1ebb537a06e561dd9dc927e3fb8e705d6e2963bd8c2496680",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-9.zip",
+        "sha256": "7f6a547e7081d15193a833801222607ff9dc4c8b5464f150070510d1dd36a332",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-10.zip",
+        "sha256": "569952c98667e8c7d0da89a16a9bafcfb929d30014c97e096139123ae188157e",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-11.zip",
+        "sha256": "7a47a048ddf414e9737fc1820b62ae3ad7b581a81544cf220426f1ba15005cd3",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-12.zip",
+        "sha256": "d32d49b266cff476eaf25eea548d90b1391b9e1ec2e6c50410c341f4aec8cb57",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-13.zip",
+        "sha256": "a35a1f63095efe851395b49890bdaf73d54640b391b19809ea0caf8abe622363",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      },
+      {
+        "path": "qa/customer-cancel-colddev/es-14.zip",
+        "sha256": "6eed50f320aac0cd407a7f7e972fb6254a17a678d0a2bb5ac548891431c3d57a",
+        "durability": "LOCAL-ONLY ignored qa/ trace; CI artifact only, not repository publication."
+      }
+    ]
+  },
+  "launcher": {
+    "path": "scripts/qa-customer-cancel-dev.mjs",
+    "sha256": "72f800d268be55bd08e755d7c09285ea44a7473f2afdd21ae78f644328e8c77e",
+    "method": "Public Vite5 resolveConfig -> await optimizeDeps -> validate all11 explicit dependencies/subpaths -> createServer.listen with same config/hash. noDiscovery true. Actual repository config reused; no runtime Vite config/source/router change."
+  },
+  "runner": {
+    "path": "scripts/test-customer-cancel-states.mjs",
+    "sha256": "9b630fcde0b80ac3a9c727f539437c35f6dd02d96821721bf5326d738aaf5171",
+    "strict": "All existing raw DB no-write/known warning/timeouts retained. One initial navigation per own page; controlled fixture mode/phase/actor/calls/pending/status/count diagnostics printed on failure. Trace bodies ignored/local CI artifacts only."
+  },
+  "serverLog": {
+    "localPath": "/workspace/hoy-cancel43-public-optimizer-server.log",
+    "sha256": "4b792a58ad7351e48bfab820388e5918aee04b7b215fa0166ea72d17511c491b",
+    "durability": "LOCAL-ONLY ignored *.log diagnostics, not repository deliverables. Exact concise stdout retained here.",
+    "stdoutSummary": [
+      "Forced re-optimization of dependencies",
+      "QA dependencies prepared before listen: @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities, lucide-react, react, react-dom, react-dom/client, react-markdown, react-router-dom, react/jsx-dev-runtime, react/jsx-runtime",
+      "  \u279c  Local:   http://127.0.0.1:5292/"
+    ]
+  },
+  "browserState": "Final browser finally closed; parent execution lane explicitly released.",
+  "limits": "Single actual local cold check passed. Remote exact-head cold CI/deployment remain separate pending gates; no prod/library rerun because runtime541 unchanged. Earlier receipt retained as historical."
+}

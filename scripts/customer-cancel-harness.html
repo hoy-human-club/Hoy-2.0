@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Fictional customer cancellation QA host</title></head><body><div id="root"></div><script type="module">
+import '../src/design/tokens.css';
+import '../src/styles/global.css';
+import {MockProvider} from '../src/data/MockProvider.ts';
+import {customerBrowserFixture} from './customer-cancel-browser-fixture.mjs';
+import {mountCustomerCancellationHarness} from './customer-cancel-harness.tsx';
+new MockProvider();
+customerBrowserFixture({});
+mountCustomerCancellationHarness();
+</script></body></html>

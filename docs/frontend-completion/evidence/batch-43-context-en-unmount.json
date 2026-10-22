@@ -1,0 +1,13 @@
+{
+  "change": "unmount",
+  "releaseContext": {
+    "actor": "usr_cust",
+    "sameProvider": true
+  },
+  "settled": {
+    "actor": "usr_cust",
+    "booking": "booked",
+    "receipts": 0,
+    "returns": 0
+  }
+}

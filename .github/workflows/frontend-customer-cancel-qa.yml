@@ -1,0 +1,59 @@
+name: Customer cancellation frontend QA
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'scripts/*customer-cancel*'
+      - '.github/workflows/frontend-customer-cancel-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-cancellation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify original behavior and atomic fictional invariants
+        run: |
+          node scripts/test-customer-cancel-baseline.mjs
+          node scripts/test-customer-cancel.mjs
+      - run: npm run build
+      - name: Verify actual production and component library
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5189 > /tmp/hoy-cancel-production.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5189/ >/dev/null && break; sleep 1; done
+          node scripts/test-customer-cancel-ui.mjs
+          node scripts/test-customer-cancel-library.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5189
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify delayed, cancel, actor, retry and uncertain acknowledgement states
+        run: |
+          QA_VITE_FORCE=1 QA_PORT=5190 node scripts/qa-customer-cancel-dev.mjs > /tmp/hoy-cancel-dev.log 2>&1 &
+          for i in $(seq 1 45); do curl -fsS http://127.0.0.1:5190/ >/dev/null && break; sleep 1; done
+          node scripts/test-customer-cancel-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5190
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Print controlled failure diagnostics
+        if: failure()
+        run: |
+          if [ -f /tmp/hoy-cancel-dev.log ]; then tail -n 100 /tmp/hoy-cancel-dev.log; fi
+          if [ -f docs/frontend-completion/evidence/batch-43-dev-failure.json ]; then cat docs/frontend-completion/evidence/batch-43-dev-failure.json; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fictional-customer-cancellation-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            docs/frontend-completion/evidence/batch-43*.json
+            docs/screenshots/C-08b/customer-cancel/
+            /tmp/hoy-cancel-production.log
+            /tmp/hoy-cancel-dev.log

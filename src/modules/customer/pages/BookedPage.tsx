@@ -178,7 +178,7 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
         {mode!=='cancel'&&(inside
           ? <Notice tone="warn" title={t('customer.change.inside.title', { h: policy.cancelWindowHours })}>{t('customer.change.inside.body')}</Notice>
           : <p className="small muted">{t('customer.change.outside', { time: formatTime(deadline.toISOString(), lang) })}</p>)}
-        <Card padding="sm"><ClassRow title={s.title} teacher={teacherName(joined)} startsAt={s.starts_at} durationMin={joined.modality?.duration_min ?? 60} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} booked_by_me /></Card>
+        <Card padding="sm"><ClassRow title={s.title} teacher={teacherName(joined)} startsAt={s.starts_at} durationMin={joined.modality?.duration_min ?? 60} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} booked_by_me={booking.status==='booked'&&cancellation.phase!=='success'} /></Card>
 
         {mode === 'menu' && (
           <ListGroup>

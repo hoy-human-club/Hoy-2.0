@@ -1,0 +1,546 @@
+{
+  "recordedAt": "2026-10-22T10:09:20.627488+00:00",
+  "batch": 43,
+  "requirement": "RS-10",
+  "criterion": "Within the window the class is returned; outside it the late-cancellation policy applies.",
+  "phase": "Nov30 delivery",
+  "priority": "High",
+  "ownerSurface": "Cliente",
+  "sourceStatus": "Not verified",
+  "featureStatus": "partial",
+  "businessBoundary": "PC-04 remains unresolved; focused repair of existing reachable fictional behavior is not owner approval or production policy.",
+  "sourceCheckpoint": "382a570dd68bde99040889a8c1ff6fca7052b032",
+  "sourceState": "Checkpoint + bounded truthful booked-badge correction and QA-only host/assertions; final checked commit/CI/deployment pending root.",
+  "runtime": "541ae1151ef7d0bd6e123f510429bc6c277f7c277a2c159edd2b45e14c558e09",
+  "runtimeMethod": "Canonical root: sorted src relative path UTF8 then file bytes, no separators; exclude src/app/captureDates.ts; append vite.config.ts bytes only.",
+  "artifactProof": "batch-43-corrected-artifact.json",
+  "artifact": "/workspace/hoy-qa/customer-cancel-541ae1151ef7",
+  "artifactSha256Before": "a169113992ee946c117097750572ff587687a84cf4160679cf61deb6719272b4",
+  "artifactSha256After": "a169113992ee946c117097750572ff587687a84cf4160679cf61deb6719272b4",
+  "artifactFileCount": 5215,
+  "commands": [
+    {
+      "command": "node scripts/test-customer-cancel-baseline.mjs",
+      "session": 97628,
+      "exit": 0,
+      "summary": "CONFIRMED original customer cancellation: 6 groups."
+    },
+    {
+      "command": "node scripts/test-customer-cancel.mjs",
+      "session": 86861,
+      "exit": 0,
+      "summary": "PASS customer cancellation domain: 11 groups.",
+      "limit": "Helper unchanged afterward; explicit hook fallback return and personal badge composition verified in subsequent actual rendered gates."
+    },
+    {
+      "command": "npm run build",
+      "session": 33787,
+      "exit": 0
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5283 node scripts/test-customer-cancel-ui.mjs",
+      "session": 41203,
+      "exit": 0
+    },
+    {
+      "command": "QA_VITE_FORCE=1 QA_PORT=5284 node scripts/qa-customer-cancel-dev.mjs",
+      "serverSession": 82933,
+      "state": "Actual cold dev server; no later dependency rediscovery in log."
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5284 node scripts/test-customer-cancel-states.mjs",
+      "session": 66924,
+      "exit": 0
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5283 node scripts/test-customer-cancel-library.mjs",
+      "session": 23580,
+      "exit": 0
+    }
+  ],
+  "logs": {
+    "baseline": {
+      "localPath": "/workspace/hoy-cancel43-baseline-retry.log",
+      "sha256": "857b790973fe9d27c2867ba76e98ff774bdf2417cc9a6ffca3b4842b5c3fae2f",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "CONFIRMED original customer cancellation: 6 groups."
+      ]
+    },
+    "domain": {
+      "localPath": "/workspace/hoy-cancel43-domain.log",
+      "sha256": "1af5dd45d6cedee9cf44fff7a1f3aca23dff2539cfd861f6758af7444bb48a5e",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "PASS customer cancellation domain: 11 groups."
+      ]
+    },
+    "build": {
+      "localPath": "/workspace/hoy-cancel43-corrected-build.log",
+      "sha256": "12fdc737b4a63e49e65cdd127488e86e8c427d4a75f7fbf12c8a257b20e69936",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "manual-lint: 28 chapters \u00d7 2 languages, 0 violations (0 in baseline, 0 new)",
+        "\u2713 built in 16.43s",
+        "copy-shots: 948 files \u00b7 64.3 MB \u2192 dist/hub-map/shots/ (budget 80.0 MB)",
+        "Release manifest: 0.25.0 382a570dd68bde99040889a8c1ff6fca7052b032"
+      ]
+    },
+    "production": {
+      "localPath": "/workspace/hoy-cancel43-corrected-ui.log",
+      "sha256": "7d963d009b9d557345a39d7129aac29a1fd67ae5a1b4f2203fac718332db0236",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "PASS customer cancellation production: 8 matrices."
+      ]
+    },
+    "dev": {
+      "localPath": "/workspace/hoy-cancel43-corrected-states.log",
+      "sha256": "4e4f76ee91af346397f02e05b7c2e07d2e2fadb180c3fa35c092bc98ca272dac",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "PASS actual customer cancellation dev lifecycle EN/ES."
+      ]
+    },
+    "devServer": {
+      "localPath": "/workspace/hoy-cancel43-corrected-dev-server.log",
+      "sha256": "7dc0cc0c03f9a207dde765b11a9901a7910a8ffd0f117582db89c0c2d1df302b",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "Forced re-optimization of dependencies",
+        "  \u279c  Local:   http://127.0.0.1:5284/"
+      ]
+    },
+    "library": {
+      "localPath": "/workspace/hoy-cancel43-corrected-library.log",
+      "sha256": "118c758e6e71c6d68dc7212684d3214b6dffa7ab9175648559b7409d2d0992c8",
+      "durability": "LOCAL-ONLY ignored *.log; not a committed deliverable. Concise actual stdout is preserved in this JSON.",
+      "stdoutSummary": [
+        "PASS customer cancellation D02:16 actual states, eight viewport/theme/language combinations."
+      ]
+    }
+  },
+  "scriptHashes": {
+    "scripts/test-customer-cancel-baseline.mjs": "93c6d1717204af254cb492642c53e07d7260cdb5ed2d78f64fe150a1477cad1e",
+    "scripts/test-customer-cancel.mjs": "bef782d95663b828ccc5882b08dbb12fef32d7c40dd3dd835894ca1bc9cb9b84",
+    "scripts/test-customer-cancel-ui.mjs": "2fb9f089fcdde04ba8dbbea52774a9f4ba1163cf65aabb5a6a691057081c0b83",
+    "scripts/test-customer-cancel-states.mjs": "777ac1a6738325a18f9853fd08fe0a4ed90ee405e0907306031e8c81bf40cfb5",
+    "scripts/test-customer-cancel-library.mjs": "0147e1b7c4bc82f2a00cec3b34c81902157bdae4ea728d108da2b8b5bfe3a956",
+    "scripts/customer-cancel-fixture.mjs": "04dacdb752f17f33630eec13f4a1005696e1dece8e72b3e64f95ac3185956af6",
+    "scripts/customer-cancel-browser-fixture.mjs": "0d8cb115cecd3b2bb4c8bef317c8a97e14bc3c84a02c02c7016ded27286b8c3a",
+    "scripts/customer-cancel-harness.tsx": "17602cb5c10e1188a2b2d6f3a1ab2132f18b2086fef9167c3685d38815f38515",
+    "scripts/customer-cancel-harness.html": "50511d68cababf7cbe54f9945ef78f79034ed37bfe3529f81daba827b468d481",
+    "scripts/qa-customer-cancel-dev.mjs": "da90ae8ca36e53be538f0f863c0a369651c9c84cf78f2ec92335ac4e7844b757"
+  },
+  "runtimeOwnedHashes": {
+    "src/modules/customer/customerCancellation.ts": "3dcbe297f60fc247a481f6fc4d93393b7d01b2514fe7ae800268d72babf5124c",
+    "src/modules/customer/useCustomerCancellation.ts": "a084173733ae0083845714d8ce90719a4cddd022bdcc194552f353a04d6414e9",
+    "src/modules/customer/pages/BookedPage.tsx": "602c8ca9ab560221a4b5aa832eb56ca01e1e4fd64610b82465cb4b5a9ad46fdc",
+    "src/modules/customer/hooks.ts": "63449d5aa5420cfcdc38aee472bb0b965d41606bbb3d5e4fd7f6e06cc393bfc0",
+    "src/modules/customer/strings.ts": "0123de6aa6c400ade2444ddbb0ce768d60dbb11a4b3e0ae446ebf2bf4fd94ed7",
+    "src/modules/customer/cancellationStrings.ts": "83cd889e2a34c05f7e08680186f7c7ced7509ca0fd9dd9d7c5563787eb409261",
+    "src/components/organism/CustomerCancellationReview/CustomerCancellationReview.meta.ts": "1b6dcd0d07879c24921db793b1b0334fbfd7bc698ebf1942d3c58744baa3275f",
+    "src/components/organism/CustomerCancellationReview/CustomerCancellationReview.tsx": "649fd17ba75814da871b4eee71f6e2137034350dea9ea5b3405d59f3088f652c"
+  },
+  "production": {
+    "batch": 43,
+    "base": "http://127.0.0.1:5283",
+    "entry": "./assets/index-ToIG1OZN.js",
+    "entrySha256": "28694fb36c5e2be4bc28cc57c3fd7c49969aa6f481096ee4216cad96441ccc3d",
+    "checks": [
+      "en/light/390:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+      "en/light/1280:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;all11roles;bounds/translation/current-seat guard",
+      "en/dark/390:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+      "en/dark/1280:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+      "es/light/390:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+      "es/light/1280:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;all11roles;bounds/translation/current-seat guard",
+      "es/dark/390:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+      "es/dark/1280:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard"
+    ],
+    "errors": [],
+    "dispatch": [],
+    "captures": "docs/screenshots/C-08b/customer-cancel",
+    "scope": "Fictional browser-only checks; no legal/business/server acceptance."
+  },
+  "dev": {
+    "batch": 43,
+    "base": "http://127.0.0.1:5284",
+    "checks": [
+      "en:actual C08b loading/read failure/reload;immediate busy latch;stop/write rollback;lost ack historical retry;unmount/actor/provider abort;postcommit stop honest;inactive actor withholds acknowledgement",
+      "es:actual C08b loading/read failure/reload;immediate busy latch;stop/write rollback;lost ack historical retry;unmount/actor/provider abort;postcommit stop honest;inactive actor withholds acknowledgement"
+    ],
+    "errors": [],
+    "warnings": [
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      },
+      {
+        "text": "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.",
+        "url": "http://127.0.0.1:5284/.vite/deps/react-router-dom.js?v=710e5c56"
+      }
+    ],
+    "frameworkWarningContract": {
+      "version": "react-router-dom 6.30.6 (actual installed version)",
+      "exactMessages": [
+        "\u26a0\ufe0f React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.",
+        "\u26a0\ufe0f React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath."
+      ],
+      "classification": "Two explicit existing dev framework deprecations per page, asserted exactly and retained verbatim; not warning-free and no runtime migration/flags changed."
+    },
+    "dispatch": [],
+    "captures": "docs/screenshots/C-08b/customer-cancel",
+    "scope": "Dev-only actual component/provider faults, fictional data; no production backend or dispatch."
+  },
+  "library": {
+    "batch": 43,
+    "base": "http://127.0.0.1:5283",
+    "entry": "./assets/index-ToIG1OZN.js",
+    "entrySha256": "28694fb36c5e2be4bc28cc57c3fd7c49969aa6f481096ee4216cad96441ccc3d",
+    "checks": [
+      "en/light:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+      "en/dark:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+      "es/light:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+      "es/dark:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch"
+    ],
+    "errors": [],
+    "dispatch": [],
+    "captures": "docs/screenshots/C-08b/customer-cancel",
+    "scope": "Fictional provider-free presentation only; no production/legal acceptance."
+  },
+  "roles": {
+    "allowedOwnOnly": [
+      "customer",
+      "teacher",
+      "super_admin"
+    ],
+    "denied": [
+      "admin",
+      "coordinator",
+      "front_desk",
+      "finance",
+      "maintenance",
+      "marketing",
+      "developer",
+      "public"
+    ]
+  },
+  "captures": {
+    "currentCount": 178,
+    "historicalCount": 3,
+    "currentHashes": {
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-late.jpg": "b078f88a4af0700b2653b40aa583ffed38feaba35d63de3765903970ec2a3f64",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-0.jpg": "ea0f00e7207f153acd466aedd5486f278a4891721182891aff1ddc0ac8dc19f5",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-1.jpg": "ea0f00e7207f153acd466aedd5486f278a4891721182891aff1ddc0ac8dc19f5",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-10.jpg": "c490c85bc50f633d0a2b72f3bdfe0882e0c9e0ce709be17c05151908371b6c3a",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-11.jpg": "ae92a053c88b02b321637850cb94fd518dcad09c583aa9c1a400cca6fe4fa45b",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-12.jpg": "f6e5203ddc09bab9fca4a46893414d76aea0b4e9f04d74bd8cbe955d260cb2ee",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-13.jpg": "8f9e50d09728ddaf57d813499ff216d329fa039c783375c26c293878f15b87e0",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-14.jpg": "8f9e50d09728ddaf57d813499ff216d329fa039c783375c26c293878f15b87e0",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-15.jpg": "ba4943d936f689f8af9c83b3a53dc3f2c65e0b8e6a135c328cd217f4f224742e",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-2.jpg": "f1ccd9748bc6c754e595ad08934e7e4d9459b314ddb02107965772b50d462098",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-3.jpg": "58c00197641150d883538ef55de494b812cbada3b48ba3de77082b10ac336994",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-4.jpg": "26140cfac73e5b545956800c435791442a389e4739959d45f00a3fd425c528f9",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-5.jpg": "857706866acc705481724a1c142b169c8f68d40ef2bfbe328d318da8deff23a1",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-6.jpg": "a688b8ca5957661e18f65f13ab17b54450841e9a0574b9dcaa4d88318c22de0e",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-7.jpg": "8ff2157ac2b3b2bbdc8d98a1c633d9414d3450a3545d0c2daa7cbf7cbce0d139",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-8.jpg": "5e1e9c5ce738ea91a609998a9a308b93cfc3435333d3da87395162455118e78b",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-library-9.jpg": "fabec6f9ad8f4ff8759fa1d6fa98cffa81223adf7197e2bf646ed924f86c558d",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-review.jpg": "f26fa06914c9a5d038d72808dd36ab4c6c0139c0180cf5d41aa74ea822d75a4d",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-single.jpg": "6befd6be5348b86ac4979b4a3a37d00263fd0353392193044870ab3aa85c893e",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-unverifiable.jpg": "d44c29cb6dc2aa5d3148822985263bd692b1cf5dd7519b4565af7c2add68e9f8",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-dark-verified.jpg": "c7803d6e139872dfeff4e4208bda53e3c02eeb1ca5c118fc67a696d02dd9bedd",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-late.jpg": "4317721738e4bf042db598eefedf44125493ce8643db034ab1676ac3a00c8668",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-0.jpg": "c0763989aec28562e6d17d1cf707da897d0211721da7a78f72723909f4423411",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-1.jpg": "c0763989aec28562e6d17d1cf707da897d0211721da7a78f72723909f4423411",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-10.jpg": "e6a0018bb9d59a9cb315a3bcbf1ee84aed0f233ca66b821c6b56f695353051de",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-11.jpg": "0f77323e0e86836c9fda269ab780b53ce98ee3dd66006387bd4204bc8eb92acd",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-12.jpg": "05412ece014b1ed744338141e8d2d94a836d626a4d590068ae7d213a09fc3595",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-13.jpg": "3695362aa037c7ff1c14f8a499d80543c3b55c4f5a40b67bb6c7f390071742f2",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-14.jpg": "3695362aa037c7ff1c14f8a499d80543c3b55c4f5a40b67bb6c7f390071742f2",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-15.jpg": "cfa56e05d6fb9fc35ed8e34f115ce728617af7bb8ed055766e8ee3f2351a0623",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-2.jpg": "c673ce8ad265b0351b1333c883a765efd3fbbc4443d12ce125447e15e0d4288c",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-3.jpg": "461a6f54a10f9c78337297bb8ac0dcae69e2d5edc15e131e88fb4bba602b77ca",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-4.jpg": "7a49ea54e249fd262173d364ab0353359026359ec282aaeafef2915cf646292b",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-5.jpg": "92acaf27ba5d43d2dbccb08d9ea5d33aeff28c526f560279701baf7010789bec",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-6.jpg": "d9ec70bdc8be25701f575a914cf176931371eabc41f420ec1a9f5cb0b34a81d0",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-7.jpg": "281e9877aabfce30947354a02b21371be49d08966667216ce7a81f7231eef868",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-8.jpg": "24aecc3ab565bcf298260727abb9ebd349515cbc112a935c290cd155c7652b47",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-library-9.jpg": "b2e9da6c033b8df71ac75697c428bf8d732f9014a2ba45c7e240632d2d274239",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-quota-unconfirmed.jpg": "a9fbd20c79ec9f1b7fe292d2e06123b3dde490417d2e24b0bd8c604e5f007da5",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-review.jpg": "72671b6cb6ed94fdca6d85378a8b58b4347da6886fc3a9dc95a8aa2a64a17299",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-single.jpg": "eda407c0caf25cb75d6d75455f80168c571e00bcb893c52797f40848d7facc73",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-unverifiable.jpg": "695cb92827fee4f4c4285322636511c084742b1901b1d731c29f09d7b1becb07",
+      "docs/screenshots/C-08b/customer-cancel/en-1280-light-verified.jpg": "fdd3f024d0472cc6ac8cfb472d746d86d07ce39ee230647ec450b4726cd36598",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-late.jpg": "ce351770d66fa7498ad8a77cdf0af5702a72b8d55fee6f1d6c3a0577949d6ac3",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-0.jpg": "171b9b7c354b9531dd3ee2f05b850c96e469ad62b94964332fcd6af5c379cc44",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-1.jpg": "171b9b7c354b9531dd3ee2f05b850c96e469ad62b94964332fcd6af5c379cc44",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-10.jpg": "fef7c761513f1e95e185cf47ce6b4c9e6fa93a0eb601ec873f8ce9e4095a99ff",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-11.jpg": "b2dd185336a8336c2b584c8d3fd608d92a51ed749d30813328de944f50c3637b",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-12.jpg": "137538fe4e758b19c04bc24434dc200c7c860550ca4c6efe6ceb3cb12aad992f",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-13.jpg": "c339bf8cd6481aa14ea07abf3fa4b796a795857be058247bf23ffdd4eec08067",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-14.jpg": "50507fcbc9092f19dbd7ccced73b27614a539083cda890e9b238378b52129c0f",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-15.jpg": "1601bcb85386001bf850cc7502bae4610d88885851b39ed0328e320f519bb289",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-2.jpg": "7f2dc981e8f17f42ea357cdcbb382b29d54593d1b3f26a6440e412384e3f577d",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-3.jpg": "798f26d37ab0191fb76b81f7703075b6af61c938e0280f73e26bb2e6947ab3b7",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-4.jpg": "0425671e2a98e9d9b478bd20ccef0b4de3452fd85b4fbf988c1e9cb26680fcb7",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-5.jpg": "cccab4b9ffb868e0168a5ad70b84249ebfab246ab45780bc43b955306ed4b95b",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-6.jpg": "5f42a17b99513ff64958b0d976d7d4367cc0e328a75541a4406ba1e5bbe48192",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-7.jpg": "3d8494edad887d6b4c2be0df8678d6e3a9936398d12fff7823ba9648f7673214",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-8.jpg": "85268d86522ae941367de7bf71c8c3fb62818e8dba29f086490a52e5019c1ffd",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-library-9.jpg": "9b7be3cfba5a600ad93b86ab5042cb8e4620871ec60ceea248c913aaf090c536",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-review.jpg": "59c6e3ff6e82833d9bbdcefc80b9973f630e67c211d5f979a84bc885c10d426e",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-single.jpg": "5492a9a8e29c9719ad71a750e6ddead91facee1b28befee1e5ee1756e7c065ba",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-unverifiable.jpg": "a2e9fbc865639121d41a8bec142902f10f847006ddb9a5414c087a971df6802a",
+      "docs/screenshots/C-08b/customer-cancel/en-390-dark-verified.jpg": "b2bb3e286c63f49c8f37e2bb54b6a0064f35e7bd55de28fb8beaae182ae66fc0",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-late.jpg": "742792327b183317fb9984277f1131b1a6a7dedd30e077c1c25c2ef5dc89619e",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-0.jpg": "80223e16c6728b8ba940748e40e89351e90b6f5f51739aeabd95dfd74ff27671",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-1.jpg": "80223e16c6728b8ba940748e40e89351e90b6f5f51739aeabd95dfd74ff27671",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-10.jpg": "f1e2fcc99b27d16398edb0a707a51a1237c9f82d6d292f4c208bf65348671c74",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-11.jpg": "445be700ce5cb1ff2f4d1e9e5c1ebea9a8f7a5c5e6238f85ec1ead08031c18a3",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-12.jpg": "501e6ae1ea498d123eb6431707aa253459769ca101b30ee939d467ca06b6609f",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-13.jpg": "0dba38b66407b211bd8abb808e5ab721ef57accd4400fe9af66c5254993265db",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-14.jpg": "2683c28b4adf6f8601b9a5f937dfa32391d4bd0d77b308c3c197b1fff334f140",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-15.jpg": "7319a9686c761cef5d2e97520582c2a0cb14a56f5bc047270ff4dafd61c890f6",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-2.jpg": "c6459bb56addd63e309d8929b981ec353b3b6fa9e3cb0ca8205cb82b03b52860",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-3.jpg": "9e811531eb2de4c7507a0eb9d502d3e9c5eb96fe2b84a86ceabf1bfa1c41d67f",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-4.jpg": "cb80fb97b2f00ec5aab5caa71e0fa7176bd8d0c711549a37047e897e1e3e6b53",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-5.jpg": "c8911e8a0098e4121d32d5729331e04b4ff39bc02c811c05e8b882b99d2e7d8b",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-6.jpg": "c9addf05c453301df9651f807ff7ed35616c9b14dbaf73a0a3e76f4ef2e29652",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-7.jpg": "51c688b4616bee8b4f8ce98bbe8e7c2e00bce1ae6d12761ac51d04c0b168f156",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-8.jpg": "93c9aff5d27433524e56cd6b12760a2e8f4ce409072aff1557e191857dd67a85",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-library-9.jpg": "e441bb5d7415cfcf2d720f9c189d120c56bfb162a49feb240e8089462b680054",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-quota-unconfirmed.jpg": "d99feaba8ec3df8314851d7f293fa4f98331909949129effe75f9136102dd4a1",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-review.jpg": "d9954e745a8e202e4f1d9adbe512ac6b0d67fb894f8e2521ce122c2cee12a759",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-single.jpg": "c4a71775674c394a56d4fd8dca90ada14350b8979579dfbb8722b4aff361ae6a",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-unverifiable.jpg": "cb9b180e830bbd69b4c34850c196359c6cf7f04fb944d585ae7cb8c1e49ecd8d",
+      "docs/screenshots/C-08b/customer-cancel/en-390-light-verified.jpg": "680617986ecff95603e6567f9b8a2f3394abefc383c63413b31493475e1bd361",
+      "docs/screenshots/C-08b/customer-cancel/en-dev-atomic-retry.jpg": "1cf26d1369cf3b8084095d1fc3a022e4d89159410ecb23dcc3c2ebc54a7e8c88",
+      "docs/screenshots/C-08b/customer-cancel/en-dev-loading.jpg": "09e611f88fa86413950cddb770f0c72ea8f058b485cc7b597471c6da26d3661f",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-late.jpg": "78fb5f5629cbf9fe60985d41a7cdbab9b5c9ef8cbff2125bbc0c383d1f5c90ca",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-0.jpg": "ec38112b39915ea00c59b8dd140eaa71c587019ecfc1990d99aab4a393a02f90",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-1.jpg": "ec38112b39915ea00c59b8dd140eaa71c587019ecfc1990d99aab4a393a02f90",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-10.jpg": "d5a834985047ec920e41f1e2924e7904075b112db5da27e076be9134c191ca2c",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-11.jpg": "45d63c414a0fe25306d4825262e11d64d4ee232b2a2360fb8a1327e0f53c099a",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-12.jpg": "53d3d851ec3c212ad8617622ab479db66d7bf4a322008a4864cc331ea954b4bb",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-13.jpg": "97b9bed2ff50a3b8e34b6ebed44fd0749795a8475022f7a1d87d2f674add7291",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-14.jpg": "97b9bed2ff50a3b8e34b6ebed44fd0749795a8475022f7a1d87d2f674add7291",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-15.jpg": "da7ed71e3e2ec15a31f3e16ccbb1b8fe168f7d553e1b127217033fe6fe11929b",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-2.jpg": "2eefe5fab25ffb1430282aabd922fb7fbe33c3b2345facac7b82e15b133fe983",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-3.jpg": "467a781ded528ba457131441bb41203e4d223961c3cca7f0cf5f48c77a168ad0",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-4.jpg": "aa75c82f9617be930368a9bb6e9167b47f7edeba83b2cd94351ba5a1732a9f83",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-5.jpg": "3f14a35e1ddab240b8e3e9f85d0df7b785db89f113b114c9662249189b6695d8",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-6.jpg": "b4d4ea69961064a1788e0d9fcfac75dccc5fb8cdb4cdc7c9637c4d4ddd2f8a25",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-7.jpg": "0499218b860f5193eed654a42174ee8faec292313317ed83be35ab64c249c93f",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-8.jpg": "16268adf733f5b316eca386057a0d5a5702c0762abbfaff29d62e6c5b05d0eca",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-library-9.jpg": "e8e87e460b8bf9dd40d0173fde1d0727370d2d0b524a1e96157f348a935f23b4",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-review.jpg": "6e914b58002cd2f5725db1c36d63d388e0727f9fb653559558f09bee5333d417",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-single.jpg": "f41c0de962ece197452415181a4b6d7882734f3ecae026b15bfc4f17fd48db83",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-unverifiable.jpg": "c1b8021b6068d4ff86824d54984ac21677bffd2ea989f940a1aaa844d832b2be",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-dark-verified.jpg": "4d4d383acfed606b3b9821cec78f24c52ec07dba3cd099d604e869aad723929e",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-late.jpg": "c409cc38ea102e48671f9fa55344c21be76f7c7368b7b136c6ad170c99d9df77",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-0.jpg": "e52d9c6a6dc143960490a0a2557ca5b8439f82c1fa74d8abf25ea67bf5d332bc",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-1.jpg": "e52d9c6a6dc143960490a0a2557ca5b8439f82c1fa74d8abf25ea67bf5d332bc",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-10.jpg": "706248b9632c565bbb4203d658ab77a21ded9980277d4c6b914d64bd41b6d0f6",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-11.jpg": "49d52e6c82f547f70e4e19fb4fbaa121afc5b31a89c8c1946adcced7570f2956",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-12.jpg": "406a4acbd05974f2557e6d58f61231acfbb85cca8e55fa8ea4737eca2451b774",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-13.jpg": "218713177cf1fe8b37be1be9cf767d1f61ff7ff6e9082414fbe617ced3ac6139",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-14.jpg": "218713177cf1fe8b37be1be9cf767d1f61ff7ff6e9082414fbe617ced3ac6139",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-15.jpg": "b240909d917601dde79e2f58fdd2e17cfeea6c73e2c5346fb2da66e1976da552",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-2.jpg": "32a5cc2362623e467be93fe20e7d129fff8c6f5fa39536efddc88ddff28cd185",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-3.jpg": "d5c374ffba162406b390c8b703dbc6b9e211dcc6fc3b2394d4285f19128818af",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-4.jpg": "3d92088198608774c198bfab882dfc12e4cb79ca766d83ebb097b263d0b1636a",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-5.jpg": "627c7f3177a38950937d5f712e014b32729bd188864b72a71db822f8f98d0e39",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-6.jpg": "1382b301bbd8913d4d15f53d9bae266d6839d3c23bce6d53107262700b2e0b4b",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-7.jpg": "afccbe06804b123872876617eaf9bc967b4449a3b94fddf40224eaf1ee5b4553",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-8.jpg": "dfaf22393d65af8d92232724c0f0e343948e3d7591fd1ccda263f252aa44c275",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-library-9.jpg": "9aed524c102237f5e3ad89c32479532dd26f7d00e3b3dc66462a002893441464",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-quota-unconfirmed.jpg": "c560c969c722261f45b64b9668de0d79e0983b33357378d87c8867d746c9e0d4",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-review.jpg": "277f28501e852a78b385207d687efa72d4a738f832d61183d2f351b11055c0f7",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-single.jpg": "bb3d02e4694a6f25f7a014944fae1ac3fed852921e731f41e074d96ca42a54ea",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-unverifiable.jpg": "9543a723e83ffa5c0ae7f79dbe5ccc4b02148dad605ebaee39c91866e614541b",
+      "docs/screenshots/C-08b/customer-cancel/es-1280-light-verified.jpg": "ade195a22ee6b3af6037b8a2b53e7b25b9f31f350153ec66a6968d7e34d943bb",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-late.jpg": "dba68d53aa62ce11eafbd1537141c345039cec1fc6bbf590be7374a2b1c5142f",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-0.jpg": "3990eb138172b6adedb0e2fa8afef2cdb74de8c558e4b9da910b73d9cc2c33fb",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-1.jpg": "3990eb138172b6adedb0e2fa8afef2cdb74de8c558e4b9da910b73d9cc2c33fb",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-10.jpg": "02b48b61cefa66ac80b023763fe15df992887e26577e9d212880fcc7fac854bc",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-11.jpg": "2f957706692e731df1e20319b0bbf69d268ae3abe0a232829db20f8a83bda990",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-12.jpg": "be41bf8616982a6c0e7675e2c6cbdfa11c542924de280469faf5d1d84504132f",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-13.jpg": "19c1b287d2e4ddae7a8d5a012e62d20fa5bd52d6cc9cdbded2f7584bcbbf0162",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-14.jpg": "bde77ff7ef978257f26f7d191025ec8a603c2e55f1e61b3cd7e08f452f2937cb",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-15.jpg": "74ee084778a9ee41a3c2f448681395d75ed3fe9fe04a6b195eb37bac0a5a1974",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-2.jpg": "73544bb9dd507d6325ec51a73d60657aaa50a2abb3aefc95bcde6a53a97f9301",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-3.jpg": "a0690516a926829698960cf378d95ebf15ba7b6eb2796b4b661187aeac87e50e",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-4.jpg": "5010b262897afab92ecfc74c1d9d2c41df1e98afc2afe9e5e6f2118f5bc64cf8",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-5.jpg": "813616e8c1b71ba55ed1afbc447ce206b93b8a34d097cc668fb1b7730b8996fe",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-6.jpg": "ccfbb3d171874cd8525cc03ee8b8fd71222691a09c64d7fe419b149fbc604ec6",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-7.jpg": "cc274b6c31988d757f48dbaaf79c2bb7a9ba5235038e0e836da5171f3eb7cfef",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-8.jpg": "62c17ef47bc85f8aa3b4ce469f862f86b57b7cbcf19c7aa57f01b6370db5746f",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-library-9.jpg": "0c3a71e52fad226c52effb8af42ab0f86c81d91f4b22d0f7e31280eee11c0cb4",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-review.jpg": "d6174d2eec98b782ec5cc26525e5320607636f4723f1c5ff32bbb88ad6235365",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-single.jpg": "4658f486bfe2354db31fd311f43454bc553d248ba8c760dbecfe885a900009f3",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-unverifiable.jpg": "1d005c67b7cfac3314bf7654cc84db8eba969a80f723756bfdaadf3e8ff5dd78",
+      "docs/screenshots/C-08b/customer-cancel/es-390-dark-verified.jpg": "0c7dc37a14b51306b81cca9d6b24529e4ab350f34b1e6074497a278630041605",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-late.jpg": "94dbba60d814f94c2aef7e2bba5ee8b9f8b357e6befb56b7dc150dad75295a8e",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-0.jpg": "80854b441b1e68c8bebeb0d9fe2c3017766038925ad9920913964d537f04e74a",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-1.jpg": "80854b441b1e68c8bebeb0d9fe2c3017766038925ad9920913964d537f04e74a",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-10.jpg": "606da481d85dc009e7a873e2319bf62e6b6eb445faa9c0119db3540b5a73b904",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-11.jpg": "b8fcccf5ca3e695132f4eafbd5adebcb46278d410aab142b7c5c46a98e5e7cdb",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-12.jpg": "f0027e94766c830bba6255564bf4d9ed7ddbeae5ab75c0e16c4807d98038c3be",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-13.jpg": "9a1ceca45408ee077f8fed8e31db7e75ec45a407e6ba38aabbcda07f2236d1b2",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-14.jpg": "2d23cfeb61b9d4afd0732d8a5da33592c248d8d6ccce11276eb49b6dbbafe403",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-15.jpg": "7e20d1fe5a5e43f5d83f430920f80296eb124191506d3aebe0cdb95b69f8d75b",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-2.jpg": "dcb3f56e97645fa76d1e2cc17e75d3f650725209ed9e83b6691c9770c6665f68",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-3.jpg": "c7032bb0d6d28ad99b4e31024632a2f60ff505c52986e147e15a091542f9ed53",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-4.jpg": "4706b667e11d6632fa17ee78bfdf88d54a8147136ab5999943e7a7791c4010be",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-5.jpg": "c6111e266afd753b6b8ac6c37902b2cb040590d4ecefc30d777382a2c7824b32",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-6.jpg": "f8444508a4f642f595e24808428fbddb4844c04d3f0931416857b3937b0f4827",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-7.jpg": "2123a0842a90f6db1151d30cea89d02bcbe58512fde88a2f78fad30348b68b77",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-8.jpg": "53ced387f526d00e810396ccbea5d5e82a9a23196c856795b79aefef280f9578",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-library-9.jpg": "2560da10469e1535d6927b41ae447b21f347bcae04aa92283bec501a78cbcea1",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-quota-unconfirmed.jpg": "74c6b84f5f6f52b31f5854801f9bed594b87785ff977c14d5cc68b12b1456893",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-review.jpg": "e1093d30ab8b49c1e384493047a066702d1f7869707c7127d02fcd365d0a5fd4",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-single.jpg": "89938d1f3668a98874d6c4ed544feafc57d20e85472a5ae563330bea754486b0",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-unverifiable.jpg": "60988fccf6ad8d21a2078f5acf3816c795c825e4858327f0c1588d5c8515d1f7",
+      "docs/screenshots/C-08b/customer-cancel/es-390-light-verified.jpg": "4a1b89d835547f2120f9ecfa9aed6c1a2ad01d26414c2ba4037095fabe8d1070",
+      "docs/screenshots/C-08b/customer-cancel/es-dev-atomic-retry.jpg": "bfbab557d0c905d5d1386df3e5fa79cecdd67b4e7c3649c94c93e429396ad664",
+      "docs/screenshots/C-08b/customer-cancel/es-dev-loading.jpg": "06cc20c18827cd68078f61840ec781accb848ba38cc208e016a360536f5d8575",
+      "docs/screenshots/C-08b/customer-cancel/en-dev-historical-replay.jpg": "22571c38fe643d3d42da1756d4712f4620fa92cf8da7e138e971a460c642625b",
+      "docs/screenshots/C-08b/customer-cancel/es-dev-historical-replay.jpg": "66b9bccc8e5acaec5114c3949b2e81d90281e24762926708186b225435731b94"
+    },
+    "historicalHashes": {
+      "docs/screenshots/C-08b/customer-cancel/devstates-failure.jpg": "cded967bbaa08ebea1a33b278255d3f5c19fe17b692a609b009fa80af18a35dd",
+      "docs/screenshots/C-08b/customer-cancel/historical-devstates-34098-failure.jpg": "cded967bbaa08ebea1a33b278255d3f5c19fe17b692a609b009fa80af18a35dd",
+      "docs/screenshots/C-08b/customer-cancel/historical-e141-es-dev-replay-badge.jpg": "c33bdd78010c2ee7197a8a3d7ac9a2ce0ba819cc52880bc6f9acebeeb6ef8b5d"
+    },
+    "inspected": [
+      "en-390-light-review.jpg",
+      "en-390-light-verified.jpg",
+      "es-1280-dark-late.jpg",
+      "es-dev-historical-replay.jpg",
+      "en-390-dark-library-3.jpg"
+    ]
+  },
+  "historicalProof": "batch-43-e141-historical-focused.json; original failures in batch-43-execution-failures.json retained, not relabeled as final passes.",
+  "warningContract": "Production/library zero unexpected warnings/errors/network/dispatch. Dev retained and exactly asserted 28 baseline react-router-dom6.30.6 deprecation warnings, two per page; not warning-free. No runtime router flags or migration changed.",
+  "browserState": "All production/dev/library browser finally blocks completed and closed. Lane explicitly released to root; no new runs without coordination.",
+  "limits": [
+    "Only fictional browser-local MockProvider records. No real refunds/payments/backend/notification dispatch or durable cross-device guarantee.",
+    "Strict existing cutoff > start-minus-hours: equality remains free. Existing booked in-progress/exact-end and completed-but-not-ended predicate preserved; +1ms past end rejects.",
+    "Free package return only verified original one-unit linked debit/grant; original expiry/freeze/payment/purchased terms unchanged. Legacy/unlinked/shared/multi-unit history is not repaired.",
+    "Known nonpackage kinds and late package preserve status-only/no class or monetary return; no invented fee/refund/late rule.",
+    "Waitlist effect only clear future scheduled bookable first waiting candidate, atomic with cancellation; no new started-class offer or external notification. Complete no-show/mat, claim/expiry/hold policy remains separate.",
+    "Own scoped receipt access only, no admin audit listing/other roster/contact read contract. Actual durable server authorization/transactions/idempotency/canonical clock remain Anu gates.",
+    "Two explicit offline font CSS fixtures in production/library, standalone dev host uses same actual page/native providers/styles; no real external-provider/font pass.",
+    "Root owns final integration metadata/CI/checked release; source-only45 untouched. No global124 tracker/kanban/Git mutation by this agent."
+  ],
+  "nextStep": {
+    "root": "Review final source+exact focused proof, reconcile test-only71 changes, checked CI/deploy through sole Git lane after current checked71 main.",
+    "ownerQuestions": "PC-04 and authoritative legacy/no-show/complete waitlist rules remain separate; no questions sent externally.",
+    "Anu": "Authenticated own scope, durable atomic/idempotent cancellation+linked entitlement+waitlist, server clock and delivery contracts before real backend."
+  }
+}

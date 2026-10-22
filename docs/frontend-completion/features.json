@@ -2354,31 +2354,63 @@
       "priority": "High",
       "relatedTests": "CLI-11",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/BookedPage.tsx",
         "src/modules/customer/hooks.ts",
         "src/modules/customer/policy.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/booked",
+        "/#/app/booking/:id/change",
+        "/#/dev/components"
+      ],
+      "tests": [
+        "scripts/test-customer-cancel-baseline.mjs",
+        "scripts/test-customer-cancel.mjs",
+        "scripts/test-customer-cancel-ui.mjs",
+        "scripts/test-customer-cancel-states.mjs",
+        "scripts/test-customer-cancel-library.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-08b/customer-cancel/en-390-light-verified.jpg",
+        "docs/screenshots/C-08b/customer-cancel/es-1280-dark-verified.jpg"
+      ],
       "blockers": [],
-      "nextAction": "Preserve PC-04 question and test once-only return and late status under deterministic clock.",
+      "nextAction": "Run final-head CI and ordinary deployment; keep PC-04 unresolved and hand atomic durable cancellation/receipt acknowledgement to Anu.",
       "candidateRoutes": [
         "/#/app/booking/:id/change"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Actual bounded fictional frontend baseline/domain/build/production/dev/library and independent frozen artifact review; not complete requirement or owner/backend acceptance.",
+        "evidence": [
+          "docs/frontend-completion/evidence/batch-43-final.json",
+          "docs/frontend-completion/evidence/batch-43-root-review.json"
+        ],
+        "implementedFrontend": [
+          "Once-only own-booking cancellation with original single-unit linked terms, immutable reviewed outcome and scoped replay acknowledgement.",
+          "Cancel, failure, retry, lost acknowledgement, actor/provider/unmount fences; truthful cancelled status badge."
+        ],
         "missingFrontend": [
-          "cancel applies late status and package return outside window; repeated cancel could append duplicate return; cancellation business decision PC-04 unresolved."
+          "Final exact-head CI/deployment; unresolved PC-04 and ambiguous/unlinked legacy lineage visibly unverifiable."
         ],
         "remainingBackend": [
-          "Atomic idempotent cancellation/refund with approved policy."
+          "Authorized durable atomic cancellation, receipts and notification delivery with approved policy."
         ]
       },
       "sourceNextAction": "Preserve PC-04 question and test once-only return and late status under deterministic clock.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "priorSourceAssessments": [
+        {
+          "basis": "source inspection only; not owner acceptance",
+          "missingFrontend": [
+            "cancel applies late status and package return outside window; repeated cancel could append duplicate return; cancellation business decision PC-04 unresolved."
+          ],
+          "remainingBackend": [
+            "Atomic idempotent cancellation/refund with approved policy."
+          ]
+        }
+      ]
     },
     {
       "id": "RS-11",
