@@ -1,0 +1,64 @@
+{
+  "batch": 38,
+  "sourceState": "PASS final frozen1c0a runtime: production/dev/library complete; root integration/realAD02 acceptance pending",
+  "canonicalRootFingerprint": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+  "rootConventionExcludingCaptureDatesSha256": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+  "fullSrcAndViteSha256": "7a8707dcef3205678dd11ca4b6954dbb4794949d222ff397e917912a57e139c2",
+  "historicalProofs": [
+    "batch-38-studio-build.json (abe6 beforeD02)",
+    "batch-38-studio-build-d02-historical.json (201a productionfunctionalPASS/visualFAIL)"
+  ],
+  "buildAttempts": [
+    {
+      "session": 66169,
+      "outcome": "EXIT0",
+      "sourceUnchangedDuringBuild": true
+    }
+  ],
+  "rendered": {
+    "productionSession": 89503,
+    "devstatesSession": 25520,
+    "librarySession": 46522,
+    "all": "PASS, browsers closed",
+    "captures": 82,
+    "finalProof": "batch-38-studio-final.json"
+  },
+  "fingerprintMethod": "Canonical ROOT: sorted relative src paths (component-wise Path ordering), excluding exactly src/app/captureDates.ts; UTF8 path + raw file bytes, no delimiters; then vite.config.ts raw bytes only (no Vite path). fullSrcAndViteSha256 is a separate alternative including captureDates.ts.",
+  "immutableDirectory": "/workspace/hoy-qa-archive/studio-cancel-proof-7a8707dcef32",
+  "snapshotMethod": "Hardlinks under /workspace; no further build/source edits; full tree hashes must remain identical before/after QA.",
+  "fullDistTreeSha256": "28d3b520ae6a1a79b174de2d84124bc4feeb9f83075f34e49e4ccfcbf0025ba2",
+  "snapshotTreeSha256": "28d3b520ae6a1a79b174de2d84124bc4feeb9f83075f34e49e4ccfcbf0025ba2",
+  "entry": "./assets/index-C72Tj17L.js",
+  "entrySha256": "06c16d3fc6218361f2ef9a7c74694c6a90510e01e9ac0185a68a821fd078ba0c",
+  "css": "./assets/index-BjqHoOBe.css",
+  "cssSha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+  "fullAssetsSha256": "f2e41cb9452bcb997548e1511a440ed963dfbdf051d1696a150c87c9e5b3ea5e",
+  "treeHashMethod": "Component-wise sorted relative file path UTF8 + file raw bytes, no delimiters.",
+  "recovery": {
+    "copyOutcome": "ENOSPC copying full dist into /tmp; partial copy never served or accepted; subsequent executor setup also failed ENOSPC.",
+    "rootRecovery": "Root removed ONLY incomplete /tmp/hoy-studio-cancel-proof-68b03d2ee4bc, then moved three known completed historical QA bundles to /workspace/hoy-qa-archive with before/after full tree hashes. No batch38 source/dist was removed or rebuilt.",
+    "newLocation": "/workspace/hoy-qa-archive/studio-cancel-proof-7a8707dcef32"
+  },
+  "typecheck": "Fullbuild final frozen tree EXIT0",
+  "httpProof": {
+    "base": "http://127.0.0.1:5270/",
+    "status": "PASS index/entry/CSS match corrected1c0a snapshot",
+    "browser": "Current-source suites next",
+    "afterQa": "PASS current entry/CSS still match frozen artifact"
+  },
+  "domain": {
+    "session": 58786,
+    "groups": 15,
+    "outcome": "PASS current-source actual MockProvider"
+  },
+  "standaloneTypecheck": {
+    "session": 75533,
+    "outcome": "EXIT0"
+  },
+  "afterQaFullDistTreeSha256": "28d3b520ae6a1a79b174de2d84124bc4feeb9f83075f34e49e4ccfcbf0025ba2",
+  "afterQaSnapshotTreeSha256": "28d3b520ae6a1a79b174de2d84124bc4feeb9f83075f34e49e4ccfcbf0025ba2",
+  "afterQaCanonicalRootFingerprint": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+  "globalGeneratedDiff": [
+    "src/app/captureDates.ts (root reconciliation only)"
+  ]
+}

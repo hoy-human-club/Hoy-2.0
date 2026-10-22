@@ -1,0 +1,21 @@
+{
+  "batch": 38,
+  "checks": [
+    "Zero/one/two attendees: every class/booking/return/audit write and quota rollback has no intermediate events; atomic exact return and capacity0; immutable original grants, after-start exact replay and changed-intent conflict; own readback proves return with original expiry, no body/contact receipt duplication.",
+    "Uniquely decoded legacy debit receives a newly linked return; original legacy debit/grant history is untouched.",
+    "Every required scoped table read rejection fails closed with no cancellation, return, receipt or partial events.",
+    "Missing/foreign actor, attendee, grant, debit or booking; unlinked/shared consumption; voucher, occupancy and duplicate preferences; foreign/duplicate query rows reject the whole operation. No inferred entitlement.",
+    "Receipt replay after start still requires fresh owned actor/session/attendee/booking/grant; deleted or reassigned rows cannot acknowledge success or create another return.",
+    "A frozen original lot remains frozen with unchanged original rows and zero usable balance; cancellation does not extend or thaw the purchase.",
+    "Nine non-admin roles and a non-mock provider are rejected before mutation; no production adapter calls.",
+    "Actual held SHA digest proves input snapshot plus original live actor callback, AbortSignal and now callback survive caller replacement for both review and command.",
+    "Actor deletion, staged abort and fresh clock crossing class start inside the actual atomic callback roll back before commit.",
+    "Lost acknowledgement replays exactly once after start; postcommit actor loss reports unconfirmed while preserving the committed cancellation (no false rollback claim).",
+    "Concurrent identical commands yield one cancellation/receipt/linked return.",
+    "Own readback requires canonical linked original terms, rejects foreign booking and uses no staff audit readership; generic/malformed returns are unverified.",
+    "Cancelled occurrence cannot offer a waitlist place and retains existing waitlist history; normal claim booking already rejects cancelled occurrence.",
+    "Held real digest actor-inactivation at end of review, command and own readback rejects stale success; staged and postcommit cases preserve honest commit semantics.",
+    "Exact current legacy customer closure rejects studio reason before any write, preventing unlinked immortal/duplicate returns; default customer deadline policy stays unchanged."
+  ],
+  "stage": "Domain regressions; rendered/build gates recorded separately."
+}

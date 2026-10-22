@@ -760,3 +760,8 @@ PR69 head13832d5 correctness CI email-edit production test failed on an invalid 
 - Durable recovery only: exact unverified39inventory/41 source bundles saved as evidence JSON with base/runtime/per-file hashes. Not imported, executed, accepted or deployed. Preserve original worktrees; actual compiler/browser gates still pending.
 
 - Recovery checkpoint: livePR69 unchanged54f37aa;38 current1c0a all local gates pass, proof pendingrootcheck;39 current522 fixture24/domain/hook22 pass, remainingQAexclusive;40 new2c2 localized source unexecuted;41/42 source bundles remain unverified. No38–42 application merge or owner/backend acceptance.
+Root visual review: current1c0a named command/lifecycle/library/contrast gates pass, but the legacy BookedPage ClassSummary still shows a confirmed mat caption below the studio-cancelled result. This is a remaining visual truthfulness gap, not a full acceptance pass. Root70 will guard that caption for studioCancelled/myCancelled and assert active bookings retain it; combined release waits for that fix/current proof. All82 final fictional images are mirrored locally with exact hashes under ignored M14, never committed.
+
+Protected-capture clarification: M14 schedule/pay screenshots remain local/ignored under explicit repository policy, even for synthetic fixtures. Per-file hashes are committed; upcoming CI Actions artifacts retain actual images. No public screenshot copy was committed or policy changed.
+
+- Root70 staged38 integration: narrow cancelled-seat caption guard and actual active/cancelled read-only regression added; fullbuild/current render pending. Protected captures remain excluded from publication; upcoming CI artifacts required.

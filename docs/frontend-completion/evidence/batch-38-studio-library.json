@@ -1,0 +1,524 @@
+{
+  "batch": 38,
+  "base": "http://127.0.0.1:5270",
+  "entry": "./assets/index-C72Tj17L.js",
+  "entrySha256": "06c16d3fc6218361f2ef9a7c74694c6a90510e01e9ac0185a68a821fd078ba0c",
+  "checks": [
+    "en/light: five actual-widget provider-free presentation states, EN/ES copy,390/1280 bounds, no interactive controls, zero DB writes/dispatch",
+    "en/dark: five actual-widget provider-free presentation states, EN/ES copy,390/1280 bounds, no interactive controls, zero DB writes/dispatch",
+    "es/light: five actual-widget provider-free presentation states, EN/ES copy,390/1280 bounds, no interactive controls, zero DB writes/dispatch",
+    "es/dark: five actual-widget provider-free presentation states, EN/ES copy,390/1280 bounds, no interactive controls, zero DB writes/dispatch"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "contrast": [
+    {
+      "lang": "en",
+      "theme": "light",
+      "width": 390,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "theme": "light",
+      "width": 1280,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "theme": "dark",
+      "width": 390,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "theme": "dark",
+      "width": 1280,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "theme": "light",
+      "width": 390,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "theme": "light",
+      "width": 1280,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "theme": "dark",
+      "width": 390,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "theme": "dark",
+      "width": 1280,
+      "rows": [
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-subject",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-p",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        },
+        {
+          "element": "emailpreview-foot xs muted",
+          "foreground": "rgb(28, 46, 66)",
+          "background": "rgb(251, 247, 239)",
+          "effectiveBackground": "rgb(251,247,239)",
+          "ratio": 12.939160264428175
+        }
+      ]
+    }
+  ],
+  "captures": "qa/studio-cancel (ignored fictional captures)",
+  "limits": [
+    "Presentation-only fixtures; no provider/session/business-row substitutes, authentication bypass or acceptance of production cancellation/delivery."
+  ]
+}
