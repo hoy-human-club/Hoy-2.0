@@ -1,0 +1,29 @@
+{
+  "baseCommit": "ede03f34190e06b5b4a9f502c9262036a76cb59f",
+  "runtimeFingerprint": "a1e273db618c8d47f769b8ef241f76de0b5030406b45c3485eeb36c6eaf24d16",
+  "fingerprintMethod": "SHA256 sorted src relative path + NUL + bytes + NUL, excluding src/app/captureDates.ts; then vite.config.ts same framing",
+  "buildExit": 0,
+  "immutableLocal": "/tmp/hoy-email-edit-qa-a1e273db618c",
+  "sourceStatus": "uncommitted repaired batch34, frozen build passed, rendered pending, not deployed",
+  "tests": {
+    "baselineAndDomain": "PASS",
+    "actualHook16": "PASS",
+    "typecheck": "PASS",
+    "productionRendered": "PENDING",
+    "devRendered": "PENDING"
+  },
+  "files": {
+    "src/modules/admin/EmailsPage.tsx": "a5b348aae61a12bc968b54942d0c20eec45929af8c2f8e6277ab38d9e07d5e6c",
+    "src/modules/admin/strings.ts": "91846d6d0c7eaa4c0d572911c7d249f36b6a7d635ee8dab6fe98cee184bcfd71",
+    "src/modules/admin/emailEdit.ts": "fbbc62218603b7d8df37c12f312edf26f1a371a15a5316de53130f02e4bed4ca",
+    "src/modules/admin/useEmailEdit.ts": "cd40e4951c763501611b8ac771387f873101cc6705f13415e6a8992b91337ef0",
+    "scripts/email-edit-harness.tsx": "e59aad2aa5a73737aa758bc173d88255fe0eee038a7f1bd7f72e142c5bc956d5",
+    "scripts/test-email-edit.mjs": "41a547c4b64f6ee9c427696d205f2a05e505b187721863d2d2521dfb62998fce",
+    "scripts/test-email-edit-hook.mjs": "1f4035dfc9217cc1dab132d9e981bed4d0bf2ae58b8e34499f8261efab66de41",
+    "scripts/test-email-edit-ui.mjs": "193affbb9cee61720f88d2da4284fe9f92f999d0c02acbfd9d064256f377aa0c",
+    "scripts/test-email-edit-states.mjs": "633fa00fff9c4632b0dd4ee3c76da15b87e160b9a0f644dfb3484ef730aff695",
+    "scripts/fixtures/email-edit-before.txt": "677dbf1a98d64c6e005abef19429320fe3d67b305fab083d23a8a6196be5428b"
+  },
+  "supersededRuntimeFingerprint": "0b2100510dc74f272eeed35220347d247563cdb38ab5f71e2eee280e4ecbff28",
+  "additionalActualReproduction": "Held template read returned owned result after actor reassigned foreign; corrected test rejects. Caller actor mutation and final acknowledgement reassignment are covered."
+}

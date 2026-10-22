@@ -23,6 +23,8 @@ import { APP, EMAIL_AUDIENCES, EMAIL_CATALOG, EMAIL_PRIORITIES, adminNotesFor, e
 import { Drawer } from '../../components/organism/Drawer/Drawer';
 import { parseEmailBody, type EmailRow, type ParsedBody } from './emailTest';
 import { useEmailRows, useEmailTest } from './useEmailTest';
+import { useEmailEdit } from './useEmailEdit';
+import type { EmailPatch, EmailVersionAudit } from './emailEdit';
 import './admin.css';
 import './emailTest.css';
 
@@ -64,6 +66,7 @@ export function EmailsPage() {
   const profilesRead=useEmailRows<ProfileRow>(data,'profiles',{where:{tenant_id:tenant.id,user_id:ids}},context);
   const byId=new Map(usersRead.rows.map(u=>[u.id,{name:profilesRead.rows.find(p=>p.user_id===u.id)?.full_name??u.email}]));
   const reads=[templateRead,logRead,versionRead,usersRead,profilesRead],readError=reads.some(r=>r.status==='error'),readsReady=reads.every(r=>r.status==='ready');
+  const edit=useEmailEdit(row?.id);
   const test=useEmailTest(data,{id:user.id,role},row?.id,row?.version,preview);
   const canWrite = can('content.write');
   const missing = EMAIL_CATALOG.filter((s) => !templates.some((x) => x.key === s.key));
@@ -133,19 +136,25 @@ export function EmailsPage() {
             <p className="xs muted">{t('admin.emails.deepLink')} · {t('admin.emails.dianNote')}</p>
           </section>
           <aside className="emails-side stack">
+            <section className="stack-sm" data-email-edit-state>
+              <Notice>{t('admin.emails.edit.mock')}</Notice>
+              {edit.error&&<Notice tone="warn">{t(`admin.emails.edit.${edit.error}`)}<div className="row wrap">{edit.canRetry&&<Button size="sm" onClick={()=>void edit.retry().catch(()=>{})}>{t('admin.emails.edit.retry')}</Button>}<Button size="sm" variant="ghost" onClick={()=>void edit.reload()}>{t('admin.emails.edit.reload')}</Button></div></Notice>}
+              {edit.busy&&<Notice action={<Button size="sm" variant="secondary" onClick={edit.cancel}>{t('admin.emails.edit.cancel')}</Button>}>{t('admin.emails.edit.busy')}</Notice>}
+              {edit.saved&&<Notice tone="success">{t('admin.emails.edit.saved',{v:edit.saved.version})}</Notice>}
+            </section>
             <div className="row wrap" role="tablist">
               <Chip selected={tab === 'edit'} onClick={() => setTab('edit')}>{t('core.common.edit')}</Chip>
               <Chip selected={tab === 'versions'} onClick={() => setTab('versions')}>{t('admin.emails.versions')} · {versions.length}</Chip>
               <Chip selected={tab === 'log'} onClick={() => setTab('log')}>{t('admin.emails.log')}</Chip>
             </div>
-            {tab === 'edit' && <Editor key={row.id} row={row} readOnly={!canWrite||!readsReady} onSave={async (patch, before) => { await data.update('email_templates', row.id, { ...patch, version: row.version + 1 }); await audit('email_template.update', 'email_templates', row.id, { before, after: patch, version: row.version + 1 }); }} testDisabled={!readsReady} onTest={test.openPreview} />}
+            {tab === 'edit' && <Editor key={`${context}:${row.id}`} row={row} acknowledged={edit.saved} busy={edit.busy} onChanged={edit.changed} readOnly={!canWrite||!readsReady||edit.error==='read'||edit.error==='missing'} onSave={(patch,basis)=>edit.run({kind:'edit',basis,patch})} testDisabled={!readsReady||edit.busy} onTest={test.openPreview} />}
             {tab === 'versions' && (
               <Card padding="sm">
                 {versions.length === 0 && <p className="small muted" style={{ padding: 'var(--sp-sm)' }}>{t('admin.emails.versions.empty')}</p>}
                 {versions.map((v) => (
                   <div key={v.id} className="emails-version">
                     <div className="grow"><div className="small"><strong>{v.action.replace('email_template.', '')}</strong>{v.diff?.version != null ? ` · v${String(v.diff.version)}` : ''}</div><div className="xs muted">{formatDateTime(v.created_at, lang)} · {byId.get(v.actor_id ?? '')?.name ?? '—'}</div></div>
-                    {canWrite && v.action === 'email_template.update' && v.diff?.before != null && <Button size="sm" variant="ghost" onClick={async () => { const before = v.diff!.before as Record<string, unknown>; await data.update('email_templates', row.id, { ...before, version: row.version + 1 }); await audit('email_template.rollback', 'email_templates', row.id, { to: v.id, version: row.version + 1 }); }}>{t('admin.emails.rollback')}</Button>}
+                    {canWrite && v.action === 'email_template.update' && v.diff?.before != null && <Button size="sm" variant="ghost" disabled={!readsReady||edit.busy||edit.error==='read'||edit.error==='missing'} onClick={()=>void edit.run({kind:'rollback',basis:row,target:v as EmailVersionAudit}).catch(()=>{})}>{t('admin.emails.rollback')}</Button>}
                   </div>
                 ))}
               </Card>
@@ -208,47 +217,49 @@ function Facts({ row }: { row: EmailRow }) {
   );
 }
 
-function Editor({ row, readOnly, testDisabled, onSave, onTest }: { row: EmailRow; readOnly: boolean; testDisabled:boolean; onSave: (patch: Partial<EmailRow>, before: Record<string, unknown>) => Promise<void>; onTest: () => void }) {
+function Editor({ row, readOnly, testDisabled, onSave, onTest, acknowledged, busy, onChanged }: { row: EmailRow; readOnly: boolean; testDisabled:boolean; onSave: (patch: EmailPatch, basis:EmailRow) => Promise<EmailRow>; onTest: () => void; acknowledged:EmailRow|null;busy:boolean;onChanged:()=>void }) {
   const { t } = useI18n();
-  const init = useMemo(() => { const b = parseBody(row); return { name: row.name, audience: audienceOf(row), priority: (priorityOf(row) ?? '') as EmailPriority | '', trigger: row.trigger, subjectEs: row.subject.es, subjectEn: row.subject.en ?? '', bodyEs: b.es, bodyEn: b.en, ctaLabelEs: b.cta?.label.es ?? '', ctaLabelEn: b.cta?.label.en ?? '', ctaHref: b.cta?.href ?? '', active: row.active }; }, [row]);
+  const blocked=readOnly||busy;
+  const [basis,setBasis]=useState(row);
+  const fields=(r:EmailRow)=>{const b=parseBody(r);return {name:r.name,audience:audienceOf(r),priority:(priorityOf(r)??'') as EmailPriority|'',trigger:r.trigger,subjectEs:r.subject.es,subjectEn:r.subject.en??'',bodyEs:b.es,bodyEn:b.en,ctaLabelEs:b.cta?.label.es??'',ctaLabelEn:b.cta?.label.en??'',ctaHref:b.cta?.href??'',active:r.active};};
+  const init=useMemo(()=>fields(basis),[basis]);
   const [d, setD] = useState(init);
-  const [saving, setSaving] = useState(false);
-  useEffect(() => setD(init), [init]);
+  useEffect(()=>{if(acknowledged?.id===basis.id){setBasis(acknowledged);setD(fields(acknowledged));}},[acknowledged]);
+  const update=(next:typeof d)=>{onChanged();setD(next);};
   const dirty = JSON.stringify(d) !== JSON.stringify(init);
   const missingEn = !d.subjectEn.trim() || !d.bodyEn.trim();
   const vars = varsIn(d.subjectEs, d.bodyEs, d.subjectEn, d.bodyEn, d.ctaHref);
   const save = async () => {
-    setSaving(true);
     try {
       const body: ParsedBody = { es: d.bodyEs, en: d.bodyEn, cta: d.ctaHref ? { label: { es: d.ctaLabelEs, en: d.ctaLabelEn }, href: d.ctaHref } : undefined };
-      await onSave({ name: d.name, audience: d.audience, priority: d.priority || null, trigger: d.trigger, subject: { es: d.subjectEs, en: d.subjectEn }, body_mjml: JSON.stringify(body), active: d.active && !missingEn }, { name: row.name, audience: row.audience, priority: row.priority, trigger: row.trigger, subject: row.subject, body_mjml: row.body_mjml, active: row.active });
-    } finally { setSaving(false); }
+      await onSave({ name: d.name, audience: d.audience, priority: d.priority || null, trigger: d.trigger, subject: { es: d.subjectEs, en: d.subjectEn }, body_mjml: JSON.stringify(body), active: d.active && !missingEn }, basis);
+    } catch { /* The scoped command notice contains the error; retain the draft for retry/review. */ }
   };
   return (
     <div className="stack-sm">
-      <Field label={t('admin.emails.f.name')}>{(id) => <Input id={id} disabled={readOnly} value={d.name} onChange={(e) => setD({ ...d, name: e.target.value })} />}</Field>
+      <Field label={t('admin.emails.f.name')}>{(id) => <Input id={id} disabled={blocked} value={d.name} onChange={(e) => update({ ...d, name: e.target.value })} />}</Field>
       <div className="grid grid-2">
-        <Field label={t('admin.emails.f.audience')}>{(id) => <Select id={id} disabled={readOnly} value={d.audience} onChange={(e) => setD({ ...d, audience: e.target.value as EmailAudience })}>{EMAIL_AUDIENCES.map((a) => <option key={a} value={a}>{t(`admin.emails.audience.${a}`)}</option>)}</Select>}</Field>
-        <Field label={t('admin.emails.f.priority')}>{(id) => <Select id={id} disabled={readOnly} value={d.priority} onChange={(e) => setD({ ...d, priority: e.target.value as EmailPriority | '' })}><option value="">{t('admin.emails.priority.none')}</option>{EMAIL_PRIORITIES.map((p) => <option key={p} value={p}>{t(`admin.emails.priority.${p}`)}</option>)}</Select>}</Field>
+        <Field label={t('admin.emails.f.audience')}>{(id) => <Select id={id} disabled={blocked} value={d.audience} onChange={(e) => update({ ...d, audience: e.target.value as EmailAudience })}>{EMAIL_AUDIENCES.map((a) => <option key={a} value={a}>{t(`admin.emails.audience.${a}`)}</option>)}</Select>}</Field>
+        <Field label={t('admin.emails.f.priority')}>{(id) => <Select id={id} disabled={blocked} value={d.priority} onChange={(e) => update({ ...d, priority: e.target.value as EmailPriority | '' })}><option value="">{t('admin.emails.priority.none')}</option>{EMAIL_PRIORITIES.map((p) => <option key={p} value={p}>{t(`admin.emails.priority.${p}`)}</option>)}</Select>}</Field>
       </div>
-      <Field label={t('admin.emails.f.trigger')} hint={t('admin.emails.f.trigger.hint')}>{(id) => <Input id={id} disabled={readOnly} value={d.trigger} onChange={(e) => setD({ ...d, trigger: e.target.value })} className="mono" />}</Field>
-      <Field label={`${t('admin.emails.f.subject')} · ES`} required>{(id) => <Input id={id} disabled={readOnly} value={d.subjectEs} onChange={(e) => setD({ ...d, subjectEs: e.target.value })} />}</Field>
-      <Field label={`${t('admin.emails.f.subject')} · EN`}>{(id) => <Input id={id} disabled={readOnly} value={d.subjectEn} onChange={(e) => setD({ ...d, subjectEn: e.target.value })} />}</Field>
-      <Field label={`${t('admin.emails.f.body')} · ES`} required>{(id) => <textarea id={id} className="input adm-textarea" rows={6} disabled={readOnly} value={d.bodyEs} onChange={(e) => setD({ ...d, bodyEs: e.target.value })} />}</Field>
-      <Field label={`${t('admin.emails.f.body')} · EN`}>{(id) => <textarea id={id} className="input adm-textarea" rows={6} disabled={readOnly} value={d.bodyEn} onChange={(e) => setD({ ...d, bodyEn: e.target.value })} />}</Field>
+      <Field label={t('admin.emails.f.trigger')} hint={t('admin.emails.f.trigger.hint')}>{(id) => <Input id={id} disabled={blocked} value={d.trigger} onChange={(e) => update({ ...d, trigger: e.target.value })} className="mono" />}</Field>
+      <Field label={`${t('admin.emails.f.subject')} · ES`} required>{(id) => <Input id={id} disabled={blocked} value={d.subjectEs} onChange={(e) => update({ ...d, subjectEs: e.target.value })} />}</Field>
+      <Field label={`${t('admin.emails.f.subject')} · EN`}>{(id) => <Input id={id} disabled={blocked} value={d.subjectEn} onChange={(e) => update({ ...d, subjectEn: e.target.value })} />}</Field>
+      <Field label={`${t('admin.emails.f.body')} · ES`} required>{(id) => <textarea id={id} className="input adm-textarea" rows={6} disabled={blocked} value={d.bodyEs} onChange={(e) => update({ ...d, bodyEs: e.target.value })} />}</Field>
+      <Field label={`${t('admin.emails.f.body')} · EN`}>{(id) => <textarea id={id} className="input adm-textarea" rows={6} disabled={blocked} value={d.bodyEn} onChange={(e) => update({ ...d, bodyEn: e.target.value })} />}</Field>
       <div className="grid grid-2">
-        <Field label={`${t('admin.emails.f.cta')} · ES`}>{(id) => <Input id={id} disabled={readOnly} value={d.ctaLabelEs} onChange={(e) => setD({ ...d, ctaLabelEs: e.target.value })} />}</Field>
-        <Field label={`${t('admin.emails.f.cta')} · EN`}>{(id) => <Input id={id} disabled={readOnly} value={d.ctaLabelEn} onChange={(e) => setD({ ...d, ctaLabelEn: e.target.value })} />}</Field>
+        <Field label={`${t('admin.emails.f.cta')} · ES`}>{(id) => <Input id={id} disabled={blocked} value={d.ctaLabelEs} onChange={(e) => update({ ...d, ctaLabelEs: e.target.value })} />}</Field>
+        <Field label={`${t('admin.emails.f.cta')} · EN`}>{(id) => <Input id={id} disabled={blocked} value={d.ctaLabelEn} onChange={(e) => update({ ...d, ctaLabelEn: e.target.value })} />}</Field>
       </div>
-      <Field label={t('admin.emails.f.deepLink')}>{(id) => <Input id={id} disabled={readOnly} value={d.ctaHref} onChange={(e) => setD({ ...d, ctaHref: e.target.value })} className="mono" placeholder={`${APP}…`} />}</Field>
+      <Field label={t('admin.emails.f.deepLink')}>{(id) => <Input id={id} disabled={blocked} value={d.ctaHref} onChange={(e) => update({ ...d, ctaHref: e.target.value })} className="mono" placeholder={`${APP}…`} />}</Field>
       <div className="stack-sm"><div className="eyebrow">{t('admin.emails.vars')}</div><div className="row wrap">{vars.map((v) => <code key={v} className="emails-var">{`{{${v}}}`}</code>)}{vars.length === 0 && <span className="xs muted">—</span>}</div></div>
       <div className="row-between wrap">
-        <Toggle size="sm" checked={d.active} disabled={readOnly || missingEn} label={t('admin.emails.f.active')} onChange={(on) => setD({ ...d, active: on })} />
+        <Toggle size="sm" checked={d.active} disabled={blocked || missingEn} label={t('admin.emails.f.active')} onChange={(on) => update({ ...d, active: on })} />
         {missingEn && <span className="xs muted">{t('admin.emails.missingEn')}</span>}
       </div>
       <div className="row-between wrap">
         <Button size="sm" variant="secondary" disabled={testDisabled} onClick={onTest}>{t('admin.emails.test')}</Button>
-        {!readOnly && <Button size="sm" disabled={!dirty || !d.subjectEs.trim() || !d.bodyEs.trim()} loading={saving} onClick={save}>{t('admin.emails.saveVersion', { v: row.version + 1 })}</Button>}
+        {!readOnly && <Button size="sm" disabled={busy || !dirty || !d.subjectEs.trim() || !d.bodyEs.trim()} loading={busy} onClick={save}>{t('admin.emails.saveVersion', { v: basis.version + 1 })}</Button>}
       </div>
       {dirty && <p className="xs muted">{t('admin.emails.unsaved')}</p>}
     </div>
