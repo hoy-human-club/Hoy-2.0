@@ -732,3 +732,5 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - PR67 finalhead1560f23:10 workflows passed/all12 correctness scopes passed; service-catalog excluded-count assertion failed. Controlled browser confirmed a valid-generated-UUID PAN false positive; bounded model/regression fix is in fresh build/affected QA. Old CI exact cause remains unresolved; no merge or deployment.
 
 - Catalog UUID correction: freshbuild/domain and both affectedactualUI suites passed atb3f906de…, preserving all card/credential tests. Next exactheadCI/release pending; earlier30/31 localmatrix remains explicitly8e4ee559….
+
+Root visual review: current1c0a named command/lifecycle/library/contrast gates pass, but the legacy BookedPage ClassSummary still shows a confirmed mat caption below the studio-cancelled result. This is a remaining visual truthfulness gap, not a full acceptance pass. Root70 will guard that caption for studioCancelled/myCancelled and assert active bookings retain it; combined release waits for that fix/current proof. All82 final fictional images are durably mirrored with exact hashes.

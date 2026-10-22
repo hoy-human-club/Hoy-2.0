@@ -1,9 +1,9 @@
 {
   "batch": 38,
-  "sourceState": "Frozen runtime; awaiting serial full-build retry and rendered QA",
+  "sourceState": "HISTORICAL runtime proof: superseded by provider-free D02 five-state presentation correction; new source build/rendered gates pending",
   "fullSrcAndViteSha256": "68b03d2ee4bc01050034e802a096bb128ffeb78f6ad8798a48e3f0608dd160f3",
   "rootConventionExcludingCaptureDatesSha256": "abe6a716367d8c38377b61a5cb7f4375688ab23a8fffb857592139983df85170",
-  "fingerprintMethod": "Lexically sorted src relative paths + bytes, then vite.config.ts bytes; no delimiters. Secondary root convention excludes generated captureDates.ts.",
+  "fingerprintMethod": "Canonical ROOT: sorted relative src paths (component-wise Path ordering), excluding exactly src/app/captureDates.ts; UTF8 path + raw file bytes, no delimiters; then vite.config.ts raw bytes only (no Vite path). fullSrcAndViteSha256 is a separate alternative including captureDates.ts.",
   "buildAttempts": [
     {
       "session": 3070,
@@ -11,16 +11,44 @@
       "logTail": "manual-lint: 28 chapters \u00d7 2 languages, 0 violations; Killed; no Vite output",
       "cause": "Not established; no artifact accepted",
       "sourceUnchangedDuringBuild": true
+    },
+    {
+      "session": 38232,
+      "outcome": "EXIT0",
+      "sourceUnchangedDuringBuild": true
     }
   ],
   "domain": "Final exact runtime test-studio-cancel.mjs PASS15 groups (session76274)",
   "baseline": "Actual original MockProvider/Map:4 regressions confirmed",
-  "typecheck": "Standalone EXIT0 before final known-entitlement/receipt-shape checks; final fullbuild pending",
+  "typecheck": "Fullbuild final frozen tree EXIT0",
   "rendered": "NOT RUN; queued after coordinator priority suites",
   "globalGeneratedDiff": [
     "src/app/captureDates.ts (leave for root regeneration)"
   ],
   "limits": [
     "Fictional frontend mock only; AD02 real email/durable backend/server isolation remains unverified."
-  ]
+  ],
+  "canonicalRootFingerprint": "abe6a716367d8c38377b61a5cb7f4375688ab23a8fffb857592139983df85170",
+  "immutableDirectory": "/workspace/hoy-qa-archive/studio-cancel-proof-68b03d2ee4bc",
+  "snapshotMethod": "Hardlinks under /workspace; no further build/source edits; full tree hashes must remain identical before/after QA.",
+  "fullDistTreeSha256": "be66f75cb27323815def08bfe8f4f1083087d283a20010a1d80cacae25591078",
+  "snapshotTreeSha256": "be66f75cb27323815def08bfe8f4f1083087d283a20010a1d80cacae25591078",
+  "entry": "./assets/index-DU3paoxF.js",
+  "entrySha256": "48daeae3664d5abd225e4bddc1df1211b838c0634c612ba2821e1c0827d78e59",
+  "css": "./assets/index-BjqHoOBe.css",
+  "cssSha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+  "fullAssetsSha256": "1c7508c36de2d2c6ee1c6c71d2ff7ca408b6f56a262fa5f25500b265c4f983a5",
+  "treeHashMethod": "Component-wise sorted relative file path UTF8 + file raw bytes, no delimiters.",
+  "recovery": {
+    "copyOutcome": "ENOSPC copying full dist into /tmp; partial copy never served or accepted; subsequent executor setup also failed ENOSPC.",
+    "rootRecovery": "Root removed ONLY incomplete /tmp/hoy-studio-cancel-proof-68b03d2ee4bc, then moved three known completed historical QA bundles to /workspace/hoy-qa-archive with before/after full tree hashes. No batch38 source/dist was removed or rebuilt.",
+    "newLocation": "/workspace/hoy-qa-archive/studio-cancel-proof-68b03d2ee4bc"
+  },
+  "httpProof": {
+    "base": "http://127.0.0.1:5270/",
+    "status": "PASS index/entry/CSS match frozen snapshot hashes",
+    "browser": "NOT STARTED; coordinator queue hold"
+  },
+  "historicalSnapshot": true,
+  "supersededReason": "D02 metadata declared five states but originally rendered only an empty example. Narrow presentation props and five actual-widget provider-free usages added after this snapshot; no ledger/policy command change."
 }

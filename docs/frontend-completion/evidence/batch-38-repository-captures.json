@@ -1,0 +1,427 @@
+{
+  "state": "Current82 exact final fiction-only screenshots mirrored without modification; one explicitly historical failed-contrast capture separate",
+  "sourceRuntime": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+  "captureSafety": {
+    "confirmed": "All82 finalcaptures come only from fresh isolated browser contexts using actual MockProvider synthetic seed/demo UI plus unmistakable QA FICTIONAL fixture records or provider-free bilingual fictional component examples.",
+    "excluded": "No real/private customer data, source correspondence, contact export, tokens, raw keys, credentials or real payment data. Existing teacher/catalog labels are the demo/public-facing catalog, not customer records. No real provider or external recipient was used.",
+    "durability": "Root authorized to mirror exact final82, preserving listed SHA256 hashes, into docs/screenshots/M-14/studio-cancel/ or appropriate E03/D02 groups with a hash mapping receipt/page links. This own receipt lists pre-mirror local sources; root performs the durable-copy and Git lane.",
+    "historicalBeforeContrast": "qa/studio-cancel/historical-201a-es-390-dark-review.jpg is the same fictional fixture, safe to mirror only with explicit historical/failedcontrast marking. Earlier failure captures may remain local/hashed."
+  },
+  "copies": [
+    {
+      "source": "qa/studio-cancel/en-1280-dark-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-library-state-0.jpg",
+      "sha256": "1a84c7f9913e87cb2f8957984b8c9267934866e960d57c10adec5ea8a20b949c"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-library-state-1.jpg",
+      "sha256": "1a84c7f9913e87cb2f8957984b8c9267934866e960d57c10adec5ea8a20b949c"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-library-state-2.jpg",
+      "sha256": "4821bc26b1e621812f817f1d2c04a6fcb197c6d6730dd882d274615cd676ed2b"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-library-state-3.jpg",
+      "sha256": "6fe3131056b1a92a9497fe7431998c50a4112cf8e3561906ce7b81493db0961d"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-library-state-4.jpg",
+      "sha256": "159944bac487e1bf8c32ea50aa49bc28c05ce75155f6fa6b5bb6081cac304cd9"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-own-return.jpg",
+      "sha256": "72ce67b09e3d9f8d925527143a78b82be41a9d2e89908e8c666bc90bf81f0195"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-review.jpg",
+      "sha256": "1501824c5a8a6cb22575c2983b981991536e196db50921e2888f7ff614f50873"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-success.jpg",
+      "sha256": "90e7d529f0dc9059318cfa02cd27fb31ea098af80c0d6f0b65355e9172aaf7f3"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-dark-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-dark-waitlist.jpg",
+      "sha256": "c2ae6e21cb092020af2753d7081a23c90a17b465ee0f7f73e7c751d694fb2a91"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-library-state-0.jpg",
+      "sha256": "ed6bbe11a093760f18f15195a16de675f99885509aadac878446d0fa9583caa9"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-library-state-1.jpg",
+      "sha256": "ed6bbe11a093760f18f15195a16de675f99885509aadac878446d0fa9583caa9"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-library-state-2.jpg",
+      "sha256": "3be4aded3c388f5c46056535a70f8c65e411cf1ebd61496a3c7216e32f98b1cf"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-library-state-3.jpg",
+      "sha256": "d5e44556ae441c7ba55adcdcd12d7eaa5081451434c5b38b9e12658b00f2b26b"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-library-state-4.jpg",
+      "sha256": "2d2f4ea8cae018837efa560d26829522b038308739c0dd360bb043548c5ed701"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-own-return.jpg",
+      "sha256": "13613fa80b6918242dc991c25770695c5ff76f262b895cb49fe2e279c9d680c7"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-retry.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-retry.jpg",
+      "sha256": "29c689d2f8583fbe0356b7ebae474deb5fd70db6d31bc21e408baec284cc732f"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-review.jpg",
+      "sha256": "ade008b2c643b0a993dc0350e4c929b3e54e45644a3d5868ae9be068e089cc79"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-success.jpg",
+      "sha256": "4509dedcc3de9bfbfa5366fa6f39603b12844b4af3abf4fbf3f21b152b6e5ab8"
+    },
+    {
+      "source": "qa/studio-cancel/en-1280-light-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-1280-light-waitlist.jpg",
+      "sha256": "6d735a9e74d78d9d93b0436e4301496a63b6f0961865d263bf690c5f3354337e"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-library-state-0.jpg",
+      "sha256": "e455cfe7b18ed0535fe933acd610e7f8b5848bd587fe6e302e0fc5c4d9dc5dd9"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-library-state-1.jpg",
+      "sha256": "e455cfe7b18ed0535fe933acd610e7f8b5848bd587fe6e302e0fc5c4d9dc5dd9"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-library-state-2.jpg",
+      "sha256": "4db4a713e5f77b24b13ec393d335d89c5bce57732e8960c22faff6029bf8c9b2"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-library-state-3.jpg",
+      "sha256": "249fea6dcb029ebfbfcf26f9207ae9093fb2428f67e9e777cabb4fe6c5fc091d"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-library-state-4.jpg",
+      "sha256": "302213faba9eb2d06262b0da3ca15f67b8847a6242af8ad3a034a155f8b7ff20"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-own-return.jpg",
+      "sha256": "5baf7f59e663c526cb97b6f4fd5dce0bf0ba72a5c8583ae3335f9d354100dbca"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-review.jpg",
+      "sha256": "229947e0afee4882d47ca5854d359775da7eb9d6320a967865e636415c2e2464"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-success.jpg",
+      "sha256": "112e89334e2379e33333fc2500ca5545f099800a0523acc08a1630c465f564ac"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-dark-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-dark-waitlist.jpg",
+      "sha256": "366d8765732f1ec1665ebb1009d64fa60b2400c5e087c8779f94aa63e94efa02"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-library-state-0.jpg",
+      "sha256": "0ac05df9c2177d37dd2ba47b9450db4391e6aeaee55b3dd975ff2f4125a6f080"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-library-state-1.jpg",
+      "sha256": "0ac05df9c2177d37dd2ba47b9450db4391e6aeaee55b3dd975ff2f4125a6f080"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-library-state-2.jpg",
+      "sha256": "c08720d656985c5268e4472ad290b308c62140ab324af46a1699729033d70b89"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-library-state-3.jpg",
+      "sha256": "ca8ce689934470f719aa16e9ba70be505c1b16e55f41044f72f63b0a62af66ef"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-library-state-4.jpg",
+      "sha256": "5de8a2da6ebce83728ee6fd663973085042522b7ab984ef11d4595f2856c8198"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-own-return.jpg",
+      "sha256": "9f5a17a017778273abdf9c6bc1cd983a27f0a474192260c1d9c7a5dcf9eb2cf4"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-retry.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-retry.jpg",
+      "sha256": "f47d3040fe555ef6cf0db0c73494dda1e1ab0fe14687c5893ebc95bc67dcdbca"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-review.jpg",
+      "sha256": "d10e1aa9993a91327f1afc0ed75512b820912268bd9ffe1bc2ed83fa6f5c6c6f"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-success.jpg",
+      "sha256": "351aefa60ad51ca04fac5c196c73705ef7b54d58d312b7814f2f1285f5a9ac49"
+    },
+    {
+      "source": "qa/studio-cancel/en-390-light-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-390-light-waitlist.jpg",
+      "sha256": "53a3e1e0e66612309c4eabdeb541ede93bab2133689fe2cb445c438dd8a08170"
+    },
+    {
+      "source": "qa/studio-cancel/en-dev-afterstart-replay.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-dev-afterstart-replay.jpg",
+      "sha256": "0b35ec55316fc9a7d9fe7e159a71bc4f2e96c11a727ab7707cce7e8f09f41f8b"
+    },
+    {
+      "source": "qa/studio-cancel/en-dev-loading.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-dev-loading.jpg",
+      "sha256": "69577657f9f8dcab0f888edd6a5d11af51f3419e9f2d269f9667cbb37fd24b7d"
+    },
+    {
+      "source": "qa/studio-cancel/en-dev-stopped.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/en-dev-stopped.jpg",
+      "sha256": "afe0691af8ec3c322686b8f5bd06b8796133099a67e0abb82ccbe7b6d6e5681d"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-library-state-0.jpg",
+      "sha256": "9d2cca1ca64106c339f45fa7c55756bc20c4645414a118162b5041249b4ba576"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-library-state-1.jpg",
+      "sha256": "9d2cca1ca64106c339f45fa7c55756bc20c4645414a118162b5041249b4ba576"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-library-state-2.jpg",
+      "sha256": "87976d6ce59c9d8548ae96a4be0f17835120898eb80380bf6d485b3c4f73e6cf"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-library-state-3.jpg",
+      "sha256": "42918a2a2b22da2d41eb67add9b8d9388beda56e37c01f2efd81ef0a3b777360"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-library-state-4.jpg",
+      "sha256": "97370debf1685ca1d328cbe97a5359aafc364cfb609dbacf95295b44dfc924ab"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-own-return.jpg",
+      "sha256": "d5f984241013c5e4338bab61fc5a52ad6b8f17651e6450b39f258eea1792022b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-review.jpg",
+      "sha256": "586873360673d77622e9b3f6733e93ff80be29c0c67a40cbca12c399c91d003b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-success.jpg",
+      "sha256": "633f87152772729a1fb3c4e38bf3c53aa0dee470be083f4b56ac7d58eb6d3eb6"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-dark-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-dark-waitlist.jpg",
+      "sha256": "ea36197ffe5ccdcb86a86a7dce645df2d3ef2d499c742a7a2dfd67e4efbf4344"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-library-state-0.jpg",
+      "sha256": "c2cb23015cbca005880cc540a73dd4e790336550b2bc13cd7a6ac23d79ff929b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-library-state-1.jpg",
+      "sha256": "c2cb23015cbca005880cc540a73dd4e790336550b2bc13cd7a6ac23d79ff929b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-library-state-2.jpg",
+      "sha256": "89049992c59a49d4da1f5ca10495d829b4478b98215e7aca8a0950ebbf94aa89"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-library-state-3.jpg",
+      "sha256": "4955345b8c0e3f9b8eb6d69e2e0ad1b258c6fa4c1c4de3b8ea4d709f1d2e574b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-library-state-4.jpg",
+      "sha256": "e4d1594931b7bb135b6cedf8adf2b90cd9b2a23dc315fd43e6dde8a37ab3c270"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-own-return.jpg",
+      "sha256": "10a77d00a9263a03724f18dcca63d20c88782b837f9dbbf0efa387c32403853b"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-retry.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-retry.jpg",
+      "sha256": "be4fb9ef0025fe0922082e68749e8a88f3e7bf11d727b1c83bb1189f2328261a"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-review.jpg",
+      "sha256": "9feef6eea35e2b7c9f0b3fee83a46d8e2e2f9e35ae12b38fee5cb63c7cfea31c"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-success.jpg",
+      "sha256": "ee4ea1497925a39dc91e298b6d1357ed67e57d4d3f9fcf58b541f2395aad5991"
+    },
+    {
+      "source": "qa/studio-cancel/es-1280-light-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-1280-light-waitlist.jpg",
+      "sha256": "55ae29ee440bb90750d80eb174a10a8bc55e02ef0ae1e23cd56c76dd88ed1c77"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-library-state-0.jpg",
+      "sha256": "de57d600fa5168578c081c039ead0b0d36508d2c6cacdabd742111cc46b76ebd"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-library-state-1.jpg",
+      "sha256": "de57d600fa5168578c081c039ead0b0d36508d2c6cacdabd742111cc46b76ebd"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-library-state-2.jpg",
+      "sha256": "e74a87d981ac9d9694f1d396e948be2963331922ddf261dc57c129a46a2b6eaf"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-library-state-3.jpg",
+      "sha256": "8c460d184792ba12f30fcb3fdfa4a248025aa95712f96c9703a365ac7838c8e2"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-library-state-4.jpg",
+      "sha256": "ae2f28b60b01d901e6ad916c6992888c3b3367ef821f604ce608224a3bdd2716"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-own-return.jpg",
+      "sha256": "4c49c363eade605d80947d0af56e0bfba17f16c26003115a1efe71cf1d999f80"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-review.jpg",
+      "sha256": "dd590f1bf8fb185bcc8cb911cbd6a20c7fafc1c1b167e39f9eb255bb734b7da6"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-success.jpg",
+      "sha256": "86180da8c77f3a76503a9b88c7f5eb8a900f4a7877f53f9611d137d83449a3f5"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-dark-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-dark-waitlist.jpg",
+      "sha256": "8759e55b67cf3c6a51ba0c4bad291aef92acf31af14944af986045f00ee4fb52"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-library-state-0.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-library-state-0.jpg",
+      "sha256": "724b3b86c75843d26636005ea9f7bc820927d5085f62e6a95318443fbc6ef1c0"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-library-state-1.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-library-state-1.jpg",
+      "sha256": "724b3b86c75843d26636005ea9f7bc820927d5085f62e6a95318443fbc6ef1c0"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-library-state-2.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-library-state-2.jpg",
+      "sha256": "5bfd2fa9f2b66387a736c94768f65d1331e765e91fb2348b646330f00c6fd67b"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-library-state-3.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-library-state-3.jpg",
+      "sha256": "146390829fe448dfdb5117b7b1df3ba0153e241a61fce11a40865125d09cf21b"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-library-state-4.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-library-state-4.jpg",
+      "sha256": "08b9a02ffa2c55b56bf9240067c492b836a5b2b5743fc4ac3c5e2ea2bcc792ca"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-own-return.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-own-return.jpg",
+      "sha256": "1630d0c4327a2a1881c49e1aaa98d4387324c911ecb26fced65762360288f118"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-retry.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-retry.jpg",
+      "sha256": "1080c6902109c1ac77922e03dca4d5fd8e531139d6773110c6ac2e20f2424caf"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-review.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-review.jpg",
+      "sha256": "d162d7b34566eeae4060f891198347668d0791652273c5da06bb8b5555676a95"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-success.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-success.jpg",
+      "sha256": "1abf81c7c869696d41ec212a334efbbfe41e9fa4829ee0732cdacc13dfc9293b"
+    },
+    {
+      "source": "qa/studio-cancel/es-390-light-waitlist.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-390-light-waitlist.jpg",
+      "sha256": "18c135c2e55c46b1a1fff6c0d93d4e5051c388bcb2ba5f56b1daec0896970ed7"
+    },
+    {
+      "source": "qa/studio-cancel/es-dev-afterstart-replay.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-dev-afterstart-replay.jpg",
+      "sha256": "350e9cbd356b1816a9da9b0e829f08c7c91dd3e201563db8158f5a391c622b82"
+    },
+    {
+      "source": "qa/studio-cancel/es-dev-loading.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-dev-loading.jpg",
+      "sha256": "efef8c5e4313ea1f287a2fe8c50a8638fcd764390cb88aaff706603c74643b59"
+    },
+    {
+      "source": "qa/studio-cancel/es-dev-stopped.jpg",
+      "repository": "docs/screenshots/M-14/studio-cancel/es-dev-stopped.jpg",
+      "sha256": "cba6f92acabc65f473ea70bd548d59f32f3deb73ad6a1f907ff1d899e7c1167e"
+    }
+  ],
+  "historicalContrastFailure": {
+    "path": "docs/screenshots/M-14/studio-cancel/historical-201a-es-390-dark-review.jpg",
+    "sha256": "aca7ab13c1a6a5c0d2a10ef6eb60863273cec4b534f9e38614860726d60358a5",
+    "state": "HISTORICAL201a functionalPASS/visualFAIL; never final contrast pass"
+  }
+}

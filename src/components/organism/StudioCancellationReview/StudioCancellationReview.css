@@ -1,0 +1,9 @@
+/* The shared email paper stays cream. Keep this widget's heading and muted copy
+   on the D01 brand ink token rather than inheriting dark-surface text colors. */
+[data-studio-review] .emailpreview-paper .emailpreview-subject,
+[data-studio-review] .emailpreview-paper .emailpreview-p,
+[data-studio-review] .emailpreview-paper .emailpreview-foot,
+[data-studio-review] .emailpreview-paper .emailpreview-link,
+[data-studio-review] .emailpreview-paper .phonebubble-var {
+ color: var(--brand-ink);
+}

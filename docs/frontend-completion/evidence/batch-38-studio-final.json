@@ -1,0 +1,603 @@
+{
+  "batch": 38,
+  "status": "Named isolated domain/build/production/dev/five-state library/contrast checks PASS; root visual review found remaining cancelled-seat caption gap; no complete visual acceptance, integration or release.",
+  "canonicalRootFingerprint": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+  "alternativeAllSrcFingerprint": "7a8707dcef3205678dd11ca4b6954dbb4794949d222ff397e917912a57e139c2",
+  "artifact": {
+    "immutableDirectory": "/workspace/hoy-qa-archive/studio-cancel-proof-7a8707dcef32",
+    "entry": "./assets/index-C72Tj17L.js",
+    "entrySha256": "06c16d3fc6218361f2ef9a7c74694c6a90510e01e9ac0185a68a821fd078ba0c",
+    "css": "./assets/index-BjqHoOBe.css",
+    "cssSha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+    "fullAssetsSha256": "f2e41cb9452bcb997548e1511a440ed963dfbdf051d1696a150c87c9e5b3ea5e",
+    "fullDistTreeSha256": "28d3b520ae6a1a79b174de2d84124bc4feeb9f83075f34e49e4ccfcbf0025ba2"
+  },
+  "beforeAfter": "Source,dist,asset tree and workspace snapshot unchanged after all three serial browser suites",
+  "outcomes": {
+    "baseline": "4 actual original-source regressions confirmed",
+    "domain": "15 actualMock groups PASS session58786",
+    "standaloneTypecheck": "EXIT0 session75533",
+    "fullBuild": "EXIT0 session66169",
+    "production": "8 EN/ES390/1280light/dark matrices +11roles PASS session89503",
+    "devstates": "EN/ES actual lifecycle/faults PASS session25520",
+    "library": "All5 actualwidget states EN/ES390/1280light/dark/noDBwrites/bounds PASS session46522",
+    "allBrowsers": "CLOSED finally; coordinator notified"
+  },
+  "contrast": {
+    "minimum": 12.939160264428175,
+    "samples": 112,
+    "threshold": 4.5,
+    "method": "Actual computed foreground and composited background colors, including highlighted variables; no screenshot inference."
+  },
+  "visualInspections": [
+    {
+      "path": "qa/studio-cancel/en-390-light-own-return.jpg",
+      "finding": "Linkedreturn/currentbalance/originalexpiry and noemailsent copy readable."
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-own-return.jpg",
+      "finding": "Original-term return and replacement actions readable in darkmobile."
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-review.jpg",
+      "finding": "Corrected actual cream-paper subject readable; prototype/coverage warnings visible."
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-3.jpg",
+      "finding": "Actualwarningstate, preview body and footer readable on cream in darkmobile; no controls."
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-4.jpg",
+      "finding": "Actualpreview-onlystate readable atdesktop, correct fictional/no-email wording."
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-0.jpg",
+      "finding": "Actual empty and verified examples are explicitly labeled FICTIONAL EXAMPLE; counts/read-only widget readable atmobile."
+    }
+  ],
+  "captures": [
+    {
+      "path": "qa/studio-cancel/en-1280-dark-library-state-0.jpg",
+      "sha256": "1a84c7f9913e87cb2f8957984b8c9267934866e960d57c10adec5ea8a20b949c",
+      "bytes": 89903
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-library-state-1.jpg",
+      "sha256": "1a84c7f9913e87cb2f8957984b8c9267934866e960d57c10adec5ea8a20b949c",
+      "bytes": 89903
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-library-state-2.jpg",
+      "sha256": "4821bc26b1e621812f817f1d2c04a6fcb197c6d6730dd882d274615cd676ed2b",
+      "bytes": 85957
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-library-state-3.jpg",
+      "sha256": "6fe3131056b1a92a9497fe7431998c50a4112cf8e3561906ce7b81493db0961d",
+      "bytes": 94875
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-library-state-4.jpg",
+      "sha256": "159944bac487e1bf8c32ea50aa49bc28c05ce75155f6fa6b5bb6081cac304cd9",
+      "bytes": 90213
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-own-return.jpg",
+      "sha256": "72ce67b09e3d9f8d925527143a78b82be41a9d2e89908e8c666bc90bf81f0195",
+      "bytes": 62977
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-review.jpg",
+      "sha256": "1501824c5a8a6cb22575c2983b981991536e196db50921e2888f7ff614f50873",
+      "bytes": 71527
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-success.jpg",
+      "sha256": "90e7d529f0dc9059318cfa02cd27fb31ea098af80c0d6f0b65355e9172aaf7f3",
+      "bytes": 68394
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-dark-waitlist.jpg",
+      "sha256": "c2ae6e21cb092020af2753d7081a23c90a17b465ee0f7f73e7c751d694fb2a91",
+      "bytes": 37808
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-0.jpg",
+      "sha256": "ed6bbe11a093760f18f15195a16de675f99885509aadac878446d0fa9583caa9",
+      "bytes": 101666
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-1.jpg",
+      "sha256": "ed6bbe11a093760f18f15195a16de675f99885509aadac878446d0fa9583caa9",
+      "bytes": 101666
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-2.jpg",
+      "sha256": "3be4aded3c388f5c46056535a70f8c65e411cf1ebd61496a3c7216e32f98b1cf",
+      "bytes": 98121
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-3.jpg",
+      "sha256": "d5e44556ae441c7ba55adcdcd12d7eaa5081451434c5b38b9e12658b00f2b26b",
+      "bytes": 104469
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-library-state-4.jpg",
+      "sha256": "2d2f4ea8cae018837efa560d26829522b038308739c0dd360bb043548c5ed701",
+      "bytes": 96628
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-own-return.jpg",
+      "sha256": "13613fa80b6918242dc991c25770695c5ff76f262b895cb49fe2e279c9d680c7",
+      "bytes": 85094
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-retry.jpg",
+      "sha256": "29c689d2f8583fbe0356b7ebae474deb5fd70db6d31bc21e408baec284cc732f",
+      "bytes": 70673
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-review.jpg",
+      "sha256": "ade008b2c643b0a993dc0350e4c929b3e54e45644a3d5868ae9be068e089cc79",
+      "bytes": 76085
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-success.jpg",
+      "sha256": "4509dedcc3de9bfbfa5366fa6f39603b12844b4af3abf4fbf3f21b152b6e5ab8",
+      "bytes": 67803
+    },
+    {
+      "path": "qa/studio-cancel/en-1280-light-waitlist.jpg",
+      "sha256": "6d735a9e74d78d9d93b0436e4301496a63b6f0961865d263bf690c5f3354337e",
+      "bytes": 70177
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-library-state-0.jpg",
+      "sha256": "e455cfe7b18ed0535fe933acd610e7f8b5848bd587fe6e302e0fc5c4d9dc5dd9",
+      "bytes": 51480
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-library-state-1.jpg",
+      "sha256": "e455cfe7b18ed0535fe933acd610e7f8b5848bd587fe6e302e0fc5c4d9dc5dd9",
+      "bytes": 51480
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-library-state-2.jpg",
+      "sha256": "4db4a713e5f77b24b13ec393d335d89c5bce57732e8960c22faff6029bf8c9b2",
+      "bytes": 46745
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-library-state-3.jpg",
+      "sha256": "249fea6dcb029ebfbfcf26f9207ae9093fb2428f67e9e777cabb4fe6c5fc091d",
+      "bytes": 50670
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-library-state-4.jpg",
+      "sha256": "302213faba9eb2d06262b0da3ca15f67b8847a6242af8ad3a034a155f8b7ff20",
+      "bytes": 52666
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-own-return.jpg",
+      "sha256": "5baf7f59e663c526cb97b6f4fd5dce0bf0ba72a5c8583ae3335f9d354100dbca",
+      "bytes": 40721
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-review.jpg",
+      "sha256": "229947e0afee4882d47ca5854d359775da7eb9d6320a967865e636415c2e2464",
+      "bytes": 53540
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-success.jpg",
+      "sha256": "112e89334e2379e33333fc2500ca5545f099800a0523acc08a1630c465f564ac",
+      "bytes": 48289
+    },
+    {
+      "path": "qa/studio-cancel/en-390-dark-waitlist.jpg",
+      "sha256": "366d8765732f1ec1665ebb1009d64fa60b2400c5e087c8779f94aa63e94efa02",
+      "bytes": 27073
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-0.jpg",
+      "sha256": "0ac05df9c2177d37dd2ba47b9450db4391e6aeaee55b3dd975ff2f4125a6f080",
+      "bytes": 53177
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-1.jpg",
+      "sha256": "0ac05df9c2177d37dd2ba47b9450db4391e6aeaee55b3dd975ff2f4125a6f080",
+      "bytes": 53177
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-2.jpg",
+      "sha256": "c08720d656985c5268e4472ad290b308c62140ab324af46a1699729033d70b89",
+      "bytes": 48966
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-3.jpg",
+      "sha256": "ca8ce689934470f719aa16e9ba70be505c1b16e55f41044f72f63b0a62af66ef",
+      "bytes": 50024
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-library-state-4.jpg",
+      "sha256": "5de8a2da6ebce83728ee6fd663973085042522b7ab984ef11d4595f2856c8198",
+      "bytes": 50793
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-own-return.jpg",
+      "sha256": "9f5a17a017778273abdf9c6bc1cd983a27f0a474192260c1d9c7a5dcf9eb2cf4",
+      "bytes": 49561
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-retry.jpg",
+      "sha256": "f47d3040fe555ef6cf0db0c73494dda1e1ab0fe14687c5893ebc95bc67dcdbca",
+      "bytes": 50261
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-review.jpg",
+      "sha256": "d10e1aa9993a91327f1afc0ed75512b820912268bd9ffe1bc2ed83fa6f5c6c6f",
+      "bytes": 55168
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-success.jpg",
+      "sha256": "351aefa60ad51ca04fac5c196c73705ef7b54d58d312b7814f2f1285f5a9ac49",
+      "bytes": 47218
+    },
+    {
+      "path": "qa/studio-cancel/en-390-light-waitlist.jpg",
+      "sha256": "53a3e1e0e66612309c4eabdeb541ede93bab2133689fe2cb445c438dd8a08170",
+      "bytes": 36530
+    },
+    {
+      "path": "qa/studio-cancel/en-dev-afterstart-replay.jpg",
+      "sha256": "0b35ec55316fc9a7d9fe7e159a71bc4f2e96c11a727ab7707cce7e8f09f41f8b",
+      "bytes": 46185
+    },
+    {
+      "path": "qa/studio-cancel/en-dev-loading.jpg",
+      "sha256": "69577657f9f8dcab0f888edd6a5d11af51f3419e9f2d269f9667cbb37fd24b7d",
+      "bytes": 33414
+    },
+    {
+      "path": "qa/studio-cancel/en-dev-stopped.jpg",
+      "sha256": "afe0691af8ec3c322686b8f5bd06b8796133099a67e0abb82ccbe7b6d6e5681d",
+      "bytes": 50848
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-library-state-0.jpg",
+      "sha256": "9d2cca1ca64106c339f45fa7c55756bc20c4645414a118162b5041249b4ba576",
+      "bytes": 101869
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-library-state-1.jpg",
+      "sha256": "9d2cca1ca64106c339f45fa7c55756bc20c4645414a118162b5041249b4ba576",
+      "bytes": 101869
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-library-state-2.jpg",
+      "sha256": "87976d6ce59c9d8548ae96a4be0f17835120898eb80380bf6d485b3c4f73e6cf",
+      "bytes": 94586
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-library-state-3.jpg",
+      "sha256": "42918a2a2b22da2d41eb67add9b8d9388beda56e37c01f2efd81ef0a3b777360",
+      "bytes": 105165
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-library-state-4.jpg",
+      "sha256": "97370debf1685ca1d328cbe97a5359aafc364cfb609dbacf95295b44dfc924ab",
+      "bytes": 98833
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-own-return.jpg",
+      "sha256": "d5f984241013c5e4338bab61fc5a52ad6b8f17651e6450b39f258eea1792022b",
+      "bytes": 65388
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-review.jpg",
+      "sha256": "586873360673d77622e9b3f6733e93ff80be29c0c67a40cbca12c399c91d003b",
+      "bytes": 76109
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-success.jpg",
+      "sha256": "633f87152772729a1fb3c4e38bf3c53aa0dee470be083f4b56ac7d58eb6d3eb6",
+      "bytes": 74096
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-dark-waitlist.jpg",
+      "sha256": "ea36197ffe5ccdcb86a86a7dce645df2d3ef2d499c742a7a2dfd67e4efbf4344",
+      "bytes": 40309
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-library-state-0.jpg",
+      "sha256": "c2cb23015cbca005880cc540a73dd4e790336550b2bc13cd7a6ac23d79ff929b",
+      "bytes": 113212
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-library-state-1.jpg",
+      "sha256": "c2cb23015cbca005880cc540a73dd4e790336550b2bc13cd7a6ac23d79ff929b",
+      "bytes": 113212
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-library-state-2.jpg",
+      "sha256": "89049992c59a49d4da1f5ca10495d829b4478b98215e7aca8a0950ebbf94aa89",
+      "bytes": 105406
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-library-state-3.jpg",
+      "sha256": "4955345b8c0e3f9b8eb6d69e2e0ad1b258c6fa4c1c4de3b8ea4d709f1d2e574b",
+      "bytes": 113244
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-library-state-4.jpg",
+      "sha256": "e4d1594931b7bb135b6cedf8adf2b90cd9b2a23dc315fd43e6dde8a37ab3c270",
+      "bytes": 103286
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-own-return.jpg",
+      "sha256": "10a77d00a9263a03724f18dcca63d20c88782b837f9dbbf0efa387c32403853b",
+      "bytes": 87497
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-retry.jpg",
+      "sha256": "be4fb9ef0025fe0922082e68749e8a88f3e7bf11d727b1c83bb1189f2328261a",
+      "bytes": 70154
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-review.jpg",
+      "sha256": "9feef6eea35e2b7c9f0b3fee83a46d8e2e2f9e35ae12b38fee5cb63c7cfea31c",
+      "bytes": 81190
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-success.jpg",
+      "sha256": "ee4ea1497925a39dc91e298b6d1357ed67e57d4d3f9fcf58b541f2395aad5991",
+      "bytes": 68814
+    },
+    {
+      "path": "qa/studio-cancel/es-1280-light-waitlist.jpg",
+      "sha256": "55ae29ee440bb90750d80eb174a10a8bc55e02ef0ae1e23cd56c76dd88ed1c77",
+      "bytes": 72486
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-0.jpg",
+      "sha256": "de57d600fa5168578c081c039ead0b0d36508d2c6cacdabd742111cc46b76ebd",
+      "bytes": 47642
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-1.jpg",
+      "sha256": "de57d600fa5168578c081c039ead0b0d36508d2c6cacdabd742111cc46b76ebd",
+      "bytes": 47642
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-2.jpg",
+      "sha256": "e74a87d981ac9d9694f1d396e948be2963331922ddf261dc57c129a46a2b6eaf",
+      "bytes": 46200
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-3.jpg",
+      "sha256": "8c460d184792ba12f30fcb3fdfa4a248025aa95712f96c9703a365ac7838c8e2",
+      "bytes": 52546
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-library-state-4.jpg",
+      "sha256": "ae2f28b60b01d901e6ad916c6992888c3b3367ef821f604ce608224a3bdd2716",
+      "bytes": 52057
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-own-return.jpg",
+      "sha256": "4c49c363eade605d80947d0af56e0bfba17f16c26003115a1efe71cf1d999f80",
+      "bytes": 43644
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-review.jpg",
+      "sha256": "dd590f1bf8fb185bcc8cb911cbd6a20c7fafc1c1b167e39f9eb255bb734b7da6",
+      "bytes": 55644
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-success.jpg",
+      "sha256": "86180da8c77f3a76503a9b88c7f5eb8a900f4a7877f53f9611d137d83449a3f5",
+      "bytes": 51815
+    },
+    {
+      "path": "qa/studio-cancel/es-390-dark-waitlist.jpg",
+      "sha256": "8759e55b67cf3c6a51ba0c4bad291aef92acf31af14944af986045f00ee4fb52",
+      "bytes": 29420
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-library-state-0.jpg",
+      "sha256": "724b3b86c75843d26636005ea9f7bc820927d5085f62e6a95318443fbc6ef1c0",
+      "bytes": 49235
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-library-state-1.jpg",
+      "sha256": "724b3b86c75843d26636005ea9f7bc820927d5085f62e6a95318443fbc6ef1c0",
+      "bytes": 49235
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-library-state-2.jpg",
+      "sha256": "5bfd2fa9f2b66387a736c94768f65d1331e765e91fb2348b646330f00c6fd67b",
+      "bytes": 47987
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-library-state-3.jpg",
+      "sha256": "146390829fe448dfdb5117b7b1df3ba0153e241a61fce11a40865125d09cf21b",
+      "bytes": 51269
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-library-state-4.jpg",
+      "sha256": "08b9a02ffa2c55b56bf9240067c492b836a5b2b5743fc4ac3c5e2ea2bcc792ca",
+      "bytes": 50184
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-own-return.jpg",
+      "sha256": "1630d0c4327a2a1881c49e1aaa98d4387324c911ecb26fced65762360288f118",
+      "bytes": 52501
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-retry.jpg",
+      "sha256": "1080c6902109c1ac77922e03dca4d5fd8e531139d6773110c6ac2e20f2424caf",
+      "bytes": 51977
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-review.jpg",
+      "sha256": "d162d7b34566eeae4060f891198347668d0791652273c5da06bb8b5555676a95",
+      "bytes": 57469
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-success.jpg",
+      "sha256": "1abf81c7c869696d41ec212a334efbbfe41e9fa4829ee0732cdacc13dfc9293b",
+      "bytes": 49975
+    },
+    {
+      "path": "qa/studio-cancel/es-390-light-waitlist.jpg",
+      "sha256": "18c135c2e55c46b1a1fff6c0d93d4e5051c388bcb2ba5f56b1daec0896970ed7",
+      "bytes": 38729
+    },
+    {
+      "path": "qa/studio-cancel/es-dev-afterstart-replay.jpg",
+      "sha256": "350e9cbd356b1816a9da9b0e829f08c7c91dd3e201563db8158f5a391c622b82",
+      "bytes": 48902
+    },
+    {
+      "path": "qa/studio-cancel/es-dev-loading.jpg",
+      "sha256": "efef8c5e4313ea1f287a2fe8c50a8638fcd764390cb88aaff706603c74643b59",
+      "bytes": 35301
+    },
+    {
+      "path": "qa/studio-cancel/es-dev-stopped.jpg",
+      "sha256": "cba6f92acabc65f473ea70bd548d59f32f3deb73ad6a1f907ff1d899e7c1167e",
+      "bytes": 53274
+    }
+  ],
+  "scriptsAndOriginalFixtures": [
+    {
+      "path": "scripts/test-studio-cancel.mjs",
+      "sha256": "d25a862d9bd0de36e605613068fe74f12fe2611e6566a20b54dd01d520f3e6c8"
+    },
+    {
+      "path": "scripts/test-studio-cancel-baseline.mjs",
+      "sha256": "706fdbd18eabf772491b73c700dd88a8db2ce169d73bfa8d4d1bb5fa66c5d0c8"
+    },
+    {
+      "path": "scripts/test-studio-cancel-ui.mjs",
+      "sha256": "494aca57fe73bfd0a6b5538bd2e056c9ac03fd0219c9b6a7880aa3fc602dc662"
+    },
+    {
+      "path": "scripts/test-studio-cancel-states.mjs",
+      "sha256": "069dad04891b650c55eade814385590a652160aaa4e6a344723575aae68d2322"
+    },
+    {
+      "path": "scripts/test-studio-cancel-library.mjs",
+      "sha256": "773e93dc6e6b8a822318d621c97d956b3f7b7d6ac02504dd0b3361dec0184c9b"
+    },
+    {
+      "path": "scripts/studio-cancel-fixture.mjs",
+      "sha256": "f38ddcd58fddbd66e8859296caa6753d52354491d12365e012ff3e4f92d88360"
+    },
+    {
+      "path": "scripts/studio-cancel-contrast.mjs",
+      "sha256": "f47aa823b06966dd4a5f948f0426e824d36cea1a9abd1a03cea975c313ec461c"
+    },
+    {
+      "path": "scripts/freeze-studio-cancel.mjs",
+      "sha256": "0708ef194f7df5c54f774bab3d0c29264e67a43ca4a007813c7475fe03ec54fe"
+    },
+    {
+      "path": "scripts/fixtures/studio-cancel-original-cancel.ts.txt",
+      "sha256": "09d22f40aacc654300acd174d0099f3e99020ed882e30f209ffc254fc8da1882"
+    },
+    {
+      "path": "scripts/fixtures/studio-cancel-original-editor.ts.txt",
+      "sha256": "1c363e2dc50b1f8e2c836a5f29e14363cd5bcedbb564b1e277e89dd743d8be10"
+    },
+    {
+      "path": "scripts/fixtures/studio-cancel-original-waitlist.ts.txt",
+      "sha256": "b52fae8b04a04de14f8a2f44417496097bd65b7936926002ce56ad67d2374dfd"
+    }
+  ],
+  "protectedUnchanged": [
+    {
+      "path": "src/auth/roles.ts",
+      "sha256": "11002363462521d77e8b3aee4cd17ac738fa68d95a370d1f3ef9d03f5f326bc9",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/auth/permissions.ts",
+      "sha256": "593caa1eb4e43b5d4e797100a96cdfa51f85d90db0c78bf3cc92672aad02f80b",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/data/schema.ts",
+      "sha256": "35ee85e2db065a9a6a85c9279c7915bf686bfe1bfa36525e1975207c8f229933",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/data/MockProvider.ts",
+      "sha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/data/types.ts",
+      "sha256": "a9ffda9e422684a08e75c2250f972e61f421835650f27b89de7e67610a9e2586",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/data/packages.ts",
+      "sha256": "0a518e4dccc0626fe643b9ee0a8cb282c5baa3499d1c1a57a11bf291e45955cd",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/data/sessionEditorial.ts",
+      "sha256": "1c363e2dc50b1f8e2c836a5f29e14363cd5bcedbb564b1e277e89dd743d8be10",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/modules/customer/policy.ts",
+      "sha256": "d9bea19cf233f5705093a6234ca0d45fb1d5b5407306d10460d7195dc817452b",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "src/tenant/tenant.ts",
+      "sha256": "b6bc47f8a9eb805ac5e19cdf9f6392ee05c4911e5c2423ad149f4645e2aaf14e",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "docs/frontend-completion/features.json",
+      "sha256": "6bbdd79c6464837bc0e85bf4c6e9567484292820dbcff4ff64ffdb61f343c4d9",
+      "unchangedFrom": "e04afec"
+    },
+    {
+      "path": "docs/frontend-completion/README.md",
+      "sha256": "ac3fff5b9d8228906d8316fc8499058b9bb288437a721b139bcab63908adf0d6",
+      "unchangedFrom": "e04afec"
+    }
+  ],
+  "historicalEvidence": [
+    "batch-38-studio-build.json (abe6, originalEXIT137 +successful38232 +ENOSPC/recovery)",
+    "batch-38-studio-build-d02-historical.json (201a fullbuild39146/production54302 functionalPASS; realvisualcontrastFAIL with preservedbeforecaptureSHA)",
+    "qa/studio-cancel/production-failure-1792650927338.json and production-failure-1792651050198.json (test identity-navigation sequencing failures; source unchanged)",
+    "qa/studio-cancel/devstates-failure-1792651256227.json (test clock rewind triggered existingdailyreset; fixed withmonotonic nextfuturefixture)"
+  ],
+  "limits": [
+    "Fictional mock/browser only: no email/outbox/sent/delivered operation, realpayment/refund/backend/auth/serverroleisolation or production/commercial acceptance.",
+    "AD02 remains partial: real delivery, recipient/preference coverage and durable authenticated server atomicity remain gates.",
+    "Voucher/missing/unknown/multiunit/shared/ambiguous lineage fails whole prototype honestly; no new expiry/freeze/financial/roles/legal policy.",
+    "Default customer cancellation deadline and financial path remain existing behavior; privileged studio reason is rejected before writes. Generic direct-provider/table-editor paths are not a server security or universal mutation boundary.",
+    "Root owns Git, global generated metadata, integration/review/exact-head CI/releases. Generated captureDates remains separate."
+  ],
+  "captureSafety": {
+    "confirmed": "All82 finalcaptures come only from fresh isolated browser contexts using actual MockProvider synthetic seed/demo UI plus unmistakable QA FICTIONAL fixture records or provider-free bilingual fictional component examples.",
+    "excluded": "No real/private customer data, source correspondence, contact export, tokens, raw keys, credentials or real payment data. Existing teacher/catalog labels are the demo/public-facing catalog, not customer records. No real provider or external recipient was used.",
+    "durability": "Root authorized to mirror exact final82, preserving listed SHA256 hashes, into docs/screenshots/M-14/studio-cancel/ or appropriate E03/D02 groups with a hash mapping receipt/page links. This own receipt lists pre-mirror local sources; root performs the durable-copy and Git lane.",
+    "historicalBeforeContrast": "qa/studio-cancel/historical-201a-es-390-dark-review.jpg is the same fictional fixture, safe to mirror only with explicit historical/failedcontrast marking. Earlier failure captures may remain local/hashed."
+  },
+  "repositoryCaptures": "batch-38-repository-captures.json",
+  "rootReview": {
+    "canonicalSource": "1c0a0b404febdd61e9f916226d2fb47d45de7c4e5bba9809e6ed98dae100c07a",
+    "fullDistAndSnapshot": "Independently matched28d3b520\u2026 using documented componentwise relative path+bytes, NO delimiters. Initial root NUL-delimited computation differed only by hash basis; artifact was unchanged.",
+    "inspected": [
+      "es-390-dark-review.jpg",
+      "en-1280-light-library-state-4.jpg",
+      "es-390-dark-own-return.jpg"
+    ],
+    "remainingVisualGap": "Legacy BookedPage ClassSummary still renders confirmed mat caption when session/booking is cancelled. Actual saved own-return screenshot shows it below cancellation result. Root70 must hide confirmed-seat caption for studioCancelled/myCancelled and verify active caption retained before release. No purchase/cancellation policy change."
+  }
+}

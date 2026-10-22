@@ -1,0 +1,27 @@
+{
+  "batch": 38,
+  "status": "HISTORICAL source-only201a checkpoint; subsequently completed by corrected1c0a final proof",
+  "canonicalRootFingerprint": "201a6fb271ae975c59935a527410bf28472a9eaa21a3e5c3f70080cccf00dab0",
+  "historicalRuntimeFingerprint": "abe6a716367d8c38377b61a5cb7f4375688ab23a8fffb857592139983df85170",
+  "sourceFiles": [
+    "src/components/organism/StudioCancellationReview/StudioCancellationReview.tsx",
+    "src/components/organism/StudioCancellationReview/StudioCancellationReview.meta.ts",
+    "src/modules/classSchedule/StudioCancellationPanel.tsx"
+  ],
+  "testScript": "scripts/test-studio-cancel-library.mjs (prepared, unexecuted)",
+  "states": [
+    "empty roster",
+    "verified lineage",
+    "unverified mixed lineage",
+    "email coverage warning",
+    "preview only"
+  ],
+  "behavior": "Actual presentation widget has five bilingual provider-free usages; module maps verified domain results to narrow counts/flags/text props. No command, ledger, policy, role or delivery behavior changed.",
+  "pending": [
+    "typecheck/domain regression/fullbuild on corrected source",
+    "immutable production and actual dev lifecycle suites",
+    "D02 EN/ES390/1280 light/dark five-state bounds/read-only/zero DB writes suite"
+  ],
+  "fingerprintMethod": "Sorted relative src paths excluding exactly src/app/captureDates.ts, UTF8 path then raw bytes with no delimiters, then vite.config.ts bytes only.",
+  "finalProof": "batch-38-studio-final.json"
+}
