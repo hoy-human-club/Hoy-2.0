@@ -1,0 +1,80 @@
+{
+  "schema": "hoy.frontend-proof/1",
+  "date": "2026-10-22",
+  "requirementIDs": [
+    "CU-06",
+    "AD-07",
+    "RC-05",
+    "PF-03"
+  ],
+  "sourceFields": "All124 original IDs/module/feature/criterion/role/source/phase/priority/relatedTests compared byte-for-value with b73c13a and preserved.",
+  "sourceCheckpoints": {
+    "24": "0e01e89",
+    "25": "beb2ec9",
+    "26": "d7ac5af",
+    "rootMetadata": "8b7bb34"
+  },
+  "build": {
+    "result": "passed EXIT0",
+    "checkout": "4f0551496b5b037e7a425e97a9bca0b7c150e759 plus staged root metadata now committed8b7bb34",
+    "runtimeFingerprint": "31e61c5962b24917db05fa94ea927ec1853e41224e73acb286fc7d30549129cb",
+    "fingerprintDefinition": "Sorted src relative path+bytes excluding generatedcaptureDates, then vite.config.ts bytes",
+    "immutableBundle": "/tmp/hoy-account-teacher-qa-31e61c5962b2",
+    "productionBase": "http://127.0.0.1:5235",
+    "developmentBase": "http://127.0.0.1:5234",
+    "log": ".vite/account-teacher-integrated-build.log (ignored workspace log)",
+    "checks": "strict TypeScript, spacing60 baseline, manual0, Vite,948shots66.7MB within80MB"
+  },
+  "domain": {
+    "result": "passed",
+    "commands": [
+      "node scripts/test-account-data.mjs",
+      "node scripts/test-account-data-replay.mjs",
+      "node scripts/test-contact-mask.mjs",
+      "node scripts/test-substitute-request.mjs"
+    ],
+    "scope": "Account6groups/replay4groups; contact compatibility/malformed/no-raw-fallback/search; teacher staged failures/quota/fresh clock/ownership/replay/cancel/no operational changes."
+  },
+  "combinedRenderedQA": {
+    "status": "queued, no combined pass claim",
+    "commands": [
+      "QA_BASE=http://127.0.0.1:5235 node scripts/test-account-data-ui.mjs",
+      "QA_BASE=http://127.0.0.1:5235 node scripts/test-contact-mask-ui.mjs",
+      "QA_BASE=http://127.0.0.1:5235 node scripts/test-substitute-request-ui.mjs",
+      "QA_BASE=http://127.0.0.1:5234 node scripts/test-account-data-states.mjs",
+      "QA_BASE=http://127.0.0.1:5234 node scripts/test-substitute-request-states.mjs",
+      "QA_BASE=http://127.0.0.1:5235 node scripts/test-profile-save-ui.mjs"
+    ]
+  },
+  "routes": [
+    "/#/app/account",
+    "/#/app/profile",
+    "/#/admin/crm",
+    "/#/admin/crm/usr_cust",
+    "/#/staff/register",
+    "/#/teach",
+    "/#/admin/whatsapp"
+  ],
+  "acceptance": "Bounded fictional frontend only; no accepted/backend-ready/completion percentage. Original source phases/statuses/roles unchanged.",
+  "remainingGates": {
+    "root": [
+      "Combined rendered QA, exact-head CI, checked merge, normal deployment/source verification."
+    ],
+    "Jas": [
+      "Confirmed team recipient/channel/acknowledgment; reader and source policy decisions remain separate."
+    ],
+    "Justin": [
+      "Owner acceptance/configuration separately; none blocks bounded mock checks."
+    ],
+    "Anu": [
+      "Authenticated scoped own export and request services, complete legal export/delivery/retention/SLA processing.",
+      "Canonical reader projections/authorization and authoritative historical reconciliation.",
+      "Atomic teacher request/log/outbox and actual delivery; browser queued rows prove no provider delivery.",
+      "Real auth, durable receipts/notifications and isolated server roles required by new MVP source remain unproved."
+    ]
+  },
+  "nextIndependent": [
+    "Corrected notification preferences27 with coupled marketing29 compatibility; independent M04 self-test28."
+  ],
+  "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca until PR64 checked release receipt supersedes."
+}
