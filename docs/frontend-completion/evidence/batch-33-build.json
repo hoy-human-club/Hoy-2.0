@@ -20,7 +20,7 @@
   "buildExit": 0,
   "production": "http://127.0.0.1:5250",
   "development": "http://127.0.0.1:5249",
-  "qaStatus": "NOT RUN: final immutable route matrix, actual dev-state matrix and focused D02 smoke queued behind root67 exclusive browser priority. No rendered acceptance inferred.",
+  "qaStatus": "PASS all3 browser suites serial, no test-suite retries, zero pageerrors. Browser slot released immediately after final closure.",
   "remainingGates": [
     "Root integration/exact-head CI/commit/merge/deployment receipts.",
     "No whole OT01/owner/backend/art/rights/publication/delivery/commercial acceptance."
@@ -32,5 +32,100 @@
     "scripts/test-marketing-drafts-ui.mjs",
     "scripts/test-marketing-draft-fences-states.mjs",
     "scripts/test-marketing-draft-library-ui.mjs"
-  ]
+  ],
+  "sourceCheckpoint": "e053498c62e9531e81377dd9f87a06a32c62038d",
+  "checkpointStatus": "Root committed/pushed source/build/domain checkpoint before browser QA; final integrated exact-head CI/merge/deployment remains root-owned and pending.",
+  "buildVersusCheckpoint": "Immutable build produced over6d4e9bc before sourcecheckpoint e053498; same module/runtime fingerprint checked after commit and all finalQA. Bundle provenance remains untouched; not a new deployed/exact-head CI claim.",
+  "moduleFingerprintAfterQA": "457abda65330cebedc468854a3f3a4ccb3b109dd1bea71b55a37bb864167a05c",
+  "runtimeFingerprintAfterQA": "8cbd8a28545ad5106e93929175b5a5f81eb7a4a449b7704a748d20de0907a6e0",
+  "bundleFingerprintAfterQA": "3b2511f78fe15bd5e4d09728b5769dfc87b6775606b622494f5067ee2a41c817",
+  "completedAt": "2026-10-22T04:28:57.613271+00:00",
+  "checks": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5250 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-drafts-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5250",
+      "artifact": "docs/screenshots/M-18/marketing-results.json",
+      "log": "/tmp/hoy-marketing-fences-ui-final.log",
+      "checks": [
+        "en: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Honolulu, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280",
+        "es: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Kiritimati, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5249 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-draft-fences-states.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5249",
+      "artifact": "docs/screenshots/M-18/marketing-fences-state-results.json",
+      "log": "/tmp/hoy-marketing-fences-states-final.log",
+      "checks": [
+        "en/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "en/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "es/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+        "es/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5250 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-marketing-draft-library-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5250",
+      "artifact": "docs/screenshots/M-18/marketing-fences-library-results.json",
+      "log": "/tmp/hoy-marketing-fences-library-final.log",
+      "checks": [
+        "en/light: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "en/dark: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "es/light: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit",
+        "es/dark: actual D02 MarketingDraftBoard under existing super_admin; preview/cancel no draft/provider writes; original future boundary;390/1280 fit"
+      ],
+      "errors": []
+    }
+  ],
+  "domainChecks": [
+    {
+      "command": "node scripts/test-marketing-drafts.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-marketing-fences-legacy-domain.log"
+    },
+    {
+      "command": "node scripts/test-marketing-draft-fences.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-marketing-fences-domain.log",
+      "artifact": "docs/screenshots/M-18/marketing-fences-domain-results.json",
+      "groupCount": 11
+    }
+  ],
+  "transportInterruption": {
+    "action": "read-only tail log while existing devstate80208 running",
+    "reason": "exec-server transport disconnected",
+    "state": "Resolved: existing session80208 checked to EXIT0 and all4cases; no suite/browser retry and no denial."
+  },
+  "visualInspection": [
+    {
+      "path": "docs/screenshots/M-18/en-390-light-fences-busy.jpg",
+      "finding": "Busy status/run disabled, cancel active, future/local limitations and completed-write distinction readable."
+    },
+    {
+      "path": "docs/screenshots/M-18/en-1280-light-fences-missing-edit.jpg",
+      "finding": "Missing-original conflict visible, no false success; actions readable and contained."
+    },
+    {
+      "path": "docs/screenshots/M-18/es-390-dark-fences-readback.jpg",
+      "finding": "Uncertain-result/retry and cancel wording readable; retained local completed-write boundary clear."
+    },
+    {
+      "path": "docs/screenshots/M-18/es-1280-dark-fences-replay-conflict.jpg",
+      "finding": "Current-effect conflict and local/future boundary readable; no resurrected draft."
+    },
+    {
+      "path": "docs/screenshots/M-18/en-390-dark-fences-library-preview.jpg",
+      "finding": "Actual authorized library preview readable; future local draft boundary and cancel visible."
+    },
+    {
+      "path": "docs/screenshots/M-18/en-1280-workspace.jpg",
+      "finding": "Calendar/undated/content links and four public references fit; fictional local scope remains clear."
+    }
+  ],
+  "globalMetadataWrites": "None: focused library script intentionally avoids shared routes.json generation."
 }
