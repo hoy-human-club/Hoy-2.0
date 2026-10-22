@@ -34,7 +34,7 @@ function check(data:DataProvider,c:ExpenseIdentity,control:ExpenseControl,write=
 }
 async function actor(data:DataProvider,c:ExpenseIdentity,control:ExpenseControl,write=false){
  check(data,c,control,write);const rows=await data.list<UserRow>('users',{where:{tenant_id:tenant.id,id:c.actorId}});check(data,c,control,write);
- if(rows.length!==1||rows[0].id!==c.actorId||rows[0].tenant_id!==tenant.id)fail('scope');
+ if(rows.length!==1||rows[0].id!==c.actorId||rows[0].tenant_id!==tenant.id||rows[0].status!=='active')fail('scope');
 }
 async function scoped<T extends BaseRow>(data:DataProvider,table:string,c:ExpenseIdentity,control:ExpenseControl):Promise<T[]>{
  check(data,c,control);const rows=await data.list<T>(table,{where:{tenant_id:tenant.id}});check(data,c,control);

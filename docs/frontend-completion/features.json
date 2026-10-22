@@ -4894,23 +4894,29 @@
       "tests": [
         "scripts/test-email-test.mjs",
         "scripts/test-email-test-ui.mjs",
-        "scripts/test-email-test-states.mjs"
+        "scripts/test-email-test-states.mjs",
+        "scripts/test-email-edit.mjs",
+        "scripts/test-email-edit-hook.mjs",
+        "scripts/test-email-edit-ui.mjs",
+        "scripts/test-email-edit-states.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-04/email-test-build-receipt.json",
         "docs/screenshots/M-04/email-test-ui-results.json",
-        "docs/screenshots/M-04/email-test-state-results.json"
+        "docs/screenshots/M-04/email-test-state-results.json",
+        "docs/screenshots/M-04/email-edit-ui-results.json",
+        "docs/screenshots/M-04/email-edit-state-results.json"
       ],
       "blockers": [],
-      "nextAction": "Check exact-head integration/release; separately repair template save/rollback and connect authorized real rendering/delivery/version services.",
+      "nextAction": "Complete combined edit/rollback/self-test regression and exact-head release; separately connect authorized real rendering/delivery/durable version services.",
       "candidateRoutes": [
         "/#/admin/emails"
       ],
       "sourceAssessment": {
-        "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
+        "basis": "Bounded self-test28 and edit/rollback34 isolated actual build/domain/hook/rendered proof; whole feature remains partial, combined operational release pending.",
         "missingFrontend": [
-          "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
-          "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
+          "Generic comms lifecycle remains separate; saved-template real-provider test/rendering and delivery states remain disconnected.",
+          "Immutable durable version retention and concurrent authenticated backend editing are not established by browser fixtures."
         ],
         "remainingBackend": [
           "Template rendering/send provider, immutable version retention and delivery events."
@@ -4944,6 +4950,19 @@
             ]
           },
           "basis": "Historical source inspection before batch28; retained without promoting whole feature acceptance."
+        },
+        {
+          "assessment": {
+            "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
+            "missingFrontend": [
+              "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
+              "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
+            ],
+            "remainingBackend": [
+              "Template rendering/send provider, immutable version retention and delivery events."
+            ]
+          },
+          "basis": "Historical pre-integration finding retained; bounded isolated source now saved, combined exact-head release pending."
         }
       ]
     },
@@ -5462,7 +5481,7 @@
       "priority": "Medium",
       "relatedTests": "FIN-11, FIN-12, FIN-13, FIN-14",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/ExpensesPage.tsx",
         "src/modules/admin/expenses.ts",
@@ -5470,20 +5489,31 @@
         "src/data/subscriptionExpenses.ts",
         "docs/frontend-completion/evidence/fi04-ledger-source-audit.json"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/finance/expenses",
+        "/#/admin/finance/subscriptions"
+      ],
+      "tests": [
+        "scripts/test-expense-ledger-baseline.mjs",
+        "scripts/test-expense-ledger.mjs",
+        "scripts/test-expense-ledger-ui.mjs",
+        "scripts/test-expense-ledger-states.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-35-expense-ui.json",
+        "docs/frontend-completion/evidence/batch-35-expense-states.json"
+      ],
       "blockers": [],
-      "nextAction": "Finish bounded35 rendered/integrated release; separately verify authenticated paid-delete enforcement and other entry paths without expanding roles.",
+      "nextAction": "Complete combined ledger/subscription regressions and exact-head release; verify authenticated paid-delete enforcement across all entry paths without expanding roles.",
       "candidateRoutes": [
         "/#/admin/finance/expenses",
         "/#/admin/finance/subscriptions"
       ],
       "sourceAssessment": {
-        "basis": "Exact legacy handler/generator fixtures atede03f3 executed against actual MockProvider; root independently reran all5 baseline defects. Bounded35 repair is not integrated or accepted.",
+        "basis": "Legacy5 counterexamples independently reproduced; six-command batch35 repair isolated fullbuild/domain/production/dev-state passed at saved093bbf7. Current combined/exact-head release pending; whole feature partial.",
         "missingFrontend": [
-          "M09c cached unpaid guard can delete a freshly paid expense; pay/delete audit failure persists incomplete history and fixed generation can duplicate rows.",
-          "Bounded six-command mock repair is active in35; final integrated/rendered/release verification and generic provider/direct-entry paid-delete enforcement remain separate."
+          "Generic MockProvider/table and other direct-entry paid-delete enforcement remains separate; bounded M09c guard is not universal protection.",
+          "Subscriptions/expense adapter reconciliation is separate from the six-command ledger repair; no real accounting/settlement acceptance."
         ],
         "remainingBackend": [
           "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
@@ -5502,6 +5532,19 @@
             ]
           },
           "basis": "Historical source-only classification before actual stale paid-delete/partial audit-write/concurrent generation regressions were executed."
+        },
+        {
+          "assessment": {
+            "basis": "Exact legacy handler/generator fixtures atede03f3 executed against actual MockProvider; root independently reran all5 baseline defects. Bounded35 repair is not integrated or accepted.",
+            "missingFrontend": [
+              "M09c cached unpaid guard can delete a freshly paid expense; pay/delete audit failure persists incomplete history and fixed generation can duplicate rows.",
+              "Bounded six-command mock repair is active in35; final integrated/rendered/release verification and generic provider/direct-entry paid-delete enforcement remain separate."
+            ],
+            "remainingBackend": [
+              "Authenticated atomic ledger/audit/idempotency, canonical accounting history and paid-delete enforcement across all entry paths."
+            ]
+          },
+          "basis": "Historical pre-integration finding retained; bounded isolated source now saved, combined exact-head release pending."
         }
       ],
       "continuationEvidence": [

@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "email: inactive read/write reject without effects",
+    "email: end of required read rejects newly inactive actor",
+    "email: fresh staged account rejects before business write",
+    "email: postcommit inactive withholds acknowledgement; restored same intent replays without writes",
+    "expense: inactive read/write reject without effects",
+    "expense: end of required read rejects newly inactive actor",
+    "expense: fresh staged account rejects before business write",
+    "expense: postcommit inactive withholds acknowledgement; restored same intent replays without writes"
+  ],
+  "mode": "actual repaired helper regression",
+  "limits": "Only scoped fictional command boundary. No auth/session/role policy or production changes.",
+  "sourceScope": "Root operational integration helpers only, isolated original34/35 source+QA preserved historical. Fresh combined build/UI pending."
+}

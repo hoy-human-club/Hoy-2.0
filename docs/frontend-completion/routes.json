@@ -315,14 +315,21 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Unsaved changes: sticky save bar",
-        "Missing translation: blocked from activation",
-        "Provider error: banner with retry"
+        "Scoped page reads loading / failure / retry",
+        "Saved-template preview loading / failure / retry",
+        "Self-only local preview / discard",
+        "Immediate busy / duplicate submission guarded",
+        "Atomic quota or staged failure / same-command retry",
+        "Stale saved version or account / reopen preview",
+        "Cancel/unmount/template/locale/actor context / no late UI",
+        "Local simulation recorded / provider delivery disconnected"
       ],
       "tables": [
         "email_templates",
         "message_log",
-        "audit_log"
+        "audit_log",
+        "users",
+        "profiles"
       ]
     },
     {
@@ -786,11 +793,15 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Loading",
-        "No runs yet",
-        "Draft exists for the period: regenerated",
-        "Period already approved/paid: blocked",
-        "Read-only (solo payroll.read)"
+        "Draft basis loading / read failure / reload",
+        "Missing/foreign account or duplicate periods / generation paused",
+        "Draft prepare / immediate busy / stop waiting",
+        "Each staged or quota failure / same-command retry",
+        "Stale calculation/status/overlap / reload",
+        "Committed result unconfirmed / unchanged retry",
+        "No runs yet / monthly or biweekly draft regeneration",
+        "Approved/paid overlap blocked",
+        "Existing read-only route"
       ],
       "tables": [
         "payroll_runs",
@@ -800,7 +811,9 @@
         "teachers",
         "special_charges",
         "space_bookings",
-        "audit_log"
+        "audit_log",
+        "users",
+        "tenants"
       ]
     },
     {
@@ -816,6 +829,15 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
+        "Draft basis loading / read failure / reload",
+        "Missing/foreign account or duplicate periods / generation paused",
+        "Draft prepare / immediate busy / stop waiting",
+        "Each staged or quota failure / same-command retry",
+        "Stale calculation/status/overlap / reload",
+        "Committed result unconfirmed / unchanged retry",
+        "No runs yet / monthly or biweekly draft regeneration",
+        "Approved/paid overlap blocked",
+        "Existing read-only route",
         "Draft: regenerate + approve",
         "Approved: pay by Wompi / transfer / cash",
         "Approved: one teacher settled, the rest pending",
@@ -832,7 +854,9 @@
         "teachers",
         "special_charges",
         "space_bookings",
-        "audit_log"
+        "audit_log",
+        "users",
+        "tenants"
       ]
     },
     {
@@ -1113,7 +1137,11 @@
         "Loading: CTA spinner, form locked",
         "Declined: inline reason + alternate method",
         "Race: class filled during checkout → waitlist offer",
-        "Success: confirmation sheet"
+        "Success: confirmation sheet",
+        "Trial assessment loading/read error/retry",
+        "Confirmed active package blocks trial",
+        "Frozen/historical ambiguity pauses fictional trial",
+        "Forced/stale trial choice disabled; fresh atomic guard"
       ],
       "tables": [
         "class_sessions",
@@ -1187,7 +1215,10 @@
         "Default (this screen)",
         "Trial already used: that row drops to a note",
         "Existing member: banner offers C-06 instead",
-        "Loading: four skeleton rows"
+        "Loading: four skeleton rows",
+        "Trial assessment loading/read error/retry",
+        "Repeated or active-package trial not offered",
+        "Ambiguous history explicitly pauses fictional testing"
       ],
       "tables": [
         "plans",
@@ -1481,16 +1512,24 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Loading: header skeleton",
-        "Unverified WhatsApp: verify chip",
-        "Saving: inline confirmation"
+        "Own account/profile loading",
+        "Read failure / contained retry",
+        "Missing owned row / editing disabled",
+        "Editor / existing field validation",
+        "Saving / immediate busy guard",
+        "Atomic mock failure / same-request retry",
+        "Stale owned fields / reopen editor",
+        "Cancel/unmount/context change / no late UI effect",
+        "Saved / owned readback"
       ],
       "tables": [
         "profiles",
         "users",
         "memberships",
         "plans",
-        "consents"
+        "consents",
+        "audit_log",
+        "notification_prefs"
       ]
     },
     {
@@ -1531,21 +1570,26 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Loading: hero shimmer",
-        "Sold out: waitlist offer",
-        "Past: read-only with gallery",
-        "Cancelled: banner + refund note",
-        "No events published yet",
-        "Going: RSVP notice with cancel",
-        "Member price included"
+        "Scoped loading / read error / retry",
+        "Published detail / full capacity",
+        "Immutable zero-due intent preview / discard",
+        "Immediate busy / quota failure / same-intent retry",
+        "Fresh price/member/capacity conflict / clarification pause",
+        "Actor/provider/route change / old draft permanently invalid",
+        "Owned going / no-payment cancel / cancelled rejoin",
+        "Replay with current owned target status",
+        "Postcommit context lost / no late acknowledgement",
+        "Paid legacy flow / separate unverified payment-email contract"
       ],
       "tables": [
         "events",
         "event_rsvps",
-        "payments",
-        "invoices",
+        "memberships",
         "teachers",
-        "memberships"
+        "users",
+        "audit_log",
+        "payments",
+        "invoices"
       ]
     },
     {
@@ -1560,21 +1604,26 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Loading: hero shimmer",
-        "Sold out: waitlist offer",
-        "Past: read-only with gallery",
-        "Cancelled: banner + refund note",
-        "No events published yet",
-        "Going: RSVP notice with cancel",
-        "Member price included"
+        "Scoped loading / read error / retry",
+        "Published detail / full capacity",
+        "Immutable zero-due intent preview / discard",
+        "Immediate busy / quota failure / same-intent retry",
+        "Fresh price/member/capacity conflict / clarification pause",
+        "Actor/provider/route change / old draft permanently invalid",
+        "Owned going / no-payment cancel / cancelled rejoin",
+        "Replay with current owned target status",
+        "Postcommit context lost / no late acknowledgement",
+        "Paid legacy flow / separate unverified payment-email contract"
       ],
       "tables": [
         "events",
         "event_rsvps",
-        "payments",
-        "invoices",
+        "memberships",
         "teachers",
-        "memberships"
+        "users",
+        "audit_log",
+        "payments",
+        "invoices"
       ]
     },
     {
@@ -1589,16 +1638,21 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Empty: 'nothing yet'",
-        "Unread: dot + heavier weight",
-        "Expired action: row dims, action removed",
-        "Offline: cached list",
-        "All read",
-        "Muted category in the prefs matrix"
+        "Existing inbox empty/unread/read",
+        "Preference loading / existing defaults",
+        "Preference read failure / retry",
+        "Missing owned account / disabled",
+        "Ambiguous duplicate preference / no rewrite",
+        "Category saving / immediate busy",
+        "Atomic quota failure / same-request retry",
+        "Stale target / reload",
+        "Cancel/unmount/context / no late success",
+        "Confirmed local readback / dispatch disconnected"
       ],
       "tables": [
         "notifications",
-        "notification_prefs"
+        "notification_prefs",
+        "users"
       ]
     },
     {
@@ -1636,13 +1690,17 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "No request: delete row available",
-        "Step 1: explanation, switch off → next disabled",
-        "Step 2: destructive confirm",
-        "Request pending (requested) with cancel",
-        "Request processing (no cancel)",
-        "Privacy policy not accepted yet",
-        "Exporting"
+        "Scoped account loading",
+        "Read failure / retry / actions disabled",
+        "Allowlisted fictional preview / confirm or discard",
+        "Browser download offered / saved file unverified",
+        "Immediate busy / cancellation / no late acknowledgement",
+        "Mock write or quota failure / same-command retry",
+        "Required row or ownership lost / no preview body release",
+        "No request / two-step confirmation",
+        "Requested / atomic cancellation",
+        "Processing / cancellation blocked",
+        "Privacy policy not accepted yet"
       ],
       "tables": [
         "deletion_requests",
@@ -1906,15 +1964,17 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "Sending: button spinner",
-        "Wrong code: cells shake, attempts left shown",
-        "Expired: 'code expired' + resend",
-        "Rate limited: wait time stated"
+        "Identify / invalid format",
+        "Sending / immediate busy",
+        "Active fictional challenge",
+        "Expired at configured absolute deadline",
+        "Three wrong attempts / invalidated",
+        "Resend cooldown / prior challenge revoked",
+        "Cancel or unmount / stale completion discarded",
+        "Example save / cancelled retry",
+        "Fictional completion / real recovery disconnected"
       ],
-      "tables": [
-        "users",
-        "wa_templates"
-      ]
+      "tables": []
     },
     {
       "path": "/auth/locked",
@@ -2144,7 +2204,11 @@
         "Read-only (admin)",
         "Fictional 200/401/403 response",
         "Local request preparing / cancelled",
-        "Fictional503 / retry"
+        "Fictional503 / retry",
+        "Key mutation failed / retry",
+        "Key mutation cancelled",
+        "Committed metadata replay without raw",
+        "Invalid local expiry"
       ],
       "tables": [
         "api_keys",
@@ -2300,7 +2364,10 @@
         "same-request replay",
         "new record",
         "preview without saving",
-        "new record cancel/failure/retry"
+        "new record cancel/failure/retry",
+        "pending cancel/context fence",
+        "stale read suppression",
+        "postcommit acknowledgement failure"
       ],
       "tables": [
         "maintenance_records",
@@ -2331,7 +2398,12 @@
         "local save",
         "storage failure/retry",
         "stale revision",
-        "request replay",
+        "request replay/current effect conflict",
+        "busy immediate latch",
+        "cancel before commit",
+        "postcommit no late acknowledgement",
+        "actor/provider/editor/full URL change",
+        "missing original edit",
         "calendar/undated",
         "discard confirmation/linked guard"
       ],
@@ -2903,6 +2975,9 @@
         "Payment declined: inline reason, order stays pending",
         "Offline: queue and warn",
         "No permission: form read-only",
+        "Selected customer trial assessment loading/read error/retry",
+        "Repeated/active-package trial unavailable; ambiguous history pauses fictional trial only",
+        "Fresh staged trial guard including pending link",
         "Sale complete: receipt view",
         "Capacity / duplicate / pending check-in rejected with entire sale rolled back",
         "Storage or injected write failure: no partial user, consent, payment, invoice, ledger or booking"
@@ -2973,9 +3048,16 @@
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
-        "No class today: schedule promoted",
-        "Attendance locked: read-only with reason",
-        "Payroll pending: 'run closes on the 15th'"
+        "Own schedule / current week",
+        "Substitute choices loading",
+        "Scoped read failure / retry",
+        "No eligible class",
+        "Draft reason / no writes",
+        "Saving / immediate duplicate guard",
+        "Atomic write failure / same-request retry",
+        "Cancelled/unmounted/context changed / no late drawer reopen",
+        "Local queued result / no delivery",
+        "Class reassigned / stale request rejected"
       ],
       "tables": [
         "teachers",
@@ -2991,7 +3073,8 @@
         "reviews",
         "memberships",
         "class_ledger",
-        "practice_goals"
+        "practice_goals",
+        "message_log"
       ]
     },
     {
@@ -3106,6 +3189,9 @@
         "cancelled review",
         "invalid amount / missing reason",
         "atomic failure / retry",
+        "Trial assessment loading/read error/retry",
+        "Current trial eligibility blocks approval with pending request unchanged; rejection still available",
+        "Completed replay precedes eligibility reassessment",
         "approved",
         "rejected"
       ],

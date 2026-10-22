@@ -51,8 +51,8 @@
       "id": "FI-04",
       "baseline": "implemented",
       "current": "partial",
-      "verification": "not-run",
-      "scope": "Actual baseline defect repro; bounded35 repaired source/browser/integration gates tracked separately."
+      "verification": "focused-frontend-pass",
+      "scope": "Actual baseline5 repro and isolated six-command batch35 frontend proof; combined/release gates pending, generic direct-provider enforcement separate."
     },
     {
       "id": "NT-03",

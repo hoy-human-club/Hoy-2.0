@@ -32,6 +32,7 @@ on:
       - 'scripts/fixtures/payroll-draft-before.ts'
       - 'scripts/test-event-rsvp*.mjs'
       - 'scripts/event-rsvp-harness.tsx'
+      - 'scripts/test-operational-active-account*.mjs'
       - 'scripts/test-email-edit*.mjs'
       - 'scripts/email-edit-harness.tsx'
       - 'scripts/test-expense-ledger*.mjs'
@@ -80,6 +81,9 @@ jobs:
       - name: Verify payroll acknowledgement lifecycle
         if: matrix.scope == 'payroll-draft'
         run: node scripts/test-payroll-draft-hook.mjs
+      - name: Verify active-account command boundaries
+        if: matrix.scope == 'email-edit'
+        run: node scripts/test-operational-active-account.mjs
       - name: Verify added command acknowledgement lifecycle
         if: matrix.scope == 'email-edit' || matrix.scope == 'payroll-approval'
         run: node scripts/test-${{ matrix.scope }}-hook.mjs
@@ -88,6 +92,12 @@ jobs:
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-correctness-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
           node scripts/test-${{ matrix.scope }}-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify rendered active-account command boundaries
+        if: matrix.scope == 'email-edit'
+        run: node scripts/test-operational-active-account-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5187
           CHROMIUM_PATH: /usr/bin/google-chrome

@@ -1,6 +1,6 @@
 {
   "feature": "OT-02",
-  "base": "http://127.0.0.1:5193",
+  "base": "http://127.0.0.1:5253",
   "checks": [
     "held async loading",
     "empty resolution",
