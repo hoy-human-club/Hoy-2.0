@@ -1,0 +1,79 @@
+{
+  "batch": 29,
+  "baseCommit": "3acd144d62e11fd4b1c49151f1786ce6e0dc62b2",
+  "checkpoint": "Isolated uncommitted source; root alone Git/integration/release.",
+  "build": "npm run build1066 EXIT0; strict TypeScript, spacing/manual lint; built in 20.87s; existing actions reexport circular-chunk warnings remain.",
+  "entry": {
+    "url": "http://127.0.0.1:5233/assets/index-Dq_EShxE.js",
+    "sha256": "5a438fee63cdd60ab95cb4218ac05c5d3bd9d6276da7100b2669b7aafc0cc5a5"
+  },
+  "runtimeSourceSha256": {
+    "src/modules/customer/marketingConsent.ts": "098bafad7707dfacc20b5d2f104a2ba573dbfebc401de8a2cf612449a41db48e",
+    "src/modules/customer/useMarketingConsent.ts": "4938d31083fca14a51ed5e8f2244440f05de52450fe159829a588e33a0c3d155",
+    "src/modules/customer/pages/AccountPage.tsx": "8c4cc3e918d2a3e23df2eda93a2b6f0ef53ceeaa5d5a9adb6ff785502bdfc7f5",
+    "src/modules/customer/pages/AccountMarketing.css": "723994c1f75cb40d9dd71acf3e99b93e15538566528dde2a30056ef577159f32",
+    "src/modules/customer/strings.ts": "ab9bf7b26bd7b13f6224bf547f5c1d3cf76bc7ca3fdee3327330d4895fef9106"
+  },
+  "allSourceTreeSha256": "426a60cbe62bbf5a7efe1b9d73bd94d986ed31c2a570ae49cb6537ecff9d20b4",
+  "assetTreeSha256": "1ea8003bd91536744802b7823f7c0601beeb0503830091e22af1f961019b19da",
+  "protectedSourceUnchanged": [
+    "src/modules/customer/accountData.ts",
+    "src/modules/customer/hooks.ts",
+    "src/modules/customer/useNotificationPrefs.ts",
+    "src/modules/customer/notificationPrefs.ts",
+    "src/auth/roles.ts",
+    "src/auth/permissions.ts",
+    "src/data/schema.ts",
+    "src/data/MockProvider.ts",
+    "docs/frontend-completion/features.json"
+  ],
+  "accountExportDeletePipelineAndDrawersUnchanged": true,
+  "allPriorStringsIncluding15dayLegalCopyUnchanged": true,
+  "productionUi": "PASS7277:8 EN/ES\u00d7390/1280\u00d7light/dark;11roles; cross-surface readback; zero page errors; JS+CSS unchanged before/after.",
+  "developmentUi": "PASS76796:EN/ES existing MockProvider fault injection;3stagedwrites/read/required/duplicate/foreign/cancel/postcommit replay; zero page errors.",
+  "limits": [
+    "Browser-only fictional coupling; no authenticated legal consent/delivery, server atomicity, cross-tab guarantees or real credentials.",
+    "No MVP/commercial acceptance or phase/source criterion changes."
+  ],
+  "supersededRuntimeSourceSha256": {
+    "src/modules/customer/marketingConsent.ts": "098bafad7707dfacc20b5d2f104a2ba573dbfebc401de8a2cf612449a41db48e",
+    "src/modules/customer/useMarketingConsent.ts": "4938d31083fca14a51ed5e8f2244440f05de52450fe159829a588e33a0c3d155",
+    "src/modules/customer/pages/AccountPage.tsx": "1d4c6250d89a7d98c7d3d9edaa6fa65acb4b25bfa6461d61d6095bd7625e682d",
+    "src/modules/customer/pages/AccountMarketing.css": "723994c1f75cb40d9dd71acf3e99b93e15538566528dde2a30056ef577159f32",
+    "src/modules/customer/strings.ts": "ab9bf7b26bd7b13f6224bf547f5c1d3cf76bc7ca3fdee3327330d4895fef9106"
+  },
+  "boundedPresentationCorrection": "Root-requested existing C26 open-request Card uses existing surface tone to fix dark inherited light-on-paper text; status badge/copy/logic unchanged.",
+  "productionFingerprint": {
+    "entry": "http://127.0.0.1:5233/assets/index-Dq_EShxE.js",
+    "sha256": "5a438fee63cdd60ab95cb4218ac05c5d3bd9d6276da7100b2669b7aafc0cc5a5",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5233/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "runtimeSourceAndAssetTreesUnchangedAfterBothSuites": true,
+  "marketingDomainGroups": 8,
+  "unchangedAccountDomainGroups": 6,
+  "unchangedAccountReplayGroups": 4,
+  "marketingCaptureCount": 44,
+  "inspectedFinalCaptures": [
+    "en-390-light-marketing-default.jpg",
+    "es-390-dark-marketing-failed.jpg",
+    "es-390-light-marketing-postcommit.jpg",
+    "es-390-dark-marketing-request-contrast.jpg",
+    "en-1280-light-marketing-request-contrast.jpg"
+  ],
+  "privateExportBodyCaptures": 0,
+  "requestCardContrast": "Actual existing request UI in all8 combinations:body/retention/Cancel computed text contrast>=4.5; existing status badge unchanged.",
+  "generatedGlobalTrackedDiffs": [
+    {
+      "path": "src/app/captureDates.ts",
+      "change": "Normal build generator updates unrelated S-03 capture date2026-10-01\u21922026-10-22 from existing screenshot metadata.",
+      "ownership": "Not manually edited/owned by batch29; root excludes or regenerates global metadata during integration."
+    }
+  ],
+  "postcommitSemantics": "Cancellation/read/ownership failure after commit suppresses acknowledgement, not committed3writes. Retry revalidates required rows/target/currentmirror; no duplicate audit.",
+  "sourceFreeze": "Final runtime unchanged after build/domain/production/dev QA; local docs/receipts finalized afterward. Root alone checkpoint/integration/exact-head CI/release."
+}

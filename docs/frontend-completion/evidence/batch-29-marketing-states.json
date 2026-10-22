@@ -1,0 +1,10 @@
+{
+  "batch": 29,
+  "base": "http://127.0.0.1:5232",
+  "mode": "Actual dev UI with faults on existing provider; separate immutable production matrix",
+  "checks": [
+    "en: actual existing MockProvider3stagewrite failure rollback/retry; fresh staged missingprofile/duplicateprefs/foreignprefs/readthrow; cancel after pref+profile staged before audit rolls back; postcommit ownership loss suppresses acknowledgement with retained committed3writes; restored same-command replay no duplicateaudit",
+    "es: actual existing MockProvider3stagewrite failure rollback/retry; fresh staged missingprofile/duplicateprefs/foreignprefs/readthrow; cancel after pref+profile staged before audit rolls back; postcommit ownership loss suppresses acknowledgement with retained committed3writes; restored same-command replay no duplicateaudit"
+  ],
+  "errors": []
+}

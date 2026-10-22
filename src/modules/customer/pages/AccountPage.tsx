@@ -8,7 +8,6 @@ import { formatDate, formatDateTime, dateKey } from '../../../i18n/format';
 import { useLayout } from '../../../layout/useLayout';
 import { tenant } from '../../../tenant/tenant';
 import { useSettings } from '../../admin/settings';
-import { useAudit } from '../../staff/audit';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { Badge } from '../../../components/atom/Badge/Badge';
@@ -18,7 +17,8 @@ import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow';
 import { LEGAL_KINDS, legalTitleKey } from '../legal';
 import { canvasSpecs } from '../specs';
-import { useMyProfile, useNotificationPrefs } from '../hooks';
+import { useMarketingConsent } from '../useMarketingConsent';
+import './AccountMarketing.css';
 import { PageHead } from '../ui';
 
 import { checkAccount, prepareAccountCommand, prepareAccountPreview, readAccountState, offerAccountPreview, type AccountActor, type AccountCommand, type AccountIntent, type AccountOutcome } from '../accountData';
@@ -36,10 +36,8 @@ export function AccountPage() {
   const data = useData();
   const { user, role } = useSession();
   const { settings } = useSettings();
-  const audit = useAudit('app');
   const { sections, isVisible } = useLayout(spec);
-  const { profile } = useMyProfile();
-  const prefs = useNotificationPrefs();
+  const marketing = useMarketingConsent();
   const { rows: acceptances } = useTable<LegalAcceptanceRow>('legal_acceptances', { where: { tenant_id: tenant.id, user_id: user.id, kind: 'privacy' } });
   const [requests,setRequests]=useState<DeletionRequestRow[]>([]);
   const [step, setStep] = useState<0 | 1 | 2>(0);
@@ -127,25 +125,28 @@ export function AccountPage() {
     })();return current.flight;
   };
 
-  const setMarketing = async (channel: 'whatsapp' | 'email', on: boolean) => {
-    await prefs.set(channel, 'marketing', on);
-    const otherOn = prefs.isEnabled(channel === 'whatsapp' ? 'email' : 'whatsapp', 'marketing');
-    if (profile) await data.update('profiles', profile.id, { marketing_optin: on || otherOn });
-    await audit('consent.marketing', 'notification_prefs', null, { channel, after: on });
-  };
-
   const exportData=()=>{void operate('export',false);};
   const requestDeletion=()=>{if(understood)void operate('request');};
   const cancelDeletion=()=>{if(open)void operate('cancel',true,open.id);};
 
   const SECTIONS: Record<string, () => ReactNode> = {
     ConsentToggles: () => (
+      <div className="stack account-marketing" data-account-marketing>
+      <Notice tone="warn">{t('customer.account.marketing.boundary')}</Notice>
+      {marketing.message&&<Notice tone={['saved','replayed'].includes(marketing.message)?'success':marketing.message==='failed'||marketing.message==='stale'||marketing.message==='ambiguous'?'danger':'info'}>{t('customer.account.marketing.'+marketing.message)}</Notice>}
+      {marketing.status==='error'&&<Notice tone="danger">{t('customer.account.marketing.read')}</Notice>}
       <ListGroup title={t('customer.account.consents')}>
-        <ListRow icon="whatsapp" title={t('customer.account.consent.marketingWa')} subtitle={t('customer.account.consent.marketing.sub')} trailing={<Toggle size="sm" checked={prefs.isEnabled('whatsapp', 'marketing')} onChange={(v) => { void setMarketing('whatsapp', v); }} label="" />} />
-        <ListRow icon="mail" title={t('customer.account.consent.marketingEmail')} subtitle={t('customer.account.consent.marketing.sub')} trailing={<Toggle size="sm" checked={prefs.isEnabled('email', 'marketing')} onChange={(v) => { void setMarketing('email', v); }} label="" />} />
+        <ListRow icon="whatsapp" title={t('customer.account.consent.marketingWa')} subtitle={t('customer.account.consent.marketing.sub')} trailing={<Toggle size="sm" disabled={marketing.busy||marketing.status!=='ready'} checked={marketing.enabled('whatsapp')} onChange={(v) => marketing.set('whatsapp',v)} label={t('customer.account.marketing.whatsapp')} />} />
+        <ListRow icon="mail" title={t('customer.account.consent.marketingEmail')} subtitle={t('customer.account.consent.marketing.sub')} trailing={<Toggle size="sm" disabled={marketing.busy||marketing.status!=='ready'} checked={marketing.enabled('email')} onChange={(v) => marketing.set('email',v)} label={t('customer.account.marketing.email')} />} />
         <ListRow icon="shield" title={t('customer.account.consent.processing')} subtitle={privacy ? t('customer.account.consent.processing.on', { v: privacy.version, date: formatDate(privacy.accepted_at, lang, { dateStyle: 'long' }) }) : t('customer.account.consent.processing.off')} to="/app/legal/privacy" trailing={<Badge tone={privacy ? 'success' : 'warn'}>{privacy ? `v${privacy.version}` : t('customer.legal.notAccepted.short')}</Badge>} />
         <ListRow icon="bell" title={t('customer.notifications.prefs.title')} subtitle={t('customer.notifications.prefs.byCategory')} to="/app/notifications" />
       </ListGroup>
+      {(marketing.busy||marketing.canRetry||marketing.status==='error')&&<div className="row wrap">
+        {!marketing.busy&&<Button size="sm" variant="secondary" onClick={marketing.retry}>{t('customer.account.marketing.retry')}</Button>}
+        {(marketing.busy||marketing.canRetry)&&<Button size="sm" variant="ghost" onClick={marketing.cancel}>{t('customer.account.marketing.cancel')}</Button>}
+        {marketing.busy&&<span role="status" className="small muted">{t('customer.account.marketing.saving')}</span>}
+      </div>}
+      </div>
     ),
     ExportData: () => (
       <Card eyebrow={t('customer.account.export')} padding="md">
@@ -162,7 +163,7 @@ export function AccountPage() {
       </ListGroup>
     ),
     DeleteAccount: () => open ? (
-      <Card tone="highlight" eyebrow={t('customer.account.delete')} padding="md">
+      <Card data-account-request tone="surface" eyebrow={t('customer.account.delete')} padding="md">
         <div className="row wrap" style={{ marginBottom: 'var(--sp-sm)' }}>
           <Badge tone={open.status === 'processing' ? 'primary' : 'warn'}>{t(`customer.account.status.${open.status}`)}</Badge>
           <span className="xs muted">{t('customer.account.delete.requestedOn', { date: formatDateTime(open.requested_at, lang) })}</span>
