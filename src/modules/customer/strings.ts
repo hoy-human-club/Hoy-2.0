@@ -637,6 +637,20 @@ export const strings: StringTable = {
   'customer.events.memberIncluded': { es: 'Incluido en tu membresía', en: 'Included in your membership' },
   'customer.events.policy': { es: 'Los eventos no consumen clases de tu paquete y tienen su propia política de cancelación.', en: 'Events do not use classes from your package and have their own cancellation policy.' },
 
+  'customer.events.mock': { es: 'Demo FICTICIA solo en este navegador. No envía emails ni WhatsApp; no se comparte entre dispositivos.', en: 'FICTIONAL demo in this browser only. No email or WhatsApp is sent; no cross-device sharing.' },
+  'customer.events.localGoing': { es: 'Inscripción ficticia registrada localmente. No se enviaron mensajes.', en: 'Fictional RSVP recorded locally. No messages were sent.' },
+  'customer.events.paidPartial': { es: 'Ruta demo de pago existente y parcial. La confirmación atómica y las reglas de cancelación/reembolso de pago siguen sin verificar.', en: 'Existing partial demo payment path. Atomic confirmation and paid cancellation/refund rules remain unverified.' },
+  'customer.events.readError': { es: 'No se pudieron leer los eventos. Reintenta; no se muestran datos anteriores.', en: 'Could not read events. Retry; previous data is hidden.' },
+  'customer.events.joinPreview': { es: 'Inscripción ficticia sin pago', en: 'Fictional RSVP with no payment' },
+  'customer.events.cancelPreview': { es: 'Cancelar inscripción ficticia sin pago', en: 'Cancel fictional RSVP with no payment' },
+  'customer.events.joinBody': { es: 'Una plaza, sin invitados. Se comprobarán de nuevo cupo, precio y estado de membresía existente al confirmar.', en: 'One place, no guests. Capacity, price and existing membership status are rechecked on confirmation.' },
+  'customer.events.cancelBody': { es: 'Cancela solo tu inscripción local sin pago. No cambia pagos ni define reglas de reembolso.', en: 'Cancel only your local unpaid RSVP. No payments change and no refund rules are defined.' },
+  'customer.events.confirmMock': { es: 'Confirmar acción ficticia', en: 'Confirm fictional action' },
+  'customer.events.commandError': { es: 'No se pudo confirmar la acción local. Reintenta el mismo intento; no duplica un resultado ya registrado. Si cambió el evento, cancela y vuelve a abrir.', en: 'Could not confirm the local action. Retry the same attempt; an already recorded result is not duplicated. If the event changed, cancel and reopen.' },
+  'customer.events.changed': { es: 'El precio o los detalles cambiaron. Cancela y vuelve a abrir; esta acción no cobra.', en: 'The price or details changed. Cancel and reopen; this action does not charge.' },
+  'customer.events.clarification': { es: 'Prueba ficticia pausada: fecha o historial requieren aclaración. No define un plazo ni una política real de cancelación.', en: 'Fictional test paused: date or history needs clarification. This defines no real cutoff or cancellation policy.' },
+  'customer.events.cancelledOperation': { es: 'Acción cerrada sin confirmación nueva.', en: 'Action closed without a new confirmation.' },
+
   // C-24 notifications
   'customer.notifications.title': { es: 'Notificaciones', en: 'Notifications' },
   'customer.notifications.unread': { es: '{n} sin leer', en: '{n} unread' },
