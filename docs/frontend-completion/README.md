@@ -1,3 +1,5 @@
+Current deployed correctness release: [PR64](https://github.com/imagine-os/hoy/pull/64), checked6628c0a all12 triggered workflows passed; merge0097dfb, [Pages build/deploy/hosted source verification passed](https://github.com/imagine-os/hoy/actions/runs/39716829673). Rollback67f1428. Batches24–26 combined full build/domain/all6 serial rendered/regression suites passed; their exact-head CI/release is next. Detailed older checkpoints below remain historical; [CONTINUE](CONTINUE.md) is the concise current handoff.
+
 # Frontend completion handoff index
 
 [Start with the concise current checkpoint](CONTINUE.md); historical receipts below preserve exact evidence and remaining gates.

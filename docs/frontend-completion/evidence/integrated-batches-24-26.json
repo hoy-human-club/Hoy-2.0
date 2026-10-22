@@ -170,8 +170,30 @@
   "nextIndependent": [
     "Corrected notification preferences27 with coupled marketing29 compatibility; independent M04 self-test28."
   ],
-  "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca until PR64 checked release receipt supersedes.",
+  "rollback": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
   "knownPresentationGaps": [
     "Pre-existing C-26 dark highlighted card low contrast remains in this24–26 runtime. Batch29 contains a later local default-Card presentation correction; that correction was not part of this immutable bundle. No broad polish acceptance is claimed."
-  ]
+  ],
+  "rootBaselineRelease": {
+    "pr": 64,
+    "checkedHead": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+    "workflowCount": 12,
+    "allTriggeredWorkflows": "passed",
+    "correctnessRun": 39715880386,
+    "correctnessJobs": {
+      "119617743570": "profile-save passed",
+      "119617743684": "recovery passed",
+      "119617743691": "trial-eligibility passed",
+      "119617743811": "api-key-mutations passed"
+    },
+    "mergedSource": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+    "pagesRun": 39716829673,
+    "pagesJobs": {
+      "119620828518": "build passed",
+      "119621077593": "deploy passed",
+      "119621179549": "hosted source and selected subscription flow passed"
+    },
+    "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+    "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
+  }
 }

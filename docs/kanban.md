@@ -3,7 +3,7 @@
 ## Account, contact and teacher integration (2026-10-22)
 
 - CU-06 fictional own-data preview/request replay repair, AD-07/RC-05 compatible contact masking and PF-03 atomic local team queue are isolated-build/domain/rendered verified. Root combined QA/exact-head CI/deployment pending. Batches24–26 remain partial; no production auth, real notification delivery, legal export/deletion or SLA acceptance.
-- Notification preferences27 and coupled C-26 marketing29 stay separate until compatibility checks pass. Independent M-04 local self-test28 continues. PR64 is unmerged while new CI trial/recovery assertions are investigated.
+- Notification preferences27 and coupled C-26 marketing29 stay separate until compatibility checks pass. Independent M-04 local self-test28 continues. PR64 merged0097dfb after all12 exact-head workflows passed; Pages39716829673 build/deploy/hosted exact-source verification passed. New batches24–26 passed all6 combined suites and await checked release.
 - All124 source criteria/statuses/roles/future phases preserved. Root alone performs Git/release mutations.
 
 ## Current checked release and correctness continuation (2026-10-22)

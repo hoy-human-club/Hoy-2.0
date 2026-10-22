@@ -1197,7 +1197,8 @@
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1316,7 +1317,8 @@
           "verification": "Full build/domain/immutable5217 ENES3901280 lightdark and dev lifecycle passed. Source663abcf merged; combined build/CI/release pending.",
           "limits": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1448,7 +1450,8 @@
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1764,7 +1767,8 @@
           "verification": "Corrected source9d2691a/runtime24a49ae5 full build/domain/immutable5215 ENES3901280 lightdark/all11reviewroles/devstates and desk/receipt regressions passed. Root combined build/CI/release pending.",
           "limits": "No production definition for ambiguous active/frozen/legacy/future entitlements or cross-account real-person identity; no backend acceptance.",
           "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "historicalSourceAssessment": {
@@ -5593,7 +5597,8 @@
           "verification": "Full build/domain7groups and immutable5213 ENES3901280 lightdark/all11roles/lost-ack UI passed. Root merged source c4dd183; combined build/CI/release pending.",
           "limits": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved.",
           "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
-          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance.",
+          "release": "PR64 checked6628c0a all12workflows passed; merge0097dfb; Pages39716829673 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial",
@@ -5978,7 +5983,29 @@
       "batch-27.md notification preferences: corrected public acknowledgement behavior frozen; root integration/CI pending alongside C26 marketing consumer compatibility.",
       "batch-28.md local email self-test: source/build/rendered checks active.",
       "batch-29.md existing C26 marketing mirror atomicity: isolated source/domain/build active."
-    ]
+    ],
+    "correctnessRelease": {
+      "pr": 64,
+      "checkedHead": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+      "workflowCount": 12,
+      "allTriggeredWorkflows": "passed",
+      "correctnessRun": 39715880386,
+      "correctnessJobs": {
+        "119617743570": "profile-save passed",
+        "119617743684": "recovery passed",
+        "119617743691": "trial-eligibility passed",
+        "119617743811": "api-key-mutations passed"
+      },
+      "mergedSource": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+      "pagesRun": 39716829673,
+      "pagesJobs": {
+        "119620828518": "build passed",
+        "119621077593": "deploy passed",
+        "119621179549": "hosted source and selected subscription flow passed"
+      },
+      "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
+      "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
+    }
   },
   "classificationPolicy": {
     "baselineImplementationStatus": "Historical source-only classification recovered from b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e; retained for comparison, not acceptance.",
