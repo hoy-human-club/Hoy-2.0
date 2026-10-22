@@ -13,6 +13,7 @@ import { Chip } from '../../components/atom/Chip/Chip';
 import { Badge } from '../../components/atom/Badge/Badge';
 import { Select } from '../../components/atom/Input/Input';
 import { DataTable, type DataTableColumn } from '../../components/organism/DataTable/DataTable';
+import { Notice } from '../../components/molecule/Notice/Notice';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useAudit } from '../staff/audit';
 import { useSettings } from './settings';
@@ -26,13 +27,10 @@ const STATUS_TONE = { draft: 'warn', approved: 'primary', paid: 'success' } as c
 export function PayoutsPage() {
   const { t, lang } = useI18n();
   const { can } = useSession();
-  const audit = useAudit('admin');
   const nav = useNavigate();
   const { settings } = useSettings();
   const { runs, linesOf, loading } = usePayroll();
-  const generate = useGenerateDraft();
   const [offset, setOffset] = useState(0);
-  const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const canWrite = can('payroll.write');
   const cadence = settings.payroll.cadence;
@@ -40,27 +38,20 @@ export function PayoutsPage() {
 
   /** 0018: one period per month, or two (1–15 · 16–end) when M-08c says biweekly. */
   const periods = periodsForMonth(cadence, offset);
+  const generate = useGenerateDraft(periods, settings.payroll.payoutMethod);
   const draft = runs.find((r) => r.status === 'draft');
   const pending = runs.filter((r) => r.status === 'approved');
   const quarterStart = addMonths(new Date(), -3);
   const paidQuarter = runs.filter((r) => r.status === 'paid' && r.paid_at && new Date(r.paid_at) >= quarterStart);
 
-  const run = async () => {
-    setBusy(true); setMsg(null);
+  const run = async (retry=false) => {
+    setMsg(null);
     try {
-      const made: { id: string; total: number; created: number }[] = [];
-      let overlap = false;
-      for (const period of periods) {
-        const res = await generate(period, settings.payroll.payoutMethod);
-        if ('blocked' in res) { setMsg(t('admin.payouts.generate.blocked', { status: res.blocked.status })); return; }
-        await audit(res.replaced ? 'payroll.draft.regenerate' : 'payroll.draft.create', 'payroll_runs', res.run.id, { after: { period: `${period.start}…${period.end}`, cadence, lines: res.created, total: res.run.total } });
-        made.push({ id: res.run.id, total: res.run.total, created: res.created });
-        overlap = overlap || res.replacedOverlap;
-      }
-      const total = made.reduce((a, m) => a + m.total, 0), n = made.reduce((a, m) => a + m.created, 0);
-      setMsg(`${made.length > 1 ? t('admin.payouts.generate.done.many', { runs: made.length, n, total: formatCOP(total, lang) }) : t('admin.payouts.generate.done', { n, total: formatCOP(total, lang) })}${overlap ? ` · ${t('admin.payouts.generate.replacedOverlap')}` : ''}`);
-      if (made.length === 1) nav(`/admin/finance/payouts/${made[0].id}`);
-    } finally { setBusy(false); }
+      const made = await generate.execute(retry);
+      const total = made.reduce((a,m)=>a+m.total,0), n=made.reduce((a,m)=>a+m.created,0);
+      setMsg(`${made.length > 1 ? t('admin.payouts.generate.done.many', { runs: made.length, n, total: formatCOP(total, lang) }) : t('admin.payouts.generate.done', { n, total: formatCOP(total, lang) })}${made.some(m=>m.replacedOverlap) ? ` · ${t('admin.payouts.generate.replacedOverlap')}` : ''}`);
+      if(made.length===1)nav(`/admin/finance/payouts/${made[0].id}`);
+    } catch { /* Contained command state below; committed mock drafts may remain after lost acknowledgement. */ }
   };
 
   const cols: DataTableColumn<PayrollRunRow>[] = [
@@ -92,15 +83,23 @@ export function PayoutsPage() {
         <StatTile label={t('admin.payouts.kpi.quarter')} value={formatCOP(paidQuarter.reduce((a, r) => a + r.total, 0), lang)} hint={t('admin.payouts.kpi.quarter.hint', { n: paidQuarter.length })} />
       </div>
 
+      <section className="stack-sm" data-payroll-draft-state>
+        <Notice tone="info">{t('admin.draft.mock')}</Notice>
+        {generate.status==='loading'&&<Notice>{t('admin.draft.loading')}</Notice>}
+        {generate.error&&<Notice tone="warn" action={<Button size="sm" variant="secondary" onClick={()=>{if(generate.error==='save')void run(true);else void generate.reload();}}>{t(generate.error==='save'?'admin.draft.retry':'admin.draft.reload')}</Button>}>{t(`admin.draft.${generate.error}`)}</Notice>}
+        {generate.saved&&<Notice tone="success">{t('admin.draft.saved')}</Notice>}
+        {generate.busy&&<Notice action={<Button size="sm" variant="secondary" onClick={generate.cancel}>{t('admin.draft.cancel')}</Button>}>{t('admin.draft.saving')}</Notice>}
+      </section>
+
       <Card tone="muted" title={t('admin.payouts.generate')} eyebrow="M-09a">
         <div className="row wrap" style={{ alignItems: 'flex-end', gap: 'var(--sp-md)' }}>
-          <Select value={String(offset)} onChange={(e) => setOffset(Number(e.target.value))} aria-label={t('admin.payouts.generate.period')} style={{ maxWidth: 220 }}>
+          <Select disabled={generate.busy} value={String(offset)} onChange={(e) => setOffset(Number(e.target.value))} aria-label={t('admin.payouts.generate.period')} style={{ maxWidth: 220 }}>
             {[0, 1, 2, 3].map((o) => {
               const p = monthPeriodFor(o);
               return <option key={o} value={o}>{formatDate(p.start, lang, { month: 'long', year: 'numeric' })}</option>;
             })}
           </Select>
-          <Button size="sm" loading={busy} disabled={!canWrite} onClick={run}>{t(cadence === 'biweekly' ? 'admin.payouts.generate.action.biweekly' : 'admin.payouts.generate.action')}</Button>
+          <Button size="sm" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy} onClick={()=>void run()}>{t(cadence === 'biweekly' ? 'admin.payouts.generate.action.biweekly' : 'admin.payouts.generate.action')}</Button>
           <span className="xs muted">{t('admin.payouts.generate.hint')}</span>
         </div>
         <p className="xs muted" style={{ marginTop: 'var(--sp-sm)' }}>{periods.map((p) => periodLabel(p, lang)).join(' · ')} — {t('admin.payouts.generate.cadence', { cadence: t(`admin.settings.f.cadence.${cadence}`) })} <Link to="/admin/settings/payments">M-08c</Link></p>
@@ -128,7 +127,6 @@ export function PayoutRunPage() {
   const audit = useAudit('admin');
   const { runs, linesOf, teacherName, loading } = usePayroll();
   const { settings: runSettings } = useSettings();
-  const generate = useGenerateDraft();
   const { rows: sessions } = useTable<ClassSessionRow>('class_sessions');
   const sessionById = useMemo(() => new Map(sessions.map((s) => [s.id, s])), [sessions]);
   const { rows: specials } = useTable<SpecialChargeRow>('special_charges');
@@ -140,6 +138,7 @@ export function PayoutRunPage() {
   const canWrite = can('payroll.write');
 
   const run = runs.find((r) => r.id === id);
+  const generate = useGenerateDraft(run?[{start:run.period_start,end:run.period_end}]:[],run?.method??'wompi');
   const lines = run ? linesOf(run.id) : [];
   const statement = useMemo(() => statementOf(lines), [lines]);
 
@@ -208,14 +207,10 @@ export function PayoutRunPage() {
     } finally { setBusy(null); }
   };
 
-  const regenerate = async () => {
-    setBusy('regen'); setNotice(null);
-    try {
-      const res = await generate({ start: run.period_start, end: run.period_end }, run.method);
-      if ('blocked' in res) { setNotice({ tone: 'bad', text: t('admin.payouts.generate.blocked', { status: res.blocked.status }) }); return; }
-      await audit('payroll.draft.regenerate', 'payroll_runs', run.id, { after: { lines: res.created, total: res.run.total } });
-      setNotice({ tone: 'ok', text: t('admin.payouts.generate.done', { n: res.created, total: formatCOP(res.run.total, lang) }) });
-    } finally { setBusy(null); }
+  const regenerate = async (retry=false) => {
+    setNotice(null);
+    try { const [res]=await generate.execute(retry);setNotice({tone:'ok',text:t('admin.payouts.generate.done',{n:res.created,total:formatCOP(res.total,lang)})}); }
+    catch { /* Contained draft command state below. */ }
   };
 
   const exportCsv = () => {
@@ -246,10 +241,20 @@ export function PayoutRunPage() {
 
       {notice && <div className={`adm-notice ${notice.tone === 'bad' ? 'adm-notice-bad' : ''} small`}>{notice.text}</div>}
 
+      {run.status==='draft'&&<>
+      <section className="stack-sm" data-payroll-draft-state>
+        <Notice tone="info">{t('admin.draft.mock')}</Notice>
+        {generate.status==='loading'&&<Notice>{t('admin.draft.loading')}</Notice>}
+        {generate.error&&<Notice tone="warn" action={<Button size="sm" variant="secondary" onClick={()=>{if(generate.error==='save')void regenerate(true);else void generate.reload();}}>{t(generate.error==='save'?'admin.draft.retry':'admin.draft.reload')}</Button>}>{t(`admin.draft.${generate.error}`)}</Notice>}
+        {generate.saved&&<Notice tone="success">{t('admin.draft.saved')}</Notice>}
+        {generate.busy&&<Notice action={<Button size="sm" variant="secondary" onClick={generate.cancel}>{t('admin.draft.cancel')}</Button>}>{t('admin.draft.saving')}</Notice>}
+      </section>
+      </>}
+
       <Card title={t('admin.payouts.actions')} tone="muted">
         <div className="row wrap">
-          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={busy === 'regen'} disabled={!canWrite} onClick={regenerate}>{t('admin.payouts.action.regenerate')}</Button>}
-          {run.status === 'draft' && <Button size="sm" loading={busy === 'approve'} disabled={!canWrite} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
+          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy||!!busy} onClick={()=>void regenerate()}>{t('admin.payouts.action.regenerate')}</Button>}
+          {run.status === 'draft' && <Button size="sm" loading={busy === 'approve'} disabled={!canWrite||generate.busy} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
           {run.status === 'approved' && <Button size="sm" loading={busy === 'wompi'} disabled={!canWrite} onClick={sendWompi}>{t('admin.payouts.action.wompi')}</Button>}
           {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'transfer'} disabled={!canWrite} onClick={() => markPaid('transfer')}>{t('admin.payouts.action.transfer')}</Button>}
           {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'cash'} disabled={!canWrite} onClick={() => markPaid('cash')}>{t('admin.payouts.action.cash')}</Button>}
@@ -268,7 +273,7 @@ export function PayoutRunPage() {
         {statement.map((g) => (
           <Card key={g.teacherId} padding="sm" title={teacherName.get(g.teacherId) ?? g.teacherId}
             actions={<div className="row wrap">
-              <Badge tone={g.settled ? 'success' : 'warn'}>{t(g.settled ? 'admin.payouts.status.paid' : 'admin.payouts.awaitingPayment')}</Badge>
+              <Badge tone={g.settled ? 'success' : 'warn'}>{t(run.status==='draft'?'admin.payouts.status.draft':g.settled ? 'admin.payouts.status.paid' : 'admin.payouts.awaitingPayment')}</Badge>
               <strong className="mono small">{formatCOP(g.subtotal, lang)}</strong>
             </div>}>
             <div className="row-between wrap">

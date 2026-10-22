@@ -1,0 +1,15 @@
+{
+  "base": "http://127.0.0.1:5240",
+  "checks": [
+    "en/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "Existing payroll roles admin/finance/super allowed;8 denied; no expansion",
+    "en/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "en/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "en/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "es/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "es/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "es/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+    "es/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance"
+  ],
+  "errors": []
+}
