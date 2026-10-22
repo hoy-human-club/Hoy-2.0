@@ -37,7 +37,7 @@
     "test-pending-payments.mjs",
     "test-teacher-ownership.mjs"
   ],
-  "productionGate": "in progress against immutable5222; no combined pass claim yet",
+  "productionGate": "passed all named complete production and asynchronous-state matrices against frozen5222/5223; all reported page-error arrays empty",
   "releaseGate": "pending final exact-head CI/checked merge/deployment/source verification",
   "limits": [
     "Fictional mock commands and in-memory recovery only; no backend or owner acceptance.",
@@ -49,15 +49,54 @@
   "productionPassed": [
     "test-api-key-mutations-ui.mjs (ENES3901280 lightdark/all11roles/no raw captures/metadata-only lost-ack replay)",
     "test-recovery-ui.mjs (all8 ENES3901280 lightdark public deep link; exact expiry/resend/wrong/cancel/retry/unmount; local storage/session unchanged; no provider calls)",
-    "test-trial-eligibility-ui.mjs (ENES3901280 lightdark/customer/desk/review/all11reviewroles; explicit allocation ambiguity; zero page errors)"
+    "test-trial-eligibility-ui.mjs (ENES3901280 lightdark/customer/desk/review/all11reviewroles; explicit allocation ambiguity; zero page errors)",
+    "test-profile-save-ui.mjs (ENES3901280 lightdark; customer/teacher/super and8denied; quota/retry/cancel/stale/reopen and existing CRM name/phone/birthday readback)",
+    "test-desk-sale-ui.mjs (serial ENES returning/new customer, exact package attribution, full/duplicate/pending/write failures, cancel/retry/idempotency)",
+    "test-transfer-receipts-ui.mjs (serial ENES upload validation/cancel/write failure/retry, approval/rejection, trial guard, permitted/denied roles)",
+    "test-operational-quotes-ui.mjs (complete serial ENES9checks: public/customer/desk/gift/booking transfer, required fictional upload and frozen terms)",
+    "test-pending-payments-ui.mjs (complete serial ENES3901280lightdark, frozen/corrupt metadata, readonly/deeplink/reload and3permitted/8denied)"
   ],
   "productionEntrySha256": "dac8d3a614cd1809d3bf7e5afe868bbadc63e8ef022d7f9b4fede16fda5c2060",
   "inspectedCaptures": [
     "docs/screenshots/D-07/es-390-key-atomic-replay-light.jpg",
     "docs/screenshots/C-21/es-390-dark-complete.jpg",
-    "docs/screenshots/trial-eligibility/en-390-checkout-unlinked-allocation.jpg"
+    "docs/screenshots/trial-eligibility/en-390-checkout-unlinked-allocation.jpg",
+    "docs/screenshots/operational-quotes/en-390-customer-gift-draft-result.jpg",
+    "docs/screenshots/S-09/es-390-pending-frozen-detail.jpg"
   ],
   "devStatePassed": [
-    "test-profile-save-states.mjs (ENES actual ProfilePage loading/readfailure/retry, immediate busy, staged-second-write failure, cancel/unmount/context, postcommit navigation)"
-  ]
+    "test-profile-save-states.mjs (ENES actual ProfilePage loading/readfailure/retry, immediate busy, staged-second-write failure, cancel/unmount/context, postcommit navigation)",
+    "test-trial-eligibility-states.mjs (loading/readerror/retry/staleactor/unmount/studio-midnight)"
+  ],
+  "remainingGates": {
+    "Jas": [
+      "Production meaning/timing of active/frozen packages and ambiguous legacy/gift/adjustment provenance (batch21).",
+      "Emergency-contact field readership before any CRM projection (batch22)."
+    ],
+    "Justin": [
+      "Owner acceptance/configuration actions remain separate; none needed for the bounded mock repairs."
+    ],
+    "Anu": [
+      "Authenticated atomic eligibility/purchase/review and canonical historical/same-person identity.",
+      "Authorized own-profile reads/writes, field permissions and safe idempotency/conflict audit.",
+      "Real API/key enforcement and real identity recovery/delivery/session contracts; no production auth/security provisioning performed.",
+      "Private receipt storage tracked by issue54; bank/review/timing services remain disconnected. Fictional browser receipts may reset daily and do not persist across devices."
+    ],
+    "rootRelease": [
+      "Final exact-head CI, checked merge and ordinary deployment/source verification."
+    ]
+  },
+  "initialRegressionFailures": [
+    {
+      "suite": "test-operational-quotes-ui.mjs",
+      "result": "Timed out locating gift Name field after intro; no failure-time DOM retained. Isolated same-fixture gift reproduction found one correctly associated field and no page errors. Cause unresolved; serial complete rerun with retained diagnostics pending.",
+      "resolution": "Complete unchanged-assertion serial9check rerun passed against the same immutable bundle. No product defect reproduced; original timeout cause remains undetermined."
+    },
+    {
+      "suite": "test-pending-payments-ui.mjs",
+      "result": "Failure screenshot timed out and obscured original error. Diagnostics now preserve original failure and use bounded best-effort capture; serial rerun pending. No application assertions relaxed.",
+      "resolution": "Complete serial ENES/role matrix passed after diagnostic-only correction; application runtime unchanged. Original obscured failure cause remains undetermined."
+    }
+  ],
+  "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca"
 }

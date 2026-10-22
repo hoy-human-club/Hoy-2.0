@@ -1,8 +1,8 @@
 {
   "requirement": "PR-04",
   "phase": "MVP Oct 30",
-  "base": "http://127.0.0.1:5215",
-  "runtimeFingerprint": "24a49ae552cef48f6ef7eaea9e15a959a947a8deff3a33e43d2f96f7c62d0e40",
+  "base": "http://127.0.0.1:5222",
+  "runtimeFingerprint": "ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6",
   "checks": [
     "en: actual pass exclusion; forced trial disabled; live active/frozen/legacy and unlinked-debit exhaustion changes; prepaid-single eligible/cancel no effects; pending fictional receipt rechecked after package activation, rejection enabled, cancel unchanged; review storage failure rollback/retry/doubleclick once; desk exclusion/clarification; preserved reviewer/denied roles;3901280 lightdark",
     "es: actual pass exclusion; forced trial disabled; live active/frozen/legacy and unlinked-debit exhaustion changes; prepaid-single eligible/cancel no effects; pending fictional receipt rechecked after package activation, rejection enabled, cancel unchanged; review storage failure rollback/retry/doubleclick once; desk exclusion/clarification; preserved reviewer/denied roles;3901280 lightdark"

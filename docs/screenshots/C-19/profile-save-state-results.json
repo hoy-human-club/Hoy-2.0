@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5216",
+  "base": "http://127.0.0.1:5223",
   "checks": [
     "en: actual ProfilePage contained loading/readfailure/retry; delayed transaction busy immediate duplicate guard; cancel/unmount/actorchange before commit no writes; staged-second-write failure retry once; postcommit navigation no late UI",
     "es: actual ProfilePage contained loading/readfailure/retry; delayed transaction busy immediate duplicate guard; cancel/unmount/actorchange before commit no writes; staged-second-write failure retry once; postcommit navigation no late UI"

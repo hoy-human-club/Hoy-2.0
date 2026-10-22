@@ -3,7 +3,7 @@
 ## Current checked release and correctness continuation (2026-10-22)
 
 - [PR63](https://github.com/imagine-os/hoy/pull/63) deployed `67f1428` after all16 exact-head workflows passed at `075a514`, including all4 continuation jobs. Pages build/deploy/hosted exact-source verification passed [39707891062](https://github.com/imagine-os/hoy/actions/runs/39707891062); rollback `e4257e5`.
-- Batches20/22/23 isolated mock API-key/profile atomicity and recovery expiry passed full build/domain/production matrices and are integrated for combined QA. Batch21 corrected trial eligibility is finishing receipt regression. Batches24/25 account commands and phone-mask format repair proceed independently. Root alone mutates Git/releases.
+- Batches20–23 integrated mock API-key/profile commands, trial eligibility and recovery expiry passed full build/domain/all named production/dev-state checks. Final exact-head CI/release pending. Batches24–27 account commands, phone masking, substitute requests and notification preferences proceed independently. Root alone mutates Git/releases.
 - All124 original source fields and future phases preserved. Historical14/94/11/5 classification is separate from current13/98/8/5 source findings; neither is an acceptance percentage. Backend/owner gates remain. [Current handoff](frontend-completion/CONTINUE.md).
 
 ## Frontend controls and next integration (2026-10-22)

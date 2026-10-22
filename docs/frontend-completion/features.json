@@ -1196,7 +1196,8 @@
           "behavior": "Memory-only fictional recovery challenge absolute expiry, resend invalidation, three wrong attempts and busy/cancel/unmount protection; explicit disconnected completion.",
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance.",
-          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1314,7 +1315,8 @@
           "behavior": "Scoped own profile + users.phone writes and digest-only audit receipt are atomic in fictional mock; contained reads/missing-row/stale/cancel/retry/replay behavior.",
           "verification": "Full build/domain/immutable5217 ENES3901280 lightdark and dev lifecycle passed. Source663abcf merged; combined build/CI/release pending.",
           "limits": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair.",
-          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1425,7 +1427,8 @@
           "behavior": "Fictional recovery expiry and lifecycle only; no WhatsApp message sent.",
           "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
           "limits": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected.",
-          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
         }
       ],
       "currentFrontendAssessment": {
@@ -1740,7 +1743,8 @@
           "behavior": "Clear remaining approved payment-backed package blocks fictional trial across offers/checkout/desk/review; historical trial usage retained. Ambiguous allocation/freeze/history visibly pauses mock testing without rewriting purchases.",
           "verification": "Corrected source9d2691a/runtime24a49ae5 full build/domain/immutable5215 ENES3901280 lightdark/all11reviewroles/devstates and desk/receipt regressions passed. Root combined build/CI/release pending.",
           "limits": "No production definition for ambiguous active/frozen/legacy/future entitlements or cross-account real-person identity; no backend acceptance.",
-          "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified."
+          "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified.",
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
         }
       ],
       "historicalSourceAssessment": {
@@ -2789,9 +2793,9 @@
         "/#/admin/finance"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded local proof and PR62/63 release receipts; not owner/backend acceptance",
         "missingFrontend": [
-          "Unified all-pending mock list and safe read-only non-receipt details implemented; focused production QA passed; exact-head release pending. Countdown requires unresolved confirmation/after-hours timing."
+          "Unified pending queue deployedPR62; frozen quote details deployedPR63. Batch21 trial-review safeguard passed combined proof, release pending. Countdown remains blocked on confirmation/after-hours timing."
         ],
         "remainingBackend": [
           "Pending queue/realtime/read authorization."
@@ -2814,7 +2818,18 @@
           "acceptance": "Original phase, role, literal criterion and source status preserved; no owner/backend acceptance."
         }
       ],
-      "baselineImplementationStatus": "absent"
+      "baselineImplementationStatus": "absent",
+      "priorSourceAssessments": [
+        {
+          "basis": "source inspection only; not owner acceptance",
+          "missingFrontend": [
+            "Unified all-pending mock list and safe read-only non-receipt details implemented; focused production QA passed; exact-head release pending. Countdown requires unresolved confirmation/after-hours timing."
+          ],
+          "remainingBackend": [
+            "Pending queue/realtime/read authorization."
+          ]
+        }
+      ]
     },
     {
       "id": "PG-06",
@@ -5517,7 +5532,8 @@
           "behavior": "Mock create/rotate/revoke + audit persist atomically, safe one-time reveal and metadata-only committed replay; no raw persistence/log/captures.",
           "verification": "Full build/domain7groups and immutable5213 ENES3901280 lightdark/all11roles/lost-ack UI passed. Root merged source c4dd183; combined build/CI/release pending.",
           "limits": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved.",
-          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance.",
+          "integratedVerification": "Combined runtimeef93b66 full build/domain/complete production/dev-state matrices passed; see integrated-batches-20-23.json. Final exact-head CI/release pending; no owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial",
@@ -5794,7 +5810,7 @@
     "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39707891062",
     "deployedCodeSource": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "Batches20–24 isolated correctness repairs: mock API keys, trial eligibility, own profile, recovery expiry, account-data mock commands; integration/release pending.",
+    "activeBatch": "Batches20–23 integrated full build/domain/production/dev-state proof passed; final exact-head CI/release pending. Batch25beb2ec9 and26d7ac5af isolated finalgreen/backed up;24finishing finaldevstates,27notificationprefs active. No owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5889,6 +5905,14 @@
       "deploymentStatus": "build/deploy/hosted exact-source verification passed",
       "deployedSource": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
       "limits": "Changed flows local-production and exact-head CI verified; hosted provenance/selected existing flows only. No owner/backend acceptance."
+    },
+    "pendingCorrectnessIntegration": {
+      "branch": "codex/frontend-correctness-continuation",
+      "sourceCheckpoint": "79efc21157129a7e3a2ef784620897ac1127a368",
+      "runtimeSourceSha256": "ef93b66cd93081f3474627152b4fdd2814d2d65b50f37be20d9a30f4a39bc9e6",
+      "localProof": "docs/frontend-completion/evidence/integrated-batches-20-23.json",
+      "status": "all named combined fullbuild/domain/production/dev-state checks passed; final exact-head CI/release pending",
+      "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca"
     }
   },
   "classificationPolicy": {

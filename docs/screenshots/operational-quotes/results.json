@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5210",
+  "base": "http://127.0.0.1:5222",
   "checks": [
     "en: public supported/unsupported CTAs, package dated quote, cancel, midnight stale explicit review, persistence rollback/retry/double-click one grant, retained metadata",
     "en: matched paired gift snapshot saved atomically as monetary draft only",
