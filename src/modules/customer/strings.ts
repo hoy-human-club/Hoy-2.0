@@ -671,6 +671,11 @@ export const strings: StringTable = {
   'customer.signin.create': { es: 'Crear cuenta', en: 'Create account' },
 
   // A-03 sign up
+  'customer.signup.fixture.title': { es: 'Cuenta ficticia de este navegador', en: 'Fictional account in this browser' },
+  'customer.signup.fixture.body': { es: 'Usa solo datos inventados. Esta demo guarda un cliente local; no crea una cuenta real, no verifica correo ni WhatsApp y no guarda la contraseña. El acceso real con Clerk sigue desconectado. Los datos pueden borrarse al reiniciar la demo y no pasan a otros dispositivos.', en: 'Use fictional details only. This demo saves a local customer; it does not create a real account, verify email or WhatsApp, or save the password. Real Clerk access remains disconnected. Data may reset with the demo and does not follow you to other devices.' },
+  'customer.signup.failed': { es: 'No se pudo guardar la cuenta de prueba. Reintenta con los mismos datos; no has iniciado sesión.', en: 'Could not save the demo account. Retry with the same details; you have not been signed in.' },
+  'customer.signup.cancelled': { es: 'Registro de prueba cancelado. No se inició sesión.', en: 'Demo signup cancelled. No sign-in was performed.' },
+  'customer.signup.cancel': { es: 'Cancelar registro de prueba', en: 'Cancel demo signup' },
   'customer.signup.title': { es: 'Crear cuenta', en: 'Create account' },
   'customer.signup.sub': { es: 'Lo mínimo que el estudio necesita. Dos minutos.', en: 'The minimum the studio needs. Two minutes.' },
   'customer.signup.step': { es: 'Paso {n} de {total}', en: 'Step {n} of {total}' },
