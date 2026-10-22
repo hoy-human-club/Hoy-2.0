@@ -1,0 +1,332 @@
+{
+  "batch": 44,
+  "requirement": "PL-06",
+  "checkedSource": "e50d109ffa7d7e3a1264be71a0f54cc9087f44d5",
+  "sourceBasis": "Only blobs tracked at exact Git tree; no history, untracked files, environment/credential files or secret directories.",
+  "artifact": "/workspace/hoy-qa-archive/lifecycle-qa-44cd9267bbdb",
+  "artifactHash": "dd31ddeb865f2b0240f19ea9362d9acb3d76f663206340bc1adccb4a807509d7",
+  "artifactBasis": "Sorted relative path UTF8+NUL+bytes+NUL for each file.",
+  "counts": {
+    "trackedScanned": 5216,
+    "trackedBytes": 360725888,
+    "artifactFiles": 4850,
+    "artifactBytes": 392496662
+  },
+  "patternCategories": [
+    "private-key-marker",
+    "aws-access-key-id",
+    "github-private-token",
+    "stripe-private-key",
+    "clerk-private-key",
+    "slack-private-token",
+    "google-private-api-key",
+    "supabase-private-key",
+    "jwt-shaped-literal",
+    "credentialed-private-url",
+    "private-secret-assignment"
+  ],
+  "findings": [],
+  "frontendEnvironmentUsage": [
+    {
+      "path": "src/actions/bus.ts",
+      "line": 21,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/actions/bus.ts",
+      "line": 25,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/app/manifest.ts",
+      "line": 52,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/app/registry.ts",
+      "line": 29,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/atom/Icon/Icon.tsx",
+      "line": 113,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/molecule/MediaSlot/MediaSlot.tsx",
+      "line": 101,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/organism/MediaLibrary/MediaLibrary.tsx",
+      "line": 14,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/organism/SharedImageField/SharedImageField.tsx",
+      "line": 17,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx",
+      "line": 42,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/components/template/ComingSoonLanding/ComingSoonLanding.tsx",
+      "line": 43,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/data/SupabaseProvider.ts",
+      "line": 8,
+      "category": "commented-env-reference",
+      "properties": [
+        "VITE_SUPABASE_URL"
+      ],
+      "environmentNames": [
+        "VITE_SUPABASE_ANON_KEY",
+        "VITE_SUPABASE_URL"
+      ]
+    },
+    {
+      "path": "src/i18n/I18nProvider.tsx",
+      "line": 26,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/customer/specs.ts",
+      "line": 14,
+      "category": "frontend-env-access",
+      "properties": [
+        "DEV"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/ops-manual/sources.ts",
+      "line": 18,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/archive/artwork.ts",
+      "line": 3,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/archive/artwork.ts",
+      "line": 4,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/archive/artwork.ts",
+      "line": 8,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/archive/artwork.ts",
+      "line": 10,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/artwork.ts",
+      "line": 2,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/artwork.ts",
+      "line": 3,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/artwork.ts",
+      "line": 7,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/artwork.ts",
+      "line": 9,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/pages/HomePage.tsx",
+      "line": 49,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/pages/HomePage.tsx",
+      "line": 50,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "src/modules/website/photography.ts",
+      "line": 2,
+      "category": "frontend-env-access",
+      "properties": [
+        "BASE_URL"
+      ],
+      "environmentNames": []
+    },
+    {
+      "path": "vite.config.ts",
+      "line": 30,
+      "category": "build-define-config",
+      "properties": [],
+      "environmentNames": []
+    }
+  ],
+  "excludedTrackedPaths": [],
+  "testAvailability": "No dedicated secret-exposure scanner/test found among tracked scripts or package scripts. Existing API-key tests compile TypeScript or use browser, so not run in this read-only lightweight lane.",
+  "limits": [
+    "Pattern-based bounded static scan, not entropy/complete commercial scanner.",
+    "No full Git history, server/CI/runtime settings, remote services or real credentials tested.",
+    "Binary bytes scanned for ASCII patterns but no decompression/OCR/embedded archive traversal.",
+    "JWT/API-shaped match is candidate only; no matched values/fragments emitted.",
+    "No rendered-screen QA, rebuild, network or install.",
+    "PL06 full production criterion stays unverified; no source acceptance."
+  ],
+  "frontendEnvironmentSummary": {
+    "environmentFileImports": 0,
+    "dynamicOrComputedEnvironmentAccess": "All detected active accesses are built-in DEV or BASE_URL properties. No process.env, loadEnv, bracket/dynamic access or environment-file import detected in tracked src/Vite configuration.",
+    "commentedReferences": "SupabaseProvider.ts8 names future public/anonymous configuration only; not connected runtime import.",
+    "viteConfig": "Only component-count build define; no loadEnv/envPrefix override or process.env injection found.",
+    "rawLineOutput": "No source lines or matched secret values emitted by scan."
+  },
+  "optionalDiagnostic": {
+    "action": "Read process progress counters using cat",
+    "targets": [
+      "/proc/139792/io",
+      "/proc/139790/io"
+    ],
+    "results": [
+      "No such file or directory",
+      "Permission denied"
+    ],
+    "state": "Denied optional diagnostic; no read result; not retried/bypassed. Audit completed independently; no blocker."
+  },
+  "additionalTextPatterns": {
+    "categories": [
+      "openai-project-private-key",
+      "anthropic-private-key",
+      "resend-private-key",
+      "wompi-private-key"
+    ],
+    "counts": {
+      "trackedTextFiles": 1711,
+      "artifactTextFiles": 585
+    },
+    "findings": []
+  },
+  "result": "No matches for the defined bounded patterns; full PL06 production criterion remains unverified.",
+  "execution": {
+    "mainScanSession": 18331,
+    "mainScanExit": 0,
+    "supplementalTextScanSession": 44105,
+    "supplementalTextScanExit": 0,
+    "compile": false,
+    "browser": false,
+    "network": false,
+    "installation": false,
+    "gitMutation": false,
+    "sourceMutation": false
+  },
+  "literalRequirement": {
+    "id": "PL-06",
+    "criterion": "No private keys on screen, in browser code or in the repository.",
+    "role": "Desarrollo",
+    "phase": "MVP Oct 30",
+    "priority": "Urgent",
+    "relatedTests": "DEV-05",
+    "sourceStatus": "Not verified",
+    "demoStatus": "Visto / Seen",
+    "implementationStatus": "unverified"
+  }
+}

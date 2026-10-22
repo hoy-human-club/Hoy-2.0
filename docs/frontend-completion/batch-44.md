@@ -1,0 +1,26 @@
+# Batch44 — PL06 bounded frontend exposure audit
+
+Original PL-06 remains **unverified**: “No private keys on screen, in browser code or in the repository.” Desarrollo; MVP Oct30; Urgent; DEV-05; source Not verified / Visto / Seen. This audit does not change those fields or establish production acceptance.
+
+Basis: only tracked blobs at `e50d109ffa7d7e3a1264be71a0f54cc9087f44d5` and the existing immutable `/workspace/hoy-qa-archive/lifecycle-qa-44cd9267bbdb`. Source/artifact are separately identified; no claim they are an identical checkout. Read-only Git access, local byte-pattern scan and source review; no Git mutations, compiler, browser, build, package installation or network requests. Local environment/credential files, secret directories and history were excluded.
+
+Source boundaries reviewed:
+
+- `docs/ops-manual/en/26-integraciones.md` §1 names server-only secrets and permits only nonsecret integration details; §2 explicitly says external integrations remain simulated.
+- `src/modules/admin/IntegrationsPage.tsx`22–25 describes the nonsecret configuration boundary. These UI statements do not prove arbitrary user-entered free text is secret-free.
+- `src/data/DataContext.tsx` selects MockProvider; `src/data/SupabaseProvider.ts` is a disconnected stub. Commented public/anonymous configuration names are not private provider credentials.
+- `src/auth/clerkDevelopmentAdapter.ts` is descriptive/disconnected; development app/instance identifiers and frontend hostname are public identifiers, not private keys. Production authentication/configuration remains unresolved.
+- `src/data/seed/apiKeys.ts` contains fictional display prefixes and one-way seed hashes. `src/modules/dev/apiKeys.ts` generates a fictional browser-only key, shows it once and stores prefix/hash; no authentication server exists. `src/modules/dev/ApiKeysPage.tsx` and developer strings explicitly label simulation. Showing this fictional mock material is not proof of secure production key issuance or server authorization.
+- `src/modules/dev/apiRequestFixture.ts` uses symbolic response scenarios, not bearer-token verification. Existing API-key suites use compiler/browser, so were excluded from this text-only lane. No dedicated tracked exposure scanner or package script was found.
+
+The evidence records counts, file digests, path/line/category findings and frontend environment-variable names only. No matched values/fragments, credential tests, customer data or external sends are included. No provider key needs or actual credentials were requested.
+
+Remaining gates: comprehensive maintained secret scanner and historical review by an authorized security owner; server/CI/environment/production build exposure review; authenticated real key issuance/storage/verification and actual rendered-screen inspection. Encoded/compressed secrets, OCR, arbitrary secret formats, untracked files and future environment injection are outside this bounded pattern scan. Anu's server-only secret/configuration contract and real-provider integration remain separate. No new role grants, policy decisions or source acceptance are inferred.
+
+Result: **no matches for the defined patterns**, not a comprehensive “no secrets” certification. Main scan exit0:5,216 tracked blobs/360,725,888 bytes and4,850 artifact files/392,496,662 bytes. Whole immutable artifact SHA256 `dd31ddeb865f2b0240f19ea9362d9acb3d76f663206340bc1adccb4a807509d7`, using sorted relative UTF8 path+NUL+bytes+NUL. No tracked environment/secret-directory files were encountered; no excluded file content was read. Supplemental OpenAI-project/Anthropic/Resend/Wompi private-key patterns found no matches in1,711 tracked text files and585 artifact text files (exit0). Main patterns covered private PEM markers, AWS/GitHub/Stripe/Clerk/Slack/Google/Supabase private API shapes, JWT-shaped literals, credentialed private-service URLs and long private-secret assignments. Values/fragments were never emitted.
+
+Active frontend environment references are Vite built-ins DEV and BASE_URL only; future VITE_SUPABASE_URL/ANON_KEY names occur in a stub comment. No process.env/loadEnv/dynamic environment access or environment-file imports were detected. Vite defines a component count, without environment-prefix overrides. Publishable/public configuration and fictional key prefixes/hashes are distinct from private provider credentials; arbitrary saved free-text configuration remains outside any guaranteed validation claim.
+
+[Scoped evidence](evidence/batch-44-pl06-exposure-audit.json) and [exact file digests](evidence/batch-44-scan-file-hashes.json) preserve reproducible source/artifact boundaries and nonsensitive findings. These are static evidence only: no rendered pass, deployment receipt or production/owner acceptance is asserted. Original PL06 stays unverified; root decides any later classification/evidence links.
+
+An optional process-progress probe attempted `cat /proc/139792/io` and `cat /proc/139790/io`; the first target no longer existed and the second returned Permission denied. No progress data was read from the denied target, and it was not retried or bypassed. This optional diagnostic is separate from the completed audit and leaves no audit blocker.

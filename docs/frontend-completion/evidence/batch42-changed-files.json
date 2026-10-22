@@ -1,0 +1,340 @@
+{
+  "base": "0a09975aae2f581bd82e694b0654002466b79181",
+  "status": "READY ROOT INTEGRATION: locally checked c51; no child Git mutation; combined CI/deployment remain root gates",
+  "runtimeFullSHA256": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "runtimeScopedSHA256": "5c5a3413cdaa8359545dbf4b0073b14f271b3db95243bc25bbdcde6979e45f73",
+  "files": {
+    "docs/changelog/0126-expense-delete-guard.md": {
+      "sha256": "d1d5c393fff84883e558205ff86bf4ec7ed7b28874369bfebe098638d6730333",
+      "bytes": 1690
+    },
+    "docs/frontend-completion/batch-42.md": {
+      "sha256": "3e9675a4b298c1e71d4113f3c26982389c794150e2910ca606885c194b5b85e1",
+      "bytes": 8774
+    },
+    "docs/frontend-completion/evidence/batch-35-expense-states.json": {
+      "sha256": "30d45a045544e711a68197ed65a4cb034ee46be2351a9a611e847c18360ebfd2",
+      "bytes": 1023
+    },
+    "docs/frontend-completion/evidence/batch-35-expense-ui.json": {
+      "sha256": "b0292072c726afd3fa6a60618ba97da5db474dfafe3f5249501d7895e7562d75",
+      "bytes": 2906
+    },
+    "docs/frontend-completion/evidence/batch42-assets-803-history.json": {
+      "sha256": "a8433547a99cf6a6ae2d05bdfc565de373c04f50387ec5e82862827ef4412088",
+      "bytes": 569
+    },
+    "docs/frontend-completion/evidence/batch42-assets.json": {
+      "sha256": "28b5e6a5860dbbd40cf1e243ffa3f179ee1c4ff9fd0281961b5894da8882abc6",
+      "bytes": 1604
+    },
+    "docs/frontend-completion/evidence/batch42-failures.json": {
+      "sha256": "e2fd896169e9302d9ab7d6b54716ca1e4a7804bb93916c583befc2a85a87953c",
+      "bytes": 2208
+    },
+    "docs/frontend-completion/evidence/batch42-historical-baseline.json": {
+      "sha256": "fa50d585ec154af722cd89d7533ac859f30822a1b89905beab73ed7d6338b034",
+      "bytes": 1145
+    },
+    "docs/frontend-completion/evidence/batch42-original-provider.json": {
+      "sha256": "b507f438818a3bbf5163d1dac4ddaa14c784afcf09f128f1d9736e913ce34f38",
+      "bytes": 618
+    },
+    "docs/frontend-completion/evidence/batch42-pending-queue.json": {
+      "sha256": "94bf25ae5d9a7750f1e3db9e7f1cdac3f08727527a9ed8ba51df5abed4b6264b",
+      "bytes": 5488
+    },
+    "docs/frontend-completion/evidence/batch42-source.json": {
+      "sha256": "f93b8c187387e78e3b4b3b5d48ba0bfbd02bfd68b1feb369d47371011b69315e",
+      "bytes": 17636
+    },
+    "docs/frontend-completion/evidence/batch42-table-ui-failure-803-nested-alert.json": {
+      "sha256": "9291a3a36b0e9dde44b66c51d4db3030ede3f440cb546b160d3f605497a983b6",
+      "bytes": 504
+    },
+    "docs/frontend-completion/evidence/batch42-table-ui-failure-c51-confirm-selector.json": {
+      "sha256": "759f12a0695133b9ef635a6549cab8f9e8f6572f307d7e4e496b1d36c77928b2",
+      "bytes": 629
+    },
+    "docs/frontend-completion/evidence/batch42-table-ui.json": {
+      "sha256": "64ea9ef4a2613ea82b4a3d0ef606d4a74b7d7e178bd5c1ded4a5275099cf6d44",
+      "bytes": 3755
+    },
+    "docs/pages/M-03.md": {
+      "sha256": "d99134787a74a206c69142704654ba87e45956b2c29b820bddda2fd7f245f230",
+      "bytes": 17043
+    },
+    "docs/screenshots/M-03/en-1280-dark-expense-clear-rejected.jpg": {
+      "sha256": "f21d59cbd7aaff334931e114a978ffa4c3e79768fb3b5f65caba1aae946e23be",
+      "bytes": 68840
+    },
+    "docs/screenshots/M-03/en-1280-dark-expense-field-quota-error.jpg": {
+      "sha256": "365dfd1421beffaffa2ada5d7cb3ea48229e677d206f2efd9fab23d72995f7c7",
+      "bytes": 69067
+    },
+    "docs/screenshots/M-03/en-1280-dark-expense-paid-protected.jpg": {
+      "sha256": "2fccb8b2c6c32add3213edb93caa7f5376a15a2e54f1dede70c082da0c41dc93",
+      "bytes": 62758
+    },
+    "docs/screenshots/M-03/en-1280-dark-expense-quota-error.jpg": {
+      "sha256": "3dfaf6e58be46f3463c804f7d94c5190d2ebae15d2899d5884e0d610d03d593a",
+      "bytes": 65379
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_coord-denied.jpg": {
+      "sha256": "24e5e77bcd019a43f712e76c20c6438cac38cbbdc6bcba40e32048c420328e07",
+      "bytes": 96135
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_dev-readonly.jpg": {
+      "sha256": "5f0dab3804dfa2fea25f8fe7a500d64bb9d4412cffe823f638c56d3e8b3b7ec0",
+      "bytes": 66433
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_fin-readonly.jpg": {
+      "sha256": "be6131ee9fda553f1e1471faf96759d2058ecb54ad81ba9de7bdac9d26a48015",
+      "bytes": 67614
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_mkt-denied.jpg": {
+      "sha256": "a16b3478af82140669d9e358202dad4e777559beb5d13ef69ae9b609ff46f11c",
+      "bytes": 96144
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_public-denied.jpg": {
+      "sha256": "516d49803931b8f513b395bb605c2498fda9c03e06985f1ac63287e4eed3236c",
+      "bytes": 94877
+    },
+    "docs/screenshots/M-03/en-1280-expense-usr_teach-denied.jpg": {
+      "sha256": "428f256e07099a452e7ac4765bf2275c87923fdbfaadc2fdcd200c03d37e7e27",
+      "bytes": 95865
+    },
+    "docs/screenshots/M-03/en-1280-light-expense-clear-rejected.jpg": {
+      "sha256": "b4faa2e5ab032155ecba492ab26c437d7076eb7a155b0a7b48bb4d45d7480dc4",
+      "bytes": 77991
+    },
+    "docs/screenshots/M-03/en-1280-light-expense-field-quota-error.jpg": {
+      "sha256": "2b6cd4b474e92da705b9ca549ad9d517a084a6ff29e645cb3aa81c323ad3352c",
+      "bytes": 78524
+    },
+    "docs/screenshots/M-03/en-1280-light-expense-paid-protected.jpg": {
+      "sha256": "7d097fb8e0d01e9f1a92cec9c5bb83ceb9aa357e5ec54579b2a91cac6f96afb3",
+      "bytes": 71963
+    },
+    "docs/screenshots/M-03/en-1280-light-expense-quota-error.jpg": {
+      "sha256": "b75f469d1e0e86313693287575aff4b4b0f44a22b960794899f2e0f948accbfe",
+      "bytes": 74477
+    },
+    "docs/screenshots/M-03/en-390-dark-expense-clear-rejected.jpg": {
+      "sha256": "4df58bd9d1fbe13fe27b9bcea7c6da8c89587379405f16c0796c48fbda1b2e7c",
+      "bytes": 35880
+    },
+    "docs/screenshots/M-03/en-390-dark-expense-field-quota-error.jpg": {
+      "sha256": "5093eb88b805e3d26533b118a05449179fbfa41a65f218cb9fe333315a0e3eaf",
+      "bytes": 34962
+    },
+    "docs/screenshots/M-03/en-390-dark-expense-paid-protected.jpg": {
+      "sha256": "b9969eff120430a970d7692d17a65ac31e9c07187817be55b6e5ca24336e4514",
+      "bytes": 30668
+    },
+    "docs/screenshots/M-03/en-390-dark-expense-quota-error.jpg": {
+      "sha256": "c8a8402c1b48058d27943ab16b8b406d15b31e9dd126d135ec8ee76bd7df58f9",
+      "bytes": 32706
+    },
+    "docs/screenshots/M-03/en-390-expense-usr_dev-readonly.jpg": {
+      "sha256": "757cc094d1eaf0fdad894cde6416165c264e312c0bd135f94d54d01a51207e0f",
+      "bytes": 37434
+    },
+    "docs/screenshots/M-03/en-390-expense-usr_fin-readonly.jpg": {
+      "sha256": "757cc094d1eaf0fdad894cde6416165c264e312c0bd135f94d54d01a51207e0f",
+      "bytes": 37434
+    },
+    "docs/screenshots/M-03/en-390-light-expense-clear-rejected.jpg": {
+      "sha256": "ca73b2014ee2776f05050e34dee275778a02bb91b8838f0a5a896ee544e1e050",
+      "bytes": 38870
+    },
+    "docs/screenshots/M-03/en-390-light-expense-field-quota-error.jpg": {
+      "sha256": "b2db52be8d60d050d779350c4b94a87b93abde930fe8943331f4c576c3304ffa",
+      "bytes": 38108
+    },
+    "docs/screenshots/M-03/en-390-light-expense-paid-protected.jpg": {
+      "sha256": "5e0adcf5fd576f1e25dd5970c65a77039e04c42b08cda7c475d7ba81f27c086a",
+      "bytes": 33937
+    },
+    "docs/screenshots/M-03/en-390-light-expense-quota-error.jpg": {
+      "sha256": "1e663a9a120bf166f5202f0acdafc46a47b7cdaef0193c3e5742e23bf6b39c77",
+      "bytes": 35687
+    },
+    "docs/screenshots/M-03/es-1280-dark-expense-clear-rejected.jpg": {
+      "sha256": "c9a297cba7fd8917dbf99add5888c25a8456f13dcc0aa4832c55d5b28a06744f",
+      "bytes": 70417
+    },
+    "docs/screenshots/M-03/es-1280-dark-expense-field-quota-error.jpg": {
+      "sha256": "b14047c7a435483b9f23759ada460c812c0c8c039cc31d37ded8c693ebb8ae8b",
+      "bytes": 70751
+    },
+    "docs/screenshots/M-03/es-1280-dark-expense-paid-protected.jpg": {
+      "sha256": "192f05e0fb0ca571de2e150ff2444f376274009fe3ca3c17a95969247d7174f5",
+      "bytes": 64533
+    },
+    "docs/screenshots/M-03/es-1280-dark-expense-quota-error.jpg": {
+      "sha256": "345d92d3027e76da4eb644c9967461c78fad7fb547cc692f12c61028b430fb6a",
+      "bytes": 67433
+    },
+    "docs/screenshots/M-03/es-1280-expense-usr_dev-readonly.jpg": {
+      "sha256": "81e9efcc383030698f13972b96870466e3b303377eaac07742bf8ff9995be5e4",
+      "bytes": 67846
+    },
+    "docs/screenshots/M-03/es-1280-expense-usr_fin-readonly.jpg": {
+      "sha256": "dffee2f68f4dea2a737b77372e8cd8b8c79ad75db7b118aee7d3083323e79f8f",
+      "bytes": 69018
+    },
+    "docs/screenshots/M-03/es-1280-light-expense-clear-rejected.jpg": {
+      "sha256": "092208260ab851d5f78e15f3c4f75a8b2d97e29d327591e2c77f95d1be1b9467",
+      "bytes": 80097
+    },
+    "docs/screenshots/M-03/es-1280-light-expense-field-quota-error.jpg": {
+      "sha256": "1ad32e3f0c4fc5e8b9a3920f12be2b25efec0a6ab57692dba256629d4c00ce3c",
+      "bytes": 80672
+    },
+    "docs/screenshots/M-03/es-1280-light-expense-paid-protected.jpg": {
+      "sha256": "6ca8c9f05495de7dc1f47ee70e7174ded6989e2cb1a927930baf872c5e2d9dbf",
+      "bytes": 74264
+    },
+    "docs/screenshots/M-03/es-1280-light-expense-quota-error.jpg": {
+      "sha256": "5628606d99fffc1fa72a23de6ed1260dc67bdcf0441e8fe5bf349ec6753829be",
+      "bytes": 77300
+    },
+    "docs/screenshots/M-03/es-390-dark-expense-clear-rejected.jpg": {
+      "sha256": "3959f605f2689c92a4fd0f291521c01c5797dcf7e599fb62edbb07408f1e6be6",
+      "bytes": 35961
+    },
+    "docs/screenshots/M-03/es-390-dark-expense-field-quota-error.jpg": {
+      "sha256": "af4c506dbf53598044c9b8b3b1f8837945e77f41d499a46702983be04f5eb58e",
+      "bytes": 35325
+    },
+    "docs/screenshots/M-03/es-390-dark-expense-paid-protected.jpg": {
+      "sha256": "fcb25d6685bd3221dbb8adfe53b9de723b024de25cc72b66d0828b75ce6dc371",
+      "bytes": 30590
+    },
+    "docs/screenshots/M-03/es-390-dark-expense-quota-error.jpg": {
+      "sha256": "14686cd092c2e764698f2b6b74730431b7989cf7a6f6bc27f38f890f499b9660",
+      "bytes": 32523
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_admin-denied.jpg": {
+      "sha256": "e00c9070ab4b27b0108bcd1f1f7a0c82fe5006671b568558800e58c3c5755869",
+      "bytes": 37287
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_cust-denied.jpg": {
+      "sha256": "64406e1c38af43b9709b588759d7737afa0a263ae3ba7f953a76b0e9bff6e253",
+      "bytes": 36143
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_desk-denied.jpg": {
+      "sha256": "f06b25f93257804b4dabcde99f34879fcb5b249f9e5b03365a4d942f80801d24",
+      "bytes": 36614
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_dev-readonly.jpg": {
+      "sha256": "3dd994043208121afc9f5f3a7c829f2082a88d134a60be0b67504269688d8b74",
+      "bytes": 37655
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_fin-readonly.jpg": {
+      "sha256": "3dd994043208121afc9f5f3a7c829f2082a88d134a60be0b67504269688d8b74",
+      "bytes": 37655
+    },
+    "docs/screenshots/M-03/es-390-expense-usr_maint-denied.jpg": {
+      "sha256": "7e852576cf26f7f2b81b9f19cec0e415ec718d338a28a4abc3d0795564573de2",
+      "bytes": 37282
+    },
+    "docs/screenshots/M-03/es-390-light-expense-clear-rejected.jpg": {
+      "sha256": "45ee66cea3324a761ac60530d8ed1bb2dc3b024997d56f1a81916b6be320c51e",
+      "bytes": 39082
+    },
+    "docs/screenshots/M-03/es-390-light-expense-field-quota-error.jpg": {
+      "sha256": "fd3e84c91538655f7729d601e84b514bce93fb963ce6286a46dd201ccf8332b1",
+      "bytes": 38630
+    },
+    "docs/screenshots/M-03/es-390-light-expense-paid-protected.jpg": {
+      "sha256": "68101734cd6f028842afc89a6511dcf6b2a4132606fdebc8fff10acba88bc000",
+      "bytes": 33913
+    },
+    "docs/screenshots/M-03/es-390-light-expense-quota-error.jpg": {
+      "sha256": "a655a4fd00c73b4748f3b01e361971e8a65e0eeec9da28e45138d72b50ee286d",
+      "bytes": 35456
+    },
+    "docs/screenshots/M-03/expense-guard-failure-803-nested-alert.jpg": {
+      "sha256": "e9968368e0fb780c027c6f9056db360e66b4941955d3f9442a4bbfe82c5acbe7",
+      "bytes": 31001
+    },
+    "docs/screenshots/M-03/expense-guard-failure-c51-confirm-selector.jpg": {
+      "sha256": "1e663a9a120bf166f5202f0acdafc46a47b7cdaef0193c3e5742e23bf6b39c77",
+      "bytes": 35687
+    },
+    "docs/screenshots/M-09c/en-1280-ledger-postcommit.jpg": {
+      "sha256": "c7840102eebd4db86a9985122b2ba45b3fc1b747ca80e4252b5d85ff26e89b42",
+      "bytes": 133460
+    },
+    "docs/screenshots/M-09c/en-390-ledger-postcommit.jpg": {
+      "sha256": "fa9d52ad22b9851a0410026cf258a24a0efbd348eb2be8759cd53ad952d1e004",
+      "bytes": 108886
+    },
+    "docs/screenshots/M-09c/es-1280-ledger-postcommit.jpg": {
+      "sha256": "8dc9163c334d0df657f59bfd5a511602e26c17cbc55d4e6707d5350c29098d93",
+      "bytes": 135750
+    },
+    "docs/screenshots/M-09c/es-390-ledger-postcommit.jpg": {
+      "sha256": "b4ae4e8752a969ffe0090900d73b372446844e616a805c47a5d7a2ec08b00081",
+      "bytes": 109615
+    },
+    "scripts/fixtures/expense-ledger-original-provider.ts.txt": {
+      "sha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7",
+      "bytes": 24559
+    },
+    "scripts/test-expense-delete-guard-ui.mjs": {
+      "sha256": "acc65104fed6beb6d48ec91ddc54e78a893bc4a96f52bfe104608270fd92bc04",
+      "bytes": 9704
+    },
+    "scripts/test-expense-delete-guard.mjs": {
+      "sha256": "2427f5529b8fe3e484e1d6c72bdde1e6f06eb50c64dbe77e3c465181163f755d",
+      "bytes": 13600
+    },
+    "scripts/test-expense-ledger-baseline.mjs": {
+      "sha256": "19f99bcaf21fda4f211becb8a4b01a04225a8fb7da108fa80d6b016a8ead4ed1",
+      "bytes": 5097
+    },
+    "scripts/test-expense-table-lifecycle.mjs": {
+      "sha256": "5b22304f3513bf32dec030e214aceb99de16f1617924650bc2ba0d6d1a4f5597",
+      "bytes": 4814
+    },
+    "src/data/MockProvider.ts": {
+      "sha256": "6b5807d329081f2fe6a847e2f5c25507faa2440058aeae448b02b13229152acd",
+      "bytes": 25388
+    },
+    "src/modules/admin/strings.ts": {
+      "sha256": "4b827a6fa9deca9fdf761618b80fb9f008dfa21830e03fb49d80d6efecf5ab32",
+      "bytes": 167304
+    },
+    "src/modules/admin/tables/RowDrawer.tsx": {
+      "sha256": "900a40f12ffe75d639e93b92a8bd274c1a975341d465b3d652eb3b83fbd73825",
+      "bytes": 14235
+    },
+    "src/modules/admin/tables/expenseDelete.ts": {
+      "sha256": "c446ff9c9b4c214cc77341fa4099ab4499288e26ce6f61d82169f4aad065aa6b",
+      "bytes": 4195
+    }
+  },
+  "readOnlyFutureAudit": {
+    "path": "docs/frontend-completion/evidence/next-customer-cancel-rc02-audit.md",
+    "sha256": "03cb4d07cc5d56b4a69441c91bd555ed8e8968226e166ad5fd8c79ce3ada3a2b",
+    "notImplemented": true
+  },
+  "regressionOutputsRefreshedAgainstCurrentC51": [
+    "docs/frontend-completion/evidence/batch-35-expense-states.json",
+    "docs/frontend-completion/evidence/batch-35-expense-ui.json",
+    "docs/screenshots/M-09c/en-1280-ledger-postcommit.jpg",
+    "docs/screenshots/M-09c/es-390-ledger-postcommit.jpg",
+    "docs/screenshots/M-09c/es-1280-ledger-postcommit.jpg",
+    "docs/screenshots/M-09c/en-390-ledger-postcommit.jpg"
+  ],
+  "excluded": [
+    "qa/*.log and qa bundles (local supporting outputs only)",
+    "src/app/captureDates.ts (generated capture dates; root regenerates)",
+    "global features/README/kanban/metadata (not edited by child)"
+  ],
+  "manifestSelfHashExcluded": true,
+  "nextStep": "Root checkpoint/integrate current source, regenerate combined outputs, full build/combined QA/exact-head CI and checked existing-demo deployment. Original FI04 remains partial/unaccepted."
+}

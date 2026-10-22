@@ -1,0 +1,365 @@
+{
+  "pr": 70,
+  "url": "https://github.com/imagine-os/hoy/pull/70",
+  "checkedHead": "4c062d94d2637253caa04795e9ad1c15068fe23a",
+  "mergeCommit": "50449d0298ceb01118bd3aaa9ddc00c9b189c8d6",
+  "version": "0.25.0",
+  "requirements": [
+    "AD-02",
+    "AD-06",
+    "PG-12"
+  ],
+  "workflows": 12,
+  "totalJobs": 34,
+  "ci": [
+    {
+      "id": 39747590176,
+      "name": "Class Management QA",
+      "jobs": [
+        {
+          "id": 119719822114,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590231,
+      "name": "Subscription directory QA",
+      "jobs": [
+        {
+          "id": 119719821030,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590293,
+      "name": "Future frontend mock QA",
+      "jobs": [
+        {
+          "id": 119719821672,
+          "name": "maintenance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821842,
+          "name": "google-hours",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821871,
+          "name": "marketing-fences",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590247,
+      "name": "Frontend completion QA",
+      "jobs": [
+        {
+          "id": 119719821264,
+          "name": "crm",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590211,
+      "name": "Website preview QA",
+      "jobs": [
+        {
+          "id": 119719821721,
+          "name": "preview",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590183,
+      "name": "Frontend lifecycle mock QA",
+      "jobs": [
+        {
+          "id": 119719821783,
+          "name": "local-lifecycle (studio-cancel)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719822008,
+          "name": "local-lifecycle (team-proposals)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719822066,
+          "name": "local-lifecycle (cash-count)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590158,
+      "name": "Photography QA",
+      "jobs": [
+        {
+          "id": 119719820829,
+          "name": "photography",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590274,
+      "name": "Booking and payment frontend QA",
+      "jobs": [
+        {
+          "id": 119719837625,
+          "name": "mock-transactions",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590305,
+      "name": "Session Availability QA",
+      "jobs": [
+        {
+          "id": 119719823119,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590733,
+      "name": "Media picker QA",
+      "jobs": [
+        {
+          "id": 119719824767,
+          "name": "picker",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590161,
+      "name": "Frontend correctness QA",
+      "jobs": [
+        {
+          "id": 119719821073,
+          "name": "mock-correctness (email-test)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821397,
+          "name": "mock-correctness (account-marketing)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821467,
+          "name": "mock-correctness (receipt-alert)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821468,
+          "name": "mock-correctness (contact-mask)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821496,
+          "name": "mock-correctness (account-data)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821515,
+          "name": "mock-correctness (event-rsvp)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821517,
+          "name": "mock-correctness (notification-prefs)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821523,
+          "name": "mock-correctness (substitute-request)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821563,
+          "name": "mock-correctness (api-key-mutations)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821567,
+          "name": "mock-correctness (recovery)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821568,
+          "name": "mock-correctness (payroll-approval)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821616,
+          "name": "mock-correctness (expense-ledger)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821714,
+          "name": "mock-correctness (trial-eligibility)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821761,
+          "name": "mock-correctness (payroll-draft)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821924,
+          "name": "mock-correctness (profile-save)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719822102,
+          "name": "mock-correctness (email-edit)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39747590288,
+      "name": "Frontend continuation QA",
+      "jobs": [
+        {
+          "id": 119719821825,
+          "name": "studio-calendar",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821901,
+          "name": "marketing-drafts",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719821970,
+          "name": "operational-quotes",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119719823221,
+          "name": "fictional-registration",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12412880067,
+      "name": "lifecycle-studio-cancel-4c062d94d2637253caa04795e9ad1c15068fe23a",
+      "expiresAt": "2026-11-05T08:27:45Z",
+      "expired": false,
+      "url": "https://github.com/imagine-os/hoy/actions/runs/39747590183/artifacts/12412880067"
+    },
+    {
+      "id": 12412446241,
+      "name": "lifecycle-cash-count-4c062d94d2637253caa04795e9ad1c15068fe23a",
+      "expiresAt": "2026-11-05T08:27:55Z",
+      "expired": false,
+      "url": "https://github.com/imagine-os/hoy/actions/runs/39747590183/artifacts/12412446241"
+    },
+    {
+      "id": 12411917483,
+      "name": "lifecycle-team-proposals-4c062d94d2637253caa04795e9ad1c15068fe23a",
+      "expiresAt": "2026-11-05T08:28:17Z",
+      "expired": false,
+      "url": "https://github.com/imagine-os/hoy/actions/runs/39747590183/artifacts/12411917483"
+    }
+  ],
+  "deployment": {
+    "runId": 39748513571,
+    "state": "verified live",
+    "head": "50449d0298ceb01118bd3aaa9ddc00c9b189c8d6",
+    "jobs": [
+      {
+        "id": 119722886679,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119723317582,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119723486872,
+        "name": "verify-subscriptions",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "buildManifest": "Release manifest: 0.25.0 50449d0298ceb01118bd3aaa9ddc00c9b189c8d6",
+    "hostedVerification": {
+      "command": "node scripts/test-subscriptions-live.mjs hoy \"50449d0298ceb01118bd3aaa9ddc00c9b189c8d6\"",
+      "result": "Verified https://imagine-os.github.io/hoy/#/admin/finance/subscriptions",
+      "limits": "Hosted exact-source manifest and selected subscription fixture verified; new lifecycle flows verified in local/CI browsers, not all re-exercised publicly."
+    },
+    "pagesArtifact": 12413205101,
+    "hostedArtifact": 12412218095
+  },
+  "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+  "priorHeadFailure": {
+    "head": "e50d109ffa7d7e3a1264be71a0f54cc9087f44d5",
+    "run": 39746389429,
+    "job": 119715768887,
+    "artifact": 12411896090,
+    "correction": "Test now waits committed native actor/masked loading and actual unmount/ready acknowledgement before releasing held callback; same timeout and all no-write assertions. No runtime change."
+  },
+  "verificationDecision": "Corrected test executed/passed in authoritative exact-head CI real Chromium EN/ES. This satisfies current rendered gate; repeating it locally solely to duplicate passing CI is unnecessary. Earlier local all10 source44cd proof remains separately scoped.",
+  "limits": [
+    "All124 original literal criteria/roles/source statuses/phases/priorities/test links unchanged.",
+    "Bounded fictional/local mock slices only; no owner/backend/production-auth acceptance.",
+    "First local studio-library timeout remains unexplained/preserved; exact-head library CI passes.",
+    "Protected schedule captures are Actions artifacts with14-day retention, excluded from repo/site; access follows repository/Actions controls, no permanence/privacy guarantee.",
+    "No real payments/database/storage/credentials/access-policy changes."
+  ],
+  "rollback": "54f37aad7c5fa934241b4724030de0f7e28c05cf"
+}

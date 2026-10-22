@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "test": "test-payroll-settlement",
+      "exit": 0,
+      "stdout": "PASS fictional payroll settlement: atomic writes/reads/quota; signed amounts and paid-history invariance; teacher close/replay/concurrency; run accepted/rejected local rehearsal; delayed cancel/stale source; input capture; active scoped11roles; unresolved and contaminated reads; no payments/outbox/provider calls\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-payroll-settlement-hook",
+      "exit": 0,
+      "stdout": "PASS actual settlement hook: shared3-action latch,stable retry,accepted/rejected acknowledgment,read/scope reload,cancel/actor-return reads,actor/run/provider/unmount/postcommit suppression\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-expense-ledger-baseline",
+      "exit": 0,
+      "stdout": "CONFIRMED original expense baseline: 5 defects; fictional memory only.\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-expense-delete-guard",
+      "exit": 0,
+      "stdout": "PASS expense-only delete guard: 39 groups; no financial/provider security acceptance.\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-expense-table-lifecycle",
+      "exit": 0,
+      "stdout": "PASS actual table drawer lifecycle 11 cases: latch, confirmed readback, rejection/retry, cancel/unmount/session/selection/provider suppression; no effects outside fictional controlled rows.\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-expense-ledger",
+      "exit": 0,
+      "stdout": "PASS expense ledger: 10 groups, no bodies emitted.\n",
+      "stderr": ""
+    },
+    {
+      "test": "test-subscriptions",
+      "exit": 0,
+      "stdout": "PASS: cadence, leap years, unknown/zero, currencies, evidence, sensitive data, idempotent charges, workspace isolation, reload and storage failures.\nPASS: account metadata, password references, receipt links, unverified currency exclusion and workspace-safe backups.\nPASS: five dated public-price sources do not create tenant expenses.\nPASS: generated decimal-heavy UUID identities/scoped links, unchanged backup roundtrip, all user text/nonUUID IDs/unknown nested fields/PAN and credential guards retained.\n",
+      "stderr": ""
+    }
+  ]
+}

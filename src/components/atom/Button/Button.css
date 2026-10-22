@@ -21,7 +21,8 @@
 .btn-outline:active:not(:disabled) { background: var(--color-surface-3); }
 .btn-ghost { background: transparent; color: var(--color-primary); }
 .btn-ghost:hover:not(:disabled) { background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
-.btn-danger { background: var(--color-danger); color: var(--brand-cream); box-shadow: var(--shadow-contact); }
+/* Danger fill is deep in light mode and pale in dark mode; the opposite surface ink remains readable. */
+.btn-danger { background: var(--color-danger); color: var(--color-surface); box-shadow: var(--shadow-contact); }
 .btn-danger:hover:not(:disabled) { filter: brightness(.95); }
 .btn.is-loading .btn-label { opacity: .6; }
 .btn-spinner { width: var(--icon-xs); height: var(--icon-xs); border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: btn-spin var(--dur-spin) linear infinite; }

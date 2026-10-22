@@ -266,6 +266,8 @@ export class MockProvider implements DataProvider {
     const rows = this.rows(table);
     const i = rows.findIndex((r) => r.id === id);
     if (i < 0) throw new Error(`${table}/${id} not found`);
+    // Preserve the existing paid-history rule; clearing the marker must not enable a later delete.
+    if (table === 'expenses' && rows.some(r => r.id === id && r.paid_on) && Object.prototype.hasOwnProperty.call(patch, 'paid_on') && !patch.paid_on) throw new Error('expense_paid_history_protected');
     if (table === 'class_templates' || table === 'rooms') {
       const checkedFields = ['capacity','room_id','teacher_id','modality_id','duration_min','weekday','start_time','level'];
       const checked = Object.fromEntries(Object.entries(patch).filter(([key]) => checkedFields.includes(key)));
@@ -289,6 +291,16 @@ export class MockProvider implements DataProvider {
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(table)) throw new Error('promotion_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
+    if (table === 'expenses') {
+      const rows = this.rows(table);
+      const matching = rows.filter(r => r.id === id);
+      if (matching.some(r => r.paid_on)) throw new Error('expense_paid_delete_protected');
+      if (!matching.length) return; // Replayed deletion: no storage write or duplicate event.
+      this.db[table] = rows.filter(r => r.id !== id);
+      try { this.persist(this.db, true); } catch (error) { this.db[table] = rows; throw error; }
+      this.emit({ table, type: 'remove', id });
+      return;
+    }
     this.db[table] = this.rows(table).filter((r) => r.id !== id);
     this.persist();
     this.emit({ table, type: 'remove', id });

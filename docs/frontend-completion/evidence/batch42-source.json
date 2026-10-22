@@ -1,0 +1,299 @@
+{
+  "base": "0a09975aae2f581bd82e694b0654002466b79181",
+  "runtimeFingerprintDefinition": "Sorted scoped runtime paths + NUL + bytes + NUL, SHA256. Not a full-repository fingerprint.",
+  "scopedRuntimeSha256": "5c5a3413cdaa8359545dbf4b0073b14f271b3db95243bc25bbdcde6979e45f73",
+  "runtimeFiles": [
+    "src/data/MockProvider.ts",
+    "src/modules/admin/tables/RowDrawer.tsx",
+    "src/modules/admin/tables/expenseDelete.ts",
+    "src/modules/admin/strings.ts"
+  ],
+  "status": "FINAL LOCAL PASS currentc51: baseline5, domain39, lifecycle11, ledger10, subscription adapter, type4159/fullbuild94973, newM03prod24, existingM09cprod8, actualdevENES states. Root Git/integration/CI/deployment pending; original FI04 remains partial/unaccepted.",
+  "tests": [
+    "node scripts/test-expense-ledger-baseline.mjs",
+    "node scripts/test-expense-delete-guard.mjs",
+    "node scripts/test-expense-table-lifecycle.mjs",
+    "node scripts/test-expense-delete-guard-ui.mjs"
+  ],
+  "results": {
+    "baseline": {
+      "command": "node scripts/test-expense-ledger-baseline.mjs",
+      "exit": 0,
+      "checks": 5,
+      "log": "qa/batch42-baseline.log",
+      "receipt": "batch42-historical-baseline.json"
+    },
+    "domain": {
+      "command": "node scripts/test-expense-delete-guard.mjs",
+      "exit": 0,
+      "checks": 39,
+      "session": 98403,
+      "log": "qa/batch42-domain-final.log"
+    },
+    "drawerLifecycle": {
+      "command": "node scripts/test-expense-table-lifecycle.mjs",
+      "exit": 0,
+      "checks": 11,
+      "log": "qa/batch42-lifecycle-single-alert.log"
+    },
+    "ledgerRegression": {
+      "command": "node scripts/test-expense-ledger.mjs",
+      "exit": 0,
+      "checks": 10,
+      "log": "qa/batch42-ledger-regression.log"
+    },
+    "subscriptionRegression": {
+      "command": "node scripts/test-subscription-expenses.mjs",
+      "exit": 0,
+      "log": "qa/batch42-subscription-regression.log"
+    },
+    "type": {
+      "command": "npx tsc --noEmit",
+      "exit": 0,
+      "session": 4159,
+      "log": "qa/batch42-type-single-alert.log"
+    },
+    "tableProduction": {
+      "command": "QA_BASE=http://127.0.0.1:5280 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-delete-guard-ui.mjs",
+      "exit": 0,
+      "session": 90780,
+      "cases": 24,
+      "log": "qa/batch42-table-production-ui-scoped-alert.log"
+    },
+    "ledgerProduction": {
+      "command": "QA_BASE=http://127.0.0.1:5280 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-ui.mjs",
+      "exit": 0,
+      "session": 99317,
+      "cases": 8,
+      "log": "qa/batch42-ledger-production-ui.log"
+    },
+    "ledgerDevFaults": {
+      "command": "QA_BASE=http://127.0.0.1:5279 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-ledger-states.mjs",
+      "exit": 0,
+      "session": 94018,
+      "languages": [
+        "en",
+        "es"
+      ],
+      "log": "qa/batch42-ledger-dev-states.log"
+    }
+  },
+  "historicalProviderSha256": "e12e1ce69745ad109995c8095ea47168edf38560a1e555c3889b32cdfe7a7ed7",
+  "exactRecreationBoundary": "Fingerprint alone cannot detect exact-byte resurrection. Retained nonce verifies minimal prior mock.transaction receipt and fresh actor/current absence; any recreated row rejects, even identical fields/timestamps. New explicit confirmation uses new nonce.",
+  "fullCanonicalRuntimeFingerprint": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "fullCanonicalFingerprintDefinition": "SHA256 sorted src relative path+bytes excluding src/app/captureDates.ts; then vite.config.ts bytes",
+  "freshActorGuard": "Fresh exact requested ID, same tenant, statusactive; initial/list+finalget, staged begin/end, postcommit acknowledgement and replay. Role definitions unchanged.",
+  "strictUpdateClarification": "Already strict at0a09975; implementation untouched. New explicit direct/staged field-quota+UI regressions written.",
+  "scriptsSHA256": {
+    "scripts/test-expense-ledger-baseline.mjs": "19f99bcaf21fda4f211becb8a4b01a04225a8fb7da108fa80d6b016a8ead4ed1",
+    "scripts/test-expense-delete-guard.mjs": "2427f5529b8fe3e484e1d6c72bdde1e6f06eb50c64dbe77e3c465181163f755d",
+    "scripts/test-expense-table-lifecycle.mjs": "5b22304f3513bf32dec030e214aceb99de16f1617924650bc2ba0d6d1a4f5597",
+    "scripts/test-expense-delete-guard-ui.mjs": "acc65104fed6beb6d48ec91ddc54e78a893bc4a96f52bfe104608270fd92bc04"
+  },
+  "historical803SourceProof": {
+    "runtime": "803ec590b59e20591070675f062430aa85921eb1ff7478665362611e67575fcf",
+    "scoped": "96fea267ba7e6e521228190750d314fab42e86159dead94da522e599042f3c57",
+    "baseline": "PASS5",
+    "domain": "PASS38 after two test-harness corrections",
+    "lifecycle": "PASS11",
+    "ledger": "PASS10",
+    "subscription": "PASS",
+    "type": "PASS77652",
+    "build": "PASS71949",
+    "production": "FAIL83812 redundant nestedalert semantics; old803 immutable retained"
+  },
+  "fullRuntimeAfterAllQa": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "sourceUnchangedBeforeAfterFinalBuildAndQa": true,
+  "build": {
+    "command": "npm run build",
+    "exit": 0,
+    "session": 94973,
+    "log": "qa/batch42-build-single-alert.log"
+  },
+  "immutable": "/workspace/hoy-qa-artifacts/expense-delete-guard-c51c2063a5b5",
+  "httpEvidence": {
+    "source": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+    "base": "0a09975aae2f581bd82e694b0654002466b79181",
+    "sourceStatus": "base plus uncommitted batch42 expense-only safeguards and single-Notice alert; local checked build, not live main",
+    "buildExit": 0,
+    "scope": "Fictional MockProvider only; no real accounting or security acceptance"
+  },
+  "artifacts": "batch42-assets.json",
+  "sourceFileSHA256": {
+    "src/data/MockProvider.ts": "6b5807d329081f2fe6a847e2f5c25507faa2440058aeae448b02b13229152acd",
+    "src/modules/admin/tables/RowDrawer.tsx": "900a40f12ffe75d639e93b92a8bd274c1a975341d465b3d652eb3b83fbd73825",
+    "src/modules/admin/tables/expenseDelete.ts": "c446ff9c9b4c214cc77341fa4099ab4499288e26ce6f61d82169f4aad065aa6b",
+    "src/modules/admin/strings.ts": "4b827a6fa9deca9fdf761618b80fb9f008dfa21830e03fb49d80d6efecf5ab32"
+  },
+  "newTableCaptureSHA256": {
+    "docs/screenshots/M-03/en-1280-dark-expense-clear-rejected.jpg": "f21d59cbd7aaff334931e114a978ffa4c3e79768fb3b5f65caba1aae946e23be",
+    "docs/screenshots/M-03/en-1280-dark-expense-field-quota-error.jpg": "365dfd1421beffaffa2ada5d7cb3ea48229e677d206f2efd9fab23d72995f7c7",
+    "docs/screenshots/M-03/en-1280-dark-expense-paid-protected.jpg": "2fccb8b2c6c32add3213edb93caa7f5376a15a2e54f1dede70c082da0c41dc93",
+    "docs/screenshots/M-03/en-1280-dark-expense-quota-error.jpg": "3dfaf6e58be46f3463c804f7d94c5190d2ebae15d2899d5884e0d610d03d593a",
+    "docs/screenshots/M-03/en-1280-expense-usr_coord-denied.jpg": "24e5e77bcd019a43f712e76c20c6438cac38cbbdc6bcba40e32048c420328e07",
+    "docs/screenshots/M-03/en-1280-expense-usr_dev-readonly.jpg": "5f0dab3804dfa2fea25f8fe7a500d64bb9d4412cffe823f638c56d3e8b3b7ec0",
+    "docs/screenshots/M-03/en-1280-expense-usr_fin-readonly.jpg": "be6131ee9fda553f1e1471faf96759d2058ecb54ad81ba9de7bdac9d26a48015",
+    "docs/screenshots/M-03/en-1280-expense-usr_mkt-denied.jpg": "a16b3478af82140669d9e358202dad4e777559beb5d13ef69ae9b609ff46f11c",
+    "docs/screenshots/M-03/en-1280-expense-usr_public-denied.jpg": "516d49803931b8f513b395bb605c2498fda9c03e06985f1ac63287e4eed3236c",
+    "docs/screenshots/M-03/en-1280-expense-usr_teach-denied.jpg": "428f256e07099a452e7ac4765bf2275c87923fdbfaadc2fdcd200c03d37e7e27",
+    "docs/screenshots/M-03/en-1280-light-expense-clear-rejected.jpg": "b4faa2e5ab032155ecba492ab26c437d7076eb7a155b0a7b48bb4d45d7480dc4",
+    "docs/screenshots/M-03/en-1280-light-expense-field-quota-error.jpg": "2b6cd4b474e92da705b9ca549ad9d517a084a6ff29e645cb3aa81c323ad3352c",
+    "docs/screenshots/M-03/en-1280-light-expense-paid-protected.jpg": "7d097fb8e0d01e9f1a92cec9c5bb83ceb9aa357e5ec54579b2a91cac6f96afb3",
+    "docs/screenshots/M-03/en-1280-light-expense-quota-error.jpg": "b75f469d1e0e86313693287575aff4b4b0f44a22b960794899f2e0f948accbfe",
+    "docs/screenshots/M-03/en-390-dark-expense-clear-rejected.jpg": "4df58bd9d1fbe13fe27b9bcea7c6da8c89587379405f16c0796c48fbda1b2e7c",
+    "docs/screenshots/M-03/en-390-dark-expense-field-quota-error.jpg": "5093eb88b805e3d26533b118a05449179fbfa41a65f218cb9fe333315a0e3eaf",
+    "docs/screenshots/M-03/en-390-dark-expense-paid-protected.jpg": "b9969eff120430a970d7692d17a65ac31e9c07187817be55b6e5ca24336e4514",
+    "docs/screenshots/M-03/en-390-dark-expense-quota-error.jpg": "c8a8402c1b48058d27943ab16b8b406d15b31e9dd126d135ec8ee76bd7df58f9",
+    "docs/screenshots/M-03/en-390-expense-usr_dev-readonly.jpg": "757cc094d1eaf0fdad894cde6416165c264e312c0bd135f94d54d01a51207e0f",
+    "docs/screenshots/M-03/en-390-expense-usr_fin-readonly.jpg": "757cc094d1eaf0fdad894cde6416165c264e312c0bd135f94d54d01a51207e0f",
+    "docs/screenshots/M-03/en-390-light-expense-clear-rejected.jpg": "ca73b2014ee2776f05050e34dee275778a02bb91b8838f0a5a896ee544e1e050",
+    "docs/screenshots/M-03/en-390-light-expense-field-quota-error.jpg": "b2db52be8d60d050d779350c4b94a87b93abde930fe8943331f4c576c3304ffa",
+    "docs/screenshots/M-03/en-390-light-expense-paid-protected.jpg": "5e0adcf5fd576f1e25dd5970c65a77039e04c42b08cda7c475d7ba81f27c086a",
+    "docs/screenshots/M-03/en-390-light-expense-quota-error.jpg": "1e663a9a120bf166f5202f0acdafc46a47b7cdaef0193c3e5742e23bf6b39c77",
+    "docs/screenshots/M-03/es-1280-dark-expense-clear-rejected.jpg": "c9a297cba7fd8917dbf99add5888c25a8456f13dcc0aa4832c55d5b28a06744f",
+    "docs/screenshots/M-03/es-1280-dark-expense-field-quota-error.jpg": "b14047c7a435483b9f23759ada460c812c0c8c039cc31d37ded8c693ebb8ae8b",
+    "docs/screenshots/M-03/es-1280-dark-expense-paid-protected.jpg": "192f05e0fb0ca571de2e150ff2444f376274009fe3ca3c17a95969247d7174f5",
+    "docs/screenshots/M-03/es-1280-dark-expense-quota-error.jpg": "345d92d3027e76da4eb644c9967461c78fad7fb547cc692f12c61028b430fb6a",
+    "docs/screenshots/M-03/es-1280-expense-usr_dev-readonly.jpg": "81e9efcc383030698f13972b96870466e3b303377eaac07742bf8ff9995be5e4",
+    "docs/screenshots/M-03/es-1280-expense-usr_fin-readonly.jpg": "dffee2f68f4dea2a737b77372e8cd8b8c79ad75db7b118aee7d3083323e79f8f",
+    "docs/screenshots/M-03/es-1280-light-expense-clear-rejected.jpg": "092208260ab851d5f78e15f3c4f75a8b2d97e29d327591e2c77f95d1be1b9467",
+    "docs/screenshots/M-03/es-1280-light-expense-field-quota-error.jpg": "1ad32e3f0c4fc5e8b9a3920f12be2b25efec0a6ab57692dba256629d4c00ce3c",
+    "docs/screenshots/M-03/es-1280-light-expense-paid-protected.jpg": "6ca8c9f05495de7dc1f47ee70e7174ded6989e2cb1a927930baf872c5e2d9dbf",
+    "docs/screenshots/M-03/es-1280-light-expense-quota-error.jpg": "5628606d99fffc1fa72a23de6ed1260dc67bdcf0441e8fe5bf349ec6753829be",
+    "docs/screenshots/M-03/es-390-dark-expense-clear-rejected.jpg": "3959f605f2689c92a4fd0f291521c01c5797dcf7e599fb62edbb07408f1e6be6",
+    "docs/screenshots/M-03/es-390-dark-expense-field-quota-error.jpg": "af4c506dbf53598044c9b8b3b1f8837945e77f41d499a46702983be04f5eb58e",
+    "docs/screenshots/M-03/es-390-dark-expense-paid-protected.jpg": "fcb25d6685bd3221dbb8adfe53b9de723b024de25cc72b66d0828b75ce6dc371",
+    "docs/screenshots/M-03/es-390-dark-expense-quota-error.jpg": "14686cd092c2e764698f2b6b74730431b7989cf7a6f6bc27f38f890f499b9660",
+    "docs/screenshots/M-03/es-390-expense-usr_admin-denied.jpg": "e00c9070ab4b27b0108bcd1f1f7a0c82fe5006671b568558800e58c3c5755869",
+    "docs/screenshots/M-03/es-390-expense-usr_cust-denied.jpg": "64406e1c38af43b9709b588759d7737afa0a263ae3ba7f953a76b0e9bff6e253",
+    "docs/screenshots/M-03/es-390-expense-usr_desk-denied.jpg": "f06b25f93257804b4dabcde99f34879fcb5b249f9e5b03365a4d942f80801d24",
+    "docs/screenshots/M-03/es-390-expense-usr_dev-readonly.jpg": "3dd994043208121afc9f5f3a7c829f2082a88d134a60be0b67504269688d8b74",
+    "docs/screenshots/M-03/es-390-expense-usr_fin-readonly.jpg": "3dd994043208121afc9f5f3a7c829f2082a88d134a60be0b67504269688d8b74",
+    "docs/screenshots/M-03/es-390-expense-usr_maint-denied.jpg": "7e852576cf26f7f2b81b9f19cec0e415ec718d338a28a4abc3d0795564573de2",
+    "docs/screenshots/M-03/es-390-light-expense-clear-rejected.jpg": "45ee66cea3324a761ac60530d8ed1bb2dc3b024997d56f1a81916b6be320c51e",
+    "docs/screenshots/M-03/es-390-light-expense-field-quota-error.jpg": "fd3e84c91538655f7729d601e84b514bce93fb963ce6286a46dd201ccf8332b1",
+    "docs/screenshots/M-03/es-390-light-expense-paid-protected.jpg": "68101734cd6f028842afc89a6511dcf6b2a4132606fdebc8fff10acba88bc000",
+    "docs/screenshots/M-03/es-390-light-expense-quota-error.jpg": "a655a4fd00c73b4748f3b01e361971e8a65e0eeec9da28e45138d72b50ee286d"
+  },
+  "browserAndCompilerClosure": "All90780/99317/94018 browsers closed via finally; type/fullbuild exited0. Owned devVite5279 PID145700 intentionally stopped, dev12210 exited0. Static immutable5280 remains read-only.",
+  "remainingGates": [
+    "Root exact-source integration, CI and normal checked demo deployment/receipt.",
+    "Anu: authenticated durable server paid-history invariant across every database/API path, canonical audit/idempotency/accounting history and concurrency/security.",
+    "Mock browser-day reset/cross-tab/cross-device persistence are not guarantees. No real reversal/adjustment workflow or role/RLS/schema changes."
+  ],
+  "logsLocalOnly": true,
+  "logsDurabilityBoundary": "qa/*.log are local supporting logs, not claimed Git-durable. Commands/exits/check counts/source/script/artifact/capture hashes and failure facts are preserved in tracked evidence JSON/docs; root will add exact-head CI/release receipt.",
+  "failureHistory": "batch42-failures.json",
+  "inspectedRepresentativeCaptures": [
+    "docs/screenshots/M-03/es-390-dark-expense-quota-error.jpg",
+    "docs/screenshots/M-03/en-1280-expense-usr_dev-readonly.jpg",
+    "docs/screenshots/M-03/es-390-expense-usr_admin-denied.jpg"
+  ],
+  "logSHA256": {
+    "qa/batch42-domain-fixed2.log": {
+      "sha256": "478b4ef47dcc626ac149bbe9faeb84c3e7a0b8b2980390cdf86dfd18ec722a2e",
+      "bytes": 86,
+      "localOnly": true
+    },
+    "qa/batch42-lifecycle.log": {
+      "sha256": "d643ffdc10b6d0a81867015d85034cfa17fae9ed0694896bd1fac905361f9905",
+      "bytes": 190,
+      "localOnly": true
+    },
+    "qa/batch42-table-production-ui.log": {
+      "sha256": "93a0df21ba5863c9c50ab1dac365fd95d57b009fd742d403494d32f756227cb8",
+      "bytes": 632,
+      "localOnly": true
+    },
+    "qa/batch42-build-single-alert.log": {
+      "sha256": "99323f5250df40455d653e8d9825ea5fcecf0366822773625d763e58ba64309c",
+      "bytes": 318300,
+      "localOnly": true
+    },
+    "qa/batch42-ledger-regression.log": {
+      "sha256": "71cd3bc1ae48ecab40670401734328694259a0e4275e9bb46eac7462f2d8dd10",
+      "bytes": 51,
+      "localOnly": true
+    },
+    "qa/batch42-preview-single-alert.log": {
+      "sha256": "8be1d69f601d8e9e63c062c04e9c85e7f0f982e6bc91d84cb40fb9a460af9c0b",
+      "bytes": 145135,
+      "localOnly": true
+    },
+    "qa/batch42-type.log": {
+      "sha256": "45342ca54fc3787657ce6eb4dbe6d4510cbf68d24318d44416c0176ab31ebf4b",
+      "bytes": 208,
+      "localOnly": true
+    },
+    "qa/batch42-subscription-regression.log": {
+      "sha256": "e9aa93a272e14266e957085c20cb6d8073c1d63882c83ec320cb4a6daaf1c248",
+      "bytes": 171,
+      "localOnly": true
+    },
+    "qa/batch42-preview.log": {
+      "sha256": "25b8b993abe7bc27bd3261f14f9176feced072bddfa4f3bf60f98ef15f0c95aa",
+      "bytes": 6580,
+      "localOnly": true
+    },
+    "qa/batch42-baseline.log": {
+      "sha256": "518d7879fadc4ee14e8317e630594fe9be5b02fdbbf54fb561339e1154cba123",
+      "bytes": 71,
+      "localOnly": true
+    },
+    "qa/batch42-table-production-ui-scoped-alert.log": {
+      "sha256": "2a066ac455b1b0fd9ecbe755a41f73588b5129f073fd4f3ab78065f5233c8a31",
+      "bytes": 42,
+      "localOnly": true
+    },
+    "qa/batch42-domain.log": {
+      "sha256": "b0829c1aa07499e6950044f46da5459ec3c853fbc44bb8f5120709b4340dde04",
+      "bytes": 1297,
+      "localOnly": true
+    },
+    "qa/batch42-type-single-alert.log": {
+      "sha256": "45342ca54fc3787657ce6eb4dbe6d4510cbf68d24318d44416c0176ab31ebf4b",
+      "bytes": 208,
+      "localOnly": true
+    },
+    "qa/batch42-table-production-ui-single-alert.log": {
+      "sha256": "65e43e73c94e848c815d210b73d80659620a21313ea8a1e61ea53fe5c0038633",
+      "bytes": 762,
+      "localOnly": true
+    },
+    "qa/batch42-dev.log": {
+      "sha256": "72bb2877a966e78b8a96e2dfe2448e47e31e7555c7421c66dfcaa016ed254fb0",
+      "bytes": 678,
+      "localOnly": true
+    },
+    "qa/batch42-lifecycle-single-alert.log": {
+      "sha256": "d643ffdc10b6d0a81867015d85034cfa17fae9ed0694896bd1fac905361f9905",
+      "bytes": 190,
+      "localOnly": true
+    },
+    "qa/batch42-domain-final.log": {
+      "sha256": "848cc5f6785c0e9d6cb29620a02cde62197255a272f753743a6e20e2db8cbc50",
+      "bytes": 86,
+      "localOnly": true
+    },
+    "qa/batch42-build.log": {
+      "sha256": "d5f6cf961230d53a9295f9f67af778e43e20474ed23c52440bc87b0805e1c463",
+      "bytes": 318128,
+      "localOnly": true
+    },
+    "qa/batch42-ledger-production-ui.log": {
+      "sha256": "793f4b545c377551bf61155c9f4ca9719aa71c9e86a588b051fe216aa96bc67f",
+      "bytes": 241,
+      "localOnly": true
+    },
+    "qa/batch42-domain-fixed1.log": {
+      "sha256": "7067e245e550bbbe59134f3b071541f0ca2dc262376c95ab66c00485053dc461",
+      "bytes": 782064,
+      "localOnly": true
+    },
+    "qa/batch42-ledger-dev-states.log": {
+      "sha256": "062da3a8f90a93b4b9f1e62fa82a3ba656ed8946dd6b36094eacabb8a168366e",
+      "bytes": 71,
+      "localOnly": true
+    }
+  }
+}

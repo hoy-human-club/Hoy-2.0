@@ -1,0 +1,27 @@
+{
+  "batch": 35,
+  "base": "http://127.0.0.1:5280",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5280/assets/index-DXPEAEcW.js",
+    "sha256": "fc7057b2600a0085c17d1c833a8707567d0a3c0dbefbe8951b7bb65e287f74f9",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5280/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "checks": [
+    "en/light/390:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "All11 current roles: super/admin/finance allowed,8 denied; owner Finance conflict unchanged.",
+    "en/light/1280:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "en/dark/390:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "en/dark/1280:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "es/light/390:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "es/light/1280:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "es/dark/390:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch",
+    "es/dark/1280:all six commands, default paid history/delete guard, immediate duplicate, quota/retry/form reset, cancelled confirmation, template toggle/generation duplicate skip, lostack replay, held cancel/actual actor-unmount, metadata receipts, unchanged nonledger tables/no dispatch"
+  ],
+  "errors": [],
+  "dispatch": []
+}

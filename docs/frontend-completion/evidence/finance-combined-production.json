@@ -1,0 +1,30 @@
+{
+  "base": "http://127.0.0.1:5286",
+  "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
+  "checks": [
+    {
+      "name": "test-payroll-settlement-ui",
+      "log": "/workspace/hoy-qa-archive/finance-test-payroll-settlement-ui.log",
+      "code": 0,
+      "signal": null
+    },
+    {
+      "name": "test-expense-delete-guard-ui",
+      "log": "/workspace/hoy-qa-archive/finance-test-expense-delete-guard-ui.log",
+      "code": 0,
+      "signal": null
+    },
+    {
+      "name": "test-danger-button-contrast",
+      "log": "/workspace/hoy-qa-archive/finance-test-danger-button-contrast.log",
+      "code": 0,
+      "signal": null
+    },
+    {
+      "name": "test-expense-ledger-ui",
+      "log": "/workspace/hoy-qa-archive/finance-test-expense-ledger-ui.log",
+      "code": 0,
+      "signal": null
+    }
+  ]
+}

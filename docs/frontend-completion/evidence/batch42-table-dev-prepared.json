@@ -1,0 +1,26 @@
+{
+  "status": "PREPARED UNRUN: source/test only; no compiler/type/build/browser executed for new harness",
+  "basisCheckpoint": "b130f95",
+  "isolatedRuntimeSHA256": "c51c2063a5b5203d9e4c583e1754a82e47418398a5b363f4c551f2d4b9c1b3c7",
+  "filesSHA256": {
+    "scripts/expense-table-harness.tsx": "dd9cd810b40c621aeca36b24c3fcd5ececa9e131f909397a331f4a97fd8c0736",
+    "scripts/test-expense-table-states.mjs": "59b3143526318da5e053a4743e82e68ac33fd93b7c80655194de405ff12cbe79",
+    "docs/frontend-completion/batch-42.md": "087bfdb05232846b81e276da1653e31e5ad8dc2703785068786fc3b8e2aafef1"
+  },
+  "command": "QA_BASE=http://127.0.0.1:<combined-dev-port> CHROMIUM_PATH=/usr/bin/chromium node scripts/test-expense-table-states.mjs",
+  "actualComponents": [
+    "RowDrawer",
+    "tableRegistry.expenses",
+    "MockProvider",
+    "SessionProvider",
+    "MemoryRouter"
+  ],
+  "matrix": "EN/ES x390/1280 xlight/dark; nine controlled lifecycle/read-only flows per configuration",
+  "scopeLimits": [
+    "Only scripts and own batch report updated. No application source/CSS/roles changes.",
+    "Prior M09c dev proof is not new M03 async-state acceptance.",
+    "Foreign canary validates scoped supplied resolver rows, not server isolation.",
+    "Root owns combined build/contrast repair and execution lane."
+  ],
+  "executionPending": true
+}

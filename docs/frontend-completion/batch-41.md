@@ -1,0 +1,31 @@
+# Batch41 — FI-03 fictional settlement
+
+Contract and pre-edit source hashes: [baseline](evidence/payroll-settlement-baseline.json). Base0a09975, original Nov30 delivery/Not verified/partial. ALL3 settlement handlers under one immutable scoped mock engine/shared latch; exact approved values retained, no paid-history repair. No real money/provider/security/schema changes.
+
+Zero/netnegative/empty/mixed/inconsistent/within-teacher partial or remaining-provider amount cases pause as unresolved fictional prototype safeguards, not approved business policy. Per-teacher wompi mark explicitly provides no provider confirmation; run Wompi remains an entirely local rehearsal.
+
+Initial source-only writing checkpoint is historical. Current focused local domain/hook/fullbuild/production/dev gates passed below; root owns checkpoint/globalmetadata/CI/release. Release41 still depends on checked main69 before merge; no full-feature/owner/backend acceptance.
+
+## Source-only checkpoint
+
+Changed runtime files: `payrollSettlement.ts`, `usePayrollSettlement.ts`, `PayoutsPage.tsx` (three settlement handlers only), and bilingual `strings.ts`. Approval37, calculators, schema, roles, settings and provider stub are unchanged. All financial mutations share an immediate hook latch; immutable command snapshots include actor, target, selection, basis and request nonce. Active account and exact tenant/run/line scope are rechecked at final reads/digests and result acknowledgement. Replay verifies the current saved target and cannot repair later history.
+
+Scripts written but **not executed**: `scripts/test-payroll-settlement.mjs`, `scripts/test-payroll-settlement-hook.mjs`, `scripts/test-payroll-settlement-ui.mjs` (production5278), `scripts/test-payroll-settlement-states.mjs` (dev5277). Planned proof covers every staged write/read/quota failure, signed-approved arithmetic/paid-history invariance, lost acknowledgement/replay, concurrent teacher stale basis, cancellation/context/unmount, held actor tenant/active loss, 11 existing roles and EN/ES390/1280 light/dark rendered states. No screenshots or PASS result exist yet.
+
+Shared root metadata follow-up: existing Select component now used by M09b for fictional rehearsal outcome. Root owns global manifest, PageSpec/usedBy, CI and checked deployment. New artifacts stay under the workspace.
+
+## Current focused local proof
+
+[Final exact proof](evidence/payroll-settlement-final.json) · [Build and asset hashes](evidence/payroll-settlement-build.json). Canonical runtime before/after `4f5aa39174daa4a6fde3724d112bee2b7d421df4e2540badc52dab47c7a003f6`: sorted src relative-path bytes + file bytes, no separators, exclude generated captureDates, then vite.config.ts bytes only. Base `0a09975aae2f581bd82e694b0654002466b79181` plus uncommitted batch41 source; not a checked or deployed release. Immutable artifact `/workspace/hoy-qa/payroll-settlement-4f5aa39174da`, HTTP200 exact frontend-evidence at production5278.
+
+Actual commands: domain97134 EXIT0, hook EXIT0, fullbuild43319 EXIT0 (including TypeScript/spacing/manual gates), production87721 EXIT0 and devstates75525 EXIT0. No runtime/test correction was needed after execution. Exact four script hashes, exit codes and concise actual PASS stdout are durably preserved in the final JSON. Five `.log` paths/hashes are explicitly local-only ignored diagnostics (`*.log`); their full contents are not committed deliverables. Production has 9 result entries:8 EN/ES ×390/1280 ×light/dark combinations and the11-role check; zero unexpected console/page/network errors. Dev EN/ES390 actual MockProvider fault injection passed; zero unexpected errors. 94 fictional screenshots:80 production +14 dev. All test browsers closed; parent explicitly received resource lane release.
+
+Verified cases: all staged writes/reads and storage quota roll back; unchanged same-request replay/lost-ack retry has no second audit or local simulator effect; immutable caller snapshots; exact active tenant/account/run/line scope and contaminated required responses; held final read/digest ownership; disjoint teacher stale previews and explicit reload; last teacher closes exactly once without changing earlier stamps; signed approved values/rates/approval/paid history invariant; local accepted/rejected Wompi and per-teacher no-provider semantics; busy/doubleclick/cancel/context/unmount/postcommit suppression. UI uses existing3 allowed roles (super/admin/finance) and8 denied roles.
+
+Inspected [EN mobile preview](../screenshots/M-09b/en-390-light-settlement-manual-preview.jpg), [EN dark mobile failure/retry](../screenshots/M-09b/en-390-dark-settlement-manual-failure.jpg), [ES desktop teacher Wompi boundary](../screenshots/M-09b/es-1280-light-settlement-teacher-wompi-preview.jpg), [ES mobile inactive after commit](../screenshots/M-09b/es-390-settlement-dev-inactive-aftercommit.jpg). Text, sums, explicit local boundary and footer controls are readable; no horizontal overflow. Confirm control >=44px asserted throughout production matrix. Routes: `/#/admin/finance/payouts` and actual selected/generated `/#/admin/finance/payouts/:id` (fictional controlled QA run `qa_settlement`).
+
+Remaining: owner-approved zero/negative/mixed/partial/remaining-payment rules, teacher per-teacher partial statement presentation, and Anu authenticated server atomicity/status locks/idempotency/canonical clock/provider/outbox/reconciliation. No new business decision, real payment/provider/network request, role grant or paid-history repair. Exact2 offline font CSS fixtures only; no real-provider pass. Mock receipt acknowledgement is conservative if later teacher progress changes the full current revision, never repair/duplicate. Root combined integration, exact-head CI and deployment remain separate pending gates.
+
+## Current combined verification
+
+Source6f7d6e7/canonicaldd7e0f14f4b1 passed fullbuild50157, all seven domain/lifecycle and all four production/three dev suites. [Combined proof](evidence/finance-combined-final.json) preserves exact frozen artifact and failed M03startup-console attempt/correction; same functional assertions and strict error/network checks retained. Named fictional slice only; exact-head CI/release and owner/backend gates remain. Earlier isolated/prepared/pending sections above are historical checkpoints.
