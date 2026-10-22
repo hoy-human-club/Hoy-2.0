@@ -2,6 +2,7 @@ import { type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
 import type { BookingRow, PaymentRow, TransferReceiptRow } from '../../data/schema';
 import type { Bi } from '../../specs/types';
+import {assertTrialAvailable} from '../../data/trialEligibility';
 import { recordPayment, activatePaidPackage } from '../customer/payments';
 import { bookWithPackage } from '../../data/deskBooking';
 import { tenant } from '../../tenant/tenant';
@@ -59,9 +60,7 @@ export async function reviewTransfer(data:DataProvider,input:{id:string;actorId:
     // Under/overpayments are retained for explicit rejection; no invented partial-settlement rule.
     if(input.decision==='approved'&&input.amount!==payment.amount)throw Error('amount_mismatch');
     if(input.decision==='approved'&&receipt.product_id==='plan_trial'){
-      const priorPayments=await tx.list<PaymentRow>('payments',{where:{user_id:receipt.user_id}});
-      const priorBookings=await tx.list<BookingRow>('bookings',{where:{user_id:receipt.user_id}});
-      if(priorPayments.some(p=>p.tenant_id===tenant.id&&p.id!==payment.id&&p.plan_id==='plan_trial'&&p.status==='approved')||priorBookings.some(b=>b.tenant_id===tenant.id&&b.paid_with==='trial'))throw Error('trial_used');
+      await assertTrialAvailable(tx,receipt.user_id,payment.id);
     }
     const now=new Date().toISOString();let booking:BookingRow|null=null;
     await tx.update('payments',payment.id,{status:input.decision==='approved'?'approved':'declined',amount_paid:input.amount,note:input.reason.trim(),taken_by:input.actorId,paid_at:input.decision==='approved'?now:null});
