@@ -1,0 +1,2 @@
+// Original actual save callback at ede03f34190e06b5b4a9f502c9262036a76cb59f. Historical regression fixture, never imported by production.
+async (patch, before) => { await data.update('email_templates', row.id, { ...patch, version: row.version + 1 }); await audit('email_template.update', 'email_templates', row.id, { before, after: patch, version: row.version + 1 }); }

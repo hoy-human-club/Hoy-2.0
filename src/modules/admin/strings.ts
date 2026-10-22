@@ -1,6 +1,27 @@
 import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  'admin.emails.edit.mock': {es:'Versiones ficticias en este navegador. Editar o restaurar no envía correos ni conecta el proveedor. El historial real y su conservación siguen pendientes.',en:'Fictional versions in this browser. Editing or restoring does not send email or connect a provider. Real history storage and retention remain pending.'},
+  'admin.emails.edit.busy': {es:'Guardando la versión local… Dejar de esperar no deshace un cambio que ya terminó.',en:'Saving the local version… Stopping waiting does not undo an already completed change.'},
+  'admin.emails.edit.saved': {es:'Versión local v{v} leída de nuevo. No se envió ningún correo.',en:'Local version v{v} read back. No email was sent.'},
+  'admin.emails.edit.save': {es:'No se pudo confirmar la versión local. Reintenta la misma solicitud o recarga para revisar; un cambio ya guardado puede permanecer.',en:'The local version could not be confirmed. Retry the same request or reload to review; an already saved change may remain.'},
+  'admin.emails.edit.stale': {es:'La plantilla o el historial cambió, o falta confirmar el resultado. Recarga y revisa antes de guardar. Un cambio ya terminado puede permanecer.',en:'The template or history changed, or the result could not be confirmed. Reload and review before saving. An already completed change may remain.'},
+  'admin.emails.edit.missing': {es:'No se encontró una cuenta, plantilla o versión histórica propias válidas. Recarga para revisar.',en:'A valid scoped account, template or historical version was not found. Reload to review.'},
+  'admin.emails.edit.unsupported': {es:'La instantánea o los campos no se pueden usar. Revisa o recarga la versión guardada; no se migra el historial.',en:'The snapshot or fields cannot be used. Review or reload the saved version; history is not migrated.'},
+  'admin.emails.edit.read': {es:'No se pudo leer la versión guardada propia. Recarga para reintentar.',en:'The scoped saved version could not be read. Reload to retry.'},
+  'admin.emails.edit.retry': {es:'Reintentar solicitud',en:'Retry request'},
+  'admin.emails.edit.reload': {es:'Recargar versión guardada',en:'Reload saved version'},
+  'admin.emails.edit.cancel': {es:'Dejar de esperar',en:'Stop waiting'},
+
+  'admin.expenses.local.boundary': { es: "Vista previa ficticia de gastos guardada solo en este navegador. No envía pagos ni cambia suscripciones; las integraciones reales siguen desconectadas.", en: "Fictional expense preview saved only in this browser. It sends no payments and changes no subscriptions; real integrations remain disconnected." },
+  'admin.expenses.local.readError': { es: "No se pudieron leer los registros propios. No se muestran datos anteriores y se bloquean cambios. Reintenta la lectura.", en: "Owned records could not be read. Previous rows are hidden and changes are blocked. Retry the read." },
+  'admin.expenses.local.paid': { es: "El gasto ahora está pagado y no se puede eliminar. Revisa el estado actualizado.", en: "The expense is now paid and cannot be deleted. Review its current state." },
+  'admin.expenses.local.stale': { es: "Los registros cambiaron. No se sobrescribió el resultado anterior. Cancela este intento y revisa los datos actuales.", en: "The records changed. The earlier result was not overwritten. Cancel this attempt and review current data." },
+  'admin.expenses.local.failed': { es: "No se pudo confirmar el cambio. Antes de confirmar no se guardan cambios parciales; si ya se guardó, reintentar verifica el mismo intento sin duplicarlo.", en: "The change could not be acknowledged. Before commit, no partial changes are saved; if already committed, retry verifies the same intent without duplicating it." },
+  'admin.expenses.local.saved': { es: "Cambio ficticio confirmado en este navegador.", en: "Fictional change acknowledged in this browser." },
+  'admin.expenses.local.stopped': { es: "Dejaste de esperar. Se detienen los cambios pendientes; un cambio ya guardado no se deshace. Revisa el estado actual.", en: "You stopped waiting. Pending changes are stopped; an already saved change is not undone. Review the current state." },
+  'admin.expenses.local.stop': { es: "Dejar de esperar", en: "Stop waiting" },
+  'admin.expenses.local.summary': { es: "Creados: {created} · Omitidos: {skipped} · Total: {total}", en: "Created: {created} \u00b7 Skipped: {skipped} \u00b7 Total: {total}" },
   'admin.emails.local.notice': {es:'Simulación LOCAL ficticia: no se envía email. El estado «sent» y su hora son registros de esta demo en este navegador, sin sincronización entre dispositivos ni garantía transaccional entre pestañas.',en:'Fictional LOCAL simulation: no email is sent. The sent status and timestamp are demo records in this browser, with no cross-device sync or cross-tab transaction guarantee.'},
   'admin.emails.local.test': {es:'Prueba local',en:'Local test'},
   'admin.emails.local.status': {es:'Simulado local',en:'Local simulation'},
