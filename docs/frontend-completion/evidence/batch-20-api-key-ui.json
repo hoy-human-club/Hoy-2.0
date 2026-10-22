@@ -1,0 +1,19 @@
+{
+  "batch": 20,
+  "base": "http://127.0.0.1:5213",
+  "fingerprint": {
+    "entry": "http://127.0.0.1:5213/assets/index-B2TaM7jb.js",
+    "sha256": "fa6425c6218cdfc4c0c7510a5baeb175557f63ec71b224f7ec4ef9a27cc32be6"
+  },
+  "checks": [
+    "en: create/rotate/revoke persistence rollback and retry, immediate duplicate one key, commit/ack loss with metadata-only replay, malformed action validation, actual cancel and role switch during hashing/no late effect, show-once/no persistence/reload, writer super_admin+developer/admin read-only/eight denied,390+1280 light+dark screenshots without raw drawer",
+    "es: create/rotate/revoke persistence rollback and retry, immediate duplicate one key, commit/ack loss with metadata-only replay, malformed action validation, actual cancel and role switch during hashing/no late effect, show-once/no persistence/reload, writer super_admin+developer/admin read-only/eight denied,390+1280 light+dark screenshots without raw drawer"
+  ],
+  "errors": [],
+  "rawCaptures": 0,
+  "limits": [
+    "Fictional MockProvider only; production authentication disconnected.",
+    "Injected failures are local storage failures, not real server errors.",
+    "Mid-stage actor/tenant changes additionally covered by domain tests; actual role switch and lost-ack replay covered in UI."
+  ]
+}
