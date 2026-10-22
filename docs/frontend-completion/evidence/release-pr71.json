@@ -1,0 +1,393 @@
+{
+  "pr": 71,
+  "url": "https://github.com/imagine-os/hoy/pull/71",
+  "checkedHead": "feaff4e970174fa501106dcb8819b9c81b2fa3c9",
+  "mergeCommit": "016c16f8ce81f25e3ac125da275f985bebd4b1e5",
+  "version": "0.25.0",
+  "workflows": 17,
+  "totalJobs": 41,
+  "ci": [
+    {
+      "id": 39761787410,
+      "name": "Subscription directory QA",
+      "jobs": [
+        {
+          "id": 119767468869,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787191,
+      "name": "Voucher sandbox QA",
+      "jobs": [
+        {
+          "id": 119767469694,
+          "name": "voucher",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787197,
+      "name": "Media picker QA",
+      "jobs": [
+        {
+          "id": 119767468331,
+          "name": "picker",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787350,
+      "name": "Booking and payment frontend QA",
+      "jobs": [
+        {
+          "id": 119767468787,
+          "name": "mock-transactions",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787267,
+      "name": "Class Management QA",
+      "jobs": [
+        {
+          "id": 119767468737,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787345,
+      "name": "Frontend completion QA",
+      "jobs": [
+        {
+          "id": 119767468405,
+          "name": "crm",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787248,
+      "name": "Frontend control contracts QA",
+      "jobs": [
+        {
+          "id": 119767468262,
+          "name": "identity-and-fixtures",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767468654,
+          "name": "pending-payments",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787259,
+      "name": "Photography QA",
+      "jobs": [
+        {
+          "id": 119767468873,
+          "name": "photography",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787422,
+      "name": "Session Availability QA",
+      "jobs": [
+        {
+          "id": 119767469126,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787229,
+      "name": "Future frontend mock QA",
+      "jobs": [
+        {
+          "id": 119767468024,
+          "name": "maintenance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767468354,
+          "name": "marketing-fences",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767468489,
+          "name": "google-hours",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787395,
+      "name": "Local problem report frontend QA",
+      "jobs": [
+        {
+          "id": 119767468905,
+          "name": "local-drafts",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787268,
+      "name": "Timetable QA",
+      "jobs": [
+        {
+          "id": 119767468836,
+          "name": "timetable",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787397,
+      "name": "Frontend finance safeguards QA",
+      "jobs": [
+        {
+          "id": 119767469165,
+          "name": "fictional-finance (payroll-settlement)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469492,
+          "name": "fictional-finance (expense-delete)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787389,
+      "name": "Frontend lifecycle mock QA",
+      "jobs": [
+        {
+          "id": 119767468944,
+          "name": "local-lifecycle (team-proposals)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469320,
+          "name": "local-lifecycle (cash-count)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469562,
+          "name": "local-lifecycle (studio-cancel)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787425,
+      "name": "Promotion staff-demo QA",
+      "jobs": [
+        {
+          "id": 119767469257,
+          "name": "promotion",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787407,
+      "name": "Frontend continuation QA",
+      "jobs": [
+        {
+          "id": 119767469306,
+          "name": "operational-quotes",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469760,
+          "name": "marketing-drafts",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767470055,
+          "name": "fictional-registration",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767470698,
+          "name": "studio-calendar",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 39761787246,
+      "name": "Frontend correctness QA",
+      "jobs": [
+        {
+          "id": 119767468947,
+          "name": "mock-correctness (contact-mask)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469203,
+          "name": "mock-correctness (account-data)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469242,
+          "name": "mock-correctness (event-rsvp)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469245,
+          "name": "mock-correctness (receipt-alert)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469246,
+          "name": "mock-correctness (expense-ledger)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469259,
+          "name": "mock-correctness (email-test)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469271,
+          "name": "mock-correctness (api-key-mutations)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469309,
+          "name": "mock-correctness (email-edit)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469311,
+          "name": "mock-correctness (recovery)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469315,
+          "name": "mock-correctness (profile-save)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469324,
+          "name": "mock-correctness (account-marketing)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469328,
+          "name": "mock-correctness (payroll-draft)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469358,
+          "name": "mock-correctness (substitute-request)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469372,
+          "name": "mock-correctness (notification-prefs)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469452,
+          "name": "mock-correctness (trial-eligibility)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119767469457,
+          "name": "mock-correctness (payroll-approval)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
+  "deployment": {
+    "runId": 39763267697,
+    "state": "verified live",
+    "head": "016c16f8ce81f25e3ac125da275f985bebd4b1e5",
+    "jobs": [
+      {
+        "id": 119772410550,
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "id": 119772981046,
+        "name": "deploy",
+        "conclusion": "success"
+      },
+      {
+        "id": 119773172679,
+        "name": "verify-subscriptions",
+        "conclusion": "success"
+      }
+    ],
+    "hostedVerification": {
+      "command": "node scripts/test-subscriptions-live.mjs hoy \"016c16f8ce81f25e3ac125da275f985bebd4b1e5\"",
+      "result": "Verified https://imagine-os.github.io/hoy/#/admin/finance/subscriptions",
+      "limits": "Exact hosted source and selected subscription fixture only; finance flows exercised locally/CI."
+    }
+  },
+  "rollback": "50449d0298ceb01118bd3aaa9ddc00c9b189c8d6",
+  "limits": [
+    "Focused fictional frontend only; no complete feature, owner or backend acceptance.",
+    "Earlier exact timeout causes without diagnostics remain unconfirmed; preserved in finance-pr71-*-ci-followup.json.",
+    "No real payments, database, storage, credentials or access-policy changes."
+  ]
+}

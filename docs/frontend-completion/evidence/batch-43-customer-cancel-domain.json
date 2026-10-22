@@ -1,0 +1,23 @@
+{
+  "batch": 43,
+  "method": "Actual MockProvider, fictional Map-only rows; safe counts and check descriptions only.",
+  "checks": [
+    "Each of four staged writes and quota fail atomically with zero events; original grant/debit/payment remain unchanged, finite linked return, derived occupancy, safe receipt and historical replay exactly once.",
+    "Strict cutoff remains free at equality; +1ms rejects stale free preview, in-progress/exact-end booked cancellation stays late, end+1ms rejects, completed-but-not-ended source predicate retained, changed policy requires rereview.",
+    "All five nonpackage kinds create no grant/payment refund; late package needs no return lineage; expired/frozen lot terms are unchanged and returned unit stays unusable.",
+    "Missing/unlinked/shared/multiunit/foreign or malformed lineage and rejected payment fail closed without backfilling historical allocation or minting an immortal class.",
+    "Every required read failure and missing/foreign/duplicate scoped row blocks new writes; terminal bookings or studio-cancelled class without own receipt are never backfilled.",
+    "Only existing customer/teacher/super own scope; all other roles/nonmock denied, no profiles/contact/other roster or general staff audit list reads.",
+    "Immutable command values and original live callback/signal/clock retained across held actual SHA; inactive/missing actor and pre/staged abort roll back without effects.",
+    "Postcommit lost acknowledgement/cancel/actor or required-row loss never falsely claims rollback; exact retry after clock advances verifies one historical result, while missing/reassigned replay rows block acknowledgement.",
+    "Held actual review digest rejects reassigned/deleted booking/session/grant; after-commit final waitlist read loss of already-read own booking/session/debit/grant/return/payment or offer identity/active actor withholds acknowledgement and preserves exactly one committed result.",
+    "Concurrent identical intents replay once; different-nonce cancellation cannot duplicate credit, and an actual outside-stage mutation makes the provider reject the detached transaction.",
+    "Supported future effect offers only first waiting candidate; later claimed/expired/left historical receipt never reoffers; duplicate waiting positions fail whole transaction. No notification dispatch exists."
+  ],
+  "limitations": [
+    "Generic provider/direct-entry authorization remains a server gap",
+    "PC04/source phases unchanged",
+    "Ambiguous legacy lineage/no_show/complete claim-expiry policy remain unresolved",
+    "Rendered/build proof recorded separately"
+  ]
+}

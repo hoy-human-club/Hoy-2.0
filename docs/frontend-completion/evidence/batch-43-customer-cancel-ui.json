@@ -1,0 +1,20 @@
+{
+  "batch": 43,
+  "base": "http://127.0.0.1:5283",
+  "entry": "./assets/index-ToIG1OZN.js",
+  "entrySha256": "28694fb36c5e2be4bc28cc57c3fd7c49969aa6f481096ee4216cad96441ccc3d",
+  "checks": [
+    "en/light/390:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+    "en/light/1280:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;all11roles;bounds/translation/current-seat guard",
+    "en/dark/390:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+    "en/dark/1280:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+    "es/light/390:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+    "es/light/1280:discard no writes;quota rollback/same-intent retry;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;all11roles;bounds/translation/current-seat guard",
+    "es/dark/390:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard",
+    "es/dark/1280:discard no writes;immediate duplicate;linked finite return/counter/first offer;in-progress late/single no return;unverifiable disabled;protected financial terms;bounds/translation/current-seat guard"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "captures": "docs/screenshots/C-08b/customer-cancel",
+  "scope": "Fictional browser-only checks; no legal/business/server acceptance."
+}

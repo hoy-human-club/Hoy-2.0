@@ -1,3 +1,5 @@
+import {CustomerCancellationReview} from '../../../components/organism/CustomerCancellationReview/CustomerCancellationReview';
+import {useCustomerCancellation} from '../useCustomerCancellation';
 import { useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -132,13 +134,15 @@ export function BookedPage({ change = false }: { change?: boolean }) {
 function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResult }: { open: boolean; onClose: () => void; booking: BookingRow; joined: NonNullable<ReturnType<typeof useSessionJoined>['joined']>; inside: boolean; deadline: Date; onResult: (f: { tone: 'success' | 'warn'; text: string }) => void }) {
   const { t, lang } = useI18n();
   const nav = useNavigate();
-  const { cancel, reschedule } = useBookingActions();
+  const { reschedule } = useBookingActions();
   const allSessions = useAllSessionsJoined();
   const { ledger, payments } = useEntitlements();
   const [day, setDay] = useState(() => dateKey(new Date(joined.session.starts_at)));
   const [mode, setMode] = useState<'menu' | 'move' | 'cancel'>('menu');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const cancellation=useCustomerCancellation(booking.id,joined.session.id,mode==='cancel');
+  const occupied=busy||cancellation.busy;
   const s = joined.session;
   const now = useNow(1_000);
   const moveAllowed = canReschedule(s.starts_at, now);
@@ -151,15 +155,11 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
     if (entitlementUnresolved || a.session.id === s.id || a.session.status !== 'scheduled' || Date.parse(a.session.starts_at) <= now || a.session.booked_count >= a.session.capacity || dateKey(new Date(a.session.starts_at)) !== day) return false;
     try { assertRescheduleValidity(validity.purchase, a.session.starts_at); return true; } catch { return false; }
   });
-  const close = () => { setMode('menu'); setErr(null); onClose(); };
+  const close = () => { if(mode==='cancel')cancellation.stop(); setMode('menu'); setErr(null); onClose(); };
 
-  const doCancel = async () => {
-    setBusy(true);
-    try {
-      const { late } = await cancel(booking, s);
-      onResult({ tone: late ? 'warn' : 'success', text: late ? t('customer.change.cancelled.late') : booking.paid_with === 'package' ? t('customer.change.cancelled.creditBack') : t('customer.change.cancelled.ok') });
-      close();
-    } finally { setBusy(false); }
+  const doCancel = async (retry=false) => {
+    const result=await (retry?cancellation.retry():cancellation.confirm());
+    if(result)onResult({tone:result.late?'warn':'success',text:result.late?t('customer.change.cancelled.late'):result.returned?t('customer.change.cancelled.creditBack'):t('customer.change.cancelled.ok')});
   };
   const doMove = async (toId: string) => {
     const to = alts.find((a) => a.session.id === toId)?.session; if (!to) return;
@@ -173,22 +173,22 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
   };
 
   return (
-    <Drawer open={open} onClose={close} side="bottom" title={mode === 'cancel' ? t('customer.change.cancel.title') : mode === 'move' ? t('customer.change.move.title') : t('customer.change.title')}>
+    <Drawer open={open || (mode==='cancel'&&cancellation.hasCommand)} onClose={close} side="bottom" title={mode === 'cancel' ? t('customer.change.cancel.title') : mode === 'move' ? t('customer.change.move.title') : t('customer.change.title')}>
       <div className="stack">
-        {inside
+        {mode!=='cancel'&&(inside
           ? <Notice tone="warn" title={t('customer.change.inside.title', { h: policy.cancelWindowHours })}>{t('customer.change.inside.body')}</Notice>
-          : <p className="small muted">{t('customer.change.outside', { time: formatTime(deadline.toISOString(), lang) })}</p>}
-        <Card padding="sm"><ClassRow title={s.title} teacher={teacherName(joined)} startsAt={s.starts_at} durationMin={joined.modality?.duration_min ?? 60} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} booked_by_me /></Card>
+          : <p className="small muted">{t('customer.change.outside', { time: formatTime(deadline.toISOString(), lang) })}</p>)}
+        <Card padding="sm"><ClassRow title={s.title} teacher={teacherName(joined)} startsAt={s.starts_at} durationMin={joined.modality?.duration_min ?? 60} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} booked_by_me={booking.status==='booked'&&cancellation.phase!=='success'} /></Card>
 
         {mode === 'menu' && (
           <ListGroup>
-            <ListRow icon="move" title={t('customer.change.move')} subtitle={moveAllowed ? t('customer.change.move.sub') : t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })} disabled={!moveAllowed || busy} onClick={() => setMode('move')} />
-            <ListRow icon="cancel" tone="danger" title={t('customer.change.drop')} subtitle={inside ? t('customer.change.drop.sub.inside') : t('customer.change.drop.sub')} onClick={() => setMode('cancel')} />
+            <ListRow icon="move" title={t('customer.change.move')} subtitle={moveAllowed ? t('customer.change.move.sub') : t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })} disabled={!moveAllowed || occupied} onClick={() => setMode('move')} />
+            <ListRow icon="cancel" tone="danger" title={t('customer.change.drop')} subtitle={t('customer.cancel.atomic.menu')} disabled={occupied} onClick={() => setMode('cancel')} />
           </ListGroup>
         )}
         {mode === 'move' && (
           <section className="stack-sm">
-            <Field label={t('customer.change.move.day')} hint={validity.purchase?.expires_at ? t('customer.change.move.expires', { date: formatDate(validity.purchase.expires_at, lang) }) : t('customer.change.move.day.hint')}>{id => <Input id={id} type="date" value={day} min={dateKey(new Date(now))} max={validity.purchase?.expires_at ?? undefined} disabled={busy || !moveAllowed} onChange={e => { setDay(e.target.value); setErr(null); }} />}</Field>
+            <Field label={t('customer.change.move.day')} hint={validity.purchase?.expires_at ? t('customer.change.move.expires', { date: formatDate(validity.purchase.expires_at, lang) }) : t('customer.change.move.day.hint')}>{id => <Input id={id} type="date" value={day} min={dateKey(new Date(now))} max={validity.purchase?.expires_at ?? undefined} disabled={occupied || !moveAllowed} onChange={e => { setDay(e.target.value); setErr(null); }} />}</Field>
             <div className="eyebrow">{t('customer.change.pick')}</div>
             {!moveAllowed ? (
               <Notice tone="warn">{t('customer.change.move.closed', { h: RESCHEDULE_CUTOFF_HOURS })}</Notice>
@@ -203,13 +203,8 @@ function ChangeSheet({ open, onClose, booking, joined, inside, deadline, onResul
             <p className="xs muted">{t('customer.change.move.note')}</p>
           </section>
         )}
-        {mode === 'cancel' && (
-          <section className="stack-sm">
-            <p className="small">{inside ? t('customer.change.cancel.confirm.inside', { with: t(`customer.paidWith.${booking.paid_with}`) }) : t('customer.change.cancel.confirm')}</p>
-            <Button block variant="danger" size="lg" loading={busy} onClick={doCancel}>{t('customer.change.cancel.cta')}</Button>
-          </section>
-        )}
-        <Button block disabled={busy} variant={mode === 'menu' ? 'secondary' : 'ghost'} onClick={mode === 'menu' ? close : () => setMode('menu')}>{mode === 'menu' ? t('customer.change.keep') : t('core.nav.back')}</Button>
+        {mode === 'cancel' && <CustomerCancellationReview phase={cancellation.phase} review={cancellation.review} result={cancellation.result?{returned:cancellation.result.returned,offerRecorded:cancellation.result.waitlist==='offer_recorded'}:null} onConfirm={()=>void doCancel()} onRetry={cancellation.hasCommand?()=>void doCancel(true):undefined} onReload={cancellation.reload} onStop={cancellation.stop} onDone={close}/>}
+        <Button block disabled={occupied} variant={mode === 'menu' ? 'secondary' : 'ghost'} onClick={mode === 'menu'||cancellation.hasCommand ? close : () => setMode('menu')}>{mode === 'menu' ? t('customer.change.keep') : t('core.nav.back')}</Button>
       </div>
     </Drawer>
   );

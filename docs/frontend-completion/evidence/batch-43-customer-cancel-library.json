@@ -1,0 +1,16 @@
+{
+  "batch": 43,
+  "base": "http://127.0.0.1:5283",
+  "entry": "./assets/index-ToIG1OZN.js",
+  "entrySha256": "28694fb36c5e2be4bc28cc57c3fd7c49969aa6f481096ee4216cad96441ccc3d",
+  "checks": [
+    "en/light:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+    "en/dark:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+    "es/light:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch",
+    "es/dark:16 actual-widget states;390/1280 bounds;disabled fixture controls;zero DB writes/dispatch"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "captures": "docs/screenshots/C-08b/customer-cancel",
+  "scope": "Fictional provider-free presentation only; no production/legal acceptance."
+}

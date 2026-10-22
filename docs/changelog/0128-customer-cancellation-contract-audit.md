@@ -1,0 +1,23 @@
+version: 0.25.0
+date: 2026-10-22
+prompt: docs/prompts/0082-frontend-continuation.md
+
+# 0128 · RS-10 fictional own-customer cancellation safeguards
+
+Intent: preserve the exact original own-customer cancellation contract and repair its fictional sequential saga after root's bounded source authorization.
+
+Decision: implement a mock-only reviewed own command with immutable intent/control capture, fresh active owned actor/target, atomic status/exact linked return/provider-derived counter/supported future first-waiter effect, safe scoped once-only receipt and fresh replay/acknowledgement. C08b retains the command and drawer through uncertain acknowledgement, synchronously fences read/confirm/close and offers honest stop/retry states. D02 has16 provider-free usages of the actual bilingual D01 widget. Preserve strict cutoff, reachable booked in-progress/exact-end cancellation, purchased expiry/freeze/payment history and existing nonpackage status-only behavior. Source phase/roles/PC-04 and real-provider gaps stay open.
+
+Alternatives rejected: inventing a started-class ban, refund/deadline/legal rule or legacy allocation; nonexpiring/unlinked or duplicate class grants; silently changing a reviewed free outcome after cutoff; manual capacity subtraction; borrowing admin studio-cancellation roster/audit access; changing atomic checkout or unrelated waitlist/no-show policy; claiming written tests or source predictions as executed evidence. No dependency/schema/role/security changes.
+
+Files: customerCancellation.ts, useCustomerCancellation.ts, cancellationStrings.ts, customer hooks/strings/BookedPage composition; CustomerCancellationReview.tsx/.meta.ts; exact original fixtures, baseline/domain/production/dev/library written checks and fictional fixtures/harness; C08b page/batch43/source/checkpoint docs. No global metadata/Git, compiler/esbuild/build/browser, real data/provider/payment/security or external-message action.
+
+Verification: SOURCE-ONLY UNVERIFIED checkpoint. Static inspection, exact fixture/protected source byte hashes and canonical source fingerprint only. All baseline/domain/typecheck/build/production/dev/library/visual checks are written or planned, NOT RUN. A harmless read failed before process creation during executor transport loss; root's recovery preserved partial files, fresh pwd succeeded before authorized continuation. Root alone owns resource lanes, Git/integration/release and global metadata. No production/commercial acceptance.
+
+
+Current validation supersedes the historical source-only paragraph above: actual original baseline6 groups and domain11 groups passed; corrected fullbuild33787, production41203 (8 combinations/all11roles), cold dev66924 (EN/ES) and library23580 (16 actual states×8 combinations) all EXIT0. Canonical541 runtime and full5215-file artifact before/after digest match;178 current fictional captures,3 historical examples. Exact proof `docs/frontend-completion/evidence/batch-43-final.json`. Dev retains/asserts28 exact known react-router-dom6.30.6 warnings; no router migration/flags or silent filtering. All unexpected errors/network/dispatch fail. Logs are local-only ignored; durable JSON includes hashes/concise stdout/exits.
+
+Preserved corrections: independent facade for read-only detached Mock method injection; explicit hook fallback return; isolated QA-only host/native context commit waits; actual visual finding repaired the retained drawer’s unconditional personal Booked badge. No eligibility, studio-class status, terms, role, provider, security or business-policy change. All test browsers closed and lane released. Root final checked commit/CI/deploy and PC04/Anu contracts remain pending, not accepted.
+
+
+Final QA-only cold dependency follow-up: [exact receipt](../frontend-completion/evidence/batch-43-public-optimizer-colddev.json) records public Vite5 resolveConfig→await optimizeDeps before listen, all8 package dependencies plus React client/JSX subpaths explicitly prepared, and noDiscovery enabled in the QA-only launcher. One fresh port5292 cold dev run20787 EXIT0 passed all original EN/ES lifecycle/no-write/known-warning assertions,14 own pages/14 initial document navigations/zero reloads and14 hashed traces. Failure output now includes only controlled fictional mode/phase/actor/call/pending/status/count diagnostics. Trace bodies and server logs remain ignored/local CI artifacts, not repository deliverables. Runtime541 and full artifacta169 hashes rechecked unchanged; no production/library rerun or App/router/config mutation. Earlier explicit-entry readiness proof is historical and is not claimed to certify cold CI. Remote exact-head CI/deploy remain pending.

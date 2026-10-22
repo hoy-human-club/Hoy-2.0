@@ -1,0 +1,61 @@
+{
+  "batch": 43,
+  "failures": [
+    {
+      "gate": "original baseline",
+      "session": 99813,
+      "exit": 1,
+      "error": "TypeError: Cannot assign to read only property 'insert' of object '#<_MockProvider>'",
+      "classification": "Fixture facade inherited read-only detached transaction method; intended FICTIONAL injection never reached.",
+      "correction": "Independent facade with bound original provider methods and explicit injected hooks; exact frozen closure/assertions unchanged.",
+      "sourceRuntimeChanged": false
+    },
+    {
+      "gate": "fullbuild/typecheck",
+      "session": 92407,
+      "exit": 2,
+      "error": "useCustomerCancellation.ts(23,35) TS7030: Not all code paths return a value.",
+      "classification": "Controller execute Promise<CancellationOutcome|undefined> omitted explicit fallback return after handled error/stale result.",
+      "correction": "Explicit return undefined after finally; no policy or lifecycle behavior change.",
+      "sourceRuntimeChanged": true
+    },
+    {
+      "gate": "dev lifecycle",
+      "session": 34098,
+      "exit": 1,
+      "error": "actor before commit leaked writes",
+      "classification": "Under investigation: no actor/provider React commit readiness before releasing held atomic callback. Cold optimizer had no later discovery.",
+      "capture": "docs/screenshots/C-08b/customer-cancel/devstates-failure.jpg",
+      "sourceRuntimeChanged": false
+    },
+    {
+      "gate": "dev diagnostic",
+      "session": 92098,
+      "exit": 1,
+      "error": "Final errors[] includes exactly independently confirmed ReactRouter Future Flag deprecation warnings.",
+      "functionalObservations": "All original no-write/context cases reached; actor committed marker had usr_teach/booked/zero receipts/zero returns; provider before-release marker false then settled booking remained booked/zero effects. Original unsynchronized failure preserved, not declared an app defect.",
+      "correction": "QA-only isolated HTML actual page/native providers/styles; exact DOM+persisted session+two frames/native provider commit waits; strict raw DB assertions unchanged. Exact framework warnings separately recorded+asserted; all other warning/error/network failures still fail.",
+      "sourceRuntimeChanged": false
+    },
+    {
+      "gate": "actual visual review after prepared suites passed",
+      "runtime": "e1412d2975cdf42494517ef53a779ff8d013d07ab2cdb950dcd6fb34dd17488e",
+      "error": "Retained success drawer ClassRow unconditionally booked_by_me shows Booked/Reservada beside verified cancelled outcome.",
+      "capture": "docs/screenshots/C-08b/customer-cancel/historical-e141-es-dev-replay-badge.jpg",
+      "correction": "Own C08b class row shows personal booked badge only while booking status is booked and cancellation result is not verified success. Class/session policy unchanged. Added actual production/dev assertions.",
+      "sourceRuntimeChanged": true
+    }
+  ],
+  "diagnostics": [
+    {
+      "action": "Restart exact own dev launcher on strict127.0.0.1:5284",
+      "state": "Resolved",
+      "observed": "Two start attempts failed port-in-use before browsers; shellCtrlC exited130 but original owned nodePID163866 remained. Exact known owned PID stopped by TERM; coldlauncher then started successfully. No unknown process cleaned.",
+      "optionalDeniedAction": {
+        "action": "Read /proc/163866/cwd to double-check known own launcher context",
+        "reason": "PermissionError13 before any kill action in that Python command",
+        "state": "Denied, not retried; unnecessary to task. Exact own launcher identity was independently available from existing launch session and ps command. No protected task/environment files accessed."
+      }
+    }
+  ]
+}

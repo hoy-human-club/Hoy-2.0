@@ -1,0 +1,13 @@
+{
+  "change": "actor",
+  "releaseContext": {
+    "actor": "usr_teach",
+    "sameProvider": true
+  },
+  "settled": {
+    "actor": "usr_teach",
+    "booking": "booked",
+    "receipts": 0,
+    "returns": 0
+  }
+}

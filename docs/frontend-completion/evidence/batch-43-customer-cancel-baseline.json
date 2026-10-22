@@ -1,0 +1,13 @@
+{
+  "batch": 43,
+  "base": "9bce78e",
+  "method": "Exact hash-verified original closure; actual unchanged policy, MockProvider and waitlist; fictional Map only.",
+  "checks": [
+    "Exact original closure repeats unlinked nonexpiring free-package returns beyond original expiry.",
+    "Original ledger, redundant counter and waitlist write failures leave already committed cancellation/return effects.",
+    "Stale own snapshot still mutates a reassigned booking without fresh ownership.",
+    "Exact cutoff is free; +1ms confirmation recalculates late instead of preserving/rejecting the displayed free outcome.",
+    "Reachable in-progress booked cancellation is late and original helper offers a new unclaimable started-class place.",
+    "Actual provider-derived occupancy decrements once; redundant explicit counter patch is a failure point, not a demonstrated double decrement."
+  ]
+}
