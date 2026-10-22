@@ -1,0 +1,11 @@
+{
+  "checkedSource": "e50d109ffa7d7e3a1264be71a0f54cc9087f44d5",
+  "files": [
+    "docs/frontend-completion/batch-44.md",
+    "docs/frontend-completion/evidence/batch-44-pl06-exposure-audit.json",
+    "docs/frontend-completion/evidence/batch-44-scan-file-hashes.json",
+    "docs/frontend-completion/evidence/batch-44-deliverables.json",
+    "docs/changelog/0130-pl06-scoped-exposure-audit.md"
+  ],
+  "state": "Docs-only scoped audit complete; root Git/review pending; PL06 production criterion unverified."
+}
