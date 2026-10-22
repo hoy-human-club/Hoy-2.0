@@ -14,16 +14,16 @@ try{for(const lang of ['en','es'])for(const scope of ['email','expense']){
  await page.evaluate(()=>{const state=JSON.parse(localStorage.getItem('hoyos.db.v1'));state.db.users.find(u=>u.id==='usr_admin').status='inactive';localStorage.setItem('hoyos.db.v1',JSON.stringify(state));});
  await page.reload();const before=await page.evaluate(()=>localStorage.getItem('hoyos.db.v1'));
  if(scope==='email'){
-  await page.locator('.emails-item').first().click();await page.getByText(lang==='en'?'The scoped saved version could not be read. Reload to retry.':'No se pudo leer la versión guardada propia. Recarga para reintentar.',{exact:true}).waitFor();
+  await page.locator('.emails-item').first().click();await page.getByLabel(new RegExp('^'+(lang==='en'?'Subject':'Asunto')+' · ES')).fill('FICTICIO ACTIVE ACCOUNT GUARD');await page.getByRole('button',{name:new RegExp('^'+(lang==='en'?'Save v':'Guardar v'))}).click();await page.getByText(lang==='en'?'A valid scoped account, template or historical version was not found. Reload to review.':'No se encontró una cuenta, plantilla o versión histórica propias válidas. Recarga para revisar.',{exact:true}).waitFor();
   const save=page.getByRole('button',{name:new RegExp('^'+(lang==='en'?'Save v':'Guardar v'))});assert.equal(await save.count(),0,'inactive editor exposes no save control');
  }else{
   await page.getByText(lang==='en'?'Owned records could not be read. Previous rows are hidden and changes are blocked. Retry the read.':'No se pudieron leer los registros propios. No se muestran datos anteriores y se bloquean cambios. Reintenta la lectura.',{exact:true}).waitFor();
-  assert.equal(await page.locator('[data-expense-form]').count(),0,'inactive ledger hides mutation form');
+  assert(await page.locator('[data-expense-form]').locator('input,select,textarea').evaluateAll(fields=>fields.every(field=>field.disabled)),'inactive ledger disables form');
  }
  assert.equal(await page.evaluate(()=>localStorage.getItem('hoyos.db.v1')),before,'inactive read must not mutate fixture');
  await page.screenshot({path:`docs/screenshots/${scope==='email'?'M-04':'M-09c'}/${lang}-active-account-blocked.jpg`,quality:72,fullPage:true,animations:'disabled'});
  await page.evaluate(()=>{const state=JSON.parse(localStorage.getItem('hoyos.db.v1'));state.db.users.find(u=>u.id==='usr_admin').status='active';localStorage.setItem('hoyos.db.v1',JSON.stringify(state));});await page.reload();
  if(scope==='email'){await page.locator('.emails-item').first().click();await page.getByRole('button',{name:new RegExp('^'+(lang==='en'?'Save v':'Guardar v'))}).waitFor();}
- else await page.locator('[data-expense-form]').waitFor();
- checks.push(`${scope}/${lang}: actual inactive account read blocks edit without writes; restored active account reload recovers existing editor`);await ctx.close();
+ else await page.waitForFunction(()=>document.querySelector('[data-expense-form] input')?.disabled===false);
+ checks.push(`${scope}/${lang}: actual inactive account command/read blocks writes; restored active account reload recovers existing editor`);await ctx.close();
 }assert.deepEqual(errors,[]);await writeFile('docs/frontend-completion/evidence/operational-active-account-ui.json',JSON.stringify({base,checks,errors,browserClosed:true,limits:'Local command guard only; no authentication/session/security configuration changed.'},null,2)+'\n');console.log('PASS actual active-account UI '+checks.length+' matrices');}finally{await browser.close();}

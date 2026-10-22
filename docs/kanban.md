@@ -1,5 +1,9 @@
 # HoyOS kanban
 
+## Latest release (2026-10-22)
+
+- PR68 checked9adcced all6 triggered workflows/all11 jobs passed, merged39795c7; Pages39728393641 all3 jobs plus exact deployed manifest/public fixture route verified. Rollbacke04afec. Future OT01/OT02 phases and local-only boundaries preserved. Operational34–37 integration and independent38–40 fictional source slices remain under verification.
+
 ## Current continuation checkpoint (2026-10-22)
 
 - PR67 checked3b752e5 all11 workflows/all12 correctness scopes passed; e04afec deployed and hosted exact-source verified by Pages39724393280.
