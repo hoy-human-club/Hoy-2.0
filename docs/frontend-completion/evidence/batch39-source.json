@@ -1,0 +1,79 @@
+{
+  "requirement": "AD-06",
+  "phase": "MVP Oct30",
+  "priority": "Urgent",
+  "relatedTest": "SAD-01",
+  "criterionAcceptance": "Unaccepted; fictional document readback is not real immediate permissions",
+  "baseCommit": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "runtimeFingerprint": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "fingerprintBasis": "SHA256 sorted src relative path+bytes excluding src/app/captureDates.ts; then vite.config.ts bytes",
+  "sourceUnchangedBeforeAfterBuild": true,
+  "buildCommand": "npm run build",
+  "buildLog": "/tmp/hoy-team-build.log",
+  "buildExit": 0,
+  "immutable": "/tmp/hoy-team-proposals-qa-c3899e89a6ce",
+  "production": "http://127.0.0.1:5272",
+  "development": "http://127.0.0.1:5271",
+  "sourceStatus": "Authorized base plus uncommitted fictional batch39; no deployed claim",
+  "sourceFiles": {
+    "src/modules/admin/SettingsPage.tsx": "24af7667e1ed8a6cbe502291ae7f9619f1bb5aa8093180a5f75e5e5acc35e17c",
+    "src/modules/admin/strings.ts": "89bf4114ea19d941039dbd3e3494add21b7de142ca8a1f2f992e5ffe404c4587",
+    "src/modules/admin/teamProposals.ts": "f33f80c53f9806a427143829f357549c058402ef952ddba9f7efc362c2b194f6",
+    "src/modules/admin/useTeamProposals.ts": "737dd37fe95d5588b889b22ed0116b2fec8893c293fa826f546c426a17831230",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.tsx": "9429fd98e204771edb25d9bb2af06097ac4ba0b0b29d2b58e01d84257a09950a",
+    "src/components/organism/TeamProposalPanel/TeamProposalPanel.meta.ts": "d440b3dc7b803b49f9c12444364147f0f9cebd7913528ba4a5cf110d056b50a9"
+  },
+  "checks": {
+    "domain": "PASS /tmp/hoy-team-domain.log",
+    "actualHook22": "PASS /tmp/hoy-team-hook.log",
+    "typecheck": "Final76947 EXIT0",
+    "fullbuild": "8168 EXIT0",
+    "productionUi": "PASS all8 ENES/lightdark/3901280 plus currentall11roles, actualStorage/crypto quota/stale/lostack/cancel/unmount/readfault; EXIT0 /tmp/hoy-team-ui.log",
+    "libraryUi": "Initial addon fixture failure proved and test-only corrected; final rerun queued by root. See batch39-harness-correction.json."
+  },
+  "historicalIntermediateCheck": "Earlier interim tsc6840 exited137, cause unconfirmed; final-source typecheck76947 and fullbuild8168 EXIT0 supersede it.",
+  "remainingGates": [
+    "Real staff invitation delivery/acceptance and canonical membership authorization.",
+    "Server immediate permission/session invalidation, tenant isolation and durable audit/idempotency.",
+    "Owner rules for self/lastadmin/TTL/resend/existingaccount/multirole/removal meaning.",
+    "Root integration/exact-headCI/merge/deployment receipt."
+  ],
+  "runtimeAfterProductionUi": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "browserState": "CLOSED after bounded diagnostic; waiting root queue signal",
+  "scriptSHA256": {
+    "scripts/test-team-proposals.mjs": "e00ffe4140248ef7b16283fc7d94f9b8290f5679955590e0b1cb85d3cf2d713a",
+    "scripts/test-team-proposal-hook.mjs": "12993ab4e9137c530994401da738c872ba4b9bcb6f48a8b162751bad587a587d",
+    "scripts/test-team-proposals-ui.mjs": "485865ee079f8fd42e212674480d7b0a46a8a3c1dedf9035fc699cec7e96403a",
+    "scripts/test-team-proposal-library-ui.mjs": "10d3122252948b71565e25912648a5f0c82828c94d8a1c6afdec6adbf79f1e89"
+  },
+  "httpEvidence": {
+    "sourceFingerprint": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+    "baseCommit": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+    "source": "base plus uncommitted batch39; fictional separate document only",
+    "buildExit": 0,
+    "scope": "No real permissions, identity, invitations, provider/session or backend changes"
+  },
+  "servedAssets": {
+    "timing": "Captured after production suite and bounded role diagnostic, before corrected final library rerun; no claim of before-production-suite asset measurement.",
+    "immutableAssetTreeSha256": "10fec8ab49d33a8396b5c90cbcaf97ee6c417aa2ea32a439e74ceaddc4abe535",
+    "assetTreeBasis": "Sorted paths relative to immutable snapshot root for files under assets/, each path+NUL+bytes+NUL. SHA256.",
+    "fileCount": 3115,
+    "httpFiles": {
+      "assets/DirectoryPanel-B1alAKRO.js": {
+        "sha256": "e4688be33ff24902f5d8abf0a3364f9a55ee6dbb931f491b4e75b1cffe7c483f",
+        "bytes": 207598,
+        "httpMatchesImmutableFile": true
+      },
+      "assets/index-BjqHoOBe.css": {
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570,
+        "httpMatchesImmutableFile": true
+      },
+      "assets/index-Dl4jukkl.js": {
+        "sha256": "29b522fe7e80f089b8a43c407cf315c366355dd6de0fa8126bd3f1b93d219840",
+        "bytes": 1576772,
+        "httpMatchesImmutableFile": true
+      }
+    }
+  }
+}

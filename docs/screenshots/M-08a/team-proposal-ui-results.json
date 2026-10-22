@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:5272",
+  "checks": [
+    "en/light/390: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "2existing allowed roles/9denied panel roles; coordinator/finance existing settings remain; real frontdesk still cannot accesssettings after fictional promotion; provider DB unchanged acrossroles.",
+    "en/light/1280: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "en/dark/390: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "en/dark/1280: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "es/light/390: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "es/light/1280: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "es/dark/390: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
+    "es/dark/1280: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical"
+  ],
+  "errors": [],
+  "dispatch": [],
+  "limits": [
+    "Fictional separate local document; immediate readback is not real permission/session application.",
+    "Original MVP Oct30 AD06 criterion remains unaccepted; no invitation delivery or identity/backend connection."
+  ]
+}

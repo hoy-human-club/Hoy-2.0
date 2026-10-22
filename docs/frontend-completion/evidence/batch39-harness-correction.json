@@ -1,0 +1,14 @@
+{
+  "runtimeUnchanged": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "firstLibraryRun": {
+    "exit": 1,
+    "log": "/tmp/hoy-team-library.log",
+    "failure": "Coordinator team-panel absence asserted0, actual1 after first ENlight actual-super settings flow.",
+    "scriptSHA256": "f45b8703823b7705fafccf7c24de12a0eb73021ffe05a7853dc37ff69917af1f"
+  },
+  "actualDiagnostic": "batch39-role-fixture-probe.json",
+  "provedCause": "Library addInitScript reset usr_super on every new document; coordinator session changed back to super_admin before assertion. Once-per-sessionStorage preserved coordinator with panel absent.",
+  "correction": "Test-only fixture-once guard plus explicit observed coordinator identity assertion; no application/source changes or weakened assertions.",
+  "correctedScriptSHA256": "10d3122252948b71565e25912648a5f0c82828c94d8a1c6afdec6adbf79f1e89",
+  "correctedFullLibraryRun": "QUEUED rootsignal; no rerun yet"
+}
