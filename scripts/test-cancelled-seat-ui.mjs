@@ -17,7 +17,7 @@ try {
   await page.evaluate(kind=>{const s=JSON.parse(localStorage.getItem('hoyos.db.v1')),booking=s.db.bookings.find(b=>b.id==='qa_studio_booking'),session=s.db.class_sessions.find(s=>s.id==='qa_studio_class');if(kind!=='active'){booking.status='cancelled';booking.cancelled_at=new Date().toISOString();session.booked_count=0;}if(kind==='studio-cancelled'){session.status='cancelled';session.cancel_reason='QA FICTIONAL cancelled seat check';}localStorage.setItem('hoyos.db.v1',JSON.stringify(s));localStorage.setItem('hoyos.session',JSON.stringify({userId:'qa_studio_user',devMode:false,viewAs:null}));},kind);
   const before=await page.evaluate(()=>localStorage.getItem('hoyos.db.v1'));
   // Full document navigation hydrates the actual target identity through the native provider/guard.
-  await page.goto(base+'/?seat-case='+kind+'#/app/booking/qa_studio_booking');await page.getByRole('heading',{name:'QA FICTIONAL cancellation',exact:true}).waitFor();
+  await page.goto(base+'/?seat-case='+kind+'#/app/booking/qa_studio_booking');await page.locator('.classcard').getByText('QA FICTIONAL cancellation',{exact:true}).waitFor();
   const caption=page.getByText(lang==='en'?'Your place: mat 1':'Tu lugar: mat 1',{exact:true});
   if(kind==='active')await caption.waitFor();else assert.equal(await caption.count(),0,'cancelled record must not promise a current mat');
   assert.equal(await page.evaluate(()=>localStorage.getItem('hoyos.db.v1')),before,'read-only view must preserve booking and financial history');

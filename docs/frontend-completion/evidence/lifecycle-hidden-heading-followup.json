@@ -1,0 +1,11 @@
+{
+  "sourceFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+  "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+  "failedCommand": "node scripts/test-cancelled-seat-ui.mjs",
+  "failure": "Timeout30000ms: exact heading resolved59times to hiddenh1.",
+  "actualSource": "BookedPage PageHead intentionally wraps class title in sr-only span; actual visible title is Chip in ClassCard.",
+  "correction": "Readiness waits visible .classcard exact title; same timeout/native actor navigation/fullDB byte equality/active retains mat/cancelled absence/24capture matrix remain. No runtime source change.",
+  "priorResult": "studio-cancel-ui PASS including actual cancellationcaption assertion.",
+  "logs": "Local ignored /workspace/hoy-qa-archive/lifecycle-*-hidden-heading-failure.*; retained.",
+  "nextGate": "Run corrected seat regression and remaining9 suites on same immutable source/artifact; not yet passed."
+}
