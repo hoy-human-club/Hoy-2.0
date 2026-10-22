@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "6f7d6e7de9d1b6a839abb08941dcfcdf54368414",
+  "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
+  "fullArtifactHash": "5f4566115c84e4a36936f51cec1362eb2b7cf173fe0c3940fbf7ca08b0427532",
+  "fileCount": 5003,
+  "bytes": 400580299,
+  "artifact": "/workspace/hoy-qa-archive/finance-qa-dd7e0f14f4b1",
+  "build": {
+    "session": 50157,
+    "exit": 0,
+    "log": "/workspace/hoy-qa-archive/finance-final-build.log",
+    "note": "Built with staged working-tree source before merge commit; CI must rebuild exact release head."
+  },
+  "algorithm": "sorted relative path + NUL + bytes + NUL; runtime excludes generated captureDates"
+}

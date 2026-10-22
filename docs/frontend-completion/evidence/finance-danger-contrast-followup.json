@@ -1,5 +1,5 @@
 {
-  "stage": "Measured actual enabled-button defect; scoped existing foreground-token fix written, new combined build/rendered verification pending.",
+  "stage": "Measured prior defect repaired and verified against current immutable combined artifact; CI/release pending.",
   "source": "Isolated42 c51 immutable, shared Button CSS matches prior main70.",
   "oldCommand": "QA_BASE=http://127.0.0.1:5280 QA_TAG=c51-before node scripts/test-danger-button-contrast.mjs",
   "oldExit": 1,
@@ -11,9 +11,17 @@
   "metadataLimit": "Original raw row.width is measuredbuttonwidth due spread ordering; 390/1280 viewports are independently identifiable from loop order/capturefilename/image dimensions. New script adds explicitviewportWidth without altering originalmeasurement JSON.",
   "fix": "Existing Button danger foreground changes from fixedbrandcream to theme surface token; dangerfill/action/disabled behavior unchanged, no business/data/policy change.",
   "remaining": [
-    "Current combined fullbuild/freeze",
-    "Repeat enabled normal/hover ENES3901280lightdark actualbuttoncontrast\u22654.5, completeproviderbytes unchanged",
-    "Combined41/42 domain/rendered/CI/exactrelease checks"
+    "Finish combined production/dev timing gates",
+    "Final exact-head CI/merge/Pages source verification"
   ],
-  "acceptance": "Isolated42 functionalpass remains true; complete visual acceptance not claimed while currentcontrastgap remains."
+  "acceptance": "Bounded enabled danger-button regression passes; no full accessibility or owner/backend acceptance.",
+  "current": {
+    "runtime": "dd7e0f14f4b1d129d16f0e543436907ac5597cb3499df6b632ec2c8f05de2815",
+    "command": "QA_BASE=http://127.0.0.1:5286 QA_TAG=dd7e0f14f4b1 node scripts/test-danger-button-contrast.mjs",
+    "exit": 0,
+    "cases": 16,
+    "minimum": 5.16943208707216,
+    "result": "All actual enabled normal/hover ENES3901280lightdark samples meet4.5; full providerbytes unchanged; root visually reviewed ES390dark current screenshot.",
+    "rawResult": "docs/screenshots/M-03/danger-contrast-dd7e0f14f4b1.json"
+  }
 }
