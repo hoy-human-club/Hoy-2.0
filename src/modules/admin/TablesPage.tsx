@@ -7,7 +7,7 @@ import type { DataProvider } from '../../data/types';
 import { CALENDAR_MODES, TABLE_GROUPS, TABLE_VIEW_KINDS, TIMELINE_ZOOMS, tableRegistry, tables as allTables, type BaseRow, type CalendarMode, type TableViewConfig, type TableViewKind, type TableViewRow, type TimelineZoom, type ViewFilterOp } from '../../data/schema';
 import { columnLabel, enumLabel, rowTitle, tableLabel, type RowResolver } from '../../data/labels';
 import { dateColumnOf } from '../../data/relations';
-import { dateKey } from '../../i18n/format';
+import { dateKey, atStudioTime, fromDateKey } from '../../i18n/format';
 import { useActions } from '../../actions/bus';
 import type { ActionHandler } from '../../actions/types';
 import { useMinWidth } from '../../layout/useMinWidth';
@@ -169,7 +169,7 @@ export function TablesPage() {
     if (!def || !time.date) return;
     const col = (name: string | null) => (name ? def.allColumns.find((c) => c.name === name) : undefined);
     const start = col(time.date), end = col(time.end);
-    const at = (h: string) => new Date(`${k}T${h}:00`);
+    const at = (h: string) => { const [hour, minute] = h.split(':').map(Number); return atStudioTime(fromDateKey(k), hour, minute); };
     const s = at(hhmm ?? '09:00');
     const prefill: Record<string, unknown> = { [time.date]: start?.type === 'date' ? k : s.toISOString() };
     if (end && time.end) prefill[time.end] = end.type === 'date' ? k : new Date(s.getTime() + 3600e3).toISOString();

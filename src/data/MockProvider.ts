@@ -1,6 +1,6 @@
 import { ensureFullDemoSession } from './seed/ensureFullDemoSession';
 import { appendClassPayRule, defaultClassPayRule, type AppendClassPayRuleCommand, type ClassPayRuleRow } from './classPayRules';
-import { dateKey } from '../i18n/format';
+import { dateKey, addDays, atStudioTime, studioParts, STUDIO_TIMEZONE } from '../i18n/format';
 import { generateRecurrence, type GenerateRecurrence } from './classRecurrence';
 import { applySessionEdit, type SessionEdit } from './sessionEditorial';
 import { applyContentBatch, type ContentBatch, type ContentBatchResult } from './contentBatch';
@@ -48,7 +48,18 @@ function upgradeTones(db: Db) {
   delete db.intentions;
 }
 type Db = Record<string, BaseRow[]>;
-interface Stored { seededOn: string; version?: number; db: Db }
+interface Stored { seededOn: string; timezone?: string; version?: number; db: Db }
+
+/** Accept a valid pre-timezone cache for either current device day or current studio day.
+ * Only metadata is migrated; rows retain their original timestamps and purchased terms.
+ */
+function isCurrentSnapshot(stored: Stored, now = new Date()): boolean {
+  if (stored.timezone === STUDIO_TIMEZONE) return stored.seededOn === dateKey(now);
+  if (stored.timezone) return false;
+  const p = studioParts(now);
+  const studioLegacy = `${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][p.weekday]} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][p.month]} ${String(p.day).padStart(2, '0')} ${p.year}`;
+  return [now.toDateString(), studioLegacy, dateKey(now)].includes(stored.seededOn);
+}
 
 /** Add empty mock-only tables without discarding same-day purchases, bookings or content.
  * Existing malformed tables still fail validation; this is not a production data migration.
@@ -88,16 +99,16 @@ export class MockProvider implements DataProvider {
     const sessions = this.db.class_sessions as ClassSessionRow[];
     const now = new Date().toISOString();
     for (let day = 0; day <= 42; day++) {
-      const date = new Date(); date.setDate(date.getDate() + day);
+      const date = addDays(new Date(), day);
       for (const template of this.db.class_templates as Template[]) {
-        if (!template.active || template.weekday !== date.getDay() || template.generation_mode === 'manual') continue;
-        const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+        if (!template.active || template.weekday !== studioParts(date).weekday || template.generation_mode === 'manual') continue;
+        const key = `${studioParts(date).year}-${String(studioParts(date).month+1).padStart(2,'0')}-${String(studioParts(date).day).padStart(2,'0')}`;
         if (template.start_date && key < String(template.start_date) || template.end_date && key > String(template.end_date)) continue;
         const [h, m] = template.start_time.split(':').map(Number);
-        const start = new Date(date); start.setHours(h, m, 0, 0);
+        const start = atStudioTime(date, h, m);
         if (start <= new Date()) continue;
         if (sessions.some(s => s.template_id === template.id && s.starts_at === start.toISOString())) continue;
-        const id = `demo_${template.id}_${start.getFullYear()}_${start.getMonth()}_${start.getDate()}`;
+        const id = `demo_${template.id}_${studioParts(start).year}_${studioParts(start).month}_${studioParts(start).day}`;
         if (sessions.some(s => s.id === id)) continue;
         // Snapshot the class limit only for new occurrences; existing bookings keep their session capacity.
         const room = (this.db.rooms as RoomRow[]).find(row => row.id === template.room_id);
@@ -141,6 +152,7 @@ export class MockProvider implements DataProvider {
       ensureDemoPromotions(parsed.db, tenant.id);
       if (parsed.version !== SEED_VERSION || !tableNames.every((t) => Array.isArray(parsed.db[t]))) return;
       this.db = parsed.db;
+      if (!parsed.timezone && isCurrentSnapshot(parsed)) this.persist(parsed.db);
       for (const t of Object.keys(this.db)) this.emit({ table: t, type: 'reset' });
     } catch { /* ignore a half-written value */ }
   }
@@ -153,13 +165,14 @@ export class MockProvider implements DataProvider {
         upgradeAdditiveMockTables(parsed.db);
         // Add only new promotion tables; preserve same-day vouchers, bookings and CMS edits.
         ensureDemoPromotions(parsed.db, tenant.id);
-        if ((parsed.version === SEED_VERSION || parsed.version === 2 || parsed.version === 3) && parsed.seededOn === new Date().toDateString() && tableNames.every((t) => Array.isArray(parsed.db[t]))) {
+        if ((parsed.version === SEED_VERSION || parsed.version === 2 || parsed.version === 3) && isCurrentSnapshot(parsed) && tableNames.every((t) => Array.isArray(parsed.db[t]))) {
           if (parsed.version === 2) {
             // Preserve same-day CMS edits, members and bookings when upgrading this demo.
             const sessions = parsed.db.class_sessions as ClassSessionRow[];
             for (const session of sessions) if (session.room_id === 'room_main' && session.capacity === 15) session.capacity = tenant.studio.mats;
           }
-          if (parsed.version !== SEED_VERSION) { upgradeTones(parsed.db); this.persist(parsed.db); }
+          if (parsed.version !== SEED_VERSION) upgradeTones(parsed.db);
+          if (parsed.version !== SEED_VERSION || !parsed.timezone) this.persist(parsed.db);
           return parsed.db;
         }
       }
@@ -170,7 +183,7 @@ export class MockProvider implements DataProvider {
     return db;
   }
   private persist(db = this.db, strict = false) {
-    const stored: Stored = { seededOn: new Date().toDateString(), version: SEED_VERSION, db };
+    const stored: Stored = { seededOn: dateKey(), timezone: STUDIO_TIMEZONE, version: SEED_VERSION, db };
     try { localStorage.setItem(KEY, JSON.stringify(stored)); } catch (error) { if (strict) throw error; /* initial demo can still render in private mode */ }
   }
   private emit(e: ChangeEvent) {

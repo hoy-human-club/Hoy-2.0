@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
-import { formatCOP, dateKey, isPhone } from '../../../i18n/format';
+import { formatCOP, dateKey, isPhone, atStudioTime, fromDateKey } from '../../../i18n/format';
 import { tenant } from '../../../tenant/tenant';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
@@ -58,7 +58,7 @@ export function GiftPage() {
       await recordPayment(data, { userId: user.id, planId: `plan_${amountId}`, amount, method: 'card', result, ivaRate: policy.ivaRate });
       if (result.status !== 'approved') return;
       const code = `${tenant.invoicePrefix}-REGALO-${Math.floor(1000 + Math.random() * 9000)}`;
-      const deliver = new Date(`${date}T08:00:00`);
+      const deliver = atStudioTime(fromDateKey(date), 8);
       await data.insert('gift_cards', { code, buyer_user_id: user.id, recipient_name: name.trim(), recipient_contact: contact.trim(), amount, balance: amount, deliver_at: deliver.toISOString(), redeemed_by: null, status: 'draft' });
       setDone(code);
     } finally { setBusy(false); }

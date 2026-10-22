@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { useT } from '../../../i18n/I18nProvider';
 import type { Lang } from '../../../i18n/types';
-import { addDays, addDaysKey, dateKey, formatDate, formatTime, fromDateKey, localeOf, MS } from '../../../i18n/format';
+import { addDays, addDaysKey, dateKey, formatDate, formatTime, fromDateKey, localeOf, MS, studioParts, studioDate, startOfDay, STUDIO_TIMEZONE } from '../../../i18n/format';
 import { useMinWidth } from '../../../layout/useMinWidth';
 import { SegmentedControl, type SegmentOption } from '../../molecule/SegmentedControl/SegmentedControl';
 import { ListRow } from '../../molecule/ListRow/ListRow';
@@ -44,7 +44,7 @@ export interface CalendarViewProps<T> extends EventAccessors<T> {
 /** First and last day (inclusive) a mode shows for a cursor. */
 export function calendarPeriod(mode: CalendarMode, cursor: string): { from: string; to: string } {
   const c = fromDateKey(cursor);
-  if (mode === 'month') return { from: dateKey(new Date(c.getFullYear(), c.getMonth(), 1, 12)), to: dateKey(new Date(c.getFullYear(), c.getMonth() + 1, 0, 12)) };
+  if (mode === 'month') return { from: dateKey(studioDate(studioParts(c).year, studioParts(c).month, 1, 12)), to: dateKey(studioDate(studioParts(c).year, studioParts(c).month + 1, 0, 12)) };
   if (mode === 'week') { const m = mondayOf(c); return { from: dateKey(m), to: dateKey(addDays(m, 6)) }; }
   return { from: cursor, to: addDaysKey(cursor, AGENDA_DAYS - 1) };
 }
@@ -53,9 +53,9 @@ export function calendarPeriod(mode: CalendarMode, cursor: string): { from: stri
 export function shiftCursor(mode: CalendarMode, cursor: string, n: number): string {
   const c = fromDateKey(cursor);
   if (mode === 'month') {
-    const x = new Date(c.getFullYear(), c.getMonth() + n, 1, 12);
-    x.setDate(Math.min(c.getDate(), new Date(x.getFullYear(), x.getMonth() + 1, 0).getDate()));
-    return dateKey(x);
+    const x = studioDate(studioParts(c).year, studioParts(c).month + n, 1, 12);
+    return dateKey(studioDate(studioParts(x).year, studioParts(x).month, Math.min(studioParts(c).day, studioParts(studioDate(studioParts(x).year, studioParts(x).month + 1, 0)).day), 12));
+
   }
   return addDaysKey(cursor, n * (mode === 'week' ? 7 : AGENDA_DAYS));
 }
@@ -63,7 +63,7 @@ export function shiftCursor(mode: CalendarMode, cursor: string, n: number): stri
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 /** Chip time: 24 h and no a. m. / p. m. so it fits a 7-column cell (the tooltip and the agenda keep formatTime). */
 const clockFmt = new Map<Lang, Intl.DateTimeFormat>();
-function clockOf(lang: Lang) { let f = clockFmt.get(lang); if (!f) { f = new Intl.DateTimeFormat(localeOf(lang), { hour: 'numeric', minute: '2-digit', hourCycle: 'h23' }); clockFmt.set(lang, f); } return f; }
+function clockOf(lang: Lang) { let f = clockFmt.get(lang); if (!f) { f = new Intl.DateTimeFormat(localeOf(lang), { hour: 'numeric', minute: '2-digit', hourCycle: 'h23', timeZone: STUDIO_TIMEZONE }); clockFmt.set(lang, f); } return f; }
 
 /** Side-by-side columns for the timed rows of one day: overlapping rows share the width. */
 function layoutDay<T>(evs: PlacedEvent<T>[]): Map<string, { col: number; cols: number }> {
@@ -107,9 +107,9 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
   const period = calendarPeriod(mode, cursor);
   const c = fromDateKey(cursor);
   // the visible span: the month grid runs Monday → Sunday around the month
-  const monthFirst = new Date(c.getFullYear(), c.getMonth(), 1, 12);
+  const monthFirst = studioDate(studioParts(c).year, studioParts(c).month, 1, 12);
   const gridStart = mode === 'month' ? mondayOf(monthFirst) : fromDateKey(period.from);
-  const weeks = mode === 'month' ? Math.ceil((((monthFirst.getDay() + 6) % 7) + new Date(c.getFullYear(), c.getMonth() + 1, 0).getDate()) / 7) : 1;
+  const weeks = mode === 'month' ? Math.ceil((((studioParts(monthFirst).weekday + 6) % 7) + studioParts(studioDate(studioParts(c).year, studioParts(c).month + 1, 0)).day) / 7) : 1;
   const visibleFrom = dateKey(gridStart);
   const visibleTo = mode === 'month' ? dateKey(addDays(gridStart, weeks * 7 - 1)) : period.to;
 
@@ -229,7 +229,7 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
             return (
               <div key={k} role="gridcell" aria-selected={k === cursor} className={dayClass(k, 'cal-cell')} onClick={(e: MouseEvent) => { if (e.target === e.currentTarget) pickDay(k); }}>
                 <button type="button" className="cal-daynum" data-day={k} tabIndex={k === cursor ? 0 : -1} aria-label={dayLabel(k)} title={dayLabel(k)} onClick={() => pickDay(k)}>
-                  <span>{fromDateKey(k).getDate()}</span>{list.length === 0 && onCreate && <Icon name="plus" size="xs" className="cal-add" />}
+                  <span>{Number(k.slice(8, 10))}</span>{list.length === 0 && onCreate && <Icon name="plus" size="xs" className="cal-add" />}
                 </button>
                 {list.slice(0, MONTH_CHIPS).map((ev) => chip(ev))}
                 {list.length > MONTH_CHIPS && <button type="button" className="cal-more" aria-label={t('core.calendar.moreLabel', { n: list.length, date: longDay(k) })} onClick={() => { go(k); setDayOpen(k); }}>{t('core.calendar.more', { n: list.length - MONTH_CHIPS })}</button>}
@@ -249,12 +249,12 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
     const anyTimed = days.some((k) => timed(k).length > 0);
     const anyAllDay = days.some((k) => allDay(k).length > 0);
     let h0 = 24, h1 = 0;
-    for (const k of days) for (const ev of timed(k)) { h0 = Math.min(h0, ev.start.getHours()); h1 = Math.max(h1, Math.ceil((ev.endMs ? (ev.endMs - fromDateKey(k).setHours(0, 0, 0, 0)) / MS.hour : ev.start.getHours() + 1))); }
+    for (const k of days) for (const ev of timed(k)) { h0 = Math.min(h0, studioParts(ev.start).hour); h1 = Math.max(h1, Math.ceil((ev.endMs ? (ev.endMs - startOfDay(fromDateKey(k)).getTime()) / MS.hour : studioParts(ev.start).hour + 1))); }
     if (!anyTimed) [h0, h1] = DEFAULT_HOURS;
     h1 = Math.min(24, Math.max(h1, h0 + 1));
     const hours = Array.from({ length: h1 - h0 }, (_, i) => h0 + i);
-    const nowH = (Date.now() - new Date().setHours(0, 0, 0, 0)) / MS.hour;
-    const hourLabel = (h: number) => formatTime(new Date(2000, 0, 1, h), lang);
+    const nowH = (Date.now() - startOfDay(new Date()).getTime()) / MS.hour;
+    const hourLabel = (h: number) => formatTime(studioDate(2000, 0, 1, h), lang);
     const createAt = (k: string, e: MouseEvent<HTMLDivElement>) => {
       if (!onCreate || e.target !== e.currentTarget) return;
       const r = e.currentTarget.getBoundingClientRect();
@@ -268,7 +268,7 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
           {days.map((k) => (
             <div key={k} role="columnheader" className={dayClass(k, 'cal-wday')}>
               <button type="button" className="cal-wday-btn" data-day={k} tabIndex={k === cursor ? 0 : -1} aria-label={dayLabel(k)} title={dayLabel(k)} onClick={() => pickDay(k)}>
-                <span className="cal-wday-name">{formatDate(k, lang, { weekday: 'short' })}</span><strong className="cal-wday-num">{fromDateKey(k).getDate()}</strong>
+                <span className="cal-wday-name">{formatDate(k, lang, { weekday: 'short' })}</span><strong className="cal-wday-num">{Number(k.slice(8, 10))}</strong>
               </button>
             </div>
           ))}
@@ -294,7 +294,7 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
             {days.map((k) => {
               const list = timed(k);
               const lay = layoutDay(list);
-              const dayStart = fromDateKey(k).setHours(0, 0, 0, 0);
+              const dayStart = startOfDay(fromDateKey(k)).getTime();
               return (
                 <div key={k} role="gridcell" className={dayClass(k, 'cal-daycol')} onClick={(e) => createAt(k, e)} title={onCreate ? t('core.calendar.create', { date: shortDay(k) }) : undefined}>
                   {list.map((ev) => {
@@ -322,7 +322,7 @@ export function CalendarView<T>(props: CalendarViewProps<T>) {
           {weekdays.map((k) => <span key={`h-${k}`} className="cal-weekday" aria-hidden>{formatDate(k, lang, { weekday: 'narrow' })}</span>)}
           {days.map((k) => (
             <button key={k} type="button" className={dayClass(k, 'cal-cday')} data-day={k} tabIndex={k === cursor ? 0 : -1} aria-pressed={k === cursor} aria-label={dayLabel(k)} onClick={() => go(k)}>
-              <strong>{fromDateKey(k).getDate()}</strong>{dots(k)}
+              <strong>{Number(k.slice(8, 10))}</strong>{dots(k)}
             </button>
           ))}
         </div>

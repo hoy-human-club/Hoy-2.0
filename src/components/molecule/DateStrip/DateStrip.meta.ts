@@ -1,9 +1,10 @@
+import { addDays, startOfDay, studioParts } from '../../../i18n/format';
 import { createElement as h, useState } from 'react';
 import { defineMeta } from '../../../design/meta';
 import { DateStrip } from './DateStrip';
 
-const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
-function Demo() { const [v, setV] = useState(0); return h(DateStrip, { days, value: v, onChange: setV, counts: [4, 4, 3, 4, 4, 2, 0], disabledIndex: (i) => days[i].getDay() === 0 }); }
+const days = Array.from({ length: 7 }, (_, i) => { return addDays(startOfDay(new Date()), i); });
+function Demo() { const [v, setV] = useState(0); return h(DateStrip, { days, value: v, onChange: setV, counts: [4, 4, 3, 4, 4, 2, 0], disabledIndex: (i) => studioParts(days[i]).weekday === 0 }); }
 
 export default defineMeta({
   tier: 'molecule', name: 'DateStrip',

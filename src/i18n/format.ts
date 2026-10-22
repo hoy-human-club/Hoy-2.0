@@ -1,4 +1,5 @@
 import type { Lang } from './types';
+import { tenant } from '../tenant/tenant';
 
 /** BCP-47 locale for a UI language: Spanish is Colombian Spanish, English is en-US. */
 export const localeOf = (lang: Lang) => (lang === 'es' ? 'es-CO' : 'en-US');
@@ -9,22 +10,59 @@ export const MS = { min: 60e3, hour: 3600e3, day: 86400e3 } as const;
 const pad = (n: number) => String(n).padStart(2, '0');
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 
+/** Studio calendar, independent of the viewer's device timezone; tenant.ts owns the setting. */
+export const STUDIO_TIMEZONE = tenant.timezone;
+const partsFormatter = new Intl.DateTimeFormat('en-US', { timeZone: STUDIO_TIMEZONE, era: 'short', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hourCycle: 'h23' });
+/** Month is zero based, like Date; invalid Dates retain NaN parts. */
+export function studioParts(d: Date) {
+  const values: Record<string, number> = {};
+  let bc = false;
+  if (Number.isFinite(d.getTime())) for (const p of partsFormatter.formatToParts(d)) { if (p.type === 'era') bc = p.value === 'BC'; else values[p.type] = Number(p.value); }
+  const year = bc ? 1 - values.year : values.year ?? NaN, month = (values.month ?? NaN) - 1, day = values.day ?? NaN;
+  const calendar = new Date(0); calendar.setUTCFullYear(year, month, day);
+  return { year, month, day, weekday: calendar.getUTCDay(), hour: values.hour ?? NaN, minute: values.minute ?? NaN, second: values.second ?? NaN, millisecond: d.getUTCMilliseconds() };
+}
+/** Explicit studio wall clock → instant. Overflow follows Date semantics; never parses persisted strings. */
+export function studioDate(year: number, month: number, day: number, hour = 0, minute = 0, second = 0, millisecond = 0): Date {
+  const wall = new Date(0); wall.setUTCFullYear(year, month, day); wall.setUTCHours(hour, minute, second, millisecond);
+  if (!Number.isFinite(wall.getTime())) return wall;
+  let instant = new Date(wall);
+  // Intl supplies historical timezone offsets too; do not hardcode today's UTC−5 offset.
+  for (let i = 0; i < 3; i++) {
+    const p = studioParts(instant), shown = new Date(0);
+    shown.setUTCFullYear(p.year, p.month, p.day); shown.setUTCHours(p.hour, p.minute, p.second, p.millisecond);
+    const correction = wall.getTime() - shown.getTime();
+    if (!correction) break;
+    instant = new Date(instant.getTime() + correction);
+  }
+  return instant;
+}
+/** Replace the studio wall-clock time, preserving its calendar day. */
+export function atStudioTime(d: Date, hour: number, minute = 0, second = 0, millisecond = 0): Date {
+  const p = studioParts(d); return studioDate(p.year, p.month, p.day, hour, minute, second, millisecond);
+}
+
 /**
- * `YYYY-MM-DD` of a Date in the browser's local time — which for the studio is America/Bogota.
+ * `YYYY-MM-DD` of an instant in America/Bogota, regardless of the browser timezone.
  * Never `toISOString().slice(0, 10)`: that is UTC, and after 19:00 in Bogotá it names tomorrow.
  */
-export const dateKey = (d: Date = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+export const dateKey = (d: Date = new Date()) => { const p = studioParts(d); return `${p.year}-${pad(p.month + 1)}-${pad(p.day)}`; };
 
-/** A date key back to a Date at local noon, so no offset can shift it onto the previous day. */
-export const fromDateKey = (key: string) => new Date(`${key}T12:00:00`);
+/** A date key back to a Date at studio noon; use studioParts rather than browser getters. */
+export const fromDateKey = (key: string) => {
+  if (!DATE_KEY.test(key)) return new Date(NaN);
+  const [y, m, d] = key.split('-').map(Number);
+  // Date's existing impossible-day rollover is preserved; invalid months stay invalid.
+  return m < 1 || m > 12 || d < 1 || d > 31 ? new Date(NaN) : studioDate(y, m - 1, d, 12);
+};
 
-export const addDays = (d: Date, n: number) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
-export const addMonths = (d: Date, n: number) => { const x = new Date(d); x.setMonth(x.getMonth() + n); return x; };
-export const startOfDay = (d: Date) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
+export const addDays = (d: Date, n: number) => { const p = studioParts(d); return studioDate(p.year, p.month, p.day + n, p.hour, p.minute, p.second, p.millisecond); };
+export const addMonths = (d: Date, n: number) => { const p = studioParts(d); return studioDate(p.year, p.month + n, p.day, p.hour, p.minute, p.second, p.millisecond); };
+export const startOfDay = (d: Date) => atStudioTime(d, 0);
 /** `key` shifted by `n` days, as a key. */
 export const addDaysKey = (key: string, n: number) => dateKey(addDays(fromDateKey(key), n));
 
-/** ISO timestamp, date key or Date → Date; a bare date key is read as local noon (see `fromDateKey`). */
+/** ISO timestamp, date key or Date → Date; a bare date key is read as studio noon (see `fromDateKey`). */
 const toDate = (v: string | Date): Date => (typeof v === 'string' ? (DATE_KEY.test(v) ? fromDateKey(v) : new Date(v)) : v);
 
 /** COP with the `$` symbol in both languages (`$ 15.326.000` · `$15,326,000`), no decimals. */
@@ -32,13 +70,13 @@ export function formatCOP(amount: number, lang: Lang = 'es'): string {
   return new Intl.NumberFormat(localeOf(lang), { style: 'currency', currency: 'COP', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0 }).format(amount);
 }
 export function formatDate(iso: string | Date, lang: Lang = 'es', opts: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric', month: 'short' }): string {
-  return new Intl.DateTimeFormat(localeOf(lang), opts).format(toDate(iso));
+  return new Intl.DateTimeFormat(localeOf(lang), { ...opts, timeZone: STUDIO_TIMEZONE }).format(toDate(iso));
 }
 export function formatTime(iso: string | Date, lang: Lang = 'es'): string {
-  return new Intl.DateTimeFormat(localeOf(lang), { hour: 'numeric', minute: '2-digit' }).format(toDate(iso));
+  return new Intl.DateTimeFormat(localeOf(lang), { hour: 'numeric', minute: '2-digit', timeZone: STUDIO_TIMEZONE }).format(toDate(iso));
 }
 export function formatDateTime(iso: string | Date, lang: Lang = 'es'): string {
-  return new Intl.DateTimeFormat(localeOf(lang), { dateStyle: 'medium', timeStyle: 'short' }).format(toDate(iso));
+  return new Intl.DateTimeFormat(localeOf(lang), { dateStyle: 'medium', timeStyle: 'short', timeZone: STUDIO_TIMEZONE }).format(toDate(iso));
 }
 /**
  * "hace 5 min" · "hace 2 h" · "ayer" · "12 sept": how long ago something happened, for chat lists and
@@ -55,7 +93,7 @@ export function formatRelative(iso: string | Date, lang: Lang = 'es', now: Date 
 }
 export function isSameDay(a: string | Date, b: string | Date): boolean {
   const da = toDate(a), db = toDate(b);
-  return da.getFullYear() === db.getFullYear() && da.getMonth() === db.getMonth() && da.getDate() === db.getDate();
+  return Number.isFinite(da.getTime()) && Number.isFinite(db.getTime()) && dateKey(da) === dateKey(db);
 }
 
 /** Only the digits of a typed value ('+57 300 123 4567' → '573001234567'). */

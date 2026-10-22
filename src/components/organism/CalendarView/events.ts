@@ -5,7 +5,7 @@
  * `[data-ev]` (eventTone.css), so chips and bars read one set of custom properties whichever tone they get.
  */
 import { TONES, type Tone } from '../../../design/tokens';
-import { addDays, dateKey, fromDateKey, MS } from '../../../i18n/format';
+import { addDays, dateKey, fromDateKey, MS, studioParts, startOfDay } from '../../../i18n/format';
 import type { BadgeTone } from '../../atom/Badge/Badge';
 import './eventTone.css';
 
@@ -27,8 +27,8 @@ export function readWhen(v: unknown): { date: Date; allDay: boolean } | null {
 }
 
 /** Monday on or before `d` (the schedule pages start the week on Monday). */
-export const mondayOf = (d: Date) => addDays(d, -((d.getDay() + 6) % 7));
-const midnight = (d: Date) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x.getTime(); };
+export const mondayOf = (d: Date) => addDays(d, -((studioParts(d).weekday + 6) % 7));
+const midnight = (d: Date) => startOfDay(d).getTime();
 
 export interface EventAccessors<T> {
   /** Stable key of a row (default: `row.id`). */

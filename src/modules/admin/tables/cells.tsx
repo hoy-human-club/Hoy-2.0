@@ -25,7 +25,7 @@ export interface CellCtx {
 /** A date / timestamp in the current language; bad input falls back to the raw text. */
 export function formatWhen(c: ColumnDef, v: string, lang: Lang): string {
   try {
-    if (c.type === 'date') return formatDate(`${v.slice(0, 10)}T12:00:00`, lang, { day: 'numeric', month: 'short', year: 'numeric' });
+    if (c.type === 'date') return formatDate(v.slice(0, 10), lang, { day: 'numeric', month: 'short', year: 'numeric' });
     return formatDateTime(v, lang);
   } catch { return v; }
 }

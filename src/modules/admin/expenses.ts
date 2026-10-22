@@ -12,7 +12,7 @@ import { useData, useTable } from '../../data/DataContext';
 import type { ExpenseRow, ExpenseTemplateRow, PayrollRunRow } from '../../data/schema';
 import { fixedExpensesFor, type Period } from '../../data/expenseCalc';
 import {  } from '../../data/payrollCalc';
-import { dateKey } from '../../i18n/format';
+import { dateKey, addDays } from '../../i18n/format';
 
 /** The same five ranges M-09 uses, so the two pages always describe the same window. */
 export type FinanceRange = '7d' | '15d' | '30d' | '90d' | 'all';
@@ -21,7 +21,7 @@ export const FINANCE_RANGES: FinanceRange[] = ['7d', '15d', '30d', '90d', 'all']
 /** Date-only lower bound of a range (inclusive); '' for all time. */
 export function sinceDay(range: FinanceRange, now = new Date()): string {
   if (range === 'all') return '';
-  const d = new Date(now); d.setDate(d.getDate() - Number(range.replace('d', '')));
+  const d = addDays(now, -Number(range.replace('d', '')));
   return dateKey(d);
 }
 

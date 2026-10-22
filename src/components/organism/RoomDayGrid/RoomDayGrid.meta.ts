@@ -1,8 +1,9 @@
+import { atStudioTime } from '../../../i18n/format';
 import { createElement as h } from 'react';
 import { defineMeta } from '../../../design/meta';
 import { RoomDayGrid, type RoomBlock } from './RoomDayGrid';
 
-const day = (hh: number, mm = 0) => { const d = new Date(); d.setHours(hh, mm, 0, 0); return d.toISOString(); };
+const day = (hh: number, mm = 0) => { return atStudioTime(new Date(), hh, mm).toISOString(); };
 const rooms = [{ id: 'a', name: 'Sala principal', capacity: 15 }, { id: 'b', name: 'Sala de meditación', capacity: 8 }];
 const blocks: RoomBlock[] = [
   { id: '1', roomId: 'a', startsAt: day(6), endsAt: day(7), title: 'Ligereza', sub: 'Manuela · 9/15', tone: 'river', status: 'class' },

@@ -7,7 +7,7 @@ import { mapCoordinates } from '../../components/molecule/MapSlot/mapLocation';
 import { tenant } from '../../tenant/tenant';
 import { DEFAULT_POLICIES } from '../../tenant/policies';
 import { DEFAULT_IVA_PCT, splitIva } from '../../data/tax';
-import { MS, dateKey, waLink } from '../../i18n/format';
+import { MS, dateKey, waLink, studioParts } from '../../i18n/format';
 import { effectiveHoursFor, hoursSentence, todayStatus, type EffectiveHours, type WeeklyHours } from '../../tenant/hours';
 import { DEFAULT_CONTACT_ROUTES, mergeContacts, resolveContact, type ContactIntent, type ContactRoutes, type ResolvedContact } from '../../tenant/contacts';
 import { colombianHolidays } from '../../tenant/holidays.co';
@@ -160,7 +160,7 @@ export const splitTax = (price: number, tax: StudioSettings['tax']) => splitIva(
 
 /** True when `at` falls inside quiet hours (which wrap past midnight). */
 export function inQuietHours(at: Date, q: StudioSettings['quietHours']) {
-  const mins = at.getHours() * 60 + at.getMinutes();
+  const mins = studioParts(at).hour * 60 + studioParts(at).minute;
   const [fh, fm] = q.from.split(':').map(Number), [th, tm] = q.to.split(':').map(Number);
   const from = fh * 60 + fm, to = th * 60 + tm;
   return from > to ? mins >= from || mins < to : mins >= from && mins < to;
@@ -281,7 +281,7 @@ export interface WhatsappLinks {
 /** The holiday date keys `resolveContact` treats as non-business days: the country's computed calendar, this year and next. */
 export function holidayKeys(now: Date = new Date()): string[] {
   if (tenant.country !== 'CO') return [];
-  const y = now.getFullYear();
+  const y = studioParts(now).year;
   return [...colombianHolidays(y), ...colombianHolidays(y + 1)].map((h) => h.date);
 }
 

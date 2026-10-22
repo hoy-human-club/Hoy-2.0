@@ -10,7 +10,7 @@ import type { ContentArticleRow, EventRow, FaqEntryRow } from '../schema';
 import { priceItem } from '../../tenant/pricing';
 import { DEFAULT_POLICIES as P } from '../../tenant/policies';
 import { base, iso, NOW } from './catalog';
-import { formatCOP, MS } from '../../i18n/format';
+import { formatCOP, MS, addDays, atStudioTime } from '../../i18n/format';
 
 const price = (id: string) => priceItem(id)?.price ?? 0;
 const cop = (id: string) => formatCOP(price(id), 'es');
@@ -96,7 +96,7 @@ export const faqEntries: FaqEntryRow[] = FAQ.flatMap((s, si) => s.items.map((it,
  * host (the teachers are real people; the studio assigns a host when it publishes a real event) and carry one price
  * for everyone, because there is no membership to discount.
  */
-const at = (daysAhead: number, hh: number) => { const d = new Date(NOW); d.setDate(d.getDate() + daysAhead); d.setHours(hh, 0, 0, 0); return d; };
+const at = (daysAhead: number, hh: number) => { return atStudioTime(addDays(NOW, daysAhead), hh); };
 const span = (from: Date, minutes: number) => iso(new Date(from.getTime() + minutes * MS.min));
 
 export const events: EventRow[] = [

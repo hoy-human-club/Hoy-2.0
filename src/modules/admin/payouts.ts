@@ -23,7 +23,7 @@ import type { BookingRow, ClassSessionRow, PayrollLineRow, PayrollRunRow, SpaceB
 import { byTeacher, draftLinesFor, isWholeMonth, monthPeriod, periodsFor, periodsOverlap, runTotal, type PayrollCadence, type Period, type RateCard } from '../../data/payrollCalc';
 import { useSettings } from './settings';
 import type { Bi } from '../../specs/types';
-import { formatDate, fromDateKey } from '../../i18n/format';
+import { formatDate, fromDateKey, studioParts, studioDate } from '../../i18n/format';
 import { fakeRef } from '../customer/payments';
 import { type Lang } from '../../i18n/types';
 
@@ -48,11 +48,11 @@ export async function wompiPayout(input: { amount: number; recipients: number; s
   return { status: 'accepted', ref };
 }
 
-export const monthPeriodFor = (offset: number): Period => monthPeriod(new Date(new Date().getFullYear(), new Date().getMonth() - offset, 15));
+export const monthPeriodFor = (offset: number): Period => monthPeriod(studioDate(studioParts(new Date()).year, studioParts(new Date()).month - offset, 15));
 
 /** The pay periods of the month `offset` months ago, under the M-08c cadence (one or two). 0018. */
 export const periodsForMonth = (cadence: PayrollCadence, offset: number): Period[] =>
-  periodsFor(cadence, new Date(new Date().getFullYear(), new Date().getMonth() - offset, 15));
+  periodsFor(cadence, studioDate(studioParts(new Date()).year, studioParts(new Date()).month - offset, 15));
 
 /**
  * How a run's period is printed: “septiembre 2026” for a whole month, “1 – 15 sept 2026” for a
@@ -61,7 +61,7 @@ export const periodsForMonth = (cadence: PayrollCadence, offset: number): Period
 export function periodLabel(p: Period, lang: Lang): string {
   if (isWholeMonth(p)) return formatDate(p.start, lang, { month: 'long', year: 'numeric' });
   const a = fromDateKey(p.start), b = fromDateKey(p.end);
-  return `${a.getDate()} – ${b.getDate()} ${formatDate(b, lang, { month: 'short', year: 'numeric' })}`;
+  return `${studioParts(a).day} – ${studioParts(b).day} ${formatDate(b, lang, { month: 'short', year: 'numeric' })}`;
 }
 
 /** Runs, lines and the teachers they name — the join every payout screen needs. */

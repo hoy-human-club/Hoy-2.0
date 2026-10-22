@@ -1,8 +1,9 @@
+import { atStudioTime } from '../../../i18n/format';
 import { createElement as h } from 'react';
 import { defineMeta } from '../../../design/meta';
 import { ClassRow } from './ClassRow';
 
-const at = (hh: number) => { const d = new Date(); d.setHours(hh, 30, 0, 0); return d.toISOString(); };
+const at = (hh: number) => { return atStudioTime(new Date(), hh, 30).toISOString(); };
 
 export default defineMeta({
   tier: 'molecule', name: 'ClassRow',

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useI18n } from '../../../i18n/I18nProvider';
-import { addDays, dateKey, formatDate, formatTime, fromDateKey, isSameDay } from '../../../i18n/format';
+import { addDays, dateKey, formatDate, formatTime, fromDateKey, isSameDay, studioParts, studioDate } from '../../../i18n/format';
 import { useMinWidth } from '../../../layout/useMinWidth';
 import type { ClassSessionRow, ModalityRow, TeacherRow } from '../../../data/schema';
 import { classDisplay } from '../../../modules/admin/settings';
@@ -36,18 +36,18 @@ export function SessionCalendar({ sessions, onPick, mine, initialView = 'week', 
   const compact = !useMinWidth('shell');
   const [view, setView] = useState<CalendarView>(initialView);
   const [date, setDate] = useState(() => { const next = sessions.find(x => x.session.status === 'scheduled' && new Date(x.session.starts_at).getTime() > Date.now()); return initialView === 'week' && next ? fromDateKey(dateKey(new Date(next.session.starts_at))) : fromDateKey(dateKey()); });
-  const monday = addDays(date, -((date.getDay() + 6) % 7));
-  const monthStart = new Date(date.getFullYear(), date.getMonth(), 1, 12);
-  const gridStart = addDays(monthStart, -((monthStart.getDay() + 6) % 7));
+  const monday = addDays(date, -((studioParts(date).weekday + 6) % 7));
+  const monthStart = studioDate(studioParts(date).year, studioParts(date).month, 1, 12);
+  const gridStart = addDays(monthStart, -((studioParts(monthStart).weekday + 6) % 7));
   const days = Array.from({ length: view === 'month' ? 42 : view === 'week' ? 7 : 1 }, (_, i) => addDays(view === 'month' ? gridStart : view === 'week' ? monday : date, i));
   const onDay = (d: Date) => sessions.filter(x => isSameDay(x.session.starts_at, d));
-  const move = (n: number) => setDate(view === 'month' ? new Date(date.getFullYear(), date.getMonth() + n, 1, 12) : addDays(date, n * (view === 'week' ? 7 : 1)));
+  const move = (n: number) => setDate(view === 'month' ? studioDate(studioParts(date).year, studioParts(date).month + n, 1, 12) : addDays(date, n * (view === 'week' ? 7 : 1)));
   const name = (x: CalendarSession) => classDisplay({ title: x.session.title, modalityName: x.modality ? bi({ es: x.modality.name_es, en: x.modality.name_en }) : null, teacher: x.teacher?.display_name ?? '' });
   const openDay = (d: Date) => { setDate(d); setView('day'); };
   const today = new Date();
   const longDay = (d: Date) => formatDate(d, lang, { weekday: 'long', day: 'numeric', month: 'long' });
   const cellLabel = (d: Date) => `${longDay(d)} · ${t('site.calendar.classes', { n: onDay(d).length })}`;
-  const cellClass = (d: Date, base: string) => `${base} ${isSameDay(d, date) ? 'is-selected' : ''} ${isSameDay(d, today) ? 'is-today' : ''} ${view === 'month' && d.getMonth() !== date.getMonth() ? 'is-outside' : ''}`;
+  const cellClass = (d: Date, base: string) => `${base} ${isSameDay(d, date) ? 'is-selected' : ''} ${isSameDay(d, today) ? 'is-today' : ''} ${view === 'month' && studioParts(d).month !== studioParts(date).month ? 'is-outside' : ''}`;
   const dots = (d: Date) => { const list = onDay(d); return <span className="calendar-dots" aria-hidden>{list.slice(0, MAX_DOTS).map(x => <i key={x.session.id} className={`calendar-dot ${reason(x) ? 'is-off' : ''}`} data-tone={x.modality?.tone ?? 'river'} />)}{list.length > MAX_DOTS && <small>+{list.length - MAX_DOTS}</small>}</span>; };
   /** The selected day's classes as rows — the day view, and the list under the compact week strip and month grid. */
   const dayList = (d: Date, full: boolean): ReactNode => <>
@@ -62,17 +62,17 @@ export function SessionCalendar({ sessions, onPick, mine, initialView = 'week', 
     </div>
     <div className={`calendar-window calendar-${view}`}>
       {view === 'day' ? dayList(date, false) : compact && view === 'week' ? <>
-        <div className="calendar-strip" role="group" aria-label={t('site.calendar.weekStrip')}>{days.map(d => <button key={dateKey(d)} type="button" className={cellClass(d, 'calendar-strip-day')} aria-pressed={isSameDay(d, date)} aria-label={cellLabel(d)} onClick={() => setDate(d)}><span>{formatDate(d, lang, { weekday: 'short' })}</span><strong>{d.getDate()}</strong>{dots(d)}</button>)}</div>
+        <div className="calendar-strip" role="group" aria-label={t('site.calendar.weekStrip')}>{days.map(d => <button key={dateKey(d)} type="button" className={cellClass(d, 'calendar-strip-day')} aria-pressed={isSameDay(d, date)} aria-label={cellLabel(d)} onClick={() => setDate(d)}><span>{formatDate(d, lang, { weekday: 'short' })}</span><strong>{studioParts(d).day}</strong>{dots(d)}</button>)}</div>
         {dayList(date, true)}
       </> : compact && view === 'month' ? <>
         <div className="calendar-month-compact" role="group" aria-label={t('site.calendar.monthGrid')}>
           {days.slice(0, 7).map(d => <span key={`h-${dateKey(d)}`} className="calendar-weekday" aria-hidden>{formatDate(d, lang, { weekday: 'short' })}</span>)}
-          {days.map(d => <button key={dateKey(d)} type="button" className={cellClass(d, 'calendar-cell')} aria-pressed={isSameDay(d, date)} aria-label={cellLabel(d)} onClick={() => setDate(d)}><strong>{d.getDate()}</strong>{dots(d)}</button>)}
+          {days.map(d => <button key={dateKey(d)} type="button" className={cellClass(d, 'calendar-cell')} aria-pressed={isSameDay(d, date)} aria-label={cellLabel(d)} onClick={() => setDate(d)}><strong>{studioParts(d).day}</strong>{dots(d)}</button>)}
         </div>
         {dayList(date, true)}
       </> : <>
-        <div className="calendar-grid">{days.map(d => <div key={dateKey(d)} className={`calendar-column ${isSameDay(d, today) ? 'is-today' : ''} ${view === 'month' && d.getMonth() !== date.getMonth() ? 'is-outside' : ''}`}>
-          <button className="calendar-day-head" type="button" onClick={() => openDay(d)} aria-label={longDay(d)}><span>{formatDate(d, lang, { weekday: 'short' })}</span><strong>{d.getDate()}</strong><small>{t('site.calendar.classes', { n: onDay(d).length })}</small></button>
+        <div className="calendar-grid">{days.map(d => <div key={dateKey(d)} className={`calendar-column ${isSameDay(d, today) ? 'is-today' : ''} ${view === 'month' && studioParts(d).month !== studioParts(date).month ? 'is-outside' : ''}`}>
+          <button className="calendar-day-head" type="button" onClick={() => openDay(d)} aria-label={longDay(d)}><span>{formatDate(d, lang, { weekday: 'short' })}</span><strong>{studioParts(d).day}</strong><small>{t('site.calendar.classes', { n: onDay(d).length })}</small></button>
           {onDay(d).length === 0 && <p className="calendar-empty small">{t('site.calendar.noClasses')}</p>}
           {onDay(d).slice(0, view === 'month' ? 2 : undefined).map(x => <button key={x.session.id} type="button" className={`calendar-session ${reason(x) ? 'is-off' : ''}`} data-tone={x.modality?.tone ?? 'river'} disabled={!allowUnavailable && !!reason(x)} onClick={() => pick(x)}>
             <ClassThumbnail modality={x.modality}/><span className="calendar-session-copy"><time>{formatTime(x.session.starts_at, lang)}</time><strong>{name(x).title}</strong>{view === 'week' && <span>{x.teacher?.display_name}</span>}<small>{reason(x) ? t(`site.calendar.status.${reason(x)}`) : mine?.has(x.session.id) ? t('core.status.booked') : x.session.booked_count >= x.session.capacity ? t('core.common.full') : t('core.common.spots', { n: x.session.capacity - x.session.booked_count })}</small></span>

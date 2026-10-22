@@ -20,7 +20,7 @@ export function ensureFullDemoSession(db: DemoDb, now: number): boolean {
   const ledger = db.class_ledger as ClassLedgerRow[];
   const starts = new Map(sessions.map(s => [s.id, s.starts_at]));
   const today = dateKey(new Date(now));
-  upcoming.sort((a, b) => Number(b.starts_at.slice(0, 10) === today) - Number(a.starts_at.slice(0, 10) === today) || (a.starts_at.slice(0, 10) === today ? b.booked_count - a.booked_count : 0) || a.starts_at.localeCompare(b.starts_at));
+  upcoming.sort((a, b) => Number(dateKey(new Date(b.starts_at)) === today) - Number(dateKey(new Date(a.starts_at)) === today) || (dateKey(new Date(a.starts_at)) === today ? b.booked_count - a.booked_count : 0) || a.starts_at.localeCompare(b.starts_at));
   const stamp = new Date(now).toISOString();
   for (const session of upcoming) {
     // A local capacity edit must not make synthetic mat allocation exceed the physical studio limit.

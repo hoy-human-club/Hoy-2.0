@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useI18n } from '../../../i18n/I18nProvider';
-import { formatTime } from '../../../i18n/format';
+import { formatTime, studioParts } from '../../../i18n/format';
 import type { Tone } from '../../../design/tokens';
 import './RoomDayGrid.css';
 
@@ -38,7 +38,7 @@ export interface RoomDayGridProps {
   now?: Date | null;
 }
 
-const minutes = (iso: string) => { const d = new Date(iso); return d.getHours() * 60 + d.getMinutes(); };
+const minutes = (iso: string) => { const d = new Date(iso); return studioParts(d).hour * 60 + studioParts(d).minute; };
 
 /**
  * One day of every room, rooms as columns and hours as rows; classes and space bookings are blocks
@@ -53,7 +53,7 @@ export function RoomDayGrid({ rooms, blocks, fromHour, toHour, hourHeight = 56, 
   const to = toHour ?? latest;
   const hours = Array.from({ length: Math.max(1, to - from) }, (_, i) => from + i);
   const top = (iso: string) => ((minutes(iso) - from * 60) / 60) * hourHeight;
-  const nowTop = now ? ((now.getHours() * 60 + now.getMinutes() - from * 60) / 60) * hourHeight : null;
+  const nowTop = now ? ((studioParts(now).hour * 60 + studioParts(now).minute - from * 60) / 60) * hourHeight : null;
 
   return (
     <div className="roomgrid" style={{ ['--rg-hour' as string]: `${hourHeight}px`, ['--rg-cols' as string]: rooms.length }}>

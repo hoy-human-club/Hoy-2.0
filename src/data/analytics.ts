@@ -36,7 +36,7 @@
  */
 import type { Bi } from '../specs/types';
 import type { BookingRow, ClassSessionRow, ClassLedgerRow, MembershipRow, ModalityRow, PracticeGoalRow, ProfileRow, ReviewRow, TeacherRow, UserRow } from './schema';
-import { addDays, addDaysKey, dateKey, fromDateKey, MS, startOfDay } from '../i18n/format';
+import { addDays, addDaysKey, dateKey, fromDateKey, MS, startOfDay, studioParts } from '../i18n/format';
 
 export type GoalCadence = 'week';
 export const MILESTONES = [1, 5, 10, 25, 50, 100, 250] as const;
@@ -52,7 +52,7 @@ export type AtRiskBand = (typeof AT_RISK_BANDS)[number];
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 const toDate = (v: Date | string): Date => (typeof v === 'string' ? (DATE_KEY.test(v) ? fromDateKey(v) : new Date(v)) : v);
 /** Index of the weekday with Monday = 0 … Sunday = 6. */
-const mondayIndex = (d: Date) => (d.getDay() + 6) % 7;
+const mondayIndex = (d: Date) => (studioParts(d).weekday + 6) % 7;
 /** Whole days between two instants, by local calendar day. */
 const daysBetween = (from: Date | string, to: Date) => Math.round((startOfDay(to).getTime() - startOfDay(toDate(from)).getTime()) / MS.day);
 export const pct = (num: number, den: number) => (den > 0 ? Math.round((num / den) * 100) : 0);
@@ -454,8 +454,8 @@ export function studioStats(input: StudioInput): StudioStats {
   const cells = new Map<string, { weekday: number; hour: number; classes: number; fillSum: number }>();
   for (const s of h.held) {
     const d = new Date(s.starts_at);
-    const key = `${d.getDay()}-${d.getHours()}`;
-    const cell = cells.get(key) ?? { weekday: d.getDay(), hour: d.getHours(), classes: 0, fillSum: 0 };
+    const key = `${studioParts(d).weekday}-${studioParts(d).hour}`;
+    const cell = cells.get(key) ?? { weekday: studioParts(d).weekday, hour: studioParts(d).hour, classes: 0, fillSum: 0 };
     cell.classes++;
     cell.fillSum += s.capacity > 0 ? h.booked.filter((v) => v.session.id === s.id).length / s.capacity : 0;
     cells.set(key, cell);

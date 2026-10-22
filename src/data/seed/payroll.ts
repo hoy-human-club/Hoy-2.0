@@ -11,7 +11,7 @@
 import type { BaseRow, BookingRow, ClassSessionRow, PayrollLineRow, PayrollRunRow, SpaceBookingRow, SpecialChargeRow, TeacherRow } from '../schema';
 import { draftLinesFor, monthPeriod, rateFor, runTotal, type DraftLine, type Period, type RateCard } from '../payrollCalc';
 import { base, iso, NOW } from './catalog';
-import { fromDateKey, dateKey } from '../../i18n/format';
+import { fromDateKey, dateKey, studioParts, addDays, atStudioTime, studioDate } from '../../i18n/format';
 
 interface TemplateRow extends BaseRow { teacher_id: string; modality_id?: string; weekday: number; active: boolean }
 
@@ -19,9 +19,9 @@ interface TemplateRow extends BaseRow { teacher_id: string; modality_id?: string
 function occurrences(period: Period, weekday: number): string[] {
   const out: string[] = [];
   const end = fromDateKey(period.end);
-  const today = new Date(NOW); today.setHours(12, 0, 0, 0);
-  for (const d = fromDateKey(period.start); d <= end && d <= today; d.setDate(d.getDate() + 1)) {
-    if (d.getDay() === weekday) out.push(dateKey(d));
+  const today = atStudioTime(NOW, 12);
+  for (let d = fromDateKey(period.start); d <= end && d <= today; d = addDays(d, 1)) {
+    if (studioParts(d).weekday === weekday) out.push(dateKey(d));
   }
   return out;
 }
@@ -46,7 +46,7 @@ export function buildPayroll(input: { sessions: ClassSessionRow[]; bookings: Boo
   const sessionMonths = new Set(input.sessions.map((s) => s.starts_at.slice(0, 7)));
 
   for (const offset of [2, 1, 0]) {
-    const anchor = new Date(NOW.getFullYear(), NOW.getMonth() - offset, 15);
+    const anchor = studioDate(studioParts(NOW).year, studioParts(NOW).month - offset, 15);
     const period = monthPeriod(anchor);
     const id = `pyr_${period.start.slice(0, 7)}`;
     const status: PayrollRunRow['status'] = offset === 2 ? 'paid' : offset === 1 ? 'approved' : 'draft';
@@ -66,7 +66,7 @@ export function buildPayroll(input: { sessions: ClassSessionRow[]; bookings: Boo
       draft.push({ teacher_id: someone, class_session_id: null, special_charge_id: null, kind: 'adjustment', rate: 0, amount: -80000, attendees: null, note: 'Ajuste: clase cobrada dos veces en la corrida anterior' });
     }
 
-    const closes = fromDateKey(period.end); closes.setDate(closes.getDate() + 5);
+    const closes = addDays(fromDateKey(period.end), 5);
     runs.push({
       ...base(id, (offset + 1) * 30),
       period_start: period.start,
