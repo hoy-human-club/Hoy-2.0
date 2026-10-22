@@ -19,6 +19,8 @@ import { useAudit } from '../staff/audit';
 import { useSettings } from './settings';
 import { useIntegrationStatus } from './integrations';
 import { downloadCsv, monthPeriodFor, payrollCsv, periodLabel, periodsForMonth, statementOf, useGenerateDraft, usePayroll, wompiPayout, type PayoutMethod, type TeacherStatement } from './payouts';
+import { Drawer } from '../../components/organism/Drawer/Drawer';
+import { usePayrollApproval } from './usePayrollApproval';
 import './admin.css';
 import './PayoutsPage.css';
 
@@ -124,7 +126,7 @@ export function PayoutRunPage() {
   const { id } = useParams();
   const { t, lang } = useI18n();
   const data = useData();
-  const { can, user } = useSession();
+  const { can } = useSession();
   const audit = useAudit('admin');
   const { runs, linesOf, teacherName, loading } = usePayroll();
   const { settings: runSettings } = useSettings();
@@ -138,6 +140,7 @@ export function PayoutRunPage() {
   const [notice, setNotice] = useState<{ tone: 'ok' | 'bad'; text: string } | null>(null);
   const canWrite = can('payroll.write');
 
+  const approval = usePayrollApproval(id);
   const run = runs.find((r) => r.id === id);
   const generate = useGenerateDraft(run?[{start:run.period_start,end:run.period_end}]:[],run?.method??'wompi');
   const lines = run ? linesOf(run.id) : [];
@@ -149,15 +152,7 @@ export function PayoutRunPage() {
 
   const periodText = `${formatDate(run.period_start, lang, { day: 'numeric', month: 'short' })} – ${formatDate(run.period_end, lang, { day: 'numeric', month: 'short', year: 'numeric' })}`;
 
-  const approve = async () => {
-    setBusy('approve'); setNotice(null);
-    try {
-      const at = new Date().toISOString();
-      await data.update('payroll_runs', run.id, { status: 'approved', approved_by: user.id, approved_at: at });
-      await audit('payroll.approve', 'payroll_runs', run.id, { before: run.status, after: 'approved', total: run.total, teachers: statement.length });
-      setNotice({ tone: 'ok', text: t('admin.payouts.msg.approved', { total: formatCOP(run.total, lang) }) });
-    } finally { setBusy(null); }
-  };
+  const approve = () => { setNotice(null); void approval.begin(); };
 
   /** Stamps the settlement on the lines, so a teacher-by-teacher payment and a run payment agree. */
   const stampLines = async (which: typeof lines, method: PayoutMethod, at: string) => {
@@ -240,6 +235,8 @@ export function PayoutRunPage() {
         <StatTile label={t('admin.payouts.kpi.state')} value={t(`admin.payouts.status.${run.status}`)} hint={run.paid_at ? formatDateTime(run.paid_at, lang) : run.approved_at ? t('admin.payouts.approvedOn', { date: formatDateTime(run.approved_at, lang) }) : t('admin.payouts.notApproved')} />
       </div>
 
+      {approval.saved && <section data-payroll-approval-saved><Notice tone="success">{t('admin.approval.saved')}</Notice></section>}
+
       {notice && <div className={`adm-notice ${notice.tone === 'bad' ? 'adm-notice-bad' : ''} small`}>{notice.text}</div>}
 
       {run.status==='draft'&&<>
@@ -254,8 +251,8 @@ export function PayoutRunPage() {
 
       <Card title={t('admin.payouts.actions')} tone="muted">
         <div className="row wrap">
-          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy||!!busy} onClick={()=>void regenerate()}>{t('admin.payouts.action.regenerate')}</Button>}
-          {run.status === 'draft' && <Button size="sm" loading={busy === 'approve'} disabled={!canWrite||generate.busy} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
+          {run.status === 'draft' && <Button size="sm" variant="ghost" loading={generate.busy} disabled={!canWrite||generate.status!=='ready'||generate.busy||!!busy||approval.busy} onClick={()=>void regenerate()}>{t('admin.payouts.action.regenerate')}</Button>}
+          {run.status === 'draft' && <Button data-payroll-approval-open loading={approval.busy} disabled={!canWrite||generate.busy||!!busy||approval.busy} onClick={approve}>{t('admin.payouts.action.approve')}</Button>}
           {run.status === 'approved' && <Button size="sm" loading={busy === 'wompi'} disabled={!canWrite} onClick={sendWompi}>{t('admin.payouts.action.wompi')}</Button>}
           {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'transfer'} disabled={!canWrite} onClick={() => markPaid('transfer')}>{t('admin.payouts.action.transfer')}</Button>}
           {run.status === 'approved' && <Button size="sm" variant="ghost" loading={busy === 'cash'} disabled={!canWrite} onClick={() => markPaid('cash')}>{t('admin.payouts.action.cash')}</Button>}
@@ -265,6 +262,28 @@ export function PayoutRunPage() {
         <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{run.status === 'paid' ? t('admin.payouts.locked') : t('admin.payouts.flow')}</p>
         {run.notes && <p className="xs muted">{run.notes}</p>}
       </Card>
+
+      <Drawer open={approval.open} onClose={approval.close} title={t('admin.approval.title')} side="bottom"
+        footer={<div className="row wrap">
+          <Button variant="secondary" onClick={approval.close}>{t('admin.approval.cancel')}</Button>
+          {approval.error && <Button variant="secondary" disabled={approval.busy} onClick={()=>void approval.begin()}>{t('admin.approval.reload')}</Button>}
+          {approval.canRetry && <Button disabled={approval.busy} onClick={()=>void approval.execute()}>{t('admin.approval.retry')}</Button>}
+          {approval.phase==='ready' && <Button data-payroll-approval-confirm disabled={!canWrite||approval.busy} onClick={()=>void approval.execute()}>{t('admin.approval.confirm')}</Button>}
+        </div>}>
+        <section className="stack" data-payroll-approval-state aria-busy={approval.phase==='loading'||approval.phase==='saving'}>
+          <Notice tone="info">{t('admin.approval.mock')}</Notice>
+          {approval.phase==='loading' && <Notice>{t('admin.approval.loading')}</Notice>}
+          {approval.phase==='saving' && <Notice>{t('admin.approval.saving')}</Notice>}
+          {approval.error && <Notice tone="warn">{t(`admin.approval.${approval.error}`)}</Notice>}
+          {approval.plan && <Card tone="muted" title={t('admin.approval.preview')}>
+            <div className="stack-sm">
+              <strong>{periodLabel({start:approval.plan.periodStart,end:approval.plan.periodEnd},lang)}</strong>
+              <strong className="mono">{formatCOP(approval.plan.total,lang)}</strong>
+              <span>{t('admin.approval.basis',{lines:approval.plan.lineCount,teachers:approval.plan.teacherCount})}</span>
+            </div>
+          </Card>}
+        </section>
+      </Drawer>
 
       <section className="stack-sm">
         <div className="eyebrow">{t('admin.payouts.statement')}</div>

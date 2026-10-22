@@ -1,0 +1,49 @@
+{
+  "runtimeBefore": "f1c987dc9b8bb8b81a69d2a036b2e2170c3993674d2a99b5cc1b08c1a14a9cf7",
+  "helperBeforeSha256": "2282233aab6e669edbd804e5727f98aee6a4ccaab1d664929ad633c798b0b078",
+  "method": "Actual helper and actual eventRsvp account contract with real MockProvider isolated Map; write:false bundle; unchanged finance role and isCurrent=true; inactive user before prepare/stage and held staged/final-ack digest.",
+  "sourceEvidence": [
+    "src/modules/customer/eventRsvp.ts:19 account requires exactly active",
+    "src/data/schema.ts:304 UserRow status string",
+    "src/modules/admin/payrollApproval.ts ownedActor before correction ignored status"
+  ],
+  "results": [
+    {
+      "mode": "prepare-inactive",
+      "returnedSuccess": true,
+      "runStatus": "draft",
+      "accountStatus": "inactive",
+      "sameActiveAccountContractInEventRsvpRejects": true
+    },
+    {
+      "mode": "stage-inactive",
+      "returnedSuccess": true,
+      "runStatus": "approved",
+      "accountStatus": "inactive",
+      "sameActiveAccountContractInEventRsvpRejects": true
+    },
+    {
+      "mode": "staged-final-digest-inactive",
+      "returnedSuccess": true,
+      "runStatus": "approved",
+      "accountStatus": "inactive",
+      "sameActiveAccountContractInEventRsvpRejects": true
+    },
+    {
+      "mode": "ack-final-digest-inactive",
+      "returnedSuccess": true,
+      "runStatus": "approved",
+      "accountStatus": "inactive",
+      "sameActiveAccountContractInEventRsvpRejects": true
+    }
+  ],
+  "correctedRuntime": "b47f65861ab17b96946f9f49128d07ce59d7ca78297aec511631bd929468d9f2",
+  "correction": "Only ownedActor adds existing exact status active fence; no role inference or account mutation in production command.",
+  "regression": "node scripts/test-payroll-approval.mjs and node scripts/test-payroll-approval-hook.mjs",
+  "correctedDomainResults": [
+    "Inactive/disabled/invited/deleted/null/undefined account status cannot preview or approve, reactivation permits original valid command.",
+    "Held staged-final digest deactivation rejects and rolls back full stage.",
+    "Held final-ack digest deactivation rejects acknowledgement while preserving committed approval/audit; reactivation replays same request without effect.",
+    "Actual-hook inactive preview returns no plan, postcommit scope error has no saved acknowledgment and supports retained-command retry."
+  ]
+}

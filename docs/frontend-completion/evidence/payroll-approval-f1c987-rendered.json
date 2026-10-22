@@ -1,0 +1,478 @@
+{
+  "recordedAt": "2026-10-22T05:25:42.406631+00:00",
+  "requirement": "FI-03",
+  "phase": "Nov 30 delivery",
+  "sourceStatus": "Not verified",
+  "featureStatus": "partial",
+  "status": "Historical full local rendered PASS at f1c987; active-account review follow-up pending, not final batch acceptance.",
+  "base": "3b752e5fb3e21a85eddab041ee377ca14148eaa6",
+  "runtimeBefore": "f1c987dc9b8bb8b81a69d2a036b2e2170c3993674d2a99b5cc1b08c1a14a9cf7",
+  "runtimeAfter": "f1c987dc9b8bb8b81a69d2a036b2e2170c3993674d2a99b5cc1b08c1a14a9cf7",
+  "runtimeMethod": "Canonical root method: SHA256 sorted src relative POSIX paths UTF8 then file bytes with NO separators/NUL, excluding src/app/captureDates.ts; then vite.config.ts BYTES only. This historical receipt uses the same canonical method as current batch37/root; batches34/36 used a different NUL-delimited method.",
+  "build": {
+    "command": "npm run build",
+    "session": 74477,
+    "exitCode": 0,
+    "log": "/tmp/hoy-approval37-build-owned.log",
+    "immutableRoot": "/tmp/hoy-approval-qa-f1c987dc9b8b",
+    "servedEvidence": "http://127.0.0.1:5268/frontend-evidence.json"
+  },
+  "commands": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5268 node scripts/test-payroll-approval-ui.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-approval37-ui-fixture.log",
+      "checks": [
+        "en/light/390:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "Existing11 roles:admin/finance/super local preview allowed;8 denied",
+        "en/light/1280:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "en/dark/390:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "en/dark/1280:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "es/light/390:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "es/light/1280:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "es/dark/390:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload",
+        "es/dark/1280:preview loading/cancel,44px confirmation,quota rollback/stable retry,single approval+audit,unchanged paid history/lines/outbox,stale basis,paid race,busy duplicate/cancel/unmount,missing-account scope/reload"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5267 node scripts/test-payroll-approval-states.mjs",
+      "exitCode": 0,
+      "log": "/tmp/hoy-approval37-states.log",
+      "checks": [
+        "en:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect;390",
+        "es:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect;390"
+      ],
+      "errors": []
+    }
+  ],
+  "scriptHashes": [
+    {
+      "path": "scripts/test-payroll-approval.mjs",
+      "sha256": "a2c00255d94bc493613db8459f98a1fe0af04ff21a24b0822ff327d385486de9",
+      "bytes": 15925
+    },
+    {
+      "path": "scripts/test-payroll-approval-hook.mjs",
+      "sha256": "a9d43173b5d552f2dfe507766fdff8bf56dd79a287486f1e1a23735d46ae4d5f",
+      "bytes": 5223
+    },
+    {
+      "path": "scripts/test-payroll-approval-ui.mjs",
+      "sha256": "a6192bfcba4977b289425af91518fa6f7a1b2744b2f5638a2265c56e0436fc97",
+      "bytes": 12066
+    },
+    {
+      "path": "scripts/test-payroll-approval-states.mjs",
+      "sha256": "b6678aee29964ff42388b7f786228575ac72bf59d612f3193240fbd05133d4fe",
+      "bytes": 9183
+    },
+    {
+      "path": "scripts/qa-rendered-capture.mjs",
+      "sha256": "133b8c3ebd93caeea770c6b008a2c505860d352c71e2dda249d60998f19f44f7",
+      "bytes": 877
+    }
+  ],
+  "assets": [
+    {
+      "path": "index.html",
+      "sha256": "5959f80f67b3aa38efdf8f355da290279bdb4f277250f72034a812afdb68b8b1",
+      "bytes": 1229
+    },
+    {
+      "path": "assets/pages-DM2klHhy.js",
+      "sha256": "e294c1900bef10a1496e75a16798646a9564bea72cbc972a1a6c3b842cc29637",
+      "bytes": 302598
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-loading.jpg",
+      "sha256": "542dad5457dace587bd9299283416b88004735af8f6255c694cf2b1794d04393",
+      "bytes": 24025
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-preview.jpg",
+      "sha256": "51fe7718d6435957424d109f2bad7f2ea2d257e29384a81cdc3306fec9fe53eb",
+      "bytes": 28704
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-failure.jpg",
+      "sha256": "6391c051b1cfcd8dd7b5087c24f6178932a4449ef6b697e1aad9b81f20347c93",
+      "bytes": 33393
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-confirmed.jpg",
+      "sha256": "8a5a2a0289e07bded5b8b3743a6e2c901eec0afe45923c56a30e78c1edca2e52",
+      "bytes": 37950
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-stale.jpg",
+      "sha256": "0b2bf657527c06a2847fcbc18b4d65ff88edbfa5885b009ba9a8669647b6f673",
+      "bytes": 32951
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-locked.jpg",
+      "sha256": "f7f0561191a677b1e80f2d659e54904c6533e3bdece51dd5463124ce7aa83442",
+      "bytes": 32595
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-busy.jpg",
+      "sha256": "2713b6e7327385fe5b9dc5f3f8e720f29735f63f2ef86a02539a4ad19ac9f618",
+      "bytes": 29222
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-light-approval-scope-error.jpg",
+      "sha256": "380c312ba30c1405d63dd8cec9affe6820973cbab669e230e4ecbae62651d4da",
+      "bytes": 27255
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-loading.jpg",
+      "sha256": "894cde0fe21c8947160552f71530d8dc9fe5311ba5526dd12a6d6075784e61a9",
+      "bytes": 45162
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-preview.jpg",
+      "sha256": "205a8e76f70cdef201ed42deb3e0cf1def67d921e83168b8a5e31469e1a246bb",
+      "bytes": 46565
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-failure.jpg",
+      "sha256": "696504c17c160cf7c71222281e714e4b8776452366fa3c10db97fe0ee2ea8bc5",
+      "bytes": 54793
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-confirmed.jpg",
+      "sha256": "66f491623dc2fb94bfc86affaf1e962b5c1ccd72cd3c0914c5462336ee3b334e",
+      "bytes": 108279
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-stale.jpg",
+      "sha256": "1178391b90b39ec1378c6218554f29f3263e3dbb01f863275819a8e276f9d08f",
+      "bytes": 54075
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-locked.jpg",
+      "sha256": "42ffea3d81546e2c75cd9d0848ea516a28c4959423423614ea915a6c937ee6df",
+      "bytes": 52455
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-busy.jpg",
+      "sha256": "5d7ce606f994e383ad47983bab9dc9fa594037202c982c69198c11c9d1e615b5",
+      "bytes": 49413
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-light-approval-scope-error.jpg",
+      "sha256": "25012b4bd8bc060bbed92e86111dae3a4aa77602103c4250ebd96742adf1268f",
+      "bytes": 48665
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-loading.jpg",
+      "sha256": "76eaf85502abd74a32f5453b4c72b95bf9912c9b956029c353df89426ee63c44",
+      "bytes": 22105
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-preview.jpg",
+      "sha256": "54685f85568010c0af1f696acc2bfff10da84b2897d3cc845ec4a13a8f060cbb",
+      "bytes": 27068
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-failure.jpg",
+      "sha256": "a0759402aee6ba6ed03f3cd68038e22d87f5a197ecc71e842c0b2747f6442ec1",
+      "bytes": 31172
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-confirmed.jpg",
+      "sha256": "6ac64dc8908bfa505f6932e5fdb53a6af1a3f33184811024e97086ee814a8257",
+      "bytes": 32478
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-stale.jpg",
+      "sha256": "16610f39d4197cb5b58d414a3f6cb9abb13581304d69db29fdfc31bdede4a5f4",
+      "bytes": 31231
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-locked.jpg",
+      "sha256": "1fc9559a21707fcf19bf4b27bbcba3ed2d551fca561ff4b67964520e09664f68",
+      "bytes": 30872
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-busy.jpg",
+      "sha256": "eeab3cd0f85718b718a72a421536c7ea505fd147d80cc044196ad0145b874d28",
+      "bytes": 27389
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-dark-approval-scope-error.jpg",
+      "sha256": "f4da72b181d92e46402795606bf60967bfd25c13d149499897eb85807a85d39d",
+      "bytes": 25440
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-loading.jpg",
+      "sha256": "936177458072fa84ff85ad63ddea2d51b54eb6e26c8d7ebad87544e78f8700a0",
+      "bytes": 40018
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-preview.jpg",
+      "sha256": "33056aec658502e58aab9e18ff02204eaedbb17d0aafc6d7da29414b81a23c5f",
+      "bytes": 42682
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-failure.jpg",
+      "sha256": "b9d3a55bce3cfc9acc136592d4b47e83cc466f5a93b6b2aa81dd09f50a356891",
+      "bytes": 50101
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-confirmed.jpg",
+      "sha256": "16e6e8589c3d8741ed3a40baf6a18bf0f7b98d0ad28c72afba10d9d1d7f93bb4",
+      "bytes": 84550
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-stale.jpg",
+      "sha256": "4f1959db8bbae5c39981f12dd20496d7e31720949eee0eb2fa7a1e1d069235c9",
+      "bytes": 49550
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-locked.jpg",
+      "sha256": "b324fc8ddd4373bc1ab19197b5a6deca570f78f72d6131047c8ef29f4f78ca09",
+      "bytes": 48195
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-busy.jpg",
+      "sha256": "c637710c5d93388e67d418ab19073b98df0fc0d77d92de165551c4a9504f4c00",
+      "bytes": 44890
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-1280-dark-approval-scope-error.jpg",
+      "sha256": "e9d753b5e6ca58c207daea4edbd7caef4cdb46f89043e1d5de3e2245333ad709",
+      "bytes": 43443
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-loading.jpg",
+      "sha256": "14c665a08214377865ac0cffe99fd23ea3c9d9995db4afeeaa25958cd7c46966",
+      "bytes": 25280
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-preview.jpg",
+      "sha256": "045cc9923ff58cc27ea41aad224e0c8ddb51ad5c1c38cc42d5bd660facb3908c",
+      "bytes": 30982
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-failure.jpg",
+      "sha256": "bbef431c6f4d04b4bf41f1ec1647ebe572b835f56422397afa95d74cad3a3eb4",
+      "bytes": 36366
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-confirmed.jpg",
+      "sha256": "40429fa863cd1dc0ce342decbf3c8c87cd92661eeea09d293bd1c9d7cf04d278",
+      "bytes": 39456
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-stale.jpg",
+      "sha256": "e67455ce37a06442e906eb7a1756c0c33ca31d43f9356e990bae1499546864c5",
+      "bytes": 35589
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-locked.jpg",
+      "sha256": "9c3059e7b5419785929352bd360a5a02df6b38db006dfc57931681fdcaede55e",
+      "bytes": 35376
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-busy.jpg",
+      "sha256": "656161352bd18b2fad22a7cdf63cb8bc7314dc1f268cc2ba4e3be2cd7547573b",
+      "bytes": 31818
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-light-approval-scope-error.jpg",
+      "sha256": "e17388c3eea0d758311526acf4be5bca4de1c1f39f72c60593ac938c44be5408",
+      "bytes": 28446
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-loading.jpg",
+      "sha256": "3d5df57ddf24dd3a6e3febaa5950ac0db697c31c76bcbd113829e15d92662dfa",
+      "bytes": 46993
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-preview.jpg",
+      "sha256": "740e596631ba1b9436a454bd4605e24c68cd970aa414872a167bac75f463c61c",
+      "bytes": 48981
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-failure.jpg",
+      "sha256": "9d0cec5375346883e8609ad934d3b2a2b680878b332557e8d7206a7594501cd8",
+      "bytes": 58034
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-confirmed.jpg",
+      "sha256": "07bd155b7aa0c61c2398a34e04c60cfc589aaa3fe5599f8d5f21cafdc2798e00",
+      "bytes": 114825
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-stale.jpg",
+      "sha256": "0caed177a67641c4d27d13e415c3717ddeac3dfde442039d888e15fbb33880db",
+      "bytes": 57217
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-locked.jpg",
+      "sha256": "fa5f263ad6a93cf755e94cee0574d0540353148862fb66e10aed4534d8ef3e52",
+      "bytes": 56625
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-busy.jpg",
+      "sha256": "39ab17373e164740319b39a811d8e88e0968849aff1ae5e0a785c734ac40f741",
+      "bytes": 51978
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-light-approval-scope-error.jpg",
+      "sha256": "8f41f48ed84d57c13543fd6f9281d8e30f53bdbf1f056505ab9587efc2e4ac0f",
+      "bytes": 49823
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-loading.jpg",
+      "sha256": "2c8e92e4a88b476a58f29e444714e224aeccd8c0900620740d6c4657a56ea135",
+      "bytes": 23322
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-preview.jpg",
+      "sha256": "196d0153ef0551945706a8d1156e015c3c2637e14f8df8c2ba83c96c0f483722",
+      "bytes": 29104
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-failure.jpg",
+      "sha256": "9e51ff1e830b6bd0efa7e219f5dbd6b2f5d2802229a2d2e899268a15a4c7df11",
+      "bytes": 33956
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-confirmed.jpg",
+      "sha256": "cf75de8a08bd7ed432c64849b236c9c8a1472fe9af0bf94c5a106686cb08b6cf",
+      "bytes": 34095
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-stale.jpg",
+      "sha256": "1eb584310f1effcf08459c324a858fd8ecb27cfabc5d2675ff6e56472b50d1d1",
+      "bytes": 33675
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-locked.jpg",
+      "sha256": "a04347b2fc42b21baf088fb768948439011a8632503378d6aaf14dbac1c4878f",
+      "bytes": 33453
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-busy.jpg",
+      "sha256": "c45ed1b020d08ae3fb3faecf3feb69ad6949eb8c88ab07184c621e7824950393",
+      "bytes": 29748
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-dark-approval-scope-error.jpg",
+      "sha256": "795829619f0ffe15b313cc5589d34738d8e0d389c95c458ad3d7758c2a68cc4f",
+      "bytes": 26505
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-loading.jpg",
+      "sha256": "1456d581aade34616abfe5427956bebfa40d00086b62ca600b4b667d698660d9",
+      "bytes": 41541
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-preview.jpg",
+      "sha256": "8c2798fae4d0db04cd2a84ea3cfe0e622dcacd658b3844eb45b3f772c7193406",
+      "bytes": 44875
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-failure.jpg",
+      "sha256": "56e65581bc7e213a6912b4903b6a6bfed41812f651d0483c183155d6bfe9607d",
+      "bytes": 53139
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-confirmed.jpg",
+      "sha256": "58bb50c56b6c5f6814cdee83ba363c2b70cf707344d9d8882f5a187081ae5f70",
+      "bytes": 90775
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-stale.jpg",
+      "sha256": "4b586876493f61680c206901544c898a883114f53b6986c447ea88778bf3935c",
+      "bytes": 52438
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-locked.jpg",
+      "sha256": "19a93ed912eb3c2436675e07df3a138674bf0c685ee9476daf4459a7c27bcdb8",
+      "bytes": 52002
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-busy.jpg",
+      "sha256": "7b063136b3ebc1ec43e16e9a962f7c66dc206441f2ff4fcc10949bca2eacc6d9",
+      "bytes": 47274
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-1280-dark-approval-scope-error.jpg",
+      "sha256": "3ceaf226f74931330c017e06692c0196dbb9e2852958c7cb9ab276f45bcb6d36",
+      "bytes": 44826
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-closed-aftercommit.jpg",
+      "sha256": "f1650348fb5d108fe0ed6ee91af531f3e6ec0e21bc79a35467c563356c86b7f7",
+      "bytes": 39553
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-late-scope-loss.jpg",
+      "sha256": "58f415d659bd6645b8c9cbb16ac8a3be6f2877f9e78f7dbe2ef50aad3dd04305",
+      "bytes": 27380
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-loading.jpg",
+      "sha256": "8ef9bb2923b6339172a3320b9f3a57438ca4fa43b00dc6f17701f8e83702551d",
+      "bytes": 24146
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-lost-ack.jpg",
+      "sha256": "171d0d504a7cf7e117d24814b532ca29ffed8d64fe3ca9c0ea13c095a5cd54d0",
+      "bytes": 33599
+    },
+    {
+      "path": "docs/screenshots/M-09b/en-390-approval-dev-read-error.jpg",
+      "sha256": "8a8c264323681c99a31ae6d81a93e2dcec4202652554718b71b072d9cf00a9c6",
+      "bytes": 26514
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-closed-aftercommit.jpg",
+      "sha256": "2ef849bce3e1823f13337699668c1159b030e2d8dbe82ef9ae8abf5b6482dd75",
+      "bytes": 37307
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-late-scope-loss.jpg",
+      "sha256": "5c7cbd3dc238e9999dc01fff1fdabb7b708bada84e694013f794269438a1c75f",
+      "bytes": 28272
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-loading.jpg",
+      "sha256": "ea5139e2c7e97deae14b7950c79c6a65898f13f8bfb81c783a42421e9db3770f",
+      "bytes": 25139
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-lost-ack.jpg",
+      "sha256": "9f327010dec99ed657784592ca8ae8249267e13a8bfb1d80fb918708c4bf7d9e",
+      "bytes": 36450
+    },
+    {
+      "path": "docs/screenshots/M-09b/es-390-approval-dev-read-error.jpg",
+      "sha256": "4f0f7b552b5f764a31169e38386a56cc05dbe03e9321e556a01fa5a51ac5be99",
+      "bytes": 27509
+    }
+  ],
+  "visuallyInspected": [
+    "docs/screenshots/M-09b/en-390-light-approval-preview.jpg",
+    "docs/screenshots/M-09b/en-390-light-approval-failure.jpg",
+    "docs/screenshots/M-09b/en-1280-dark-approval-preview.jpg",
+    "docs/screenshots/M-09b/es-390-light-approval-preview.jpg",
+    "docs/screenshots/M-09b/es-390-dark-approval-failure.jpg",
+    "docs/screenshots/M-09b/es-1280-light-approval-confirmed.jpg",
+    "docs/screenshots/M-09b/es-390-approval-dev-late-scope-loss.jpg",
+    "docs/screenshots/M-09b/en-390-approval-dev-lost-ack.jpg"
+  ],
+  "visualFindings": "Bilingual local-only boundary/confirmation and scoped error states readable; confirmation44px asserted; desktop centered dialog/mobile sheet and wrapped retry controls remain usable. Fictional data only; no export body. No broad polish acceptance.",
+  "externalFixture": "Only2 exact Google Fonts CSS URLs fulfilled with explicitly fictional offline/system-font fallback; all other external requests blocked and all unexpected request/console errors remain gates. No actual font-provider verification.",
+  "historicalHarnessCorrections": "payroll-approval-rendered-harness.json",
+  "checkedCommit": null,
+  "deployment": "Pending root exact-head CI/merge/Pages/source readback; no owner/backend acceptance.",
+  "browserState": "All37 browsers closed; root now holds slot.",
+  "historicalCaptureArchive": "/tmp/hoy-approval37-f1c987-evidence",
+  "artifactNote": "Original screenshots copied locally before active-account rerun overwrites current named captures. Hashes above preserve exact historical evidence; this is not current-source acceptance."
+}

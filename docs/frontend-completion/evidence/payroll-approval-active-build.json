@@ -1,0 +1,27 @@
+{
+  "runtime": "b47f65861ab17b96946f9f49128d07ce59d7ca78297aec511631bd929468d9f2",
+  "runtimeMethod": "Sorted src relative paths+bytes with NO NUL/separator, excluding captureDates; then vite.config.ts bytes.",
+  "attempt": {
+    "command": "npm run build",
+    "session": 33397,
+    "exitCode": 137,
+    "log": "/tmp/hoy-approval37-build-active.log",
+    "observed": "Reached Vite transforming/chunk processing; log says Killed; no release manifest.",
+    "cause": "Unestablished. Cgroup cumulative oom9/oom_kill3 without before-counter or process attribution does not prove this process cause."
+  },
+  "domainHook": "Both PASS with exact-active preview/stage/postcommit/reactivation guards.",
+  "production": "Current b47 fullbuild retry91822, production57699 and dev10276 PASS; final proof payroll-approval-final.json. Historical f1 remains separate.",
+  "next": "Root checked integration, exact-head CI and release evidence; no owner/backend acceptance.",
+  "cleanup": "No process/service cleanup or restart performed.",
+  "retry": {
+    "command": "npm run build",
+    "session": 91822,
+    "exitCode": 0,
+    "log": "/tmp/hoy-approval37-build-active-retry.log",
+    "sourceBefore": "b47f65861ab17b96946f9f49128d07ce59d7ca78297aec511631bd929468d9f2",
+    "sourceAfter": "b47f65861ab17b96946f9f49128d07ce59d7ca78297aec511631bd929468d9f2",
+    "immutableRoot": "/tmp/hoy-approval-qa-b47f65861ab1",
+    "servedBase": "http://127.0.0.1:5268/b47f65861ab1",
+    "note": "Existing fixture server retained; child snapshot served via distinct path, historical f1 root index/assets untouched; no service restart."
+  }
+}

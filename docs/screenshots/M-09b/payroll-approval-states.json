@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5267",
+  "checks": [
+    "en:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect,exact-active account preview/aftercommit block+reactivation replay;390",
+    "es:actual approval scoped read error/retry,held final-lines actor scope loss/recovery,late preview cancellation,staged duplicate/cancel rollback,postcommit close suppresses acknowledgment without undoing saved history,lost-ack same-request replay without duplicate effect,exact-active account preview/aftercommit block+reactivation replay;390"
+  ],
+  "errors": [],
+  "limitations": [
+    "Dev-only fault injection around the actual MockProvider and approval page. No backend authorization or cross-tab transaction guarantee."
+  ]
+}

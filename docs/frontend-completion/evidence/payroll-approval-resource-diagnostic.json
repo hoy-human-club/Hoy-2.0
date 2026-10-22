@@ -1,0 +1,49 @@
+{
+  "runtime": "f1c987dc9b8b",
+  "events": [
+    {
+      "kind": "intentionally-aborted",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&display=swap"
+    },
+    {
+      "kind": "intentionally-aborted",
+      "url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    },
+    {
+      "kind": "request-failed",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&display=swap",
+      "error": {
+        "errorText": "net::ERR_FAILED"
+      }
+    },
+    {
+      "kind": "console-error",
+      "message": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "kind": "request-failed",
+      "url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap",
+      "error": {
+        "errorText": "net::ERR_FAILED"
+      }
+    },
+    {
+      "kind": "console-error",
+      "message": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ]
+}
