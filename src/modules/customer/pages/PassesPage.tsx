@@ -53,7 +53,7 @@ export function PassesPage() {
           {PASS_IDS.map((id) => {
             const q=catalog.quote(id),p=q?quotedItem(q):priceOf(id);
             if(!q)return <Card key={id} tone="muted"><p>{t('quotes.unavailable')}</p></Card>;
-            if (id === 'trial' && ent.trialUsed) return <Card key={id} tone="muted" padding="sm"><p className="small muted">{t('customer.passes.trialUsed')}</p></Card>;
+            if (id === 'trial' && ent.trial.status!=='eligible') return <Notice key={id} tone="warn" action={ent.trial.status==='trial_check_failed'?<Button onClick={ent.trial.retry}>{t('core.common.retry')}</Button>:undefined}>{t(`customer.trialGuard.${ent.trial.status}`)}</Notice>;
             return (
               <Card key={id} className="cust-pass" padding="md">
                 <div className="row-between wrap">

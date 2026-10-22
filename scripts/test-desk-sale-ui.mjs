@@ -67,7 +67,7 @@ try {
   checks.push(`${kind}: approved new single sale checks in once, spends exact new payment, preserves historical purchased terms`);await ctx.close();
  }
  for(const kind of ['full','duplicate','pending','storage']) {
-  console.log(`Sale UI ${kind}: start`); const {ctx,page}=await fixture(kind==='full'||kind==='duplicate'?kind:'open');await fill(page,'en',kind==='duplicate');
+  console.log(`Sale UI ${kind}: start`); const {ctx,page}=await fixture(kind==='full'||kind==='duplicate'?kind:'open');await fill(page,'en',kind==='duplicate');if(kind==='duplicate')await page.getByText('Individual class',{exact:true}).click();
   if(kind==='pending')await page.getByRole('radio',{name:/Wompi link/}).click();
   const before=await snapshot(page);
   if(kind==='storage')await page.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='hoyos.db.v1')throw new DOMException('QA quota failure','QuotaExceededError');return original.call(this,k,v);};});

@@ -2,6 +2,12 @@ import type { StringTable } from '../../i18n/types';
 
 /** Every user-facing string of the customer app (C-xx, A-xx, E-xx). Spanish first; English always present. */
 export const strings: StringTable = {
+  'customer.trialGuard.trial_checking': { es: 'Comprobando la prueba ficticia…', en: 'Checking the fictional trial…' },
+  'customer.trialGuard.trial_check_failed': { es: 'No se pudo comprobar la prueba ficticia. Reintenta antes de continuar.', en: 'Could not check the fictional trial. Retry before continuing.' },
+  'customer.trialGuard.trial_used': { es: 'La prueba ya fue comprada o reservada. No se ofrece una segunda prueba.', en: 'The trial has already been purchased or booked. A second trial is unavailable.' },
+  'customer.trialGuard.trial_active_package': { es: 'La prueba no está disponible con un paquete confirmado activo. Usa sus clases restantes o elige una clase individual.', en: 'The trial is unavailable with a confirmed active package. Use its remaining classes or choose an individual class.' },
+  'customer.trialGuard.trial_clarification': { es: 'Prueba ficticia pausada: los datos de congelación o del historial necesitan aclaración. Esta precaución de la demo no define la política real de elegibilidad.', en: 'Fictional trial paused: freeze or historical details need clarification. This demo safeguard does not define the real eligibility policy.' },
+
   // C-01 home
   'customer.home.greeting': { es: 'Hola, {name}', en: 'Hi, {name}' },
   'customer.home.next': { es: 'Tu próxima clase', en: 'Your next class' },

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import {useTrialAssessment} from './useTrialAssessment';
 import { useSession } from '../../auth/SessionProvider';
 import type { DataProvider } from '../../data/types';
 import { useData, useTable } from '../../data/DataContext';
@@ -63,6 +64,7 @@ export type EntitlementKind = 'package' | 'membership' | 'trial' | 'single';
  */
 export function useEntitlements() {
   const { user } = useSession();
+  const trial=useTrialAssessment(user.id);
   const { rows: memberships } = useTable<MembershipRow>('memberships', { where: { user_id: user.id } });
   const { rows: ledger } = useTable<ClassLedgerRow>('class_ledger', { where: { user_id: user.id } });
   const { rows: payments } = useTable<PaymentRow>('payments', { where: { user_id: user.id } });
@@ -73,9 +75,9 @@ export function useEntitlements() {
     const pkg = packageState(approvedPackageRows(ledger, payments));
     const plan = membership ? plans.find((p) => p.id === membership.plan_id) ?? null : pkg.purchase?.plan_id ? plans.find((p) => p.id === pkg.purchase!.plan_id) ?? null : null;
     const trialUsed = bookings.some((b) => b.paid_with === 'trial') || payments.some((p) => p.plan_id === 'plan_trial' && p.status === 'approved');
-    const defaultKind: EntitlementKind = pkg.balance > 0 ? 'package' : membership?.status === 'active' ? 'membership' : !trialUsed ? 'trial' : 'single';
-    return { membership, plan, ledger, pkg, classBalance: pkg.balance, nextExpiry: pkg.expiresAt, trialUsed, payments, defaultKind, hasAnyEntitlement: pkg.balance > 0 || membership?.status === 'active' };
-  }, [memberships, ledger, payments, bookings, plans]);
+    const defaultKind: EntitlementKind = pkg.balance > 0 ? 'package' : membership?.status === 'active' ? 'membership' : trial.status==='eligible' ? 'trial' : 'single';
+    return { membership, plan, ledger, pkg, classBalance: pkg.balance, nextExpiry: pkg.expiresAt, trialUsed, trial, payments, defaultKind, hasAnyEntitlement: pkg.balance > 0 || membership?.status === 'active' };
+  }, [memberships, ledger, payments, bookings, plans, trial.status]);
 }
 
 /** C-07b: freeze the package (once, up to the M-08 freezeMaxDays) and end a freeze early. */
