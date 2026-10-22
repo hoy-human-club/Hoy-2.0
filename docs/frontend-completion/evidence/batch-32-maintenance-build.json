@@ -25,8 +25,8 @@
   ],
   "baselineReproductions": 2,
   "newDomainGroups": 10,
-  "productionUi": "Pending focused immutable production lifecycle smoke; earlier full matrix historical only.",
-  "developmentUi": "Pending actual dev lifecycle/control-replacement proof; earlier full matrix historical only.",
+  "productionUi": "PASS10587 focused repaired immutable production lifecycle EN1280light+ES390dark and all11roles; zero errors/dispatch, fingerprint unchanged. Earlier complete8matrix remains historical runtime evidence.",
+  "developmentUi": "PASS68804 actual dev EN/ES existing-provider lifecycle faults and retained original live callback/signal despite caller replacement during held digest/read (4 browser assertions/language); zero page errors.",
   "limits": [
     "OT02 AfterNov30/Low/sourceNotVerified unchanged; no operational/safety/assignment/threshold/procurement/alert action.",
     "Fictional mock stage only, no real server/cross-tab/authenticated persistence/security or commercial acceptance.",
@@ -42,7 +42,7 @@
       }
     ]
   },
-  "runtimeSourceAndAssetTreesUnchangedAfterBothSuites": false,
+  "runtimeSourceAndAssetTreesUnchangedAfterBothSuites": true,
   "captureCount": 60,
   "inspectedFinalCaptures": [
     "en-390-dark-fences-quota.jpg",
@@ -55,7 +55,7 @@
   "legacyReceiptSemantics": "Historical full-row receipts are read-only verified against current owned row digests; no cache reset/schema/storage version or historical receipt rewrite.",
   "postcommitSemantics": "Cancellation/ownership/read failure after commit suppresses acknowledgement; committed record/audit are not undone. Restored valid retry checks target digest and does not duplicate audit.",
   "generatedGlobalTrackedDiffs": [],
-  "sourceFreeze": "Runtime source rebuilt after retained-control repair; affected browser QA queued. No final repaired-runtime acceptance.",
+  "sourceFreeze": "FINAL repaired runtime source/build/domain/focused production/dev proof complete. Six runtime/full source/full assets exact hashes unchanged after affected QA; earlier8matrix historical only. Root owns integration/exact-head CI/release.",
   "controlRepair": {
     "confirmedBaseline": [
       "Mutable control.currentActor replacement during held digest permits old-actor commit.",
@@ -65,7 +65,7 @@
     "source": "Capture original signal/currentActor/failAfterWrites references synchronously at both exported entries; live callback and signal continue observing changes.",
     "domain": "PASS10 groups, including held digest/read and postcommit control replacement.",
     "build": "PASS25320 EXIT0; original maintenance suite and10 fence groups PASS.",
-    "affectedBrowserQa": "QUEUED by coordinator behind release/browser priority; no new-runtime acceptance."
+    "affectedBrowserQa": "PASS focused production10587 and actual dev68804; both browsers closed, separate repaired receipts retain historical full-matrix distinction."
   },
   "historicalFullMatrix": {
     "build": "npm run build40257 EXIT0, strictTS/spacing/manual lint; Vite13.89s;66.7MB shots. Existing actions reexport circular-chunk warnings remain.",
@@ -87,5 +87,25 @@
     },
     "sourceFreeze": "Superseded for current runtime; retained unchanged historical full-matrix receipt."
   },
-  "treeDigestMethod": "Sorted path then NUL then file bytes then NUL; SHA256."
+  "treeDigestMethod": "Sorted path then NUL then file bytes then NUL; SHA256.",
+  "repairedCaptures": [
+    "en-1280-control-repair-postcommit.jpg",
+    "en-1280-light-control-repair-checklist.jpg",
+    "en-1280-light-control-repair-equipment.jpg",
+    "en-1280-light-control-repair-incident.jpg",
+    "en-1280-light-control-repair-pending.jpg",
+    "en-1280-light-control-repair-quota.jpg",
+    "en-1280-light-control-repair-read-error.jpg",
+    "en-1280-light-control-repair-supply.jpg",
+    "en-390-control-repair-postcommit.jpg",
+    "es-1280-control-repair-postcommit.jpg",
+    "es-390-control-repair-postcommit.jpg",
+    "es-390-dark-control-repair-checklist.jpg",
+    "es-390-dark-control-repair-equipment.jpg",
+    "es-390-dark-control-repair-incident.jpg",
+    "es-390-dark-control-repair-pending.jpg",
+    "es-390-dark-control-repair-quota.jpg",
+    "es-390-dark-control-repair-read-error.jpg",
+    "es-390-dark-control-repair-supply.jpg"
+  ]
 }
