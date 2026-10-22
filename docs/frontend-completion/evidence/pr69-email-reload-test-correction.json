@@ -1,0 +1,11 @@
+{
+  "failedHead": "13832d5a5f5b274111167d264f1976c64b0bc721",
+  "run": 39733948024,
+  "job": 119675171811,
+  "assertion": "After explicit reload, Spanish subject value was FICTICIO BORRADOR RETENIDO before asynchronous acknowledgement refreshed the editor; expected FICTICIO OTRA VERSION.",
+  "sourceEvidence": "EmailsPage Editor useEffect resets basis/draft only on acknowledged result. Existing stale row v9 label is present before reload; waiting for v9 is not an acknowledgement barrier.",
+  "correction": "Wait at same45s timeout for the actual subject input to equal the exact expected current saved value, then retain original equality assertion. No sleep/retry, no runtime change, no weakened no-write/draft/rollback assertions.",
+  "runtimeFingerprint": "0ab9598216b417df3059730f86657a669e09c9333dd9c978856807be4c630477",
+  "localFollowup": "PENDING exclusive resource lane after batch38",
+  "finalHeadCI": "PENDING"
+}

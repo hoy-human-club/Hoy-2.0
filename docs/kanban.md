@@ -751,3 +751,5 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 - PR67 checked3b752e5 all11 workflows/all12 correctness scopes, deployed e04afec; Pages39724393280 all3 jobs and exact source/hosted subscription flow passed. Root32/33 combined fullbuild/domain passed; final combined rendered/CI/release gates remain pending.
 
 - Operational34–37: combined fullbuild42290/domain10/all12 serial rendered gates PASS at0ab95982…; proof in frontend-completion/evidence/integrated-batches-34-37.json. Final-head CI/release pending; live PR68 unchanged. Inactive-account guards follow existing contract. Named local slices only; backend/delivery/owner acceptance pending. 38/39 visual repairs and40 browser QA queued;41/42 source-only untested.
+
+PR69 head13832d5 correctness CI email-edit production test failed on an invalid reload wait (v9 label was already present before acknowledgement). Exact input-value wait replaces it at unchanged45s; all draft/no-write/rollback assertions retained, no runtime change. Evidence: frontend-completion/evidence/pr69-email-reload-test-correction.json. Final-head checks and narrow local follow-up pending; do not merge yet.
