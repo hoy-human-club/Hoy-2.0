@@ -56,7 +56,8 @@ export function SignUpPage() {
   useEffect(()=>{
     void loadLegal();
     const off=data.subscribe('legal_documents',()=>void loadLegal());
-    return()=>{legalEpoch.current++;off();};
+    const offSettings=data.subscribe('tenants',()=>void loadLegal());
+    return()=>{legalEpoch.current++;off();offSettings();};
   },[data,loadLegal]);
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [busy, setBusy] = useState(false);

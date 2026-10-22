@@ -93,7 +93,7 @@ export const DEFAULT_SETTINGS: StudioSettings = {
 export interface TenantRow extends BaseRow { settings: Partial<StudioSettings> | null }
 
 /** Stored partial → full settings with defaults. Exported so non-React code (customer policy) can read the same shape. */
-function mergeSettings(stored: Partial<StudioSettings> | null | undefined): StudioSettings {
+export function mergeSettings(stored: Partial<StudioSettings> | null | undefined): StudioSettings {
   const s = stored ?? {};
   return {
     studio: { ...DEFAULT_SETTINGS.studio, ...(s.studio ?? {}) },

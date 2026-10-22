@@ -205,7 +205,7 @@ export function TablesPage() {
       else if (c.type === 'timestamptz') blank[c.name] = c.nullable ? null : new Date().toISOString();
       else blank[c.name] = c.nullable ? null : '';
     }
-    const row = await data.insert(def.name, { ...blank, ...prefill });
+    const row = await data.insert(def.name, { ...blank, ...prefill, ...(def.name==='legal_documents'?{status:'draft'}:{}) });
     openRow(row.id);
     toast(t('admin.tables.added'), 'success');
   };
@@ -237,7 +237,7 @@ export function TablesPage() {
     return views.find((v) => v.id === ref) ?? views.find((v) => v.name.es.toLowerCase() === q || v.name.en.toLowerCase() === q);
   };
   const moveCard = async (id: string, column: string, value: string | boolean) => {
-    if (!def || !canWriteRows) return;
+    if (!def || !canWriteRows || def.name==='legal_documents'&&resolve(def.name,id)?.status==='published') return;
     await data.update(def.name, id, { [column]: value });
     const row = resolve(def.name, id);
     toast(t('admin.tables.kanban.moved', { title: row ? rowTitle(def, row, lang, resolve) : id, value: typeof value === 'boolean' ? t(value ? 'admin.tables.yes' : 'admin.tables.no') : enumLabel(value, lang) }), 'success');
@@ -422,7 +422,7 @@ export function TablesPage() {
               </div>
             )}
 
-            <RowDrawer def={def} row={selectedRow} canWrite={canWriteRows} technical={technical} resolve={resolve} rowsOf={rowsOf} onClose={() => openRow(null)}
+            <RowDrawer def={def} row={selectedRow} canWrite={canWriteRows && !(def.name==='legal_documents'&&selectedRow?.status==='published')} technical={technical} resolve={resolve} rowsOf={rowsOf} onClose={() => openRow(null)}
               onGraph={(id) => setParam({ id: null, view: 'graph', focus: id })} relatedHref={(tbl, column, id) => `/admin/tables/${tbl}?where=${encodeURIComponent(`${column}:${id}`)}`} />
           </>
         )}

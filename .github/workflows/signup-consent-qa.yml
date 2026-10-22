@@ -4,6 +4,9 @@ on:
     paths:
       - 'src/modules/customer/auth/**'
       - 'src/modules/customer/legal.tsx'
+      - 'src/modules/customer/legalContent.ts'
+      - 'src/components/organism/LegalDocument/**'
+      - 'src/modules/admin/settings.ts'
       - 'src/modules/customer/strings.ts'
       - 'src/modules/website/pages/LegalPage.tsx'
       - 'src/components/organism/SignupLegalConsent/**'
@@ -31,6 +34,7 @@ jobs:
       - run: npm ci
       - name: Verify registration and existing audit/report contracts
         run: |
+          node scripts/test-signup-consent-recovery.mjs
           node scripts/test-signup-consent.mjs
           node scripts/test-customer-registration.mjs
           node scripts/test-sensitive-audit.mjs
@@ -40,6 +44,7 @@ jobs:
         run: |
           npm run preview -- --host 127.0.0.1 --strictPort --port 5333 > /tmp/hoy-signup-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5333/ >/dev/null && break; sleep 1; done
+          node scripts/test-signup-consent-recovery-ui.mjs
           node scripts/test-signup-consent-ui.mjs
           node scripts/test-signup-consent-library.mjs
           QA_OUTPUT=qa/signup-consent/customer-return node scripts/test-customer-return-ui.mjs
