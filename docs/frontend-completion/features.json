@@ -1158,17 +1158,22 @@
       "priority": "Urgent",
       "relatedTests": "CLI-02, TRA-01",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/auth/SignInPage.tsx",
         "src/modules/customer/auth/PasswordResetPage.tsx",
         "src/modules/customer/auth/LockedPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
+      "routes": [
+        "/#/auth/recover"
+      ],
+      "tests": [
+        "scripts/test-recovery.mjs",
+        "scripts/test-recovery-ui.mjs"
+      ],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Build explicit fictional email-code/Google flows with deterministic expiry/lockout states; backend disconnected.",
+      "nextAction": "Implement remaining disconnected sign-in states separately; Anu supplies authorized identity service.",
       "candidateRoutes": [
         "/#/auth/sign-in",
         "/#/auth/recover",
@@ -1184,7 +1189,20 @@
         ]
       },
       "sourceNextAction": "Build explicit fictional email-code/Google flows with deterministic expiry/lockout states; backend disconnected.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-23.md",
+          "behavior": "Memory-only fictional recovery challenge absolute expiry, resend invalidation, three wrong attempts and busy/cancel/unmount protection; explicit disconnected completion.",
+          "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
+          "limits": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance.",
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+        }
+      ],
+      "currentFrontendAssessment": {
+        "basis": "Bounded batch23 local production/domain proof; combined release pending",
+        "remaining": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance."
+      }
     },
     {
       "id": "CU-04",
@@ -1239,18 +1257,24 @@
       "priority": "Medium",
       "relatedTests": "CLI-19",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/ProfilePage.tsx",
         "src/modules/staff/people.ts",
         "src/modules/admin/MemberPage.tsx",
         "docs/frontend-completion/next-customer-audit.md"
       ],
-      "routes": [],
-      "tests": [],
+      "routes": [
+        "/#/app/profile"
+      ],
+      "tests": [
+        "scripts/test-profile-save.mjs",
+        "scripts/test-profile-save-ui.mjs",
+        "scripts/test-profile-save-states.mjs"
+      ],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Batch22 isolates mock-only atomic own-profile saving and contained reads without expanding field readership; verify authorized CRM name/phone/birthday readback and preserve emergency-contact display gap.",
+      "nextAction": "Review emergency-contact readership separately; Anu provides authorized atomic own-profile service.",
       "candidateRoutes": [
         "/#/app/profile",
         "/#/admin/crm/:id"
@@ -1274,6 +1298,19 @@
         "remainingBackend": [
           "Authenticated own-profile writes and cross-device persistence."
         ]
+      },
+      "continuationEvidence": [
+        {
+          "batch": "batch-22.md",
+          "behavior": "Scoped own profile + users.phone writes and digest-only audit receipt are atomic in fictional mock; contained reads/missing-row/stale/cancel/retry/replay behavior.",
+          "verification": "Full build/domain/immutable5217 ENES3901280 lightdark and dev lifecycle passed. Source663abcf merged; combined build/CI/release pending.",
+          "limits": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair.",
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+        }
+      ],
+      "currentFrontendAssessment": {
+        "basis": "Bounded batch22 local production/domain proof; combined release pending",
+        "remaining": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair."
       }
     },
     {
@@ -1332,16 +1369,21 @@
       "priority": "Low",
       "relatedTests": "CLI-02, INT-03",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/auth/PasswordResetPage.tsx",
         "src/modules/customer/auth/SignInPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
+      "routes": [
+        "/#/auth/recover"
+      ],
+      "tests": [
+        "scripts/test-recovery.mjs",
+        "scripts/test-recovery-ui.mjs"
+      ],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Preserve After Nov30 label; implement distinct fictional sign-in states without claiming code delivery.",
+      "nextAction": "Preserve future phase; Anu supplies authorized WhatsApp identity contract.",
       "candidateRoutes": [
         "/#/auth/recover",
         "/#/auth/sign-in"
@@ -1356,7 +1398,20 @@
         ]
       },
       "sourceNextAction": "Preserve After Nov30 label; implement distinct fictional sign-in states without claiming code delivery.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-23.md",
+          "behavior": "Fictional recovery expiry and lifecycle only; no WhatsApp message sent.",
+          "verification": "Full build/domain and immutable5219 all8 ENES3901280 lightdark public matrices passed; source60f86cc merged, combined CI/release pending.",
+          "limits": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected.",
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
+        }
+      ],
+      "currentFrontendAssessment": {
+        "basis": "Bounded batch23 local production/domain proof; combined release pending",
+        "remaining": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected."
+      }
     },
     {
       "id": "PR-01",
@@ -5371,13 +5426,15 @@
       ],
       "tests": [
         "scripts/test-api-request-fixture.mjs",
-        "scripts/test-api-request-fixture-ui.mjs"
+        "scripts/test-api-request-fixture-ui.mjs",
+        "scripts/test-api-key-mutations.mjs",
+        "scripts/test-api-key-mutations-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/D-07/api-fixture-results.json"
       ],
       "blockers": [],
-      "nextAction": "Anu supplies actual API/key enforcement; continue isolated mock key-mutation failure handling without changing scopes/roles/security policy.",
+      "nextAction": "Anu supplies authorized API enforcement; repeat combined exact-head QA before release.",
       "candidateRoutes": [
         "/#/dev/api-keys"
       ],
@@ -5398,9 +5455,20 @@
           "verification": "Full build and immutable5200 EN/ES390/1280 light/dark rendered QA passed with zero page errors. Domain, failure/cancel/retry, replay/no-duplicate-effect, allowed/denied roles and dev loading/read-error/race suites passed. Existing receipt regression passed5200. Exact-head CI/release pending.",
           "limits": "Real HTTP/key validation/auth/rate limits absent. Existing mock key-mutation atomicity/validation gaps remain separate follow-up.",
           "acceptance": "Original phase, role, literal criterion and source status preserved; no owner/backend acceptance."
+        },
+        {
+          "batch": "batch-20.md",
+          "behavior": "Mock create/rotate/revoke + audit persist atomically, safe one-time reveal and metadata-only committed replay; no raw persistence/log/captures.",
+          "verification": "Full build/domain7groups and immutable5213 ENES3901280 lightdark/all11roles/lost-ack UI passed. Root merged source c4dd183; combined build/CI/release pending.",
+          "limits": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved.",
+          "acceptance": "Original source criteria, roles, phases and owner status unchanged; no whole-feature/backend acceptance."
         }
       ],
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "currentFrontendAssessment": {
+        "basis": "Bounded batch20 local production/domain proof; combined release pending",
+        "remaining": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved."
+      }
     },
     {
       "id": "OT-01",
