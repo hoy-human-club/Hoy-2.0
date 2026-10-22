@@ -1,0 +1,39 @@
+{
+  "pr": "https://github.com/imagine-os/hoy/pull/67",
+  "checkedHead": "3b752e5fb3e21a85eddab041ee377ca14148eaa6",
+  "merge": "e04afec218eab935debe57a1f6d8ad451b7b9a2f",
+  "version": "0.25.0",
+  "checks": {
+    "result": "All11 triggered workflows completed success; correctness all12 scopes independently verified.",
+    "runs": [
+      39723775691,
+      39723775978,
+      39723775862,
+      39723775696,
+      39723775757,
+      39723775720,
+      39723775741,
+      39723775779,
+      39723775734,
+      39723775660,
+      39723775858
+    ]
+  },
+  "pages": {
+    "run": 39724393280,
+    "jobs": {
+      "build": 119644883777,
+      "deploy": 119645238751,
+      "verify-subscriptions": 119645341049
+    },
+    "result": "All3 completed success; logs check exact e04afec218eab935debe57a1f6d8ad451b7b9a2f and verify public subscriptions route.",
+    "artifact": 12402337994
+  },
+  "public": "https://imagine-os.github.io/hoy/",
+  "rollback": "ede03f34190e06b5b4a9f502c9262036a76cb59f",
+  "limits": [
+    "Hosted check proves source provenance and selected existing rendered flows; new payroll/event code has local immutable and exact-head CI proof, not owner/backend acceptance.",
+    "Historical catalog CI cause remains unresolved; controlled UUID false positive separately reproduced/fixed/regression-tested.",
+    "No extra local public-manifest request: earlierPR66 request returned403 and was not retried or bypassed. Existing hosted verification is the normal authorized release contract."
+  ]
+}
