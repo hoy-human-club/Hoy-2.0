@@ -27,7 +27,7 @@ export const S04 = defineSpec({
   layout: ['Step1 · Who (new / existing)', 'Step2 · What (pricing.ts)', 'Step3 · How they pay', 'SummaryRail (IVA + total)', 'Receipt'],
   data: ['users', 'profiles', 'user_roles', 'consents', 'payments', 'invoices', 'memberships', 'class_ledger', 'bookings', 'class_sessions', 'message_log', 'audit_log', 'tenants'],
   states: [...(canvasSpecs['S-04'].states ?? []), 'No permission: form read-only', 'Sale complete: receipt view', 'Capacity / duplicate / pending check-in rejected with entire sale rolled back', 'Storage or injected write failure: no partial user, consent, payment, invoice, ledger or booking'],
-  notes: [...(canvasSpecs['S-04'].notes ?? []), 'Prices only from src/tenant/pricing.ts; IVA from M-08 tax settings.', 'Wompi link is a placeholder: payment stays pending until the gateway confirms.', 'RC-10: entire fictional sale is staged, persisted once and deduplicated by a browser-local transaction receipt. No actual messaging/payment dispatch. Pending sales never activate classes or check in.'],
+  notes: [...(canvasSpecs['S-04'].notes ?? []), 'Ordinary mapped fictional sales use reviewed dated local catalog snapshots; baseline pricing.ts before any publication. Special/private pricing stays separate; IVA from M-08 tax settings. Submitted price/terms never reprice later.', 'Wompi link is a placeholder: payment stays pending until the gateway confirms.', 'RC-10: entire fictional sale is staged, persisted once and deduplicated by a browser-local transaction receipt. No actual messaging/payment dispatch. Pending sales never activate classes or check in.'],
 });
 
 /** S-05 rooms — the day of every room; classes and space bookings side by side (Especiales, 0017). */

@@ -1,9 +1,13 @@
+import {useRef} from 'react';
+import {useOperationalCatalog,useReviewedQuote} from '../../quotes/hooks';
+import {QuoteNotice} from '../../../components/molecule/QuoteNotice/QuoteNotice';
+import {checkSaleQuote,quotedItem,readPaymentQuote} from '../../../data/operationalQuotes';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
-import { formatCOP, formatDate, addDays, addDaysKey, dateKey, fromDateKey, MS } from '../../../i18n/format';
+import { formatCOP, formatDate, addDaysKey, dateKey, fromDateKey, MS } from '../../../i18n/format';
 import { type PriceItem } from '../../../tenant/pricing';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
@@ -18,7 +22,7 @@ import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow
 import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { EmptyState } from '../../../components/molecule/EmptyState/EmptyState';
 import { PACKAGE_IDS, PASS_IDS, priceOf, useEntitlements, usePackageActions } from '../hooks';
-import { recordPayment, wompiCheckout } from '../payments';
+import { activatePaidPackage, recordPayment, wompiCheckout } from '../payments';
 import { policy } from '../policy';
 import { PageHead } from '../ui';
 
@@ -30,6 +34,7 @@ export function PassesPage() {
   const nav = useNavigate();
   const [params] = useSearchParams();
   const ent = useEntitlements();
+  const catalog=useOperationalCatalog();
   const session = params.get('session');
 
   const pick = (id: string) => {
@@ -46,7 +51,8 @@ export function PassesPage() {
         <div><div className="eyebrow">{t('customer.passes.eyebrow')}</div><p className="small muted">{t('customer.passes.intro')}</p></div>
         <div className="stack-sm">
           {PASS_IDS.map((id) => {
-            const p = priceOf(id);
+            const q=catalog.quote(id),p=q?quotedItem(q):priceOf(id);
+            if(!q)return <Card key={id} tone="muted"><p>{t('quotes.unavailable')}</p></Card>;
             if (id === 'trial' && ent.trialUsed) return <Card key={id} tone="muted" padding="sm"><p className="small muted">{t('customer.passes.trialUsed')}</p></Card>;
             return (
               <Card key={id} className="cust-pass" padding="md">
@@ -76,30 +82,39 @@ export function ClassesPage() {
   const ent = useEntitlements();
   const { freeze, resume } = usePackageActions();
   const [buying, setBuying] = useState<PriceItem | null>(null);
+  const catalog=useOperationalCatalog(),review=useReviewedQuote(catalog,buying?.id??null,1,30);
+  const purchaseKey=useRef(crypto.randomUUID()),purchaseBusy=useRef(false);
+  const [purchaseError,setPurchaseError]=useState(false);
+  const shownBuying=review.quote?quotedItem(review.quote):buying;
   const [sheet, setSheet] = useState(false);
   const [days, setDays] = useState(() => Math.min(14, policy.freezeMaxDays));
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [flash, setFlash] = useState<string | null>(null);
   const { pkg } = ent;
-  const packs = [...PACKAGE_IDS, 'single'].map(priceOf);
+  const packs = [...PACKAGE_IDS, 'single'].flatMap(id=>{const q=catalog.quote(id);return q?[quotedItem(q)]:[];});
   const ledger = [...ent.ledger].sort((a, b) => b.created_at.localeCompare(a.created_at));
   const today = dateKey();
   const soon = !pkg.frozen && pkg.expiresAt && (fromDateKey(pkg.expiresAt).getTime() - Date.now()) < 7 * MS.day;
   const purchase = pkg.purchase;
-  const planName = ent.plan ? bi({ es: ent.plan.name_es, en: ent.plan.name_en }) : t('customer.classes.package');
+  const purchasedPayment=ent.payments.find(p=>p.id===purchase?.payment_id),purchasedQuote=purchasedPayment?readPaymentQuote(purchasedPayment):null;
+  const planName = purchasedQuote?bi(purchasedQuote.name):ent.plan ? bi({ es: ent.plan.name_es, en: ent.plan.name_en }) : t('customer.classes.package');
   const options = [7, 14, 21, 30].filter((d) => d <= policy.freezeMaxDays);
 
   const buy = async () => {
-    if (!buying) return;
-    setBusy(true);
-    try {
-      const result = await wompiCheckout({ amount: buying.price ?? 0, method: 'card' }); // INTEGRATION SEAM: Wompi
-      const payment = await recordPayment(data, { userId: user.id, planId: `plan_${buying.id}`, amount: buying.price ?? 0, method: 'card', result, ivaRate: policy.ivaRate });
-      if (result.status !== 'approved') return;
-      await data.insert('class_ledger', { user_id: user.id, plan_id: `plan_${buying.id}`, payment_id: payment.id, delta: buying.classes ?? 1, reason: 'purchase', expires_at: dateKey(addDays(new Date(), buying.validityDays ?? 30)), frozen_from: null, frozen_until: null });
-      setDone(true);
-    } finally { setBusy(false); }
+    if(!buying||!review.quote||!review.available||purchaseBusy.current)return;
+    purchaseBusy.current=true;setBusy(true);setPurchaseError(false);const frozen=review.quote;
+    try{
+      await checkSaleQuote(data,frozen);
+      const result=await wompiCheckout({amount:frozen.chargedAmount,method:'card'});
+      if(!data.atomic)throw Error('atomic_unavailable');
+      await data.atomic(async tx=>{
+        const payment=await recordPayment(tx,{userId:user.id,planId:frozen.planId,amount:frozen.chargedAmount,method:'card',result,ivaRate:policy.ivaRate,quote:frozen});
+        if(result.status!=='approved')return;
+        await activatePaidPackage(tx,{paymentId:payment.id,userId:user.id,planId:frozen.planId,classes:frozen.classes,expiresAt:frozen.entitlementExpiresAt!});
+      },{idempotencyKey:`classes:${user.id}:${purchaseKey.current}`});
+      if(result.status==='approved')setDone(true);else{purchaseKey.current=crypto.randomUUID();setPurchaseError(true);}
+    }catch{setPurchaseError(true);}finally{setBusy(false);purchaseBusy.current=false;}
   };
   const doFreeze = async () => {
     if (!purchase) return;
@@ -111,7 +126,7 @@ export function ClassesPage() {
   const packGrid = (
     <section className="stack-sm">
       <h2 className="cust-h2">{t('customer.classes.topUp')}</h2>
-      <Card padding="none">{packs.map((p) => <PriceRow key={p.id} item={p} onSelect={setBuying} />)}</Card>
+      <Card padding="none">{packs.map((p) => <PriceRow key={p.id} item={p} onSelect={p=>{purchaseKey.current=crypto.randomUUID();setDone(false);setPurchaseError(false);setBuying(p);}} />)}</Card>
       <p className="xs muted">{t('customer.classes.topUp.note')}</p>
     </section>
   );
@@ -154,14 +169,16 @@ export function ClassesPage() {
       </div>
 
       <Drawer open={!!buying} onClose={() => { setBuying(null); setDone(false); }} side="bottom" title={done ? t('customer.classes.done.title') : t('customer.classes.buy.title')}>
-        {buying && !done && (
+        {buying && shownBuying && !done && (
           <div className="stack">
-            <OrderSummary lines={[{ label: bi(buying.name), amount: buying.price ?? 0 }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('customer.checkout.receiptNote')} />
+            <QuoteNotice catalog={catalog} review={review}/>
+            {purchaseError&&<Notice tone="danger">{t('quotes.failed')}</Notice>}
+            <OrderSummary lines={[{ label: bi(shownBuying.name), amount:review.quote?.chargedAmount??0 }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('customer.checkout.receiptNote')} />
             {buying.audience && <Notice tone="info">{t('customer.plans.benefit.affiliates')}</Notice>}
-            <Button block size="lg" loading={busy} onClick={buy}>{t('customer.checkout.payWompi', { amount: formatCOP(buying.price ?? 0, lang) })}</Button>
+            <Button block size="lg" disabled={!review.available} loading={busy} onClick={buy}>{t('customer.checkout.payWompi', { amount: formatCOP(review.quote?.chargedAmount??0,lang) })}</Button>
           </div>
         )}
-        {done && buying && <Notice tone="success" title={t('customer.classes.done.title')}>{t('customer.classes.done.body', { n: buying.classes ?? 1 })}</Notice>}
+        {done && buying && <Notice tone="success" title={t('customer.classes.done.title')}>{t('customer.classes.done.body', { n:review.quote?.classes??buying.classes??1 })}</Notice>}
       </Drawer>
 
       <Drawer open={sheet} onClose={() => setSheet(false)} side="bottom" title={t('customer.classes.freeze')}>

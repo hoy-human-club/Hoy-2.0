@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import {useOperationalCatalog,useReviewedQuote} from '../../quotes/hooks';
+import {QuoteNotice} from '../../../components/molecule/QuoteNotice/QuoteNotice';
+import {checkSaleQuote,quotedItem} from '../../../data/operationalQuotes';
+import {purchaseQuotedGift} from '../giftPurchase';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData } from '../../../data/DataContext';
-import { formatCOP, dateKey, isPhone, atStudioTime, fromDateKey } from '../../../i18n/format';
-import { tenant } from '../../../tenant/tenant';
+import { formatCOP, dateKey, isPhone } from '../../../i18n/format';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { Chip } from '../../../components/atom/Chip/Chip';
@@ -14,7 +17,7 @@ import { Notice } from '../../../components/molecule/Notice/Notice';
 import { Wordmark } from '../../../components/atom/Wordmark/Wordmark';
 import { OrderSummary } from '../../../components/molecule/OrderSummary/OrderSummary';
 import { priceOf } from '../hooks';
-import { recordPayment, wompiCheckout } from '../payments';
+import { wompiCheckout } from '../payments';
 import { policy } from '../policy';
 import { PageHead } from '../ui';
 
@@ -40,34 +43,38 @@ export function GiftPage() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<string | null>(null);
 
-  const item = priceOf(amountId);
-  const amount = (item.price ?? 0) * qty;
+  const catalog=useOperationalCatalog(),review=useReviewedQuote(catalog,amountId,qty,null);
+  const giftKey=useRef(crypto.randomUUID()),giftBusy=useRef(false);
+  const item = review.quote?quotedItem(review.quote):priceOf(amountId);
+  const amount = review.quote?.chargedAmount??0;
   const label = qty > 1 ? `${qty} × ${bi(item.name)}` : bi(item.name);
   const today = dateKey();
 
   const buy = async () => {
+    if(!review.available||!review.quote||giftBusy.current)return;
     const e: Record<string, string> = {};
     if (qty < 1 || qty > MAX_QTY) e.amount = t('customer.gift.qty.err', { max: MAX_QTY });
     if (name.trim().length < 2) e.name = t('customer.form.required');
     if (!contact.includes('@') && !isPhone(contact)) e.contact = t('customer.gift.contact.err');
     if (date < today) e.date = t('customer.gift.date.past');
     setErrors(e); if (Object.keys(e).length) return;
-    setBusy(true);
+    giftBusy.current=true;setBusy(true);
     try {
+      await checkSaleQuote(data,review.quote);
       const result = await wompiCheckout({ amount, method: 'card' }); // INTEGRATION SEAM: Wompi
-      await recordPayment(data, { userId: user.id, planId: `plan_${amountId}`, amount, method: 'card', result, ivaRate: policy.ivaRate });
-      if (result.status !== 'approved') return;
-      const code = `${tenant.invoicePrefix}-REGALO-${Math.floor(1000 + Math.random() * 9000)}`;
-      const deliver = atStudioTime(fromDateKey(date), 8);
-      await data.insert('gift_cards', { code, buyer_user_id: user.id, recipient_name: name.trim(), recipient_contact: contact.trim(), amount, balance: amount, deliver_at: deliver.toISOString(), redeemed_by: null, status: 'draft' });
-      setDone(code);
-    } finally { setBusy(false); }
+      const stored=await purchaseQuotedGift(data,{key:giftKey.current,userId:user.id,quote:review.quote,recipientName:name,recipientContact:contact,deliveryDate:date,result,ivaRate:policy.ivaRate});
+      if(stored.code)setDone(stored.code);else{giftKey.current=crypto.randomUUID();setErrors({payment:t('quotes.failed')});}
+    }catch{setErrors({payment:t('quotes.failed')});}
+    finally{setBusy(false);giftBusy.current=false;}
   };
 
   return (
     <div className="container page cust-page">
-      <PageHead back="/app/more" title={t('customer.gift.title')} sub={t('customer.gift.sub')} />
+      <PageHead back="/app/more" title={t('customer.gift.title')} sub={t('quotes.giftIntro')} />
       <div className="stack">
+        <QuoteNotice catalog={catalog} review={review}/>
+        {!review.available&&!catalog.loading&&<Notice tone="warn">{t('quotes.giftBlocked')}</Notice>}
+        {errors.payment&&<Notice tone="danger">{errors.payment}</Notice>}
         <Notice tone="warn" title={t('vouchers.demo')}>{t('vouchers.demoBody')}</Notice>
         <Link to="/app/vouchers">{t('vouchers.giftLink')}</Link>
         <p className="small muted">{t('vouchers.giftSeparate')}</p>
@@ -85,7 +92,7 @@ export function GiftPage() {
             <Field label={`1 · ${t('customer.gift.amount')}`} error={errors.amount}>{() => (
               <div className="stack-sm">
                 <div className="row wrap">
-                  {GIFTS.map((id) => <Chip key={id} selected={amountId === id} onClick={() => setAmountId(id)}>{formatCOP(priceOf(id).price ?? 0, lang)} · {bi(priceOf(id).name)}</Chip>)}
+                  {GIFTS.map(id=>{const q=catalog.quote(id),p=q?quotedItem(q):priceOf(id);return <Chip key={id} selected={amountId===id} disabled={!q} onClick={()=>setAmountId(id)}>{q?formatCOP(q.amount,lang):t('quotes.unavailable')} · {bi(p.name)}</Chip>;})}
                 </div>
                 <div className="row wrap" role="group" aria-label={t('customer.gift.qty')}>
                   <span className="small">{t('customer.gift.qty')}</span>
@@ -93,18 +100,18 @@ export function GiftPage() {
                   <strong className="cust-pass-price" aria-live="polite">{qty}</strong>
                   <Button size="sm" variant="secondary" onClick={() => setQty((q) => Math.min(MAX_QTY, q + 1))} disabled={qty >= MAX_QTY} aria-label={t('customer.gift.qty.more')}>+</Button>
                 </div>
-                <p className="xs muted">{t('customer.gift.qty.hint')}</p>
+                <p className="xs muted">{t('quotes.giftQuantityHint')}</p>
               </div>
             )}</Field>
             <div className="eyebrow">2 · {t('customer.gift.to')}</div>
             <Field label={t('customer.form.name')} required error={errors.name}>{(id) => <Input id={id} value={name} onChange={(e) => setName(e.target.value)} />}</Field>
-            <Field label={t('customer.gift.contact')} required hint={t('customer.gift.contact.hint')} error={errors.contact}>{(id) => <Input id={id} value={contact} onChange={(e) => setContact(e.target.value)} />}</Field>
+            <Field label={t('customer.gift.contact')} required hint={t('quotes.giftContactHint')} error={errors.contact}>{(id) => <Input id={id} value={contact} onChange={(e) => setContact(e.target.value)} />}</Field>
             <div className="eyebrow">3 · {t('customer.gift.delivery')}</div>
-            <Field label={t('customer.gift.date')} hint={t('customer.gift.date.hint')} error={errors.date}>{(id) => <Input id={id} type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} />}</Field>
+            <Field label={t('customer.gift.date')} hint={t('quotes.giftDateHint')} error={errors.date}>{(id) => <Input id={id} type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} />}</Field>
             <Field label={t('customer.gift.message')} hint={`${message.length} / ${policy.giftMessageMax}`}>{(id) => <textarea id={id} className="input cust-textarea" maxLength={policy.giftMessageMax} value={message} onChange={(e) => setMessage(e.target.value)} rows={3} />}</Field>
             <Field label={t('customer.gift.design')}>{() => <div className="row wrap">{DESIGNS.map((d) => <button key={d} type="button" className={`cust-swatch cust-giftcard-${d} ${design === d ? 'is-active' : ''}`} aria-label={d} aria-pressed={design === d} onClick={() => setDesign(d)} />)}</div>}</Field>
-            <OrderSummary lines={[{ label: `${t('customer.gift.title')} · ${label}`, amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('customer.gift.note', { studio: tenant.name })} />
-            <Card padding="sm"><Button block size="lg" loading={busy} onClick={buy}>{t('customer.gift.cta', { amount: formatCOP(amount, lang) })}</Button></Card>
+            <OrderSummary lines={[{ label: `${t('customer.gift.title')} · ${label}`, amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t('quotes.giftNote')} />
+            <Card padding="sm"><Button block size="lg" disabled={!review.available} loading={busy} onClick={buy}>{t('customer.gift.cta', { amount: formatCOP(amount, lang) })}</Button></Card>
             <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.pay.wompi.seam')}</p>
           </>
         )}

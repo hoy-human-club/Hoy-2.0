@@ -1,3 +1,4 @@
+import {isQuotedClassPlan,localCatalogMode,quotePurchaseDate,resolveOperationalQuote} from '../../../data/operationalQuotes';
 import { useTable } from '../../../data/DataContext';
 import { quotePublishedProduct } from '../../../data/catalogPublication';
 import type { CatalogPlan } from '../../../data/productCatalog';
@@ -14,7 +15,7 @@ import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { PackageCard } from '../../../components/molecule/PackageCard/PackageCard';
 import { PriceRow } from '../../../components/molecule/PriceRow/PriceRow';
-import { dateKey, formatCOP } from '../../../i18n/format';
+import { formatCOP } from '../../../i18n/format';
 import { PageHead, SiteShell } from '../SiteShell';
 import { siteSpecs } from '../specs';
 
@@ -26,7 +27,7 @@ import { siteSpecs } from '../specs';
  */
 export function PlansPage() {
   const {rows:catalogRows}=useTable<CatalogPlan>('plans');
-  const localPublished=catalogRows.filter(p=>p.frontend_publication&&!p.frontend_publication.withdrawnAt);
+  const localPublished=catalogRows.filter(p=>p.tenant_id===tenant.id&&p.frontend_publication&&!p.frontend_publication.withdrawnAt);
   const { photoEdition } = useSiteEdition();
   const { t, bi, lang } = useI18n();
   // 0047: private classes, the space rental and corporate experiences are a `specials` handoff (M-08a contacts).
@@ -48,12 +49,14 @@ export function PlansPage() {
 
   const SECTIONS: Record<string, () => ReactNode> = {
     PageHead: () => <PageHead title={t('site.plans.title')} body={t('site.plans.body')} />,
-    Families: () => localPublished.length>0 ? <section className="container site-section" data-testid="local-published-catalog">
+    Families: () => localCatalogMode(catalogRows) ? <section className="container site-section" data-testid="local-published-catalog">
       <Card tone="highlight"><h2 style={{color:'var(--color-on-highlight)'}}>{t('products.siteLocalTitle')}</h2><p>{t('products.siteLocalNotice')}</p></Card>
+      <p>{localPublished.length===0?t('quotes.withdrawn'):''}</p>
       <div className="grid grid-2" style={{marginTop:'var(--block)'}}>{localPublished.map(plan=>{
-        let quote=null,error='';try{quote=quotePublishedProduct(plan,dateKey());}catch(e){error=`products.error.${e instanceof Error?e.message:'invalid'}`;}
+        let quote=null,error='';try{quote=quotePublishedProduct(plan,quotePurchaseDate());}catch(e){error=`products.error.${e instanceof Error?e.message:'invalid'}`;}
+        let itemId:string|null=null;try{if(isQuotedClassPlan(plan.id)){const q=resolveOperationalQuote(catalogRows,plan.id.slice(5),quotePurchaseDate());itemId=q.itemId;}}catch{/* Unsupported/unpriced publication stays a disabled preview. */}
         return <Card key={plan.id} title={bi(plan.frontend_publication!.snapshot.definition.name)}>
-          <div className="stack"><span>{plan.frontend_publication!.snapshot.definition.code} · #{plan.frontend_publication!.revision}</span>{quote?<><strong data-testid={`site-published-price-${plan.id}`}>{formatCOP(quote.amount,lang)}</strong><span>{quote.classes} {t('products.classes')} · {quote.validityDays} {t('products.validity')}</span></>:<p role="status">{t(error)}</p>}<Button disabled>{t('products.purchaseDisconnected')}</Button></div>
+          <div className="stack"><span>{plan.frontend_publication!.snapshot.definition.code} · #{plan.frontend_publication!.revision}</span>{quote?<><strong data-testid={`site-published-price-${plan.id}`}>{formatCOP(quote.amount,lang)}</strong><span>{quote.classes} {t('products.classes')} · {quote.validityDays} {t('products.validity')}</span></>:<p role="status">{t(error)}</p>}<Button disabled={!itemId} onClick={()=>itemId&&buy(itemId)}>{t(itemId?'quotes.checkout':'products.purchaseDisconnected')}</Button></div>
         </Card>;
       })}</div>
     </section> : <>

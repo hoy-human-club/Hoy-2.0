@@ -206,6 +206,7 @@ export class MockProvider implements DataProvider {
       if (prior) return structuredClone((prior.diff as { result: T }).result);
       const before = JSON.stringify(this.db);
       const stage = Object.create(MockProvider.prototype) as MockProvider;
+      Object.defineProperty(stage, 'name', { value: this.name });
       stage.db = structuredClone(this.db);
       stage.listeners = new Map();
       stage.persist = () => {};

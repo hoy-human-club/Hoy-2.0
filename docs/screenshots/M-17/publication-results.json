@@ -4,14 +4,14 @@
     "PR-02",
     "SW-02"
   ],
-  "base": "http://127.0.0.1:5197",
+  "base": "http://127.0.0.1:5203",
   "checks": [
-    "admin review cancel; storage failure leaves publication absent; retry succeeds; repeat quote idempotency; future dated price and retained local snapshot; no-price gap; unpublished edit isolation on admin and website; separate browser retains baseline; withdrawal restores baseline website;  explicit republish; withdraw; unchanged legacy price/availability; EN/ES 390/1280 light/dark fit",
+    "admin review cancel; storage failure leaves publication absent; retry succeeds; repeat quote idempotency; future dated price and retained local snapshot; no-price gap; unpublished edit isolation on admin and website; separate browser retains baseline; withdrawal blocks local offers until explicit republish;  explicit republish; withdraw; unchanged legacy price/availability; EN/ES 390/1280 light/dark fit",
     "front desk/customer preview deep links denied"
   ],
   "errors": [],
   "limits": [
-    "Local website consumer only; no external publication and checkout disconnected.",
+    "Local website consumer only; mapped fictional checkout continuation is batch13; no external publication.",
     "No externally shared quote; session-only drafts.",
     "Server authorization/publication/immutable order contract remains unverified."
   ]

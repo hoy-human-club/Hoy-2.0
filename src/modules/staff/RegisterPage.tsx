@@ -1,3 +1,6 @@
+import {useOperationalCatalog,useReviewedQuote} from '../quotes/hooks';
+import {QuoteNotice} from '../../components/molecule/QuoteNotice/QuoteNotice';
+import {checkSaleQuote,quotedItem,withQuoteTotals} from '../../data/operationalQuotes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -25,7 +28,7 @@ import { maskPhone, personMatches, usePeople } from './people';
 import { BOOKING_KINDS, KIND_FOR_ITEM, KIND_LABEL, dateInputValue, findConflicts, localIso, timeInputValue } from './rooms';
 import './staff.css';
 import { addDays, dateKey, digitsOf, parseDigits } from '../../i18n/format';
-import { fakeRef } from '../customer/payments';
+import { assertTrialAvailable, fakeRef } from '../customer/payments';
 
 /** 0051: the desk's methods — cash, the card terminal, a transfer, the Wompi QR shown at the desk, and a Wompi payment link. No Nequi. */
 type Method = 'cash' | 'datafono' | 'transfer' | 'qr' | 'wompi';
@@ -72,6 +75,7 @@ export function RegisterPage() {
   const [existingQ, setExistingQ] = useState('');
   const [personId, setPersonId] = useState<string | null>(null);
   const [itemId, setItemId] = useState('trial');
+  const catalog=useOperationalCatalog(),review=useReviewedQuote(catalog,special.on?null:itemId,1,null);
   const [method, setMethod] = useState<Method>('cash');
   const [receipt, setReceipt] = useState({ wa: true, email: true });
   const [paidRaw, setPaidRaw] = useState<string | null>(null); // null = untouched, so it follows the invoiced total
@@ -86,7 +90,7 @@ export function RegisterPage() {
   // An Especial is a PriceItem whose name and price were typed by hand; everything downstream (IVA, receipt, "Valor pagado") treats it like any other item.
   const item: DeskItem = special.on
     ? { id: 'especial', family: special.source === 'private' ? 'privadas' : 'espacio', name: { es: special.concept.trim() || t('staff.register.especial.title'), en: special.concept.trim() || t('staff.register.especial.title') }, description: { es: '', en: '' }, price: specialAmount }
-    : (priceItem(itemId) ?? pricing[0]);
+    : (review.quote?quotedItem(review.quote):{...(priceItem(itemId)??pricing[0]),price:null});
   const totals = splitTax(item.price ?? 0, settings.tax);
   const specialTeacher = special.teacherId ? teachers.find((x) => x.id === special.teacherId) : undefined;
   const payout = parseDigits(special.payoutRaw);
@@ -122,14 +126,14 @@ export function RegisterPage() {
   const candidates = useMemo(() => (existingQ.trim().length < 2 ? [] : people.filter((p) => p.role === 'customer' && personMatches(p, existingQ)).slice(0, 6)), [people, existingQ]);
   const session = today.find((x) => x.session.id === sessionId);
   const upcoming = today.filter((x) => new Date(x.session.ends_at).getTime() > Date.now());
-  const items = pricing.filter((p) => p.price != null && SELLABLE.includes(p.family));
+  const items = pricing.filter(p=>SELLABLE.includes(p.family)).flatMap(p=>{const q=catalog.quote(p.id);return q?[quotedItem(q)]:[];});
 
   // Jas review: the desk can record a different amount received, but only with an observation attached.
   const amountPaid = paidRaw === null || paidRaw.trim() === '' ? totals.total : Math.max(0, Math.round(Number(paidRaw.replace(/[^\d]/g, '')) || 0));
   const paidDiffers = amountPaid !== totals.total;
   const noteOk = !paidDiffers || note.trim().length > 0;
   const who = mode === 'existing' ? !!person : mode === 'contact' ? special.on && contactName.trim().length > 0 : form.first.trim() && form.phone.trim() && form.consent;
-  const valid = who && noteOk && specialOk;
+  const valid = who && noteOk && specialOk && (special.on||review.available);
   const displayName = mode === 'existing' ? person?.name ?? '' : mode === 'contact' ? contactName.trim() : `${form.first.trim()} ${form.last.trim()}`.trim();
 
   const complete = async () => {
@@ -138,7 +142,9 @@ export function RegisterPage() {
     setBusy(true); setError(null);
     try {
       if (!data.atomic) throw new Error('mock_atomic_adapter_required');
+      const frozen=!special.on&&review.quote?withQuoteTotals(review.quote,totals):null;
       const result = await data.atomic<Sale>(async data => {
+      if(frozen)await checkSaleQuote(data,frozen);
       const audit = (action: string, entity: string, entityId: string, diff: Record<string, unknown>) => data.insert('audit_log', { actor_id: user.id, action, entity, entity_id: entityId, diff: { role, source: 'front_desk', ...diff }, ip: null });
       const now = new Date();
       if (sessionId && (!session || method === 'wompi')) throw new Error(method === 'wompi' ? 'payment_confirmation_required' : 'session_unavailable');
@@ -156,7 +162,8 @@ export function RegisterPage() {
       }
       const db = METHOD_DB[method];
       const pending = method === 'wompi';
-      const payment = await data.insert<PaymentRow>('payments', { user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
+      if(frozen?.itemId==='trial'&&!pending&&userId)await assertTrialAvailable(data,userId);
+      const payment = await data.insert<PaymentRow>('payments', { ...(frozen?{frontend_quote:structuredClone(frozen)}:{}),user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
       const number = `${tenant.invoicePrefix}-${1000 + (await data.list('invoices')).length + 1}`;
       await data.insert('invoices', { payment_id: payment.id, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, issued_at: now.toISOString(), pdf_url: null, dian_cufe: null });
       await audit('payment.take', 'payments', payment.id, { amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, method, item: item.id, invoice: number, status: payment.status, contact: mode === 'contact' ? contactName.trim() : undefined });
@@ -190,7 +197,7 @@ export function RegisterPage() {
         // no package, no class check-in: an Especial is its own thing
       } else if (item.classes && payment.status === 'approved') {
         // 0051: the classes open in the ledger (12 for the package, 1 for a class bought ahead) with their validity.
-        const c = await data.insert('class_ledger', { user_id: userId, plan_id: `plan_${item.id}`, payment_id: payment.id, delta: item.classes, reason: 'purchase', expires_at: item.validityDays ? dateKey(addDays(now, item.validityDays)) : null, frozen_from: null, frozen_until: null });
+        const c = await data.insert('class_ledger', { ...(frozen?{frontend_quote:structuredClone(frozen)}:{}),user_id: userId, plan_id: `plan_${item.id}`, payment_id: payment.id, delta: item.classes, reason: 'purchase', expires_at:frozen?.entitlementExpiresAt??(item.validityDays?dateKey(addDays(now,item.validityDays)):null), frozen_from: null, frozen_until: null });
         await audit('classes.purchase', 'class_ledger', c.id, { delta: item.classes, user_id: userId });
       }
 
@@ -235,6 +242,7 @@ export function RegisterPage() {
     <div className="stack">
       <div className="page-head"><div><h1>{t('staff.register.title')}</h1><p className="muted small">{t('staff.register.subtitle')}</p></div></div>
       <p className="xs muted">{t('staff.booking.mock')}</p>
+      {!special.on&&<QuoteNotice catalog={catalog} review={review}/>}
       <div className="register">
         <div className="register-steps">
           <Card eyebrow={t('staff.register.step1')} title={t('staff.register.who')} actions={<div className="row wrap" role="tablist"><Chip selected={mode === 'new'} onClick={() => setMode('new')}>{t('staff.register.new')}</Chip><Chip selected={mode === 'existing'} onClick={() => setMode('existing')}>{t('staff.register.existing')}</Chip><Chip selected={mode === 'contact'} disabled={!special.on} title={special.on ? undefined : t('staff.register.contact.only')} onClick={() => setMode('contact')}>{t('staff.register.contact')}</Chip></div>}>
