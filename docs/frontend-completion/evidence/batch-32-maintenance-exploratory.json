@@ -1,0 +1,14 @@
+{
+  "batch": 32,
+  "phase": "quota_retry",
+  "outcome": "Production readiness helper timed out waiting for absent Add while existing editor retained; actual Retry/Save/Cancel enabled.",
+  "evidence": "Retained ignored production.json control list and production.jpg inspected; no runtime/source failure inferred.",
+  "correction": "Test-only readiness uses the mode-visible Add or guarded Save/Preview button; exact30s wait and behavioral assertions unchanged.",
+  "runtimeChanged": false,
+  "devPostcommitHarnessCorrection": {
+    "phase": "postcommit_actor_loss",
+    "observed": "Retained editor is correctly hidden after required actor read failure, with exactly one read Retry; Add is absent, not disabled. Safe failure screenshot inspected.",
+    "correction": "Assert Add/Save/Edit all absent and one Retry. Also wait for explicit old read final actor callback and React frames before stale-generation assertion.",
+    "runtimeChanged": false
+  }
+}

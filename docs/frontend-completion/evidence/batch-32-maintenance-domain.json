@@ -1,0 +1,19 @@
+{
+  "batch": 32,
+  "checks": [
+    "Both actual-Mock baseline regressions fixed: fresh staged actor and fresh owned replay target; failed replay no new effects.",
+    "Each create record/audit write and quota rollback; stable retry; hashed scoped metadata receipts omit body/notes/labels; changed-intent conflict.",
+    "Command/actor/payload snapshotted synchronously before first async read; caller mutation cannot change stored intent or receipt.",
+    "Scoped required reads fail closed; duplicate actor/record ambiguity and defensive foreign record canary reject without repair.",
+    "Abort/context guards before writes and after staged record before audit rollback fully; no late acknowledgement.",
+    "Committed/lostack retry revalidates current target digest without duplicate audit; silent payload replacement without revision bump cannot receive stale acknowledgement.",
+    "Postcommit abort suppresses acknowledgement but does not undo record+audit; restored actor can replay, missing/reassigned actor cannot.",
+    "Concurrent same-target revision race commits once; malformed ID/room/revision input rejects before writes rather than leaving an invalid committed row.",
+    "Valid legacy full-row receipt replay remains read-only compatible; legacy foreign target fails; historical receipts/cache are not migrated or reseeded.",
+    "Caller control replacement cannot bypass retained original live actor callback or AbortSignal during held digest/read or postcommit acknowledgement; precommit rejects without effects, committed outcome stays durable and restored-context replay is read-only."
+  ],
+  "limits": [
+    "Per-provider mock staging, not authenticated server/cross-tab security.",
+    "No operational actions, assignments, safety signoff, alerts, procurement or policy changes."
+  ]
+}
