@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useContact , pendingSuffix } from './settings';
 import { useSession } from '../../auth/SessionProvider';
-import { useData, useTable } from '../../data/DataContext';
-import type { BaseRow, MessageLogRow } from '../../data/schema';
+import { useData } from '../../data/DataContext';
+import type { MessageLogRow, UserRow, ProfileRow } from '../../data/schema';
 import type { Bi } from '../../specs/types';
 import { formatDateTime } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
@@ -20,10 +20,11 @@ import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { Notice } from '../../components/molecule/Notice/Notice';
 import { useAudit, type AuditRow } from '../staff/audit';
 import { APP, EMAIL_AUDIENCES, EMAIL_CATALOG, EMAIL_PRIORITIES, adminNotesFor, emailEntry, sampleFor, type EmailAudience, type EmailPriority } from '../../data/emailCatalog';
-import { usePeople } from '../staff/people';
+import { Drawer } from '../../components/organism/Drawer/Drawer';
+import { parseEmailBody, type EmailRow, type ParsedBody } from './emailTest';
+import { useEmailRows, useEmailTest } from './useEmailTest';
 import './admin.css';
-
-interface EmailRow extends BaseRow { key: string; name: string; audience?: EmailAudience; trigger: string; priority?: EmailPriority | null; subject: Bi; body_mjml: string; version: number; active: boolean }
+import './emailTest.css';
 
 const PRIORITY_TONE: Record<EmailPriority, 'primary' | 'highlight' | 'neutral'> = { launch: 'primary', first_60: 'highlight', later: 'neutral' };
 /** A row written before 0055 has no audience / priority: the catalog entry with the same key answers. */
@@ -34,24 +35,19 @@ const nameOf = (row: EmailRow, bi: (b: Bi) => string) => { const m = emailEntry(
 /** Within a priority the list follows the catalog (the inventory's order); templates the studio added go last. */
 const catalogOrder = (row: EmailRow) => { const i = EMAIL_CATALOG.findIndex((m) => m.key === row.key); return i < 0 ? EMAIL_CATALOG.length : i; };
 
-interface ParsedBody { es: string; en: string; cta?: { label: Bi; href: string } }
-function parseBody(row: EmailRow): ParsedBody {
-  try { const j = JSON.parse(row.body_mjml); if (j && typeof j.es === 'string') return j; } catch { /* not json */ }
-  const std = emailEntry(row.key);
-  if (std) return { es: std.body.es, en: std.body.en, cta: std.cta };
-  return { es: row.body_mjml.startsWith('<') ? '' : row.body_mjml, en: '' };
-}
+const parseBody=parseEmailBody;
 const varsIn = (...texts: string[]) => [...new Set(texts.join(' ').match(/\{\{\s*[\w.]+\s*\}\}/g)?.map((v) => v.replace(/[{}\s]/g, '')) ?? [])];
 
 /** M-04 — template list by recipient and priority, rendered canvas with sample data, ES/EN switch, editor, versions, test send, send log. */
 export function EmailsPage() {
   const { t, lang, bi } = useI18n();
   const data = useData();
-  const { can, user } = useSession();
+  const { can, user, role } = useSession();
   const audit = useAudit('admin');
-  const { rows: templates, loading } = useTable<EmailRow>('email_templates', { orderBy: { column: 'trigger' } });
-  const { rows: log } = useTable<MessageLogRow>('message_log', { where: { channel: 'email' }, orderBy: { column: 'created_at', dir: 'desc' } });
-  const { byId } = usePeople();
+  const context=JSON.stringify([user.id,role]);
+  const templateRead=useEmailRows<EmailRow>(data,'email_templates',{where:{tenant_id:tenant.id},orderBy:{column:'trigger'}},context);
+  const logRead=useEmailRows<MessageLogRow>(data,'message_log',{where:{tenant_id:tenant.id,channel:'email'},orderBy:{column:'created_at',dir:'desc'}},context);
+  const templates=templateRead.rows,log=logRead.rows,loading=templateRead.status==='loading';
   const [selected, setSelected] = useState<string | null>(null);
   const [preview, setPreview] = useState<'es' | 'en'>('es');
   const [tab, setTab] = useState<'edit' | 'versions' | 'log'>('edit');
@@ -61,7 +57,14 @@ export function EmailsPage() {
   const groups = [...EMAIL_PRIORITIES, null].map((p) => ({ p, rows: shown.filter((x) => priorityOf(x) === p) })).filter((g) => g.rows.length > 0);
   const row = shown.find((x) => x.id === selected) ?? groups[0]?.rows[0];
   const inAudience = templates.filter((x) => audienceOf(x) === audience);
-  const { rows: versions } = useTable<AuditRow>('audit_log', { where: { entity: 'email_templates', entity_id: row?.id ?? '__none__' }, orderBy: { column: 'created_at', dir: 'desc' } });
+  const versionRead=useEmailRows<AuditRow>(data,'audit_log',{where:{tenant_id:tenant.id,entity:'email_templates',entity_id:row?.id??'__none__'},orderBy:{column:'created_at',dir:'desc'}},context);
+  const versions=versionRead.rows;
+  const ids=[...new Set([user.id,...log.map(m=>m.user_id),...versions.map(v=>v.actor_id)].filter((id):id is string=>!!id))].sort();
+  const usersRead=useEmailRows<UserRow>(data,'users',{where:{tenant_id:tenant.id,id:ids}},context);
+  const profilesRead=useEmailRows<ProfileRow>(data,'profiles',{where:{tenant_id:tenant.id,user_id:ids}},context);
+  const byId=new Map(usersRead.rows.map(u=>[u.id,{name:profilesRead.rows.find(p=>p.user_id===u.id)?.full_name??u.email}]));
+  const reads=[templateRead,logRead,versionRead,usersRead,profilesRead],readError=reads.some(r=>r.status==='error'),readsReady=reads.every(r=>r.status==='ready');
+  const test=useEmailTest(data,{id:user.id,role},row?.id,row?.version,preview);
   const canWrite = can('content.write');
   const missing = EMAIL_CATALOG.filter((s) => !templates.some((x) => x.key === s.key));
 
@@ -71,28 +74,24 @@ export function EmailsPage() {
       await audit('email_template.create', 'email_templates', r.id, { key: s.key });
     }
   };
-  const testSend = async () => {
-    if (!row) return;
-    const m = await data.insert<MessageLogRow>('message_log', { user_id: user.id, channel: 'email', direction: 'outbound', source: 'manual', template_key: row.key, automation_id: null, subject: bi(row.subject), body: null, status: 'sent', sent_at: new Date().toISOString(), sent_by: user.id, read_at: null, read_by: null, external_id: null, payload: { test: true, to: user.email, locale: preview, version: row.version } });
-    await audit('email_template.test', 'email_templates', row.id, { message_id: m.id, to: user.email, locale: preview });
-    setTab('log');
-  };
-
   const logColumns = [
     { key: 'sent_at', label: t('admin.emails.log.when'), render: (r: MessageLogRow) => <span className="mono small">{r.sent_at ? formatDateTime(r.sent_at, lang) : '—'}</span> },
-    { key: 'user_id', label: t('admin.emails.log.to'), render: (r: MessageLogRow) => r.payload?.test ? <span>{String(r.payload.to)} <Badge tone="warn">test</Badge></span> : byId.get(r.user_id ?? '')?.name ?? '—' },
+    { key: 'user_id', label: t('admin.emails.log.to'), render: (r: MessageLogRow) => r.payload?.test ? <span>{String(r.payload.to)} <Badge tone="warn">{t('admin.emails.local.test')}</Badge></span> : byId.get(r.user_id ?? '')?.name ?? '—' },
     { key: 'template_key', label: t('admin.emails.log.template') },
-    { key: 'status', label: t('admin.emails.log.status'), render: (r: MessageLogRow) => <Badge tone={toneForStatus(r.status)}>{r.status}</Badge> },
+    { key: 'status', label: t('admin.emails.log.status'), render: (r: MessageLogRow) => <Badge tone={toneForStatus(r.status)}>{r.payload?.test===true?`${t('admin.emails.local.status')} · ${r.status}`:r.status}</Badge> },
   ];
 
   return (
     <div className="stack">
       <div className="page-head">
         <div><h1>{t('admin.emails.title')}</h1><p className="muted small">{t('admin.emails.subtitle')}</p></div>
-        {canWrite && missing.length > 0 && <Button size="sm" variant="secondary" onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>}
+        {canWrite && missing.length > 0 && <Button size="sm" variant="secondary" disabled={!readsReady} onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>}
       </div>
+      <Notice>{t('admin.emails.local.notice')}</Notice>
+      {readError&&<Notice tone="danger">{t('admin.emails.local.readError')} <Button variant="ghost" onClick={()=>reads.forEach(r=>r.retry())}>{t('admin.emails.local.retry')}</Button></Notice>}
+      {!readError&&!readsReady&&<Notice>{t('admin.emails.local.loading')}</Notice>}
       {loading && templates.length === 0 && <EmptyState tone="loading" title={t('core.common.loading')} />}
-      {!loading && templates.length === 0 && <EmptyState title={t('admin.emails.empty')} body={t('admin.emails.empty.body')} action={canWrite && <Button size="sm" onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>} />}
+      {!loading && templates.length === 0 && <EmptyState title={t('admin.emails.empty')} body={t('admin.emails.empty.body')} action={canWrite && <Button size="sm" disabled={!readsReady} onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>} />}
       {templates.length > 0 && <Notice title={t('admin.emails.suggested.title')}>{t('admin.emails.suggested.body')}</Notice>}
       {templates.length > 0 && (
         <div className="stack-sm">
@@ -139,7 +138,7 @@ export function EmailsPage() {
               <Chip selected={tab === 'versions'} onClick={() => setTab('versions')}>{t('admin.emails.versions')} · {versions.length}</Chip>
               <Chip selected={tab === 'log'} onClick={() => setTab('log')}>{t('admin.emails.log')}</Chip>
             </div>
-            {tab === 'edit' && <Editor key={row.id} row={row} readOnly={!canWrite} onSave={async (patch, before) => { await data.update('email_templates', row.id, { ...patch, version: row.version + 1 }); await audit('email_template.update', 'email_templates', row.id, { before, after: patch, version: row.version + 1 }); }} onTest={testSend} />}
+            {tab === 'edit' && <Editor key={row.id} row={row} readOnly={!canWrite||!readsReady} onSave={async (patch, before) => { await data.update('email_templates', row.id, { ...patch, version: row.version + 1 }); await audit('email_template.update', 'email_templates', row.id, { before, after: patch, version: row.version + 1 }); }} testDisabled={!readsReady} onTest={test.openPreview} />}
             {tab === 'versions' && (
               <Card padding="sm">
                 {versions.length === 0 && <p className="small muted" style={{ padding: 'var(--sp-sm)' }}>{t('admin.emails.versions.empty')}</p>}
@@ -155,6 +154,16 @@ export function EmailsPage() {
           </aside>
         </div>
       )}
+      <Drawer open={test.open} onClose={test.close} title={t('admin.emails.local.title')} footer={<><Button variant="ghost" onClick={test.close}>{t('core.common.cancel')}</Button>{!test.done&&<Button loading={test.busy} disabled={test.status!=='ready'||!readsReady} onClick={()=>void test.send()}>{t('admin.emails.local.run')}</Button>}</>}>
+        <div className="stack-sm">
+          <Notice>{t('admin.emails.local.notice')}</Notice>
+          {test.status==='loading'&&<Notice>{t('admin.emails.local.loading')}</Notice>}
+          {test.status==='error'&&<Notice tone="danger">{t('admin.emails.local.readError')} <Button variant="ghost" onClick={test.retry}>{t('admin.emails.local.retry')}</Button></Notice>}
+          {test.error&&<Notice tone="danger">{t('admin.emails.local.error')}</Notice>}
+          {test.done&&<Notice tone="success">{t('admin.emails.local.done')} <Button variant="ghost" onClick={()=>{test.close();setTab('log');}}>{t('admin.emails.local.viewLog')}</Button></Notice>}
+          {test.snapshot&&<><p className="small mono email-test-recipient">{test.snapshot.recipient} · {test.snapshot.locale.toUpperCase()} · v{test.snapshot.version}</p><Notice>{t('admin.emails.local.savedVersion')}</Notice><div className="email-test-preview"><EmailPreview subject={test.snapshot.subject} body={test.snapshot.body} cta={test.snapshot.cta} /></div></>}
+        </div>
+      </Drawer>
     </div>
   );
 }
@@ -199,7 +208,7 @@ function Facts({ row }: { row: EmailRow }) {
   );
 }
 
-function Editor({ row, readOnly, onSave, onTest }: { row: EmailRow; readOnly: boolean; onSave: (patch: Partial<EmailRow>, before: Record<string, unknown>) => Promise<void>; onTest: () => Promise<void> }) {
+function Editor({ row, readOnly, testDisabled, onSave, onTest }: { row: EmailRow; readOnly: boolean; testDisabled:boolean; onSave: (patch: Partial<EmailRow>, before: Record<string, unknown>) => Promise<void>; onTest: () => void }) {
   const { t } = useI18n();
   const init = useMemo(() => { const b = parseBody(row); return { name: row.name, audience: audienceOf(row), priority: (priorityOf(row) ?? '') as EmailPriority | '', trigger: row.trigger, subjectEs: row.subject.es, subjectEn: row.subject.en ?? '', bodyEs: b.es, bodyEn: b.en, ctaLabelEs: b.cta?.label.es ?? '', ctaLabelEn: b.cta?.label.en ?? '', ctaHref: b.cta?.href ?? '', active: row.active }; }, [row]);
   const [d, setD] = useState(init);
@@ -238,7 +247,7 @@ function Editor({ row, readOnly, onSave, onTest }: { row: EmailRow; readOnly: bo
         {missingEn && <span className="xs muted">{t('admin.emails.missingEn')}</span>}
       </div>
       <div className="row-between wrap">
-        <Button size="sm" variant="secondary" onClick={onTest}>{t('admin.emails.test')}</Button>
+        <Button size="sm" variant="secondary" disabled={testDisabled} onClick={onTest}>{t('admin.emails.test')}</Button>
         {!readOnly && <Button size="sm" disabled={!dirty || !d.subjectEs.trim() || !d.bodyEs.trim()} loading={saving} onClick={save}>{t('admin.emails.saveVersion', { v: row.version + 1 })}</Button>}
       </div>
       {dirty && <p className="xs muted">{t('admin.emails.unsaved')}</p>}

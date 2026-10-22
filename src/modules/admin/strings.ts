@@ -1,6 +1,19 @@
 import { directoryStrings } from '../../shared/subscriptions/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  'admin.emails.local.notice': {es:'Simulación LOCAL ficticia: no se envía email. El estado «sent» y su hora son registros de esta demo en este navegador, sin sincronización entre dispositivos ni garantía transaccional entre pestañas.',en:'Fictional LOCAL simulation: no email is sent. The sent status and timestamp are demo records in this browser, with no cross-device sync or cross-tab transaction guarantee.'},
+  'admin.emails.local.test': {es:'Prueba local',en:'Local test'},
+  'admin.emails.local.status': {es:'Simulado local',en:'Local simulation'},
+  'admin.emails.local.title': {es:'Vista previa de prueba local',en:'Local test preview'},
+  'admin.emails.local.run': {es:'Registrar simulación local',en:'Record local simulation'},
+  'admin.emails.local.readError': {es:'No se pudieron cargar los datos requeridos. Reintenta antes de continuar.',en:'Required data could not be loaded. Retry before continuing.'},
+  'admin.emails.local.loading': {es:'Cargando datos de la prueba…',en:'Loading test data…'},
+  'admin.emails.local.retry': {es:'Reintentar',en:'Retry'},
+  'admin.emails.local.error': {es:'No se registró la prueba. Reintenta; si cambió la plantilla o la cuenta, cancela y vuelve a abrir.',en:'Test could not be recorded. Retry; if the template or account changed, cancel and reopen.'},
+  'admin.emails.local.done': {es:'Simulación local registrada. No se envió email.',en:'Local simulation recorded. No email was sent.'},
+  'admin.emails.local.viewLog': {es:'Ver registro local',en:'View local log'},
+  'admin.emails.local.savedVersion': {es:'La prueba usa la versión guardada; no incluye cambios del editor sin guardar.',en:'The test uses the saved version; unsaved editor changes are excluded.'},
+
   ...directoryStrings,
   'admin.subscriptions.nav': { es: 'Apps y suscripciones', en: 'Apps & subscriptions' },
   // M-03 tables (0044 redesign: views, sidebar, graph — every label a person reads is words, never an identifier)

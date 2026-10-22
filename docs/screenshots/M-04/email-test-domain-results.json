@@ -1,0 +1,18 @@
+{
+  "requirement": "NT-05",
+  "result": "passed",
+  "checks": [
+    "saved preview locale/version/body/variable/CTA and self recipient",
+    "inactive/draft remains testable",
+    "each staged write/quota/read failure rollback/no partial events",
+    "cancel before and during staging",
+    "missing foreign account/template and stale revisions",
+    "4 allowed and7 denied/disconnected",
+    "scoped reads only accounts/templates",
+    "concurrent replay once/changed request conflict/orphan pairs",
+    "legacy sent explicitly local/no external ID/no customer conversation",
+    "no address/body in safe audit/receipt",
+    "historical replay retains saved-version snapshot; new stale intent rejects",
+    "no template/account/preference/automation/operational mutations"
+  ]
+}

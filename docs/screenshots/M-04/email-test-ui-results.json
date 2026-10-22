@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5231",
+  "checks": [
+    "en: saved v7 locale independent of UI; inactive draft self-only preview; unsaved edits excluded/preserved; cancel/no writes; quota rollback/retry/double submit one pair; stale version rejection/reopenv8; tenant exclusion and actual CRM conversation exclusion;4allowed self-only/7denied;390/1280 lightdark preview/error/recorded/log/roles",
+    "es: saved v7 locale independent of UI; inactive draft self-only preview; unsaved edits excluded/preserved; cancel/no writes; quota rollback/retry/double submit one pair; stale version rejection/reopenv8; tenant exclusion and actual CRM conversation exclusion;4allowed self-only/7denied;390/1280 lightdark preview/error/recorded/log/roles"
+  ],
+  "errors": [],
+  "limits": [
+    "Browser LOCAL simulation only; legacy sent/timestamp are not delivery evidence. Template save/rollback and generic messaging remain outside this batch."
+  ]
+}
