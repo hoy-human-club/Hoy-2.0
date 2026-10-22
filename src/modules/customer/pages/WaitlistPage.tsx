@@ -38,9 +38,10 @@ export function WaitlistPage() {
   const [busy, setBusy] = useState(false);
   const now = useNow(1000);
 
-  const offered = mine?.status === 'offered' && mine.claim_until && new Date(mine.claim_until).getTime() > now;
-  const expired = mine?.status === 'offered' && mine.claim_until && new Date(mine.claim_until).getTime() <= now;
-  const waiting = mine?.status === 'waiting';
+  const cancelled = joined?.session.status === 'cancelled';
+  const offered = !cancelled && mine?.status === 'offered' && mine.claim_until && new Date(mine.claim_until).getTime() > now;
+  const expired = !cancelled && mine?.status === 'offered' && mine.claim_until && new Date(mine.claim_until).getTime() <= now;
+  const waiting = !cancelled && mine?.status === 'waiting';
   const alreadyBooked = myBookings.some((b) => b.session_id === id && b.status === 'booked');
 
   // An offer that ran out passes to the next person (C-20 rule).
@@ -69,7 +70,7 @@ export function WaitlistPage() {
   const left = s.capacity - s.booked_count;
 
   const claim = async () => {
-    if (!mine) return;
+    if (!mine || cancelled) return;
     if (!ent.hasAnyEntitlement || /yoga|vinyasa|flow|yin/.test(joined.modality?.slug ?? '')) { nav(`/app/checkout/${s.id}?claim=${mine.id}`); return; }
     setBusy(true);
     try { const b = await claimWaitlist(mine, s, ent.defaultKind); nav(`/app/booking/${b.id}`); } finally { setBusy(false); }
@@ -77,6 +78,7 @@ export function WaitlistPage() {
 
   const SECTIONS: Record<string, () => ReactNode> = {
     'StatusCard (PositionRing + RuleExplainer)': () => {
+      if (cancelled) return <Notice tone="warn" title={t('customer.cancelled.title')}>{lang === 'en' ? 'This class has been cancelled. Waitlist offers and claims are unavailable; no new place is offered.' : 'Esta clase fue cancelada. Las ofertas y los reclamos de la lista no están disponibles; no se ofrece un cupo nuevo.'}</Notice>;
       if (alreadyBooked) return <Notice tone="success" title={t('customer.home.booked')} action={<Button size="sm" variant="secondary" onClick={() => nav(`/app/booking/${s.id}`)}>{t('customer.class.viewBooking')}</Button>} />;
       if (started) return <Notice tone="info" title={t('customer.waitlist.started')}>{t('customer.waitlist.started.body')}</Notice>;
       if (waiting) return (

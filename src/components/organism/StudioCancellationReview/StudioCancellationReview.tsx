@@ -1,0 +1,11 @@
+import {useI18n} from '../../../i18n/I18nProvider';
+import {Card} from '../../molecule/Card/Card';
+import {Notice} from '../../molecule/Notice/Notice';
+import {EmailPreview} from '../EmailPreview/EmailPreview';
+import type {StudioImpact} from '../../../modules/classSchedule/studioCancellation';
+import {studioStrings as copy} from '../../../modules/classSchedule/studioStrings';
+/** Review only: all commands stay in the scoped module controller. No email sender. */
+export function StudioCancellationReview({review}:{review:StudioImpact}){
+ const {bi}=useI18n();
+ return <div className="stack" data-studio-review><Card title={bi(copy.summary)}><p>{review.activeCount} / {review.attendees.length} / {review.voucherSeats} / {review.waitlistCount}</p><p className="small muted">{bi(copy.waitlist)}</p></Card>{review.issues.length>0&&<Notice tone="warn">{bi(copy.blocked)}</Notice>}{review.emails.map((email,n)=><section className="stack-sm" key={email.userId}><h3>{bi(copy.preview)} {n+1}</h3>{email.warnings.length>0&&<Notice tone="warn">{bi(copy.warning)}</Notice>}{email.subject&&email.body&&<EmailPreview subject={email.subject} body={email.body} cta={email.cta} footer={bi(copy.ownEmail)}/>}</section>)}</div>;
+}

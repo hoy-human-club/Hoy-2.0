@@ -2,7 +2,7 @@
  * State blocks shared between the flow pages and the /app/state/* demo routes:
  * E-01 empty home, E-02 payment declined, E-03 class cancelled by the studio.
  */
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
@@ -18,6 +18,9 @@ import { CountdownRing } from '../../../components/molecule/CountdownRing/Countd
 import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow';
 import { useAllSessionsJoined, type JoinedSession } from '../hooks';
 import { PAYMENT_METHODS, type PayMethod } from '../payments';
+import { useData } from '../../../data/DataContext';
+import { readOwnStudioReturn, type OwnStudioReturn } from '../../classSchedule/studioCancellation';
+import { studioStrings as studioCopy } from '../../classSchedule/studioStrings';
 import { policy } from '../policy';
 
 /** Same-day replacements for a session: scheduled, not full, in the future; same modality (class) first, then nearest time. */
@@ -33,16 +36,23 @@ export function useAlternatives(j: JoinedSession | null, limit = 3) {
   }, [all, j, limit]);
 }
 
-/** E-03 — the studio cancelled: refund confirmed, alternatives ready. */
+/** E-03 — cancelled class with scoped linked-return verification. */
 export function StudioCancelledBlock({ joined, booking }: { joined: JoinedSession; booking?: BookingRow | null }) {
-  const { t, lang } = useI18n();
+  const { t, lang, bi } = useI18n();
   const nav = useNavigate();
+  const data=useData(),{user,role}=useSession();
+  const current=useRef({data,actorId:user.id,role,bookingId:booking?.id});current.current={data,actorId:user.id,role,bookingId:booking?.id};
+  const [verification,setVerification]=useState<OwnStudioReturn>({status:'unverified'}),[checking,setChecking]=useState(false),[retry,setRetry]=useState(0);
+  useEffect(()=>{let alive=true,generation=0;const controller=new AbortController();
+    const refresh=async()=>{const id=++generation;setVerification({status:'unverified'});if(!booking?.id){setChecking(false);return;}setChecking(true);try{const value=await readOwnStudioReturn(data,{actorId:user.id,role},booking.id,{signal:controller.signal,currentActor:()=>({actorId:current.current.data===data&&current.current.bookingId===booking.id?current.current.actorId:'',role:current.current.role})});if(alive&&id===generation)setVerification(value);}catch{if(alive&&id===generation)setVerification({status:'unverified'});}finally{if(alive&&id===generation)setChecking(false);}};
+    void refresh();const off=data.subscribe('*',e=>{if(['users','bookings','class_sessions','class_ledger','payments'].includes(e.table)||e.type==='reset')void refresh();});return()=>{alive=false;generation++;controller.abort();off();};
+  },[data,user.id,role,booking?.id,retry]);
   const alts = useAlternatives(joined);
   const s = joined.session;
   return (
     <div className="stack">
       <Notice tone="danger" title={t('customer.cancelled.title')}>{s.cancel_reason ? t('customer.cancelled.reason', { reason: s.cancel_reason }) : t('customer.cancelled.body')} · {s.title} · {formatDate(s.starts_at, lang)} {formatTime(s.starts_at, lang)}</Notice>
-      <Notice tone="success" title={booking?.paid_with === 'package' ? t('customer.cancelled.refund.credit') : t('customer.cancelled.refund.none')}>{t('customer.cancelled.refund.body')}</Notice>
+      <Notice tone={verification.status==='verified'?'success':'warn'} title={bi(verification.status==='verified'?studioCopy.ownVerified:studioCopy.unverified)} action={booking?.id?<Button size="sm" variant="secondary" loading={checking} onClick={()=>setRetry(v=>v+1)}>{bi(studioCopy.reload)}</Button>:undefined}>{verification.status==='verified'?<><p>{bi(studioCopy.ownTerms)} {verification.balance}</p>{verification.expiresAt&&<p>{bi(studioCopy.expiry)}: {verification.expiresAt}</p>}{verification.frozen&&<p>{bi(studioCopy.frozen)}</p>}</>:bi(studioCopy.ownUnknown)}</Notice>
       <section className="stack-sm">
         <h2 className="cust-h2">{t('customer.cancelled.alternatives')}</h2>
         {alts.length === 0 ? (
@@ -53,7 +63,7 @@ export function StudioCancelledBlock({ joined, booking }: { joined: JoinedSessio
           </Card>
         )}
         {alts[0] && <Button block size="lg" onClick={() => nav(`/app/checkout/${alts[0].session.id}`)}>{t('customer.cancelled.cta')}</Button>}
-        <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.cancelled.channels')}</p>
+        <p className="xs muted" style={{ textAlign: 'center' }}>{bi(studioCopy.ownEmail)}</p>
       </section>
     </div>
   );

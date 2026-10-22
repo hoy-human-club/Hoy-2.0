@@ -1,0 +1,26 @@
+{
+  "batch": 38,
+  "sourceState": "Frozen runtime; awaiting serial full-build retry and rendered QA",
+  "fullSrcAndViteSha256": "68b03d2ee4bc01050034e802a096bb128ffeb78f6ad8798a48e3f0608dd160f3",
+  "rootConventionExcludingCaptureDatesSha256": "abe6a716367d8c38377b61a5cb7f4375688ab23a8fffb857592139983df85170",
+  "fingerprintMethod": "Lexically sorted src relative paths + bytes, then vite.config.ts bytes; no delimiters. Secondary root convention excludes generated captureDates.ts.",
+  "buildAttempts": [
+    {
+      "session": 3070,
+      "outcome": "EXIT137",
+      "logTail": "manual-lint: 28 chapters \u00d7 2 languages, 0 violations; Killed; no Vite output",
+      "cause": "Not established; no artifact accepted",
+      "sourceUnchangedDuringBuild": true
+    }
+  ],
+  "domain": "Final exact runtime test-studio-cancel.mjs PASS15 groups (session76274)",
+  "baseline": "Actual original MockProvider/Map:4 regressions confirmed",
+  "typecheck": "Standalone EXIT0 before final known-entitlement/receipt-shape checks; final fullbuild pending",
+  "rendered": "NOT RUN; queued after coordinator priority suites",
+  "globalGeneratedDiff": [
+    "src/app/captureDates.ts (leave for root regeneration)"
+  ],
+  "limits": [
+    "Fictional frontend mock only; AD02 real email/durable backend/server isolation remains unverified."
+  ]
+}
