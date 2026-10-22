@@ -1,0 +1,36 @@
+{
+  "baseCommit": "6d4e9bc1cd753ed386efe976b4a10a66fb7822fc",
+  "moduleFingerprint": "457abda65330cebedc468854a3f3a4ccb3b109dd1bea71b55a37bb864167a05c",
+  "runtimeFingerprint": "8cbd8a28545ad5106e93929175b5a5f81eb7a4a449b7704a748d20de0907a6e0",
+  "build": "EXIT0",
+  "scope": "Batch33 uncommitted fictional local mock repair over base; no checked/deployed/owner/backend acceptance.",
+  "moduleFiles": [
+    "src/modules/marketing/drafts.ts",
+    "src/components/organism/MarketingDraftBoard/MarketingDraftBoard.tsx",
+    "src/components/organism/MarketingDraftBoard/MarketingDraftBoard.meta.ts",
+    "src/modules/marketing/strings.ts"
+  ],
+  "sourceUnchangedBeforeAfterFullBuild": true,
+  "fingerprintBasis": "Module: each listed path+NUL+bytes+NUL; runtime: sorted src path+bytes excluding captureDates.ts then vite bytes; bundle: sorted relative path+NUL+bytes+NUL. All SHA256.",
+  "version": "0.25.0",
+  "snapshot": "/tmp/hoy-marketing-fences-qa-457abda65330",
+  "bundleFingerprint": "3b2511f78fe15bd5e4d09728b5769dfc87b6775606b622494f5067ee2a41c817",
+  "buildCommand": "npm run build",
+  "buildLog": "/tmp/hoy-marketing-fences-build-final.log",
+  "buildExit": 0,
+  "production": "http://127.0.0.1:5250",
+  "development": "http://127.0.0.1:5249",
+  "qaStatus": "NOT RUN: final immutable route matrix, actual dev-state matrix and focused D02 smoke queued behind root67 exclusive browser priority. No rendered acceptance inferred.",
+  "remainingGates": [
+    "Root integration/exact-head CI/commit/merge/deployment receipts.",
+    "No whole OT01/owner/backend/art/rights/publication/delivery/commercial acceptance."
+  ],
+  "historicalFirstBuild": "a9fa382cddee was first compiled candidate; full-query route fence correction rebuilt before browser QA. No final QA claimed against old bundle.",
+  "sourceFingerprintAfterUnitDocs": "457abda65330cebedc468854a3f3a4ccb3b109dd1bea71b55a37bb864167a05c",
+  "domainStatus": "PASS existing domain and11new boundary groups including factual postcommit result versus gated UIack and cancelled fresh-read replay.",
+  "intendedBrowserScripts": [
+    "scripts/test-marketing-drafts-ui.mjs",
+    "scripts/test-marketing-draft-fences-states.mjs",
+    "scripts/test-marketing-draft-library-ui.mjs"
+  ]
+}

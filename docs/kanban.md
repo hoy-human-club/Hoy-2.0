@@ -728,3 +728,7 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 
 - FI-03 / RS-15: isolated fictional atomic payroll drafts and zero-due event RSVP source/domain/rendered proof passed; combined full build/domain and all3 serial rendered suites passed with currency readability assertions/inspection; final evidence-head CI and release checks pending. Approval, settlement, paid RSVP, real emails and backend acceptance remain separate.
 - PR66 checked44973d7 deployed asede03f3; Pages39720627884 all3 jobs and exact hosted source verification passed. Receipt: docs/frontend-completion/evidence/release-pr66.json.
+
+## Future draft fences · 0118
+
+- OT-01 / OT-02 original AfterNov30 phase: source checkpoints33e053498/32f0a7719 combined with clean merge; fullbuild and original/new domain suites passed. Isolated marketing all3 rendered suites passed; repaired maintenance affected QA and combined integration QA/CI/release remain pending. No delivery/publication/operational signoff or backend acceptance.

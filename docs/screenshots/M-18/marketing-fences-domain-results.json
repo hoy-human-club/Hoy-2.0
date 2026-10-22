@@ -1,0 +1,22 @@
+{
+  "requirement": "OT-01",
+  "phase": "After Nov 30",
+  "checks": [
+    "Paused digest owns nested row, control and tenant/actor/role/adapter snapshots; original replay once, changed intent conflicts",
+    "Runtime command controls reject malformed request/revision/type/create-edit intent before write",
+    "Cancel before digest, while digest held and after fresh read prevents local commit",
+    "Read and persistence quota failures preserve prior document; unchanged retry commits once",
+    "Saved-then-thrown acknowledgment and postwrite read error replay confirmed effect without duplicate write",
+    "Concurrent same intent writes once; competing observed-revision intents cannot overwrite",
+    "Create collision, missing/kind-changed original edit, missing/changed saved replay and recreated discarded ID reject without resurrection or deletion",
+    "Fresh persisted readback rejects missing committed effect; replay never repairs or fabricates success",
+    "Unrelated newer drafts survive replay; legacy v1 documents/opaque receipts stay readable; malformed/foreign/duplicate rows reject",
+    "Postcommit cancellation preserves verified factual result; UI acknowledgement separately fenced; replay getItem cancellation rejects without write",
+    "Existing four roles only; seven denied and disconnected adapters make no writes"
+  ],
+  "result": "PASS",
+  "limits": [
+    "One browser-local document only; no backend/cross-device/cross-tab/durable-storage guarantee.",
+    "Opaque v1 receipts preserve no discarded copy; erasing browser storage erases its evidence."
+  ]
+}

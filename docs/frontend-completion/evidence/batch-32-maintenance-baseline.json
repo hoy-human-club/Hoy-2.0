@@ -1,0 +1,9 @@
+{
+  "batch": 32,
+  "source": "840f8e1",
+  "confirmed": [
+    "Actor reassignment after preflight still commits record+audit.",
+    "Foreign target replay returns historical owned row without fresh target validation."
+  ],
+  "method": "Actual MockProvider, fictional in-memory/cache fixture only; no body output."
+}

@@ -38,28 +38,70 @@ export function validateMaintenanceLabel(label: Bi): void {
   if (!label || ['es','en'].some(lang => typeof label[lang as keyof Bi] !== 'string' || label[lang as keyof Bi].trim().length < 3 || label[lang as keyof Bi].length > 120)) throw new Error('maintenance_validation');
 }
 export type MaintenanceCommand = { actorId: string; role: Role } & MaintenanceInput;
-interface Receipt extends BaseRow { diff: { fingerprint: string; result: MaintenanceRecordRow[] } }
-/** Authorizes only existing frontend maintenance.write previews; server authorization is not implemented. */
-export async function runMaintenance(data: DataProvider, command: MaintenanceCommand): Promise<MaintenanceRecordRow[]> {
-  if (data.name !== 'mock') throw new Error('maintenance_disconnected');
-  if (!roleCan(command.role, 'maintenance.write')) throw new Error('maintenance_denied');
-  if (!data.atomic) throw new Error('maintenance_atomic_required');
-  if (!command.requestId || command.requestId.length > 160) throw new Error('maintenance_request');
-  const actor = await data.get<UserRow>('users', command.actorId);
-  if (!actor || actor.tenant_id !== tenant.id) throw new Error('maintenance_scope');
-  const request = structuredClone(command);
-  const fingerprint = JSON.stringify(request);
-  return data.atomic(async tx => {
-    const receiptId = `maintenance_request_${tenant.id}_${request.actorId}_${request.requestId}`;
-    const prior = await tx.get<Receipt>('audit_log', receiptId);
-    if (prior) {
-      if (prior.tenant_id !== tenant.id || prior.diff.fingerprint !== fingerprint) throw new Error('maintenance_request_conflict');
-      return prior.diff.result;
+export interface MaintenanceControl {signal?:AbortSignal;currentActor?:()=>{actorId:string;role:Role};failAfterWrites?:number}
+interface Metadata {id:string;revision:number;kind:MaintenanceKind;digest:string}
+interface Receipt extends BaseRow {diff:{version?:2;fingerprint:string;result:Metadata[]|MaintenanceRecordRow[];role:Role;source:string}}
+function check(data:DataProvider,command:Pick<MaintenanceCommand,'actorId'|'role'>,control:MaintenanceControl={}){
+ if(data.name!=='mock')throw Error('maintenance_disconnected');
+ if(!roleCan(command.role,'maintenance.write'))throw Error('maintenance_denied');
+ if(!data.atomic)throw Error('maintenance_atomic_required');
+ const current=control.currentActor?.()??command;
+ if(current.actorId!==command.actorId||current.role!==command.role)throw Error('maintenance_context');
+ if(control.signal?.aborted)throw Error('maintenance_cancelled');
+}
+async function actor(data:DataProvider,command:Pick<MaintenanceCommand,'actorId'|'role'>,control:MaintenanceControl={}){
+ check(data,command,control);const rows=await data.list<UserRow>('users',{where:{tenant_id:tenant.id,id:command.actorId}});check(data,command,control);
+ if(rows.length!==1||rows[0].tenant_id!==tenant.id||rows[0].id!==command.actorId)throw Error('maintenance_scope');
+}
+async function scopedRows<T extends BaseRow>(data:DataProvider,table:string,control:MaintenanceControl,command:Pick<MaintenanceCommand,'actorId'|'role'>){
+ check(data,command,control);const rows=await data.list<T>(table,{where:{tenant_id:tenant.id}});check(data,command,control);
+ if(rows.some(r=>r.tenant_id!==tenant.id)||new Set(rows.map(r=>r.id)).size!==rows.length)throw Error('maintenance_scope');return rows;
+}
+function shape(row:MaintenanceRecordRow){
+ if(!row||row.tenant_id!==tenant.id||typeof row.id!=='string'||!row.id||!Number.isSafeInteger(row.revision)||row.revision<0||typeof row.created_by!=='string'||!row.payload||typeof row.payload!=='object'||Array.isArray(row.payload)||row.room_id!==null&&typeof row.room_id!=='string')throw Error('maintenance_scope');
+ validateMaintenanceLabel(row.label);validateMaintenance(row.kind,row.payload);
+}
+async function target(data:DataProvider,id:string,command:Pick<MaintenanceCommand,'actorId'|'role'>,control:MaintenanceControl,required=true){
+ const rows=await scopedRows<MaintenanceRecordRow>(data,'maintenance_records',control,command),matches=rows.filter(r=>r.id===id);
+ if(!matches.length){if(required)throw Error('maintenance_scope');return null;}
+ shape(matches[0]);return matches[0];
+}
+async function requireRoom(data:DataProvider,id:string,command:Pick<MaintenanceCommand,'actorId'|'role'>,control:MaintenanceControl){const rooms=await scopedRows<RoomRow>(data,'rooms',control,command);if(!rooms.some(r=>r.id===id))throw Error('maintenance_scope');}
+export async function readMaintenanceWorkspace(data:DataProvider,identity:{actorId:string;role:Role},suppliedControl:MaintenanceControl={}){
+ const control:MaintenanceControl={signal:suppliedControl.signal,currentActor:suppliedControl.currentActor,failAfterWrites:suppliedControl.failAfterWrites};
+ const command={...identity};await actor(data,command,control);const records=await scopedRows<MaintenanceRecordRow>(data,'maintenance_records',control,command);records.forEach(shape);const rooms=await scopedRows<RoomRow>(data,'rooms',control,command);if(rooms.some(r=>typeof r.id!=='string'||typeof r.name!=='string'))throw Error('maintenance_scope');await actor(data,command,control);return {records,rooms};
+}
+async function digest(value:unknown){const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(value)));return [...new Uint8Array(bytes)].map(b=>b.toString(16).padStart(2,'0')).join('');}
+const rowDigest=(row:MaintenanceRecordRow)=>digest({kind:row.kind,roomId:row.room_id,label:row.label,payload:row.payload,revision:row.revision,createdBy:row.created_by});
+async function acknowledge(data:DataProvider,metadata:Metadata[],request:MaintenanceCommand,control:MaintenanceControl){
+ await actor(data,request,control);
+ if(!Array.isArray(metadata)||!metadata.length||new Set(metadata.map(r=>r.id)).size!==metadata.length)throw Error('maintenance_request_conflict');
+ const rows:MaintenanceRecordRow[]=[];
+ for(const item of metadata){if(typeof item.id!=='string'||!Number.isSafeInteger(item.revision)||item.revision<0||!MAINTENANCE_KINDS.includes(item.kind))throw Error('maintenance_request_conflict');const row=(await target(data,item.id,request,control))!;if(row.revision!==item.revision||row.kind!==item.kind||typeof item.digest!=='string'||await rowDigest(row)!==item.digest)throw Error('maintenance_revision_conflict');rows.push(row);}
+ if(request.type==='create'&&request.roomId)await requireRoom(data,request.roomId,request,control);
+ await actor(data,request,control);check(data,request,control);return rows;
+}
+/** Fictional commands only. Snapshot before awaiting; no server/security or operational guarantee. */
+export async function runMaintenance(data:DataProvider,command:MaintenanceCommand,suppliedControl:MaintenanceControl={}):Promise<MaintenanceRecordRow[]>{
+ const control:MaintenanceControl={signal:suppliedControl.signal,currentActor:suppliedControl.currentActor,failAfterWrites:suppliedControl.failAfterWrites};
+ const request=structuredClone(command);check(data,request,control);
+ if(typeof request.requestId!=='string'||!request.requestId||request.requestId.length>160)throw Error('maintenance_request');
+ if(!['examples','create','save'].includes(request.type))throw Error('maintenance_validation');
+ if(request.type!=='examples'&&(typeof request.id!=='string'||!request.id||request.id.length>160)||request.type==='create'&&request.roomId!==null&&typeof request.roomId!=='string'||request.type==='save'&&(!Number.isSafeInteger(request.expectedRevision)||request.expectedRevision<0))throw Error('maintenance_validation');
+ await actor(data,request,control);
+ const fingerprint=await digest(request),nonce=await digest({tenant:tenant.id,actor:request.actorId,role:request.role,requestId:request.requestId});check(data,request,control);
+ const metadata=await data.atomic!(async tx=>{
+    check(data,request,control);await actor(tx,request,control);
+    const receiptId=`maintenance_request_v2_${nonce}`;
+    const prior=await tx.get<Receipt>('audit_log',receiptId)??await tx.get<Receipt>('audit_log',`maintenance_request_${tenant.id}_${request.actorId}_${request.requestId}`);check(data,request,control);
+    if(prior){
+      if(!prior.diff||!Array.isArray(prior.diff.result)||prior.tenant_id!==tenant.id||prior.actor_id!==request.actorId||prior.diff.role!==request.role||prior.diff.source!=='fictional-maintenance'||(prior.diff.version===2?prior.diff.fingerprint!==fingerprint:prior.diff.fingerprint!==JSON.stringify(request)))throw Error('maintenance_request_conflict');
+      const items=prior.diff.version===2?prior.diff.result as Metadata[]:await Promise.all((prior.diff.result as MaintenanceRecordRow[]).map(async r=>({id:r.id,revision:r.revision,kind:r.kind,digest:await rowDigest(r)})));await acknowledge(tx,items,request,control);return items;
     }
     let result: MaintenanceRecordRow[];
     if (request.type === 'examples') {
       if (!validDate(request.day)) throw new Error('maintenance_validation');
-      const rooms = await tx.list<RoomRow>('rooms');
+      const rooms = await scopedRows<RoomRow>(tx,'rooms',control,request);
       const roomId = rooms.find(room => room.tenant_id === tenant.id)?.id ?? null;
       const samples: { kind: MaintenanceKind; label: Bi; payload: Record<string,unknown> }[] = [
         { kind: 'checklist', label: { es: 'DEMO · checklist de sala', en: 'DEMO · room checklist' }, payload: { day: request.day, phase: 'opening', checked: [] } },
@@ -70,24 +112,27 @@ export async function runMaintenance(data: DataProvider, command: MaintenanceCom
       result = [];
       for (const sample of samples) {
         const id = `demo_maintenance_${sample.kind}`;
-        const current = await tx.get<MaintenanceRecordRow>('maintenance_records', id);
+        const existing=await tx.get<MaintenanceRecordRow>('maintenance_records',id);check(data,request,control);if(existing&&existing.tenant_id!==tenant.id)throw Error('maintenance_scope');
+        const current = await target(tx,id,request,control,false);
         if (current) { if (current.tenant_id !== tenant.id) throw new Error('maintenance_scope'); result.push(current); continue; }
-        result.push(await tx.insert<MaintenanceRecordRow>('maintenance_records', { id, tenant_id: tenant.id, room_id: roomId, ...sample, revision: 0, created_by: request.actorId }));
+        check(data,request,control);result.push(await tx.insert<MaintenanceRecordRow>('maintenance_records', { id, tenant_id: tenant.id, room_id: roomId, ...sample, revision: 0, created_by: request.actorId }));
       }
     } else if (request.type === 'create') {
       if (!request.id || request.id.length > 160) throw new Error('maintenance_validation');
       validateMaintenance(request.kind, request.payload); validateMaintenanceLabel(request.label);
-      if (request.roomId) { const room = await tx.get<RoomRow>('rooms', request.roomId); if (!room || room.tenant_id !== tenant.id) throw new Error('maintenance_scope'); }
+      if (request.roomId) await requireRoom(tx,request.roomId,request,control);
       if (await tx.get('maintenance_records', request.id)) throw new Error('maintenance_record_exists');
-      result = [await tx.insert<MaintenanceRecordRow>('maintenance_records', { id: request.id, kind: request.kind, room_id: request.roomId, label: { es: request.label.es.trim(), en: request.label.en.trim() }, payload: request.payload, revision: 0, created_by: request.actorId })];
+      check(data,request,control);result = [await tx.insert<MaintenanceRecordRow>('maintenance_records', { id: request.id, kind: request.kind, room_id: request.roomId, label: { es: request.label.es.trim(), en: request.label.en.trim() }, payload: request.payload, revision: 0, created_by: request.actorId })];
     } else {
-      const row = await tx.get<MaintenanceRecordRow>('maintenance_records', request.id);
-      if (!row || row.tenant_id !== tenant.id) throw new Error('maintenance_scope');
+      const row = (await target(tx,request.id,request,control))!;
       if (row.revision !== request.expectedRevision) throw new Error('maintenance_revision_conflict');
       validateMaintenance(row.kind, request.payload);
-      result = [await tx.update<MaintenanceRecordRow>('maintenance_records', row.id, { payload: request.payload, revision: row.revision + 1 })];
+      check(data,request,control);result = [await tx.update<MaintenanceRecordRow>('maintenance_records', row.id, { payload: request.payload, revision: row.revision + 1 })];
     }
-    await tx.insert('audit_log', { id: receiptId, actor_id: request.actorId, action: 'maintenance.demo', entity: 'maintenance_records', entity_id: request.type === 'examples' ? 'examples' : request.id, ip: null, diff: { fingerprint, result, role: request.role, source: 'fictional-maintenance' } });
-    return result;
-  });
+    check(data,request,control);const items=await Promise.all(result.map(async r=>({id:r.id,revision:r.revision,kind:r.kind,digest:await rowDigest(r)})));check(data,request,control);
+    await tx.insert('audit_log',{id:receiptId,actor_id:request.actorId,action:'maintenance.demo',entity:'maintenance_records',entity_id:request.type==='examples'?'examples':request.id,ip:null,diff:{version:2,fingerprint,result:items,role:request.role,source:'fictional-maintenance'}});
+    check(data,request,control);await actor(tx,request,control);return items;
+ },{failAfterWrites:control.failAfterWrites});
+ // A failed fence after commit withholds acknowledgement; it cannot undo the committed record/audit.
+ return acknowledge(data,metadata,request,control);
 }
