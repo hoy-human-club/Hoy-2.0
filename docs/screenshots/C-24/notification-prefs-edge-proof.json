@@ -1,0 +1,26 @@
+{
+  "baseCommit": "87f2a77e980191f21375c70694a2fcc5b9a38062",
+  "runtimeFingerprint": "c1d5cfc72f851acaca93626ce5f25934b534f9fadd52e95903035467c9d89161",
+  "bundle": "/tmp/hoy-prefs-qa-c1d5cfc72f85",
+  "status": "uncommitted local mock-only correction; no deployed/production acceptance",
+  "domain": "EXIT0",
+  "hookAPI": "EXIT0,14 controlled lifecycle cases on actual bundled hook",
+  "fullBuild": "EXIT0",
+  "productionUI": {
+    "base": "http://127.0.0.1:5229",
+    "checks": [
+      "en/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "C24 existing roles: customer/teacher/super allowed;8 other roles denied; no expansion",
+      "en/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "en/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "en/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "es/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "es/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "es/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+      "es/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts"
+    ],
+    "errors": []
+  },
+  "captures": 64,
+  "sourceUnchangedAfterQA": true
+}

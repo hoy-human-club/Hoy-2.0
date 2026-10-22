@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5243",
+  "checks": [
+    "en: actual M04 page and snapshot loading/readfailure/retry; busy same-tick duplicate guard; cancel/unmount/selection/actor context before commit no rows; second-write rollback/retry once; completed commit stays complete with no late preview reopen",
+    "es: actual M04 page and snapshot loading/readfailure/retry; busy same-tick duplicate guard; cancel/unmount/selection/actor context before commit no rows; second-write rollback/retry once; completed commit stays complete with no late preview reopen"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual-page/provider fault harness. Production route matrix is separate. No provider delivery."
+  ]
+}

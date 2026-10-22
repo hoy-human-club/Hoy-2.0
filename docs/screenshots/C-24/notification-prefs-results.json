@@ -1,0 +1,15 @@
+{
+  "base": "http://127.0.0.1:5244",
+  "checks": [
+    "en/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "C24 existing roles: customer/teacher/super allowed;8 other roles denied; no expansion",
+    "en/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "en/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "en/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "es/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "es/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "es/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+    "es/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts"
+  ],
+  "errors": []
+}

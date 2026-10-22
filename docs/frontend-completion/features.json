@@ -1395,7 +1395,15 @@
           "behavior": "Explicit allowlisted own-data fictional preview/confirmation and atomic request/cancel, with required-row replay and postcommit ownership fences.",
           "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Full legal export completeness, actual authenticated delivery/deletion/retention/SLA processing, admin/public counterparts and independent legacy marketing multiwrite remain open.",
-          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance.",
+          "release": "PR65 checked3c017b4 all10 triggered workflows passed, including all7 correctness jobs. Merge840f8e1; Pages39717548494 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
+        },
+        {
+          "batch": "batch-29.md",
+          "behavior": "Existing C26 selected marketing preference/profile any-channel mirror/consent audit commit atomically with fresh required rows, stale selected target and owned replay; no dispatch/legal processing. Existing request Card contrast corrected locally.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
+          "limits": "Existing C19/C24 retain separate semantics. Actual legal data rights, email preference enforcement, urgency policy and authenticated server/durable acceptance remain open.",
+          "acceptance": "Source phase/statuses unchanged; no full CU06/NT06 acceptance."
         }
       ]
     },
@@ -3839,7 +3847,8 @@
           "behavior": "Existing desk selection uses compatible masked separated phone formats; raw search matches and own stored contact remains unchanged.",
           "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Contact-format slice only; full registration/check-in/payment, historical allocation, consent/source policy and server atomicity remain separate.",
-          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance.",
+          "release": "PR65 checked3c017b4 all10 triggered workflows passed, including all7 correctness jobs. Merge840f8e1; Pages39717548494 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4385,7 +4394,8 @@
           "behavior": "Existing masked contact views handle separated fictional phone formats without raw fallback; stored/search/editor values and roles unchanged.",
           "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "Formatting slice only. Existing CRM async loading/error and long-name table clipping, historical reconciliation, reader policy and backend enforcement remain open.",
-          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance.",
+          "release": "PR65 checked3c017b4 all10 triggered workflows passed, including all7 correctness jobs. Merge840f8e1; Pages39717548494 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ],
       "baselineImplementationStatus": "partial"
@@ -4815,30 +4825,64 @@
       "priority": "Medium",
       "relatedTests": "COO-04",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/EmailsPage.tsx",
         "src/components/organism/EmailPreview/EmailPreview.tsx"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/emails"
+      ],
+      "tests": [
+        "scripts/test-email-test.mjs",
+        "scripts/test-email-test-ui.mjs",
+        "scripts/test-email-test-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-04/email-test-build-receipt.json",
+        "docs/screenshots/M-04/email-test-ui-results.json",
+        "docs/screenshots/M-04/email-test-state-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Freshly exercise edit/variables/version rollback plus simulated send failure; clearly distinguish local test preview from external delivery.",
+      "nextAction": "Check exact-head integration/release; separately repair template save/rollback and connect authorized real rendering/delivery/version services.",
       "candidateRoutes": [
         "/#/admin/emails"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded local self-test verified; whole NT05 remains partial and owner/provider acceptance unchanged.",
         "missingFrontend": [
-          "Template subject/body editor, variables, version counter/audit and rollback exist. Test send merely inserts sent message_log; failure/retry and genuine provider test state remain disconnected."
+          "Template save/rollback and generic comms lifecycle remain separate partial workflows; saved-version self-only simulation now has scoped loading/error/retry, atomic audit/log and cancellation/replay proof.",
+          "Real provider test state/delivery and immutable version retention are disconnected, so legacy sent simulation is not an email delivery result."
         ],
         "remainingBackend": [
           "Template rendering/send provider, immutable version retention and delivery events."
         ]
       },
       "sourceNextAction": "Freshly exercise edit/variables/version rollback plus simulated send failure; clearly distinguish local test preview from external delivery.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-28.md",
+          "behavior": "Atomic self-only local email simulation with immutable saved template version/preview locale/current actor recipient, contained scoped reads/lifecycle/retry/replay and readable dark paper. No email delivery.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
+          "limits": "Provider send/rendering/delivery events, immutable version retention and separate template save/rollback/generic comms remain partial.",
+          "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
+        }
+      ],
+      "priorSourceAssessments": [
+        {
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "Template subject/body editor, variables, version counter/audit and rollback exist. Test send merely inserts sent message_log; failure/retry and genuine provider test state remain disconnected."
+            ],
+            "remainingBackend": [
+              "Template rendering/send provider, immutable version retention and delivery events."
+            ]
+          },
+          "basis": "Historical source inspection before batch28; retained without promoting whole feature acceptance."
+        }
+      ]
     },
     {
       "id": "NT-06",
@@ -4854,17 +4898,27 @@
       "priority": "Medium",
       "relatedTests": "CLI-21",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/NotificationsPage.tsx",
         "src/modules/customer/hooks.ts",
         "src/data/comms.ts"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/app/profile",
+        "/#/app/notifications"
+      ],
+      "tests": [
+        "scripts/test-notification-prefs.mjs",
+        "scripts/test-notification-prefs-hook.mjs",
+        "scripts/test-notification-prefs-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-24/notification-prefs-edge-proof.json",
+        "docs/screenshots/C-24/notification-prefs-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Define mandatory vs optional notification categories; enforce preference selection in mock send/preview and verify immediate effect.",
+      "nextAction": "Check exact-head integration/release; retain explicit unresolved urgency/mandatory policy and real preference-aware provider dispatch/authenticated persistence gates.",
       "candidateRoutes": [
         "/#/app/notifications",
         "/#/app/profile"
@@ -4879,7 +4933,23 @@
         ]
       },
       "sourceNextAction": "Define mandatory vs optional notification categories; enforce preference selection in mock send/preview and verify immediate effect.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-27.md",
+          "behavior": "Scoped local category/master preference commands preserve channels/categories/defaults, atomic failures and safe replay; public API rejects cancelled/unconfirmed acknowledgements. No actual dispatch enforcement.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
+          "limits": "Actual nonurgent/mandatory policy and provider/outbox enforcement, authenticated persistence and durable cross-device behavior remain disconnected.",
+          "acceptance": "All124 original statuses/criteria/phases unchanged; partial named mock slice only."
+        },
+        {
+          "batch": "batch-29.md",
+          "behavior": "Existing C26 selected marketing preference/profile any-channel mirror/consent audit commit atomically with fresh required rows, stale selected target and owned replay; no dispatch/legal processing. Existing request Card contrast corrected locally.",
+          "verification": "Root combined full build/domain/actual-hook14 and all7 serial production/dev/regression suites passed on immutable5244/runtimeac8f6d47…; exact-head CI/merge/deployment pending. See integrated-batches-27-28-29.json and combined-27-28-29-ui.json.",
+          "limits": "Existing C19/C24 retain separate semantics. Actual legal data rights, email preference enforcement, urgency policy and authenticated server/durable acceptance remain open.",
+          "acceptance": "Source phase/statuses unchanged; no full CU06/NT06 acceptance."
+        }
+      ]
     },
     {
       "id": "PF-01",
@@ -5036,7 +5106,8 @@
           "behavior": "Existing teacher request stages audit plus team-only queued log atomically with scoped fresh ownership, safe replay and contained cancellation/retry; Administration log reads same fictional row.",
           "verification": "Root combined full build/domain and all6 serial production/dev/regression suites passed on immutable5235 runtime31e61c…; exact-head CI, checked merge and deployment pending. See integrated-batches-24-26.json.",
           "limits": "No actual delivery or substitute assignment. Coordinator destination/channel/acknowledgment, authenticated server ownership/queue/idempotency and owner acceptance remain open.",
-          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance."
+          "acceptance": "All124 original source statuses/criteria/phases preserved; focused fictional proof only, no owner/backend acceptance.",
+          "release": "PR65 checked3c017b4 all10 triggered workflows passed, including all7 correctness jobs. Merge840f8e1; Pages39717548494 build/deploy/hosted exact-source verification passed. No owner/backend acceptance."
         }
       ]
     },
@@ -5249,7 +5320,7 @@
       "phase": "Nov 30 delivery",
       "priority": "High",
       "relatedTests": "FIN-08, FIN-09, FIN-10",
-      "implementationStatus": "implemented",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/admin/payouts.ts",
@@ -5260,20 +5331,36 @@
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
+      "nextAction": "Finish bounded fictional draft-generation/replacement repair and focused checked release; separately verify approval/settlement and authenticated server period uniqueness/status locks.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
-        "missingFrontend": [],
+        "basis": "Current source audit and executed baseline mock regression in isolated batch30; full feature remains unaccepted.",
+        "missingFrontend": [
+          "Draft generator uses captured rows and individual deletes/inserts: a later-line failure leaves a persisted partial run, while concurrent calls can create duplicate same-period runs.",
+          "Draft-only atomic replacement and fresh overlap/status checks are active in isolated batch30, with final rendered proof/root integration not yet released; approval/settlement remain outside that slice."
+        ],
         "remainingBackend": [
           "Current draft generation is multiple client CRUD writes; server transaction/idempotency/unique period and status locks required."
         ]
       },
       "sourceNextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
-      "baselineImplementationStatus": "implemented"
+      "baselineImplementationStatus": "implemented",
+      "priorSourceAssessments": [
+        {
+          "implementationStatus": "implemented",
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [],
+            "remainingBackend": [
+              "Current draft generation is multiple client CRUD writes; server transaction/idempotency/unique period and status locks required."
+            ]
+          },
+          "basis": "Historical source classification before draft partial-write/concurrency regression was reproduced; not acceptance."
+        }
+      ]
     },
     {
       "id": "FI-04",
@@ -6005,6 +6092,31 @@
       },
       "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
       "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
+    },
+    "accountTeacherRelease": {
+      "pr": 65,
+      "checkedHead": "3c017b47bdc67e66859dc4c48d000caefebcc502",
+      "workflowCount": 10,
+      "allTriggeredWorkflows": "passed",
+      "correctnessRun": 39717203860,
+      "correctnessJobs": {
+        "119622047452": "account-data passed",
+        "119622047659": "substitute-request passed",
+        "119622047673": "contact-mask passed",
+        "119622047706": "trial-eligibility passed",
+        "119622047729": "recovery passed",
+        "119622047801": "profile-save passed",
+        "119622047815": "api-key-mutations passed"
+      },
+      "mergedSource": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+      "pagesRun": 39717548494,
+      "pagesJobs": {
+        "119623187620": "build passed",
+        "119623435136": "deploy passed",
+        "119623542530": "hosted source/selected subscription flow passed"
+      },
+      "rollback": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+      "scope": "Changed flows have local immutable production and exact-head CI proof. Hosted check establishes exact-source deployment/selected existing flow; no complete new-flow live, backend or owner acceptance."
     }
   },
   "classificationPolicy": {

@@ -37,3 +37,5 @@ Dev EN390light passed strict non-audit data equality; remaining dev run stopped 
 Checked commit/CI/deployment and rollback receipt: root-owned, pending. Standard isolated full build necessarily regenerates hub-map/capture dates; root will omit/regenerate those integration outputs. No manual shared metadata edits or Git mutations occur here.
 
 Next: root integrates the checked helper/tests and runs exact-head CI/deployment. Backend reader projection/authorization and source acceptance stay open; no completion percentage, server protection or broad privacy claim. Jas questions, Justin actions and Anu contracts remain separate; no external questions/messages sent.
+
+Checked release: PR65 head3c017b4 all10 triggered workflows/all7 correctness jobs passed; merge840f8e1; Pages39717548494 build/deploy/hosted exact-source verification passed. Rollback0097dfb. Changed flows have local production and exact-head CI proof; hosted checks establish provenance/selected existing flow, no full acceptance.

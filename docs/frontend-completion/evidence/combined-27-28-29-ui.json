@@ -1,0 +1,191 @@
+{
+  "recordedAt": "2026-10-22T03:36:10.412564+00:00",
+  "batches": [
+    27,
+    28,
+    29
+  ],
+  "verifiedCheckoutHead": "29c9ec7ccbbc2d1062d85b0e3787f936edbe4d87",
+  "branch": "codex/preferences-marketing-frontend",
+  "runtimeFingerprintBeforeQa": "ac8f6d47a38fc710690ac6dd12e7104ba3189a88b8c8af27754bb6e6c4d179da",
+  "fingerprintBasis": "SHA256 sorted src relative path bytes followed by file bytes, excluding generated src/app/captureDates.ts; then vite.config.ts bytes. No separators.",
+  "immutableProduction": "http://127.0.0.1:5244",
+  "snapshot": "/tmp/hoy-preferences-email-qa-ac8f6d47a38f",
+  "development": "http://127.0.0.1:5243",
+  "buildEvidence": "http://127.0.0.1:5244/frontend-evidence.json",
+  "buildEvidenceReportedCheckout": "58bc08e52cf36e6d2ecd676ae177be32a1e974a8 plus frozen root metadata",
+  "buildEvidenceVerifiedRuntimeMatch": true,
+  "execution": "Seven requested suites ran serially, one browser at a time. All EXIT0; browsers closed and slot released before final evidence work. No runtime/source/Git edits; only test result/capture outputs and this evidence file.",
+  "receipts": [
+    {
+      "command": "QA_BASE=http://127.0.0.1:5244 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-notification-prefs-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5244",
+      "artifact": "docs/screenshots/C-24/notification-prefs-results.json",
+      "log": "/tmp/hoy-combined-27-prefs-ui.log",
+      "checks": [
+        "en/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "C24 existing roles: customer/teacher/super allowed;8 other roles denied; no expansion",
+        "en/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "en/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "en/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "es/light/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "es/light/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "es/dark/390: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts",
+        "es/dark/1280: C19 master atomic quota/retry+doubleclick, C24 category/readback/defaults, cancel/context late callback fence, missing-account read retry, ambiguous duplicate retained, reload, unchanged inbox/outbox/profile/consents and technical-only receipts"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5244 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-account-marketing-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5244",
+      "artifact": "docs/frontend-completion/evidence/batch-29-marketing-ui.json",
+      "log": "/tmp/hoy-combined-29-marketing-ui.log",
+      "checks": [
+        "en/light/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "11 existing roles: own customer/teacher/super access;8 denied",
+        "en/light/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "en/dark/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "en/dark/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "es/light/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "es/light/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "es/dark/390: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects",
+        "es/dark/1280: missingprefs defaultenabled,3coupledwrites quota rollback/retry, immediate doubletoggle, any-of-two, C26\u2192C24\u2192C19\u2192C26 readback, lostack metadata replay, cancel and realSPA unmount/identity fence, independent export control; requested Card body/retention/cancel contrast>=4.5 on existing surface tone; no marketing notification/legal/financial/account effects"
+      ],
+      "errors": [],
+      "artifactFingerprint": {
+        "entry": "http://127.0.0.1:5244/assets/index-BlkasnMW.js",
+        "sha256": "988a2328f9bad09501b1e8e5f90a2b809bccd17e1aff9ce53e035ee87084820d",
+        "styles": [
+          {
+            "url": "http://127.0.0.1:5244/assets/index-BjqHoOBe.css",
+            "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+          }
+        ]
+      }
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5244 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-test-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5244",
+      "artifact": "docs/screenshots/M-04/email-test-ui-results.json",
+      "log": "/tmp/hoy-combined-28-email-ui.log",
+      "checks": [
+        "en: saved v7 locale independent of UI; inactive draft self-only preview; unsaved edits excluded/preserved; cancel/no writes; quota rollback/retry/double submit one pair; stale version rejection/reopenv8; tenant exclusion and actual CRM conversation exclusion;4allowed self-only/7denied;390/1280 lightdark preview/error/recorded/log/roles",
+        "es: saved v7 locale independent of UI; inactive draft self-only preview; unsaved edits excluded/preserved; cancel/no writes; quota rollback/retry/double submit one pair; stale version rejection/reopenv8; tenant exclusion and actual CRM conversation exclusion;4allowed self-only/7denied;390/1280 lightdark preview/error/recorded/log/roles"
+      ],
+      "errors": [],
+      "renderedPaperTextContrastMinimum": 4.5
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5243 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-account-marketing-states.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5243",
+      "artifact": "docs/frontend-completion/evidence/batch-29-marketing-states.json",
+      "log": "/tmp/hoy-combined-29-marketing-states.log",
+      "checks": [
+        "en: actual existing MockProvider3stagewrite failure rollback/retry; fresh staged missingprofile/duplicateprefs/foreignprefs/readthrow; cancel after pref+profile staged before audit rolls back; postcommit ownership loss suppresses acknowledgement with retained committed3writes; restored same-command replay no duplicateaudit",
+        "es: actual existing MockProvider3stagewrite failure rollback/retry; fresh staged missingprofile/duplicateprefs/foreignprefs/readthrow; cancel after pref+profile staged before audit rolls back; postcommit ownership loss suppresses acknowledgement with retained committed3writes; restored same-command replay no duplicateaudit"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5243 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-email-test-states.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5243",
+      "artifact": "docs/screenshots/M-04/email-test-state-results.json",
+      "log": "/tmp/hoy-combined-28-email-states.log",
+      "checks": [
+        "en: actual M04 page and snapshot loading/readfailure/retry; busy same-tick duplicate guard; cancel/unmount/selection/actor context before commit no rows; second-write rollback/retry once; completed commit stays complete with no late preview reopen",
+        "es: actual M04 page and snapshot loading/readfailure/retry; busy same-tick duplicate guard; cancel/unmount/selection/actor context before commit no rows; second-write rollback/retry once; completed commit stays complete with no late preview reopen"
+      ],
+      "errors": []
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5244 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-account-data-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5244",
+      "artifact": "docs/frontend-completion/evidence/batch-24-account-ui.json",
+      "log": "/tmp/hoy-combined-account-data-ui.log",
+      "checks": [
+        "en: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures",
+        "es: scoped fictional export canaries/unknown-token omission, required-row read failure/recovery, preview cancel/no audit, quota rollback/retry and cancelled native download/no saved guarantee, immediate duplicate request, request/cancel rollback/retry, stale processing conflict, committed/lost-ack replay, preparation cancel and real SPA identity/unmount race, no financial/account effects, customer/teacher/super own access +8 denied,390/1280 light/dark captures"
+      ],
+      "errors": [],
+      "artifactFingerprint": {
+        "entry": "http://127.0.0.1:5244/assets/index-BlkasnMW.js",
+        "sha256": "988a2328f9bad09501b1e8e5f90a2b809bccd17e1aff9ce53e035ee87084820d"
+      }
+    },
+    {
+      "command": "QA_BASE=http://127.0.0.1:5244 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-profile-save-ui.mjs",
+      "exitCode": 0,
+      "base": "http://127.0.0.1:5244",
+      "artifact": "docs/screenshots/C-19/profile-save-results.json",
+      "log": "/tmp/hoy-combined-profile-save-ui.log",
+      "checks": [
+        "en: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark",
+        "es: validation/cancel no writes; quota atomic rollback/retry double-click one receipt; own-row reopen; stale editor conflict; existing CRM name/phone/birthday projection no emergency exposure; customer+teacher+super allowed/eight denied;390/1280 lightdark"
+      ],
+      "errors": []
+    }
+  ],
+  "inspectedShots": [
+    {
+      "path": "docs/screenshots/C-24/en-390-dark-prefs-category-saved.jpg",
+      "finding": "Browser-only and saved notices readable, category toggles contained, no viewport overflow."
+    },
+    {
+      "path": "docs/screenshots/C-24/es-1280-light-prefs-ready.jpg",
+      "finding": "All category labels and switches readable; browser-only warning and channel controls remain clear."
+    },
+    {
+      "path": "docs/screenshots/C-26/en-390-dark-marketing-request-contrast.jpg",
+      "finding": "Existing request-card body/retention/cancel readable on normal dark surface; cancel visible and contained."
+    },
+    {
+      "path": "docs/screenshots/C-26/es-1280-light-marketing-both-off.jpg",
+      "finding": "Local-only disclaimer/saved state readable, both channels off and export remains separate."
+    },
+    {
+      "path": "docs/screenshots/M-04/es-390-email-test-preview-dark.jpg",
+      "finding": "Fixed cream paper subject/variable/link readable, own fictional recipient wraps, local-only notice and cancel/run footer visible."
+    },
+    {
+      "path": "docs/screenshots/M-04/en-1280-email-test-error.jpg",
+      "finding": "Saved-version fictional paper and local-only notice readable; failure/retry/cancel remains visible in footer."
+    },
+    {
+      "path": "docs/screenshots/C-26/es-390-account-preview-light.jpg",
+      "finding": "Fictional selected-fields export preview shows no row content; omission/browser-save limits and cancel/download controls readable."
+    },
+    {
+      "path": "docs/screenshots/C-19/en-1280-atomic-editor-error.jpg",
+      "finding": "Fictional profile fields and atomic-save error readable; retry/cancel footer visible."
+    },
+    {
+      "path": "docs/screenshots/C-19/en-390-atomic-editor-dark-bottom.jpg",
+      "finding": "Last emergency-contact field clears fixed footer; dark labels and cancel/save readable with browser-only notice retained in scroll body."
+    }
+  ],
+  "remainingGates": [
+    "Root owns integrated metadata, exact-head CI, commit/merge/deployment receipts.",
+    "NT05 real delivery/provider authorization and template-save/rollback/generic-comms flows remain outside bounded self-test acceptance.",
+    "NT06 and marketing preference UI is fictional browser persistence, not delivery/legal consent or cross-device/cross-tab durability.",
+    "C26 local export/deletion-request and C19 profile regressions do not establish legal export/purge, emergency-contact readership, real backend authorization, commercial or owner acceptance.",
+    "All original124 IDs, phases and owner criteria remain unchanged."
+  ],
+  "runtimeFingerprintAfterQa": "ac8f6d47a38fc710690ac6dd12e7104ba3189a88b8c8af27754bb6e6c4d179da",
+  "runtimeUnchanged": true,
+  "runtimeSrcFileCount": 726,
+  "completedAt": "2026-10-22T03:44:58.533124+00:00",
+  "result": "PASS",
+  "assertions": "Existing assertions preserved, including role guards, failure/cancel/retry/replay, strict viewport fit, fixed-paper/request-card contrast and EN/ES390/1280 light/dark.",
+  "failures": [],
+  "retries": [],
+  "regressionBatches": [
+    24,
+    22
+  ]
+}

@@ -151,9 +151,7 @@
   ],
   "acceptance": "Bounded fictional frontend only; no accepted/backend-ready/completion percentage. Original source phases/statuses/roles unchanged.",
   "remainingGates": {
-    "root": [
-      "Exact-head CI, checked merge, normal deployment/source verification; combined rendered QA completed as recorded above."
-    ],
+    "root": [],
     "Jas": [
       "Confirmed team recipient/channel/acknowledgment; reader and source policy decisions remain separate."
     ],
@@ -195,5 +193,30 @@
     },
     "rollback": "67f142886f3c4b4a0ca03fd18c0f0aa78d4698ca",
     "scope": "New flows verified in local immutable production and exact-head CI; hosted verification proves exact-source deployment and selected existing subscription flow, not whole new-feature live or owner/backend acceptance."
+  },
+  "checkedRelease": {
+    "pr": 65,
+    "checkedHead": "3c017b47bdc67e66859dc4c48d000caefebcc502",
+    "workflowCount": 10,
+    "allTriggeredWorkflows": "passed",
+    "correctnessRun": 39717203860,
+    "correctnessJobs": {
+      "119622047452": "account-data passed",
+      "119622047659": "substitute-request passed",
+      "119622047673": "contact-mask passed",
+      "119622047706": "trial-eligibility passed",
+      "119622047729": "recovery passed",
+      "119622047801": "profile-save passed",
+      "119622047815": "api-key-mutations passed"
+    },
+    "mergedSource": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
+    "pagesRun": 39717548494,
+    "pagesJobs": {
+      "119623187620": "build passed",
+      "119623435136": "deploy passed",
+      "119623542530": "hosted source/selected subscription flow passed"
+    },
+    "rollback": "0097dfb8ee380ffef2678ffab9d8c68c78ed12f5",
+    "scope": "Changed flows have local immutable production and exact-head CI proof. Hosted check establishes exact-source deployment/selected existing flow; no complete new-flow live, backend or owner acceptance."
   }
 }

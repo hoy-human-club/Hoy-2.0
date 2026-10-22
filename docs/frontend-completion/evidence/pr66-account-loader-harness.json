@@ -1,0 +1,151 @@
+{
+  "scope": "PR66 development account-loader fault-injection correction only; no runtime/business/acceptance change",
+  "commitBeforeFix": "6d4e9bc1cd753ed386efe976b4a10a66fb7822fc",
+  "runtimeFingerprintBeforeAndAfter": "ac8f6d47a38fc710690ac6dd12e7104ba3189a88b8c8af27754bb6e6c4d179da",
+  "testScriptSha256": "a823276d51d8d836a0f4c79bbdbe0b46ccaab30ecc91391453d491567de20b85",
+  "originalCI": {
+    "run": 39719075319,
+    "job": 119628092558,
+    "failure": "scripts/test-account-data-states.mjs:12:345 Retry account read button wait timed out30s after prior startup/build/domain/production scopes passed"
+  },
+  "controlledReproduction": {
+    "exitCode": 0,
+    "log": "/tmp/hoy-account-loader-repro.log",
+    "actualExistingProvider": true,
+    "consumedBy": "readMarketingState",
+    "accountReadSucceeded": true,
+    "retryButtons": 0,
+    "prepareDisabled": false,
+    "cause": "The unscoped one-shot profiles read fault was consumed by the concurrent marketing reader, so the account loader was never failed."
+  },
+  "correction": "Dev-only exact reader classification from actual call stack plus original/staged provider identity, scoped tenant/owner query; explicit imports/type guards and exactly-once consumption assertions. No fallback or skipped failed injection. Safe labels only, no bodies/stacks/queries exported.",
+  "verification": {
+    "command": "QA_BASE=http://127.0.0.1:5243 CHROMIUM_PATH=/usr/bin/chromium node /workspace/hoy-preferences-integration/scripts/test-account-data-states.mjs",
+    "cwd": "/tmp/hoy-pr66-account-states-proof",
+    "exitCode": 0,
+    "log": "/tmp/hoy-pr66-account-states-fixed.log",
+    "artifacts": "/tmp/hoy-pr66-account-states-proof/docs/screenshots/C-26",
+    "result": {
+      "batch": 24,
+      "base": "http://127.0.0.1:5243",
+      "mode": "Actual development UI, reader/stage-scoped fault injection on existing MockProvider prototype; production matrix separate",
+      "checks": [
+        "en: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved",
+        "es: actual scoped payments read throw prevents partial preview/audit/download; account-loader read error hides stale state and Retry restores; audit-write failure after staged request rolls back; missing required profile inside transaction rejects; cancel while staged audit held rolls back/no late UI; postcommit ownership loss suppresses download while retaining historical prepared audit; restored same-command retry offers once without duplicate audit; original MockProvider instance/stage identity preserved"
+      ],
+      "injectionEvidence": [
+        {
+          "lang": "en",
+          "calls": [
+            {
+              "tag": "preview-payments",
+              "table": "payments",
+              "reader": "account-export",
+              "stage": false,
+              "consumed": true
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": false,
+              "consumed": true
+            },
+            {
+              "tag": "required-profile-stage",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "required-profile-stage",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": true,
+              "consumed": true
+            }
+          ]
+        },
+        {
+          "lang": "es",
+          "calls": [
+            {
+              "tag": "preview-payments",
+              "table": "payments",
+              "reader": "account-export",
+              "stage": false,
+              "consumed": true
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "marketing",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "account-loader",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": false,
+              "consumed": true
+            },
+            {
+              "tag": "required-profile-stage",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": false,
+              "consumed": false
+            },
+            {
+              "tag": "required-profile-stage",
+              "table": "profiles",
+              "reader": "account-state",
+              "stage": true,
+              "consumed": true
+            }
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "browserClosed": true
+  },
+  "remaining": "Root new exact-head CI must pass before PR66 merge; no new backend/owner/full-feature acceptance."
+}
