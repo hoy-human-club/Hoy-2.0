@@ -57,5 +57,12 @@
     "RS15 paid reserve/cancel remains partial; actual delivery and unresolved cancellation/cutoff policy are separate.",
     "Authenticated server transactions, capacity/period uniqueness, durable history and cross-device acceptance remain Anu contracts.",
     "No source owner acceptance, commercial agreement or100%/backend readiness inferred."
-  ]
+  ],
+  "followupValidation": {
+    "receipt": "docs/frontend-completion/evidence/service-catalog-uuid-failure.json",
+    "sourceFingerprint": "b3f906de0dcd5feeabc48c80ad22d01eef068a3e9bdbd8f40a3d077f7e1f18f5",
+    "result": "Fresh fullbuild and domain plus affected catalog/subscription UI passed; all original assertions retained.",
+    "provenance": "Earlier30/31 local matrix remains source8e4 and is not relabeled. Only subscription model runtime changed; final exact-head CI must reverify full12-scope integration.",
+    "historicalCi": "1560f23 passed10 workflows/all12 correctness scopes but catalog assertion failed. Its exact original cause remains unresolved; a controlled real UUID false positive was fixed and deterministically covered."
+  }
 }

@@ -1,0 +1,94 @@
+{
+  "recordedAt": "2026-10-22T04:36:02.485635+00:00",
+  "requirementID": "FI-03",
+  "phase": "Nov 30 delivery",
+  "criterion": "Draft without duplicates using closed classes times rate; Draft, Approved and Paid statuses; total equals the sum per teacher.",
+  "status": "Read-only audit only; no approval batch implementation or acceptance. Draft batch30 proof remains separate.",
+  "sourceEvidence": [
+    {
+      "path": "src/modules/admin/PayoutsPage.tsx",
+      "sha256": "4dee7747888a925ea65067fc9c6b7ef693ccd9f94ce22e308372c9daaef93083"
+    },
+    {
+      "path": "src/modules/admin/payouts.ts",
+      "sha256": "aed05e03007150af98ed105b73954655874f59e3da0f15afaf50cd8177e774e9"
+    },
+    {
+      "path": "src/modules/staff/audit.ts",
+      "sha256": "9ec096be3152e06d64a084803f5a063fc946252c1d4f07f18920c2443ca3abc7"
+    }
+  ],
+  "method": {
+    "handlers": "Actual source block from const approve through immediately before const regenerate, PayoutsPage.tsx lines152–208; exact useAudit callback from audit.ts lines19–20; bind run/lines and inert UI setters around original handler text.",
+    "provider": "Real MockProvider with isolated Map-backed localStorage; esbuild bundle write:false/data import. No browser/Git/repository/runtime writes or network.",
+    "caution": "Lifecycle uses a revoked callback-lifetime canary around actual delayed Wompi simulator, not rendered React unmount proof or authenticated authorization."
+  },
+  "reproductions": [
+    {
+      "label": "actual-transition-handlers",
+      "exitCode": 0,
+      "localLog": "/tmp/hoy-finished-payroll-audit.log",
+      "findings": [
+        {
+          "case": "stale_approve_regresses_paid",
+          "runStatus": "approved",
+          "paidAtRetained": true
+        },
+        {
+          "case": "approve_audit_failure_leaves_persisted_approved",
+          "auditRows": 0
+        },
+        {
+          "case": "settlement_partial_write_then_stale_retry_overwrites_first_method",
+          "partialFirstMethod": "cash",
+          "retryFirstMethod": "transfer"
+        },
+        {
+          "case": "concurrent_teacher_payments_leave_all_lines_paid_run_approved"
+        },
+        {
+          "case": "accepted_simulator_sets_run_paid_but_lines_unpaid",
+          "unpaidLines": 2
+        },
+        {
+          "case": "concurrent_approve_duplicates_audit",
+          "auditRows": 2
+        },
+        {
+          "case": "unscoped_foreign_run_can_be_approved_by_actual_handler"
+        }
+      ]
+    },
+    {
+      "label": "actual-simulator-delayed-ack-lifetime",
+      "exitCode": 0,
+      "localLog": "/tmp/hoy-finished-payroll-lifecycle-audit.log",
+      "findings": {
+        "staleExistingPaidMethodOverwritten": "wompi",
+        "staleExistingPaidTimestampOverwritten": true,
+        "lateNoticeCallbacks": 1,
+        "lateBusyCallbacks": 1,
+        "teacherLineRemainedUnpaid": true
+      }
+    }
+  ],
+  "scopeEvidence": {
+    "unscopedReader": "payouts.ts67–73 reads runs/lines/teachers with no tenant filter, linesOf matches runId only.",
+    "approval": "PayoutsPage.tsx152–159 updates captured run then separately audits; no fresh status/scope/atomic/nonce guard.",
+    "settlement": "PayoutsPage.tsx163–208 uses captured lines and teacher statement, separate writes/audits, no fresh status/owned-lifetime fence.",
+    "ui": "M09b controls gate current role/rendered status; handlers themselves provide no current scope/status transaction contract."
+  },
+  "recommendedNext": "Smallest dependency-safe approval-only mock command: existing payroll.write/tenant/account/current draft and paid-history checks inside atomic; unchanged current basis/rates/totals, row+audit together, command input snapshot before await, stable nonce/current-target replay, contained preview/error/retry/immediate busy/context/unmount/postcommit fences. No new real payout/provider behavior.",
+  "separateFollowup": "Settlement recording atomicity/fresh persisted teacher grouping and paid-history preservation. Do not automatically reconcile historical paid-run/unpaid-line contradictions or invent provider/refund/method policy.",
+  "untouchedGates": {
+    "Jas": [
+      "Any unresolved production settlement/mixed-method/historical reconciliation policy."
+    ],
+    "Anu": [
+      "Authenticated atomic approval/settlement, durable identity/request replay, canonical class/rate history and actual provider/outbox reconciliation."
+    ],
+    "root": [
+      "No36 implementation authorized yet; coordinator chooses/isolates next bounded batch and owns all source/Git/releases."
+    ]
+  }
+}

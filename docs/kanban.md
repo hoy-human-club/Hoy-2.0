@@ -728,3 +728,7 @@ _Updated every turn. Codes reference `src/specs/canvasSpecs.ts` and the module `
 
 - FI-03 / RS-15: isolated fictional atomic payroll drafts and zero-due event RSVP source/domain/rendered proof passed; combined full build/domain and all3 serial rendered suites passed with currency readability assertions/inspection; final evidence-head CI and release checks pending. Approval, settlement, paid RSVP, real emails and backend acceptance remain separate.
 - PR66 checked44973d7 deployed asede03f3; Pages39720627884 all3 jobs and exact hosted source verification passed. Receipt: docs/frontend-completion/evidence/release-pr66.json.
+
+- PR67 finalhead1560f23:10 workflows passed/all12 correctness scopes passed; service-catalog excluded-count assertion failed. Controlled browser confirmed a valid-generated-UUID PAN false positive; bounded model/regression fix is in fresh build/affected QA. Old CI exact cause remains unresolved; no merge or deployment.
+
+- Catalog UUID correction: freshbuild/domain and both affectedactualUI suites passed atb3f906de…, preserving all card/credential tests. Next exactheadCI/release pending; earlier30/31 localmatrix remains explicitly8e4ee559….
