@@ -39,7 +39,7 @@ try{
  }
  assert.deepEqual(errors,[]);
  const prior=JSON.parse(await readFile('docs/frontend-completion/routes.json','utf8')),sources=new Map(prior.routes.map(r=>[r.path,r.source]));
- const manifest={...prior,capturedAt:new Date().toISOString().slice(0,10),source:'Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.',routes:routes.map(r=>({path:r.path,code:r.code,surface:r.surface,roles:r.roles,source:sources.get(r.path)??(r.path==='/admin/marketing'?'src/modules/marketing/index.ts':'unverified'),sourceDeclaredStatus:r.status,verification:'unverified',declaredStates:r.spec.states??[]}))};
+ const manifest={...prior,capturedAt:new Date().toISOString().slice(0,10),source:'Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.',routes:routes.map(r=>({path:r.path,code:r.code,surface:r.surface,roles:r.roles,source:sources.get(r.path)??(r.path==='/admin/marketing'?'src/modules/marketing/index.ts':'unverified'),sourceDeclaredStatus:r.status,verification:'unverified',declaredStates:r.spec.states??[],tables:r.spec.data??[]}))};
  await writeFile('docs/frontend-completion/routes.json',JSON.stringify(manifest,null,2)+'\n');
  await writeFile(`${out}/continuation-library-results.json`,JSON.stringify({base,checks,registeredRoutes:routes.length,pageErrors:errors,limits:'Fixture library and local hub only; no real provider render, production authorization or owner acceptance.'},null,2)+'\n');
  console.log(`PASS continuation library/hub ${checks.length} language matrices, ${routes.length} runtime routes; zero page errors`);
