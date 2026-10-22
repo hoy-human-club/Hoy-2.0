@@ -1,0 +1,53 @@
+{
+  "source": "src/modules/admin/payrollApproval.ts",
+  "beforeSha256": "79e1a15be10e2f48d5073cab8df44c1bf7b938e39f8fb00580bd80c019480332",
+  "runtimeBefore": "31d7059b88348469b1cd273a3bdf9123b6ee5992712bba89e3a00aff4e03dc8c",
+  "method": "Actual helper+real MockProvider isolated Map, esbuild write:false; held final scoped lines/digest, actor tenant reassignment; unchanged original live-context callback.",
+  "results": [
+    {
+      "mode": "preview-final-lines",
+      "returnedSuccess": true,
+      "runStatus": "draft",
+      "actorForeign": true,
+      "error": null
+    },
+    {
+      "mode": "preview-digest",
+      "returnedSuccess": true,
+      "runStatus": "draft",
+      "actorForeign": true,
+      "error": null
+    },
+    {
+      "mode": "staged-revision-digest",
+      "returnedSuccess": false,
+      "runStatus": "approved",
+      "actorForeign": true,
+      "error": "Error: approval_scope"
+    },
+    {
+      "mode": "ack-final-lines",
+      "returnedSuccess": true,
+      "runStatus": "approved",
+      "actorForeign": true,
+      "error": null
+    },
+    {
+      "mode": "ack-final-digest",
+      "returnedSuccess": true,
+      "runStatus": "approved",
+      "actorForeign": true,
+      "error": null
+    }
+  ],
+  "correctedRuntime": "f1c987dc9b8bb8b81a69d2a036b2e2170c3993674d2a99b5cc1b08c1a14a9cf7",
+  "correction": "Fresh exact scoped account at end of required read and after preview/staged-final/final-ack digest; reject contaminated required-read results.",
+  "regression": "node scripts/test-payroll-approval.mjs",
+  "correctedResults": [
+    "All5 held final-lines/digest scenarios reject approval_scope with original isCurrent=true.",
+    "Preview returns no plan after actor loss.",
+    "Staged final-digest actor loss rolls back approval/audit and staged actor mutation.",
+    "Postcommit final-lines/final-digest actor loss keeps saved approval/audit but returns no confirmation.",
+    "All9 staged scoped read failures roll back; foreign/unrequested/duplicate required rows reject."
+  ]
+}
