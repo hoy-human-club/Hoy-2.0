@@ -1,8 +1,8 @@
 {
   "batch": 38,
-  "base": "http://127.0.0.1:5270",
-  "entry": "./assets/index-C72Tj17L.js",
-  "entryHash": "06c16d3fc6218361f2ef9a7c74694c6a90510e01e9ac0185a68a821fd078ba0c",
+  "base": "http://127.0.0.1:5282",
+  "entry": "./assets/index-BiItx32Q.js",
+  "entryHash": "ec69caa8b162133a7ff2afa0c57dea81b539018dc0f31110bc769ca04cf92073",
   "checks": [
     "en/light/390: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged",
     "en/light/1280: review/discard, quota rollback/same-command retry, linked cancellation/receipt once, own original-term return, unlinked demo unverified, cancelled waitlist, financial/voucher/foreign canary unchanged, 11 roles",

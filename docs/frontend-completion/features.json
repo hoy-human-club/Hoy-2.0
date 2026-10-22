@@ -3188,7 +3188,13 @@
         "runtimeFingerprint": "5dc6009bd2fae59820c7cc4be31a17f74c88c7a0bd849b580d774737f1401d9c",
         "proof": "docs/frontend-completion/evidence/batch-40-build.json",
         "rootReview": "docs/frontend-completion/evidence/batch-40-root-review.json",
-        "verificationBoundary": "Named isolated domain/type/fullbuild/ENES3901280lightdark/all11roles/dev/all11library states pass. New permanent contrast assertions and current combined source/CI/deployment pending; not owner accepted/backend-ready."
+        "verificationBoundary": "Named isolated domain/type/fullbuild/ENES3901280lightdark/all11roles/dev/all11library states pass. New permanent contrast assertions and current combined source/CI/deployment pending; not owner accepted/backend-ready.",
+        "combined": {
+          "batch": "combined38-40",
+          "proof": "docs/frontend-completion/evidence/integrated-lifecycle-final.json",
+          "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+          "verification": "Fullbuild58184,7domain/baseline/hook/fixture gates and10actualserialproduction/dev/library/contrast suites pass. Source/fullartifact/servedassets match after recoveredtransport. Firstlibrarytimeout unexplained/preserved. Exact-headCI/merge/deployment and fullsourceacceptance/backend gates pending."
+        }
       },
       "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
@@ -4249,6 +4255,12 @@
           "verification": "Sourcef4f9818 isolated1c0a fullbuild/domain15/prod8+11roles/dev/all5D02/contrast passed. Root70 found and narrowly repaired confirmed-mat caption; new combined rendered/CI/release pending. Named local slice only.",
           "limits": "Isolated mock command/lifecycle/five-state inventory proof only; current root70 caption change not rendered yet. Protected screenshots remain local/CI artifacts, never repository publication.",
           "acceptance": "Original criterion/source status/phase unchanged; partial and unaccepted."
+        },
+        {
+          "batch": "combined38-40",
+          "proof": "docs/frontend-completion/evidence/integrated-lifecycle-final.json",
+          "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+          "verification": "Fullbuild58184,7domain/baseline/hook/fixture gates and10actualserialproduction/dev/library/contrast suites pass. Source/fullartifact/servedassets match after recoveredtransport. Firstlibrarytimeout unexplained/preserved. Exact-headCI/merge/deployment and fullsourceacceptance/backend gates pending."
         }
       ]
     },
@@ -4453,6 +4465,12 @@
           "verification": "Source0d4c845 current522 isolated fixture24/domain/hook22/tsc/fullbuild/prod8+all11roles/all12D02 ENES3901280lightdark passed. New root combined rendered/CI/release pending; whole real access feature remains partial.",
           "limits": "Fictional document/real presentation only; no actual role changes, account creation, delivery or owner/backend acceptance.",
           "acceptance": "Original criterion/source status/phase unchanged; partial and unaccepted."
+        },
+        {
+          "batch": "combined38-40",
+          "proof": "docs/frontend-completion/evidence/integrated-lifecycle-final.json",
+          "runtime": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+          "verification": "Fullbuild58184,7domain/baseline/hook/fixture gates and10actualserialproduction/dev/library/contrast suites pass. Source/fullartifact/servedassets match after recoveredtransport. Firstlibrarytimeout unexplained/preserved. Exact-headCI/merge/deployment and fullsourceacceptance/backend gates pending."
         }
       ]
     },

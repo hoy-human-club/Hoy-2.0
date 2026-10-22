@@ -1,0 +1,182 @@
+{
+  "state": "Focused combined frontend gates PASS; exact-headCI/merge/deployment and original owner/backend acceptance remain pending.",
+  "requirements": [
+    "AD-02",
+    "AD-06",
+    "PG-12"
+  ],
+  "build": {
+    "session": 58184,
+    "exit": 0,
+    "localLog": "/workspace/hoy-qa-archive/lifecycle-combined-build.log"
+  },
+  "artifact": {
+    "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+    "srcViteFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+    "buildSession": 58184,
+    "buildState": "Working tree now committed without runtime changes; build manifest records precommit8eb1ddb. Exact-head CI rebuild required.",
+    "buildExit": 0,
+    "path": "/workspace/hoy-qa-archive/lifecycle-qa-44cd9267bbdb",
+    "sha256": "dd31ddeb865f2b0240f19ea9362d9acb3d76f663206340bc1adccb4a807509d7",
+    "basis": "sorted relative UTF8path+NUL+bytes+NUL, including two proof sidecars",
+    "files": 4850,
+    "bytes": 392496662
+  },
+  "domains": [
+    {
+      "command": "node scripts/test-studio-cancel-baseline.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-baseline-domain.log"
+    },
+    {
+      "command": "node scripts/test-studio-cancel.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-domain.log"
+    },
+    {
+      "command": "node scripts/test-private-capture-policy.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-private-capture-policy-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-proposals.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-proposals-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-proposal-hook.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-proposal-hook-domain.log"
+    },
+    {
+      "command": "node scripts/test-team-presentation-fixtures.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-team-presentation-fixtures-domain.log"
+    },
+    {
+      "command": "node scripts/test-cash-count-draft.mjs",
+      "exit": 0,
+      "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-draft-domain.log"
+    }
+  ],
+  "rendered": {
+    "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+    "sourceFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+    "immutable": {
+      "checkout": "11b962dd6be491762cf740d7f2fc1c0241e8dd29",
+      "srcViteFingerprint": "44cd9267bbdb0e4dd30d07e3893e1fea579c0cc91c8df843763f8a671c1986bf",
+      "buildSession": 58184,
+      "buildState": "Working tree now committed without runtime changes; build manifest records precommit8eb1ddb. Exact-head CI rebuild required.",
+      "buildExit": 0
+    },
+    "assetsBefore": [
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BiItx32Q.js",
+        "sha256": "ec69caa8b162133a7ff2afa0c57dea81b539018dc0f31110bc769ca04cf92073",
+        "bytes": 1609906
+      },
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570
+      }
+    ],
+    "runs": [
+      {
+        "name": "studio-cancel-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "cancelled-seat-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cancelled-seat-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cancelled-seat-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "studio-cancel-library",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-library.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-library-diagnostic-run.log",
+        "exit": 0,
+        "priorFailure": "lifecycle-qa-library-first-timeout.json",
+        "change": "Test-only stage/error diagnostics; identical timeout/assertions/runtime/artifact. Original timeout cause unresolved; exact current all4language/theme+5states pass with no product fix."
+      },
+      {
+        "name": "team-proposals-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-team-proposals-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-team-proposals-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "team-proposal-library-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-team-proposal-library-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-team-proposal-library-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "cash-count-ui",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-ui.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-ui.log",
+        "exit": 0
+      },
+      {
+        "name": "cash-count-library",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-library.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-library.log",
+        "exit": 0
+      },
+      {
+        "name": "cash-count-contrast",
+        "command": "QA_BASE=http://127.0.0.1:5282 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-contrast.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-contrast.log",
+        "exit": 0
+      },
+      {
+        "name": "studio-cancel-states",
+        "command": "QA_BASE=http://127.0.0.1:5281 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-studio-cancel-states.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-studio-cancel-states.log",
+        "exit": 0
+      },
+      {
+        "name": "cash-count-states",
+        "command": "QA_BASE=http://127.0.0.1:5281 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-cash-count-states.mjs",
+        "log": "/workspace/hoy-qa-archive/lifecycle-cash-count-states.log",
+        "exit": 0
+      }
+    ],
+    "status": "PASS all10 serial actual suites; exact child exit0 records persisted before transport loss; independently verified source/fullartifact and servedassets unchanged after recovery.",
+    "priorFailure": "Preserved lifecycle-qa-hidden-heading-failure.json",
+    "recovery": {
+      "event": "Exec transport disconnected; old running-session handle unknown; new harmlesspwdprobe succeeded.",
+      "allExitCodes": "All10 children persisted exit0 before disconnect; last statusRUNNING was not finalassetverification.",
+      "postCheck": "Root independently rehashed all frozenfiles and source after recovery; both match pre-QA exactly.",
+      "artifactAfter": {
+        "sha256": "dd31ddeb865f2b0240f19ea9362d9acb3d76f663206340bc1adccb4a807509d7",
+        "files": 4850,
+        "bytes": 392496662
+      },
+      "pending": "Recheck servedassets after recovery if serveravailable; preserve exactfailure ifnot. No suite rerun or duplicated deployment.",
+      "localServer": "Firstprobe52emptyreply; restarted only verified exact-command own5282 immutable QA HTTP server with log redirected, no application/deployment change. RecoveredHTTP marker and allJS/CSS match pre-QA hashes."
+    },
+    "assetsAfter": [
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BiItx32Q.js",
+        "sha256": "ec69caa8b162133a7ff2afa0c57dea81b539018dc0f31110bc769ca04cf92073",
+        "bytes": 1609906
+      },
+      {
+        "url": "http://127.0.0.1:5282/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c",
+        "bytes": 80570
+      }
+    ]
+  },
+  "knownLimitations": [
+    "First studio-library30secondwait timeout remains unexplained; instrumentation-only repeat passed sameallstates/timeouts/assertions; exact-headCI required.",
+    "Newseat readiness initially waited sr-onlyheading; corrected visibleexistingClassCard without relaxingcaption/no-write/role assertions, all24capturespassed.",
+    "Transportinterruption finalwrapperexitunknown; all10childexit0 persisted, source/all4850files/servedassets independently checkedafterrecovery.",
+    "No fullfeature/production/backend/owneracceptance. Mock/fictional/local-only boundaries persist."
+  ],
+  "protectedCaptures": "qa/studio-cancel andqa/studio-cancel-seat remainignored/notpublished. Future exact-headActionsartifacts14daysaccessfollowingrepositorycontrols; no permanence/privacyguarantee."
+}

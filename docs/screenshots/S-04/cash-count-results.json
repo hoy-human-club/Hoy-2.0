@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5274",
+  "base": "http://127.0.0.1:5282",
   "checks": [
     "en usr_desk: S04 deep-link, studio day in Honolulu, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",
     "en usr_admin: S04 deep-link, studio day in Honolulu, localized known labels/exact raw codes and unrecognized literal, exact attributed references/foreign exclusion, blank/zero/invalid, frozen preview/cancel, quota/retry, local saved/reopen/discard-confirm/cancel; provider/finance/message data unchanged",

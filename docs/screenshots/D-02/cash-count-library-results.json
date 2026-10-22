@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5274",
+  "base": "http://127.0.0.1:5282",
   "checks": [
     "en:11 pure shared actual view states; no fixture/provider/draft writes; disabled controls and settled390/1280 light/dark localized reference/saved views",
     "es:11 pure shared actual view states; no fixture/provider/draft writes; disabled controls and settled390/1280 light/dark localized reference/saved views"

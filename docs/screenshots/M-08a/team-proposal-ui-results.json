@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:5272",
+  "base": "http://127.0.0.1:5282",
   "checks": [
     "en/light/390: examples previewcancel/double save; reserved invitepreviewcancel/quota/double stable retry; explicitfixture join; immediate label/removalreadback; lastadmin unresolvednoapply; stale preview nooverwrite; committedlostack replay; busycancel/SPAunmount; corruptread noautowipe/retry; all provider tables/session byte-identical",
     "2existing allowed roles/9denied panel roles; coordinator/finance existing settings remain; real frontdesk still cannot accesssettings after fictional promotion; provider DB unchanged acrossroles.",
