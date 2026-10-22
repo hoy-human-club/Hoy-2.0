@@ -1180,9 +1180,9 @@
         "/#/auth/locked"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded source + named isolated local production evidence, not owner/backend acceptance; see continuationEvidence and combined release gate",
         "missingFrontend": [
-          "Sign-in uses demo picker/email + nonempty password. Recovery shows simulated email/WhatsApp OTP, not email-code sign-in or Google; OTP text mentions expiry but verify compares code without issued-time expiry."
+          "Recovery expiry/lifecycle repaired only in fictional memory-only simulation. Actual email-code/Google sign-in and approved provider lockout/session flow remain disconnected."
         ],
         "remainingBackend": [
           "Auth provider email OTP/Google, expiry/rate limit and session issuance."
@@ -1202,6 +1202,15 @@
       "currentFrontendAssessment": {
         "basis": "Bounded batch23 local production/domain proof; combined release pending",
         "remaining": "Recovery simulation only: no real delivery/password/session effects, no email-code/Google sign-in acceptance."
+      },
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Sign-in uses demo picker/email + nonempty password. Recovery shows simulated email/WhatsApp OTP, not email-code sign-in or Google; OTP text mentions expiry but verify compares code without issued-time expiry."
+        ],
+        "remainingBackend": [
+          "Auth provider email OTP/Google, expiry/rate limit and session issuance."
+        ]
       }
     },
     {
@@ -1280,9 +1289,9 @@
         "/#/admin/crm/:id"
       ],
       "sourceAssessment": {
-        "basis": "Current read-only source audit at61fc322; not freshly reproduced or owner accepted. Historical source-only finding retained separately.",
+        "basis": "Current bounded source + named isolated local production evidence, not owner/backend acceptance; see continuationEvidence and combined release gate",
         "missingFrontend": [
-          "Own profile/account writes can partially persist and missing rows can still show success; failure/loading/retry and exact idempotency need repair. Emergency contact is not projected in the CRM customer record; readership must be reviewed separately."
+          "Atomic fictional own-profile save and contained read/error/retry passed isolated QA. Emergency contact is still absent from the CRM projection; readership decision remains separate. Other unrelated profile preferences remain outside this bounded repair."
         ],
         "remainingBackend": [
           "Authenticated own-profile writes and cross-device persistence."
@@ -1311,7 +1320,18 @@
       "currentFrontendAssessment": {
         "basis": "Bounded batch22 local production/domain proof; combined release pending",
         "remaining": "Emergency contact CRM readership unresolved; no authenticated server or cross-device guarantee. Existing notification/locale writes outside this bounded repair."
-      }
+      },
+      "priorSourceAssessments": [
+        {
+          "basis": "Current read-only source audit at61fc322; not freshly reproduced or owner accepted. Historical source-only finding retained separately.",
+          "missingFrontend": [
+            "Own profile/account writes can partially persist and missing rows can still show success; failure/loading/retry and exact idempotency need repair. Emergency contact is not projected in the CRM customer record; readership must be reviewed separately."
+          ],
+          "remainingBackend": [
+            "Authenticated own-profile writes and cross-device persistence."
+          ]
+        }
+      ]
     },
     {
       "id": "CU-06",
@@ -1389,9 +1409,9 @@
         "/#/auth/sign-in"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded source + named isolated local production evidence, not owner/backend acceptance; see continuationEvidence and combined release gate",
         "missingFrontend": [
-          "Simulated WhatsApp recovery OTP exists; real WhatsApp-code sign-in UI is not complete."
+          "Fictional recovery challenge lifecycle passed; real WhatsApp-code sign-in/delivery remain absent. Original future phase remains unchanged."
         ],
         "remainingBackend": [
           "WhatsApp Business OTP delivery/verification."
@@ -1411,6 +1431,15 @@
       "currentFrontendAssessment": {
         "basis": "Bounded batch23 local production/domain proof; combined release pending",
         "remaining": "Original After Nov30 WhatsApp sign-in criterion remains unmet; delivery and identity disconnected."
+      },
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Simulated WhatsApp recovery OTP exists; real WhatsApp-code sign-in UI is not complete."
+        ],
+        "remainingBackend": [
+          "WhatsApp Business OTP delivery/verification."
+        ]
       }
     },
     {
@@ -1695,9 +1724,9 @@
         "/#/app/checkout/:id"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded source + named isolated local production evidence, not owner/backend acceptance; see continuationEvidence and combined release gate",
         "missingFrontend": [
-          "Trial suppressed only by trialUsed; active package displays a notice but trial remains selectable."
+          "Clear confirmed-package exclusion and ambiguous-history pause passed corrected isolated QA; combined release pending. Production active/frozen/legacy/future and real-person identity definitions remain unresolved."
         ],
         "remainingBackend": [
           "Enforce one trial per real person and active-package exclusion transactionally."
@@ -1713,7 +1742,16 @@
           "limits": "No production definition for ambiguous active/frozen/legacy/future entitlements or cross-account real-person identity; no backend acceptance.",
           "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified."
         }
-      ]
+      ],
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Trial suppressed only by trialUsed; active package displays a notice but trial remains selectable."
+        ],
+        "remainingBackend": [
+          "Enforce one trial per real person and active-package exclusion transactionally."
+        ]
+      }
     },
     {
       "id": "PR-05",
@@ -5457,9 +5495,9 @@
         "/#/dev/api-keys"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current bounded source + named isolated local production evidence, not owner/backend acceptance; see continuationEvidence and combined release gate",
         "missingFrontend": [
-          "Symbolic local response console implemented; focused production verification passed; exact-head release pending. Existing key mutation failure/validation gaps remain separate engineering work."
+          "Fictional symbolic responses and mock key-command one-time/atomic/replay slices passed isolated QA; combined release pending. Actual authenticated API responses are absent; existing generic admin table/key access conflict unresolved."
         ],
         "remainingBackend": [
           "Server API key verification, scopes/tenant authorization, revocation and rate limiting."
@@ -5486,6 +5524,15 @@
       "currentFrontendAssessment": {
         "basis": "Bounded batch20 local production/domain proof; combined release pending",
         "remaining": "No real API/auth/scope enforcement; existing generic admin-table key access conflict unresolved."
+      },
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Symbolic local response console implemented; focused production verification passed; exact-head release pending. Existing key mutation failure/validation gaps remain separate engineering work."
+        ],
+        "remainingBackend": [
+          "Server API key verification, scopes/tenant authorization, revocation and rate limiting."
+        ]
       }
     },
     {
@@ -5848,6 +5895,7 @@
     "baselineImplementationStatus": "Historical source-only classification recovered from b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e; retained for comparison, not acceptance.",
     "implementationStatus": "Current feature-level implementation finding; partial includes fictional or disconnected prototypes and unresolved criteria.",
     "verificationStatus": "Only named tested frontend slices are verified; consult continuationEvidence and batch receipts for exact scope. A focused pass never promotes the whole row to accepted/backend-ready.",
-    "source": "Original owner/source status, role, criterion and phase remain unchanged. No completion percentage is inferred from these categories."
+    "source": "Original owner/source status, role, criterion and phase remain unchanged. No completion percentage is inferred from these categories.",
+    "assessments": "Rows touched by current batches keep historicalSourceAssessment/priorSourceAssessments separately from the current bounded sourceAssessment and named continuationEvidence. Other source-only findings are not fresh verification."
   }
 }
