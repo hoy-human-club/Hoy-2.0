@@ -1,0 +1,86 @@
+name: Frontend lifecycle mock QA
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'scripts/test-studio-cancel*.mjs'
+      - 'scripts/studio-cancel-*.mjs'
+      - 'scripts/test-cancelled-seat-ui.mjs'
+      - 'scripts/test-team-proposal*.mjs'
+      - 'scripts/test-team-presentation-fixtures.mjs'
+      - 'scripts/test-cash-count*.mjs'
+      - 'scripts/cash-count-harness.tsx'
+      - 'scripts/fixtures/studio-cancel-*'
+      - '.github/workflows/frontend-lifecycle-qa.yml'
+permissions:
+  contents: read
+jobs:
+  local-lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: [studio-cancel, team-proposals, cash-count]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify current fictional command invariants and original counterexamples
+        run: |
+          if [ '${{ matrix.scope }}' = 'studio-cancel' ]; then
+            node scripts/test-studio-cancel-baseline.mjs
+            node scripts/test-studio-cancel.mjs
+            node scripts/test-private-capture-policy.mjs
+          elif [ '${{ matrix.scope }}' = 'team-proposals' ]; then
+            node scripts/test-team-proposals.mjs
+            node scripts/test-team-proposal-hook.mjs
+            node scripts/test-team-presentation-fixtures.mjs
+          else
+            node scripts/test-cash-count-draft.mjs
+          fi
+      - name: Verify rendered production behavior and all presentation states
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5187 > /tmp/hoy-lifecycle-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-${{ matrix.scope }}-ui.mjs
+          if [ '${{ matrix.scope }}' = 'studio-cancel' ]; then
+            node scripts/test-cancelled-seat-ui.mjs
+            node scripts/test-studio-cancel-library.mjs
+          elif [ '${{ matrix.scope }}' = 'team-proposals' ]; then
+            node scripts/test-team-proposal-library-ui.mjs
+          else
+            node scripts/test-cash-count-library.mjs
+          fi
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify actual asynchronous loading, cancel, failure and retry states
+        if: matrix.scope != 'team-proposals'
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5188 > /tmp/hoy-lifecycle-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-${{ matrix.scope }}-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lifecycle-${{ matrix.scope }}-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            docs/frontend-completion/evidence/batch-38-*.json
+            docs/frontend-completion/evidence/batch39-*.json
+            docs/frontend-completion/evidence/batch-40-*.json
+            docs/screenshots/M-08a/*team*
+            docs/screenshots/S-04/*cash-count*
+            docs/screenshots/D-02/*cash-count*
+            qa/studio-cancel/
+            qa/studio-cancel-seat/

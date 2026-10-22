@@ -4373,7 +4373,7 @@
       ],
       "tests": [
         "scripts/test-team-proposals.mjs",
-        "scripts/test-team-proposals-hook.mjs",
+        "scripts/test-team-proposal-hook.mjs",
         "scripts/test-team-proposals-ui.mjs",
         "scripts/test-team-presentation-fixtures.mjs",
         "scripts/test-team-proposal-library-ui.mjs"
