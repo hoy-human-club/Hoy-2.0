@@ -1,0 +1,17 @@
+{
+  "batch": 29,
+  "checks": [
+    "each of3 writes and quota rollback; same-command retry/replay; any-of-two profile mirror; unchanged messages, consents, legal/financial/account tables",
+    "missing marketing rows defaultenabled preserved; selected insert plus fresh unselected default drives mirror",
+    "each required read failure, missing/reassigned profile and duplicate required profile/preference ambiguity reject without effects; defensive foreign results reject",
+    "concurrent differentchannel commands compose fresh any-of-two; concurrent samechannel commands reject stale selected revision",
+    "committed/lostack retry uses metadata receipt without extra audit; conflicting nonce and replay missing account/profile/foreign target reject",
+    "abort/discard/fresh actor/role/tenant fences;8 denied roles and real provider rejected",
+    "postcommit ownership failure suppresses acknowledgement without falsely undoing committed preference/mirror/audit",
+    "late postcommit abort withholds acknowledgement but retains3committedwrites; uncancelled same-command retry metadata-only; malformed preference shape blocks replay without repair"
+  ],
+  "limits": [
+    "Existing MockProvider per-instance staging; no server/cross-tab security/idempotency.",
+    "Fictional preference/mirror record, not legal consent or actual dispatch."
+  ]
+}

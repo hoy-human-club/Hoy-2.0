@@ -1,0 +1,21 @@
+{
+  "batch": 29,
+  "priorProductionFingerprint": {
+    "entry": "http://127.0.0.1:5233/assets/index-XVnf2-Pv.js",
+    "sha256": "6a55d8016c92950b0195f21a3c672ead1224078718898913063f3ba98ad33ac3"
+  },
+  "outcome": "PASS complete matrix; superseded by visual-only local label refinement.",
+  "reason": "Duplicate visible switch labels compressed mobile ListRow text; names remain accessible, duplicate text visually hidden using D01 tokens.",
+  "finalSourceMatrix": "Pending rebuilt final source; no assertion or timeout was relaxed.",
+  "labelRefinedFullProductionPass": {
+    "entry": "http://127.0.0.1:5233/assets/index-CkN9PYw0.js",
+    "sha256": "e645e8a1b46aeeb878346c6563f125e8c577d2d53ad4deab40fa58196859a83c",
+    "styles": [
+      {
+        "url": "http://127.0.0.1:5233/assets/index-BjqHoOBe.css",
+        "sha256": "2e602b1ae8a006e5c0e93d155fd17246be19ea2fb5b051b423173050ef5b4e6c"
+      }
+    ]
+  },
+  "subsequentSupersession": "Root requested bounded C26 open-request Card tone contrast correction. No deletion/legal logic change; final rebuilt matrix includes actual requested-state contrast checks."
+}

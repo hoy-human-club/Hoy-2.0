@@ -1,0 +1,9 @@
+/* Keep the switch's accessible name without duplicating the existing ListRow title. */
+.account-marketing .toggle-label {
+  position: absolute;
+  width: var(--sp-px);
+  height: var(--sp-px);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
