@@ -1,0 +1,68 @@
+{
+  "schema": "hoy.frontend-proof/1",
+  "date": "2026-10-22",
+  "requirementIDs": [
+    "FI-03",
+    "RS-15"
+  ],
+  "checkpoints": {
+    "30": "b901407",
+    "31": "85160fc",
+    "rootIntegration": "c1ab6f4",
+    "main66Included": "6f06468ff288d90efe01c965c713bb218586b3fc"
+  },
+  "build": {
+    "result": "PASS EXIT0",
+    "checkout": "6f06468ff288d90efe01c965c713bb218586b3fc",
+    "sourceFingerprint": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+    "definition": "Sorted src paths+bytes excluding generated captureDates, then vite.config.ts bytes; does not identify later documentation assets.",
+    "immutableBundle": "/tmp/hoy-payroll-event-qa-8e4ee559c169",
+    "productionBase": "http://127.0.0.1:5248",
+    "developmentBase": "http://127.0.0.1:5247",
+    "log": ".vite/payroll-event-final-build.log"
+  },
+  "domain": {
+    "result": "PASS EXIT0",
+    "commands": [
+      "node scripts/test-payroll-draft.mjs",
+      "node scripts/test-payroll-draft-hook.mjs",
+      "node scripts/test-event-rsvp.mjs"
+    ],
+    "scope": "Payroll baseline reproductions, every10create/21replace failure, overlaps/status/history/current scope, cancellation/retry/replay and actual-hook8 acknowledgement cases; event immutable-input/control, capacity/ownership/cancel/rejoin, lostack and current-result replay."
+  },
+  "renderedQA": {
+    "result": "PASS all3 serial suites EXIT0, zero page errors",
+    "receipt": "docs/frontend-completion/evidence/combined-30-31-ui.json",
+    "sourceBeforeAfter": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+    "scope": "Payroll production ENES3901280lightdark and11roles, including readable one-line currency; event production matrix11roles and actual dev loading/read/failure/cancel/context/lostack states. Fictional local fixtures; no external dispatch."
+  },
+  "routes": [
+    "/#/admin/finance/payouts",
+    "/#/admin/finance/payouts/:id",
+    "/#/app/events",
+    "/#/app/events/:id",
+    "/#/app/events/:slug"
+  ],
+  "coverage": "docs/frontend-completion/evidence/coverage-30-31.json",
+  "initialCheckedHead": {
+    "commit": "a13ed187d6ac1a52f5f1eea9c32800d98a46dabe",
+    "result": "All11 triggered workflows completed success; correctness39721453718 all12 scopes success. Later evidence-only head must pass its own checks before merge."
+  },
+  "release": {
+    "pr": "https://github.com/imagine-os/hoy/pull/67",
+    "status": "Final evidence head/CI, merge and Pages verification pending. Last verified live is PR66 ede03f3; receipt release-pr66.json."
+  },
+  "remainingGates": [
+    "FI03 approval/settlement/payment paths require separate frontend verification and authenticated server contracts; draft commands do not approve or pay.",
+    "RS15 paid reserve/cancel remains partial; actual delivery and unresolved cancellation/cutoff policy are separate.",
+    "Authenticated server transactions, capacity/period uniqueness, durable history and cross-device acceptance remain Anu contracts.",
+    "No source owner acceptance, commercial agreement or100%/backend readiness inferred."
+  ],
+  "followupValidation": {
+    "receipt": "docs/frontend-completion/evidence/service-catalog-uuid-failure.json",
+    "sourceFingerprint": "b3f906de0dcd5feeabc48c80ad22d01eef068a3e9bdbd8f40a3d077f7e1f18f5",
+    "result": "Fresh fullbuild and domain plus affected catalog/subscription UI passed; all original assertions retained.",
+    "provenance": "Earlier30/31 local matrix remains source8e4 and is not relabeled. Only subscription model runtime changed; final exact-head CI must reverify full12-scope integration.",
+    "historicalCi": "1560f23 passed10 workflows/all12 correctness scopes but catalog assertion failed. Its exact original cause remains unresolved; a controlled real UUID false positive was fixed and deterministically covered."
+  }
+}

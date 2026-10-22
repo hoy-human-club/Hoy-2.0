@@ -51,3 +51,20 @@ assert.throws(()=>parseBackup(JSON.stringify({...d,dependencies:[{...app,related
 validateDirectory({...d,charges:[{...charge,currency:null,currencyVerified:false}]});
 assert.deepEqual(chargeTotals([{...charge,currency:null,currencyVerified:false}]),{});
 assert.throws(()=>validateDirectory({...d,charges:[{...charge,currency:null,currencyVerified:true}]}),/unverified/);
+
+// Decimal-heavy UUID identities are generated metadata, not user-entered PANs.
+// Only validated row identities and linked foreign keys are exempted; no migration.
+const numericUuid='12345678-1234-4123-8123-123456789012';
+const workspaceUuid='22345678-1234-4123-8123-123456789012';
+const subUuid='32345678-1234-4123-8123-123456789012';
+const chargeUuid='42345678-1234-4123-8123-123456789012';
+const uuidDirectory={...d,workspaceId:workspaceUuid,dependencies:[{...app,id:numericUuid,workspaceId:workspaceUuid}],subscriptions:[{...sub,id:subUuid,workspaceId:workspaceUuid,dependencyId:numericUuid}],charges:[{...charge,id:chargeUuid,workspaceId:workspaceUuid,subscriptionId:subUuid,currency:null,currencyVerified:false}]};
+const beforeUuidValidation=JSON.stringify(uuidDirectory);validateDirectory(uuidDirectory);assert.equal(JSON.stringify(uuidDirectory),beforeUuidValidation);assert.deepEqual(chargeTotals(uuidDirectory.charges),{});assert.deepEqual(parseBackup(JSON.stringify(uuidDirectory),workspaceUuid),uuidDirectory);
+for(const [table,key] of [['dependencies','purpose'],['dependencies','evidence'],['dependencies','passwordManagerRef'],['subscriptions','paymentAccountLabel'],['charges','reference'],['charges','evidence']]){const copy=structuredClone(uuidDirectory);copy[table][0][key]=numericUuid;assert.throws(()=>validateDirectory(copy),/card numbers/,'user text containing decimal UUID remains scanned: '+key);}
+for(const badId of ['4111111111111111','12345678-1234-0123-8123-123456789012','prefix-'+numericUuid,numericUuid+'-suffix']){const copy=structuredClone(d);copy.charges[0].id=badId;assert.throws(()=>validateDirectory(copy),/card numbers/,'non-UUID and malformed IDs remain scanned');}
+for(const value of ['4111 1111 1111 1111','sk_live_FICTIONAL','sk_test_FICTIONAL','Bearer FICTIONAL','-----BEGIN FICTIONAL']){const copy=structuredClone(uuidDirectory);copy.dependencies[0].purpose=value;assert.throws(()=>validateDirectory(copy),/card numbers|credentials/);}
+{const copy=structuredClone(uuidDirectory);copy.dependencies[0].metadata={id:numericUuid};assert.throws(()=>validateDirectory(copy),/card numbers/,'nested unknown field is not exempted by its id key');}
+{const copy=structuredClone(uuidDirectory);copy.dependencies[0].apiToken='fictional';assert.throws(()=>validateDirectory(copy),/Secret fields/);}
+{const copy=structuredClone(uuidDirectory);copy.subscriptions[0].dependencyId=chargeUuid;assert.throws(()=>validateDirectory(copy),/link/,'linked row validation precedes exemption');}
+{const copy=structuredClone(uuidDirectory);copy.charges[0].subscriptionId=numericUuid;assert.throws(()=>validateDirectory(copy),/link/);}
+console.log('PASS: generated decimal-heavy UUID identities/scoped links, unchanged backup roundtrip, all user text/nonUUID IDs/unknown nested fields/PAN and credential guards retained.');

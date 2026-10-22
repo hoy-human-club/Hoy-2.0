@@ -1,0 +1,16 @@
+{
+  "requirement": "RS-15",
+  "phase": "Nov 30 delivery",
+  "base": "http://127.0.0.1:5248",
+  "runtimeFingerprint": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+  "checks": [
+    "en/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "en/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "es/light: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark",
+    "es/dark: free list/detail+slug deeplink, preview/cancel unchanged, quota rollback/retry/doubleclick one local RSVP, unpaid cancel/rejoin preserves history/no financial or email effects, status-only member pricing and stale member change blocked, existing partial paid reserve/cancel preserved,11roles (customer/teacher/super allowed,eight denied),3901280lightdark"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser-local zero-due RSVP only; paid atomicity/emails/cancellation policy/backend acceptance remain unverified."
+  ]
+}

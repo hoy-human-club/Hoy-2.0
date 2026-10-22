@@ -1,0 +1,18 @@
+{
+  "baseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
+  "features": 124,
+  "preservedFields": [
+    "id",
+    "module",
+    "feature",
+    "criterion",
+    "role",
+    "source",
+    "phase",
+    "priority",
+    "relatedTests"
+  ],
+  "result": "PASS exact literal values in source order; all future phases retained",
+  "originalFieldDigest": "6cd5e6e09ca40dca23520f8adf7eaf0a3a1dde714ea1dfd9e3f24ba3a31d4421",
+  "limits": "Implementation and focused verification findings evolve separately; no source status, owner acceptance or business criterion changed."
+}

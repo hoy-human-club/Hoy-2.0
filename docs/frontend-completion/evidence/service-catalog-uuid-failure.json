@@ -1,0 +1,98 @@
+{
+  "recordedAt": "2026-10-22T04:36:02.484248+00:00",
+  "scope": "Bounded subscription directory validator correction; generated UUID identity metadata only, no storage migration/credentials/access-policy/provider changes.",
+  "originalCi": {
+    "head": "1560f23",
+    "run": "39722315061",
+    "job": "119638351388",
+    "test": "scripts/test-service-catalog-ui.mjs:32",
+    "assertion": "panel.textContent includes 'excluded: 1'",
+    "cause": "UNRESOLVED. Original CI UUID/alert was not captured. The controlled UUID bug is proven but is not established as the cause of that historical CI assertion."
+  },
+  "controlledBeforeFix": {
+    "runtimeFingerprint": "8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b",
+    "commandLabel": "Focused actual browser form on frozen PR67 production5248; only generated UUID changed, native validity checked, exact alert/persisted count/form state read back.",
+    "exitCode": 0,
+    "log": "/tmp/hoy-service-catalog-controlled-repro.log",
+    "observations": {
+      "base": "http://127.0.0.1:5248",
+      "scope": "Controlled fictional browser form, same exact application and charge fields; only generated UUID changed.",
+      "nativeFormValid": true,
+      "firstSave": {
+        "generatedUuid": "12345678-1234-4123-8123-123456789012",
+        "immediateExcluded1": false,
+        "explicitRuntimeError": "Do not store card numbers, credentials, or tokens. Use display labels only.",
+        "acknowledgedExcludedCount": 0,
+        "persistedChargeCount": 0,
+        "formRemainedOpen": true
+      },
+      "retrySameFields": {
+        "generatedUuid": "cccaaaee-bbbd-4eee-8aaa-ddeeffaabbcc",
+        "excludedCount": 1,
+        "persistedChargeCount": 1,
+        "formClosed": true
+      },
+      "conclusion": "Actual model false-positive on generated UUID; waiting for a successful save acknowledgment cannot make the rejected first save succeed."
+    }
+  },
+  "fix": {
+    "runtimeFingerprint": "b3f906de0dcd5feeabc48c80ad22d01eef068a3e9bdbd8f40a3d077f7e1f18f5",
+    "files": [
+      "src/shared/subscriptions/model.ts",
+      "scripts/test-subscriptions.mjs",
+      "scripts/test-service-catalog-ui.mjs"
+    ],
+    "behavior": "After existing schema and same-workspace link validation, omit complete structurally valid UUID values only in row identity/workspace and linked dependency/subscription identity fields from the PAN projection. Scan all user text/unknown fields/nonUUID and malformed IDs. Credential regex still scans raw complete rows; forbidden key checks unchanged. Persisted and backup data unchanged; UUIDs not required for existing IDs.",
+    "uiRegression": "One-shot generated decimal-heavy UUID for charge creation; all original assertions unchanged; no readiness race established or assertion weakened."
+  },
+  "checks": [
+    {
+      "command": "npm run test:subscriptions",
+      "exitCode": 0,
+      "log": "/tmp/hoy-service-catalog-uuid-domain.log",
+      "covers": [
+        "Decimal-heavy UUID IDs and validated FK/workspace links accepted.",
+        "Unchanged backup roundtrip and unknown currency charge exclusion.",
+        "Same values in user text remain rejected, including reference/evidence/vault labels.",
+        "PAN/nonUUID/malformed IDs, nested unknown fields and credential/key guards preserved.",
+        "Existing subscription and expense adapter domain regressions."
+      ]
+    }
+  ],
+  "remaining": [
+    "Root exact-head CI, checked merge/deployment/rollback receipt. Original historical CI cause remains unresolved without its UUID/alert data."
+  ],
+  "limits": [
+    "No real accounts/charges/receipts/credentials stored; only fictional local browser fields.",
+    "No root/test runtime edits beyond named authorized scope; no Git mutations by child.",
+    "Controlled runtime false-positive does not diagnose original CI without its missing data."
+  ],
+  "fixedAffectedQa": {
+    "recordedAt": "2026-10-22T04:39:35.279491+00:00",
+    "productionBase": "http://127.0.0.1:5256",
+    "runtimeFingerprintBeforeQa": "b3f906de0dcd5feeabc48c80ad22d01eef068a3e9bdbd8f40a3d077f7e1f18f5",
+    "runtimeFingerprintAfterQa": "b3f906de0dcd5feeabc48c80ad22d01eef068a3e9bdbd8f40a3d077f7e1f18f5",
+    "immutableBundle": "/tmp/hoy-payroll-event-qa-b3f906de0dcd",
+    "build": "PASS EXIT0 root59843, checkout1560f23 plus authorized uncommitted UUID model correction/root docs",
+    "commands": [
+      {
+        "command": "PROJECT=hoy QA_BASE=http://127.0.0.1:5256 node scripts/test-service-catalog-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/M-09d/catalog/results.json",
+        "errors": [],
+        "log": "/tmp/hoy-service-catalog-uuid-fixed-ui.log",
+        "newRegression": "Generated decimal-heavy UUID persisted; original excluded1 and verified excluded0 assertions unchanged."
+      },
+      {
+        "command": "PROJECT=hoy QA_BASE=http://127.0.0.1:5256 node scripts/test-subscriptions-ui.mjs",
+        "exitCode": 0,
+        "artifact": "docs/screenshots/M-09d/results.json",
+        "errors": [],
+        "log": "/tmp/hoy-subscriptions-uuid-fixed-ui.log",
+        "scope": "Create/edit/reload; unknown amounts; duplicate reference; quota; stale tab; customer denial; responsive/lightdark."
+      }
+    ],
+    "browserState": "Both suites completed serially; browsers closed; slot released to coordinator.",
+    "priorMatrixScope": "Earlier combined payroll/event matrix remains separately identified at8e4ee559c16979176f50a74a93477d4665e66376e41e9e9a4087cef8d069527b; it was not rerun on b3f. Fresh affected subscription/catalog proof and new exact-head CI are distinct."
+  }
+}

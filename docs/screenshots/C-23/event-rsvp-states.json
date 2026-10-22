@@ -1,0 +1,12 @@
+{
+  "requirement": "RS-15",
+  "base": "http://127.0.0.1:5247",
+  "checks": [
+    "en: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390",
+    "es: actual contained loading/readfailure/Retry; old customer mine suppressed after same-mounted actor change; busy same-tick duplicate guard; staged cancel/unmount/actorchange rollback; audit write failure rollback; lost-ack same-command retry once; postcommit close retains history/no late drawer;390"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual C23/providers with fictional failure injection; production roles/matrix tested separately."
+  ]
+}

@@ -1,0 +1,7 @@
+/* Keep each fictional statement amount readable at the existing shell breakpoint. */
+.payout-line .payout-line-money { white-space: nowrap; flex-shrink: 0; }
+@media (max-width: 900px) {
+  .payout-line { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; }
+  .payout-line .adm-line-when { grid-column: 1 / -1; min-width: 0; }
+  .payout-line .grow { min-width: 0; }
+}

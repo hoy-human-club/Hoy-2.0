@@ -1,0 +1,63 @@
+{
+  "feature": "FI-03",
+  "phase": "Nov 30 delivery",
+  "accepted": false,
+  "scope": "fictional draft-only frontend; no production/commercial/backend acceptance",
+  "baseCommit": "6628c0ac1a9a79bec19b4d10f32d1f4b570ea27e",
+  "runtimeFingerprint": "9a149e77bfbf086f4d62dd93e06d6de4f8267790346d31eaa6ed6cae9ca1a81f",
+  "runtimeUnchangedThroughBuildAndQA": true,
+  "immutableBundle": "/tmp/hoy-payroll-qa-9a149e77bfbf",
+  "domain": {
+    "script": "scripts/test-payroll-draft.mjs",
+    "exitCode": 0,
+    "creationWriteStages": 10,
+    "replacementWriteStages": 21,
+    "historicalFixture": "scripts/fixtures/payroll-draft-before.ts"
+  },
+  "hook": {
+    "script": "scripts/test-payroll-draft-hook.mjs",
+    "exitCode": 0,
+    "controlledScenarios": 8
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "log": "/tmp/hoy-payroll-final-build.log"
+  },
+  "productionUI": {
+    "script": "scripts/test-payroll-draft-ui.mjs",
+    "exitCode": 0,
+    "log": "/tmp/hoy-payroll-final-production-ui-retry.log",
+    "results": {
+      "base": "http://127.0.0.1:5240",
+      "checks": [
+        "en/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "Existing payroll roles admin/finance/super allowed;8 denied; no expansion",
+        "en/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "en/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "en/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/light/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/light/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/dark/390: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance",
+        "es/dark/1280: deferred scoped loading/disabled controls, quota rollback/retry, exact draft+recompute readback, doubleclick, busy/cancel/unmount/actor switch, stale basis/reload, missing account/read retry, duplicate pause, atomic monthly-to-biweekly, paid history and payment/outbox invariance"
+      ],
+      "errors": []
+    },
+    "captures": 80,
+    "browserClosed": true
+  },
+  "earlierFinalAttempt": {
+    "exitCode": 1,
+    "failure": "Retry request pointer click timed out25s after visible/enabled/stable and scrolling complete",
+    "log": "/tmp/hoy-payroll-final-production-ui.log",
+    "capture": "/tmp/hoy-payroll-final-first-failure.jpg",
+    "cause": "unresolved; contemporaneous executor/startup stalls observed; no source/assertion change justified"
+  },
+  "remaining": [
+    "Root checked commit/integration/exact-head CI/deployment receipt",
+    "Anu authorized server transaction/uniqueness/status locks/idempotency/durable readback",
+    "Approval/settlement/Wompi/teacher payout verification separate",
+    "Inherited390px teacher-statement amount columns wrap digits; separate visual gap",
+    "Browser daily reset; no cross-device or cross-tab transaction guarantee"
+  ]
+}

@@ -2547,33 +2547,59 @@
       "priority": "Medium",
       "relatedTests": "CLI-18, COO-15",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/pages/EventPage.tsx",
         "src/modules/customer/hooks.ts",
-        "src/modules/admin/EventsAdminPage.tsx"
+        "src/modules/admin/EventsAdminPage.tsx",
+        "src/modules/customer/eventRsvp.ts",
+        "src/modules/customer/useEventSnapshot.ts",
+        "docs/frontend-completion/batch-31.md",
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
       ],
       "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "tests": [
+        "scripts/test-event-rsvp.mjs",
+        "scripts/test-event-rsvp-ui.mjs",
+        "scripts/test-event-rsvp-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/C-23/event-rsvp-results.json",
+        "docs/screenshots/C-23/event-rsvp-states.json"
+      ],
       "blockers": [],
-      "nextAction": "Add event capacity/duplicate/failure fixtures and email preview; test cancellation/rejoin.",
+      "nextAction": "Complete final evidence-head checked release; separately scope paid RSVP/payment/email and unresolved cancellation policy without inventing business decisions.",
       "candidateRoutes": [
         "/#/app/events",
         "/#/app/events/:id",
         "/#/admin/content/events"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
         "missingFrontend": [
-          "RSVP/cancel and capacity display exist; going() inserts directly without fresh capacity/duplicate checks, no email write identified."
+          "Zero-due RSVP and own unpaid cancellation are atomic fictional local commands; existing paid reserve/cancel remains partial and unchanged.",
+          "Actual email delivery, paid atomicity and unresolved cancellation/cutoff policy remain unverified."
         ],
         "remainingBackend": [
-          "Atomic event capacity/RSVP/payment and confirmation emails."
+          "Authenticated atomic capacity/RSVP/payment, authoritative history/clock and confirmation email delivery."
         ]
       },
       "sourceNextAction": "Add event capacity/duplicate/failure fixtures and email preview; test cancellation/rejoin.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "priorSourceAssessments": [
+        {
+          "assessment": {
+            "basis": "source inspection only; not owner acceptance",
+            "missingFrontend": [
+              "RSVP/cancel and capacity display exist; going() inserts directly without fresh capacity/duplicate checks, no email write identified."
+            ],
+            "remainingBackend": [
+              "Atomic event capacity/RSVP/payment and confirmation emails."
+            ]
+          },
+          "basis": "Historical finding before bounded fictional batch repair; original full feature remains partial."
+        }
+      ]
     },
     {
       "id": "PG-01",
@@ -5321,29 +5347,39 @@
       "priority": "High",
       "relatedTests": "FIN-08, FIN-09, FIN-10",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/admin/payouts.ts",
         "src/modules/admin/PayoutsPage.tsx",
-        "src/data/payrollCalc.ts"
+        "src/data/payrollCalc.ts",
+        "src/modules/admin/payrollDraft.ts",
+        "src/modules/admin/usePayrollDraft.ts",
+        "docs/frontend-completion/batch-30.md",
+        "docs/frontend-completion/evidence/integrated-batches-30-31.json"
       ],
       "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "tests": [
+        "scripts/test-payroll-draft.mjs",
+        "scripts/test-payroll-draft-hook.mjs",
+        "scripts/test-payroll-draft-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-09a/payroll-draft-proof.json",
+        "docs/screenshots/M-09b/"
+      ],
       "blockers": [],
-      "nextAction": "Finish bounded fictional draft-generation/replacement repair and focused checked release; separately verify approval/settlement and authenticated server period uniqueness/status locks.",
+      "nextAction": "Complete final evidence-head CI and release; separately verify approval/settlement and authenticated backend contracts.",
       "candidateRoutes": [
         "/#/admin/finance/payouts",
         "/#/admin/finance/payouts/sample"
       ],
       "sourceAssessment": {
-        "basis": "Current source audit and executed baseline mock regression in isolated batch30; full feature remains unaccepted.",
+        "basis": "Isolated and combined actual mock build/domain/rendered pass; exact-head release gates remain pending. Full feature stays partial.",
         "missingFrontend": [
-          "Draft generator uses captured rows and individual deletes/inserts: a later-line failure leaves a persisted partial run, while concurrent calls can create duplicate same-period runs.",
-          "Draft-only atomic replacement and fresh overlap/status checks are active in isolated batch30, with final rendered proof/root integration not yet released; approval/settlement remain outside that slice."
+          "Approval and settlement flows require separate verification; bounded draft generator/replacement now uses fresh atomic mock writes and current-result replay."
         ],
         "remainingBackend": [
-          "Current draft generation is multiple client CRUD writes; server transaction/idempotency/unique period and status locks required."
+          "Authenticated server transaction/idempotency, unique period and status locks, canonical class/rate history, approval and settlement contracts."
         ]
       },
       "sourceNextAction": "Verify duplicate regeneration, overlapping monthly/biweekly draft replacement, completed-class rates and sum per teacher; failure midway must not be treated as paid.",
@@ -5359,6 +5395,19 @@
             ]
           },
           "basis": "Historical source classification before draft partial-write/concurrency regression was reproduced; not acceptance."
+        },
+        {
+          "assessment": {
+            "basis": "Current source audit and executed baseline mock regression in isolated batch30; full feature remains unaccepted.",
+            "missingFrontend": [
+              "Draft generator uses captured rows and individual deletes/inserts: a later-line failure leaves a persisted partial run, while concurrent calls can create duplicate same-period runs.",
+              "Draft-only atomic replacement and fresh overlap/status checks are active in isolated batch30, with final rendered proof/root integration not yet released; approval/settlement remain outside that slice."
+            ],
+            "remainingBackend": [
+              "Current draft generation is multiple client CRUD writes; server transaction/idempotency/unique period and status locks required."
+            ]
+          },
+          "basis": "Historical finding before bounded fictional batch repair; original full feature remains partial."
         }
       ]
     },

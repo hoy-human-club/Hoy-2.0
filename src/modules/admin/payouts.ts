@@ -18,10 +18,9 @@
  * would make every revenue number in the product wrong.
  */
 import { useCallback, useMemo } from 'react';
-import { useData, useTable } from '../../data/DataContext';
-import type { BookingRow, ClassSessionRow, PayrollLineRow, PayrollRunRow, SpaceBookingRow, SpecialChargeRow, TeacherRow } from '../../data/schema';
-import { byTeacher, draftLinesFor, isWholeMonth, monthPeriod, periodsFor, periodsOverlap, runTotal, type PayrollCadence, type Period, type RateCard } from '../../data/payrollCalc';
-import { useSettings } from './settings';
+import { useTable } from '../../data/DataContext';
+import type { PayrollLineRow, PayrollRunRow, TeacherRow } from '../../data/schema';
+import { byTeacher, isWholeMonth, monthPeriod, periodsFor, runTotal, type PayrollCadence, type Period } from '../../data/payrollCalc';
 import type { Bi } from '../../specs/types';
 import { formatDate, fromDateKey, studioParts, studioDate } from '../../i18n/format';
 import { fakeRef } from '../customer/payments';
@@ -74,55 +73,7 @@ export function usePayroll() {
   return { runs, lines, teachers, teacherName, linesOf, loading };
 }
 
-/**
- * Writes (or rewrites) the draft run for a period from the completed sessions in it **and** the
- * manual teacher payouts of the Especiales delivered in it (0017: `special_charges.teacher_payout`
- * → a line of kind 'manual' with `special_charge_id`).
- * Idempotent: an existing draft for the same period has its lines replaced, so pressing the button
- * twice cannot double-pay — a manual line is recomputed from its source, never added twice. An
- * approved or paid run is never touched.
- */
-export function useGenerateDraft() {
-  const data = useData();
-  const { settings } = useSettings();
-  const rateCard: RateCard = settings.payroll.rateCard;
-  const { rows: sessions } = useTable<ClassSessionRow>('class_sessions');
-  const { rows: bookings } = useTable<BookingRow>('bookings');
-  const { rows: teachers } = useTable<TeacherRow>('teachers');
-  const { rows: runs } = useTable<PayrollRunRow>('payroll_runs');
-  const { rows: lines } = useTable<PayrollLineRow>('payroll_lines');
-  const { rows: specials } = useTable<SpecialChargeRow>('special_charges');
-  const { rows: spaceBookings } = useTable<SpaceBookingRow>('space_bookings');
-
-  return useCallback(async (period: Period, method: PayoutMethod = 'wompi'): Promise<{ run: PayrollRunRow; created: number; replaced: boolean; replacedOverlap: boolean } | { blocked: PayrollRunRow }> => {
-    const existing = runs.find((r) => r.period_start === period.start && r.period_end === period.end);
-    if (existing && existing.status !== 'draft') return { blocked: existing };
-    // 0018: a run of the OTHER cadence covering these days (a monthly draft when the switch is now biweekly, or the
-    // reverse) would pay the same classes twice. A draft is replaced; an approved or paid one blocks the generation.
-    const overlapping = runs.filter((r) => r.id !== existing?.id && periodsOverlap({ start: r.period_start, end: r.period_end }, period));
-    const hard = overlapping.find((r) => r.status !== 'draft');
-    if (hard) return { blocked: hard };
-    for (const r of overlapping) {
-      for (const l of lines.filter((l) => l.run_id === r.id)) await data.remove('payroll_lines', l.id);
-      await data.remove('payroll_runs', r.id);
-    }
-
-    const draft = draftLinesFor(period, { sessions, bookings, teachers, specials, spaceBookings, rateCard });
-    const total = runTotal(draft);
-    let run: PayrollRunRow;
-    if (existing) {
-      for (const l of lines.filter((l) => l.run_id === existing.id)) await data.remove('payroll_lines', l.id);
-      run = await data.update<PayrollRunRow>('payroll_runs', existing.id, { total, method });
-    } else {
-      run = await data.insert<PayrollRunRow>('payroll_runs', {
-        period_start: period.start, period_end: period.end, status: 'draft', total, method,
-        approved_by: null, approved_at: null, paid_at: null, provider_ref: null, notes: null,
-      } as Partial<PayrollRunRow>);
-    }
-    for (const l of draft) await data.insert('payroll_lines', { ...l, run_id: run.id });
-    return { run, created: draft.length, replaced: !!existing, replacedOverlap: overlapping.length > 0 };
-  }, [data, runs, lines, sessions, bookings, teachers, specials, spaceBookings, rateCard]);
-}
+export { usePayrollDraftAction as useGenerateDraft } from './usePayrollDraft';
 
 /**
  * Per-teacher statement of a run: lines grouped, subtotal, class count and the settlement state,
