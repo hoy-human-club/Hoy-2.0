@@ -7,11 +7,9 @@
  * a template through `src/data/expenseCalc.ts`, variable ones typed by finance. Neither is a
  * `payments` row, for the same reason a payout is not one: `payments` is money in.
  */
-import { useCallback, useMemo } from 'react';
-import { useData, useTable } from '../../data/DataContext';
+import { useMemo } from 'react';
+import { useTable } from '../../data/DataContext';
 import type { ExpenseRow, ExpenseTemplateRow, PayrollRunRow } from '../../data/schema';
-import { fixedExpensesFor, type Period } from '../../data/expenseCalc';
-import {  } from '../../data/payrollCalc';
 import { dateKey, addDays } from '../../i18n/format';
 
 /** The same five ranges M-09 uses, so the two pages always describe the same window. */
@@ -52,23 +50,4 @@ export function expenseTotals(rows: ExpenseRow[]) {
  */
 export function payrollInRange(runs: PayrollRunRow[], since: string, today = dateKey(new Date())) {
   return runs.filter((r) => r.period_start <= today && (!since || r.period_end >= since));
-}
-
-/**
- * Writes the fixed expenses a period owes and is missing. Idempotent: a template + due day that
- * already has a row (paid or not) is skipped, never duplicated, and nothing is ever deleted — a paid
- * row is history. Inactive templates generate nothing.
- */
-export function useGenerateFixed() {
-  const data = useData();
-  const { rows: templates } = useTable<ExpenseTemplateRow>('expense_templates');
-  const { rows: expenses } = useTable<ExpenseRow>('expenses');
-  return useCallback(async (period: Period, createdBy: string): Promise<{ created: ExpenseRow[]; skipped: number; total: number }> => {
-    const { drafts, skipped } = fixedExpensesFor(period, templates, expenses);
-    const created: ExpenseRow[] = [];
-    for (const d of drafts) {
-      created.push(await data.insert<ExpenseRow>('expenses', { ...d, paid_on: null, method: 'transfer', note: null, created_by: createdBy } as Partial<ExpenseRow>));
-    }
-    return { created, skipped, total: created.reduce((a, r) => a + r.amount, 0) };
-  }, [data, templates, expenses]);
 }

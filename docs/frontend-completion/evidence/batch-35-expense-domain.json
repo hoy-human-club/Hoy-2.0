@@ -1,0 +1,20 @@
+{
+  "batch": 35,
+  "checks": [
+    "All six commands: every record/audit write and quota failure rolls back bytes/events; stable retry and exact replay add no writes; changed intent under same scoped nonce conflicts.",
+    "Fresh staged paid-delete prohibition and semantic before-state checks reject stale pay/template toggles without overwriting current values.",
+    "Concurrent generation freshly deduplicates template/day inside transaction; repeat skips paid and unpaid history untouched; changed template preview rejects. Existing quincena arithmetic retained.",
+    "Scoped workspace required-table read failure clears trust; failed command required reads produce no effects.",
+    "Missing/foreign/duplicate actor and defensive foreign/duplicate expense/template canaries fail closed, including generation; no ownership repair.",
+    "Actor reassignment between preflight and transaction rejects; caller input/actor/body snapshot is synchronous; receipt contains only scope, hashes, counts/IDs and digests, no entered note/concept.",
+    "All six lost-ack outcomes replay without duplicates; fresh missing/foreign/changed result and required generation template checks prevent stale receipt acknowledgement, including recreated foreign deleted IDs.",
+    "Retained original lifecycle callbacks/signals reject held-digest replacement and staged cancellation without effects; postcommit cancellation withholds acknowledgement, retains one result/audit and restored retry is read-only.",
+    "Existing three allowed/eight denied command roles preserved; real provider rejected; new input retains UI integer/date/method contract and explicit field allowlist omits unknown fields.",
+    "Postcommit required read failure withholds acknowledgement without fictional rollback; restored replay adds nothing. Concurrent pay/delete serializes with fresh paid guard: paid result retained, deletion rejected. Malformed empty expense/template result receipts and malformed current date/anchor rows cannot bypass fresh required targets."
+  ],
+  "limits": [
+    "Mock per-provider transactions only, not durable/server/cross-tab security or actual money movement.",
+    "M09c paid-delete guard only; generic provider/table bypass and source Finance role conflict remain unresolved.",
+    "No arithmetic/pricing/calendar/subscription import/roles/schema/policy changes."
+  ]
+}

@@ -1,0 +1,13 @@
+export function useGenerateFixed() {
+  const data = useData();
+  const { rows: templates } = useTable<ExpenseTemplateRow>('expense_templates');
+  const { rows: expenses } = useTable<ExpenseRow>('expenses');
+  return useCallback(async (period: Period, createdBy: string): Promise<{ created: ExpenseRow[]; skipped: number; total: number }> => {
+    const { drafts, skipped } = fixedExpensesFor(period, templates, expenses);
+    const created: ExpenseRow[] = [];
+    for (const d of drafts) {
+      created.push(await data.insert<ExpenseRow>('expenses', { ...d, paid_on: null, method: 'transfer', note: null, created_by: createdBy } as Partial<ExpenseRow>));
+    }
+    return { created, skipped, total: created.reduce((a, r) => a + r.amount, 0) };
+  }, [data, templates, expenses]);
+}

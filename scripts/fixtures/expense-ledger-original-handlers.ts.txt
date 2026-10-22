@@ -1,0 +1,39 @@
+  const markPaid = async (e: ExpenseRow) => {
+    if (!canWrite) return;
+    setBusy(e.id);
+    try {
+      const today = dateKey(new Date());
+      await data.update('expenses', e.id, { paid_on: today });
+      await audit('expense.pay', 'expenses', e.id, { before: null, after: today, amount: e.amount, concept: e.concept, method: e.method });
+    } finally { setBusy(null); }
+  };
+  const remove = async (e: ExpenseRow) => {
+    if (!canWrite || e.paid_on || !confirm(t('admin.expenses.remove.confirm', { concept: e.concept, amount: formatCOP(e.amount, lang) }))) return;
+    await data.remove('expenses', e.id);
+    await audit('expense.delete', 'expenses', e.id, { before: { concept: e.concept, amount: e.amount, incurred_on: e.incurred_on, kind: e.kind } });
+  };
+  const add = async (draft: ExpenseDraft) => {
+    const row = await data.insert<ExpenseRow>('expenses', { ...draft, template_id: null, created_by: user.id } as Partial<ExpenseRow>);
+    await audit('expense.create', 'expenses', row.id, { after: { concept: draft.concept, amount: draft.amount, kind: draft.kind, category: draft.category, incurred_on: draft.incurred_on, paid_on: draft.paid_on } });
+    setMsg({ tone: 'ok', text: t('admin.expenses.msg.added', { concept: draft.concept, amount: formatCOP(draft.amount, lang) }) });
+  };
+  const addTemplate = async (draft: TemplateDraft) => {
+    const row = await data.insert<ExpenseTemplateRow>('expense_templates', { ...draft, active: true, note: null } as Partial<ExpenseTemplateRow>);
+    await audit('expense.template.create', 'expense_templates', row.id, { after: draft });
+    setShowTemplateForm(false);
+    setMsg({ tone: 'ok', text: t('admin.expenses.msg.templateAdded', { concept: draft.concept }) });
+  };
+  const toggleTemplate = async (x: ExpenseTemplateRow) => {
+    if (!canWrite) return;
+    await data.update('expense_templates', x.id, { active: !x.active });
+    await audit('expense.template.toggle', 'expense_templates', x.id, { before: x.active, after: !x.active, concept: x.concept });
+  };
+  const runGenerate = async () => {
+    setBusy('generate'); setMsg(null);
+    try {
+      const res = await generate(period, user.id);
+      await audit('expense.generate', 'expenses', null, { after: { period: `${period.start}…${period.end}`, created: res.created.length, skipped: res.skipped, total: res.total } });
+      setMsg({ tone: 'ok', text: res.created.length ? t('admin.expenses.generate.done', { n: res.created.length, total: formatCOP(res.total, lang), skipped: res.skipped }) : t('admin.expenses.generate.nothing', { skipped: res.skipped }) });
+    } finally { setBusy(null); }
+  };
+
