@@ -242,6 +242,7 @@ export class MockProvider implements DataProvider {
   async get<T extends BaseRow>(table: string, id: string): Promise<T | null> { return structuredClone((this.rows(table).find((r) => r.id === id) as T) ?? null); }
 
   async insert<T extends BaseRow>(table: string, row: Partial<T>): Promise<T> {
+    if (table === 'audit_log' && this.rows(table).some(r => r.id === row.id)) throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(table)) throw new Error('promotion_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
@@ -260,6 +261,7 @@ export class MockProvider implements DataProvider {
     return full;
   }
   async update<T extends BaseRow>(table: string, id: string, patch: Partial<T>): Promise<T> {
+    if (table === 'audit_log') throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(table)) throw new Error('promotion_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
@@ -288,6 +290,7 @@ export class MockProvider implements DataProvider {
     return next;
   }
   async remove(table: string, id: string): Promise<void> {
+    if (table === 'audit_log') throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
     if (['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(table)) throw new Error('promotion_atomic_command_required');
     if (['vouchers', 'voucher_bookings', 'voucher_events'].includes(table)) throw new Error('voucher_atomic_command_required');
@@ -313,9 +316,9 @@ export class MockProvider implements DataProvider {
   async voucher(command: VoucherCommand): Promise<VoucherResult> {
     const transaction = executeVoucherCommand(this.db, command, { tenantId: tenant.id,
       usesMats: session => usesMats((this.db.modalities as ModalityRow[]).find(m => m.id === session.modality_id)), matCapacity: tenant.studio.mats });
+    this.persist(transaction.db, true);
     this.db = transaction.db;
-    this.persist();
-    for (const table of ['vouchers', 'voucher_bookings', 'voucher_events', 'class_sessions']) this.emit({ table, type: 'reset' });
+    for (const table of ['vouchers', 'voucher_bookings', 'voucher_events', 'class_sessions', 'audit_log']) this.emit({ table, type: 'reset' });
     return transaction.result;
   }
   /** Refresh only synthetic sample fixtures when an already-open demo crosses a class start. */
@@ -368,7 +371,7 @@ export class MockProvider implements DataProvider {
     const previous = this.db;
     this.db = transaction.db;
     try { this.persist(this.db, true); } catch (error) { this.db = previous; throw error; }
-    for (const table of ['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events', 'vouchers', 'voucher_events']) this.emit({ table, type: 'reset' });
+    for (const table of ['promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events', 'vouchers', 'voucher_events', 'audit_log']) this.emit({ table, type: 'reset' });
     return transaction.result;
   }
   async reset(): Promise<void> {

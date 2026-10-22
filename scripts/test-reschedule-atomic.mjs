@@ -22,9 +22,9 @@ try {
  const booking=await data.insert('bookings',{id:'qa_rs_booking',user_id:userId,session_id:original.id,status:'booked',paid_with:'package',ledger_id:debit.id});
  const waiting=await data.insert('waitlist',{id:'qa_rs_wait',user_id:'qa_waiter',session_id:original.id,status:'waiting',position:1});
  const input={userId,bookingId:booking.id,fromSessionId:original.id,toSessionId:target.id,now};
- const snapshot=()=>JSON.stringify(['bookings','class_sessions','class_ledger','waitlist'].map(t=>data.peek(t)));
+ const snapshot=()=>JSON.stringify(['bookings','class_sessions','class_ledger','waitlist','audit_log'].map(t=>data.peek(t)));
  let events=0;data.subscribe('*',()=>events++);
- for(const failAfterWrites of [1,2,3]) {
+ for(const failAfterWrites of [1,2,3,4]) {
   const before=snapshot(), count=events;
   await assert.rejects(data.atomic(tx=>rescheduleBooking(tx,input),{failAfterWrites}),/mock_injected/);
   assert.equal(snapshot(),before);assert.equal(events,count,'failure emits no partial state');
@@ -61,5 +61,6 @@ try {
  assert.equal(data.peek('class_sessions').find(s=>s.id===original.id).booked_count,0);
  assert.equal(data.peek('class_sessions').find(s=>s.id===target.id).booked_count,1);
  assert.equal(data.peek('waitlist').find(w=>w.id===waiting.id).status,'offered');
+ const audit=data.peek('audit_log').filter(r=>r.action==='booking.reschedule'&&r.entity_id===booking.id);assert.equal(audit.length,1);assert.equal(audit[0].actor_id,userId);assert.equal(audit[0].diff.replacement_booking_id,one.id);assert(Number.isFinite(Date.parse(audit[0].created_at)));
  console.log('PASS RS-09: future-day original entitlement, each staged write/storage failure preserves original/capacity/waitlist; expiry/freeze/past/full/cancelled/conflict/scope/cutoff rejected; concurrent retry creates exactly one replacement with same debit and conserved capacity.');
 } finally {await rm(scratch,{recursive:true,force:true});}

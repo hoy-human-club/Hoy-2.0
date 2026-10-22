@@ -5,7 +5,7 @@ import { chromium } from 'playwright-core';
 import { mkdir, writeFile } from 'node:fs/promises';
 const base=process.env.QA_BASE??'http://127.0.0.1:5173';
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});
-const errors=[],checks=[],output='docs/screenshots/C-04';await mkdir(output,{recursive:true});
+const errors=[],checks=[],output=process.env.QA_OUTPUT??'docs/screenshots/C-04';await mkdir(output,{recursive:true});
 try {
  for(const lang of ['en','es']) {
   const ctx=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
@@ -41,6 +41,8 @@ try {
   const newPurchase=approved.ledger.find(r=>r.reason==='purchase'&&r.payment_id===approved.payments.find(p=>p.status==='approved').id);
   assert.equal(approved.ledger.find(r=>r.delta===-1).purchase_ledger_id,newPurchase.id,'explicit new package consumes its own purchased grant');
   assert.equal(approved.ledger.find(r=>r.id==='qa_older_grant').delta,3,'older grant unchanged');assert.equal(approved.bookings.length,1);assert.equal(approved.count,1);
+  const audit=await page.evaluate(id=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db.audit_log.filter(r=>r.action==='booking.create'&&r.entity_id===id),approved.bookings[0].id);assert.equal(audit.length,1);assert.equal(audit[0].actor_id,'usr_cust');assert.equal(audit[0].diff.role,'customer');assert(Number.isFinite(Date.parse(audit[0].created_at)));
+  const outcome=await page.evaluate(id=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db.audit_log.filter(r=>r.action==='payment.mock.approved'&&r.entity_id===id),approved.payments.find(p=>p.status==='approved').id);assert.equal(outcome.length,1);assert.equal(outcome[0].actor_id,'usr_cust');assert.equal(outcome[0].diff.simulated,true);
   checks.push(`${lang}: confirmed demo payment activates 12 classes with stored expiry, one booking/debit linked to exact fresh purchase, old 3-class grant retained (total14); pending request remains separate`);
   // A storage failure on package-only checkout must leave no payment, invoice or grant behind.
   await page.goto(`${base}/#/app/plans?plan=pack12`);
@@ -50,9 +52,9 @@ try {
   await page.getByRole('button',{name:lang==='en'?/Pay .* with Wompi/:/Pagar .* con Wompi/}).click();
   await page.getByText(lang==='en'?'The demo purchase could not be saved. No classes were activated. You can retry.':'No se pudo guardar la compra demo. No se activaron clases. Puedes reintentar.',{exact:true}).waitFor();
   const afterFailure=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db);
-  for(const table of ['payments','invoices','class_ledger','bookings'])assert.deepEqual(afterFailure[table],beforeFailure[table],`${table} unchanged after package purchase save failure`);
-  await mkdir('docs/screenshots/C-06',{recursive:true});
-  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await settledCapture(page,{path:`docs/screenshots/C-06/${lang}-${width}-purchase-failure.jpg`,quality:72,fullPage:false});}
+  for(const table of ['payments','invoices','class_ledger','bookings','audit_log'])assert.deepEqual(afterFailure[table],beforeFailure[table],`${table} unchanged after package purchase save failure`);
+  const failureOutput=process.env.QA_OUTPUT?`${output}/failure`:'docs/screenshots/C-06';await mkdir(failureOutput,{recursive:true});
+  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await settledCapture(page,{path:`${failureOutput}/${lang}-${width}-purchase-failure.jpg`,quality:72,fullPage:false});}
   checks.push(`${lang}: package-only persistence failure reports retry, rolls back payment/invoice/grant, EN/ES desktop/mobile error notice`);
   await ctx.close();
  }

@@ -42,6 +42,9 @@ export async function changeLocalPublication(data: DataProvider, input: { planId
     if (!plan || plan.tenant_id !== input.expectedTenant) throw new Error('scope');
     const frontend_publication = publicationPatch(plan, input.action, input.expectedRevision, input.actorId, new Date().toISOString());
     if (JSON.stringify(frontend_publication) === JSON.stringify(plan.frontend_publication)) return plan;
-    return tx.update<CatalogPlan>('plans', plan.id, { frontend_publication });
+    const saved = await tx.update<CatalogPlan>('plans', plan.id, { frontend_publication });
+    await tx.insert('audit_log', { actor_id: input.actorId, action: `product.${input.action}`, entity: 'plans', entity_id: plan.id, ip: null,
+      diff: { source: 'fictional-product-catalog', revision: frontend_publication.revision, before: plan.frontend_publication?.withdrawnAt ?? null, after: frontend_publication.withdrawnAt } });
+    return saved;
   });
 }

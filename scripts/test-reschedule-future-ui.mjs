@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 const base=process.env.QA_BASE ?? 'http://127.0.0.1:5187';
-const output='docs/screenshots/C-08b';await mkdir(output,{recursive:true});
+const output=process.env.QA_OUTPUT??'docs/screenshots/C-08b';await mkdir(output,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH ?? '/usr/bin/chromium',args:['--no-sandbox']});
 const errors=[],checks=[];
 try {
@@ -17,8 +17,8 @@ try {
   await page.evaluate(()=>{
    const stored=JSON.parse(localStorage.getItem('hoyos.db.v1')),db=stored.db,template=db.class_sessions.find(s=>s.status==='scheduled'),tenant_id=template.tenant_id;
    const stamp='2026-10-25T17:00:00Z',row=(id,extra)=>({id,tenant_id,created_at:stamp,updated_at:stamp,...extra});
-   const original={...template,...row('qa_rs_original',{title:'QA Original Class',starts_at:'2026-11-01T18:10:00Z',ends_at:'2026-11-01T19:00:00Z',status:'scheduled',capacity:6,booked_count:1,template_id:null})};
-   db.class_sessions=[original,{...original,id:'qa_rs_target',title:'QA Future Replacement',starts_at:'2026-11-03T18:10:00Z',ends_at:'2026-11-03T19:00:00Z',booked_count:0},{...original,id:'qa_rs_expired',title:'QA Beyond Purchased Validity',starts_at:'2026-11-05T18:10:00Z',ends_at:'2026-11-05T19:00:00Z',booked_count:0}];
+   const original={...template,...row('qa_rs_original',{title:'QA Original Class',starts_at:'2026-11-01T18:00:00Z',ends_at:'2026-11-01T18:50:00Z',status:'scheduled',capacity:6,booked_count:1,template_id:null})};
+   db.class_sessions=[original,{...original,id:'qa_rs_target',title:'QA Future Replacement',starts_at:'2026-11-03T18:00:00Z',ends_at:'2026-11-03T18:50:00Z',booked_count:0},{...original,id:'qa_rs_expired',title:'QA Beyond Purchased Validity',starts_at:'2026-11-05T18:00:00Z',ends_at:'2026-11-05T18:50:00Z',booked_count:0}];
    db.bookings=[row('qa_rs_booking',{user_id:'usr_cust',session_id:original.id,status:'booked',paid_with:'package',ledger_id:'qa_rs_debit',rated:false})];
    db.class_ledger=[row('qa_rs_purchase',{user_id:'usr_cust',plan_id:'plan_pack12',delta:1,reason:'purchase',expires_at:'2026-11-04'}),row('qa_rs_debit',{created_at:'2026-10-26T17:00:00Z',user_id:'usr_cust',delta:-1,reason:'booking',purchase_ledger_id:'qa_rs_purchase'})];
    db.class_templates=[];db.waitlist=[];localStorage.setItem('hoyos.db.v1',JSON.stringify(stored));
@@ -58,6 +58,7 @@ try {
   assert.equal(JSON.stringify(db.class_ledger),before);assert.equal(db.bookings.find(b=>b.id==='qa_rs_booking').status,'cancelled');
   assert.equal(db.bookings.filter(b=>b.session_id==='qa_rs_target'&&b.status==='booked').length,1);
   assert.equal(db.bookings.find(b=>b.session_id==='qa_rs_target').ledger_id,'qa_rs_debit');
+  const audit=db.audit_log.filter(r=>r.action==='booking.reschedule'&&r.entity_id==='qa_rs_booking');assert.equal(audit.length,1);assert.equal(audit[0].actor_id,'usr_cust');assert.equal(audit[0].diff.role,'customer');assert(Number.isFinite(Date.parse(audit[0].created_at)));
   assert.equal(db.class_sessions.find(s=>s.id==='qa_rs_target').booked_count,1);assert.equal(db.class_sessions.find(s=>s.id==='qa_rs_original').booked_count,0);
   checks.push(`${lang}: future-day date and original expiry, out-of-validity hidden, cancel-edit unchanged, storage failure retains original, retry moves once with same debit, desktop/mobile light/dark`);await ctx.close();
  }

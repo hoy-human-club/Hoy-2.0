@@ -78,6 +78,8 @@ export async function recordPayment(data: DataProvider, input: { userId: string;
     const { subtotal, tax } = splitIva(input.amount, input.ivaRate);
     await data.insert('invoices', { payment_id: payment.id, number: `${tenant.invoicePrefix}-${Date.now().toString().slice(-6)}`, subtotal, tax, total: input.amount, issued_at: now, pdf_url: null, dian_cufe: null });
   }
+  if (data.name === 'mock') await data.insert('audit_log', { actor_id: input.takenBy ?? input.userId, action: `payment.mock.${status}`, entity: 'payments', entity_id: payment.id, ip: null,
+    diff: { source: 'fictional-payment-checkout', simulated: true, method: input.method, status } });
   return payment;
 }
 

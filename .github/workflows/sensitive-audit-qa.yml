@@ -1,0 +1,63 @@
+name: Sensitive action audit QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/MockProvider.ts'
+      - 'src/data/vouchers.ts'
+      - 'src/data/promotions.ts'
+      - 'src/modules/customer/hooks.ts'
+      - 'src/modules/customer/payments.ts'
+      - 'src/modules/customer/rescheduleCommand.ts'
+      - 'src/modules/transfers/receipts.ts'
+      - 'src/data/catalog*.ts'
+      - 'src/modules/products/**'
+      - 'src/modules/admin/TablesPage.tsx'
+      - 'scripts/test-sensitive-audit*.mjs'
+      - '.github/workflows/sensitive-audit-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-actions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify audit contracts and existing producers
+        run: |
+          node scripts/test-sensitive-audit.mjs
+          node scripts/test-vouchers.mjs
+          node scripts/test-promotions.mjs
+          node scripts/test-reschedule-atomic.mjs
+          node scripts/test-product-catalog.mjs
+          node scripts/test-catalog-publication.mjs
+          node scripts/test-transfer-receipts.mjs
+          node scripts/test-reception-attendance.mjs
+          node scripts/test-operational-quotes.mjs
+      - run: npm run build
+      - name: Verify actual role flows and Activity export
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5332 > /tmp/hoy-sensitive-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5332/ >/dev/null && break; sleep 1; done
+          node scripts/test-sensitive-audit-ui.mjs
+          node scripts/test-audit-repairs-ui.mjs
+          QA_OUTPUT=qa/sensitive-audit/reschedule node scripts/test-reschedule-future-ui.mjs
+          QA_OUTPUT=qa/sensitive-audit/checkout node scripts/test-pending-package-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5332
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sensitive-audit-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            qa/sensitive-audit/
+            qa/audit-repairs/
+            /tmp/hoy-sensitive-preview.log
