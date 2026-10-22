@@ -4,13 +4,13 @@
   "fingerprintMethod": "SHA256 sorted src relative path + NUL + bytes + NUL, excluding src/app/captureDates.ts; then vite.config.ts same framing",
   "buildExit": 0,
   "immutableLocal": "/tmp/hoy-email-edit-qa-a1e273db618c",
-  "sourceStatus": "uncommitted repaired batch34, frozen build passed, rendered pending, not deployed",
+  "sourceStatus": "runtime source root checkpoint f6edfb6, final production/dev QA passed on identical a1e273 source; test-only final selector/framing/proof follow-up pending root checkpoint; not deployed",
   "tests": {
     "baselineAndDomain": "PASS",
     "actualHook16": "PASS",
     "typecheck": "PASS",
-    "productionRendered": "PENDING",
-    "devRendered": "PENDING"
+    "productionRendered": "PASS EN/ES3901280 light/dark,4allowed7denied; full assertions +corrected framed captures EXIT0",
+    "devRendered": "PASS EN/ES actual M04/provider controlled stages, cancel/unmount/selection/actor, lateack and readfailure/retry EXIT0"
   },
   "files": {
     "src/modules/admin/EmailsPage.tsx": "a5b348aae61a12bc968b54942d0c20eec45929af8c2f8e6277ab38d9e07d5e6c",
@@ -20,10 +20,72 @@
     "scripts/email-edit-harness.tsx": "e59aad2aa5a73737aa758bc173d88255fe0eee038a7f1bd7f72e142c5bc956d5",
     "scripts/test-email-edit.mjs": "41a547c4b64f6ee9c427696d205f2a05e505b187721863d2d2521dfb62998fce",
     "scripts/test-email-edit-hook.mjs": "1f4035dfc9217cc1dab132d9e981bed4d0bf2ae58b8e34499f8261efab66de41",
-    "scripts/test-email-edit-ui.mjs": "193affbb9cee61720f88d2da4284fe9f92f999d0c02acbfd9d064256f377aa0c",
-    "scripts/test-email-edit-states.mjs": "633fa00fff9c4632b0dd4ee3c76da15b87e160b9a0f644dfb3484ef730aff695",
+    "scripts/test-email-edit-ui.mjs": "f924b4eebe6cfc7e17588fd0addf642960c9d46aaf7916b989ad908d7a95b4e6",
+    "scripts/test-email-edit-states.mjs": "a5b4efc64de109a4b0bd6ef9b1b7c150a0039f2b33866ecbc6628bcfaf6907e4",
     "scripts/fixtures/email-edit-before.txt": "677dbf1a98d64c6e005abef19429320fe3d67b305fab083d23a8a6196be5428b"
   },
   "supersededRuntimeFingerprint": "0b2100510dc74f272eeed35220347d247563cdb38ab5f71e2eee280e4ecbff28",
-  "additionalActualReproduction": "Held template read returned owned result after actor reassigned foreign; corrected test rejects. Caller actor mutation and final acknowledgement reassignment are covered."
+  "additionalActualReproduction": "Held template read returned owned result after actor reassigned foreign; corrected test rejects. Caller actor mutation and final acknowledgement reassignment are covered.",
+  "harnessCorrections": [
+    "Initial stale-notice exact element selector timed out45s although captured UI showed the entire expected warning, retained draft and protectedv9. Full-phrase substring selector fixes Notice/button descendant structure; runtime unchanged.",
+    "Initial long aside centering cropped notice in screenshots. Capture now anchors state notice below fixedheader; corrected final matrix passed unchangedruntime."
+  ],
+  "screenshots": {
+    "en-1280-email-edit-denied-dark.jpg": "c2660a8739584529665fc85faed936fbb4e866aee6d7391ac56a34a5f0577894",
+    "en-1280-email-edit-quota-error-light.jpg": "3a1ebb03f92c911f160ade0ee495aac9d8ad856bd55a55073035527be531df66",
+    "en-1280-email-edit-ready-dark.jpg": "3cd90c667963a6189a4e1db86e50bdc15aa996232e563a6e721a3db2b5d31974",
+    "en-1280-email-edit-ready-light.jpg": "ec110fa3158906b6b3b83d437f7dd6cc4cec2fb5877e84dbddb91c23e7120ee1",
+    "en-1280-email-edit-rollback-light.jpg": "68bc48fd5d95f4b280630ce0e4b26a7e266237b5a101cc0d3d180c4bb7dccb1b",
+    "en-1280-email-edit-saved-light.jpg": "9d66dc92cbd380039d50aa2a159497dc745fabd84b1715de9ae4f97dbf1a6e57",
+    "en-1280-email-edit-stale-light.jpg": "da3564f4191f32f4096e5d277c6a33361d5c2c33d1b213ec489803f3ca121fc9",
+    "en-1280-email-edit-usr_coord-saved-dark.jpg": "4479d0d910c48b6b19819db32429257320a102a2cfb7318f41300fbd96f85187",
+    "en-1280-email-edit-usr_mkt-saved-dark.jpg": "3cd7b1d5b2c9f6ff1a36730d7a1d561b3aceea5ad8ccd13fdeb55e1c24406040",
+    "en-1280-email-edit-usr_super-saved-dark.jpg": "a2ab7fbc488551344a06840aac36024f66822f93348f0d1b13fc02eca4ed44a4",
+    "en-390-email-edit-busy-dev.jpg": "ae75af9f1437f8f5c4f3749c74dc634b97a3ec8da388fd5f3662bf7fa3fc19fe",
+    "en-390-email-edit-denied-dark.jpg": "754ecc76fdf7003e45fba7acab14a361faf266bd10903908c19efe39afd62336",
+    "en-390-email-edit-quota-error-light.jpg": "51c4515732e34ef18668690717adc64d726fd2ee0a334dcdc0751e410d5bd0bf",
+    "en-390-email-edit-ready-dark.jpg": "791a9eb7ea2c58f9d1a12729cd19c1860a36957ff1ab279ab3ff5e72ec18c5e5",
+    "en-390-email-edit-ready-light.jpg": "aaeb459328f0180dd9eeef89fbf1a4123b0c9f4476ff7e7ce9e68673bf20bc43",
+    "en-390-email-edit-rollback-light.jpg": "b06b99b5a633395ea7650a05bb80fdfd0b93685823fc940fa25c75d5be9679e5",
+    "en-390-email-edit-saved-light.jpg": "d6083ba7913e3ca6d081a9912382a93fe2111877c705a14fc704f0adae045d07",
+    "en-390-email-edit-stale-light.jpg": "0eb207c9a9a6f1d869a51c3b339f4175187e11405eb4519c37553bc792e8d765",
+    "en-390-email-edit-usr_coord-saved-dark.jpg": "cc488be4e5a346ec06e6f33976f5adb6dd0e26d5a0b8e7ee33411547f0a738ba",
+    "en-390-email-edit-usr_mkt-saved-dark.jpg": "1af652105a24316d5a26c2aa4c245df7f12d0af440e77226be5e0162e1fddd17",
+    "en-390-email-edit-usr_super-saved-dark.jpg": "73f73bef8f2e53e3604cfb3c19770093c0db634a89eb72677a25d24e5ad5452a",
+    "es-1280-email-edit-denied-dark.jpg": "2335d1eeb5557a1e6a3ad073a4e126e2e09d00b1c763484f0e92f2dd48e07420",
+    "es-1280-email-edit-quota-error-light.jpg": "0c6f755f783a70fd8a02a38822c458c03dc0664f626c9b0764a1c3e6d97e24bf",
+    "es-1280-email-edit-ready-dark.jpg": "322f81af706c67bdcc2eb30935665ae9f5719cde45fe234853eb02e58a915b25",
+    "es-1280-email-edit-ready-light.jpg": "a64f8d1c0db863ee6d51e6411c87e10ac1d30c6def1314f4532cf60a8846b8cd",
+    "es-1280-email-edit-rollback-light.jpg": "7d58865fc6eb222957a07dcc7f426d5110827eb3e2c544a22ffd80af52d0aebd",
+    "es-1280-email-edit-saved-light.jpg": "7524fc5eb93b500d51c16cd3137c7e1379c6524588247cca5f4fb0d97f604da6",
+    "es-1280-email-edit-stale-light.jpg": "5f03756e9c4b4b35f12852e703ab30074434cca0e23e7728e44b3b603cddcd0f",
+    "es-1280-email-edit-usr_coord-saved-dark.jpg": "03bf63dfe927fcad6bcf9bd73beb0ed1c78716a209f74df22b50e3e9af9c1e76",
+    "es-1280-email-edit-usr_mkt-saved-dark.jpg": "7e4d43c5a183eb467c7f22c100b36bac03526edace5c57e77171c744bbc1b0ef",
+    "es-1280-email-edit-usr_super-saved-dark.jpg": "1516b05a2479ab37f687dd0a95a760a852ffa6774b17392e560f720f9567a788",
+    "es-390-email-edit-busy-dev.jpg": "9bbd7e405736df473957ca2d8971b3a4665ad758eb933f7d7e39cb809fd15033",
+    "es-390-email-edit-denied-dark.jpg": "1105d52c02c1ed140ad5bcb2f5c66244315568337a09bfb2d42c835e7d8f58f0",
+    "es-390-email-edit-quota-error-light.jpg": "2dd4f7191333836757c18a74f0e0e2cd6bc9b82b377c3b9d8c5ad5e40d680d05",
+    "es-390-email-edit-ready-dark.jpg": "3da7b1af473b213e82f5a2b58317ba235ff35a08ec73491680bfeea91ba58915",
+    "es-390-email-edit-ready-light.jpg": "1e4f383ae1fe8ea0006cdfb05cbb9cc8de0959cbc6be4483887891ad47857cad",
+    "es-390-email-edit-rollback-light.jpg": "60701c64b82196fe7f23701c0c316891e7200995438147f4e6ad3b96eb26effc",
+    "es-390-email-edit-saved-light.jpg": "a26839b940925a41de086af72cdb412b8289c676cc6beac2e1a69fcbafdfeb5a",
+    "es-390-email-edit-stale-light.jpg": "274e527011dabb65782a8e61eeff8c61d25ddcbff5602bf8861245ab2c75139a",
+    "es-390-email-edit-usr_coord-saved-dark.jpg": "16d454c95fbf457a4870fd7005f016c4b16b3a0a38c8b51d4f2387548995de9a",
+    "es-390-email-edit-usr_mkt-saved-dark.jpg": "8caa80e4e204ab488ffbf0a95cb368aaa7c2d3f5997f10f0df91c24ad0f4e69b",
+    "es-390-email-edit-usr_super-saved-dark.jpg": "2427317a5fc6a2df8f8155bf928a2192d0409c603e22a2d74fac25d1920bfd5d"
+  },
+  "visualInspection": [
+    "en390 quota warning light: complete fictional boundary/error/retry/reload; readable, no horizontal overflow",
+    "en1280 saved light: updated canvas, v8 readback and existing designer visible",
+    "es390 busydev: disabled fields and Dejar de esperar, honest completion warning",
+    "es1280 marketing saved dark: correct existingrole, v12 readback, cream canvas readable"
+  ],
+  "deploymentReceipt": "PENDING root integration/exact-head CI/deployment; no hosted claim",
+  "runtimeCheckpoint": "f6edfb68c963cd53ac29b92d72d2dba0e2d2374f",
+  "canonicalScreenshotSource": {
+    "en-390.jpg": "en-390-email-edit-ready-light.jpg",
+    "en-1280.jpg": "en-1280-email-edit-ready-light.jpg",
+    "es-390.jpg": "es-390-email-edit-ready-light.jpg",
+    "es-1280.jpg": "es-1280-email-edit-ready-light.jpg"
+  }
 }

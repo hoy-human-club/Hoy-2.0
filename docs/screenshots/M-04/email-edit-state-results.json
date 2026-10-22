@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5263",
+  "checks": [
+    "en: actual page/mock staged write2 rollback +retry once; same-tick busy, cancel/unmount/selection/actor before commit no changes; aftercommit cancelled acknowledgement retains completed version without late success; scoped read failure/retry",
+    "es: actual page/mock staged write2 rollback +retry once; same-tick busy, cancel/unmount/selection/actor before commit no changes; aftercommit cancelled acknowledgement retains completed version without late success; scoped read failure/retry"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only controlled actual-page/provider lifecycle faults; production route matrix separate."
+  ]
+}

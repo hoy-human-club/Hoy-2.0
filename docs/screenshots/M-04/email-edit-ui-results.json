@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5264",
+  "checks": [
+    "en: real route, fictional immutable v7 fixture; quota no partial writes, same request double retry once; stale draft retained/current result protected; explicit reload; rollback v10 literal original fields and single audit; no mail/other tables;4allowed7denied;390/1280 lightdark",
+    "es: real route, fictional immutable v7 fixture; quota no partial writes, same request double retry once; stale draft retained/current result protected; explicit reload; rollback v10 literal original fields and single audit; no mail/other tables;4allowed7denied;390/1280 lightdark"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional browser edit/rollback only; no real email or durable backend/version-retention acceptance."
+  ]
+}
