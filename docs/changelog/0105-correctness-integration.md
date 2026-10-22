@@ -1,3 +1,7 @@
+version: 0.25.0
+date: 2026-10-22
+prompt: docs/prompts/0082-frontend-continuation.md
+
 # 0105 — bounded frontend correctness integration
 
 Based on deployed PR63 `67f1428`; root branch `codex/frontend-correctness-continuation`. Source checkpoint `79efc21`. Root alone owns Git/release mutations. Authorized repository recovery only; no earlier denied task environment/files accessed.
