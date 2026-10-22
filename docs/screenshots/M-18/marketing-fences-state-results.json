@@ -1,0 +1,14 @@
+{
+  "base": "http://127.0.0.1:5249",
+  "checks": [
+    "en/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+    "en/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+    "es/light: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280",
+    "es/dark: held digest same-tick guard, pending cancel/neweditor/unmount/newer-query/deeplink/actor/effective-role/provider fences; required original missing and saved-replay effect missing conflict without resurrection; quota/lostack/readback same-intent replay once; postcommit unmount/actor suppress late ack without losing commit; provider DB unchanged;390/1280"
+  ],
+  "errors": [],
+  "limits": [
+    "Dev-only actual M18/context/storage harness; immutable route/role/date/asset matrix separate.",
+    "All effects local fictional drafts; no delivery/backend or cross-tab durability."
+  ]
+}
