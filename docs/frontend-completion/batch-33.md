@@ -24,3 +24,5 @@ Remaining owner/backend gates: Aleja final art; owner publication/calendar/appro
 ## Current combined integration proof
 
 Clean checkout02568f3 fullbuild58156 passed at src+Vite fingerprint962c969f…. All5 actual combined production/dev/library suites passed serially, with unchanged source before/after, no retry or test changes, zero page errors and no dispatch. Full EN/ES390/1280 light/dark and existing-role coverage are recorded in [combined proof](evidence/combined-32-33-ui.json). Current filenames now represent this combined runtime; earlier isolated evidence remains at its exact saved checkpoints. [Integration receipt](evidence/integrated-batches-32-33.json). Exact final-head CI, merge and hosted deployed-source verification remain pending; this is not accepted or live.
+
+Initial PR68 legacy continuation-library selector failed; evidence/pr68-library-selector.json records exact old/current labels and preserved assertions. Final-head rerun required; no runtime changes.

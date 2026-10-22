@@ -27,7 +27,7 @@ try{
   }
   const before=await page.evaluate(()=>({db:localStorage.getItem('hoyos.db.v1'),drafts:Object.keys(localStorage).filter(k=>k.startsWith('hoyos.marketing-drafts.')).map(k=>[k,localStorage.getItem(k)])}));
   await marketing.getByRole('button',{name:lang==='en'?'New campaign draft':'Nuevo borrador de campaña',exact:true}).click();
-  const dialog=page.getByRole('dialog');await dialog.waitFor();await dialog.getByRole('button',{name:lang==='en'?'Cancel without saving':'Cancelar sin guardar',exact:true}).click();
+  const dialog=page.getByRole('dialog');await dialog.waitFor();await dialog.getByRole('button',{name:lang==='en'?'Cancel / close':'Cancelar / cerrar',exact:true}).click();await dialog.waitFor({state:'hidden'});
   assert.deepEqual(await page.evaluate(()=>({db:localStorage.getItem('hoyos.db.v1'),drafts:Object.keys(localStorage).filter(k=>k.startsWith('hoyos.marketing-drafts.')).map(k=>[k,localStorage.getItem(k)])})),before,'library preview/cancel does not write');
   routes=await page.evaluate(()=>window.__hoyos.routes);
   await page.goto(`${base}/#/hub`);const map=await page.evaluate(()=>window.__hoyos.hubMap.load());
