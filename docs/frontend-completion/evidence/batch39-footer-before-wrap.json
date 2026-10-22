@@ -1,0 +1,8 @@
+{
+  "runtime": "c3899e89a6ce1beb35c572897c335650ba809fe06d17b7efd2efb87c713f8206",
+  "checkpoint": "9d907591822b9a330dff5f23b0c0abd9f659675a",
+  "capture": "docs/screenshots/M-08a/es-390-dark-team-footer-before-wrap.jpg",
+  "sha256": "358eb0ffe29d932164ab68eb74c6c30c2424ae72e8fc94c853669e59568260af",
+  "actualFinding": "Spanish390 preview footer left Cancel button visibly clipped by horizontal nonwrapping footer. Functional UI/D02/no-document-overflow tests passed but did not assert physical footer button bounds.",
+  "nextStep": "Scoped TeamProposalPanel wrapping footer, actual bounds assertion, new source freeze/build/affected QA; no shared Drawer, business roles or data changes."
+}
