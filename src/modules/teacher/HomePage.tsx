@@ -30,7 +30,7 @@ export function TeacherHomePage() {
   const nav = useNavigate();
   const data = useData();
   const audit = useAudit('teacher_app');
-  const { me, linked, teachers, choose } = useTeacherSelf();
+  const { me, linked, teachers, choose,canChoose } = useTeacherSelf();
   const now = new Date();
   const weekEnd = new Date(now); weekEnd.setDate(weekEnd.getDate() + 7);
   const meId = me?.id;
@@ -67,12 +67,13 @@ export function TeacherHomePage() {
         <h1 className="teach-h1">{t('teacher.home.title')}</h1>
         {me && <span className="small muted">{me.display_name}</span>}
       </div>
-      {!linked && (
+      {!linked && canChoose && (
         <Card tone="muted">
           <p className="small muted" style={{ marginBottom: 'var(--sp-sm)' }}>{t('teacher.home.notLinked')}</p>
           <Field label={t('teacher.home.viewAs')}>{(id) => <Select id={id} value={me?.id ?? ''} onChange={(e) => choose(e.target.value || null)}><option value="">—</option>{teachers.map((x) => <option key={x.id} value={x.id}>{x.display_name}</option>)}</Select>}</Field>
         </Card>
       )}
+      {!me&&!canChoose&&<EmptyState tone="error" title={t('teacher.access.unlinked')}/>}
       {me && (
         <>
           <section className="stack-sm">

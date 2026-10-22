@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react';
 import { useSession } from '../../auth/SessionProvider';
 import { useTable } from '../../data/DataContext';
 import type { TeacherRow } from '../../data/schema';
+import {tenant} from '../../tenant/tenant';
+import {canChooseTeacherPreview,teacherIdentity} from './classOwnership';
 
 const KEY = 'hoyos.teach.as';
 
@@ -10,11 +12,13 @@ const KEY = 'hoyos.teach.as';
  * are not linked to a `teachers` row, so they can pick one (kept per browser, demo only).
  */
 export function useTeacherSelf() {
-  const { user } = useSession();
-  const { rows: teachers } = useTable<TeacherRow>('teachers', { orderBy: { column: 'display_name' } });
+  const { user,role } = useSession();
+  const { rows: teachers } = useTable<TeacherRow>('teachers', { where:{tenant_id:tenant.id,...(role==='teacher'?{user_id:user.id}:{})},orderBy: { column: 'display_name' } });
   const [pick, setPick] = useState<string | null>(() => { try { return localStorage.getItem(KEY); } catch { return null; } });
-  const linked = teachers.find((t) => t.user_id === user.id);
-  const me = linked ?? teachers.find((t) => t.id === pick);
-  const choose = useCallback((id: string | null) => { setPick(id); try { if (id) localStorage.setItem(KEY, id); else localStorage.removeItem(KEY); } catch { /* ignore */ } }, []);
-  return { me, linked: !!linked, teachers, choose };
+  const actor={userId:user.id,role,name:user.name};
+  const canChoose=canChooseTeacherPreview(role);
+  const me=teacherIdentity(teachers,actor,pick);
+  const linked=!!me&&me.user_id===user.id;
+  const choose = useCallback((id: string | null) => { if(!canChoose)return;setPick(id); try { if (id) localStorage.setItem(KEY, id); else localStorage.removeItem(KEY); } catch { /* ignore */ } }, [canChoose]);
+  return { me, linked, teachers, choose,canChoose };
 }
