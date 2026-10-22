@@ -326,7 +326,16 @@
         ]
       },
       "sourceNextAction": "Verify no private keys across repository/build without printing secrets.",
-      "baselineImplementationStatus": "unverified"
+      "baselineImplementationStatus": "unverified",
+      "continuationEvidence": [
+        {
+          "batch": 44,
+          "kind": "bounded-static-audit-only",
+          "source": "e50d109ffa7d7e3a1264be71a0f54cc9087f44d5",
+          "proof": "docs/frontend-completion/evidence/batch-44-pl06-exposure-audit.json",
+          "scope": "Definedpattern/sourceenv audit: no matches in exacttrackedblobs and immutableartifact; no rendered/fullhistory/server/production certification. OriginalPL06 remainsunverified."
+        }
+      ]
     },
     {
       "id": "PL-07",
