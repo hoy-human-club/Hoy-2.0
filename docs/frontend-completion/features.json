@@ -1670,17 +1670,26 @@
       "priority": "High",
       "relatedTests": "CLI-13",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/hooks.ts",
         "src/modules/customer/pages/CheckoutPage.tsx",
         "src/modules/customer/pages/PassesPage.tsx"
       ],
-      "routes": [],
-      "tests": [],
+      "routes": [
+        "/#/app/passes",
+        "/#/app/checkout/:id",
+        "/#/staff/register",
+        "/#/staff/transfers"
+      ],
+      "tests": [
+        "scripts/test-trial-eligibility.mjs",
+        "scripts/test-trial-eligibility-ui.mjs",
+        "scripts/test-trial-eligibility-states.mjs"
+      ],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Hide/reject trial for active package and repeated trial across all purchase paths; add regression fixtures.",
+      "nextAction": "Resolve active/frozen/legacy and real-person identity rules separately; Anu supplies authoritative atomic purchase/review gates.",
       "candidateRoutes": [
         "/#/app/passes",
         "/#/app/checkout/:id"
@@ -1695,7 +1704,16 @@
         ]
       },
       "sourceNextAction": "Hide/reject trial for active package and repeated trial across all purchase paths; add regression fixtures.",
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "continuationEvidence": [
+        {
+          "batch": "batch-21.md",
+          "behavior": "Clear remaining approved payment-backed package blocks fictional trial across offers/checkout/desk/review; historical trial usage retained. Ambiguous allocation/freeze/history visibly pauses mock testing without rewriting purchases.",
+          "verification": "Corrected source9d2691a/runtime24a49ae5 full build/domain/immutable5215 ENES3901280 lightdark/all11reviewroles/devstates and desk/receipt regressions passed. Root combined build/CI/release pending.",
+          "limits": "No production definition for ambiguous active/frozen/legacy/future entitlements or cross-account real-person identity; no backend acceptance.",
+          "acceptance": "Original source criterion/phase/roles/status preserved; only named fictional frontend slices verified."
+        }
+      ]
     },
     {
       "id": "PR-05",
