@@ -1,0 +1,43 @@
+{
+  "requirement": "PF-03",
+  "baseCommit": "35b8512a138bbfb3a8355449e26c69ae49b9a528",
+  "version": "0.25.0",
+  "uncommittedPrototype": true,
+  "moduleFiles": [
+    "src/modules/teacher/HomePage.tsx",
+    "src/modules/teacher/strings.ts",
+    "src/modules/teacher/substituteRequest.ts",
+    "src/modules/teacher/useSubstituteRequest.ts"
+  ],
+  "moduleSourceFingerprint": "d0b936cdfa9d3ce162858022773bbea0aa005e0db8e724a2d6574b5f84888586",
+  "beforeAfterModuleFingerprintEqual": true,
+  "buildCommand": "npm run build",
+  "buildExit": 0,
+  "snapshot": "/tmp/hoy-substitute-qa-d0b936cdfa9d",
+  "bundleTreeFingerprint": "96149c99b8c97dfa1a7b59fb18170b049996bb3090546049f1e3e9d1187738b3",
+  "productionQA": "http://127.0.0.1:5227",
+  "qaStatus": "Domain, immutable production UI and clean development actual-page state checks all passed.",
+  "deploymentStatus": "Immutable local production bundle only; parent owns checked commits/CI/merge/public deployment.",
+  "qaScripts": {
+    "test-substitute-request.mjs": {
+      "exit": 0,
+      "results": "substitute-domain-results.json"
+    },
+    "test-substitute-request-ui.mjs": {
+      "exit": 0,
+      "base": "http://127.0.0.1:5227",
+      "results": "substitute-ui-results.json"
+    },
+    "test-substitute-request-states.mjs": {
+      "exit": 0,
+      "base": "http://127.0.0.1:5226",
+      "results": "substitute-state-results.json"
+    }
+  },
+  "visualInspection": [
+    "es-390-substitute-draft-dark.jpg",
+    "en-1280-substitute-queued.jpg",
+    "es-1280-substitute-admin-log-dark.jpg"
+  ],
+  "canonicalShots": "EN/ES390/1280 copy final production light home"
+}

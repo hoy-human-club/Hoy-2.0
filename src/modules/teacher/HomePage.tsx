@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { rateFor } from '../../data/payrollCalc';
 import { useSettings } from '../admin/settings';
 import { useData, useTable } from '../../data/DataContext';
-import type { BookingRow, ClassSessionRow, MessageLogRow, RoomRow, SpaceBookingRow, SpecialChargeRow } from '../../data/schema';
+import type { BookingRow, ClassSessionRow, RoomRow, SpaceBookingRow, SpecialChargeRow } from '../../data/schema';
 import { formatCOP, formatDate, formatTime, isSameDay, MS, addDays, dateKey } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
@@ -17,7 +17,9 @@ import { ClassCard } from '../../components/organism/ClassCard/ClassCard';
 import { Drawer } from '../../components/organism/Drawer/Drawer';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useSessionsJoined } from '../website/hooks';
-import { useAudit } from '../staff/audit';
+import { useSession } from '../../auth/SessionProvider';
+import { Notice } from '../../components/molecule/Notice/Notice';
+import { useSubstituteRequest } from './useSubstituteRequest';
 import { KIND_LABEL, STATUS_LABEL } from '../staff/rooms';
 import { useTeacherSelf } from './useTeacherSelf';
 import { useStudioStats, useTeacherStats } from '../../data/useAnalytics';
@@ -29,7 +31,7 @@ export function TeacherHomePage() {
   const { settings: homeSettings } = useSettings();
   const nav = useNavigate();
   const data = useData();
-  const audit = useAudit('teacher_app');
+  const {user,role}=useSession();
   const { me, linked, teachers, choose,canChoose } = useTeacherSelf();
   const now = new Date();
   const weekEnd = addDays(now, 7);
@@ -50,16 +52,7 @@ export function TeacherHomePage() {
   const roomName = useMemo(() => new Map(rooms.map((r) => [r.id, r.name])), [rooms]);
   const payoutOf = useMemo(() => new Map(mySpecials.filter((s) => s.space_booking_id).map((s) => [s.space_booking_id as string, s.teacher_payout])), [mySpecials]);
   const specials = mySpace.filter((b) => b.status !== 'cancelled' && new Date(b.ends_at) >= new Date(Date.now() - MS.day * 7));
-  const [sub, setSub] = useState<{ open: boolean; session: string; reason: string; sent?: boolean }>({ open: false, session: '', reason: '' });
-
-  const requestSub = async () => {
-    const s = upcoming.find((x) => x.session.id === sub.session)?.session;
-    if (!s || !me) return;
-    await audit('substitution.request', 'class_sessions', s.id, { teacher_id: me.id, teacher: me.display_name, reason: sub.reason, starts_at: s.starts_at, title: s.title });
-    // Team-only row (user_id null): it never enters a customer conversation; the coordinator reads it in M-05's log.
-    await data.insert<MessageLogRow>('message_log', { user_id: null, channel: 'whatsapp', direction: 'inbound', source: 'system', template_key: 'substitution_request', automation_id: null, subject: null, body: `${me.display_name} · ${s.title} · ${sub.reason}`, status: 'queued', sent_at: null, sent_by: null, read_at: null, read_by: null, external_id: null, payload: { to: 'coordinator', teacher: me.display_name, class: s.title, starts_at: s.starts_at, reason: sub.reason } });
-    setSub({ ...sub, sent: true });
-  };
+  const sub=useSubstituteRequest(data,{userId:user.id,role,name:user.name},me?.id);
 
   return (
     <div className="container page stack teach">
@@ -124,7 +117,7 @@ export function TeacherHomePage() {
           </section>
 
           <section className="stack-sm">
-            <div className="row-between"><div className="eyebrow">{t('teacher.home.week')}</div><Button size="sm" variant="ghost" onClick={() => setSub({ open: true, session: upcoming[0]?.session.id ?? '', reason: '' })}>{t('teacher.home.sub')}</Button></div>
+            <div className="row-between"><div className="eyebrow">{t('teacher.home.week')}</div><Button size="sm" variant="ghost" onClick={sub.openDrawer}>{t('teacher.home.sub')}</Button></div>
             <Card padding="sm">
               {week.length === 0 && <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('teacher.home.empty')}</p>}
               {week.map(({ session: s, modality: m }) => <ClassRow key={s.id} title={s.title} teacher={formatDate(s.starts_at, lang, { weekday: 'long', day: 'numeric' })} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} status={s.status} onClick={() => nav(`/teach/class/${s.id}`)} />)}
@@ -133,14 +126,19 @@ export function TeacherHomePage() {
         </>
       )}
 
-      <Drawer open={sub.open} onClose={() => setSub({ ...sub, open: false })} side="bottom" title={t('teacher.home.sub')}>
-        {sub.sent ? <EmptyState compact title={t('teacher.home.sub.sent')} body={t('teacher.home.sub.sent.body')} action={<Button size="sm" onClick={() => setSub({ open: false, session: '', reason: '' })}>{t('core.common.close')}</Button>} /> : (
+      <Drawer open={sub.open} onClose={sub.close} side="bottom" title={t('teacher.home.sub')}>
+        {sub.sent ? <EmptyState compact title={t('teacher.home.sub.sent')} body={t('teacher.home.sub.sent.body')} action={<Button size="sm" onClick={sub.close}>{t('core.common.close')}</Button>} /> : (
           <div className="stack-sm">
-            <p className="small muted">{t('teacher.home.sub.body')}</p>
-            <Field label={t('teacher.home.sub.class')}>{(id) => <Select id={id} value={sub.session} onChange={(e) => setSub({ ...sub, session: e.target.value })}>{upcoming.map(({ session: s }) => <option key={s.id} value={s.id}>{formatDate(s.starts_at, lang)} {formatTime(s.starts_at, lang)} · {s.title}</option>)}</Select>}</Field>
-            <Field label={t('teacher.home.sub.reason')}>{(id) => <textarea id={id} className="input" rows={3} value={sub.reason} onChange={(e) => setSub({ ...sub, reason: e.target.value })} />}</Field>
+            <Notice>{t('teacher.home.sub.body')}</Notice>
+            {sub.load==='loading'&&<Notice>{t('teacher.home.sub.loading')}</Notice>}
+            {sub.load==='error'&&<Notice tone="danger">{t('teacher.home.sub.readError')} <Button variant="ghost" onClick={sub.retry}>{t('teacher.home.sub.retry')}</Button></Notice>}
+            {sub.load==='ready'&&sub.choices.length===0&&<Notice>{t('teacher.home.sub.empty')}</Notice>}
+            {sub.error&&<Notice tone="danger">{t('teacher.home.sub.error')}</Notice>}
+            <Field label={t('teacher.home.sub.class')}>{(id) => <Select id={id} disabled={sub.busy||sub.load!=='ready'} value={sub.session} onChange={(e) => sub.change({session:e.target.value})}>{sub.choices.map((s) => <option key={s.id} value={s.id}>{formatDate(s.starts_at, lang)} {formatTime(s.starts_at, lang)} · {s.title}</option>)}</Select>}</Field>
+            <Field label={t('teacher.home.sub.reason')}>{(id) => <textarea id={id} className="input" rows={3} disabled={sub.busy||sub.load!=='ready'} value={sub.reason} onChange={(e) => sub.change({reason:e.target.value})} />}</Field>
             <div className="row"><Badge tone="warn">{t('teacher.home.sub.rule')}</Badge></div>
-            <Button block disabled={!sub.session || !sub.reason.trim()} onClick={requestSub} icon="send">{t('teacher.home.sub.send')}</Button>
+            <Button block loading={sub.busy} disabled={sub.load!=='ready'||!sub.session||!sub.reason.trim()} onClick={()=>void sub.send()} icon="send">{t('teacher.home.sub.send')}</Button>
+            <Button variant="ghost" onClick={sub.close}>{t('core.common.cancel')}</Button>
           </div>
         )}
       </Drawer>
