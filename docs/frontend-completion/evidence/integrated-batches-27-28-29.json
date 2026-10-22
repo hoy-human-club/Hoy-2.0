@@ -65,5 +65,16 @@
     ]
   },
   "rollback": "840f8e1c4623b720432e75cd384c3f0ac50241d9",
-  "sourceFindingCorrection": "FI03 baselineimplemented preserved; currentpartial after reproduced partial draft writes/concurrent duplicate runs. Independent30repair unshipped; current12/99/8/5 source counts are not completion/acceptance percentage."
+  "sourceFindingCorrection": "FI03 baselineimplemented preserved; currentpartial after reproduced partial draft writes/concurrent duplicate runs. Independent30repair unshipped; current12/99/8/5 source counts are not completion/acceptance percentage.",
+  "initialCI": {
+    "head": "6d4e9bc1cd753ed386efe976b4a10a66fb7822fc",
+    "run": 39719075319,
+    "failedJob": 119628092558,
+    "result": "Nine correctness scopes passed; account-data devstate Retry-account-read assertion failed. All other10 triggered workflows passed.",
+    "provedCause": "Shared one-shot profile fault was consumed by readMarketingState before readAccountState, so intended account-loader failure never happened. No application bug demonstrated.",
+    "correction": "Test-only reader/stage scoped injection, explicit existing-module imports and exactly-once intended-fault consumption; original behavioral assertions preserved. EN/ES full state suite EXIT0,0errors.",
+    "proof": "docs/frontend-completion/evidence/pr66-account-loader-harness.json",
+    "runtime": "unchanged ac8f6d47…",
+    "remaining": "New exact-head all-triggered CI before merge."
+  }
 }
