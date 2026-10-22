@@ -7,6 +7,7 @@ on:
       - 'scripts/test-expense-delete-guard*.mjs'
       - 'scripts/test-expense-table*.mjs'
       - 'scripts/expense-table-harness.tsx'
+      - 'scripts/start-finance-dev.mjs'
       - 'scripts/test-expense-ledger-baseline.mjs'
       - 'scripts/fixtures/expense-ledger-original-provider.ts.txt'
       - 'scripts/test-danger-button-contrast.mjs'
@@ -57,7 +58,7 @@ jobs:
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify actual delayed, cancel, actor, retry and uncertain acknowledgement states
         run: |
-          npm run dev -- --host 127.0.0.1 --strictPort --port 5190 > /tmp/hoy-finance-dev.log 2>&1 &
+          QA_DEV_PORT=5190 node scripts/start-finance-dev.mjs > /tmp/hoy-finance-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5190/ >/dev/null && break; sleep 1; done
           if [ '${{ matrix.scope }}' = 'payroll-settlement' ]; then
             node scripts/test-payroll-settlement-states.mjs
@@ -79,3 +80,5 @@ jobs:
             docs/screenshots/M-09b/*settlement*
             docs/screenshots/M-03/*expense*
             docs/screenshots/M-03/*danger-contrast*
+            /tmp/hoy-finance-dev.log
+            /tmp/hoy-finance-preview.log

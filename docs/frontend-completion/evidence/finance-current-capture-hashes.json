@@ -34,8 +34,8 @@
     },
     {
       "path": "docs/screenshots/M-03/en-1280-dark-expense-dev-replay-rejected.jpg",
-      "bytes": 52588,
-      "sha256": "04e15dbc10c4d65935e3202d3eda89e48838cfbda8574ca9428caaf2ba3913c1"
+      "bytes": 52594,
+      "sha256": "22c31ce2d92c6186750b8880450cb1476238882041aec209a62b7149356e4a45"
     },
     {
       "path": "docs/screenshots/M-03/en-1280-dark-expense-field-quota-error.jpg",
@@ -487,5 +487,6 @@
       "bytes": 330256,
       "sha256": "5b508bceac7423029a33082648808583204c33c451baa071fadb50bb9340bee2"
     }
-  ]
+  ],
+  "followup": "One M03 replay JPEG refreshed by actual cold-cache suite; earlier pre-cold manifest retained at9c5a391. Timetable20 public regression captures are separate current outputs."
 }

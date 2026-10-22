@@ -21,7 +21,10 @@ try {
   assert(!(await page.locator('body').innerText()).includes('4 clases al día'));
   const schema=await page.locator('#hoyos-localbusiness').textContent();
   assert(!JSON.parse(schema).openingHoursSpecification,'unconfirmed hours excluded from search metadata');
-  await page.locator('.classrow:not(:disabled)').filter({hasText:'Fuego · Pilates Full Body'}).first().click();
+  // A displayed Sunday fixture can legitimately be cancelled. Open the actual scheduled
+  // occurrence chosen above; never infer availability from a hardcoded class title.
+  for(const row of await page.locator('.classrow-cancelled').all()){assert(await row.isDisabled(),'cancelled occurrence stays disabled');await row.evaluate(button=>button.click());assert.equal(await page.getByRole('dialog').count(),0,'disabled cancelled row cannot open booking');}
+  await page.locator('.classrow-scheduled:not(:disabled)').filter({hasText:sunday.title}).first().click();
   await page.getByRole('dialog').waitFor();
   await page.keyboard.press('Escape');
   await assert.equal(await page.getByRole('dialog').count(),0);

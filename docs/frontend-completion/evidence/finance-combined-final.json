@@ -42,9 +42,10 @@
   ],
   "acceptance": "Bounded frontend mock passes only; original criteria/124 phases and owner/backend gates retained.",
   "remaining": [
-    "ALL exact final-head CI checks, expected-head merge and normal Pages exact-source/hosted verification",
+    "ALL new exact final-head CI checks after three focused test/QA corrections, expected-head merge and normal Pages exact-source/hosted verification",
     "Canonical role-authorized server finance commands, durable nonce/audit/accounting history and provider confirmation",
     "Unresolved mixed/negative/partial payroll business cases; no historical repair",
     "Existing unrelated ComingSoonLanding React18 fetchPriority console warning preserved, not repaired here"
-  ]
+  ],
+  "ciFollowup": "finance-pr71-ci-followup.json"
 }
