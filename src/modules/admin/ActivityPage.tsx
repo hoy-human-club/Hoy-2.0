@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTable } from '../../data/DataContext';
-import { formatDateTime, MS } from '../../i18n/format';
+import { formatDateTime, MS, startOfDay } from '../../i18n/format';
 import { ROLE_LABEL, type Role } from '../../auth/roles';
 import { Select, Input } from '../../components/atom/Input/Input';
 import { Button } from '../../components/atom/Button/Button';
@@ -29,7 +29,7 @@ export function ActivityPage() {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<string | null>(null);
 
-  const since = range === 'all' ? 0 : range === 'today' ? new Date(new Date().setHours(0, 0, 0, 0)).getTime() : Date.now() - (range === '7d' ? 7 : 30) * MS.day;
+  const since = range === 'all' ? 0 : range === 'today' ? startOfDay(new Date()).getTime() : Date.now() - (range === '7d' ? 7 : 30) * MS.day;
   const filtered = useMemo(() => rows.filter((r) => new Date(r.created_at).getTime() >= since && (!actor || r.actor_id === actor) && (!entity || r.entity === entity)).map((r) => ({ ...r, who: byId.get(r.actor_id ?? '')?.name ?? (r.diff?.source === 'automation' ? t('admin.activity.automation') : t('admin.activity.system')), roleLabel: r.diff?.role ? bi(ROLE_LABEL[r.diff.role as Role] ?? { es: String(r.diff.role), en: String(r.diff.role) }) : '', object: `${r.entity}${r.entity_id ? `#${r.entity_id}` : ''}`, source: r.diff?.source ? bi(SOURCE_LABEL[r.diff.source] ?? { es: r.diff.source, en: r.diff.source }) : '—' })), [rows, since, actor, entity, byId, bi, t]);
   type Row = (typeof filtered)[number];
   const actors = [...new Set(rows.map((r) => r.actor_id).filter(Boolean))] as string[];

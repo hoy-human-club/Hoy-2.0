@@ -2,10 +2,10 @@ import { Icon } from '../../components/atom/Icon/Icon';
 import { ServiceCatalog, ServiceLogo } from './ServiceCatalog';
 import { SERVICE_CATALOG } from './catalog';
 import { useState, type ReactNode } from 'react';
-import { type Directory, type AppDependency, type Subscription, type ActualCharge, emptyDirectory, readDirectory, saveDirectory, storageKey, monthlyEstimates, chargeTotals, nextRenewal, receiptSearch, parseBackup } from './model';
+import { type ValidationToday, type Directory, type AppDependency, type Subscription, type ActualCharge, emptyDirectory, readDirectory, saveDirectory, storageKey, monthlyEstimates, chargeTotals, nextRenewal, receiptSearch, parseBackup } from './model';
 import './directory.css';
 type Candidate = { key: string; name: string; purpose: string };
-type Props = { lang?: 'en'|'es';  workspaceId: string; workspaceName: string; canRead: boolean; canWrite: boolean; candidates?: Candidate[]; text?: (value: string) => string; expensePreview?: (data: Directory) => ReactNode };
+type Props = { validationToday?: ValidationToday; lang?: 'en'|'es';  workspaceId: string; workspaceName: string; canRead: boolean; canWrite: boolean; candidates?: Candidate[]; text?: (value: string) => string; expensePreview?: (data: Directory) => ReactNode };
 const formatMoney = (n: number | null, currency: string) => n === null ? '—' : new Intl.NumberFormat('en', {style:'currency',currency}).format(n);
 const id = () => crypto.randomUUID();
 const field = (f: FormData, key: string) => String(f.get(key) ?? '').trim();
@@ -15,11 +15,11 @@ export function DirectoryPanel(props: Props) {
   // Mount the storage reader only for permitted roles.
   return props.canRead ? <DirectoryEditor key={props.workspaceId} {...props} /> : <p role="alert">{t("App subscriptions are restricted to workspace administrators and finance.")}</p>;
 }
-function DirectoryEditor({workspaceId,workspaceName,canWrite,candidates=[],text:t=(s:string)=>s,expensePreview,lang='en'}: Props) {
+function DirectoryEditor({workspaceId,workspaceName,canWrite,candidates=[],text:t=(s:string)=>s,expensePreview,validationToday,lang='en'}: Props) {
   const bi=(en:string,es:string)=>lang==='es'?es:en;
   const [notice,setNotice]=useState('');
   const money = (n: number | null,currency:string | null) => !currency ? `${n ?? '—'} · ${bi('Currency unknown','Moneda desconocida')}` : n === null ? t('Unknown') : formatMoney(n,currency);
-  const [initial] = useState(() => { try {return {data:readDirectory(localStorage,workspaceId),raw:localStorage.getItem(storageKey(workspaceId)),error:''};} catch(e) {return {data:emptyDirectory(workspaceId),raw:null,error:`Cannot read saved records: ${String(e)}. Existing data will not be overwritten.`};} });
+  const [initial] = useState(() => { try {return {data:readDirectory(localStorage,workspaceId,validationToday),raw:localStorage.getItem(storageKey(workspaceId)),error:''};} catch(e) {return {data:emptyDirectory(workspaceId),raw:null,error:`Cannot read saved records: ${String(e)}. Existing data will not be overwritten.`};} });
   const [data,setData] = useState(initial.data);
   const [raw,setRaw] = useState(initial.raw);
   const [error,setError] = useState(initial.error);
@@ -30,7 +30,7 @@ function DirectoryEditor({workspaceId,workspaceName,canWrite,candidates=[],text:
   const [filter,setFilter] = useState('');
   function save(next: Directory) {
     if (!canWrite || initial.error) return;
-    try {saveDirectory(localStorage,next,raw);setData(next);setRaw(JSON.stringify(next));setMode(null);setError('');} catch(e) {setError(t(e instanceof Error ? e.message : String(e)));}
+    try {saveDirectory(localStorage,next,raw,validationToday);setData(next);setRaw(JSON.stringify(next));setMode(null);setError('');} catch(e) {setError(t(e instanceof Error ? e.message : String(e)));}
   }
   function submit(form: HTMLFormElement) {
     const f = new FormData(form);
@@ -61,7 +61,7 @@ function DirectoryEditor({workspaceId,workspaceName,canWrite,candidates=[],text:
       const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`${workspaceId}-app-records.json`;a.click();URL.revokeObjectURL(url);setNotice(bi('Backup downloaded. Keep it private; it contains account metadata.','Respaldo descargado. Guárdalo en privado; contiene metadatos de cuentas.'));
     }}>{bi('Export backup','Exportar respaldo')}</button>{canWrite && <label className="directory-import">{bi('Restore backup','Restaurar respaldo')}<input type="file" accept="application/json,.json" onChange={async e=>{
       const file=e.target.files?.[0];if(!file)return;
-      try {const restored=parseBackup(await file.text(),workspaceId);if(confirm(bi(`Replace this workspace’s ${data.dependencies.length} apps, ${data.subscriptions.length} subscriptions and ${data.charges.length} charges with the backup?`,`¿Reemplazar ${data.dependencies.length} apps, ${data.subscriptions.length} suscripciones y ${data.charges.length} cargos de este espacio con el respaldo?`))) save(restored);}catch(error){setError(String(error));}e.target.value='';
+      try {const restored=parseBackup(await file.text(),workspaceId,validationToday);if(confirm(bi(`Replace this workspace’s ${data.dependencies.length} apps, ${data.subscriptions.length} subscriptions and ${data.charges.length} charges with the backup?`,`¿Reemplazar ${data.dependencies.length} apps, ${data.subscriptions.length} suscripciones y ${data.charges.length} cargos de este espacio con el respaldo?`))) save(restored);}catch(error){setError(String(error));}e.target.value='';
     }}/></label>}</div></div>
     {notice && <p role="status">{notice}</p>}
     {error && <p role="alert" className="directory-warning">{error}</p>}

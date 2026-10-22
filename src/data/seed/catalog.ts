@@ -1,3 +1,4 @@
+import { addDays } from '../../i18n/format';
 import { TIMETABLE } from './timetable';
 import type { BaseRow, ModalityRow, RoomRow, TeacherRow, PlanRow } from '../schema';
 import { pricing } from '../../tenant/pricing';
@@ -6,7 +7,7 @@ import { tenant } from '../../tenant/tenant';
 export const NOW = new Date();
 export const iso = (d: Date) => d.toISOString();
 export const base = (id: string, daysAgo = 30): BaseRow => {
-  const d = new Date(NOW); d.setDate(d.getDate() - daysAgo);
+  const d = addDays(NOW, -daysAgo);
   return { id, tenant_id: tenant.id, created_at: iso(d), updated_at: iso(d) };
 };
 

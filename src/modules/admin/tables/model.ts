@@ -5,6 +5,7 @@
 import type { Lang } from '../../../i18n/types';
 import type { BaseRow, ColumnDef, TableDef, TableViewConfig, ViewFilter, ViewFilterOp, ViewSort } from '../../../data/schema';
 import { biText, enumLabel, rowTitle, type RowResolver } from '../../../data/labels';
+import { dateKey } from '../../../i18n/format';
 
 export type Def = TableDef & { allColumns: ColumnDef[] };
 export type Resolve = RowResolver;
@@ -61,6 +62,8 @@ const empty = (v: unknown) => v == null || v === '' || (Array.isArray(v) && v.le
 function matches(f: ViewFilter, c: ColumnDef, row: BaseRow, lang: Lang, resolve: Resolve): boolean {
   const v = row[c.name];
   const val = Array.isArray(f.value) ? f.value : f.value == null ? '' : String(f.value);
+  const dateBoundary = c.type === 'timestamptz' && /^\d{4}-\d{2}-\d{2}$/.test(String(val));
+  const studioDay = dateBoundary && !empty(v) ? dateKey(new Date(String(v))) : '';
   switch (f.op) {
     case 'empty': return empty(v);
     case 'not_empty': return !empty(v);
@@ -69,13 +72,14 @@ function matches(f: ViewFilter, c: ColumnDef, row: BaseRow, lang: Lang, resolve:
     case 'is': case 'is_not': {
       let eq: boolean;
       if (c.type === 'bool') eq = String(!!v) === String(val);
+      else if (dateBoundary) eq = studioDay === val;
       else if (isDate(c)) eq = String(v ?? '').slice(0, 10) === String(val).slice(0, 10);
       else if (isNumber(c)) eq = Number(v) === Number(val);
       else eq = String(v ?? '') === String(val) || cellText(c, row, lang, resolve).toLowerCase() === String(val).toLowerCase();
       return f.op === 'is' ? eq : !eq;
     }
-    case 'before': return !empty(v) && String(v) < String(val);
-    case 'after': return !empty(v) && String(v).slice(0, String(val).length) > String(val);
+    case 'before': return !empty(v) && (dateBoundary ? studioDay !== 'NaN-NaN-NaN' && studioDay < String(val) : String(v) < String(val));
+    case 'after': return !empty(v) && (dateBoundary ? studioDay !== 'NaN-NaN-NaN' && studioDay > String(val) : String(v).slice(0, String(val).length) > String(val));
     case 'gt': return !empty(v) && Number(v) > Number(val);
     case 'lt': return !empty(v) && Number(v) < Number(val);
     default: return true;

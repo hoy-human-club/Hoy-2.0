@@ -1,6 +1,6 @@
 {
   "feature": "RC-10",
-  "base": "http://127.0.0.1:5187",
+  "base": "http://127.0.0.1:5210",
   "checks": [
     "en: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",
     "es: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt",

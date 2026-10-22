@@ -1,0 +1,242 @@
+{
+  "passed": true,
+  "browser": "Chromium",
+  "fixture": "fictional isolated browser data",
+  "captures": 52,
+  "reports": [
+    {
+      "timezoneId": "America/Bogota",
+      "code": "C-02",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "C-02",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "C-02",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "C-02",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "W-04",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "W-04",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "W-04",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Bogota",
+      "code": "W-04",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "C-02",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "C-02",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "C-02",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "C-02",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "W-04",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "W-04",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "W-04",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "America/Los_Angeles",
+      "code": "W-04",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "C-02",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "C-02",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "C-02",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "C-02",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "W-04",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "W-04",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "W-04",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "Asia/Tokyo",
+      "code": "W-04",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "C-02",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "C-02",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "C-02",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "C-02",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "W-04",
+      "lang": "en",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "W-04",
+      "lang": "en",
+      "width": 1280,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "W-04",
+      "lang": "es",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "timezoneId": "UTC",
+      "code": "W-04",
+      "lang": "es",
+      "width": 1280,
+      "passed": true
+    }
+  ],
+  "checks": [
+    "studio midnight boundary",
+    "date-only labels",
+    "navigation and filters",
+    "shared calendar/timeline",
+    "holidays",
+    "COP whole pesos",
+    "voucher timestamp display",
+    "no overflow or page errors"
+  ]
+}

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
@@ -12,6 +12,8 @@ import { Notice } from '../../../components/molecule/Notice/Notice';
 import { Avatar } from '../../../components/atom/Avatar/Avatar';
 import { AuthShell } from './AuthShell';
 import { digitsOf, isPhone } from '../../../i18n/format';
+import { customerAuthLink, customerReturn } from './customerReturn';
+import { registerMockCustomer } from './mockRegistration';
 import { tenant } from '../../../tenant/tenant';
 
 interface Form { first: string; last: string; email: string; whatsapp: string; password: string; birthday: string; ecName: string; ecPhone: string; photo: string | null; consent: boolean; marketing: boolean }
@@ -35,12 +37,19 @@ export function SignUpPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [busy, setBusy] = useState(false);
   const [dup, setDup] = useState(false);
+  const [failure, setFailure] = useState<string | null>(null);
+  const active = useRef<{ cancelled: boolean } | null>(null);
+  const request = useRef(crypto.randomUUID());
+  useEffect(() => () => { if (active.current) active.current.cancelled = true; active.current = null; }, []);
+  const cancel = () => { if (active.current) active.current.cancelled = true; active.current = null; setBusy(false); setFailure(t('customer.signup.cancelled')); };
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setF((s) => ({ ...s, [k]: v }));
   const strength = passwordStrength(f.password);
   const invite = params.get('invite');
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    if (active.current) return;
+    setFailure(null);
     const er: typeof errors = {};
     if (f.first.trim().length < 2) er.first = t('customer.form.required');
     if (f.last.trim().length < 2) er.last = t('customer.form.required');
@@ -51,21 +60,25 @@ export function SignUpPage() {
     if (!isPhone(f.ecPhone)) er.ecPhone = t('customer.form.phone');
     if (!f.consent) er.consent = t('customer.signup.consent.err');
     setErrors(er);
-    const exists = users.some((u) => u.email.toLowerCase() === f.email.trim().toLowerCase() || (u.phone && digitsOf(u.phone) === digitsOf(f.whatsapp)));
+    const exists = users.some((u) => u.tenant_id === tenant.id && (u.email.toLowerCase() === f.email.trim().toLowerCase() || (u.phone && digitsOf(u.phone) === digitsOf(f.whatsapp))));
     setDup(exists);
     if (Object.keys(er).length || exists) return;
+    const attempt = { cancelled: false };
+    active.current = attempt;
     setBusy(true);
     try {
-      const now = new Date().toISOString();
-      const user = await data.insert<UserRow>('users', { email: f.email.trim().toLowerCase(), phone: f.whatsapp.trim(), status: 'active', locale: 'es', last_sign_in_at: now } as Partial<UserRow>);
-      const fullName = `${f.first.trim()} ${f.last.trim()}`;
-      await data.insert('profiles', { user_id: user.id, full_name: fullName, initials: `${f.first.trim()[0]}${f.last.trim()[0]}`.toUpperCase(), photo_url: f.photo, birthday: f.birthday || null, emergency_contact: { name: f.ecName.trim(), phone: f.ecPhone.trim() }, marketing_optin: f.marketing, whatsapp_verified: false, notes: invite ? `Invite ${invite}` : null });
-      await data.insert('user_roles', { user_id: user.id, role: 'customer', granted_by: null });
-      await data.insert('consents', { user_id: user.id, legal_document_id: 'leg_terms_es', accepted_at: now, ip: null });
-      await data.insert('consents', { user_id: user.id, legal_document_id: 'leg_privacy_es', accepted_at: now, ip: null });
-      switchUser(user.id); // SessionProvider resolves any users row (profile + role) — the session is the new account.
-      nav('/app');
-    } finally { setBusy(false); }
+      // Intentionally omit the validated demo password from command arguments and receipts.
+      const userId = await registerMockCustomer(data, { first: f.first, last: f.last, email: f.email, whatsapp: f.whatsapp, birthday: f.birthday, ecName: f.ecName, ecPhone: f.ecPhone, photo: f.photo, consent: f.consent, marketing: f.marketing, invite }, request.current, () => attempt.cancelled);
+      if (attempt.cancelled) return;
+      switchUser(userId);
+      nav(customerReturn(params.get('next')) ?? '/app');
+    } catch (error) {
+      if (attempt.cancelled) return;
+      if (error instanceof Error && error.message === 'registration_duplicate') setDup(true);
+      else setFailure(t('customer.signup.failed'));
+    } finally {
+      if (active.current === attempt) { active.current = null; setBusy(false); }
+    }
   };
 
   const onPhoto = (file: File | undefined) => { if (!file || file.size > 1_500_000) return; const r = new FileReader(); r.onload = () => set('photo', String(r.result)); r.readAsDataURL(file); };
@@ -75,6 +88,7 @@ export function SignUpPage() {
       <div className="auth-col">
         <div className="auth-dots" aria-label={t('customer.signup.step', { n: 1, total: 3 })}><i className="is-on" /><i /><i /></div>
         <div className="stack-sm auth-intro"><h1 className="cust-title">{t('customer.signup.title')}</h1><p className="muted small">{t('customer.signup.sub')}</p></div>
+        <Notice tone="info" title={t('customer.signup.fixture.title')}>{t('customer.signup.fixture.body')}</Notice>
         <Card padding="lg">
           <form className="stack" onSubmit={submit} noValidate>
             <div className="grid grid-2">
@@ -109,11 +123,13 @@ export function SignUpPage() {
               <span className="small">{t('customer.signup.consent')} <Link to="/site/legal/terms" target="_blank">{t('customer.profile.legal.terms')}</Link> {t('customer.signup.and')} <Link to="/site/legal/privacy" target="_blank">{t('customer.profile.legal.privacy')}</Link>.</span>
             </label>
             {errors.consent && <p className="field-msg field-error" role="alert">{errors.consent}</p>}
-            {dup && <Notice tone="warn" title={t('customer.signup.dup')} action={<Link to="/auth/sign-in"><Button size="sm" variant="secondary">{t('customer.signin.cta')}</Button></Link>}>{t('customer.signup.dup.body')}</Notice>}
+            {dup && <Notice tone="warn" title={t('customer.signup.dup')} action={<Link to={customerAuthLink('/auth/sign-in', params)}><Button size="sm" variant="secondary">{t('customer.signin.cta')}</Button></Link>}>{t('customer.signup.dup.body')}</Notice>}
+            {failure && <Notice tone="warn">{failure}</Notice>}
+            {busy && <Button type="button" variant="secondary" onClick={cancel}>{t('customer.signup.cancel')}</Button>}
             <Button type="submit" block size="lg" loading={busy}>{t('customer.signup.cta')}</Button>
           </form>
         </Card>
-        <p className="small" style={{ textAlign: 'center' }}>{t('customer.signup.have')} <Link to="/auth/sign-in">{t('customer.signin.cta')}</Link></p>
+        <p className="small" style={{ textAlign: 'center' }}>{t('customer.signup.have')} <Link to={customerAuthLink('/auth/sign-in', params)}>{t('customer.signin.cta')}</Link></p>
       </div>
     </AuthShell>
   );

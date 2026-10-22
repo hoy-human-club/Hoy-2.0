@@ -1,8 +1,8 @@
 {
-  "base": "http://127.0.0.1:5200",
+  "base": "http://127.0.0.1:5210",
   "checks": [
-    "en: manual/provider pending entries, missing fields, tenant isolation, read-only cancel/deeplink/reload/no DB writes;3 permitted/8 denied roles;390/1280 light/dark queue/detail plus permitted-role captures",
-    "es: manual/provider pending entries, missing fields, tenant isolation, read-only cancel/deeplink/reload/no DB writes;3 permitted/8 denied roles;390/1280 light/dark queue/detail plus permitted-role captures"
+    "en: manual/provider pending entries, receipt-first/frozen-quote names and terms survive catalog repricing; corrupt snapshots explicitly unverified; missing fields, tenant isolation, read-only cancel/deeplink/reload/no DB writes;3 permitted/8 denied roles;390/1280 light/dark queue/detail plus permitted-role captures",
+    "es: manual/provider pending entries, receipt-first/frozen-quote names and terms survive catalog repricing; corrupt snapshots explicitly unverified; missing fields, tenant isolation, read-only cancel/deeplink/reload/no DB writes;3 permitted/8 denied roles;390/1280 light/dark queue/detail plus permitted-role captures"
   ],
   "errors": [],
   "limits": [

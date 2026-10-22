@@ -12,7 +12,7 @@ import { fixedExpensesFor } from '../expenseCalc';
 import { monthPeriod } from '../payrollCalc';
 import { base, NOW } from './catalog';
 import type { rng } from './rng';
-import { fromDateKey, dateKey, MS } from '../../i18n/format';
+import { fromDateKey, dateKey, MS, studioParts, studioDate } from '../../i18n/format';
 
 type Rng = ReturnType<typeof rng>;
 
@@ -51,7 +51,7 @@ export function buildExpenses(r: Rng): ExpenseRow[] {
   const METHOD_BY_CATEGORY: Partial<Record<ExpenseRow['category'], ExpenseRow['method']>> = { rent: 'transfer', utilities: 'transfer', internet: 'card', cleaning: 'transfer', software: 'card', insurance: 'transfer' };
 
   for (const offset of [2, 1, 0]) {
-    const period = monthPeriod(new Date(NOW.getFullYear(), NOW.getMonth() - offset, 15));
+    const period = monthPeriod(studioDate(studioParts(NOW).year, studioParts(NOW).month - offset, 15));
     const { drafts } = fixedExpensesFor(period, expenseTemplates, out);
     for (const d of drafts) {
       // Everything due more than three days ago is paid, on the due day or up to two days later.

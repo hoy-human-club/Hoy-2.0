@@ -420,23 +420,47 @@
       "priority": "High",
       "relatedTests": "TRA-09",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/i18n/format.ts",
         "src/tenant/holidays.co.ts",
         "scripts/test-date-keys.mjs",
-        "scripts/test-holidays.mjs"
+        "scripts/test-holidays.mjs",
+        "docs/frontend-completion/batch-17.md"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/site/schedule",
+        "/#/app/schedule",
+        "/#/admin/apps"
+      ],
+      "tests": [
+        "scripts/test-studio-timezone.mjs",
+        "scripts/test-timezone-cache.mjs",
+        "scripts/test-studio-timezone-ui.mjs",
+        "scripts/test-subscription-calendar.mjs",
+        "scripts/test-subscription-calendar-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/frontend-completion/evidence/batch-17-timezone-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Unify Colombia time-zone contract and test UTC/Bogota/other device zones before changing scheduling.",
+      "nextAction": "Studio calendar helpers and affected flows are tested in four zones; historical unlinked-lot UTC attribution and offsetless stored datetime ambiguity remain unchanged. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/site/schedule",
         "/#/app/schedule"
       ],
       "sourceAssessment": {
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
+        "missingFrontend": [
+          "Studio calendar helpers and affected flows are tested in four zones; historical unlinked-lot UTC attribution and offsetless stored datetime ambiguity remain unchanged."
+        ],
+        "remainingBackend": [
+          "Server business-day/instant consistency required."
+        ]
+      },
+      "sourceNextAction": "Unify Colombia time-zone contract and test UTC/Bogota/other device zones before changing scheduling.",
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "COP integer formatting and holiday helpers exist; formatDate/Time and dateKey use browser timezone instead of enforcing America/Bogota."
@@ -445,8 +469,15 @@
           "Server business-day/instant consistency required."
         ]
       },
-      "sourceNextAction": "Unify Colombia time-zone contract and test UTC/Bogota/other device zones before changing scheduling.",
-      "baselineImplementationStatus": "partial"
+      "continuationEvidence": [
+        {
+          "batch": "batch-17.md",
+          "behavior": "Studio calendar helpers and affected flows are tested in four zones; historical unlinked-lot UTC attribution and offsetless stored datetime ambiguity remain unchanged.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "Studio calendar helpers and affected flows are tested in four zones; historical unlinked-lot UTC attribution and offsetless stored datetime ambiguity remain unchanged.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
+        }
+      ]
     },
     {
       "id": "PL-10",
@@ -666,27 +697,30 @@
         "src/tenant/pricing.ts",
         "src/data/productCatalog.ts",
         "src/data/catalogPublication.ts",
-        "src/modules/products/ProductPreviewPage.tsx"
+        "src/modules/products/ProductPreviewPage.tsx",
+        "docs/frontend-completion/batch-13.md"
       ],
       "routes": [
         "/#/site/plans"
       ],
       "tests": [
-        "scripts/test-catalog-publication-ui.mjs"
+        "scripts/test-catalog-publication-ui.mjs",
+        "scripts/test-operational-quotes-ui.mjs"
       ],
       "screenshots": [
-        "docs/screenshots/M-17/publication-results.json"
+        "docs/screenshots/M-17/publication-results.json",
+        "docs/screenshots/operational-quotes/results.json"
       ],
       "blockers": [],
-      "nextAction": "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending.",
+      "nextAction": "Supported explicitly published same-browser fictional offers use shared dated quotes; no external publication or shareable quote mechanism exists. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/site/plans",
         "/#/admin/products"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
         "missingFrontend": [
-          "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending."
+          "Supported explicitly published same-browser fictional offers use shared dated quotes; no external publication or shareable quote mechanism exists."
         ],
         "remainingBackend": [
           "Authoritative published catalog and quote contract pending."
@@ -700,9 +734,25 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-13.md",
+          "behavior": "Supported explicitly published same-browser fictional offers use shared dated quotes; no external publication or shareable quote mechanism exists.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "Supported explicitly published same-browser fictional offers use shared dated quotes; no external publication or shareable quote mechanism exists.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
         }
       ],
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Local fictional preview only; authoritative published catalog and checkout quote contract remain pending."
+        ],
+        "remainingBackend": [
+          "Authoritative published catalog and quote contract pending."
+        ]
+      }
     },
     {
       "id": "SW-03",
@@ -718,23 +768,46 @@
       "priority": "High",
       "relatedTests": "PUB-04",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/website/pages/SchedulePage.tsx",
         "src/modules/customer/auth/SignInPage.tsx",
-        "src/modules/customer/auth/SignUpPage.tsx"
+        "src/modules/customer/auth/SignUpPage.tsx",
+        "src/modules/customer/auth/customerReturn.ts",
+        "docs/frontend-completion/batch-18.md"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/site/schedule",
+        "/#/auth/sign-in",
+        "/#/auth/sign-up"
+      ],
+      "tests": [
+        "scripts/test-customer-registration.mjs",
+        "scripts/test-customer-return-ui.mjs",
+        "scripts/test-customer-registration-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/A-03/customer-return-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Preserve validated return destination through account creation and test selected-class booking.",
+      "nextAction": "Safe selected-class return now crosses mock signin/signup; real session handoff and dynamic-account sign-in remain separate disconnected contracts. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/site/schedule",
         "/#/auth/sign-in",
         "/#/auth/sign-up"
       ],
       "sourceAssessment": {
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
+        "missingFrontend": [
+          "Safe selected-class return now crosses mock signin/signup; real session handoff and dynamic-account sign-in remain separate disconnected contracts."
+        ],
+        "remainingBackend": [
+          "Real auth session handoff pending."
+        ]
+      },
+      "sourceNextAction": "Preserve validated return destination through account creation and test selected-class booking.",
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "Schedule/sign-in preserve chosen class next destination; SignUpPage ignores next and always navigates /app."
@@ -743,8 +816,15 @@
           "Real auth session handoff pending."
         ]
       },
-      "sourceNextAction": "Preserve validated return destination through account creation and test selected-class booking.",
-      "baselineImplementationStatus": "partial"
+      "continuationEvidence": [
+        {
+          "batch": "batch-18.md",
+          "behavior": "Safe selected-class return now crosses mock signin/signup; real session handoff and dynamic-account sign-in remain separate disconnected contracts.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "Safe selected-class return now crosses mock signin/signup; real session handoff and dynamic-account sign-in remain separate disconnected contracts.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
+        }
+      ]
     },
     {
       "id": "SW-04",
@@ -967,22 +1047,44 @@
       "priority": "Urgent",
       "relatedTests": "CLI-01",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/customer/auth/SignUpPage.tsx",
         "src/auth/RequireRole.tsx",
-        "src/modules/customer/hooks.ts"
+        "src/modules/customer/hooks.ts",
+        "src/modules/customer/auth/mockRegistration.ts",
+        "docs/frontend-completion/batch-18.md"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/auth/sign-up",
+        "/#/app/checkout/:id"
+      ],
+      "tests": [
+        "scripts/test-customer-registration.mjs",
+        "scripts/test-customer-return-ui.mjs",
+        "scripts/test-customer-registration-states.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/A-03/customer-return-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Test validation, duplicate contact and visitor-to-signup-to-selected-class flow.",
+      "nextAction": "Fictional customer-only registration stages atomically and public checkout is denied; real identity verification, legal versioning and email-code/password requirements remain unresolved. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/auth/sign-up",
         "/#/app/checkout/:id"
       ],
       "sourceAssessment": {
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
+        "missingFrontend": [
+          "Fictional customer-only registration stages atomically and public checkout is denied; real identity verification, legal versioning and email-code/password requirements remain unresolved."
+        ],
+        "remainingBackend": [
+          "Real account creation and server-enforced authenticated bookings."
+        ]
+      },
+      "sourceNextAction": "Test validation, duplicate contact and visitor-to-signup-to-selected-class flow.",
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "Required name/WhatsApp/email form exists; reconcile password/emergency fields with email-code spec and preserve chosen class after signup (currently nav /app)."
@@ -991,8 +1093,15 @@
           "Real account creation and server-enforced authenticated bookings."
         ]
       },
-      "sourceNextAction": "Test validation, duplicate contact and visitor-to-signup-to-selected-class flow.",
-      "baselineImplementationStatus": "partial"
+      "continuationEvidence": [
+        {
+          "batch": "batch-18.md",
+          "behavior": "Fictional customer-only registration stages atomically and public checkout is denied; real identity verification, legal versioning and email-code/password requirements remain unresolved.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "Fictional customer-only registration stages atomically and public checkout is denied; real identity verification, legal versioning and email-code/password requirements remain unresolved.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
+        }
+      ]
     },
     {
       "id": "CU-02",
@@ -1129,23 +1238,35 @@
       "phase": "Nov 30 delivery",
       "priority": "Medium",
       "relatedTests": "CLI-19",
-      "implementationStatus": "implemented",
+      "implementationStatus": "partial",
       "verificationStatus": "not-run",
       "candidateEvidence": [
         "src/modules/customer/pages/ProfilePage.tsx",
         "src/modules/staff/people.ts",
-        "src/modules/admin/MemberPage.tsx"
+        "src/modules/admin/MemberPage.tsx",
+        "docs/frontend-completion/next-customer-audit.md"
       ],
       "routes": [],
       "tests": [],
       "screenshots": [],
       "blockers": [],
-      "nextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
+      "nextAction": "Batch22 isolates mock-only atomic own-profile saving and contained reads without expanding field readership; verify authorized CRM name/phone/birthday readback and preserve emergency-contact display gap.",
       "candidateRoutes": [
         "/#/app/profile",
         "/#/admin/crm/:id"
       ],
       "sourceAssessment": {
+        "basis": "Current read-only source audit at61fc322; not freshly reproduced or owner accepted. Historical source-only finding retained separately.",
+        "missingFrontend": [
+          "Own profile/account writes can partially persist and missing rows can still show success; failure/loading/retry and exact idempotency need repair. Emergency contact is not projected in the CRM customer record; readership must be reviewed separately."
+        ],
+        "remainingBackend": [
+          "Authenticated own-profile writes and cross-device persistence."
+        ]
+      },
+      "sourceNextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
+      "baselineImplementationStatus": "implemented",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "No identified missing source path: profile editor writes name/phone/birthday/emergency_contact read by shared CRM people join; fresh rendering/validation still unverified."
@@ -1153,9 +1274,7 @@
         "remainingBackend": [
           "Authenticated own-profile writes and cross-device persistence."
         ]
-      },
-      "sourceNextAction": "Exercise editing, invalid inputs, cancel/save and CRM readback with fictional data on mobile/desktop.",
-      "baselineImplementationStatus": "implemented"
+      }
     },
     {
       "id": "CU-06",
@@ -1259,38 +1378,45 @@
         "src/data/productCatalog.ts",
         "src/data/schema.ts",
         "src/data/catalogPublication.ts",
-        "src/modules/products/ProductPreviewPage.tsx"
+        "src/modules/products/ProductPreviewPage.tsx",
+        "src/data/operationalQuotes.ts",
+        "docs/frontend-completion/batch-13.md"
       ],
       "routes": [
         "/#/admin/products",
-        "/#/admin/products/preview"
+        "/#/admin/products/preview",
+        "/#/app/plans",
+        "/#/staff/register"
       ],
       "tests": [
         "scripts/test-product-catalog.mjs",
         "scripts/test-product-catalog-ui.mjs",
         "scripts/test-product-catalog-states.mjs",
         "scripts/test-catalog-publication.mjs",
-        "scripts/test-catalog-publication-ui.mjs"
+        "scripts/test-catalog-publication-ui.mjs",
+        "scripts/test-operational-quotes.mjs",
+        "scripts/test-operational-quotes-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-16/en-390.jpg",
         "docs/screenshots/M-16/es-390.jpg",
         "docs/screenshots/M-16/en-1280.jpg",
         "docs/screenshots/M-16/es-1280.jpg",
-        "docs/screenshots/M-17/publication-results.json"
+        "docs/screenshots/M-17/publication-results.json",
+        "docs/screenshots/operational-quotes/results.json"
       ],
       "blockers": [
-        "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
-        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
+        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts.",
+        "Known mapped products feed dated fictional operational quotes; custom/private/free fulfillment and real withdrawal/fallback decisions remain unresolved."
       ],
-      "nextAction": "Mock browser only; authoritative publication service and production permissions pending.",
+      "nextAction": "Known mapped products feed dated fictional operational quotes; custom/private/free fulfillment and real withdrawal/fallback decisions remain unresolved. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/admin/products"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
         "missingFrontend": [
-          "Mock browser only; authoritative publication service and production permissions pending."
+          "Known mapped products feed dated fictional operational quotes; custom/private/free fulfillment and real withdrawal/fallback decisions remain unresolved."
         ],
         "remainingBackend": [
           "Transactional versioned product storage and approved publication contract."
@@ -1311,9 +1437,25 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Mock browser only; authoritative publication service and production permissions pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-13.md",
+          "behavior": "Known mapped products feed dated fictional operational quotes; custom/private/free fulfillment and real withdrawal/fallback decisions remain unresolved.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "Known mapped products feed dated fictional operational quotes; custom/private/free fulfillment and real withdrawal/fallback decisions remain unresolved.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
         }
       ],
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Mock browser only; authoritative publication service and production permissions pending."
+        ],
+        "remainingBackend": [
+          "Transactional versioned product storage and approved publication contract."
+        ]
+      }
     },
     {
       "id": "PR-02",
@@ -1335,39 +1477,47 @@
         "src/modules/products/ProductsPage.tsx",
         "src/modules/customer/payments.ts",
         "src/data/catalogPublication.ts",
-        "src/modules/products/ProductPreviewPage.tsx"
+        "src/modules/products/ProductPreviewPage.tsx",
+        "src/data/operationalQuotes.ts",
+        "docs/frontend-completion/batch-13.md"
       ],
       "routes": [
         "/#/admin/products",
-        "/#/admin/products/preview"
+        "/#/admin/products/preview",
+        "/#/app/checkout/:id",
+        "/#/app/gift",
+        "/#/staff/register"
       ],
       "tests": [
         "scripts/test-product-catalog.mjs",
         "scripts/test-product-catalog-ui.mjs",
         "scripts/test-product-catalog-states.mjs",
         "scripts/test-catalog-publication.mjs",
-        "scripts/test-catalog-publication-ui.mjs"
+        "scripts/test-catalog-publication-ui.mjs",
+        "scripts/test-operational-quotes.mjs",
+        "scripts/test-operational-quotes-ui.mjs"
       ],
       "screenshots": [
         "docs/screenshots/M-16/en-390.jpg",
         "docs/screenshots/M-16/es-390.jpg",
         "docs/screenshots/M-16/en-1280.jpg",
         "docs/screenshots/M-16/es-1280.jpg",
-        "docs/screenshots/M-17/publication-results.json"
+        "docs/screenshots/M-17/publication-results.json",
+        "docs/screenshots/operational-quotes/results.json"
       ],
       "blockers": [
-        "Draft catalog is deliberately disconnected from operational checkout/public pricing.",
-        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts."
+        "Authenticated atomic server quotations, immutable sales snapshots and append-only audit remain backend contracts.",
+        "New local payments/grants freeze dated terms; daily demo reset prevents durable history; canonical server clock/history/atomicity remain unverified."
       ],
-      "nextAction": "Actual checkout price/snapshot integration remains static; production quote/charge contract pending.",
+      "nextAction": "New local payments/grants freeze dated terms; daily demo reset prevents durable history; canonical server clock/history/atomicity remain unverified. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/admin/products",
         "/#/app/checkout/:id"
       ],
       "sourceAssessment": {
-        "basis": "source inspection only; not owner acceptance",
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
         "missingFrontend": [
-          "Actual checkout price/snapshot integration remains static; production quote/charge contract pending."
+          "New local payments/grants freeze dated terms; daily demo reset prevents durable history; canonical server clock/history/atomicity remain unverified."
         ],
         "remainingBackend": [
           "Atomic server quote/purchase snapshot and append-only price history."
@@ -1388,9 +1538,25 @@
           "verification": "Focused production checks passed; PR60 finalhead2f33480 all12 checks and Pages source7667ab8 verified. See README release receipt.",
           "limits": "Actual checkout price/snapshot integration remains static; production quote/charge contract pending.",
           "acceptance": "Source status and original phase preserved; no owner/backend acceptance claim."
+        },
+        {
+          "batch": "batch-13.md",
+          "behavior": "New local payments/grants freeze dated terms; daily demo reset prevents durable history; canonical server clock/history/atomicity remain unverified.",
+          "verification": "Isolated local production/domain checks passed; integrated final build/CI/deployment pending. Consult batch receipt for exact fingerprint and tested cases.",
+          "limits": "New local payments/grants freeze dated terms; daily demo reset prevents durable history; canonical server clock/history/atomicity remain unverified.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
         }
       ],
-      "baselineImplementationStatus": "partial"
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
+        "basis": "source inspection only; not owner acceptance",
+        "missingFrontend": [
+          "Actual checkout price/snapshot integration remains static; production quote/charge contract pending."
+        ],
+        "remainingBackend": [
+          "Atomic server quote/purchase snapshot and append-only price history."
+        ]
+      }
     },
     {
       "id": "PR-03",
@@ -5250,22 +5416,42 @@
       "priority": "Low",
       "relatedTests": "MKT-03",
       "implementationStatus": "partial",
-      "verificationStatus": "not-run",
+      "verificationStatus": "focused-frontend-pass",
       "candidateEvidence": [
         "src/modules/hub/HubPage.tsx",
         "src/modules/admin/MediaPage.tsx",
-        "src/modules/admin/EmailsPage.tsx"
+        "src/modules/admin/EmailsPage.tsx",
+        "src/modules/marketing/drafts.ts",
+        "docs/frontend-completion/batch-19.md"
       ],
-      "routes": [],
-      "tests": [],
-      "screenshots": [],
+      "routes": [
+        "/#/admin/marketing"
+      ],
+      "tests": [
+        "scripts/test-marketing-drafts.mjs",
+        "scripts/test-marketing-drafts-ui.mjs"
+      ],
+      "screenshots": [
+        "docs/screenshots/M-18/marketing-results.json"
+      ],
       "blockers": [],
-      "nextAction": "Build later-phase campaign/brand/content-calendar prototype without real campaign delivery.",
+      "nextAction": "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance. Repeat integrated exact-head CI and record deployment receipt.",
       "candidateRoutes": [
         "/#/hub",
         "/#/admin/content/media"
       ],
       "sourceAssessment": {
+        "basis": "Current focused frontend finding; historical source-only finding retained separately; no owner acceptance.",
+        "missingFrontend": [
+          "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance."
+        ],
+        "remainingBackend": [
+          "Campaign persistence/scheduling and authorized publishing/delivery services."
+        ]
+      },
+      "sourceNextAction": "Build later-phase campaign/brand/content-calendar prototype without real campaign delivery.",
+      "baselineImplementationStatus": "partial",
+      "historicalSourceAssessment": {
         "basis": "source inspection only; not owner acceptance",
         "missingFrontend": [
           "Brand/media assets and email templates exist; no dedicated marketing campaign planner or content calendar route identified. Announced Hub surfaces are not a marketing kit."
@@ -5274,8 +5460,15 @@
           "Campaign persistence/scheduling and authorized publishing/delivery services."
         ]
       },
-      "sourceNextAction": "Build later-phase campaign/brand/content-calendar prototype without real campaign delivery.",
-      "baselineImplementationStatus": "partial"
+      "continuationEvidence": [
+        {
+          "batch": "batch-19.md",
+          "behavior": "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance.",
+          "verification": "Isolated full build/domain and immutable production EN/ES390/1280 light/dark/all-role matrix passed; root studio-month integration delta and final integrated build/CI/deployment pending.",
+          "limits": "Future-phase local campaign/content draft workbench with existing public asset references; no campaign delivery, approval workflow or final art acceptance.",
+          "acceptance": "Original criterion, role, source status and phase preserved; partial prototype is not accepted/backend-ready."
+        }
+      ]
     },
     {
       "id": "OT-02",
@@ -5452,7 +5645,7 @@
       "result": "passed; no console errors",
       "basis": "Preserved PR55 evidence; no new all-route smoke claim in this continuation."
     },
-    "release": "Core batches 3–5 source f660f20cb88d9e39e6cf8be8126d77c91fd947a7 deployed with hosted source-SHA readback. Final demo-copy/evidence checkpoint0080 uses its associated checked PR receipt; owner/backend acceptance remains separate.",
+    "release": "PR62 controls deployed e4257e5 after six triggered exact-head checks and hosted source verification. Batches13/17/18/19 have final combined local-production/domain/recovery proof; checked release pending. No owner/backend acceptance.",
     "directLiveReadback": "No direct public readback attempted in this continuation. Hosted workflow source-SHA verification passed; prior batch reported 403.",
     "implementationCommits": [
       "955d067",
@@ -5462,13 +5655,13 @@
       "377581f53cd386cdb39fcbf69993fee56a9aa470",
       "964a9bb1f921c468b698e7ce42020c10b21a028b"
     ],
-    "mergedCode": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
-    "pullRequest": "https://github.com/imagine-os/hoy/pull/57",
-    "codeCI": "All 10 exact-head PR57 workflows passed at 964a9bb1f921c468b698e7ce42020c10b21a028b",
-    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39690125961",
-    "deployedCodeSource": "f660f20cb88d9e39e6cf8be8126d77c91fd947a7",
+    "mergedCode": "e4257e5bd096898d312cac82f67b6922956c1560",
+    "pullRequest": "https://github.com/imagine-os/hoy/pull/62",
+    "codeCI": "All six triggered exact-head PR62 workflows passed at fb0c318318714b5b54a0049d9528d091ad815f2e; control workflow has two jobs",
+    "deploymentRun": "https://github.com/imagine-os/hoy/actions/runs/39703124987",
+    "deployedCodeSource": "e4257e5bd096898d312cac82f67b6922956c1560",
     "newFeatureLiveVerification": "New behavior verified against local production bundle and exact-head PR CI; hosted checker proves provenance and selected existing flows. SW-07 actual external provider render remains blocked; Clerk is disconnected.",
-    "activeBatch": "PR60/61 checked/deployed. Batches14–16 source checkpoint6ad8814 and final immutable5200 production evidence passed; exact-head CI/release pending. Isolated quote13, timezone17, auth18 and marketing19 continue. No owner/backend acceptance.",
+    "activeBatch": "Batches13/17/18/19 final integrated local proof passed; exact-head CI/merge/deployment pending. Batch20 source c4dd183 checked locally/backed up separately. Batch21 final corrected build/QA and batches22/23 profile/recovery repairs ongoing. No owner/backend acceptance.",
     "batch3": {
       "head": "cd3b9b014cc439735c5adc02c3a2c2b19792b9f8",
       "merge": "2ecdaf8d09a6ca6743811fab8dee1eb94621552b",
@@ -5536,6 +5729,25 @@
       "rollback": "7667ab8e6763d4f3db36ca4c0c657a6d48b5ba24",
       "limits": "New behavior verified with local production bundles and exact-head CI; original future phase and source acceptance unchanged.",
       "deployedSource": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab"
+    },
+    "controlCheckpoint": {
+      "pr": "https://github.com/imagine-os/hoy/pull/62",
+      "head": "fb0c318318714b5b54a0049d9528d091ad815f2e",
+      "checks": "All six triggered exact-head workflows passed; control contracts has two jobs",
+      "merge": "e4257e5bd096898d312cac82f67b6922956c1560",
+      "deployment": "https://github.com/imagine-os/hoy/actions/runs/39703124987",
+      "deploymentStatus": "build/deploy/hosted exact-source verification passed",
+      "deployedSource": "e4257e5bd096898d312cac82f67b6922956c1560",
+      "rollback": "fe905a8e0d38705f7a77bfda0234c648d6e7c6ab",
+      "limits": "New flows local-production and exact-head CI verified; no whole-feature owner/backend acceptance."
+    },
+    "pendingPrototypeIntegration": {
+      "branch": "codex/frontend-integrated-continuation",
+      "sourceCheckpoint": "61fc32265fac67beb9e2e9c35de66629ba74368c",
+      "runtimeSourceSha256": "47807b065771c489640e9f49f8bbda7b2943573b5d1f70b9d7a8574fa859293a",
+      "localProof": "docs/frontend-completion/evidence/integrated-batches-13-17-18-19.json",
+      "status": "all named integrated local build/domain/production/recovery checks passed; exact-head CI and release pending",
+      "rollback": "e4257e5bd096898d312cac82f67b6922956c1560"
     }
   },
   "classificationPolicy": {

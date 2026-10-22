@@ -1,3 +1,4 @@
+import { dateKey } from '../i18n/format';
 import type { BaseRow } from './schema';
 import { tenant } from '../tenant/tenant';
 
@@ -78,7 +79,7 @@ export function appendClassPayRule(db: Record<string, BaseRow[]>, command: Appen
   const actor = db.users?.find(row => row.id === command.actorId);
   if (!target || !actor || actor.tenant_id !== target.tenant_id) throw new Error('class_pay_scope_invalid');
   if (command.rule.session_id && !Number.isFinite(Date.parse(String(target.starts_at)))) throw new Error('class_pay_scope_invalid');
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const today = dateKey(now);
   if (command.rule.effective_from < today || (command.rule.session_id && Date.parse(String(target.starts_at)) <= now.getTime())) throw new Error('class_pay_historical_immutable');
   const ownRules = all.filter(rule => rule.tenant_id === target.tenant_id && (command.rule.session_id ? rule.session_id === command.rule.session_id : !rule.session_id && rule.template_id === command.rule.template_id));
   const prior = ownRules.sort((a, b) => b.created_at.localeCompare(a.created_at))[0];

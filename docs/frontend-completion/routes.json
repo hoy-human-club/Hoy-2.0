@@ -2,7 +2,7 @@
   "schema": "hoy.frontend-routes/1",
   "baseline": "b73c13a9b14b5fa392c83ba4cbfaa6057456ba2e",
   "capturedAt": "2026-10-22",
-  "source": "Rendered runtime registry after continuation edits; route presence/built badge is not acceptance. Current release commit is recorded in completion README.",
+  "source": "Rendered immutable integrated runtime registry; route presence/built badges are not acceptance. Exact release source is recorded in completion README.",
   "routes": [
     {
       "path": "/admin/finance/subscriptions",
@@ -1837,7 +1837,8 @@
       "declaredStates": [
         "default",
         "wrong credentials: attempts left",
-        "locked → E-04"
+        "locked → E-04",
+        "validated website return destination preserved through sign-up"
       ],
       "tables": [
         "users",
@@ -1869,7 +1870,12 @@
         "default",
         "validation errors",
         "duplicate email → sign-in offer",
-        "created"
+        "created",
+        "fictional browser-only boundary",
+        "saving with cancel",
+        "storage/write failure → same-intent retry",
+        "cancelled/unmounted → no late sign-in",
+        "validated chosen class return"
       ],
       "tables": [
         "users",
@@ -2303,6 +2309,35 @@
       ]
     },
     {
+      "path": "/admin/marketing",
+      "code": "M-18",
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "source": "src/modules/marketing/index.ts",
+      "sourceDeclaredStatus": "built",
+      "verification": "unverified",
+      "declaredStates": [
+        "loading",
+        "empty",
+        "read error/retry",
+        "edit",
+        "validation",
+        "preview/cancel",
+        "local save",
+        "storage failure/retry",
+        "stale revision",
+        "request replay",
+        "calendar/undated",
+        "discard confirmation/linked guard"
+      ],
+      "tables": []
+    },
+    {
       "path": "/manual",
       "code": "K-03",
       "surface": "docs",
@@ -2488,6 +2523,7 @@
         "super_admin",
         "admin"
       ],
+      "source": "src/modules/products/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -2498,7 +2534,6 @@
         "saved quote",
         "withdrawn"
       ],
-      "source": "src/modules/products/index.ts",
       "tables": [
         "plans"
       ]
@@ -2511,6 +2546,7 @@
         "super_admin",
         "admin"
       ],
+      "source": "src/modules/products/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -2528,7 +2564,6 @@
         "local published snapshot",
         "withdrawn"
       ],
-      "source": "src/modules/products/index.ts",
       "tables": [
         "plans"
       ]
@@ -3059,6 +3094,7 @@
         "admin",
         "front_desk"
       ],
+      "source": "src/modules/transfers/index.ts",
       "sourceDeclaredStatus": "built",
       "verification": "unverified",
       "declaredStates": [
@@ -3073,7 +3109,6 @@
         "approved",
         "rejected"
       ],
-      "source": "src/modules/transfers/index.ts",
       "tables": [
         "transfer_receipts",
         "payments",

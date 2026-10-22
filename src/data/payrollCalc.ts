@@ -21,7 +21,7 @@
  * assuming a month.
  */
 import type { BookingRow, ClassSessionRow, PayrollLineRow, SpaceBookingRow, SpecialChargeRow, TeacherRow } from './schema';
-import { fromDateKey, dateKey } from '../i18n/format';
+import { fromDateKey, dateKey, studioParts, studioDate } from '../i18n/format';
 
 export interface Period { start: string; end: string }
 
@@ -46,8 +46,8 @@ export function rateFor(teacherId: string, modalityId: string | null, teachers: 
 
 /** Calendar month containing `d`, as date-only strings (end is inclusive). */
 export function monthPeriod(d: Date): Period {
-  const start = new Date(d.getFullYear(), d.getMonth(), 1);
-  const end = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+  const start = studioDate(studioParts(d).year, studioParts(d).month, 1);
+  const end = studioDate(studioParts(d).year, studioParts(d).month + 1, 0);
   return { start: dateKey(start), end: dateKey(end) };
 }
 
@@ -65,11 +65,11 @@ export function periodsFor(cadence: PayrollCadence, d: Date): Period[] {
  * Under biweekly a step is half a month, so −1 in the second half is the first half of the same month.
  */
 export function periodAt(cadence: PayrollCadence, ref: Date, offset: number): Period {
-  if (cadence === 'monthly') return monthPeriod(new Date(ref.getFullYear(), ref.getMonth() + offset, 15));
-  const half = ref.getDate() >= 16 ? 1 : 0;
-  const idx = ref.getFullYear() * 24 + ref.getMonth() * 2 + half + offset;
+  if (cadence === 'monthly') return monthPeriod(studioDate(studioParts(ref).year, studioParts(ref).month + offset, 15));
+  const half = studioParts(ref).day >= 16 ? 1 : 0;
+  const idx = studioParts(ref).year * 24 + studioParts(ref).month * 2 + half + offset;
   const y = Math.floor(idx / 24), rest = idx - y * 24, month = Math.floor(rest / 2), h = rest % 2;
-  return periodsFor('biweekly', new Date(y, month, 15))[h];
+  return periodsFor('biweekly', studioDate(y, month, 15))[h];
 }
 
 /** True when the period is a whole calendar month (the label can then say “septiembre 2026”). */
@@ -79,7 +79,7 @@ export const isWholeMonth = (p: Period) => p.start.endsWith('-01') && p.end === 
 export const periodsOverlap = (a: Period, b: Period) => a.start <= b.end && b.start <= a.end;
 
 const inPeriod = (isoDate: string, p: Period) => {
-  const day = dateKey(new Date(isoDate));
+  const day = /^\d{4}-\d{2}-\d{2}$/.test(isoDate) ? isoDate : dateKey(new Date(isoDate));
   return day >= p.start && day <= p.end;
 };
 

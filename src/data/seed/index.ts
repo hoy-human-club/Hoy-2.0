@@ -21,7 +21,7 @@ import { buildDeletionRequests } from './deletion';
 import { automationText, buildMessages } from './messages';
 import { buildStudioPolicies } from './studioPolicies';
 import { LATE_ROLES, buildLateStaff, buildManual } from './manual';
-import { dateKey, addDays, addDaysKey, MS } from '../../i18n/format';
+import { dateKey, addDays, addDaysKey, MS, studioParts, atStudioTime, studioDate, fromDateKey } from '../../i18n/format';
 import { practiceStats, weekStartKey } from '../analytics';
 import { DEFAULT_IVA_PCT, splitIva } from '../tax';
 import { isRetired } from '../../specs/retired';
@@ -50,7 +50,7 @@ export function buildSeed(): Record<string, BaseRow[]> {
   const users = db.users as UserRow[], profiles = db.profiles as ProfileRow[];
   const addPerson = (id: string, name: string, role: string, email: string, daysAgo: number) => {
     users.push({ ...base(id, daysAgo), email, phone: `+57 3${r.int(10, 50)}${r.int(1000000, 9999999)}`, status: 'active', locale: 'es', last_sign_in_at: iso(new Date(NOW.getTime() - r.int(0, 72) * MS.hour)) });
-    profiles.push({ ...base(`prf_${id.slice(4)}`, daysAgo), user_id: id, full_name: name, initials: name.split(' ').map((s) => s[0]).join('').slice(0, 2), photo_url: null, birthday: r.chance(0.3) ? dateKey(new Date(1975 + r.int(0, 30), r.chance(0.5) ? NOW.getMonth() : r.int(0, 11), r.int(1, 28))) : null, emergency_contact: null, marketing_optin: r.chance(0.7), whatsapp_verified: r.chance(0.8), notes: null });
+    profiles.push({ ...base(`prf_${id.slice(4)}`, daysAgo), user_id: id, full_name: name, initials: name.split(' ').map((s) => s[0]).join('').slice(0, 2), photo_url: null, birthday: r.chance(0.3) ? dateKey(studioDate(1975 + r.int(0, 30), r.chance(0.5) ? studioParts(NOW).month : r.int(0, 11), r.int(1, 28))) : null, emergency_contact: null, marketing_optin: r.chance(0.7), whatsapp_verified: r.chance(0.8), notes: null });
     db.user_roles.push({ ...base(`rol_${id.slice(4)}`, daysAgo), user_id: id, role, granted_by: 'usr_super' });
   };
   // Roles added after 0.11 (marketing, developer) are seeded at the end with fixed rows, so the shared RNG stream is untouched.
@@ -75,13 +75,13 @@ export function buildSeed(): Record<string, BaseRow[]> {
   // sessions: 7 days back, 7 days forward, including the published weekend classes
   const sessions = db.class_sessions as ClassSessionRow[];
   for (let d = -7; d <= 7; d++) {
-    const day = new Date(NOW); day.setDate(day.getDate() + d); day.setHours(0, 0, 0, 0);
-    const wd = day.getDay();
+    const day = atStudioTime(addDays(NOW, d), 0);
+    const wd = studioParts(day).weekday;
     TIMETABLE.filter((t) => t.weekday === wd).forEach((row, i) => {
       const { time: start, modality: mod, teacher: tea, title } = row;
       const m = modalities.find((x) => x.id === mod)!;
       const [h, mi] = start.split(':').map(Number);
-      const startsAt = new Date(day); startsAt.setHours(h, mi, 0, 0);
+      const startsAt = atStudioTime(day, h, mi);
       const endsAt = new Date(startsAt.getTime() + m.duration_min * MS.min);
       const past = endsAt < NOW;
       const cancelled = d > 0 && r.chance(0.04);
@@ -97,12 +97,12 @@ export function buildSeed(): Record<string, BaseRow[]> {
     const plan = plans.find((p) => p.slug === kind)!;
     const daysAgo = r.int(1, 60);
     const payId = `pay_${i}_${kind}`;
-    const paidAt = new Date(NOW); paidAt.setDate(paidAt.getDate() - daysAgo);
+    const paidAt = addDays(NOW, -daysAgo);
     payments.push({ ...base(payId, daysAgo), user_id: uid, plan_id: plan.id, amount: plan.price, amount_paid: plan.price, note: null, currency: 'COP', method: r.pick(['card', 'pse', 'qr', 'cash', 'transfer']), provider: r.chance(0.7) ? 'wompi' : 'manual', provider_ref: r.chance(0.7) ? `wmp_${r.int(100000, 999999)}` : null, status: 'approved', paid_at: iso(paidAt), taken_by: r.chance(0.3) ? 'usr_desk' : null });
     db.invoices.push({ ...base(`inv_${i}`, daysAgo), payment_id: payId, number: `${tenant.invoicePrefix}-${String(1000 + i)}`, ...splitIva(plan.price, DEFAULT_IVA_PCT / 100), issued_at: iso(paidAt), pdf_url: null, dian_cufe: null });
     if (plan.classes) {
       // A package (or a single / trial class bought ahead) opens its classes in the ledger, with the plan's validity.
-      const exp = new Date(paidAt); exp.setDate(exp.getDate() + (plan.validity_days ?? 30));
+      const exp = addDays(paidAt, plan.validity_days ?? 30);
       ledger.push({ ...base(`cls_${i}_buy`, daysAgo), user_id: uid, plan_id: plan.id, payment_id: payId, delta: plan.classes, reason: 'purchase', expires_at: dateKey(exp), frozen_from: null, frozen_until: null });
     }
   });
@@ -116,9 +116,9 @@ export function buildSeed(): Record<string, BaseRow[]> {
     if (s.status === 'cancelled') continue;
     const n = r.int(4, tenant.studio.mats);
     const shuffled = [...customerIds].sort(() => r.next() - 0.5).slice(0, n);
-    if (new Date(s.starts_at).getDate() === NOW.getDate() && !shuffled.includes('usr_cust') && r.chance(0.5)) shuffled[0] = 'usr_cust';
+    if (dateKey(new Date(s.starts_at)) === dateKey(NOW) && !shuffled.includes('usr_cust') && r.chance(0.5)) shuffled[0] = 'usr_cust';
     for (const uid of shuffled) {
-      if (uid === 'usr_cust') { const day = s.starts_at.slice(0, 10); if (custDays.has(day)) continue; custDays.add(day); }
+      if (uid === 'usr_cust') { const day = dateKey(new Date(s.starts_at)); if (custDays.has(day)) continue; custDays.add(day); }
       const past = s.status === 'completed';
       const status = past ? (r.chance(0.85) ? 'checked_in' : r.chance(0.5) ? 'no_show' : 'late_cancel') : 'booked';
       bookings.push({ ...base(`bk_${b++}`, 3), user_id: uid, session_id: s.id, status, paid_with: hasPackage(uid) ? 'package' : 'single', ledger_id: null, checked_in_at: status === 'checked_in' ? s.starts_at : null, cancelled_at: status === 'late_cancel' ? s.starts_at : null, rated: past && r.chance(0.4) });
@@ -275,8 +275,8 @@ export function buildSeed(): Record<string, BaseRow[]> {
     const uid = r.pick(customerIds), channel = r.pick(['whatsapp', 'email'] as const), template_key = r.pick(['class_reminder', 'receipt'] as const), automation_id = r.pick(['aut_1', 'aut_2']), status = r.pick(['sent', 'delivered', 'read'] as const);
     const stamp = base(`msg_${i}`, r.int(0, 6));
     // Local clock time (no RNG): a reminder goes out 2 h before the 5:30 p. m. class, a receipt at a till hour; a row that would land after NOW moves back a day.
-    const when = new Date(stamp.created_at); when.setHours(template_key === 'class_reminder' ? 15 : 9 + (i % 5) * 2, template_key === 'class_reminder' ? 30 : 15, 0, 0);
-    if (when > NOW) when.setDate(when.getDate() - 1);
+    let when = atStudioTime(new Date(stamp.created_at), template_key === 'class_reminder' ? 15 : 9 + (i % 5) * 2, template_key === 'class_reminder' ? 30 : 15);
+    if (when > NOW) when = addDays(when, -1);
     stamp.created_at = stamp.updated_at = iso(when);
     const tx = automationText(template_key, (profiles.find((p) => p.user_id === uid)?.full_name ?? '').split(' ')[0], channel);
     db.message_log.push({ ...stamp, user_id: uid, channel, direction: 'outbound', source: 'automation', template_key, automation_id, subject: tx.subject, body: tx.body, status, sent_at: stamp.created_at, sent_by: null, read_at: null, read_by: null, external_id: null, payload: null } as MessageLogRow);
@@ -335,7 +335,7 @@ export function buildSeed(): Record<string, BaseRow[]> {
     // Then her usual slot — Tuesday and Thursday at 08:10 ("practica en la mañana") — on days with no class yet.
     for (const weekday of [2, 4, 1, 3, 5, 6]) {
       if (have >= need) break;
-      const day = addDays(new Date(`${week}T12:00:00`), weekday - 1); day.setHours(0, 0, 0, 0);
+      const day = atStudioTime(addDays(fromDateKey(week), weekday - 1), 0);
       const key = dateKey(day);
       if (mine.has(key) || key >= dateKey(NOW)) continue;
       const row = TIMETABLE.find(t => t.weekday === weekday && t.time === '08:10');
@@ -345,7 +345,7 @@ export function buildSeed(): Record<string, BaseRow[]> {
       if (sessions.some((x) => x.id === id)) continue;
       const m = modalities.find((x) => x.id === mod)!;
       const [h, mi] = start.split(':').map(Number);
-      const startsAt = new Date(day); startsAt.setHours(h, mi, 0, 0);
+      const startsAt = atStudioTime(day, h, mi);
       const ses: ClassSessionRow = { ...base(id, back * 7 + 14), template_id: timetableId(row), title, modality_id: mod, teacher_id: tea, room_id: 'room_main', starts_at: iso(startsAt), ends_at: iso(new Date(startsAt.getTime() + m.duration_min * MS.min)), capacity: tenant.studio.mats, booked_count: 0, level: 'all', status: 'completed', cancel_reason: null };
       sessions.push(ses);
       checkIn('usr_cust', ses); mine.add(key); have++;
@@ -373,7 +373,7 @@ export function buildSeed(): Record<string, BaseRow[]> {
   const custStats = practiceStats({ userId: 'usr_cust', bookings, sessions, goals: goals.filter((g) => g.user_id === 'usr_cust'), memberships: memberships.filter((m) => m.user_id === 'usr_cust'), now: NOW });
   const custVisits = bookings.filter((bk) => bk.user_id === 'usr_cust' && bk.status === 'checked_in').map((bk) => ({ bk, ses: sessions.find((x) => x.id === bk.session_id)! })).filter((v) => v.ses && v.ses.status !== 'cancelled').sort((a, b) => a.ses.starts_at.localeCompare(b.ses.starts_at));
   for (const m of custStats.milestonesReached.filter((x) => x <= 10)) { const v = custVisits[m - 1]; events.push(event(`aev_cust_m${m}`, 'milestone', v.ses.starts_at, ['bookings', v.bk.id], { count: m })); }
-  for (const week of custStats.streak.savedWeeks) events.push(event(`aev_cust_saved_${week}`, 'streak.saved', iso(new Date(`${addDaysKey(week, 7)}T07:00:00`)), null, { week }));
+  for (const week of custStats.streak.savedWeeks) events.push(event(`aev_cust_saved_${week}`, 'streak.saved', iso(atStudioTime(fromDateKey(addDaysKey(week, 7)), 7)), null, { week }));
 
   return db;
 }

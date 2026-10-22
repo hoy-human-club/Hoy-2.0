@@ -16,9 +16,9 @@
  */
 import type { LegalDocumentRow } from '../schema';
 import { base, iso, NOW } from './catalog';
-import { dateKey } from '../../i18n/format';
+import { dateKey, atStudioTime, addMonths } from '../../i18n/format';
 
-const monthsAgo = (n: number) => { const d = new Date(NOW); d.setMonth(d.getMonth() - n); d.setHours(0, 0, 0, 0); return d; };
+const monthsAgo = (n: number) => { return atStudioTime(addMonths(NOW, -n), 0); };
 
 interface Draft {
   id: string;

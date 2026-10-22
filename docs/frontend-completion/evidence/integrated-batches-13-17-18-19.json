@@ -1,0 +1,90 @@
+{
+  "schema": "hoy.frontend-integrated-local-proof/1",
+  "requirements": [
+    "PR-01",
+    "PR-02",
+    "SW-02",
+    "PL-09",
+    "SW-03",
+    "CU-01",
+    "OT-01",
+    "PG-05"
+  ],
+  "relatedRegression": [
+    "PG-02",
+    "PG-04",
+    "RC-10",
+    "PF-01",
+    "IN-04"
+  ],
+  "sourceCheckpoint": "61fc32265fac67beb9e2e9c35de66629ba74368c",
+  "runtimeSourceSha256": "47807b065771c489640e9f49f8bbda7b2943573b5d1f70b9d7a8574fa859293a",
+  "fingerprintBasis": "sorted src path+bytes excluding generated src/app/captureDates.ts; then vite.config.ts bytes",
+  "build": "passed; spacing60 unchanged, manual0, strict TypeScript, Vite, hub-map/capture generation,66MB published shots under80MB budget",
+  "immutableBundle": "local5210 /tmp/hoy-integrated-qa-47807b065771; release.json checkout baseaf85 plus frozen uncommitted source; not final checked/deployed commit",
+  "domainPassed": [
+    "test-operational-quotes.mjs (UTC/Tokyo)",
+    "test-catalog-publication.mjs",
+    "test-transfer-receipts.mjs",
+    "test-package-lots.mjs",
+    "test-studio-timezone.mjs (four zones)",
+    "test-timezone-cache.mjs (four zones)",
+    "test-subscription-calendar.mjs",
+    "test-customer-registration.mjs",
+    "test-marketing-drafts.mjs",
+    "test-pending-payments.mjs",
+    "test-cached-sample-clock.mjs (37/37)",
+    "test-mock-additive-upgrade.mjs",
+    "test-class-management.mjs",
+    "test-class-pay-rules.mjs",
+    "test-reschedule-atomic.mjs",
+    "test-subscriptions.mjs",
+    "test-subscription-expenses.mjs",
+    "test-private-capture-policy.mjs",
+    "test-api-request-fixture.mjs",
+    "test-teacher-ownership.mjs"
+  ],
+  "productionPassed": [
+    "test-operational-quotes-ui.mjs",
+    "test-catalog-publication-ui.mjs",
+    "test-pending-package-ui.mjs",
+    "test-desk-sale-ui.mjs",
+    "test-pending-payments-ui.mjs",
+    "test-transfer-receipts-ui.mjs (corrected real viewport capture)",
+    "test-marketing-drafts-ui.mjs",
+    "test-customer-return-ui.mjs",
+    "test-studio-timezone-ui.mjs (32 cases/52 captures)",
+    "test-subscription-calendar-ui.mjs",
+    "test-api-request-fixture-ui.mjs",
+    "test-teacher-ownership-ui.mjs",
+    "test-continuation-library-ui.mjs (125 runtime routes; route presence unverified)"
+  ],
+  "developmentPassed": [
+    "test-customer-registration-states.mjs",
+    "test-teacher-ownership-states.mjs",
+    "test-pending-payments-states.mjs"
+  ],
+  "failureCoverage": [
+    "staged write/storage rollback, retry and concurrent idempotency",
+    "dated publication/day staleness and explicit review, retained historic purchase terms",
+    "upload type/size/decode/read-cancel/remove and review validation/rejection",
+    "missing/corrupt/foreign queue joins and four-read failures without partial actions",
+    "registration duplicate/contact/six-write failures/cancel/unmount/late commit acknowledgement",
+    "ownership actor/route/read/reassignment races before protected details mount",
+    "local draft revision/discard/read/write recovery and no provider table effects",
+    "configured studio midnight/default portable UTC and historical cache preservation"
+  ],
+  "screenshots": [
+    "docs/screenshots/S-09/es-390-pending-frozen-detail.jpg",
+    "docs/screenshots/C-04/en-390-transfer-preview.jpg",
+    "docs/screenshots/M-18/es-390-workspace.jpg",
+    "docs/screenshots/A-03/en-1280-selected-checkout.jpg",
+    "docs/screenshots/C-02/timezone-Asia-Tokyo-en-390.jpg",
+    "docs/screenshots/M-09d/timezone-verification-Asia-Tokyo-accepted-en-1280.jpg",
+    "docs/screenshots/D-02/en-390-continuation-quotes.jpg"
+  ],
+  "checks": "All named local matrices passed with zero recorded browser errors; representative final renders inspected. Initial tall library/receipt captures were corrected to real viewports without hiding/editing UI; functional assertions retained.",
+  "releaseGate": "pending final exact-head CI, checked merge and ordinary deployment/source verification",
+  "rollback": "e4257e5bd096898d312cac82f67b6922956c1560",
+  "limits": "All124 original source fields/phases preserved. Fictional browser data only, daily mock reset, no durable cross-device receipts/sharing or real provider/auth/security/owner acceptance. Backend/owner/art gates stay separate."
+}

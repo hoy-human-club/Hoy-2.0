@@ -33,6 +33,7 @@ function experienceOf(path, surface) {
     case 'teacher': return 'teacher';
     case 'staff': return under('/staff/inbox') ? 'inbox' : under('/staff/register') ? 'pos' : 'desk';
     case 'admin':
+      if (under('/admin/marketing')) return 'marketing';
       if (under('/admin/emails') || under('/admin/whatsapp')) return 'messages'; // 0048: M-04 + M-05, one card
       return under('/admin/crm') ? 'crm' : under('/admin/finance') ? 'finance' : 'admin';
     case 'dev': return under('/dev/knowledgebase') ? 'kb' : 'dev';

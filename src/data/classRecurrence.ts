@@ -1,9 +1,9 @@
 import { tenant } from '../tenant/tenant';
 import type { BaseRow, ClassSessionRow } from './schema';
 import type { Role } from '../auth/roles';
-import { dateKey, addDays, fromDateKey } from '../i18n/format';
+import { dateKey, addDays, fromDateKey, studioParts, atStudioTime } from '../i18n/format';
 export interface Occurrence { starts_at: string; ends_at: string }
-/** Bounded browser-local demo preview. Production scheduling must use the studio timezone. */
+/** Bounded fictional preview using the explicitly selected studio wall clock. */
 export function previewRecurrence(template: BaseRow, now = new Date(), horizonDays = 42): Occurrence[] {
  const out: Occurrence[] = [];
  const duration = Number(template.duration_min), weekday = Number(template.weekday), time = String(template.start_time);
@@ -11,9 +11,9 @@ export function previewRecurrence(template: BaseRow, now = new Date(), horizonDa
  const validDate = (value: unknown) => value == null || value === '' || /^\d{4}-\d{2}-\d{2}$/.test(String(value)) && dateKey(fromDateKey(String(value))) === value;
  if (!validDate(template.start_date) || !validDate(template.end_date) || template.start_date && template.end_date && String(template.start_date) > String(template.end_date)) return out;
  for (let i=0; i<=horizonDays; i++) {
-  const day = addDays(now,i), key = dateKey(day);
-  if (day.getDay() !== weekday || template.start_date && key < String(template.start_date) || template.end_date && key > String(template.end_date)) continue;
-  const [h,m] = time.split(':').map(Number); day.setHours(h,m,0,0);
+  let day = addDays(now,i); const key = dateKey(day);
+  if (studioParts(day).weekday !== weekday || template.start_date && key < String(template.start_date) || template.end_date && key > String(template.end_date)) continue;
+  const [h,m] = time.split(':').map(Number); day = atStudioTime(day,h,m);
   if (day <= now) continue;
   out.push({ starts_at:day.toISOString(), ends_at:new Date(day.getTime()+duration*60000).toISOString() });
  }

@@ -237,8 +237,8 @@
         "en": "Marketing"
       },
       "description": {
-        "es": "Contenido, campañas y la voz de la marca: el CMS, los correos y WhatsApp, y el CRM en lectura. El kit de marketing llega pronto.",
-        "en": "Content, campaigns and the brand voice: the CMS, emails and WhatsApp, and the CRM read-only. The marketing kit is coming soon."
+        "es": "Contenido, campañas y la voz de la marca: el CMS, los correos y WhatsApp, y el CRM en lectura. El kit tiene un prototipo de borradores locales; sin publicación.",
+        "en": "Content, campaigns and the brand voice: the CMS, emails and WhatsApp, and the CRM read-only. The kit has a local draft prototype; no publication."
       },
       "band": "team",
       "home": "/admin/content",
@@ -882,14 +882,14 @@
     },
     {
       "id": "marketing",
-      "code": "M-02",
+      "code": "M-18",
       "label": {
-        "es": "Kit de marketing — próximamente",
-        "en": "Marketing kit — coming soon"
+        "es": "Marketing · borradores locales",
+        "en": "Marketing · local drafts"
       },
       "purpose": {
-        "es": "Campañas, piezas de marca y calendario de contenido para el equipo de marketing. Aún no está construido; hoy marketing trabaja en Contenido (M-02).",
-        "en": "Campaigns, brand assets and the content calendar for the marketing team. Not built yet; today marketing works in Content (M-02)."
+        "es": "Prototipo de fase futura: campañas y calendario ficticios en este navegador, con referencias públicas existentes. Sin publicación, envíos ni aprobación de arte.",
+        "en": "Future-phase prototype: fictional campaigns and calendar in this browser, with existing public references. No publication, delivery or art approval."
       },
       "roleId": "marketing",
       "roles": [
@@ -900,22 +900,18 @@
       ],
       "band": "team",
       "device": "desktop",
-      "route": "/admin/content",
-      "url": "https://imagine-os.github.io/hoy/#/admin/content",
-      "comingSoon": true,
-      "pageCodes": [],
+      "route": "/admin/marketing",
+      "url": "https://imagine-os.github.io/hoy/#/admin/marketing",
+      "pageCodes": [
+        "M-18"
+      ],
       "shots": {
-        "thumbs": {
-          "es-desktop": "hub-map/shots/M-02/thumb-es-desktop.jpg",
-          "en-desktop": "hub-map/shots/M-02/thumb-en-desktop.jpg",
-          "es-desktop-dark": "hub-map/shots/M-02/thumb-es-desktop-dark.jpg",
-          "en-desktop-dark": "hub-map/shots/M-02/thumb-en-desktop-dark.jpg"
-        },
+        "thumbs": {},
         "full": {
-          "es-390": "hub-map/shots/M-02/es-390.jpg",
-          "en-390": "hub-map/shots/M-02/en-390.jpg",
-          "es-1280": "hub-map/shots/M-02/es-1280.jpg",
-          "en-1280": "hub-map/shots/M-02/en-1280.jpg"
+          "es-390": "hub-map/shots/M-18/es-390.jpg",
+          "en-390": "hub-map/shots/M-18/en-390.jpg",
+          "es-1280": "hub-map/shots/M-18/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-18/en-1280.jpg"
         }
       }
     },
@@ -4764,6 +4760,46 @@
           "en": "Front desk"
         },
         "order": 10
+      }
+    },
+    {
+      "code": "M-18",
+      "route": "/admin/marketing",
+      "name": {
+        "es": "Marketing · borradores locales",
+        "en": "Marketing · local drafts"
+      },
+      "purpose": {
+        "es": "Preparar borradores ficticios y fechas orientativas sin publicar ni enviar.",
+        "en": "Prepare fictional drafts and planning date labels without publishing or sending."
+      },
+      "surface": "admin",
+      "roles": [
+        "super_admin",
+        "admin",
+        "coordinator",
+        "marketing"
+      ],
+      "experienceId": "marketing",
+      "device": "desktop",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/M-18/es-390.jpg",
+          "en-390": "hub-map/shots/M-18/en-390.jpg",
+          "es-1280": "hub-map/shots/M-18/es-1280.jpg",
+          "en-1280": "hub-map/shots/M-18/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "content",
+        "label": {
+          "es": "Contenido",
+          "en": "Content"
+        },
+        "order": 20
       }
     },
     {

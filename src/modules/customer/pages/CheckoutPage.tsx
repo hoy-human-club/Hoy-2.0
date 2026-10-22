@@ -1,3 +1,6 @@
+import { useOperationalCatalog, useReviewedQuote } from '../../quotes/hooks';
+import { QuoteNotice } from '../../../components/molecule/QuoteNotice/QuoteNotice';
+import { checkSaleQuote, quotedItem } from '../../../data/operationalQuotes';
 import { SessionEditorial } from '../../../components/molecule/SessionEditorial/SessionEditorial';
 import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -5,7 +8,7 @@ import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useData, useTable } from '../../../data/DataContext';
 import type { BookingRow, ClassSessionRow } from '../../../data/schema';
-import { formatCOP, addDays, dateKey, MS } from '../../../i18n/format';
+import { formatCOP, MS } from '../../../i18n/format';
 import { useLayout } from '../../../layout/useLayout';
 import { Button } from '../../../components/atom/Button/Button';
 import { Badge } from '../../../components/atom/Badge/Badge';
@@ -68,6 +71,9 @@ export function CheckoutPage() {
     return null;
   });
   const kind: Choice = choice ?? (ent.defaultKind as Choice);
+  const catalog=useOperationalCatalog();
+  const review=useReviewedQuote(catalog,isPass(kind)?kind:null,1,90);
+  const checkoutKey=useRef(crypto.randomUUID()),confirmBusy=useRef(false);
   const [method, setMethod] = useState<PayMethod>('card');
   const [receiptImage,setReceiptImage]=useState<ReceiptImage|null>(null);
   const transferKey=useRef(`transfer_${crypto.randomUUID()}`);
@@ -79,21 +85,26 @@ export function CheckoutPage() {
   const [done, setDone] = useState<{ booking: BookingRow | null; pending: boolean } | null>(null);
 
   const conflict = useMemo(() => joined ? sameDayConflict(myBookings, sessions, joined.session) : null, [joined, myBookings, sessions, sameDayConflict]);
-  const amount = isPass(kind) ? priceOf(kind).price ?? 0 : 0;
+  const selectedItem=review.quote?quotedItem(review.quote):isPass(kind)?priceOf(kind):null;
+  const amount = isPass(kind) ? review.quote?.chargedAmount??0 : 0;
   const transferMethod = {id:'transfer' as const,provider:'manual' as const,label:{es:t('transfers.method'),en:t('transfers.method')},hint:{es:t('transfers.methodHint'),en:t('transfers.methodHint')},glyph:'bank' as const};
   const methods=[transferMethod,...PAYMENT_METHODS];
   const methodOpt = methods.find((m) => m.id === method)!;
 
   const choices: { id: Choice; title: string; sub: string; price: string; available: boolean }[] = [
     { id: 'package', title: t('customer.checkout.package'), sub: ent.pkg.frozen ? t('customer.classes.frozen.title') : t('customer.checkout.package.sub', { n: ent.classBalance }), price: t('core.common.included'), available: ent.classBalance > 0 },
-    ...BUYABLE.map((pid) => { const p = priceOf(pid); return { id: pid as Choice, title: bi(p.name), sub: bi(p.description), price: formatCOP(p.price ?? 0, lang), available: pid !== 'trial' || !ent.trialUsed }; }),
+    ...BUYABLE.map((pid) => { const q=catalog.quote(pid),p=q?quotedItem(q):priceOf(pid);return {id:pid as Choice,title:bi(p.name),sub:bi(p.description),price:q?formatCOP(q.amount,lang):t('quotes.unavailable'),available:!!q&&(pid!=='trial'||!ent.trialUsed)}; }),
   ];
 
   /** Books (and pays, when a pass is chosen). Resolves the outcome so the WebMCP action can report it. */
   const confirm = async (): Promise<string> => {
     if (!joined) return 'unavailable';
+    if(confirmBusy.current)return 'busy';
+    if(isPass(kind)&&!review.available)return 'quote_changed';
+    confirmBusy.current=true;
     setBusy(true); setError(null); setTransferError(false);
     try {
+      if(isPass(kind)&&review.quote)await checkSaleQuote(data,review.quote);
       if (yoga) {
         if (!matValid) { setError('mat'); return 'mat'; }
         chooseMat(await data.list<BookingRow>('bookings', { where: { session_id: joined.session.id } }), Math.min(joined.session.capacity, tenant.studio.mats), mat);
@@ -104,9 +115,9 @@ export function CheckoutPage() {
       if (!data.atomic) throw new Error('atomic_unavailable');
       if(method==='transfer' && amount>0 && isPass(kind)) {
         if(!receiptImage){setTransferError(true);return 'receipt_required';}
-        const item=priceOf(kind);
+        const item=selectedItem!;
         try {
-          await submitTransfer(data,{key:transferKey.current,userId:user.id,sessionId:joined.session.id,matNumber:yoga?mat:null,productId:`plan_${item.id}`,productName:item.name,amount,classes:item.classes??1,expiresAt:dateKey(addDays(new Date(),item.validityDays??90)),image:receiptImage});
+          await submitTransfer(data,{key:transferKey.current,userId:user.id,sessionId:joined.session.id,matNumber:yoga?mat:null,productId:`plan_${item.id}`,productName:item.name,amount,classes:item.classes??1,expiresAt:review.quote!.entitlementExpiresAt!,image:receiptImage,quote:review.quote!});
           setDone({booking:null,pending:true});return 'fictional transfer pending; no active booking or hold';
         }catch{setTransferError(true);return 'transfer_save_failed';}
       }
@@ -116,10 +127,10 @@ export function CheckoutPage() {
         let packagePaymentId: string | undefined;
         let pending = false;
         if (amount > 0 && isPass(kind)) {
-          const item = priceOf(kind);
+          const item = selectedItem!;
           let result: WompiResult | undefined;
           if (methodOpt.provider === 'wompi') result = await wompiCheckout({ amount, method: method as ElectronicMethod, simulate: simulateDecline ? 'declined' : 'approved' });
-          const payment = await recordPayment(transaction, { userId: user.id, planId: `plan_${item.id}`, amount, method, result, ivaRate: policy.ivaRate });
+          const payment = await recordPayment(transaction, { userId: user.id, planId: `plan_${item.id}`, amount, method, result, ivaRate: policy.ivaRate,quote:review.quote! });
           if (result?.status === 'declined') {
             setDeclined((d) => ({ reason: result?.reason ?? null, holdUntil: d?.holdUntil ?? new Date(Date.now() + policy.paymentHoldMinutes * MS.min).toISOString(), attempts: (d?.attempts ?? 0) + 1, method }));
             return null;
@@ -130,15 +141,15 @@ export function CheckoutPage() {
           }
           if (item.classes && item.classes > 1) {
             // A package bought with this booking: its classes open in the ledger and this class is the first one used.
-            await activatePaidPackage(transaction, { paymentId: payment.id, userId: user.id, planId: `plan_${item.id}`, classes: item.classes, expiresAt: dateKey(addDays(new Date(), item.validityDays ?? 90)) });
+            await activatePaidPackage(transaction, { paymentId: payment.id, userId: user.id, planId: `plan_${item.id}`, classes: item.classes, expiresAt: review.quote!.entitlementExpiresAt! });
             paidWith = 'package'; packagePlanId = `plan_${item.id}`; packagePaymentId=payment.id;
           }
         }
         const booking = await book(joined.session, paidWith, { packagePlanId, paymentId:packagePaymentId, matNumber: yoga ? mat : null, data: transaction });
         if (claimId) await transaction.update('waitlist', claimId, { status: 'claimed' });
         return { booking, pending };
-      });
-      if (!outcome) return 'declined';
+      },{idempotencyKey:`checkout:${user.id}:${checkoutKey.current}`});
+      if (!outcome){checkoutKey.current=crypto.randomUUID();return 'declined';}
       setDeclined(null);
       setDone(outcome);
       return outcome.booking ? `booked ${outcome.booking.id}` : 'payment pending; no classes activated or spot held';
@@ -146,7 +157,7 @@ export function CheckoutPage() {
       const code = (e as Error).message.startsWith('mat_') ? 'mat' : (e as Error).message === 'session_full' ? 'full' : 'unavailable';
       setError(code);
       return code;
-    } finally { setBusy(false); }
+    } finally { setBusy(false);confirmBusy.current=false; }
   };
 
   // WebMCP (0025). The handlers read the latest render through a ref so they are memoized once.
@@ -206,7 +217,7 @@ export function CheckoutPage() {
           ))}
         </div>
         {kind === 'trial' && <p className="xs muted">{t('customer.checkout.trialNote')}</p>}
-        {(kind === 'pack12' || kind === 'pack12_smtc') && <p className="xs muted">{t('customer.checkout.packNote', { n: (priceOf(kind).classes ?? 12) - 1, months: Math.round((priceOf(kind).validityDays ?? 90) / 30) })}</p>}
+        {(kind === 'pack12' || kind === 'pack12_smtc') && <p className="xs muted">{t('quotes.classToday', {n:(selectedItem?.classes??12)-1,date:review.quote?.entitlementExpiresAt??'—'})}</p>}
         {kind === 'pack12_smtc' && <p className="xs muted">{t('customer.plans.benefit.affiliates')}</p>}
       </section>
     ),
@@ -221,10 +232,10 @@ export function CheckoutPage() {
         {devMode && methodOpt.provider === 'wompi' && <Toggle size="sm" checked={simulateDecline} onChange={setSimulateDecline} label={t('customer.checkout.simulateDecline')} />}
       </section>
     ),
-    'OrderSummary (subtotal, IVA, total)': () => declined ? null : amount === 0 ? (
+    'OrderSummary (subtotal, IVA, total)': () => declined ? null : isPass(kind)&&!review.quote ? <Notice tone="warn">{t('quotes.unavailable')}</Notice> : amount === 0 ? (
       <Notice tone="success" title={t('customer.checkout.noCharge')}>{t('customer.checkout.noCharge.package', { h: policy.cancelWindowHours })}</Notice>
     ) : (
-      <OrderSummary lines={[{ label: bi(priceOf(kind as 'single').name), amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t(method==='transfer'?'transfers.summary':'customer.checkout.receiptNote')} />
+      <OrderSummary lines={[{ label: bi(selectedItem?.name??priceOf(kind as 'single').name), amount }]} taxRate={policy.ivaRate} subtotalLabel={t('customer.checkout.subtotal')} taxLabel={t('customer.checkout.iva')} totalLabel={t('customer.checkout.total')} note={t(method==='transfer'?'transfers.summary':'customer.checkout.receiptNote')} />
     ),
     ConfirmButton: () => declined ? (
       <DeclinedBlock state={declined} amount={amount} onRetry={(m) => { setMethod(m); setDeclined(null); setSimulateDecline(false); }} onRelease={() => nav(`/app/class/${s.id}`)} onExpired={() => setDeclined(null)} />
@@ -236,8 +247,8 @@ export function CheckoutPage() {
         {error === 'full' && <Notice tone="warn" title={t('customer.checkout.race.title')} action={<Button size="sm" onClick={() => nav(`/app/waitlist/${s.id}`)}>{t('core.common.waitlist')}</Button>}>{t('customer.checkout.race.body')}</Notice>}
         {error === 'unavailable' && <Notice tone="danger" title={t('core.common.error')}>{t('customer.checkout.unavailable')}</Notice>}
         {(error === 'conflict' || conflict) && <Notice tone="warn">{t('customer.book.oneADay')} {conflict && <Link to={`/app/class/${conflict}`}>{t('customer.class.seeOther')}</Link>}</Notice>}
-        <Button block size="lg" loading={busy} disabled={(method==='transfer'&&amount>0&&!receiptImage) || !!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
-          {method==='transfer'&&amount>0 ? t('transfers.submit') : amount > 0 ? (methodOpt.provider === 'wompi' ? t('customer.checkout.payWompi', { amount: formatCOP(amount, lang) }) : t('customer.checkout.confirmManual', { amount: formatCOP(amount, lang) })) : t('customer.checkout.confirm')}
+        <Button block size="lg" loading={busy} disabled={(isPass(kind)&&!review.available)||(method==='transfer'&&amount>0&&!receiptImage) || !!conflict || alreadyBooked || (yoga && !matValid) || s.status !== 'scheduled' || new Date(s.starts_at).getTime() <= Date.now()} onClick={confirm}>
+          {isPass(kind)&&!review.available?t('quotes.review'):method==='transfer'&&amount>0 ? t('transfers.submit') : amount > 0 ? (methodOpt.provider === 'wompi' ? t('customer.checkout.payWompi', { amount: formatCOP(amount, lang) }) : t('customer.checkout.confirmManual', { amount: formatCOP(amount, lang) })) : t('customer.checkout.confirm')}
         </Button>
         <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.checkout.policy', { h: policy.cancelWindowHours })}</p>
       </div>
@@ -248,6 +259,7 @@ export function CheckoutPage() {
     <div className="container page cust-page">
       <PageHead back={`/app/class/${s.id}`} title={t('customer.checkout.title')} sub={claimId ? t('customer.checkout.claiming') : undefined} />
       <Notice tone="info">{t('customer.checkout.demo')}</Notice>
+      {isPass(kind)&&<QuoteNotice catalog={catalog} review={review}/>}
       {/* ≥ 900 px: what you are booking (class + mat) on the left, how you pay + confirm on the right (D-0006). */}
       <SplitSections narrowClassName="stack" className="cust-checkout" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'ClassSummary'} />
       <Drawer open={!!done} onClose={() => done && nav(done.booking ? `/app/booking/${done.booking.id}` : '/app/classes')} title={t(done?.pending ? method==='transfer'?'transfers.pending':'customer.checkout.pending.title' : 'customer.book.ok')} side="bottom">

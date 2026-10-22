@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
 import type { BaseRow, PaymentRow, PlanRow } from '../../data/schema';
-import { formatCOP, formatDate, formatDateTime, MS } from '../../i18n/format';
+import { formatCOP, formatDate, formatDateTime, MS, addMonths } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
@@ -56,7 +56,7 @@ export function FinancePage() {
   // M-09a payroll roll-up: the three numbers that used to be an em dash.
   const nextRun = runs.find((r) => r.status === 'draft');
   const pendingRuns = runs.filter((r) => r.status === 'approved');
-  const quarterAgo = useMemo(() => { const d = new Date(); d.setMonth(d.getMonth() - 3); return d; }, []);
+  const quarterAgo = useMemo(() => { return addMonths(new Date(), -3); }, []);
   const paidQuarter = runs.filter((r) => r.status === 'paid' && r.paid_at && new Date(r.paid_at) >= quarterAgo);
   const payStatusOf = new Map(payments.map((p) => [p.id, p.status]));
   const invoicesInRange = invoices.filter((i) => new Date(i.issued_at).getTime() >= since && (invStatus === 'all' || payStatusOf.get(i.payment_id) === invStatus));

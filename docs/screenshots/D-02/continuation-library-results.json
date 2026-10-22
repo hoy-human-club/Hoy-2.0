@@ -1,0 +1,10 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "checks": [
+    "en: five quote library examples and interactive marketing preview/cancel at390/1280; existing super-admin only; future local-draft hub entry uses existing marketing role; no publication/provider claims",
+    "es: five quote library examples and interactive marketing preview/cancel at390/1280; existing super-admin only; future local-draft hub entry uses existing marketing role; no publication/provider claims"
+  ],
+  "registeredRoutes": 125,
+  "pageErrors": [],
+  "limits": "Fixture library and local hub only; no real provider render, production authorization or owner acceptance."
+}

@@ -5,7 +5,7 @@ import { useTable } from '../../data/DataContext';
 import type { BookingRow, ClassLedgerRow, PaymentRow, PlanRow } from '../../data/schema';
 import { approvedPackageRows, packageState, type PackageState } from '../../data/packages';
 import type { VoucherRow } from '../../data/vouchers';
-import { formatDate, MS } from '../../i18n/format';
+import { formatDate, MS, studioParts } from '../../i18n/format';
 import { useMinWidth } from '../../layout/useMinWidth';
 import { Card } from '../../components/molecule/Card/Card';
 import { Chip } from '../../components/atom/Chip/Chip';
@@ -57,10 +57,10 @@ function inSegment(p: Person, s: MemberStats | undefined, seg: Segment): boolean
   switch (seg) {
     case 'all': return true;
     case 'at_risk': return s?.risk === 'high' || s?.risk === 'medium';
-    case 'new': { const c = new Date(p.createdAt); return c.getMonth() === now.getMonth() && c.getFullYear() === now.getFullYear(); }
+    case 'new': { const c = new Date(p.createdAt); return studioParts(c).month === studioParts(now).month && studioParts(c).year === studioParts(now).year; }
     // 0051: no membership at launch, so the segment is "no classes left" (no live package or class bought ahead).
     case 'no_membership': return !p.membership && (s?.pkg.left ?? 0) <= 0;
-    case 'birthdays': return !!p.birthday && new Date(p.birthday).getMonth() === now.getMonth();
+    case 'birthdays': return !!p.birthday && Number(p.birthday.slice(5, 7)) - 1 === studioParts(now).month;
   }
 }
 

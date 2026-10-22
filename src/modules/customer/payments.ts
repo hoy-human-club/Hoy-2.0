@@ -13,8 +13,9 @@
  * desk, cash and the desk's other methods. No Nequi, no Daviplata. Cash never touches Wompi: it creates a `payments`
  * row with provider 'manual' and status 'pending' that the front desk settles (S-04).
  */
+import { checkSaleQuote, readPaymentQuote, type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
-import type { ClassLedgerRow, PaymentRow } from '../../data/schema';
+import type { BookingRow, ClassLedgerRow, PaymentRow } from '../../data/schema';
 import { splitIva } from '../../data/tax';
 import { tenant } from '../../tenant/tenant';
 import type { IconName } from '../../components/atom/Icon/Icon';
@@ -60,13 +61,22 @@ export async function wompiCheckout(input: { amount: number; method: ElectronicM
   return { status: 'approved', ref: ref() };
 }
 
+/** Existing once-per-person trial rule; called within the staged quoted sale. */
+export async function assertTrialAvailable(data:DataProvider,userId:string):Promise<void>{
+ const prior=await data.list<PaymentRow>('payments',{where:{user_id:userId}});
+ const bookings=await data.list<BookingRow>('bookings',{where:{user_id:userId}});
+ if(prior.some(p=>p.tenant_id===tenant.id&&p.plan_id==='plan_trial'&&p.status==='approved')||bookings.some(b=>b.tenant_id===tenant.id&&b.paid_with==='trial'))throw Error('trial_used');
+}
+
 /** Writes the payment (+ invoice on approval) the way the seed does, so history and admin agree. */
-export async function recordPayment(data: DataProvider, input: { userId: string; planId: string | null; amount: number; method: PayMethod; result?: WompiResult; takenBy?: string | null; ivaRate: number }): Promise<PaymentRow> {
+export async function recordPayment(data: DataProvider, input: { userId: string; planId: string | null; amount: number; method: PayMethod; result?: WompiResult; takenBy?: string | null; ivaRate: number; quote?: FrozenSaleQuote }): Promise<PaymentRow> {
+  if(input.quote){await checkSaleQuote(data,input.quote);if(input.quote.planId!==input.planId||input.quote.chargedAmount!==input.amount)throw Error('quote_scope');}
   const manual = input.method === 'transfer' || input.method === 'cash';
   const status = manual ? 'pending' : input.result?.status === 'approved' ? 'approved' : 'declined';
+  if(input.quote?.itemId==='trial'&&status==='approved')await assertTrialAvailable(data,input.userId);
   const now = new Date().toISOString();
   const payment = await data.insert<PaymentRow>('payments', {
-    user_id: input.userId, plan_id: input.planId, amount: input.amount, amount_paid: status === 'approved' ? input.amount : null, note: null, currency: 'COP', method: input.method,
+    ...(input.quote?{frontend_quote:structuredClone(input.quote)}:{}), user_id: input.userId, plan_id: input.planId, amount: input.amount, amount_paid: status === 'approved' ? input.amount : null, note: null, currency: 'COP', method: input.method,
     provider: manual ? 'manual' : 'wompi', provider_ref: input.result?.ref ?? null, status, paid_at: status === 'approved' ? now : null, taken_by: input.takenBy ?? null,
   } as Partial<PaymentRow>);
   if (status === 'approved') {
@@ -92,12 +102,16 @@ export async function wompiTokenise(input: { kind: SavableMethod }): Promise<{ t
 /** Activate a confirmed package exactly once. Call inside data.atomic with the payment/booking writes.
  * Existing purchase rows retain their stored quantity and expiry when this command is replayed.
  */
-export async function activatePaidPackage(data: DataProvider, input: { paymentId: string; userId: string; planId: string; classes: number; expiresAt: string }): Promise<ClassLedgerRow | null> {
+export async function activatePaidPackage(data: DataProvider, input: { paymentId: string; userId: string; planId: string; classes: number; expiresAt: string|null }): Promise<ClassLedgerRow | null> {
   const payment = await data.get<PaymentRow>('payments', input.paymentId);
   if (!payment || payment.user_id !== input.userId || payment.plan_id !== input.planId) throw new Error('payment_scope_invalid');
   if (payment.status !== 'approved') return null;
   const existing = (await data.list<ClassLedgerRow>('class_ledger', { where: { payment_id: payment.id, reason: 'purchase' } }))[0];
   if (existing) return existing;
-  if (!Number.isInteger(input.classes) || input.classes < 1) throw new Error('package_quantity_invalid');
-  return data.insert<ClassLedgerRow>('class_ledger', { user_id: input.userId, plan_id: input.planId, payment_id: payment.id, delta: input.classes, reason: 'purchase', expires_at: input.expiresAt, frozen_from: null, frozen_until: null });
+  const frozen=readPaymentQuote(payment);
+  if(payment.frontend_quote&&!frozen)throw Error('quote_scope');
+  if(frozen&&(frozen.kind!=='class'||frozen.quantity!==1))throw Error('quote_scope');
+  const classes=frozen?.classes??input.classes,expiresAt=frozen?frozen.entitlementExpiresAt:input.expiresAt;
+  if (!Number.isInteger(classes) || classes < 1) throw new Error('package_quantity_invalid');
+  return data.insert<ClassLedgerRow>('class_ledger', { user_id: input.userId, plan_id: input.planId, payment_id: payment.id, ...(frozen?{frontend_quote:structuredClone(frozen)}:{}), delta: classes, reason: 'purchase', expires_at: expiresAt, frozen_from: null, frozen_until: null });
 }

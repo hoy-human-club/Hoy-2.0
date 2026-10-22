@@ -1,3 +1,4 @@
+import { formatDate } from '../../i18n/format';
 // Editing the manual from the app (0031): a section marked `{{editable:owner|coordinator}}` can be rewritten
 // by that role and up, and since 0050 admin and super admin rewrite any section (canEditSection); the edit is stored beside the markdown (manual_overrides), shown in place with a badge,
 // a "see original" toggle, a history and "restore original". `{{studio:<key>}}` text policies edit inline;
@@ -20,7 +21,7 @@ import { chapterFor, type Chapter } from './manualIndex';
 import type { Section } from './sections';
 import { useRoleName } from './lms';
 
-const shortDate = (iso: string, lang: string) => new Date(iso).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+const shortDate = (iso: string, lang: string) => formatDate(iso, lang === 'en' ? 'en' : 'es', { day: 'numeric', month: 'short', year: 'numeric' });
 
 export interface OverrideAccess {
   liveOf: (heading: string) => ManualOverrideRow | undefined;

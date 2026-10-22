@@ -22,3 +22,6 @@ Existing note and class-completion actions reread current ownership inside a moc
 ## Remaining gates
 
 Anu owns authoritative teacher/session/roster authorization, tenant isolation and transactional note/completion commands; client gates cannot protect a real database. Future attendance permissions/sync remain separate and unresolved against the preserved reception-only launch rule. No future attendance mutation or new role access was inferred. No external questions/messages sent.
+
+
+Release receipt: [PR62](https://github.com/imagine-os/hoy/pull/62), checked head `fb0c318318714b5b54a0049d9528d091ad815f2e`; all six triggered exact-head workflows passed (control contracts has two jobs). Merge/deployed source `e4257e5bd096898d312cac82f67b6922956c1560`; rollback `fe905a8e0d38705f7a77bfda0234c648d6e7c6ab`. [Pages build/deploy/hosted exact-source verification passed](https://github.com/imagine-os/hoy/actions/runs/39703124987). Hosted proof covers provenance and selected existing flows; this batch’s new behavior remains local-production/exact-head-CI verified, separate from live backend and owner acceptance.

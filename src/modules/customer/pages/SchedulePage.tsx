@@ -1,3 +1,4 @@
+import { studioParts } from '../../../i18n/format';
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -62,7 +63,7 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
   const mine = useMemo(() => new Set(myBookings.filter((b) => b.status === 'booked').map((b) => b.session_id)), [myBookings]);
 
   const matches = (x: (typeof all)[number]) => {
-    const h = new Date(x.session.starts_at).getHours();
+    const h = studioParts(new Date(x.session.starts_at)).hour;
     return (filters.modality === 'all' || x.session.modality_id === filters.modality)
       && (filters.teacher === 'all' || x.session.teacher_id === filters.teacher)
       && (filters.time === 'all' || (filters.time === 'morning' ? h < 12 : h >= 12));

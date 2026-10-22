@@ -1,7 +1,7 @@
 {
   "requirement": "PF-01",
   "phase": "Nov 30 delivery",
-  "base": "http://127.0.0.1:5200",
+  "base": "http://127.0.0.1:5210",
   "checks": [
     "en: own roster only despite stored foreign pick, same-page foreign/missing/cross-tenant route denial, unlinked teacher cannot pick, storage rollback/retry note and completion preserving read-only attendance, admin/coordinator/super-admin previews and seven denied roles;390/1280 light/dark captures",
     "es: own roster only despite stored foreign pick, same-page foreign/missing/cross-tenant route denial, unlinked teacher cannot pick, storage rollback/retry note and completion preserving read-only attendance, admin/coordinator/super-admin previews and seven denied roles;390/1280 light/dark captures"

@@ -1,6 +1,6 @@
 {
   "feature": "PR-06",
-  "base": "http://127.0.0.1:5187",
+  "base": "http://127.0.0.1:5210",
   "checks": [
     "en: pending package request creates one payment, no purchase/debit/booking/capacity; EN/ES mobile and desktop pending notice",
     "en: confirmed demo payment activates 12 classes with stored expiry, one booking/debit linked to exact fresh purchase, old 3-class grant retained (total14); pending request remains separate",

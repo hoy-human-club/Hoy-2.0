@@ -1,0 +1,15 @@
+{
+  "requirement": "OT-01",
+  "phase": "After Nov 30",
+  "base": "http://127.0.0.1:5210",
+  "checks": [
+    "en: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Honolulu, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280",
+    "es: marketing create/edit/previewcancel, validation, readerror/retry/loading, writefailure/retry, date-label Nov1 preserved in Kiritimati, linked/undated calendar, discardcancel/linkedguard, stale-save nooverwrite, reload/dark, no provider DB mutations,4allowed/7denied and actor-isolated deep links;390/1280"
+  ],
+  "errors": [],
+  "limits": [
+    "Local actor/role-scoped fictional drafts, no publishing/delivery/spend/automatic scheduling or customer records.",
+    "Existing public brand reference IDs only, no approval/rights/final-art inference.",
+    "No shared-device/cross-tab atomic guarantee or backend acceptance."
+  ]
+}

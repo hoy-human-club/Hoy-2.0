@@ -1,3 +1,4 @@
+import {settledCapture} from './qa-rendered-capture.mjs';
 // RC-10: isolated fictional counter sales. No backend, payments, messages or private captures.
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -39,10 +40,10 @@ async function fill(page,lang='en',existing=false,query='mariana') {
 try {
  for(const lang of ['en','es']) {
   console.log(`Sale UI ${lang}: start`); const {ctx,page}=await fixture('open',lang);await fill(page,lang);
-  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:`${output}/${lang}-${width}-atomic-sale.jpg`,quality:72,fullPage:true});}
+  for(const width of [390,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await settledCapture(page,{path:`${output}/${lang}-${width}-atomic-sale.jpg`,quality:72,fullPage:true});}
   await page.getByRole('button',{name:lang==='en'?'Toggle theme':'Cambiar tema',exact:true}).click();
   assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
-  for(const width of [390,1280]){await page.setViewportSize({width,height:900});await page.screenshot({path:`${output}/${lang}-${width}-dark-atomic-sale.jpg`,quality:72,fullPage:true});}
+  for(const width of [390,1280]){await page.setViewportSize({width,height:900});await settledCapture(page,{path:`${output}/${lang}-${width}-dark-atomic-sale.jpg`,quality:72,fullPage:true});}
   const before=await snapshot(page);await page.getByRole('button',{name:lang==='en'?'Complete sale':'Completar venta',exact:true}).click();await page.getByRole('heading',{name:lang==='en'?'Sale complete':'Venta completa',exact:true}).waitFor();
   await page.getByText(lang==='en'?'Local demonstration with fictional data. Does not process real payments.':'Demostración local con datos ficticios. No procesa pagos reales.',{exact:false}).waitFor();
   const db=await snapshot(page),profile=db.profiles.find(p=>p.full_name==='QA Fictional Sale'),uid=profile.user_id;
@@ -50,7 +51,7 @@ try {
   const payments=db.payments.filter(p=>p.user_id===uid),ledger=db.class_ledger.filter(r=>r.user_id===uid),bookings=db.bookings.filter(b=>b.user_id===uid);
   assert.equal(payments.length,1);assert.equal(payments[0].status,'approved');assert.equal(db.invoices.filter(i=>i.payment_id===payments[0].id).length,1);assert.equal(ledger.filter(r=>r.delta>0).length,1);assert.equal(ledger.filter(r=>r.delta===-1).length,1);assert.equal(bookings.length,1);assert.equal(bookings[0].ledger_id,ledger.find(r=>r.delta===-1).id);assert.equal(bookings[0].status,'checked_in');assert.equal(bookings[0].paid_with,'trial');assert.equal(ledger.find(r=>r.delta===-1).payment_id,payments[0].id);assert.equal(db.class_sessions.find(s=>s.id==='qa_sale_session').booked_count,1);
   assert(db.message_log.filter(r=>r.user_id===uid).every(r=>r.status==='queued'&&r.sent_at===null),'receipt stays mock queued');
-  for(const theme of ['dark','light']){if(theme==='light')await page.getByRole('button',{name:lang==='en'?'Toggle theme':'Cambiar tema',exact:true}).click();for(const width of [390,1280]){await page.setViewportSize({width,height:900});await page.screenshot({path:`${output}/${lang}-${width}-${theme}-atomic-receipt.jpg`,quality:72,fullPage:true});}}
+  for(const theme of ['dark','light']){if(theme==='light')await page.getByRole('button',{name:lang==='en'?'Toggle theme':'Cambiar tema',exact:true}).click();for(const width of [390,1280]){await page.setViewportSize({width,height:900});await settledCapture(page,{path:`${output}/${lang}-${width}-${theme}-atomic-receipt.jpg`,quality:72,fullPage:true});}}
   checks.push(`${lang}: fictional new-person consent, approved payment/invoice, one purchase/debit/check-in, receipt queued, EN/ES 390/1280 light/dark form/receipt`);await ctx.close();
  }
  const admin=await fixture('open','en','usr_admin');await fill(admin.page);const adminBefore=await snapshot(admin.page);await admin.page.getByRole('button',{name:'Complete sale',exact:true}).click();await admin.page.getByRole('heading',{name:'Sale complete',exact:true}).waitFor();const adminDb=await snapshot(admin.page);const adminAudit=adminDb.audit_log.filter(a=>!adminBefore.audit_log.some(old=>old.id===a.id)&&a.action!=='mock.transaction');assert(adminAudit.length>0);assert(adminAudit.every(a=>a.actor_id==='usr_admin'&&a.diff?.role==='admin'&&a.diff?.source==='front_desk'));checks.push('administrator sale retains actual actor/effective role and front-desk source in every staged audit row');await admin.ctx.close();

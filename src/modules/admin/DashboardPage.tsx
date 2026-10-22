@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useTable } from '../../data/DataContext';
 import type { BookingRow, MembershipRow, PaymentRow } from '../../data/schema';
-import { formatCOP, formatDate, formatTime, isSameDay, MS } from '../../i18n/format';
+import { formatCOP, formatDate, formatTime, isSameDay, MS, addDays } from '../../i18n/format';
 import { useLayout } from '../../layout/useLayout';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
@@ -41,7 +41,7 @@ export function DashboardPage() {
   const days = useMemo(() => {
     const out: { id: string; label: string; value: number; hint?: string }[] = [];
     for (let d = -3; d <= 3; d++) {
-      const day = new Date(); day.setDate(day.getDate() + d);
+      const day = addDays(new Date(), d);
       const ss = week.filter((x) => isSameDay(x.session.starts_at, day));
       const cap = ss.reduce((a, x) => a + x.session.capacity, 0);
       out.push({ id: String(d), label: formatDate(day.toISOString(), lang, { weekday: 'short', day: 'numeric' }), value: cap ? Math.round((ss.reduce((a, x) => a + x.session.booked_count, 0) / cap) * 100) : 0, hint: d === 0 ? t('core.common.today') : undefined });

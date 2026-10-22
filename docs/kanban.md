@@ -1,5 +1,11 @@
 # HoyOS kanban
 
+## Frontend controls and next integration (2026-10-22)
+
+- PR62 batches14–16 merged `e4257e5`; all six triggered workflows passed at `fb0c318`, normal Pages build/deploy/hosted source verification passed. IN-04 symbolic responses, PG-05 all-pending queue and PF-01 ownership are focused frontend slices, not whole-feature acceptance.
+- Frozen batches13/17/18/19: operational fictional quotes, Bogotá calendars, customer return/fictional registration and AfterNov30 local marketing drafts. Root integrates, repeats production QA, checks exact-head CI and deploys through one Git mutation lane.
+- All124 original IDs/criteria/source statuses/phases retained; historical baseline classification separated from current partial mock implementations. Receipt storage issue54, owner policy decisions, real auth/provider authorization and backend persistence remain separate gates. [Handoff](frontend-completion/README.md).
+
 ## Independent future prototypes · 0087/0088 (2026-10-22)
 
 - IN-03 local hours dry-run; OT-02 fictional maintenance records/intake. Original AfterNov30 phases preserved; production QA/checked release in progress.
