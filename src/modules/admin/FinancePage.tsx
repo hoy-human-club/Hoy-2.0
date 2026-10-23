@@ -1,4 +1,5 @@
 import { ConfirmedPaymentReport } from '../../components/organism/ConfirmedPaymentReport/ConfirmedPaymentReport';
+import { usePaymentReport } from './usePaymentReport';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -27,7 +28,8 @@ type Range = '7d' | '15d' | '30d' | '90d' | 'all';
 export function FinancePage() {
   const { t, lang, bi } = useI18n();
   const { settings } = useSettings();
-  const { rows: payments, loading } = useTable<PaymentRow>('payments', { orderBy: { column: 'created_at', dir: 'desc' } });
+  const paymentReport = usePaymentReport();
+  const payments = paymentReport.payments, loading = paymentReport.status === 'loading';
   const { rows: invoices } = useTable<InvoiceRow>('invoices', { orderBy: { column: 'issued_at', dir: 'desc' } });
   const { rows: plans } = useTable<PlanRow>('plans');
   const { byId } = usePeople();
@@ -118,7 +120,7 @@ export function FinancePage() {
         </div>
         <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.payouts.body')} <Link to="/admin/settings/payments">{t('core.nav.settings')}</Link></p>
       </Card>
-      <ConfirmedPaymentReport payments={payments} loading={loading} productName={id=>{const p=planMap.get(id);return p?bi({es:p.name_es,en:p.name_en}):id;}} personName={id=>byId.get(id)?.name??id}/>
+      <ConfirmedPaymentReport payments={payments} specialSales={paymentReport.specialSales} loading={loading} readError={paymentReport.status==='error'} onRetry={paymentReport.retry} productName={id=>{const p=planMap.get(id);return p?bi({es:p.name_es,en:p.name_en}):id;}} personName={id=>byId.get(id)?.name??id}/>
       <section className="stack-sm">
         <div className="row-between wrap"><div className="eyebrow">{t('admin.finance.payments')}</div><span className="xs muted">{t('admin.finance.refund.disabled')}</span></div>
         <DataTable columns={payCols} rows={inRange} rowKey={(p) => p.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} />

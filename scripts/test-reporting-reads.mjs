@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+const bundled=await build({stdin:{contents:"export * from './src/modules/admin/paymentReportReads';export * from './src/data/confirmedPaymentReport';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',write:false,logLevel:'silent'});
+const {watchPaymentReport,confirmedPaymentReport}=await import('data:text/javascript;base64,'+Buffer.from(bundled.outputFiles[0].text).toString('base64'));
+const tick=()=>new Promise(resolve=>setTimeout(resolve,0)),pending=[];
+const listeners=new Map(),reads=[],states=[];
+const provider={list(table,q){reads.push({table,q});return new Promise((resolve,reject)=>pending.push({table,resolve,reject}));},subscribe(table,cb){listeners.set(table,cb);return()=>listeners.delete(table);}};
+const state=()=>states.at(-1),pay={id:'qa',tenant_id:'t',status:'approved',currency:'COP',amount:123,amount_paid:123,paid_at:'2026-10-22T15:00:00Z',method:'cash',plan_id:null,taken_by:null};
+const reader=watchPaymentReport(provider,'t',s=>states.push(s));assert.equal(state().status,'loading');assert.equal(pending.length,2);
+assert(reads.every(r=>r.q.where.tenant_id==='t'));assert.deepEqual(reads[0].q.orderBy,{column:'created_at',dir:'desc'});
+const first=pending.splice(0);reader.retry();const second=pending.splice(0);
+second[0].resolve([pay,{...pay,id:'foreign',tenant_id:'other'}]);second[1].resolve([]);await tick();assert.equal(state().status,'ready');assert.equal(state().payments.length,1);
+first[0].resolve([]);first[1].reject(Error('stale rejection'));await tick();assert.equal(state().payments.length,1,'older failed read cannot replace newer success');
+listeners.get('special_charges')();assert.equal(state().status,'loading');assert.deepEqual(state().payments,[]);let work=pending.splice(0);work[0].resolve([pay]);work[1].reject(Error('special read failed'));await tick();assert.equal(state().status,'error');assert.deepEqual(state().payments,[]);
+reader.retry();work=pending.splice(0);work[0].reject(Error('payment read failed'));work[1].resolve([]);await tick();assert.equal(state().status,'error');
+reader.retry();work=pending.splice(0);work[0].resolve([]);work[1].resolve([]);await tick();assert.equal(state().status,'ready');assert.deepEqual(state().payments,[],'empty is successful, distinct from failed');
+reader.retry();work=pending.splice(0);work[0].resolve([pay,pay]);work[1].resolve([]);await tick();assert.equal(state().status,'error','malformed duplicate rows are blocked');
+reader.retry();work=pending.splice(0);reader.stop();const count=states.length;work[0].resolve([pay]);work[1].resolve([]);await tick();assert.equal(states.length,count,'unmounted late read ignored');assert.equal(listeners.size,0);reader.retry();assert.equal(states.length,count);
+const args={tenantId:'t',from:'2026-10-22',to:'2026-10-22',productName:()=> 'PLAN',personName:()=> 'STAFF',missingProductLabel:'UNRECORDED'};
+const sale={id:'sc',tenant_id:'t',payment_id:'qa',concept:'=SUM(1,2),"FICTICIO"\r\nñ'};
+const linked=confirmedPaymentReport([pay],{...args,specialSales:[sale]});assert.equal(linked.rows[0].productId,'special_charge:sc');assert.equal(linked.rows[0].product,sale.concept);assert.equal(linked.unresolvedProducts,0);assert(linked.csv.includes("\"'=SUM(1,2),\"\"FICTICIO\"\"\r\nñ\""));
+for(const specialSales of [[],[{...sale,tenant_id:'foreign'}],[{...sale,payment_id:'wrong'}],[sale,{...sale,id:'duplicate'}],[{...sale,concept:' '}],[{...sale,id:''}]]){const result=confirmedPaymentReport([pay],{...args,specialSales});assert.equal(result.rows[0].product,'UNRECORDED');assert.equal(result.rows[0].productId,'');assert.equal(result.unresolvedProducts,1);}
+assert.equal(confirmedPaymentReport([{...pay,plan_id:'plan'}],{...args,specialSales:[sale]}).rows[0].product,'PLAN','catalog plan remains primary');
+console.log('PASS report-local reads: fresh two-table snapshot, scoped reads, subscription reload, contained payment/special failures, retry empty, stale success/failure, duplicate data, stop/unmount; linked/foreign/missing/ambiguous special concepts, CSV escaping and plan priority.');
