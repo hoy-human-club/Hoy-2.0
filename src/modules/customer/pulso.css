@@ -38,20 +38,64 @@
 .cust-home .cust-practice-tiles > .stat:last-child:not(.cust-practice-streak) { background: var(--tone-sun-dot); color: var(--pulso-ink); }
 .cust-home .cust-practice-tiles > :is(.cust-practice-streak, .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint) { color: inherit; }
 
-/* E-01 · the first-time welcome: blue hero tile, then the seven classes as tone tiles */
-.cust-welcome { display: flex; flex-direction: column; gap: var(--stack-loose); }
-.cust-welcome h2 { margin: 0; font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1.02; color: inherit; text-wrap: balance; }
-.cust-welcome p { margin: 0; max-width: 34ch; color: color-mix(in srgb, var(--color-text-on-inverse) 88%, transparent); }
-.cust-welcome-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-control); }
-.cust-welcome-actions a:not(.btn) { color: var(--color-text-on-inverse); }
-.cust-classes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-md); }
-.cust-classes-title { grid-column: 1 / -1; }
-.cust-class-tile { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--sp-2xs); min-height: 7.5rem; padding: var(--card-pad); border-radius: var(--r-lg); text-decoration: none; transition: transform var(--dur-base) var(--ease-out); }
-.cust-class-tile:hover { text-decoration: none; transform: translateY(-2px); }
-.cust-class-tile strong { font-family: var(--font-editorial); font-weight: 500; font-size: var(--fs-2xl); line-height: 1; }
-.cust-class-tile span { font-size: var(--fs-xs); line-height: 1.35; }
-.cust-class-tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
-@media (min-width: 900px) { .cust-classes { grid-template-columns: repeat(4, minmax(0, 1fr)); } .cust-class-tile:last-child:nth-child(odd) { grid-column: auto; } }
+/* 0158 · Pulso Luxe — restraint: paper, ink and hairlines, one tone per screen, the brand's serif set like an
+   invitation (light weight, italics, old-style figures) and labels in widely tracked small capitals. Theme tokens only,
+   so light and dark both follow. */
+:is(.luxe-welcome, .luxe-card-page, .luxe-intention) { --luxe-line: var(--color-border); --luxe-muted: var(--color-text-muted); }
+.luxe-eyebrow { margin: 0; font-family: var(--font-body); font-size: var(--fs-2xs); font-weight: var(--fw-medium); letter-spacing: .32em; text-transform: uppercase; color: var(--luxe-muted); }
+.luxe-muted { margin: 0; font-size: var(--fs-sm); line-height: 1.6; color: var(--luxe-muted); max-width: 40ch; }
+.luxe-aside { font-family: var(--font-editorial); font-style: italic; font-size: var(--fs-md); color: var(--luxe-muted); }
+.luxe-dot { flex: 0 0 auto; width: var(--sp-sm); height: var(--sp-sm); border-radius: var(--r-full); background: var(--t-dot, var(--tone-river-dot)); }
+
+/* E-01 · the welcome as an invitation, then the class index */
+.luxe-welcome { gap: var(--section); }
+.luxe-welcome-head { display: flex; flex-direction: column; gap: var(--stack-loose); padding-top: var(--block); }
+.luxe-date { font-family: var(--font-editorial); font-style: italic; font-size: var(--fs-lg); color: var(--luxe-muted); font-variant-numeric: oldstyle-nums; }
+.luxe-hello { margin: 0; font-family: var(--font-editorial); font-weight: 300; font-size: clamp(3rem, 13vw, 4.75rem); line-height: .96; letter-spacing: -0.015em; color: var(--color-ink); }
+.luxe-hello em { font-weight: 400; }
+.luxe-lead { margin: 0; font-family: var(--font-editorial); font-size: var(--fs-2xl); line-height: 1.15; color: var(--color-ink); }
+.luxe-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--block); margin-top: var(--sp-sm); }
+.luxe-cta { display: inline-flex; align-items: center; gap: var(--gap-control); min-height: var(--h-ctl-lg); padding: 0 var(--sp-xl); border: 0; border-radius: var(--r-full); background: var(--color-ink); color: var(--color-bg); font: inherit; font-size: var(--fs-sm); letter-spacing: .04em; cursor: pointer; transition: transform var(--dur-slow) var(--ease-out); }
+.luxe-cta > span { width: var(--sp-xl); height: 1px; background: var(--brand-yellow); transition: width var(--dur-slow) var(--ease-out); }
+.luxe-cta:hover { transform: translateY(-1px); }
+.luxe-cta:hover > span { width: var(--sp-2xl); }
+.luxe-link { color: var(--color-ink); font-size: var(--fs-sm); text-underline-offset: .35em; text-decoration-color: var(--luxe-line); }
+.luxe-index-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gap-control); padding-bottom: var(--sp-sm); border-bottom: 1px solid var(--luxe-line); }
+.luxe-index ul { list-style: none; margin: 0; padding: 0; }
+.luxe-index li { border-bottom: 1px solid var(--luxe-line); }
+.luxe-index li:last-child { border-bottom: 0; }
+.luxe-index-row { display: flex; align-items: center; gap: var(--gap-control); min-height: var(--h-ctl); padding-block: var(--sp-md); color: inherit; text-decoration: none; }
+.luxe-index-row:hover { text-decoration: none; }
+.luxe-index-row:hover .luxe-index-name { font-style: italic; }
+.luxe-index-name { flex: 0 0 34%; font-family: var(--font-editorial); font-size: var(--fs-xl); color: var(--color-ink); }
+.luxe-index-tagline { flex: 1 1 auto; min-width: 0; font-family: var(--font-editorial); font-style: italic; font-size: var(--fs-md); color: var(--luxe-muted); }
+
+/* C-03 · the intention leads the class: large italic, then the method and the four keys */
+.luxe-intention { margin: 0 0 var(--block); display: flex; flex-direction: column; gap: var(--stack); }
+.luxe-intention blockquote { margin: 0; }
+.luxe-intention blockquote p { margin: 0; max-width: 28ch; font-family: var(--font-editorial); font-style: italic; font-size: clamp(1.6rem, 6.5vw, 2.25rem); line-height: 1.18; color: var(--color-ink); text-wrap: balance; }
+.luxe-intention figcaption { display: flex; align-items: center; gap: var(--gap-inline); }
+.luxe-intention figcaption::before { content: ""; width: var(--sp-sm); height: var(--sp-sm); border-radius: var(--r-full); background: var(--t-dot, var(--tone-river-dot)); }
+.luxe-method { margin: var(--sp-sm) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--luxe-line); }
+.luxe-method > div { padding: var(--sp-md) var(--sp-md) var(--sp-md) 0; }
+.luxe-method > div + div { padding-left: var(--sp-md); border-left: 1px solid var(--luxe-line); }
+.luxe-method dt { font-size: var(--fs-2xs); letter-spacing: .28em; text-transform: uppercase; color: var(--luxe-muted); }
+.luxe-method dd { margin: var(--sp-xs) 0 0; font-family: var(--font-editorial); font-size: var(--fs-lg); line-height: 1.25; color: var(--color-ink); }
+.luxe-keys { margin: 0; font-size: var(--fs-2xs); letter-spacing: .28em; text-transform: uppercase; color: var(--luxe-muted); }
+
+/* C-28 · the member card page */
+.luxe-card-page { display: flex; flex-direction: column; gap: var(--block); }
+.luxe-head { display: flex; flex-direction: column; gap: var(--stack-tight); }
+.luxe-title { margin: 0; font-family: var(--font-editorial); font-weight: 300; font-size: clamp(2.4rem, 9vw, 3.25rem); line-height: 1; color: var(--color-ink); }
+.luxe-facts { margin: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-top: 1px solid var(--luxe-line); border-bottom: 1px solid var(--luxe-line); max-width: 26rem; }
+.luxe-facts > div { display: flex; flex-direction: column; gap: var(--sp-xs); padding: var(--sp-md) var(--sp-md) var(--sp-md) 0; }
+.luxe-facts > div + div { padding-left: var(--sp-md); border-left: 1px solid var(--luxe-line); }
+.luxe-facts dt { font-size: var(--fs-2xs); letter-spacing: .28em; text-transform: uppercase; color: var(--luxe-muted); }
+.luxe-facts dd { margin: 0; font-family: var(--font-editorial); font-size: var(--fs-3xl); line-height: 1; color: var(--color-ink); font-variant-numeric: oldstyle-nums; }
+.luxe-facts dd em { font-size: var(--fs-md); }
+.luxe-facts dd.is-small { font-size: var(--fs-xl); padding-top: var(--sp-sm); }
+.luxe-next { display: flex; flex-direction: column; gap: var(--stack); }
+.luxe-next-row { display: flex; align-items: center; gap: var(--gap-control); font-family: var(--font-editorial); font-size: var(--fs-xl); line-height: 1.2; color: var(--color-ink); text-decoration: none; font-variant-numeric: oldstyle-nums; }
 
 /* C-03 · the title block sits on a tile in the class's own tone */
 .cust-class-tile-head { display: flex; flex-direction: column; gap: var(--stack); padding: var(--card-pad-lg); border-radius: var(--r-xl); }
@@ -69,5 +113,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   :is(.cust-home, .cust-pulso) .card-primary::after, .cust-booked-card::after { animation: none; }
-  .cust-class-tile { transition: none; }
+  .luxe-cta, .luxe-cta > span { transition: none; }
 }

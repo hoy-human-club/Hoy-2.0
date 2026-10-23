@@ -9,7 +9,7 @@
     "version": "0.25.0",
     "baseUrl": "https://imagine-os.github.io/hoy/"
   },
-  "generatedAt": "2026-10-23T00:00:00.000Z",
+  "generatedAt": "2026-10-24T00:00:00.000Z",
   "run": {
     "how": "window.__hoyos.run(id, params)",
     "note": "in-page only; no MCP server yet"

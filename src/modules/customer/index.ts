@@ -49,6 +49,7 @@ export const routes: RouteDef[] = [
   { ...base, path: '/app/more', element: page('MorePage'), spec: canvasSpecs['C-25'], nav: { labelKey: 'core.nav.more', icon: 'more', order: 4 } },
   { ...base, path: '/app/account', element: page('AccountPage'), spec: canvasSpecs['C-26'] },
   { ...base, path: '/app/practice', element: page('PracticePage'), spec: canvasSpecs['C-27'] },
+  { ...base, path: '/app/card', element: page('MemberCardPage'), spec: canvasSpecs['C-28'] },
   // A-06 in-app: the same legal library the site serves, plus the member's own acceptance.
   { ...base, path: '/app/legal/:kind', element: page('LegalAppPage'), spec: canvasSpecs['A-06'] },
   // Edge states, reachable as demo routes (and rendered inline by C-01, C-04 and C-08 when the state is real).

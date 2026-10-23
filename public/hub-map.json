@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-23T00:00:00.000Z",
+  "generatedAt": "2026-10-24T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -383,6 +383,7 @@
         "C-24",
         "C-26",
         "C-27",
+        "C-28",
         "A-06",
         "E-01",
         "E-02",
@@ -392,8 +393,7 @@
         "A-03",
         "C-21",
         "E-04",
-        "E-05",
-        "C-28"
+        "E-05"
       ],
       "shots": {
         "thumbs": {
@@ -3735,6 +3735,46 @@
       }
     },
     {
+      "code": "C-28",
+      "route": "/app/card",
+      "name": {
+        "es": "Tarjeta de miembro",
+        "en": "Member card"
+      },
+      "purpose": {
+        "es": "La tarjeta del club de la persona: su nombre y desde cuándo es miembro, y debajo lo que tiene (clases, racha, vencimiento) y su próxima clase. Se muestra en recepción.",
+        "en": "The member’s club card: their name and since when they are a member, and below it what they have (classes, streak, expiry) and their next class. Shown at the front desk."
+      },
+      "surface": "customer",
+      "roles": [
+        "customer",
+        "teacher",
+        "super_admin",
+        "admin"
+      ],
+      "experienceId": "app",
+      "device": "phone",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/C-28/es-390.jpg",
+          "en-390": "hub-map/shots/C-28/en-390.jpg",
+          "es-1280": "hub-map/shots/C-28/es-1280.jpg",
+          "en-1280": "hub-map/shots/C-28/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "account",
+        "label": {
+          "es": "Cuenta",
+          "en": "Account"
+        },
+        "order": 30
+      }
+    },
+    {
       "code": "A-06",
       "route": "/app/legal/:kind",
       "name": {
@@ -5661,46 +5701,6 @@
           "en": "Admin"
         },
         "order": 10
-      }
-    },
-    {
-      "code": "C-28",
-      "route": "/app/vouchers",
-      "name": {
-        "es": "Activar invitación",
-        "en": "Activate invitation"
-      },
-      "purpose": {
-        "es": "Activar un bono de prueba y reservar con acompañantes.",
-        "en": "Activate a test voucher and book with guests."
-      },
-      "surface": "customer",
-      "roles": [
-        "super_admin",
-        "admin",
-        "customer",
-        "teacher"
-      ],
-      "experienceId": "app",
-      "device": "phone",
-      "status": "built",
-      "actions": [],
-      "shots": {
-        "thumbs": {},
-        "full": {
-          "es-390": "hub-map/shots/C-28/es-390.jpg",
-          "en-390": "hub-map/shots/C-28/en-390.jpg",
-          "es-1280": "hub-map/shots/C-28/es-1280.jpg",
-          "en-1280": "hub-map/shots/C-28/en-1280.jpg"
-        }
-      },
-      "group": {
-        "id": "pay",
-        "label": {
-          "es": "Pagar",
-          "en": "Pay"
-        },
-        "order": 20
       }
     },
     {

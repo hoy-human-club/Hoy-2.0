@@ -22,6 +22,7 @@ import {  PageHead, durationMin, roomName, shareText } from '../ui';
 import { ClassThumbnail } from '../../../components/molecule/ClassThumbnail/ClassThumbnail';
 import { StudioCancelledBlock } from './blocks';
 import '../pulso.css';
+import { classes as brandClasses, classForModality } from '../../../tenant/brand';
 
 const spec = canvasSpecs['C-03'];
 
@@ -56,6 +57,8 @@ export function ClassDetailPage() {
   const past = new Date(s.ends_at).getTime() < Date.now();
   const cancelled = s.status === 'cancelled';
   const full = left <= 0;
+  const brandSlug = classForModality(m?.slug);
+  const brand = brandSlug ? brandClasses[brandSlug] : undefined;
 
   const share = async () => {
     const r = await shareText(`${s.title} · ${formatDate(s.starts_at, lang)} ${formatTime(s.starts_at, lang)} · ${tenant.name}`, window.location.href);
@@ -104,6 +107,18 @@ export function ClassDetailPage() {
     ),
     AboutSection: () => (
       <section className="stack-sm">
+        {/* 0158 · Pulso Luxe: the class's own intention (brand book) leads, then its method and keys. */}
+        {brand && (
+          <figure className="luxe-intention" data-tone={m?.tone ?? 'river'}>
+            <blockquote><p>“{bi(brand.intention)}”</p></blockquote>
+            <figcaption className="luxe-eyebrow">{t('customer.class.intention')}</figcaption>
+            <dl className="luxe-method">
+              <div><dt>{t('customer.class.method')}</dt><dd>{bi(brand.method)}</dd></div>
+              <div><dt className="sr-only">{t('customer.class.intensity')}</dt><dd>{bi(brand.methodNote)}</dd></div>
+            </dl>
+            <p className="luxe-keys">{brand.keys.map((k) => bi(k)).join(' · ')}</p>
+          </figure>
+        )}
         <h2 className="cust-h2">{t('customer.class.about')}</h2>
         <SessionEditorial session={s} />
         {m && <div className="row wrap small muted">

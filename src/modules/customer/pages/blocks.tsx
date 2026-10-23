@@ -102,29 +102,39 @@ export function DeclinedBlock({ state, amount, onRetry, onRelease, onExpired }: 
 
 /** E-01 — home on day one: teach the next step instead of empty containers. */
 export function EmptyHomeBlock() {
-  const { t, bi } = useI18n();
+  const { t, bi, lang } = useI18n();
   const nav = useNavigate();
   const { user } = useSession();
   return (
-    <div className="stack cust-home">
-      <h1 className="cust-greeting">{t('customer.home.greeting', { name: user.name.split(' ')[0] })}</h1>
-      {/* 0157 · Pulso: the welcome is the blue hero tile, then the seven classes as tone tiles to explore. */}
-      <Card tone="primary" padding="lg" className="cust-welcome">
-        <h2>{t('customer.empty.title')}</h2>
-        <p>{t('customer.empty.body', { name: tenant.name })}</p>
-        <div className="cust-welcome-actions">
-          <Button size="lg" onClick={() => nav('/app/schedule')}>{t('customer.empty.cta')}</Button>
-          <Link to="/app/rules" className="small">{t('customer.empty.tour')} →</Link>
+    <div className="stack cust-home luxe-welcome">
+      {/* 0158 · Pulso Luxe: one quiet screen — an invitation-style greeting, one ink action, and the seven classes as a
+          refined index (dot, name, italic tagline) instead of seven loud tiles. */}
+      <header className="luxe-welcome-head">
+        <span className="luxe-date">{formatDate(new Date(), lang, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+        <h1 className="luxe-hello">{t('customer.luxe.hello')}<br /><em>{user.name.split(' ')[0]}.</em></h1>
+        <p className="luxe-lead">{t('customer.empty.title')}</p>
+        <p className="luxe-muted">{t('customer.empty.body', { name: tenant.name })}</p>
+        <div className="luxe-actions">
+          <button type="button" className="luxe-cta" onClick={() => nav('/app/schedule')}>{t('customer.empty.cta')}<span aria-hidden="true" /></button>
+          <Link to="/app/rules" className="luxe-link">{t('customer.empty.tour')}</Link>
         </div>
-      </Card>
-      <section className="cust-classes" aria-labelledby="cust-classes-title">
-        <h2 id="cust-classes-title" className="eyebrow cust-classes-title">{t('customer.empty.classes', { n: Object.keys(brandClasses).length })}</h2>
-        {(Object.keys(brandClasses) as ClassSlug[]).map((slug) => (
-          <Link key={slug} to="/app/schedule" className="cust-class-tile tone-tile" data-tone={brandClasses[slug].tone}>
-            <strong>{bi(brandClasses[slug].name)}</strong>
-            <span>{bi(brandClasses[slug].tagline)}</span>
-          </Link>
-        ))}
+      </header>
+      <section className="luxe-index" aria-labelledby="luxe-index-title">
+        <div className="luxe-index-head">
+          <h2 id="luxe-index-title" className="luxe-eyebrow">{t('customer.empty.classes', { n: Object.keys(brandClasses).length })}</h2>
+          <span className="luxe-aside">{t('customer.luxe.duration', { n: tenant.classDefaults.durationMin })}</span>
+        </div>
+        <ul>
+          {(Object.keys(brandClasses) as ClassSlug[]).map((slug) => (
+            <li key={slug} data-tone={brandClasses[slug].tone}>
+              <Link to="/app/schedule" className="luxe-index-row">
+                <span className="luxe-dot" aria-hidden="true" />
+                <span className="luxe-index-name">{bi(brandClasses[slug].name)}</span>
+                <span className="luxe-index-tagline">{bi(brandClasses[slug].tagline)}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
       <Card tone="muted" eyebrow={t('customer.empty.stats')}><p className="small muted">{t('customer.empty.stats.body')}</p></Card>
       <Notice tone="info" action={<Link to="/app/passes"><Button size="sm" variant="secondary">{t('customer.empty.trial')}</Button></Link>}>{t('customer.home.membership.nudge')}</Notice>
