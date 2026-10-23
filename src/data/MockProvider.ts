@@ -66,7 +66,7 @@ function isCurrentSnapshot(stored: Stored, now = new Date()): boolean {
  */
 function upgradeAdditiveMockTables(db: Db) {
   if (!db || typeof db !== 'object') return;
-  for (const table of ['class_pay_rules', 'transfer_receipts', 'maintenance_records']) {
+  for (const table of ['class_pay_rules', 'transfer_receipts', 'maintenance_records', 'email_change_previews', 'teacher_profile_proposals']) {
     if (!Object.prototype.hasOwnProperty.call(db, table)) db[table] = [];
   }
 }

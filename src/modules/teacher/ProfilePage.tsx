@@ -25,13 +25,20 @@ export function TeacherProfilePage() {
   const [pick]=useState(()=>{try{return localStorage.getItem('hoyos.teach.as');}catch{return null;}});
   const me=teacherIdentity(review.value?.teachers??[],{userId:user.id,role,name:user.name},pick);
   const modalities=(review.value?.modalities??[]).filter(m=>m.active);
-  const captured=useRef(''),snapshot=useRef(''),epoch=useRef(0);
+  const captured=useRef(''),snapshot=useRef(''),baseline=useRef(''),epoch=useRef(0);
   const [revisionReady,setRevisionReady]=useState(false);
   const [draft, setDraft] = useState({ display_name: '', bioEs: '', bioEn: '', specialties: [] as string[] });
   const pending=review.value?.proposals.find(p=>p.teacher_id===me?.id&&p.status==='pending');
   const latest=review.value?.proposals.find(p=>p.teacher_id===me?.id);
-  const resetDraft=(row:TeacherRow)=>{const version=++epoch.current;captured.current=user.id+':'+row.id;setRevisionReady(false);setDraft({display_name:row.display_name,bioEs:row.bio?.es??'',bioEn:row.bio?.en??'',specialties:row.specialties??[]});void teacherRevision(row).then(value=>{if(version===epoch.current){snapshot.current=value;setRevisionReady(true);}});};
-  useEffect(()=>{if(me&&captured.current!==user.id+':'+me.id)resetDraft(me);},[me,user.id]);
+  const resetDraft=(row:TeacherRow)=>{const version=++epoch.current;captured.current=user.id+':'+row.id;baseline.current=JSON.stringify([row.display_name,row.bio?.es??'',row.bio?.en??'',row.specialties??[]]);setRevisionReady(false);setDraft({display_name:row.display_name,bioEs:row.bio?.es??'',bioEn:row.bio?.en??'',specialties:row.specialties??[]});void teacherRevision(row).then(value=>{if(version===epoch.current){snapshot.current=value;setRevisionReady(true);}});};
+  // Refresh a clean editor or the just-published proposal, while preserving unrelated unsaved edits.
+  useEffect(()=>{
+    if(!me)return;
+    const published=JSON.stringify([me.display_name,me.bio?.es??'',me.bio?.en??'',me.specialties??[]]);
+    const edited=JSON.stringify([draft.display_name,draft.bioEs,draft.bioEn,draft.specialties]);
+    const submitted=JSON.stringify([draft.display_name.trim(),draft.bioEs.trim(),draft.bioEn.trim()||draft.bioEs.trim(),draft.specialties]);
+    if(captured.current!==user.id+':'+me.id||published!==baseline.current&&(edited===baseline.current||submitted===published))resetDraft(me);
+  },[me,user.id,draft]);
   useEffect(()=>()=>{epoch.current++;},[]);
   const retry=()=>{if(me)resetDraft(me);review.retry();};
   if(!me)return <div className="container page stack teach"><Notice tone={review.status==='error'?'warn':'info'} action={<Button onClick={retry}>{t('review.retry')}</Button>}>{t(review.status==='error'?'review.readError':review.status==='loading'?'review.loading':'teacher.home.notLinked')}</Notice></div>;
