@@ -45,3 +45,7 @@ interface BookingPaymentSummary {
 This is a proposal, not a schema/provider addition. Payment release, reservation release, credit return and refund must remain distinct. PC-01/PC-02 timing decisions, retained immutable purchase intent, actor authorization, capacity recheck and event provenance belong to the payment/integration owner. Do not manufacture an elapsed timeout or refund from the UI clock. The next integration must render this authoritative read model while preserving unknown legacy records; this batch does not fulfill the whole RS-08 lifecycle.
 
 Central provider/schema/auth, payment/voucher components and public website files remain untouched. No backend, authentication, notification, release, real customer data or financial operation is added.
+
+## Integration regression repair
+
+The first exact-head cancellation CI run failed its existing production-browser regression: the new `change && active` mount condition removed the cancellation command owner after the booking commit, before its verified result could appear. Subscribed reads can also temporarily enter loading during that commit. The repair retains the keyed change sheet and its last loaded owned booking through those refreshes, preserving the existing command hook, same-intent retry and verified outcome until explicitly closed. Read failure and empty-state handling remain in the page. Existing cancellation assertions are unchanged. Changelog/prompt ordinal 0143 preserves the voucher release's 0142.

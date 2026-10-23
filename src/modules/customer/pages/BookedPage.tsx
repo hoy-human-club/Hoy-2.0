@@ -4,7 +4,7 @@ import { useContact, pendingSuffix } from '../../admin/settings';
 import { useCustomerRows } from '../useCustomerRows';
 import {CustomerCancellationReview} from '../../../components/organism/CustomerCancellationReview/CustomerCancellationReview';
 import {useCustomerCancellation} from '../useCustomerCancellation';
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import type { BookingRow, ClassLedgerRow, PaymentRow, ClassSessionRow, ModalityRow, TeacherRow, RoomRow } from '../../../data/schema';
@@ -64,10 +64,25 @@ export function BookedPage({ change = false }: { change?: boolean }) {
   const now = useNow(15_000);
   const [flash, setFlash] = useState<{ tone: 'success' | 'warn'; text: string } | null>(null);
 
-  if (readError) return <div className="container page cust-page"><PageHead back="/app/history" title={t('customer.booked.payment.title')} /><Notice tone="danger" action={<Button onClick={() => reads.forEach(r => r.retry())}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice></div>;
+  // Keep the command owner mounted through subscribed refreshes and its own commit.
+  // The hook retains an unconfirmed intent and verified result until the viewer closes it.
+  const changeRecord = useRef<{ routeId: typeof id; userId: string; booking: BookingRow; joined: NonNullable<typeof joined> } | null>(null);
+  if (!loading && !readError && booking && joined) changeRecord.current = { routeId: id, userId: user.id, booking, joined };
+  const retained = changeRecord.current;
+  const changeSheet = change && retained && retained.routeId === id && retained.userId === user.id ? (
+    <ChangeSheet key="booking-change"
+      open={retained.booking.status === 'booked' && retained.joined.session.status !== 'cancelled' && Date.parse(retained.joined.session.ends_at) >= now}
+      onClose={() => nav(`/app/booking/${retained.booking.id}`, { replace: true })}
+      booking={retained.booking} joined={retained.joined}
+      inside={insideCancelWindow(retained.joined.session.starts_at, now)}
+      deadline={cancelDeadline(retained.joined.session.starts_at)} onResult={setFlash} />
+  ) : null;
+
+  if (readError) return <div className="container page cust-page">{changeSheet}<PageHead back="/app/history" title={t('customer.booked.payment.title')} /><Notice tone="danger" action={<Button onClick={() => reads.forEach(r => r.retry())}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice></div>;
   if (loading || !booking || !joined) {
     return (
       <div className="container page cust-page">
+        {changeSheet}
         <PageHead back="/app" title={loading ? <Skeleton width={180} height={28} /> : t('customer.booked.notFound')} />
         {loading ? <Skeleton shape="rect" height={200} /> : <EmptyState title={t('customer.booked.notFound')} body={t('customer.booked.notFound.body')} action={<Link to="/app/history"><Button variant="secondary">{t('core.nav.history')}</Button></Link>} />}
       </div>
@@ -147,11 +162,11 @@ export function BookedPage({ change = false }: { change?: boolean }) {
 
   return (
     <div className="container page cust-page">
+      {changeSheet}
       <PageHead back="/app" title={<span className="sr-only">{s.title}</span>} />
       {flash && <Notice tone={flash.tone}>{flash.text}</Notice>}
       {/* ≥ 900 px: countdown + class on the left; reminder, actions, calendar and policy on the right. */}
       <SplitSections narrowClassName="stack" className="cust-booked" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'CountdownRing' && n !== 'ClassSummary'} />
-      {change && active && <ChangeSheet open={true} onClose={() => nav(bookingBase, { replace: true })} booking={booking} joined={joined} inside={inside} deadline={deadline} onResult={(f) => { setFlash(f); }} />}
     </div>
   );
 }
