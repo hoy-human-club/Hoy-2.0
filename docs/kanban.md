@@ -1,3 +1,5 @@
+Desk receipt label repair: retain the scoped queue customer in the settled preview, keep the genuine unknown fallback, and guard provider/persona changes. See frontend-completion/desk-receipt-customer.md; checked release is handled separately.
+
 Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployment verification pending. RS-10 batch43 actual baseline/domain/build/production/dev/library pass, root artifact review complete, final-head CI/release pending. RC-02 batch45 plus technical46 build passes, browser QA executing. No owner/backend acceptance or phase changes. See docs/frontend-completion/CONTINUE.md.
 
 # HoyOS kanban
