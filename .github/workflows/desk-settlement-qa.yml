@@ -5,6 +5,7 @@ on:
       - 'src/modules/transfers/**'
       - 'src/components/organism/DeskPaymentSettlement/**'
       - 'scripts/test-desk-settlement*.mjs'
+      - 'scripts/desk-settlement-customer*'
       - '.github/workflows/desk-settlement-qa.yml'
 permissions:
   contents: read
@@ -32,10 +33,20 @@ jobs:
           npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-desk-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
           node scripts/test-desk-settlement-ui.mjs
+          QA_OUTPUT=qa/desk-settlement/customer node scripts/test-desk-settlement-customer-ui.mjs
           node scripts/test-pending-payments-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5187
           QA_OUTPUT: qa/desk-settlement
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify settled customer context boundaries
+        run: |
+          QA_PORT=5188 QA_CACHE_DIR=/tmp/desk-customer-deps node scripts/qa-pending-payments-dev.mjs > /tmp/hoy-desk-customer-dev.log 2>&1 &
+          for i in $(seq 1 60); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
+          node scripts/test-desk-settlement-customer-context.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5188
+          QA_OUTPUT: qa/desk-settlement/customer-context
           CHROMIUM_PATH: /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
@@ -44,4 +55,5 @@ jobs:
           path: |
             qa/desk-settlement/
             /tmp/hoy-desk-preview.log
+            /tmp/hoy-desk-customer-dev.log
           retention-days: 7
