@@ -1,59 +1,91 @@
+/* 0156 · Direction C "Pulso": rounded tiles on sand. The page keeps its own brand colours in both themes (it never
+   followed the app theme); every value comes from the D-01 brand and tone tokens. */
 .coming-soon {
-  position: relative; isolation: isolate; min-height: 100svh; overflow: hidden;
-  color: var(--brand-cream); background: var(--brand-deepBlue);
-  --color-ink: var(--brand-cream); --color-text: var(--brand-cream);
+  --cs-ground: var(--hoy-c20);
+  --cs-paper: var(--brand-white);
+  --cs-ink: var(--brand-ink);
+  --cs-ink-deep: color-mix(in srgb, var(--brand-ink) 50%, #000); /* holds ≥ 4.5:1 on the river, clay and sun tiles */
+  --cs-muted: color-mix(in srgb, var(--brand-ink) 78%, var(--brand-white));
+  position: relative; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column;
+  padding: 0 var(--gutter) var(--gutter); background: var(--cs-ground); color: var(--cs-ink);
+  --color-ink: var(--brand-ink); --color-text: var(--brand-ink);
 }
-.coming-soon-scene, .coming-soon-veil { position: absolute; inset: 0; z-index: -1; }
-.coming-soon-scene { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
-/* 0155 · the text column gets a deeper, longer ink scrim (it holds to ~45% before easing out) and the bottom band is
-   darker, so the small lines ("Lo que viene…", the footer) never sit on the busy mirror and mats. */
-.coming-soon-veil {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 95%, transparent), color-mix(in srgb, var(--brand-ink) 82%, transparent) 30%, color-mix(in srgb, var(--brand-deepBlue) 58%, transparent) 48%, color-mix(in srgb, var(--brand-ink) 6%, transparent) 80%),
-    linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 72%, transparent), transparent 34%);
-}
-.coming-soon-layout {
-  min-height: 100svh; max-width: 120rem; margin-inline: auto;
-  display: flex; flex-direction: column;
-  padding: var(--sp-2xl) var(--section);
-}
-.coming-soon-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--block); }
+.coming-soon-header { display: flex; align-items: center; justify-content: space-between; gap: var(--block); padding-block: var(--sp-lg); }
+.coming-soon-wordmark.wordmark-vector { width: 6.5rem; height: calc(6.5rem / var(--wm-ratio)); }
 .coming-soon-tools { display: flex; align-items: center; gap: var(--gap-control); }
-/* 0155 · Login (owner request, 0058) stays but steps back: a text link beside the language pill, not a second pill. */
-.coming-soon-login { display: inline-flex; align-items: center; justify-content: center; min-height: var(--h-ctl); padding: 0 var(--sp-sm); border: 0; border-radius: var(--r-sm); color: color-mix(in srgb, var(--brand-cream) 88%, transparent); background: none; font: inherit; font-size: var(--fs-sm); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--brand-cream) 40%, transparent); text-underline-offset: .3em; white-space: nowrap; cursor: pointer; transition: color var(--dur-fast), text-decoration-color var(--dur-fast); }
-.coming-soon-login:hover { color: var(--brand-cream); text-decoration-color: var(--brand-yellow); }
-/* 0155 · one lockup: the tagline sits tight under the script mark and shares its left edge with everything below. */
-.coming-soon-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
-/* An explicit height, as the site header does: aspect-ratio alone let the inner svg fall back to its 150 px default,
-   which opened a ~90 px hole between the script and "Human club". */
-.coming-soon-brand .wordmark-vector { width: 8rem; height: calc(8rem / var(--wm-ratio)); min-width: 0; }
-.coming-soon-brand > span:last-child { margin-top: var(--sp-sm); padding-left: var(--sp-2xs); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .28em; opacity: .85; }
-.coming-soon .langtoggle { background: color-mix(in srgb, var(--brand-ink) 58%, transparent); border-color: color-mix(in srgb, var(--brand-cream) 32%, transparent); }
-.coming-soon .langtoggle button { color: var(--brand-cream); min-width: var(--h-ctl); }
-.coming-soon .langtoggle button.is-active { background: var(--brand-cream); color: var(--brand-ink); box-shadow: none; }
-.coming-soon-message { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-block: var(--section); max-width: 36rem; }
-.coming-soon-status { margin: 0 0 var(--block); display: flex; align-items: center; gap: var(--gap-inline); text-transform: uppercase; letter-spacing: .2em; font-size: var(--fs-xs); color: var(--brand-yellow); }
-.coming-soon-status > span { width: var(--sp-sm); height: var(--sp-sm); border-radius: var(--r-full); background: currentColor; box-shadow: 0 0 0 var(--sp-xs) color-mix(in srgb, var(--brand-yellow) 13%, transparent); }
-.coming-soon h1 { margin: 0; font-family: var(--font-editorial); font-size: clamp(3rem, 5.7vw, 5.6rem); line-height: 1.04; letter-spacing: var(--ls-tight); font-weight: 400; color: var(--brand-cream); }
+/* Login (owner request, 0058): a quiet text link beside the language pill. */
+.coming-soon-login { display: inline-flex; align-items: center; justify-content: center; min-height: var(--h-ctl); padding: 0 var(--sp-sm); border: 0; border-radius: var(--r-sm); background: none; color: var(--cs-ink); font: inherit; font-size: var(--fs-sm); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--brand-ink) 35%, transparent); text-underline-offset: .3em; white-space: nowrap; cursor: pointer; }
+.coming-soon-login:hover { text-decoration-color: var(--brand-deepBlue); }
+.coming-soon .langtoggle { background: var(--cs-paper); border-color: transparent; }
+.coming-soon .langtoggle button { color: var(--cs-ink); min-width: var(--h-ctl); }
+.coming-soon .langtoggle button.is-active { background: var(--cs-ink); color: var(--cs-paper); box-shadow: none; }
+
+/* the bento: 4 columns × 3 rows on desktop */
+.coming-soon-bento { flex: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .8fr); gap: var(--sp-lg); min-height: 40rem; }
+.coming-soon-tile { position: relative; overflow: hidden; margin: 0; border-radius: var(--r-xl); padding: var(--card-pad-lg); box-sizing: border-box; min-width: 0; }
+.coming-soon-hero { grid-column: 1 / span 2; grid-row: 1 / span 2; display: flex; flex-direction: column; justify-content: space-between; gap: var(--block); background: var(--brand-deepBlue); color: var(--cs-paper); }
+.coming-soon-date { grid-column: 4; grid-row: 1; display: flex; flex-direction: column; justify-content: space-between; background: var(--brand-yellow); color: var(--color-on-highlight); }
+.coming-soon-photo { grid-column: 3; grid-row: 1 / span 3; padding: 0; }
+.coming-soon-classes { grid-column: 1 / span 2; grid-row: 3; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-lg); min-width: 0; }
+.coming-soon-more { grid-column: 4; grid-row: 2 / span 2; display: flex; flex-direction: column; gap: var(--stack-loose); background: var(--cs-paper); }
+
+/* hero */
+.coming-soon-rings { position: absolute; right: calc(-1 * var(--sp-5xl)); bottom: calc(-1 * var(--sp-5xl)); width: 24rem; height: 24rem; border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 24%, transparent); box-shadow: 0 0 0 2.5rem color-mix(in srgb, var(--brand-white) 5%, transparent), 0 0 0 5rem color-mix(in srgb, var(--brand-white) 4%, transparent), 0 0 0 7.5rem color-mix(in srgb, var(--brand-white) 3%, transparent); animation: coming-soon-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
+@keyframes coming-soon-breathe { from { transform: scale(1); } to { transform: scale(1.07); } }
+.coming-soon-chip { position: relative; align-self: flex-start; margin: 0; display: inline-flex; align-items: center; gap: var(--gap-inline); padding: var(--sp-sm) var(--sp-md); border-radius: var(--r-full); background: color-mix(in srgb, var(--brand-white) 14%, transparent); font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.coming-soon-chip > span { width: var(--sp-sm); height: var(--sp-sm); border-radius: var(--r-full); background: var(--brand-yellow); }
+.coming-soon-message { position: relative; display: flex; flex-direction: column; gap: var(--block); }
+.coming-soon h1 { margin: 0; font-family: var(--font-editorial); font-size: clamp(3rem, 5.6vw, 6.75rem); line-height: 1; letter-spacing: var(--ls-tight); font-weight: 400; color: inherit; text-wrap: balance; }
 .coming-soon h1 > span { display: block; }
-/* 0155 · the last line in italic (as the site's "tu tiempo."), its last word on the sun marker in ink: the one loud moment. */
 .coming-soon-lead { font-style: italic; }
-.coming-soon-mark { display: inline-block; line-height: 1; padding: 0 .1em .04em; margin-right: .02em; border-radius: .08em; background: var(--brand-yellow); color: var(--brand-ink); transform: rotate(-1.2deg); }
-.coming-soon-intro { max-width: 35ch; margin: var(--block) 0 0; font-size: var(--fs-md); line-height: 1.65; text-wrap: pretty; }
-.coming-soon-cta { margin-top: var(--sp-2xl); }
-.coming-soon-follow { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--block); min-height: var(--h-ctl-lg); padding: 0 var(--sp-xl); border: 1px solid var(--brand-cream); border-radius: var(--r-full); color: var(--brand-ink); background: var(--brand-cream); text-decoration: none; font-size: var(--fs-sm); font-weight: var(--fw-medium); transition: background var(--dur-base), transform var(--dur-base); }
-.coming-soon-follow:hover { color: var(--brand-ink); background: var(--brand-yellow); transform: translateY(-1px); }
-.coming-soon-cta > p { font-size: var(--fs-xs); margin: var(--sp-md) 0 0; opacity: .85; }
-.coming-soon-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--block); font-size: var(--fs-xs); }
-.coming-soon-footer p { margin: 0; }
-.coming-soon :is(button, a):focus-visible { outline: 2px solid var(--brand-yellow); outline-offset: var(--sp-xs); }
-@media (max-width: 767px) {
-  .coming-soon-tools { flex-direction: column; align-items: flex-end; gap: var(--sp-sm); }
-  .coming-soon-layout { padding: var(--sp-xl) var(--gutter); }
-  .coming-soon-scene { object-position: 58% center; }
-  .coming-soon-veil { background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 86%, transparent), color-mix(in srgb, var(--brand-ink) 43%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 85%, transparent), transparent 90%); }
-  .coming-soon-message { padding-block: var(--sp-3xl); }
-  .coming-soon h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
-  .coming-soon-footer { align-items: flex-end; gap: var(--sp-md); }
-  .coming-soon-footer > p { max-width: 12ch; line-height: 1.6; }
+.coming-soon-mark { display: inline-block; line-height: 1; padding: 0 .1em .04em; margin-right: .02em; border-radius: .08em; background: var(--brand-yellow); color: var(--cs-ink); transform: rotate(-1.2deg); }
+.coming-soon-intro { max-width: 34ch; margin: 0; font-size: var(--fs-lg); line-height: 1.55; color: color-mix(in srgb, var(--brand-white) 88%, transparent); text-wrap: pretty; }
+.coming-soon-follow { display: inline-flex; align-items: center; gap: var(--gap-control); min-height: var(--h-ctl-lg); padding: 0 var(--sp-xl); border-radius: var(--r-full); background: var(--brand-yellow); color: var(--cs-ink); text-decoration: none; font-size: var(--fs-md); font-weight: var(--fw-semibold); transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base); }
+.coming-soon-follow:hover { color: var(--cs-ink); transform: translateY(-1px); box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--brand-ink) 60%, transparent); }
+.coming-soon-cta > p { margin: var(--sp-md) 0 0; font-size: var(--fs-xs); color: color-mix(in srgb, var(--brand-white) 84%, transparent); }
+
+/* opening date */
+.coming-soon-status { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; }
+.coming-soon-day { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--sp-xs) var(--sp-md); color: var(--cs-ink); }
+.coming-soon-day > span { font-size: clamp(4.5rem, 7.5vw, 8.5rem); font-weight: var(--fw-bold); line-height: .8; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.coming-soon-day > em { font-family: var(--font-editorial); font-size: clamp(1.5rem, 2vw, 2.1rem); }
+
+/* the approved studio photo (0066), now a tall tile */
+.coming-soon-scene { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 68% center; }
+.coming-soon-photo-chip { position: absolute; left: var(--sp-lg); bottom: var(--sp-lg); padding: var(--sp-sm) var(--sp-md); border-radius: var(--r-full); background: color-mix(in srgb, var(--brand-white) 92%, transparent); color: var(--cs-ink); font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+
+/* the seven classes, in their own tones */
+.coming-soon-class { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--stack-tight); padding: var(--card-pad); border-radius: var(--r-lg); background: var(--t-dot); color: var(--cs-ink-deep); }
+.coming-soon-class[data-tone="moss"] { color: var(--brand-white); }
+.coming-soon-class h2 { margin: 0; font-family: var(--font-editorial); font-weight: 500; font-size: clamp(1.5rem, 2vw, 2.1rem); line-height: 1; color: inherit; }
+.coming-soon-class p { margin: 0; font-size: var(--fs-xs); line-height: 1.4; }
+.coming-soon-more-title { margin: 0; font-family: var(--font-body); font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--cs-muted); }
+.coming-soon-more ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.coming-soon-more li { display: flex; align-items: flex-start; gap: var(--gap-control); padding-block: var(--sp-md); border-bottom: 1px solid color-mix(in srgb, var(--brand-ink) 12%, transparent); }
+.coming-soon-more li > span:last-child { display: flex; flex-direction: column; gap: var(--sp-2xs); min-width: 0; }
+.coming-soon-more strong { font-family: var(--font-editorial); font-weight: 500; font-size: var(--fs-xl); line-height: 1.1; }
+.coming-soon-more li span span { font-size: var(--fs-sm); color: var(--cs-muted); }
+.coming-soon-dot { flex: 0 0 auto; width: var(--sp-md); height: var(--sp-md); margin-top: var(--sp-sm); border-radius: var(--r-full); background: var(--t-dot); }
+.coming-soon-footer { margin: auto 0 0; font-size: var(--fs-xs); color: var(--cs-muted); }
+
+.coming-soon :is(button, a):focus-visible { outline: 2px solid var(--brand-deepBlue); outline-offset: var(--sp-xs); }
+.coming-soon-hero :is(button, a):focus-visible { outline-color: var(--brand-yellow); }
+
+/* tablets and phones: two columns, then one long scroll */
+@media (max-width: 899.98px) {
+  .coming-soon-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; min-height: 0; }
+  .coming-soon-hero, .coming-soon-classes, .coming-soon-more { grid-column: 1 / -1; grid-row: auto; }
+  .coming-soon-hero { min-height: 30rem; }
+  .coming-soon-date { grid-column: 1; grid-row: auto; min-height: 13rem; }
+  .coming-soon-photo { grid-column: 2; grid-row: auto; min-height: 13rem; }
+  .coming-soon-classes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .coming-soon-class { min-height: 9rem; }
 }
-@media (prefers-reduced-motion: reduce) { .coming-soon-follow { transition: none; } }
+@media (max-width: 479.98px) {
+  .coming-soon-bento { gap: var(--sp-md); }
+  .coming-soon-tools { gap: var(--sp-xs); }
+  .coming-soon-wordmark.wordmark-vector { width: 5rem; height: calc(5rem / var(--wm-ratio)); }
+  /* a half-width photo tile cannot hold "La sala · Medellín" on one line; the image's alt text already names the room */
+  .coming-soon-photo-chip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .coming-soon-follow { transition: none; } .coming-soon-rings { animation: none; } }

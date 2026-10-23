@@ -1,0 +1,37 @@
+/* 0156 · Direction C "Pulso" for C-01 Home: the same sections and components, restyled as rounded tiles in the
+   class tones. Scoped to .cust-home so no other customer page changes. Text on a tone tile is the deep ink (≥ 4.5:1
+   on river, clay and sun) or paper on moss, the same pairs as the W-11 class tiles. */
+.cust-home { --pulso-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); --pulso-paper: var(--brand-white); }
+
+/* greeting in the editorial face, as the landing headline */
+.cust-home .cust-greeting { font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2.5rem, 7vw, 3.5rem); line-height: 1; letter-spacing: var(--ls-tight); }
+
+/* every container becomes a tile */
+.cust-home .card { border-radius: var(--r-xl); border-color: transparent; box-shadow: none; }
+.cust-home .card-muted { background-color: var(--color-surface-2); }
+
+/* next class: the blue hero tile, with the breathing rings and a sun action */
+.cust-home .card-primary { position: relative; overflow: hidden; isolation: isolate; box-shadow: none; }
+.cust-home .card-primary::after { content: ""; position: absolute; z-index: -1; right: calc(-1 * var(--sp-4xl)); top: calc(-1 * var(--sp-4xl)); width: 14rem; height: 14rem; border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 22%, transparent); box-shadow: 0 0 0 1.75rem color-mix(in srgb, var(--brand-white) 5%, transparent), 0 0 0 3.5rem color-mix(in srgb, var(--brand-white) 3.5%, transparent); animation: pulso-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
+@keyframes pulso-breathe { from { transform: scale(1); } to { transform: scale(1.08); } }
+.cust-home .card-primary .classcard-time { font-family: var(--font-body); font-weight: var(--fw-bold); font-size: clamp(2.5rem, 9vw, 3.25rem); letter-spacing: -0.03em; }
+.cust-home .card-primary .btn { background: var(--brand-yellow); color: var(--brand-ink); border-color: transparent; }
+
+/* quick actions: four tone tiles */
+.cust-home .cust-quick { gap: var(--sp-md); }
+.cust-home .cust-quick-btn { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; background: var(--q-bg); color: var(--q-ink); font-weight: var(--fw-medium); }
+.cust-home .cust-quick-btn .cust-quick-icon { color: inherit; }
+.cust-home .cust-quick-btn:nth-child(1) { --q-bg: var(--tone-river-dot); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(2) { --q-bg: var(--tone-sun-dot); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(3) { --q-bg: var(--tone-clay-dot); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(4) { --q-bg: var(--tone-moss-dot); --q-ink: var(--pulso-paper); }
+.cust-home .cust-quick-btn:hover { box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--brand-ink) 55%, transparent); }
+
+/* practice tiles: classes on paper, the streak on clay, the plan balance on sun */
+.cust-home .cust-practice-tiles .stat { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; }
+.cust-home .cust-practice-tiles .stat .stat-value { font-family: var(--font-body); font-weight: var(--fw-bold); letter-spacing: -0.03em; }
+.cust-home .cust-practice-tiles > .cust-practice-streak { background: var(--tone-clay-dot); color: var(--pulso-ink); }
+.cust-home .cust-practice-tiles > .stat:last-child:not(.cust-practice-streak) { background: var(--tone-sun-dot); color: var(--pulso-ink); }
+.cust-home .cust-practice-tiles > :is(.cust-practice-streak, .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint) { color: inherit; }
+
+@media (prefers-reduced-motion: reduce) { .cust-home .card-primary::after { animation: none; } }

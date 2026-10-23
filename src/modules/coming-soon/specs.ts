@@ -9,7 +9,8 @@ export const comingSoonSpec = defineSpec({
   logic: [
     'Public root and /coming-soon share the pre-launch page; /hub is the separate public testing hub. No SiteShell, booking or lead collection.',
     '0155: the eyebrow names opening day from tenant.opensOn (RN-01, 30 October) until that day has passed, then reads "Coming soon". The tagline\'s last line is italic with its last word on the sun marker.',
-    'Uses the existing brand wordmark, tenant identity, approved brand tagline and concept sanctuary artwork.',
+    '0156 Pulso: a bento of rounded tiles on sand — blue hero (tagline, intro, Instagram), sun date tile, the approved red-studio photo as the tall tile, four class tone tiles and a list tile for the other three, so all seven brand classes show once.',
+    'Uses the existing brand wordmark, tenant identity, approved brand tagline and the approved real studio photo.',
     'AmbientScene reuses the existing local loop with a still fallback, reduced-motion/save-data support and an explicit pause control.',
     'Top-right Login (a quiet text link beside the language toggle since 0155) opens a Coming Soon dialog with Close, Escape, Back and focus restoration; no credentials, Clerk setup or authentication action.',
     '0155: index.html carries link-preview tags (og / twitter) with a 1200 × 630 card rendered from this page by scripts/gen-og-image.mjs.',

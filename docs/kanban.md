@@ -14,9 +14,12 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0155 W-11 quick wins on `ui-polish/coming-soon-quick-wins`: opening date eyebrow (tenant.opensOn), italic last line with the sun marker, one left-aligned lockup, quieter Login link, deeper text scrim, link-preview tags and card. test-website-preview passes (ES/EN, 344–3840).
 
+- 0156 Direction C "Pulso" on `ui-polish/direction-c-pulso` (chosen from the three directions on the design canvas): W-11 rebuilt as a bento of rounded tiles (blue hero, sun date, approved studio photo, the seven classes in their tones); C-01 Home skinned with the same tiles (`pulso.css`, scoped). test-website-preview passes (ES/EN, 344–3840); C-01 text ≥ 4.5:1 in light and dark.
+
 ### Next
 
-- W-11 bigger pass: photo grade to the Hoy palette, lead capture as the main action (needs a decision on what it collects), a right-side anchor, the load sequence; the address once verified.
+- Pulso on the rest of the member app (schedule, class detail, plans) and the public site.
+- W-11: lead capture as the main action (needs a decision on what it collects), the load sequence, the address once verified.
 - Hoy status vocabulary on booking and payment views (awaiting Jas / Justin).
 - Owner decisions: dark `action` colour, solid `ink-subtle`, SiteVersionSelect visibility for visitors, HOY vs Human Club, dropping Inter for app titles.
 

@@ -25,6 +25,7 @@ import { toast } from '../../app/toast';
 import { useEntitlements } from './hooks';
 import { plural, weekInitials, PracticeGoalPicker, PracticeStreak, usePracticeHandlers, useSaveGoal } from './practice';
 import './customer.css';
+import './pulso.css';
 import { Icon } from '../../components/atom/Icon/Icon';
 
 const spec = canvasSpecs['C-01'];
