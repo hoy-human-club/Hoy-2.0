@@ -1,4 +1,4 @@
-# 0145 — Atomic content recovery (M-02 / M-02b)
+# 0146 — Atomic content recovery (M-02 / M-02b)
 
 date: 2026-10-23
 version: 0.25.0
@@ -17,3 +17,9 @@ version: 0.25.0
 - Add 22 domain context groups and EN/ES responsive actual-page role/actor/lost-ack regression cases without removing existing assertions. Make the existing browser executable path configurable for CI.
 - Prepare package/workflow wiring in a separate un-applied patch for the integration owner. Shared files remain untouched.
 - [Repair evidence and CI handoff](../frontend-completion/content-recovery-context-repair.md). Browser-local only; whole feature rows and real server authorization remain unaccepted.
+
+## Integration verification
+
+- Applied the package-script and exact-head content CI handoff. The injected browser job uses the existing prepared-dependency QA launcher and retains all owner assertions. Production and injected artifacts stay separate.
+- Reserved ordinal 0145 for the checked receipt candidate; this content entry and prompt move to 0146. No owner runtime source is changed by integration.
+- Terminal checks and independent final-head review remain required before release.

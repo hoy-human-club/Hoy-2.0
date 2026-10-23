@@ -1,4 +1,4 @@
-# 0145 — Delegated content recovery
+# 0146 — Delegated content recovery
 
 > AD-01 and bounded PL-07/PL-10: content failure recovery and atomic FAQ reorder. Own ContentPage.tsx and FaqAdminPage.tsx plus narrowly scoped local commands/tests. Verify failed saves/reorders preserve data and retry does not duplicate or reorder unexpectedly.
 >

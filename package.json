@@ -30,7 +30,9 @@
     "test:promotions": "node --experimental-strip-types scripts/test-promotions.mjs",
     "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs",
     "media-catalog": "node scripts/gen-media-catalog.mjs",
-    "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs"
+    "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs",
+    "test:content-recovery": "node scripts/test-content-recovery.mjs && node scripts/test-content-recovery-context.mjs && node scripts/test-content-batch.mjs",
+    "test:content-recovery:ui": "node scripts/test-content-recovery-ui.mjs && node scripts/test-content-recovery-context-ui.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
