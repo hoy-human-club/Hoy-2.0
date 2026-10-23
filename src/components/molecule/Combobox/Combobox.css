@@ -1,0 +1,23 @@
+/* 0154 — the field is the Input atom's frame; the focus ring sits on the whole frame so the chevron stays inside it.
+   The list is the raised surface of GlobalSearch and Menu, written on the Between Gigs bridge names. */
+.combobox { position: relative; min-width: 0; }
+.combobox-field { display: flex; align-items: center; gap: var(--sp-xs); padding-block: 0; padding-right: var(--sp-xs); cursor: text; }
+.combobox-field:focus-within { border-color: var(--focus); box-shadow: var(--shadow-highlight), 0 0 0 3px rgba(var(--m-mid), .25); }
+.combobox-input { flex: 1 1 auto; min-width: 0; min-height: calc(var(--h-ctl) - 2 * var(--sp-px)); border: 0; background: none; outline: 0; color: inherit; font: inherit; text-overflow: ellipsis; }
+.combobox-input::placeholder { color: var(--ink-subtle); }
+.combobox.is-open .combobox-input::placeholder { color: var(--ink-muted); }
+.combobox-toggle { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: var(--h-ctl-sm); height: var(--h-ctl-sm); border: 0; border-radius: var(--r-sm); background: none; color: var(--ink-muted); transition: transform var(--dur-fast) var(--ease-out); }
+.combobox.is-open .combobox-toggle { transform: rotate(180deg); }
+.combobox-panel { position: absolute; top: calc(100% + var(--sp-xs)); left: 0; right: 0; z-index: 40; padding: var(--sp-xs); background-color: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-raised); }
+.combobox-list { list-style: none; margin: 0; padding: 0; max-height: min(22rem, 55vh); overflow: auto; overscroll-behavior: contain; }
+.combobox-group { padding: var(--sp-sm) var(--sp-sm) var(--sp-2xs); position: sticky; top: 0; background: var(--surface-raised); }
+.combobox-option { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--sp-sm); align-items: center; min-height: var(--h-ctl); padding: var(--sp-xs) var(--sp-sm); border-radius: var(--r-ctl); color: var(--ink-body); font-size: var(--fs-sm); cursor: pointer; }
+.combobox-option.is-active { background: rgba(var(--m-shade), .07); }
+.combobox-option.is-chosen .combobox-label { font-weight: var(--fw-semibold); color: var(--ink); }
+.combobox-option[aria-disabled="true"] { color: var(--color-text-faint); cursor: not-allowed; }
+.combobox-label { grid-column: 1; overflow-wrap: anywhere; }
+.combobox-hint { grid-column: 1; }
+.combobox-check { grid-column: 2; grid-row: 1 / span 2; color: var(--ink-brand); }
+.combobox-empty, .combobox-more { margin: 0; padding: var(--sp-sm); }
+.combobox-more { border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { .combobox-toggle { transition: none; } }

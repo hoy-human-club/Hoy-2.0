@@ -31,7 +31,9 @@ try {
   localStorage.setItem('hoyos.db.v1',JSON.stringify(stored));
  });
  await page.reload();
- await page.getByLabel('Book for a customer · scheduled class').selectOption('qa_desk_class');
+ // 0154: the scheduled-class picker is a Combobox — type part of the title, then pick the option.
+ const pickClass=async title=>{const box=page.getByRole('combobox',{name:'Book for a customer · scheduled class'});await box.fill(title);await page.getByRole('option',{name:new RegExp(title)}).click();};
+ await pickClass('QA Future Session');
  let search=page.getByPlaceholder('Name, WhatsApp or email…'); await search.fill('QA Balance');
  // Use button scope because the reusable roster class is intentionally private to the component.
  let book=page.getByRole('button',{name:'Book · 1 class',exact:true}); await book.waitFor(); assert(await book.isEnabled());
@@ -61,7 +63,7 @@ try {
  const audit=state.audit_log.find(a=>a.entity_id===state.bookings.find(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_desk_class').id);assert.equal(audit.diff.role,'front_desk');assert.equal(audit.diff.source,'front_desk');
  await search.fill('QA Pending'); await page.getByText('No confirmed classes available · take payment first',{exact:false}).waitFor(); assert(await page.getByRole('button',{name:'Book · 1 class',exact:true}).isDisabled());
  assert(await page.locator('.checkin-side').getByRole('button',{name:'Check in',exact:true}).isDisabled());
- await page.getByLabel('Book for a customer · scheduled class').selectOption('qa_walkin_class'); await search.fill('QA Balance');
+ await pickClass('QA Walk-in Session'); await search.fill('QA Balance');
  await page.locator('.checkin-side').getByRole('button',{name:'Check in',exact:true}).click();
  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db.bookings.some(b=>b.user_id==='qa_desk_0'&&b.session_id==='qa_walkin_class'));
  state=await page.evaluate(()=>JSON.parse(localStorage.getItem('hoyos.db.v1')).db);

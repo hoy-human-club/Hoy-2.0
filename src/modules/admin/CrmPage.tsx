@@ -8,7 +8,7 @@ import type { VoucherRow } from '../../data/vouchers';
 import { formatDate, MS, studioParts } from '../../i18n/format';
 import { useMinWidth } from '../../layout/useMinWidth';
 import { Card } from '../../components/molecule/Card/Card';
-import { Chip } from '../../components/atom/Chip/Chip';
+import { Tabs } from '../../components/molecule/Tabs/Tabs';
 import { Input } from '../../components/atom/Input/Input';
 import { Badge, toneForStatus } from '../../components/atom/Badge/Badge';
 import { Avatar } from '../../components/atom/Avatar/Avatar';
@@ -103,7 +103,8 @@ export function CrmPage() {
         <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.crm.search')} style={{ width: 260 }} aria-label={t('core.common.search')} />
       </div>
       <p className="small muted">{t('admin.crm.demo')}</p>
-      <div className="row wrap" role="tablist">{SEGMENTS.map((s) => <Chip key={s} selected={seg === s} onClick={() => setSeg(s)}>{t(`admin.crm.seg.${s}`)} · {counts[s]}</Chip>)}</div>
+      <Tabs<Segment> ariaLabel={t('admin.crm.segments')} panelId="crm-members" value={seg} onChange={setSeg} items={SEGMENTS.map((s) => ({ value: s, label: t(`admin.crm.seg.${s}`), count: counts[s] }))} />
+      <div id="crm-members" role="tabpanel" aria-label={t(`admin.crm.seg.${seg}`)}>
       {loading && customers.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.crm.emptySeg')} body={t(`admin.crm.seg.${seg}.body`)} /> : (
         desktop ? <DataTable<Row> columns={columns} rows={rows} rowKey={(r) => r.id} onRowClick={(r) => nav(`/admin/crm/${r.id}`)} dense /> :
         <div className="stack-sm">{rows.map(r => <Link key={r.id} to={`/admin/crm/${r.id}`} className="crm-person-link"><Card padding="sm">
@@ -113,6 +114,7 @@ export function CrmPage() {
           <div className="small muted">{t('admin.crm.col.expires')}: {r.expires ? formatDate(r.expires, lang) : '—'}</div>
         </Card></Link>)}</div>
       )}
+      </div>
     </div>
   );
 }

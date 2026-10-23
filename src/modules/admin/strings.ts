@@ -490,6 +490,7 @@ export const strings: StringTable = {
   'admin.crm.title': { es: 'CRM', en: 'CRM' },
   'admin.crm.subtitle': { es: 'Una ficha por persona en la que todo el estudio confía.', en: 'One record per person the whole studio trusts.' },
   'admin.crm.search': { es: 'Buscar nombre, WhatsApp o email…', en: 'Search name, WhatsApp or email…' },
+  'admin.crm.segments': { es: 'Segmentos de miembros', en: 'Member segments' },
   'admin.crm.seg.all': { es: 'Todos', en: 'All' },
   'admin.crm.seg.all.body': { es: 'Todavía no hay clientes.', en: 'No customers yet.' },
   'admin.crm.seg.at_risk': { es: 'En riesgo', en: 'At risk' },

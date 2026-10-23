@@ -1,0 +1,13 @@
+/* 0154 — Between Gigs underline tabs on the bridge names: a hairline under the row, the active tab marked by a 2px
+   ink-brand underline and ink label; counts are neutral pills that take the brand tint when active. */
+.tabs { display: flex; gap: var(--sp-lg); overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); min-width: 0; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs-tab { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: var(--gap-inline); min-height: var(--h-ctl); padding: 0 var(--sp-2xs); border: 0; background: none; color: var(--ink-muted); font-family: var(--font-body); font-size: var(--fs-sm); font-weight: var(--fw-medium); white-space: nowrap; cursor: pointer; transition: color var(--dur-fast); }
+.tabs-tab::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(-1 * var(--sp-px)); height: var(--sp-2xs); border-radius: var(--r-full); background: transparent; transition: background-color var(--dur-fast); }
+.tabs-tab:hover { color: var(--ink); }
+.tabs-tab.is-active { color: var(--ink); }
+.tabs-tab.is-active::after { background: var(--ink-brand); }
+.tabs-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--r-sm); }
+.tabs-count { min-width: var(--sp-xl); padding: 0 var(--sp-xs); border-radius: var(--r-full); background: var(--neutral-soft); color: var(--ink-muted); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; text-align: center; line-height: 1.5; }
+.tabs-tab.is-active .tabs-count { background: var(--info-soft); color: var(--ink-brand); }
+@media (prefers-reduced-motion: reduce) { .tabs-tab, .tabs-tab::after { transition: none; } }

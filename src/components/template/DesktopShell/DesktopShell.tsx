@@ -264,6 +264,18 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
         </div>
       </aside>
       <div className="deskshell-col">
+        {/* 0154 · testing tools live in their own strip above the product bar, so the top bar carries only what staff use
+            (search, language, theme, inbox) and a production build can drop the demo controls in this one place (HALL-16). */}
+        <div className="deskshell-demobar" role="region" aria-label={t('core.demo.bar')}>
+          <span className="deskshell-demolabel"><span className="deskshell-specdot" aria-hidden />{t('core.demo.bar')}</span>
+          <div className="deskshell-rs"><RoleSwitcher compact /></div>
+          {canDevMode && <span className="deskshell-devtoggle" title={t('core.dev.mode')}><Toggle size="sm" checked={devMode} onChange={setDevMode} label={t('core.dev.mode')} /></span>}
+          {devMode && current && (
+            <button type="button" className="deskshell-spec" onClick={openInspector} title="Ctrl+." aria-label={`${t('core.dev.spec')} ${current.spec.code}`}>
+              <span className="deskshell-specdot" aria-hidden />{current.spec.code}
+            </button>
+          )}
+        </div>
         <TopBar
           brand homeTo="/hub" title={current ? (current.nav ? t(current.nav.labelKey) : bi(current.spec.name)) : title} code={current?.spec.code}
           leading={<button ref={menuRef} type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={narrow ? drawer : !rail} title={sidebarLabel}>☰</button>}
@@ -273,13 +285,6 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
               <LangToggle size="sm" />
               <button type="button" className="deskshell-iconbtn ctl-round" onClick={toggleTheme} aria-label={t('core.theme.toggle')} title={t('core.theme.toggle')}><Icon name={theme === 'dark' ? 'moon' : 'sun'} size="sm" /></button>
               {hasInbox && <InboxPopover count={inbox.count} items={inboxItems} itemTo={(k) => `/staff/inbox/${k}`} inboxTo="/staff/inbox" />}
-              <div className="deskshell-rs"><RoleSwitcher compact /></div>
-              {canDevMode && <span className="deskshell-devtoggle" title={t('core.dev.mode')}><Toggle size="sm" checked={devMode} onChange={setDevMode} label={t('core.dev.mode')} /></span>}
-              {devMode && current && (
-                <button type="button" className="deskshell-spec" onClick={openInspector} title="Ctrl+." aria-label={`${t('core.dev.spec')} ${current.spec.code}`}>
-                  <span className="deskshell-specdot" aria-hidden />{current.spec.code}
-                </button>
-              )}
             </>
           }
         />

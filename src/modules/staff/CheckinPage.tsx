@@ -8,7 +8,8 @@ import { dateKey, formatDate, formatTime, isSameDay, MS } from '../../i18n/forma
 import { useLayout } from '../../layout/useLayout';
 import { Card } from '../../components/molecule/Card/Card';
 import { Button } from '../../components/atom/Button/Button';
-import { Input, Select } from '../../components/atom/Input/Input';
+import { Input } from '../../components/atom/Input/Input';
+import { Combobox, type ComboboxOption } from '../../components/molecule/Combobox/Combobox';
 import { Badge } from '../../components/atom/Badge/Badge';
 import { CapacityMeter } from '../../components/molecule/CapacityMeter/CapacityMeter';
 import { RosterRow } from '../../components/molecule/RosterRow/RosterRow';
@@ -51,6 +52,11 @@ export function CheckinPage() {
   const allSessions = useSessionsJoined(useCallback((s: ClassSessionRow) => s.status !== 'cancelled', []));
   const todayAll = allSessions.filter(x => isSameDay(x.session.starts_at, new Date()));
   const futureSessions = allSessions.filter(x => x.session.status === 'scheduled' && Date.parse(x.session.starts_at) > Date.now());
+  // 0154: grouped by day, time + class on the main line, teacher and spots below, so long titles wrap instead of clipping.
+  const futureOptions: ComboboxOption[] = futureSessions.map(({ session: s, teacher: te }) => ({
+    value: s.id, group: formatDate(s.starts_at, lang), label: `${formatTime(s.starts_at, lang)} · ${s.title}`,
+    hint: [te?.display_name, `${s.booked_count}/${s.capacity}`].filter(Boolean).join(' · '),
+  }));
   const { rows: ledger } = useTable<ClassLedgerRow>('class_ledger');
   const { rows: payments } = useTable<PaymentRow>('payments');
   const { rows: allBookings } = useTable<BookingRow>('bookings');
@@ -161,7 +167,7 @@ export function CheckinPage() {
   const SECTIONS: Record<string, () => ReactNode> = {
     'TodayStrip (now / next / later)': () => (
       <section className="stack-sm">
-        <label className="stack-sm"><span className="small">{t('staff.checkin.future.label')}</span><Select aria-label={t('staff.checkin.future.label')} value={selectedId ?? ''} onChange={e => setParams({ session: e.target.value })}><option value="">{t('staff.checkin.future.choose')}</option>{futureSessions.map(({ session: s }) => <option key={s.id} value={s.id}>{formatDate(s.starts_at, lang)} · {formatTime(s.starts_at, lang)} · {s.title} ({s.booked_count}/{s.capacity})</option>)}</Select></label>
+        <div className="stack-sm"><label htmlFor="checkin-future-class" className="small">{t('staff.checkin.future.label')}</label><Combobox id="checkin-future-class" ariaLabel={t('staff.checkin.future.label')} placeholder={t('staff.checkin.future.choose')} value={selectedId ?? ''} onChange={(id) => setParams({ session: id })} options={futureOptions} /></div>
         <p className="xs muted">{t('staff.checkin.package.demo')}</p>
         <div className="row-between wrap"><div className="eyebrow">{t('staff.checkin.today')}</div><span className="xs muted">{t('staff.checkin.strip.hint')}</span></div>
         {todayAll.length === 0 ? <EmptyState compact title={t('staff.checkin.noClasses')} body={t('staff.checkin.noClasses.body')} /> : (
