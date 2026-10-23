@@ -2,6 +2,10 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 # HoyOS kanban
 
+## Customer schedule and support draft (2026-10-23)
+
+- 2026-10-23 · Dedicated RS-01/RS-08/RS-13 customer slice on `codex/schedule-booking-support-20261023`, base PR78/94fe5259: scoped read retry/empty states, inactive teacher links, exact linked payment display and configured directions. Local build + ES/EN 390/1280 fictional customer-shell matrix (including timezone and dark key captures) pass. [Row evidence and remaining integration/content gaps](frontend-completion/schedule-booking-support.md). Draft review only; integration owner coordinates merges. No whole-row completion or production release claim.
+
 ## Active frontend program (2026-10-22)
 
 - Verified live: PR70, checked `4c062d9`, merged `50449d0` / v0.25.0. All 12 workflows / 34 jobs and Pages `39748513571` exact-source hosted verification passed. See `frontend-completion/evidence/release-pr70.json`. Earlier release and pending entries below are historical.

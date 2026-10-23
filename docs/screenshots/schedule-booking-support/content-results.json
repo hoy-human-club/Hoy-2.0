@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "es/390: rule article opens, unpublishing hides stale drawer; no-refunds FAQ preserved; active teacher profile + actual 50-minute sessions; changed configured address updates directions with 44px target",
+    "es/1280: rule article opens, unpublishing hides stale drawer; no-refunds FAQ preserved; active teacher profile + actual 50-minute sessions; changed configured address updates directions with 44px target",
+    "en/390: rule article opens, unpublishing hides stale drawer; no-refunds FAQ preserved; active teacher profile + actual 50-minute sessions; changed configured address updates directions with 44px target",
+    "en/1280: rule article opens, unpublishing hides stale drawer; no-refunds FAQ preserved; active teacher profile + actual 50-minute sessions; changed configured address updates directions with 44px target"
+  ],
+  "errors": []
+}

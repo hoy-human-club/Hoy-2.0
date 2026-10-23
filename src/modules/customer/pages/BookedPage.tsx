@@ -1,9 +1,14 @@
+import { customerDirections } from '../directions';
+import { bookingPaymentStatus } from '../bookingPaymentStatus';
+import { useContact, pendingSuffix } from '../../admin/settings';
+import { useCustomerRows } from '../useCustomerRows';
 import {CustomerCancellationReview} from '../../../components/organism/CustomerCancellationReview/CustomerCancellationReview';
 import {useCustomerCancellation} from '../useCustomerCancellation';
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
-import type { BookingRow } from '../../../data/schema';
+import type { BookingRow, ClassLedgerRow, PaymentRow, ClassSessionRow, ModalityRow, TeacherRow, RoomRow } from '../../../data/schema';
+import { useSession } from '../../../auth/SessionProvider';
 import { dateKey, formatDate, formatTime, MS } from '../../../i18n/format';
 import { useLayout } from '../../../layout/useLayout';
 import { tenant } from '../../../tenant/tenant';
@@ -25,7 +30,7 @@ import { canvasSpecs } from '../specs';
 import { SplitSections } from '../split';
 import { useActions } from '../../../actions';
 import { useAppNavHandlers } from '../actions';
-import { useAllSessionsJoined, useBookingActions, useEntitlements, useMyBookings, useNow, useSessionJoined } from '../hooks';
+import { useAllSessionsJoined, useBookingActions, useEntitlements, useNow, useSessionJoined } from '../hooks';
 import { cancelDeadline, insideCancelWindow, policy } from '../policy';
 import { canReschedule, RESCHEDULE_CUTOFF_HOURS } from '../reschedule';
 import { assertRescheduleValidity, reschedulePurchase } from '../rescheduleCommand';
@@ -38,18 +43,46 @@ const spec = canvasSpecs['C-08'];
 export function BookedPage({ change = false }: { change?: boolean }) {
   const { id } = useParams();
   const { t, lang } = useI18n();
+  const contact = useContact();
+  const { user } = useSession();
+  const ledger = useCustomerRows<ClassLedgerRow>('class_ledger', { where: { user_id: user.id } });
+  const payments = useCustomerRows<PaymentRow>('payments', { where: { user_id: user.id } });
   const nav = useNavigate();
   const { sections, isVisible } = useLayout(spec);
   useActions(spec, useAppNavHandlers());
-  const { rows: myBookings, loading } = useMyBookings();
+  const bookingsRead = useCustomerRows<BookingRow>('bookings', { where: { user_id: user.id } });
+  const myBookings = bookingsRead.rows;
+  const sessionsRead = useCustomerRows<ClassSessionRow>('class_sessions');
+  const modalitiesRead = useCustomerRows<ModalityRow>('modalities');
+  const teachersRead = useCustomerRows<TeacherRow>('teachers');
+  const roomsRead = useCustomerRows<RoomRow>('rooms');
+  const reads = [bookingsRead, sessionsRead, modalitiesRead, teachersRead, roomsRead];
+  const loading = reads.some(r => r.loading), readError = reads.some(r => r.error);
   const booking: BookingRow | null = useMemo(() => myBookings.find((b) => b.id === id) ?? [...myBookings].filter((b) => b.session_id === id).sort((a, b) => b.created_at.localeCompare(a.created_at))[0] ?? null, [myBookings, id]);
-  const { joined } = useSessionJoined(booking?.session_id);
+  const session = sessionsRead.rows.find(s => s.id === booking?.session_id);
+  const joined = session ? { session, modality: modalitiesRead.rows.find(m => m.id === session.modality_id), teacher: teachersRead.rows.find(te => te.id === session.teacher_id), room: roomsRead.rows.find(r => r.id === session.room_id) } : null;
   const now = useNow(15_000);
   const [flash, setFlash] = useState<{ tone: 'success' | 'warn'; text: string } | null>(null);
 
-  if (!booking || !joined) {
+  // Keep the command owner mounted through subscribed refreshes and its own commit.
+  // The hook retains an unconfirmed intent and verified result until the viewer closes it.
+  const changeRecord = useRef<{ routeId: typeof id; userId: string; booking: BookingRow; joined: NonNullable<typeof joined> } | null>(null);
+  if (!loading && !readError && booking && joined) changeRecord.current = { routeId: id, userId: user.id, booking, joined };
+  const retained = changeRecord.current;
+  const changeSheet = change && retained && retained.routeId === id && retained.userId === user.id ? (
+    <ChangeSheet key="booking-change"
+      open={retained.booking.status === 'booked' && retained.joined.session.status !== 'cancelled' && Date.parse(retained.joined.session.ends_at) >= now}
+      onClose={() => nav(`/app/booking/${retained.booking.id}`, { replace: true })}
+      booking={retained.booking} joined={retained.joined}
+      inside={insideCancelWindow(retained.joined.session.starts_at, now)}
+      deadline={cancelDeadline(retained.joined.session.starts_at)} onResult={setFlash} />
+  ) : null;
+
+  if (readError) return <div className="container page cust-page">{changeSheet}<PageHead back="/app/history" title={t('customer.booked.payment.title')} /><Notice tone="danger" action={<Button onClick={() => reads.forEach(r => r.retry())}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice></div>;
+  if (loading || !booking || !joined) {
     return (
       <div className="container page cust-page">
+        {changeSheet}
         <PageHead back="/app" title={loading ? <Skeleton width={180} height={28} /> : t('customer.booked.notFound')} />
         {loading ? <Skeleton shape="rect" height={200} /> : <EmptyState title={t('customer.booked.notFound')} body={t('customer.booked.notFound.body')} action={<Link to="/app/history"><Button variant="secondary">{t('core.nav.history')}</Button></Link>} />}
       </div>
@@ -66,6 +99,7 @@ export function BookedPage({ change = false }: { change?: boolean }) {
   const active = !past && !studioCancelled && !myCancelled && booking.status === 'booked';
   const deadline = cancelDeadline(s.starts_at);
   const inside = insideCancelWindow(s.starts_at, now);
+  const paymentStatus = bookingPaymentStatus(booking, ledger.rows, payments.rows);
   const bookingBase = `/app/booking/${booking.id}`;
 
   const addToCalendar = () => downloadIcs({ title: `${s.title} · ${tenant.name}`, startsAt: s.starts_at, endsAt: s.ends_at, location: `${tenant.name} · ${roomName(joined)}`, description: `${teacherName(joined)}${booking.mat_number ? ` · ${t('site.mat.confirmed', { n: booking.mat_number })}` : ''}` });
@@ -91,7 +125,14 @@ export function BookedPage({ change = false }: { change?: boolean }) {
       );
     },
     ClassSummary: () => (
-      <div className="stack-sm"><ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} onClick={() => nav(`/app/class/${s.id}`)} />{booking.mat_number && !studioCancelled && !myCancelled && <p className="small" style={{ textAlign: 'center' }}>{t('site.mat.confirmed', { n: booking.mat_number })}</p>}</div>
+      <div className="stack-sm">
+        <ClassCard title={s.title} teacher={teacherName(joined)} room={roomName(joined)} startsAt={s.starts_at} endsAt={s.ends_at} tone={toneOf(joined)} booked={s.booked_count} capacity={s.capacity} level={s.level} onClick={() => nav(`/app/class/${s.id}`)} />
+        {booking.mat_number && !studioCancelled && !myCancelled && <p className="small" style={{ textAlign: 'center' }}>{t('site.mat.confirmed', { n: booking.mat_number })}</p>}
+        <Card eyebrow={t('customer.booked.payment.title')} className="stack-sm">
+          {ledger.loading || payments.loading ? <p role="status">{t('core.common.loading')}</p> : ledger.error || payments.error ? <Notice tone="danger" action={<Button onClick={() => { ledger.retry(); payments.retry(); }}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice> : <><Badge tone={paymentStatus === 'confirmed' ? 'success' : 'neutral'}>{t(`customer.booked.payment.${paymentStatus}`)}</Badge>{paymentStatus === 'unknown' && <p className="small muted">{t('customer.booked.payment.unknownBody')}</p>}</>}
+        </Card>
+        <Card eyebrow={t('customer.more.visit')} className="stack-sm"><p className="small">{contact.address}, {contact.city}{pendingSuffix(contact, 'address', lang)}</p><a className="btn btn-secondary btn-md" href={customerDirections(contact)} target="_blank" rel="noreferrer">{t('customer.more.visit')} →</a></Card>
+      </div>
     ),
     PrepReminder: () => active ? (
       <Card eyebrow={t('customer.class.prep')} padding="md">
@@ -121,11 +162,11 @@ export function BookedPage({ change = false }: { change?: boolean }) {
 
   return (
     <div className="container page cust-page">
+      {changeSheet}
       <PageHead back="/app" title={<span className="sr-only">{s.title}</span>} />
       {flash && <Notice tone={flash.tone}>{flash.text}</Notice>}
       {/* ≥ 900 px: countdown + class on the left; reminder, actions, calendar and policy on the right. */}
       <SplitSections narrowClassName="stack" className="cust-booked" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null} side={(n) => n !== 'CountdownRing' && n !== 'ClassSummary'} />
-      <ChangeSheet open={change && active} onClose={() => nav(bookingBase, { replace: true })} booking={booking} joined={joined} inside={inside} deadline={deadline} onResult={(f) => { setFlash(f); }} />
     </div>
   );
 }

@@ -22,5 +22,5 @@ export default defineMeta({
     { title: { es: 'Cargando', en: 'Loading' }, render: () => h(EmptyState, { tone: 'loading', title: 'Cargando…', compact: true }) },
   ],
   a11y: [{ es: 'role=status (o alert en error) y aria-busy mientras carga; el icono es decorativo.', en: 'role=status (alert on error) and aria-busy while loading; the icon is decorative.' }],
-  usedBy: ['MaintenanceWorkbench', 'S-02', 'S-03', 'S-04', 'S-06', 'M-02', 'M-04', 'M-05', 'M-06', 'M-07', 'M-09', 'C-02', 'C-03', 'C-11', 'C-24', 'E-01', 'M-08g', 'M-10a', 'D-07'],
+  usedBy: ['C-13', 'C-18', 'MaintenanceWorkbench', 'S-02', 'S-03', 'S-04', 'S-06', 'M-02', 'M-04', 'M-05', 'M-06', 'M-07', 'M-09', 'C-02', 'C-03', 'C-11', 'C-24', 'E-01', 'M-08g', 'M-10a', 'D-07'],
 });
