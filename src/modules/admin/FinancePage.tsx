@@ -1,4 +1,5 @@
 import { ConfirmedPaymentReport } from '../../components/organism/ConfirmedPaymentReport/ConfirmedPaymentReport';
+import { usePaymentReport } from './usePaymentReport';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -27,7 +28,10 @@ type Range = '7d' | '15d' | '30d' | '90d' | 'all';
 export function FinancePage() {
   const { t, lang, bi } = useI18n();
   const { settings } = useSettings();
-  const { rows: payments, loading } = useTable<PaymentRow>('payments', { orderBy: { column: 'created_at', dir: 'desc' } });
+  const paymentReport = usePaymentReport();
+  const payments = paymentReport.payments, loading = paymentReport.status === 'loading';
+  const paymentReady = paymentReport.status === 'ready';
+  const paymentReadState = (withRetry = false) => <EmptyState compact tone={loading ? 'loading' : 'error'} title={t(loading ? 'admin.reporting.figuresLoading' : 'admin.reporting.figuresUnavailable')} body={t(loading ? 'admin.reporting.figuresLoadingBody' : 'admin.reporting.figuresUnavailableBody')} action={!loading && withRetry ? <Button variant="secondary" onClick={paymentReport.retry}>{t('core.common.retry')}</Button> : undefined} />;
   const { rows: invoices } = useTable<InvoiceRow>('invoices', { orderBy: { column: 'issued_at', dir: 'desc' } });
   const { rows: plans } = useTable<PlanRow>('plans');
   const { byId } = usePeople();
@@ -88,27 +92,28 @@ export function FinancePage() {
         <div><h1>{t('admin.finance.title')}</h1><p className="muted small">{t('admin.finance.subtitle')}</p></div>
         <div className="row wrap" role="tablist">{(['7d', '15d', '30d', '90d', 'all'] as Range[]).map((r) => <Chip key={r} selected={range === r} onClick={() => setRange(r)}>{t(`admin.finance.range.${r}`)}</Chip>)}</div>
       </div>
-      {loading && payments.length === 0 && <EmptyState tone="loading" title={t('core.common.loading')} />}
-      <div className="grid grid-4">
+      <section className="finance-payment-summary" aria-label={t('admin.reporting.paymentSummary')}>
+      {paymentReady ? <div className="grid grid-4">
         <StatTile label={t('admin.finance.revenue')} value={formatCOP(revenue, lang)} hint={t('admin.finance.revenue.hint', { n: approved.length })} trend={revenue > 0 ? 'up' : 'flat'} />
         <StatTile label={t('admin.finance.pending')} value={formatCOP(pending.reduce((a, p) => a + p.amount, 0), lang)} hint={t('admin.finance.pending.hint', { n: pending.length })} />
         <StatTile label={t('admin.finance.refunded')} value={formatCOP(refunded.reduce((a, p) => a + p.amount, 0), lang)} hint={t('admin.finance.refunded.hint', { n: refunded.length })} trend={refunded.length ? 'down' : 'flat'} />
         <StatTile label={t('admin.finance.wompiShare')} value={`${wompiShare}%`} hint={t('admin.finance.wompiShare.hint')} />
-      </div>
-      <Card title={t('admin.finance.balance')} eyebrow={t('admin.finance.balance.eyebrow')} raised
+      </div> : paymentReadState(true)}
+      </section>
+      <Card className="finance-payment-balance" aria-label={t('admin.finance.balance')} title={t('admin.finance.balance')} eyebrow={t('admin.finance.balance.eyebrow')} raised
         actions={<div className="row wrap"><Link to="/admin/finance/payouts"><Button size="sm" variant="ghost">{t('admin.finance.balance.openPayroll')}</Button></Link><Link to="/admin/finance/expenses"><Button size="sm" variant="ghost">{t('admin.finance.balance.openExpenses')}</Button></Link></div>}>
-        <div className="grid grid-4">
+        {paymentReady ? <><div className="grid grid-4">
           <StatTile label={t('admin.finance.balance.revenue')} value={formatCOP(revenue, lang)} hint={t('admin.finance.balance.revenue.hint', { n: approved.length })} />
           <StatTile label={t('admin.finance.balance.payroll')} value={`− ${formatCOP(payrollCost, lang)}`} hint={payrollRuns.length ? t('admin.finance.balance.payroll.hint', { n: payrollRuns.length }) : t('admin.finance.balance.payroll.none')} />
           <StatTile label={t('admin.finance.balance.expenses')} value={`− ${formatCOP(spend.total, lang)}`} hint={t('admin.finance.balance.expenses.hint', { fixed: formatCOP(spend.fixed, lang), variable: formatCOP(spend.variable, lang) })} />
           <StatTile label={t('admin.finance.balance.result')} value={`${balance < 0 ? '− ' : ''}${formatCOP(Math.abs(balance), lang)}`} hint={revenue > 0 ? t('admin.finance.balance.margin', { pct: Math.round((balance / revenue) * 100) }) : t('admin.finance.balance.noRevenue')} trend={balance > 0 ? 'up' : balance < 0 ? 'down' : 'flat'} />
         </div>
-        <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.balance.body')}</p>
+        <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.balance.body')}</p></> : paymentReadState()}
       </Card>
-      <div className="grid grid-2">
-        <Card title={t('admin.finance.byProduct')}><BarList items={byProduct} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /></Card>
-        <Card title={t('admin.finance.byMethod')}><BarList items={byMethod} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /></Card>
-      </div>
+      <section className="grid grid-2 finance-payment-charts" aria-label={t('admin.reporting.revenueCharts')}>
+        <Card title={t('admin.finance.byProduct')}>{paymentReady ? <BarList items={byProduct} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}</Card>
+        <Card title={t('admin.finance.byMethod')}>{paymentReady ? <BarList items={byMethod} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}</Card>
+      </section>
       <Card tone="muted" title={t('admin.finance.payouts')} eyebrow="M-09a"
         actions={<div className="row wrap"><Badge tone="warn">{t('admin.payouts.simulated')}</Badge><Link to="/admin/finance/payouts"><Button size="sm" variant="ghost">{t('admin.finance.payouts.open')}</Button></Link></div>}>
         <div className="grid grid-3">
@@ -118,10 +123,10 @@ export function FinancePage() {
         </div>
         <p className="xs muted" style={{ marginTop: 'var(--sp-md)' }}>{t('admin.finance.payouts.body')} <Link to="/admin/settings/payments">{t('core.nav.settings')}</Link></p>
       </Card>
-      <ConfirmedPaymentReport payments={payments} loading={loading} productName={id=>{const p=planMap.get(id);return p?bi({es:p.name_es,en:p.name_en}):id;}} personName={id=>byId.get(id)?.name??id}/>
+      <ConfirmedPaymentReport payments={payments} specialSales={paymentReport.specialSales} loading={loading} readError={paymentReport.status==='error'} onRetry={paymentReport.retry} productName={id=>{const p=planMap.get(id);return p?bi({es:p.name_es,en:p.name_en}):id;}} personName={id=>byId.get(id)?.name??id}/>
       <section className="stack-sm">
         <div className="row-between wrap"><div className="eyebrow">{t('admin.finance.payments')}</div><span className="xs muted">{t('admin.finance.refund.disabled')}</span></div>
-        <DataTable columns={payCols} rows={inRange} rowKey={(p) => p.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} />
+        {paymentReady ? <DataTable columns={payCols} rows={inRange} rowKey={(p) => p.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}
       </section>
       <section className="stack-sm">
         <div className="row-between wrap">
@@ -131,7 +136,7 @@ export function FinancePage() {
             <span className="xs muted">{settings.tax.eInvoicing ? t('admin.finance.einv.on') : t('admin.finance.einv.off')}</span>
           </div>
         </div>
-        <DataTable columns={invCols} rows={invoicesInRange} rowKey={(i) => i.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} />
+        {paymentReady || invStatus === 'all' ? <DataTable columns={invCols} rows={invoicesInRange} rowKey={(i) => i.id} dense pageSize={25} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}
       </section>
     </div>
   );

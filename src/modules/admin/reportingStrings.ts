@@ -1,5 +1,14 @@
 import type { StringTable } from '../../i18n/types';
 export const reportingStrings: StringTable = {
+ 'admin.reporting.paymentSummary': {es:'Resumen de pagos',en:'Payment summary'},
+ 'admin.reporting.revenueCharts': {es:'Gráficos de ingresos',en:'Revenue charts'},
+ 'admin.reporting.figuresLoading': {es:'Cargando cifras de pagos…',en:'Loading payment figures…'},
+ 'admin.reporting.figuresLoadingBody': {es:'Los totales y gráficos aparecerán cuando termine la carga.',en:'Totals and charts will appear when loading finishes.'},
+ 'admin.reporting.figuresUnavailable': {es:'Cifras de pagos no disponibles',en:'Payment figures unavailable'},
+ 'admin.reporting.figuresUnavailableBody': {es:'Reintenta para cargar los totales y gráficos actuales.',en:'Retry to load current totals and charts.'},
+ 'admin.reporting.readError': {es:'No se pudieron cargar los pagos y conceptos del reporte. La descarga está bloqueada hasta reintentar; no se exportan datos anteriores.',en:'Could not load report payments and sale concepts. Download is blocked until retry succeeds; previous data is not exported.'},
+ 'admin.reporting.unknownProduct': {es:'Producto o concepto no registrado',en:'Product or sale concept not recorded'},
+ 'admin.reporting.unresolvedProducts': {es:'{n} pagos no tienen un concepto de venta único y verificable. El CSV los marca como no registrados; revisa su origen.',en:'{n} payments have no unique verifiable sale concept. The CSV marks them as not recorded; review their source.'},
  'admin.reporting.title': {es:'Reporte de pagos confirmados',en:'Confirmed payments report'},
  'admin.reporting.scope': {es:'CSV de pagos aprobados de este navegador. Ambas fechas se incluyen según la hora de Bogotá. No confirma pagos ni modifica registros.',en:'CSV of approved payments in this browser. Both dates are included using Bogotá time. It does not confirm payments or change records.'},
  'admin.reporting.from': {es:'Desde',en:'From date'}, 'admin.reporting.to': {es:'Hasta',en:'To date'},

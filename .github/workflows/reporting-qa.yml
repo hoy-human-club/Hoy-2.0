@@ -8,6 +8,8 @@ on:
       - 'src/modules/admin/ActivityPage.tsx'
       - 'src/modules/admin/FinancePage.tsx'
       - 'src/modules/admin/reportingStrings.ts'
+      - 'src/modules/admin/paymentReportReads.ts'
+      - 'src/modules/admin/usePaymentReport.ts'
       - 'scripts/test-reporting*.mjs'
       - '.github/workflows/reporting-qa.yml'
 permissions:
@@ -26,6 +28,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/test-reporting.mjs
+      - run: node scripts/test-reporting-reads.mjs
       - run: npm run build
       - name: Verify actual read-only browser reports and library
         run: |
@@ -34,8 +37,17 @@ jobs:
           node scripts/test-reporting-baseline.mjs
           node scripts/test-reporting-ui.mjs
           node scripts/test-reporting-library.mjs
+          node scripts/test-reporting-special-ui.mjs
         env:
           QA_BASE: http://127.0.0.1:5331
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify actual report read failures and stale reads
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5332 > /tmp/hoy-reporting-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5332/ >/dev/null && break; sleep 1; done
+          node scripts/test-reporting-read-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5332
           CHROMIUM_PATH: /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
@@ -45,3 +57,4 @@ jobs:
           path: |
             qa/reporting/
             /tmp/hoy-reporting-preview.log
+            /tmp/hoy-reporting-dev.log

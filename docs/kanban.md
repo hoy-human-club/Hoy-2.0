@@ -2,6 +2,14 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 # HoyOS kanban
 
+## Payment reporting repair (2026-10-23)
+
+- PR84 availability follow-up: reproduce prior zero/empty Finance displays on source75538481; gate dependent KPIs/balance/charts/history until reads succeed. Expanded EN/ES390/1280 fault, empty-success/recovery and retry checks; independent payroll retained. Shared provider/schema and release ownership remain separate.
+
+### Doing
+
+- PG-10: unique scoped special-sale concepts, explicit missing/ambiguous linkage labels and fresh report-local reads with source-error/retry and stale/unmount guards. Full local build, domain, actual dev fault, production CSV, D-02 and retained reporting regression checks pass; draft review and exact-head CI pending. [Evidence](frontend-completion/pg10-export-repair.md). No shared provider/schema or PG-08 changes, whole-row acceptance, merge or deployment.
+
 ## Customer schedule and support draft (2026-10-23)
 
 - 2026-10-23 · Dedicated RS-01/RS-08/RS-13 customer slice on `codex/schedule-booking-support-20261023`, base PR78/94fe5259: scoped read retry/empty states, inactive teacher links, exact linked payment display and configured directions. Local build + ES/EN 390/1280 fictional customer-shell matrix (including timezone and dark key captures) pass. [Row evidence and remaining integration/content gaps](frontend-completion/schedule-booking-support.md). Draft review only; integration owner coordinates merges. No whole-row completion or production release claim.

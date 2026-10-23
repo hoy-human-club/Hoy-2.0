@@ -1,5 +1,7 @@
 # Reporting frontend verification
 
+2026-10-23: [PG-10 repair](pg10-export-repair.md) adds scoped special-sale concepts, explicit missing-linkage labels and report-local loading/error/retry with stale/unmount guards. D-02 now has ten usages. Prior checks below are historical bounded evidence, not full accounting acceptance.
+
 PG-10 provides a working read-only confirmed-payment CSV in Finance. Inclusive Bogotá dates select approved tenant/COP records. Recorded and received amounts are separate; unknown confirmers and received amounts stay blank. Invalid source facts are disclosed rather than inferred. Empty, invalid-range and download-failure states are implemented.
 
 AD-10 uses one actor/area/date/search selection for count, table, detail and export. Search includes displayed actor, role, action, object and source. Download failure is announced and retryable. Tests execute a fictional reception check-in and verify its action/object in the activity CSV.
