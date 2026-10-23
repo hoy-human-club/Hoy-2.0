@@ -7,6 +7,13 @@ import { docMetaPlugin } from './scripts/lib/docmeta.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 
+/**
+ * 0155 — the public address the build is served from, for index.html's link-preview tags (crawlers need absolute
+ * URLs, and `base: './'` keeps every asset relative). Override with SITE_URL when the studio's own domain is live.
+ */
+const SITE_URL = (process.env.SITE_URL ?? 'https://hoy-human-club.github.io/Hoy-2.0/').replace(/\/?$/, '/');
+const siteUrlPlugin = { name: 'hoy-site-url', transformIndexHtml: (html: string) => html.replaceAll('%SITE_URL%', SITE_URL) };
+
 /** Counts files matching a suffix under a folder. Build-time only — see __COMPONENT_COUNT__. */
 function countFiles(dir: string, suffix: string): number {
   let n = 0;
@@ -30,7 +37,7 @@ export default defineConfig({
   define: {
     __COMPONENT_COUNT__: JSON.stringify(countFiles(join(here, 'src/components'), '.meta.ts')),
   },
-  plugins: [react(), docMetaPlugin()],
+  plugins: [react(), docMetaPlugin(), siteUrlPlugin],
   server: { port: 5173 },
   preview: { port: 4173 },
   build: { chunkSizeWarningLimit: 1000 },

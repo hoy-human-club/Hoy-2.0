@@ -5,9 +5,11 @@
 }
 .coming-soon-scene, .coming-soon-veil { position: absolute; inset: 0; z-index: -1; }
 .coming-soon-scene { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
+/* 0155 · the text column gets a deeper, longer ink scrim (it holds to ~45% before easing out) and the bottom band is
+   darker, so the small lines ("Lo que viene…", the footer) never sit on the busy mirror and mats. */
 .coming-soon-veil {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 94%, transparent), color-mix(in srgb, var(--brand-deepBlue) 74%, transparent) 38%, color-mix(in srgb, var(--brand-ink) 9%, transparent) 78%),
-    linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 48%, transparent), transparent 30%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 95%, transparent), color-mix(in srgb, var(--brand-ink) 82%, transparent) 30%, color-mix(in srgb, var(--brand-deepBlue) 58%, transparent) 48%, color-mix(in srgb, var(--brand-ink) 6%, transparent) 80%),
+    linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 72%, transparent), transparent 34%);
 }
 .coming-soon-layout {
   min-height: 100svh; max-width: 120rem; margin-inline: auto;
@@ -16,19 +18,26 @@
 }
 .coming-soon-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--block); }
 .coming-soon-tools { display: flex; align-items: center; gap: var(--gap-control); }
-.coming-soon-login { display: inline-flex; align-items: center; justify-content: center; min-height: var(--h-ctl); padding: 0 var(--sp-lg); border: 1px solid color-mix(in srgb, var(--brand-cream) 45%, transparent); border-radius: var(--r-full); color: var(--brand-cream); background: color-mix(in srgb, var(--brand-ink) 58%, transparent); font: inherit; font-size: var(--fs-sm); text-decoration: none; white-space: nowrap; cursor: pointer; }
-.coming-soon-login:hover { background: var(--brand-cream); color: var(--brand-ink); }
-.coming-soon-brand { display: flex; flex-direction: column; align-items: center; gap: var(--sp-xs); }
-.coming-soon-brand .wordmark-vector { width: 8rem; min-width: 0; }
-.coming-soon-brand > span:last-child { font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .28em; }
+/* 0155 · Login (owner request, 0058) stays but steps back: a text link beside the language pill, not a second pill. */
+.coming-soon-login { display: inline-flex; align-items: center; justify-content: center; min-height: var(--h-ctl); padding: 0 var(--sp-sm); border: 0; border-radius: var(--r-sm); color: color-mix(in srgb, var(--brand-cream) 88%, transparent); background: none; font: inherit; font-size: var(--fs-sm); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--brand-cream) 40%, transparent); text-underline-offset: .3em; white-space: nowrap; cursor: pointer; transition: color var(--dur-fast), text-decoration-color var(--dur-fast); }
+.coming-soon-login:hover { color: var(--brand-cream); text-decoration-color: var(--brand-yellow); }
+/* 0155 · one lockup: the tagline sits tight under the script mark and shares its left edge with everything below. */
+.coming-soon-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+/* An explicit height, as the site header does: aspect-ratio alone let the inner svg fall back to its 150 px default,
+   which opened a ~90 px hole between the script and "Human club". */
+.coming-soon-brand .wordmark-vector { width: 8rem; height: calc(8rem / var(--wm-ratio)); min-width: 0; }
+.coming-soon-brand > span:last-child { margin-top: var(--sp-sm); padding-left: var(--sp-2xs); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .28em; opacity: .85; }
 .coming-soon .langtoggle { background: color-mix(in srgb, var(--brand-ink) 58%, transparent); border-color: color-mix(in srgb, var(--brand-cream) 32%, transparent); }
 .coming-soon .langtoggle button { color: var(--brand-cream); min-width: var(--h-ctl); }
 .coming-soon .langtoggle button.is-active { background: var(--brand-cream); color: var(--brand-ink); box-shadow: none; }
 .coming-soon-message { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-block: var(--section); max-width: 36rem; }
 .coming-soon-status { margin: 0 0 var(--block); display: flex; align-items: center; gap: var(--gap-inline); text-transform: uppercase; letter-spacing: .2em; font-size: var(--fs-xs); color: var(--brand-yellow); }
 .coming-soon-status > span { width: var(--sp-sm); height: var(--sp-sm); border-radius: var(--r-full); background: currentColor; box-shadow: 0 0 0 var(--sp-xs) color-mix(in srgb, var(--brand-yellow) 13%, transparent); }
-.coming-soon h1 { margin: 0; font-family: var(--font-editorial); font-size: clamp(3rem, 5.7vw, 5.6rem); line-height: 1.02; letter-spacing: -.035em; font-weight: 400; color: var(--brand-cream); }
-.coming-soon h1 span { display: block; }
+.coming-soon h1 { margin: 0; font-family: var(--font-editorial); font-size: clamp(3rem, 5.7vw, 5.6rem); line-height: 1.04; letter-spacing: var(--ls-tight); font-weight: 400; color: var(--brand-cream); }
+.coming-soon h1 > span { display: block; }
+/* 0155 · the last line in italic (as the site's "tu tiempo."), its last word on the sun marker in ink: the one loud moment. */
+.coming-soon-lead { font-style: italic; }
+.coming-soon-mark { display: inline-block; line-height: 1; padding: 0 .1em .04em; margin-right: .02em; border-radius: .08em; background: var(--brand-yellow); color: var(--brand-ink); transform: rotate(-1.2deg); }
 .coming-soon-intro { max-width: 35ch; margin: var(--block) 0 0; font-size: var(--fs-md); line-height: 1.65; text-wrap: pretty; }
 .coming-soon-cta { margin-top: var(--sp-2xl); }
 .coming-soon-follow { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--block); min-height: var(--h-ctl-lg); padding: 0 var(--sp-xl); border: 1px solid var(--brand-cream); border-radius: var(--r-full); color: var(--brand-ink); background: var(--brand-cream); text-decoration: none; font-size: var(--fs-sm); font-weight: var(--fw-medium); transition: background var(--dur-base), transform var(--dur-base); }
@@ -38,7 +47,7 @@
 .coming-soon-footer p { margin: 0; }
 .coming-soon :is(button, a):focus-visible { outline: 2px solid var(--brand-yellow); outline-offset: var(--sp-xs); }
 @media (max-width: 767px) {
-  .coming-soon-tools { flex-direction: column-reverse; align-items: flex-end; gap: var(--sp-sm); }
+  .coming-soon-tools { flex-direction: column; align-items: flex-end; gap: var(--sp-sm); }
   .coming-soon-layout { padding: var(--sp-xl) var(--gutter); }
   .coming-soon-scene { object-position: 58% center; }
   .coming-soon-veil { background: linear-gradient(90deg, color-mix(in srgb, var(--brand-ink) 86%, transparent), color-mix(in srgb, var(--brand-ink) 43%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-ink) 85%, transparent), transparent 90%); }

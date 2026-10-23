@@ -4,6 +4,7 @@ import { Drawer } from '../../organism/Drawer/Drawer';
 import { Button } from '../../atom/Button/Button';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { tenant } from '../../../tenant/tenant';
+import { dateKey, formatDate } from '../../../i18n/format';
 import { taglines } from '../../../tenant/brand';
 import { Wordmark } from '../../atom/Wordmark/Wordmark';
 import { Icon } from '../../atom/Icon/Icon';
@@ -12,7 +13,11 @@ import './ComingSoonLanding.css';
 
 /** An independent launch surface: no website-edition state or mock conversion controls. */
 export function ComingSoonLanding() {
-  const { t, bi } = useI18n();
+  const { t, bi, lang } = useI18n();
+  // 0155: the eyebrow names opening day until it has passed, then falls back to "Próximamente".
+  const status = dateKey() <= tenant.opensOn ? t('soon.opens', { date: formatDate(tenant.opensOn, lang, { day: 'numeric', month: 'long' }) }) : t('soon.status');
+  // 0155: the tagline's last line is set in italic and its last word carries the sun marker — the page's one loud moment.
+  const lines = bi(taglines.present).split('.').map((l) => l.trim()).filter(Boolean);
   const [params, setParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,11 +53,15 @@ export function ComingSoonLanding() {
     <div className="coming-soon-layout">
       <header className="coming-soon-header">
         <div className="coming-soon-brand"><Wordmark vector tone="cream" /><span>{bi(tenant.tagline)}</span></div>
-        <div className="coming-soon-tools"><LangToggle /><button ref={loginButton} type="button" className="coming-soon-login" onClick={openLogin} aria-haspopup="dialog" aria-expanded={loginOpen}>{t('soon.login')}</button></div>
+        <div className="coming-soon-tools"><button ref={loginButton} type="button" className="coming-soon-login" onClick={openLogin} aria-haspopup="dialog" aria-expanded={loginOpen}>{t('soon.login')}</button><LangToggle /></div>
       </header>
       <section className="coming-soon-message" aria-labelledby="coming-soon-title">
-        <p className="coming-soon-status"><span aria-hidden="true" />{t('soon.status')}</p>
-        <h1 id="coming-soon-title">{bi(taglines.present).split('.').filter(Boolean).map(line => <span key={line}>{line.trim()}.</span>)}</h1>
+        <p className="coming-soon-status"><span aria-hidden="true" />{status}</p>
+        <h1 id="coming-soon-title">{lines.map((line, i) => {
+          if (i < lines.length - 1) return <span key={line}>{line}.</span>;
+          const cut = line.lastIndexOf(' ');
+          return <span key={line} className="coming-soon-lead">{cut > 0 ? `${line.slice(0, cut)} ` : ''}<mark className="coming-soon-mark">{line.slice(cut + 1)}</mark>.</span>;
+        })}</h1>
         <p className="coming-soon-intro">{t('soon.intro')}</p>
         <div className="coming-soon-cta">
           <a className="coming-soon-follow" href={tenant.social.instagramUrl} target="_blank" rel="noopener noreferrer">

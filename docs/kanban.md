@@ -12,8 +12,11 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0154 stage 1 on `ui-polish/stage-1`: Combobox (new) for the S-02 class picker, Tabs (new) for the M-06 segments with counts, demo tools moved from the DesktopShell top bar to a demo bar. Local build and browser check at 390 / 1100 / 1280 px.
 
+- 0155 W-11 quick wins on `ui-polish/coming-soon-quick-wins`: opening date eyebrow (tenant.opensOn), italic last line with the sun marker, one left-aligned lockup, quieter Login link, deeper text scrim, link-preview tags and card. test-website-preview passes (ES/EN, 344–3840).
+
 ### Next
 
+- W-11 bigger pass: photo grade to the Hoy palette, lead capture as the main action (needs a decision on what it collects), a right-side anchor, the load sequence; the address once verified.
 - Hoy status vocabulary on booking and payment views (awaiting Jas / Justin).
 - Owner decisions: dark `action` colour, solid `ink-subtle`, SiteVersionSelect visibility for visitors, HOY vs Human Club, dropping Inter for app titles.
 

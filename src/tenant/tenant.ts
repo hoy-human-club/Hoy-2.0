@@ -30,6 +30,8 @@ export const tenant = {
   tagline: { es: 'Human club', en: 'Human club' },
   /** The studio is in Medellín (the brand manual is headed "Medellín · 2026" and the copy names it). */
   city: 'Medellín',
+  /** 0155 — opening day (agreed rule RN-01, 2026-10-21: "On October 30 the studio opens with classes"). W-11 shows it until the day passes. */
+  opensOn: '2026-10-30',
   country: 'CO',
   timezone: 'America/Bogota',
   currency: 'COP',
