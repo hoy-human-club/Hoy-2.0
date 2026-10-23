@@ -1180,10 +1180,12 @@ create table if not exists public.payments (
   provider text not null check (provider in ('wompi', 'manual')),
   provider_ref text,
   status text not null check (status in ('pending', 'approved', 'declined', 'refunded', 'voided')),
+  -- Immutable browser-only receipt preview. No fiscal invoice or email delivery; absent on legacy payments.
+  frontend_receipt jsonb,
   paid_at timestamptz,
   -- staff user for manual payments
   taken_by uuid references public.users(id) on delete set null,
-  -- Why the received amount differs from the invoice (S-04 requires it when it does)
+  -- Why the received amount differs from the recorded charge (S-04 requires it when it does)
   note text
 );
 create index if not exists payments_tenant_idx on public.payments(tenant_id);

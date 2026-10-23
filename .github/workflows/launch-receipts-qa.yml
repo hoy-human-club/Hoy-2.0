@@ -1,0 +1,60 @@
+name: Launch payment receipt QA
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/modules/customer/**'
+      - 'src/modules/staff/**'
+      - 'src/modules/transfers/**'
+      - 'src/modules/launch-receipts/**'
+      - 'src/components/organism/Receipt/**'
+      - 'src/components/organism/LaunchPaymentReceipt/**'
+      - 'scripts/*launch-receipts*'
+      - '.github/workflows/launch-receipts-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-receipts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify snapshots, replay and historical compatibility
+        run: |
+          node scripts/test-launch-receipts.mjs
+          node scripts/test-desk-settlement.mjs
+          node scripts/test-transfer-receipts.mjs
+          node scripts/test-draft-receipt-schema.mjs
+      - name: Verify bilingual responsive saved receipt history
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5390 > /tmp/hoy-receipt-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5390/ >/dev/null && break; sleep 1; done
+          node scripts/test-launch-receipts-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5390
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify actual history read failures and recovery
+        run: |
+          QA_PORT=5394 QA_VITE_FORCE=1 node scripts/qa-pending-payments-dev.mjs > /tmp/hoy-receipt-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5394/ >/dev/null && break; sleep 1; done
+          node scripts/test-launch-receipts-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5394
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: launch-receipts-${{ github.event.pull_request.head.sha }}
+          path: |
+            qa/launch-receipts/
+            /tmp/hoy-receipt-preview.log
+            /tmp/hoy-receipt-dev.log
+          retention-days: 7

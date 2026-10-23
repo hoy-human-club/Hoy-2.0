@@ -1,10 +1,13 @@
+import { LaunchPaymentReceipt } from '../../../components/organism/LaunchPaymentReceipt/LaunchPaymentReceipt';
+import { useCustomerRows } from '../useCustomerRows';
+import { readLaunchReceipt } from '../../../data/launchReceipts';
+import { Notice } from '../../../components/molecule/Notice/Notice';
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
-import { useTable } from '../../../data/DataContext';
 import type { BaseRow, PaymentRow, PlanRow } from '../../../data/schema';
-import { formatCOP, formatDate, formatDateTime, formatTime, dateKey } from '../../../i18n/format';
+import { formatCOP, formatDate, formatTime, dateKey } from '../../../i18n/format';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { Badge, toneForStatus } from '../../../components/atom/Badge/Badge';
@@ -28,10 +31,16 @@ export function HistoryPage() {
   const tab: Tab = params.get('tab') === 'payments' ? 'payments' : 'classes';
   const { rows: bookings, loading } = useMyBookings();
   const all = useAllSessionsJoined();
-  const { rows: payments } = useTable<PaymentRow>('payments', { where: { user_id: user.id }, orderBy: { column: 'created_at', dir: 'desc' } });
-  const { rows: invoices } = useTable<InvoiceRow>('invoices');
-  const { rows: plans } = useTable<PlanRow>('plans');
-  const [receipt, setReceipt] = useState<PaymentRow | null>(null);
+  const paymentRead = useCustomerRows<PaymentRow>('payments', { where: { user_id: user.id }, orderBy: { column: 'created_at', dir: 'desc' } });
+  const payments = paymentRead.rows;
+  const invoiceRead = useCustomerRows<InvoiceRow>('invoices', { where: { payment_id: payments.map(p => p.id) } });
+  const invoices = invoiceRead.rows;
+  const plansRead = useCustomerRows<PlanRow>('plans');
+  const plans = plansRead.rows;
+  const [receiptId, setReceiptId] = useState<string | null>(null);
+  const receipt = payments.find(p => p.id === receiptId) ?? null;
+  const reads = [paymentRead, invoiceRead, plansRead];
+  const paymentLoading = reads.some(r => r.loading), paymentError = reads.some(r => r.error);
 
   const classes = useMemo(() => {
     const now = Date.now();
@@ -41,7 +50,7 @@ export function HistoryPage() {
   const planName = (id: string | null) => { const p = plans.find((x) => x.id === id); return p ? bi({ es: p.name_es, en: p.name_en }) : t('customer.history.otherCharge'); };
   const inv = receipt ? invoices.find((i) => i.payment_id === receipt.id) : null;
 
-  const exportAll = () => downloadJson(`${tenant.slug}-historial-${dateKey()}.json`, { user: user.name, exported_at: new Date().toISOString(), classes: classes.map(({ b, j }) => ({ date: j!.session.starts_at, title: j!.session.title, teacher: j!.teacher?.display_name, status: b.status, paid_with: b.paid_with })), payments: payments.map((p) => ({ date: p.paid_at ?? p.created_at, plan: planName(p.plan_id), amount: p.amount, method: p.method, provider: p.provider, status: p.status, invoice: invoices.find((i) => i.payment_id === p.id)?.number ?? null })) });
+  const exportAll = () => downloadJson(`${tenant.slug}-historial-${dateKey()}.json`, { user: user.name, exported_at: new Date().toISOString(), classes: classes.map(({ b, j }) => ({ date: j!.session.starts_at, title: j!.session.title, teacher: j!.teacher?.display_name, status: b.status, paid_with: b.paid_with })), payments: payments.map((p) => ({ date: p.paid_at ?? p.created_at, plan: planName(p.plan_id), amount: p.amount, method: p.method, provider: p.provider, status: p.status, invoice: invoices.find((i) => i.payment_id === p.id)?.number ?? null, receiptReference: readLaunchReceipt(p)?.reference ?? null })) });
 
   return (
     <div className="container page cust-page">
@@ -63,32 +72,20 @@ export function HistoryPage() {
 
         {tab === 'payments' && (
           <ListGroup>
-            {payments.length === 0 && <EmptyState compact title={t('customer.history.payments.empty')} />}
-            {payments.map((p) => (
-              <ListRow key={p.id} icon={p.provider === 'wompi' ? 'credit-card' : 'cash'} title={planName(p.plan_id)} subtitle={`${formatDate(p.paid_at ?? p.created_at, lang)} · ${t(`customer.pay.method.${p.method}`)} · ${p.provider === 'wompi' ? 'Wompi' : t('customer.pay.manual')}`}
-                trailing={<span className="stack-sm" style={{ alignItems: 'flex-end' }}><strong>{formatCOP(p.amount, lang)}</strong><Badge tone={toneForStatus(p.status)}>{t(`customer.history.pay.${p.status}`)}</Badge></span>} onClick={() => setReceipt(p)} />
+            {paymentError && <Notice tone="danger" action={<Button onClick={() => reads.forEach(r => r.retry())}>{t('launchReceipt.retry')}</Button>}>{t('launchReceipt.readError')}</Notice>}
+            {paymentLoading && <SkeletonRows count={3} />}
+            {!paymentLoading && !paymentError && payments.length === 0 && <EmptyState compact title={t('customer.history.payments.empty')} />}
+            {!paymentLoading && !paymentError && payments.map((p) => (
+              <ListRow key={p.id} icon={p.provider === 'wompi' ? 'credit-card' : 'cash'} title={readLaunchReceipt(p)?.item ? bi(readLaunchReceipt(p)!.item!) : planName(p.plan_id)} subtitle={`${formatDate(p.paid_at ?? p.created_at, lang)} · ${t(`customer.pay.method.${p.method}`)} · ${p.provider === 'wompi' ? 'Wompi' : t('customer.pay.manual')}`}
+                trailing={<span className="stack-sm" style={{ alignItems: 'flex-end' }}><strong>{formatCOP(p.amount, lang)}</strong><Badge tone={toneForStatus(p.status)}>{t(`customer.history.pay.${p.status}`)}</Badge></span>} onClick={() => setReceiptId(p.id)} />
             ))}
           </ListGroup>
         )}
         <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.history.note')}</p>
       </div>
 
-      <Drawer open={!!receipt} onClose={() => setReceipt(null)} side="bottom" title={t('customer.history.receipt')}>
-        {receipt && (
-          <div className="stack-sm cust-receipt">
-            <div className="row-between"><span className="muted small">{t('customer.history.receipt.number')}</span><strong>{inv?.number ?? '—'}</strong></div>
-            <div className="row-between"><span className="muted small">{t('customer.history.receipt.date')}</span><span>{formatDateTime(receipt.paid_at ?? receipt.created_at, lang)}</span></div>
-            <div className="row-between"><span className="muted small">{t('customer.history.receipt.concept')}</span><span>{planName(receipt.plan_id)}</span></div>
-            <div className="row-between"><span className="muted small">{t('customer.history.receipt.method')}</span><span>{t(`customer.pay.method.${receipt.method}`)}{receipt.provider_ref ? ` · ${receipt.provider_ref}` : ''}</span></div>
-            {inv && <>
-              <div className="row-between"><span className="muted small">{t('customer.checkout.subtotal')}</span><span>{formatCOP(inv.subtotal, lang)}</span></div>
-              <div className="row-between"><span className="muted small">{t('customer.checkout.iva')}</span><span>{formatCOP(inv.tax, lang)}</span></div>
-            </>}
-            <div className="row-between cust-receipt-total"><span>{t('customer.checkout.total')}</span><strong>{formatCOP(receipt.amount, lang)}</strong></div>
-            <Badge tone={toneForStatus(receipt.status)}>{t(`customer.history.pay.${receipt.status}`)}</Badge>
-            <p className="xs muted">{t('customer.history.receipt.dian')}</p>
-          </div>
-        )}
+      <Drawer open={!!receiptId} onClose={() => setReceiptId(null)} side="bottom" title={t('launchReceipt.title')}>
+        {paymentError ? <Notice tone="danger" action={<Button onClick={() => reads.forEach(r => r.retry())}>{t('launchReceipt.retry')}</Button>}>{t('launchReceipt.readError')}</Notice> : paymentLoading ? <SkeletonRows count={3} /> : receipt ? <LaunchPaymentReceipt payment={receipt} customer={user.name} historicalReference={inv?.number} /> : <Notice>{t('launchReceipt.unknown')}</Notice>}
       </Drawer>
     </div>
   );

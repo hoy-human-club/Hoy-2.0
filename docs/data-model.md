@@ -934,9 +934,10 @@ _Cada cobro, por Wompi o manual._
 | `provider` | enum (wompi \| manual) |  |
 | `provider_ref` | text, null |  |
 | `status` | enum (pending \| approved \| declined \| refunded \| voided) |  |
+| `frontend_receipt` | json, null | Immutable browser-only receipt preview. No fiscal invoice or email delivery; absent on legacy payments. |
 | `paid_at` | timestamptz, null |  |
 | `taken_by` | uuid, null | → `users` staff user for manual payments |
-| `note` | text, null | Why the received amount differs from the invoice (S-04 requires it when it does) |
+| `note` | text, null | Why the received amount differs from the recorded charge (S-04 requires it when it does) |
 
 #### `transfer_receipts`
 Browser demo only. Not secure storage or cross-device synchronization.

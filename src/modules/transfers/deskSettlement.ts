@@ -1,3 +1,4 @@
+import { captureLaunchReceipt, readLaunchReceipt } from '../../data/launchReceipts';
 import type { DataProvider } from '../../data/types';
 import type { BaseRow, ClassLedgerRow, PaymentRow, UserRow } from '../../data/schema';
 import { readPaymentQuote } from '../../data/operationalQuotes';
@@ -58,6 +59,7 @@ export async function settleAtDesk(data: DataProvider, command: DeskSettlement, 
         || receipts.length || grants.length !== 1 || grants[0].id !== recorded.grantId || grants[0].user_id !== recorded.customerId
         || grants[0].tenant_id !== tenant.id || grants[0].payment_id !== payment.id
         || await digest(paymentState(payment)) !== recorded.paymentHash || await digest(grantState(grants[0])) !== recorded.grantHash) throw Error('settlement_conflict');
+      if (payment.frontend_receipt && !readLaunchReceipt(payment)) throw Error('settlement_conflict');
       check();
       return payment;
     }
@@ -72,7 +74,7 @@ export async function settleAtDesk(data: DataProvider, command: DeskSettlement, 
     ]); check();
     if (!customer || customer.tenant_id !== tenant.id || customer.status !== 'active' || receipts.length || grants.length) throw Error('fulfillment_scope');
     if (quote.itemId === 'trial') { await assertTrialAvailable(tx, payment.user_id!, payment.id); check(); }
-    const approved = await tx.update<PaymentRow>('payments', payment.id, {
+    let approved = await tx.update<PaymentRow>('payments', payment.id, {
       status: 'approved', amount_paid: input.amount, method: input.method, taken_by: input.actorId,
       note: input.note, paid_at: new Date().toISOString(),
     }); check();
@@ -80,6 +82,7 @@ export async function settleAtDesk(data: DataProvider, command: DeskSettlement, 
       user_id: payment.user_id!, plan_id: payment.plan_id, payment_id: payment.id, frontend_quote: structuredClone(quote),
       delta: quote.classes, reason: 'purchase', expires_at: quote.entitlementExpiresAt, frozen_from: null, frozen_until: null,
     }); check();
+    approved = await captureLaunchReceipt(tx, approved, { source: 'desk-settlement' }); check();
     const fulfillment: Fulfillment = { version: 1, customerId: payment.user_id!, grantId: grant.id, paymentHash: await digest(paymentState(approved)), grantHash: await digest(grantState(grant)) };
     check();
     await tx.insert('audit_log', {

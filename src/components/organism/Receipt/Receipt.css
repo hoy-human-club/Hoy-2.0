@@ -15,3 +15,5 @@
   .receipt { position: absolute; left: 0; top: 0; box-shadow: none; border: 0; }
   .receipt-print { display: none; }
 }
+
+.receipt-meta { min-width: 0; overflow-wrap: anywhere; }
