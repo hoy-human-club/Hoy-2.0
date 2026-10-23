@@ -52,7 +52,7 @@ create table if not exists public.promotion_campaigns (
 create index if not exists promotion_campaigns_tenant_idx on public.promotion_campaigns(tenant_id);
 create trigger promotion_campaigns_touch before update on public.promotion_campaigns for each row execute function public.touch_updated_at();
 alter table public.promotion_campaigns enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · Case-insensitive unique tenant code, immutable creator attribution. Public preview allowlists terms and invitation message only; recipient label and context never enter URLs or public previews. A handoff is not verified delivery.
 -- access:
@@ -75,7 +75,7 @@ create index if not exists promotion_shares_tenant_idx on public.promotion_share
 create index if not exists promotion_shares_campaignId_idx on public.promotion_shares("campaignId");
 create trigger promotion_shares_touch before update on public.promotion_shares for each row execute function public.touch_updated_at();
 alter table public.promotion_shares enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · One private voucher per tenant + campaign + claimant. Repeat claims return the original voucher and immutable original share/referrer, including attempts through another code. Only the customer may explicitly claim for themself.
 -- access:
@@ -99,7 +99,7 @@ create index if not exists promotion_claims_shareId_idx on public.promotion_clai
 create index if not exists promotion_claims_voucherId_idx on public.promotion_claims("voucherId");
 create trigger promotion_claims_touch before update on public.promotion_claims for each row execute function public.touch_updated_at();
 alter table public.promotion_claims enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · Append-only actor-owned idempotency history. Handoff records copy/composer status only, never sent/delivered. Result snapshots may contain private data and must not be exposed publicly.
 -- access:
@@ -126,7 +126,7 @@ create index if not exists promotion_events_shareId_idx on public.promotion_even
 create index if not exists promotion_events_claimId_idx on public.promotion_events("claimId");
 create trigger promotion_events_touch before update on public.promotion_events for each row execute function public.touch_updated_at();
 alter table public.promotion_events enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
@@ -164,7 +164,7 @@ create index if not exists vouchers_campaignId_idx on public.vouchers("campaignI
 create index if not exists vouchers_shareId_idx on public.vouchers("shareId");
 create trigger vouchers_touch before update on public.vouchers for each row execute function public.touch_updated_at();
 alter table public.vouchers enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
@@ -193,7 +193,7 @@ create index if not exists voucher_bookings_voucherId_idx on public.voucher_book
 create index if not exists voucher_bookings_sessionId_idx on public.voucher_bookings("sessionId");
 create trigger voucher_bookings_touch before update on public.voucher_bookings for each row execute function public.touch_updated_at();
 alter table public.voucher_bookings enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- commerce · Demo contract only; production transactional RPCs and authorization are not connected. No real issuance, delivery or payment. Lifetime cap counts non-cancelled attendee seats across bookings; cancellation policy is explicitly selected. COP cost is a mock quotation, never client-authoritative in production.
 -- access:
@@ -218,7 +218,7 @@ create index if not exists voucher_events_voucherId_idx on public.voucher_events
 create index if not exists voucher_events_bookingId_idx on public.voucher_events("bookingId");
 create trigger voucher_events_touch before update on public.voucher_events for each row execute function public.touch_updated_at();
 alter table public.voucher_events enable row level security;
--- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- core · Each studio using HoyOS. Today: HOY.
 create table if not exists public.tenants (
@@ -591,6 +591,55 @@ create trigger user_roles_touch before update on public.user_roles for each row 
 alter table public.user_roles enable row level security;
 create policy "user_roles: tenant read" on public.user_roles for select using (tenant_id = public.current_tenant_id());
 create policy "user_roles: staff write" on public.user_roles for all using (tenant_id = public.current_tenant_id() and (public.has_role('super_admin') or public.has_role('admin') or public.has_role('coordinator')));
+
+-- people · Private local preview. No delivery or identity verification.
+-- access:
+--   · Default deny until authenticated own-account RPC and scoped reads exist. Browser mock only; never a mail queue.
+create table if not exists public.email_change_previews (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null references public.tenants(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  user_id uuid not null references public.users(id) on delete set null,
+  previous_email text not null,
+  next_email text not null,
+  changed_at timestamptz not null,
+  status text not null check (status in ('preview'))
+);
+create index if not exists email_change_previews_tenant_idx on public.email_change_previews(tenant_id);
+create index if not exists email_change_previews_user_id_idx on public.email_change_previews(user_id);
+create trigger email_change_previews_touch before update on public.email_change_previews for each row execute function public.touch_updated_at();
+alter table public.email_change_previews enable row level security;
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
+
+-- people · Private proposed edit until review. Demo contract only.
+-- access:
+--   · Default deny until authenticated teacher-own submission and admin/coordinator review RPCs exist. No client grants.
+create table if not exists public.teacher_profile_proposals (
+  -- Primary key
+  id uuid primary key default gen_random_uuid(),
+  -- Owning studio (multi-tenant)
+  tenant_id uuid not null references public.tenants(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  teacher_id uuid not null,
+  submitted_by uuid not null references public.users(id) on delete set null,
+  expected text not null,
+  proposed jsonb not null,
+  status text not null check (status in ('pending', 'approved', 'rejected', 'cancelled')),
+  reviewed_by uuid references public.users(id) on delete set null,
+  reviewed_at timestamptz,
+  reason text
+);
+create index if not exists teacher_profile_proposals_tenant_idx on public.teacher_profile_proposals(tenant_id);
+create index if not exists teacher_profile_proposals_teacher_id_idx on public.teacher_profile_proposals(teacher_id);
+create index if not exists teacher_profile_proposals_submitted_by_idx on public.teacher_profile_proposals(submitted_by);
+create index if not exists teacher_profile_proposals_reviewed_by_idx on public.teacher_profile_proposals(reviewed_by);
+create trigger teacher_profile_proposals_touch before update on public.teacher_profile_proposals for each row execute function public.touch_updated_at();
+alter table public.teacher_profile_proposals enable row level security;
+-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.
 
 -- people · Public and contractual profile of each teacher.
 create table if not exists public.teachers (
@@ -2027,6 +2076,7 @@ alter table public.deletion_requests add constraint deletion_requests_user_id_fk
 alter table public.deletion_requests add constraint deletion_requests_resolved_by_fk foreign key (resolved_by) references public.users(id) on delete set null;
 alter table public.consents add constraint consents_user_id_fk foreign key (user_id) references public.users(id) on delete set null;
 alter table public.legal_acceptances add constraint legal_acceptances_user_id_fk foreign key (user_id) references public.users(id) on delete set null;
+alter table public.teacher_profile_proposals add constraint teacher_profile_proposals_teacher_id_fk foreign key (teacher_id) references public.teachers(id) on delete set null;
 alter table public.class_pay_rules add constraint class_pay_rules_template_id_fk foreign key (template_id) references public.class_templates(id) on delete set null;
 alter table public.class_pay_rules add constraint class_pay_rules_session_id_fk foreign key (session_id) references public.class_sessions(id) on delete set null;
 alter table public.space_bookings add constraint space_bookings_special_charge_id_fk foreign key (special_charge_id) references public.special_charges(id) on delete set null;

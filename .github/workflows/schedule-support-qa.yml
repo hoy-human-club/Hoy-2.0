@@ -1,0 +1,65 @@
+name: Customer schedule booking support QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/customer/pages/SchedulePage.tsx'
+      - 'src/modules/customer/pages/BookedPage.tsx'
+      - 'src/modules/customer/pages/RulesPage.tsx'
+      - 'src/modules/customer/pages/FaqPage.tsx'
+      - 'src/modules/customer/pages/TeachersPage.tsx'
+      - 'src/modules/customer/pages/MorePage.tsx'
+      - 'src/modules/customer/useCustomerRows.ts'
+      - 'src/modules/customer/bookingPaymentStatus.ts'
+      - 'src/modules/customer/directions.ts'
+      - 'src/modules/customer/supportStrings.ts'
+      - 'scripts/*schedule-support*'
+      - '.github/workflows/schedule-support-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-customer-reads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify scoped read models and unchanged cancellation rules
+        run: |
+          node scripts/test-schedule-support.mjs
+          node scripts/test-customer-cancel.mjs
+          node scripts/test-reschedule-atomic.mjs
+          node scripts/test-reschedule-cutoff.mjs
+          npm run test:dates
+      - run: npm run build
+      - name: Verify actual customer pages in ES and EN at 390 and 1280
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5217 > /tmp/hoy-schedule-support.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5217/ >/dev/null && break; sleep 1; done
+          node scripts/test-schedule-support-ui.mjs
+          node scripts/test-schedule-support-content.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5217
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify production routes and role guard
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5218 > /tmp/hoy-schedule-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5218/ >/dev/null && break; sleep 1; done
+          node scripts/test-schedule-support-routes.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5218
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: schedule-booking-support-${{ github.event.pull_request.head.sha }}
+          retention-days: 7
+          path: |
+            docs/screenshots/schedule-booking-support/
+            /tmp/hoy-schedule-support.log
+            /tmp/hoy-schedule-preview.log

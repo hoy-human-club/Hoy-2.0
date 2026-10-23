@@ -66,7 +66,7 @@ function isCurrentSnapshot(stored: Stored, now = new Date()): boolean {
  */
 function upgradeAdditiveMockTables(db: Db) {
   if (!db || typeof db !== 'object') return;
-  for (const table of ['class_pay_rules', 'transfer_receipts', 'maintenance_records']) {
+  for (const table of ['class_pay_rules', 'transfer_receipts', 'maintenance_records', 'email_change_previews', 'teacher_profile_proposals']) {
     if (!Object.prototype.hasOwnProperty.call(db, table)) db[table] = [];
   }
 }
@@ -243,6 +243,7 @@ export class MockProvider implements DataProvider {
 
   async insert<T extends BaseRow>(table: string, row: Partial<T>): Promise<T> {
     if (table === 'legal_documents' && row.id && this.rows(table).some(r=>r.id===row.id)) throw new Error('legal_document_duplicate');
+    if (table === 'email_change_previews' && this.rows(table).some(r=>r.id===row.id)) throw new Error('email_preview_append_only');
     if (table === 'legal_acceptances' && this.rows(table).some(r=>r.id===row.id)) throw new Error('legal_acceptance_append_only');
     if (table === 'audit_log' && this.rows(table).some(r => r.id === row.id)) throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
@@ -265,6 +266,7 @@ export class MockProvider implements DataProvider {
   async update<T extends BaseRow>(table: string, id: string, patch: Partial<T>): Promise<T> {
     if (table === 'legal_documents' && this.rows(table).some(r=>r.id===id&&r.status==='published')) throw new Error('legal_document_immutable');
     if (table === 'legal_documents' && ('id' in patch && patch.id !== id || 'tenant_id' in patch && patch.tenant_id !== tenant.id)) throw new Error('legal_document_identity_immutable');
+    if(table==='email_change_previews')throw Error('email_preview_append_only');
     if (table === 'legal_acceptances') throw new Error('legal_acceptance_append_only');
     if (table === 'audit_log') throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');
@@ -296,6 +298,7 @@ export class MockProvider implements DataProvider {
   }
   async remove(table: string, id: string): Promise<void> {
     if (table === 'legal_documents' && this.rows(table).some(r=>r.id===id&&r.status==='published')) throw new Error('legal_document_immutable');
+    if(table==='email_change_previews')throw Error('email_preview_append_only');
     if (table === 'legal_acceptances') throw new Error('legal_acceptance_append_only');
     if (table === 'audit_log') throw new Error('audit_append_only');
     if (table === 'class_pay_rules') throw new Error('class_pay_atomic_command_required');

@@ -1,5 +1,7 @@
+import{profileReviewStrings}from'../profile-review/strings';
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+  ...profileReviewStrings,
   'teacher.access.unlinked':{es:'Tu cuenta no está vinculada a un perfil de profesor.',en:'Your account is not linked to a teacher profile.'},
   'teacher.access.unavailable':{es:'Clase no disponible',en:'Class unavailable'},
   'teacher.access.body':{es:'Solo puedes abrir clases vinculadas a tu cuenta de profesor.',en:'You can only open classes linked to your teacher account.'},

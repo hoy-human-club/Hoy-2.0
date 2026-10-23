@@ -1,3 +1,5 @@
+import{TeacherQueue}from'../profile-review/TeacherQueue';
+import{reviewer}from'../profile-review/contracts';
 import { SharedImageField } from '../../components/organism/SharedImageField/SharedImageField';
 import { ClassPayRulesPanel } from '../../components/organism/ClassPayRulesPanel/ClassPayRulesPanel';
 import { useEffect, useMemo, useState } from 'react';
@@ -175,6 +177,7 @@ export function ContentPage() {
         </div>
       </div>
       <ContentSubNav current="entities" />
+      {entity==='teachers'&&reviewer(role)&&<TeacherQueue/>}
       <div className="row wrap" role="tablist">
         {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={() => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
         <span className="xs muted">{t('admin.content.pricingNote')}</span>

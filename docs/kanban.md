@@ -2,19 +2,9 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 # HoyOS kanban
 
-## Payments · isolated frontend batch (2026-10-23)
+## Customer schedule and support draft (2026-10-23)
 
-### Done
-
-- S-09 receipt-free front-desk demo settlement: retained class terms, exact amount, method/staff attribution, atomic fulfillment/audit and replay safeguards; bilingual responsive/error/empty checks and existing queue/transfer domain regressions pass. [Evidence](frontend-completion/payment-desk-settlement.md). Bounded PG-07/09 slices only; source base c2c0f37 preserves PR77 consent.
-
-### Doing
-
-- Draft PR/integration handoff and exact-head CI. No independent merge or deployment.
-
-### Backlog
-
-- PC-01/PC-02 timing decisions; retained booking intent/capacity/release model; authenticated server idempotency/settlement and receipt email. Configurable timing projection defaults are unresolved. Permanent no-refunds and all original phases/owner acceptance gates remain.
+- 2026-10-23 · Dedicated RS-01/RS-08/RS-13 customer slice on `codex/schedule-booking-support-20261023`, base PR78/94fe5259: scoped read retry/empty states, inactive teacher links, exact linked payment display and configured directions. Local build + ES/EN 390/1280 fictional customer-shell matrix (including timezone and dark key captures) pass. [Row evidence and remaining integration/content gaps](frontend-completion/schedule-booking-support.md). Draft review only; integration owner coordinates merges. No whole-row completion or production release claim.
 
 ## Active frontend program (2026-10-22)
 
@@ -798,3 +788,8 @@ Protected-capture clarification: M14 schedule/pay screenshots remain local/ignor
 - Current40 readable5dc fullbuild/contrast8.67 pass, freshfullmatrix underway;43 new branch9bce78e reserved with existingagent for initial read-only RS10contract/repro audit only. No43 runtimeimplementation, compiler, browser or acceptance.
 
 - PR72 independent audit repair draft: isolated codex/frontend-audit-repairs-pr72 from e30a4d21. Removes new refund actions, aligns fresh fictional :00–:50 fixtures and makes reception attendance/audit atomic. After-start undo visibly awaits policy; no hold/cancellation rule invented. Prior email/component-library work untouched. Focused and aggregate evidence/checkpoint: frontend-completion/audit-repair-checkpoint.md. No merge/deployment/sheet update; Library service discovery currently blocked before upload.
+
+## Voucher frontend batch
+
+### Done
+- C-37 / C-28: isolated fictional class-gift rehearsal and invitation availability states; scoped verification and payment/account integration gates in `docs/frontend-completion/voucher-gifts-integration.md`. No row-wide acceptance or backend completion.

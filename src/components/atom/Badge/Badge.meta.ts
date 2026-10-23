@@ -6,8 +6,8 @@ export default defineMeta({
   tier: 'atom', name: 'Badge',
   description: { es: 'Etiqueta de estado compacta con seis tonos. toneForStatus() mapea strings comunes.', en: 'Compact status label with six tones. toneForStatus() maps common strings.' },
   props: [{ name: 'tone', type: "'neutral' | 'primary' | 'success' | 'warn' | 'danger' | 'highlight'", default: 'neutral', description: { es: 'Color semántico.', en: 'Semantic colour.' } }],
-  states: ['default'],
-  usages: [{ title: { es: 'Tonos', en: 'Tones' }, render: () => h('div', { className: 'row wrap' }, h(Badge, null, 'neutral'), h(Badge, { tone: 'primary' }, 'booked'), h(Badge, { tone: 'success' }, 'active'), h(Badge, { tone: 'warn' }, 'pending'), h(Badge, { tone: 'danger' }, 'cancelled'), h(Badge, { tone: 'highlight' }, 'Mejor valor')) }],
+  states: ['booking linked payment pending / confirmed / released / unknown', 'default'],
+  usages: [{ title: { es: 'Estado de pago vinculado a reserva', en: 'Booking linked payment status' }, render: () => h('div', {className: 'stack-sm'}, h(Badge, {tone: 'success'}, 'Pago confirmado'), h(Badge, null, 'Pendiente de confirmación'), h(Badge, null, 'Pago liberado'), h(Badge, null, 'Estado del pago no disponible')) }, { title: { es: 'Tonos', en: 'Tones' }, render: () => h('div', { className: 'row wrap' }, h(Badge, null, 'neutral'), h(Badge, { tone: 'primary' }, 'booked'), h(Badge, { tone: 'success' }, 'active'), h(Badge, { tone: 'warn' }, 'pending'), h(Badge, { tone: 'danger' }, 'cancelled'), h(Badge, { tone: 'highlight' }, 'Mejor valor')) }],
   a11y: [{ es: 'Solo color + texto; nunca solo color.', en: 'Colour plus text; never colour alone.' }],
-  usedBy: ['M-08a', 'M-18', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'M-03', 'P-01', 'C-01', 'DEV-SPECS', 'HUB-01', 'M-08g', 'M-10', 'M-10a', 'D-07'],
+  usedBy: ['C-08', 'M-08a', 'M-18', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'M-03', 'P-01', 'C-01', 'DEV-SPECS', 'HUB-01', 'M-08g', 'M-10', 'M-10a', 'D-07'],
 });

@@ -1,10 +1,11 @@
+import { Notice } from '../../../components/molecule/Notice/Notice';
+import { useCustomerRows } from '../useCustomerRows';
 import { studioParts } from '../../../i18n/format';
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
-import { useTable } from '../../../data/DataContext';
-import type { ClassSessionRow, ModalityRow, TeacherRow } from '../../../data/schema';
+import type { BaseRow, BookingRow, ClassSessionRow, ModalityRow, RoomRow, TeacherRow } from '../../../data/schema';
 import { useLayout } from '../../../layout/useLayout';
 import { Chip } from '../../../components/atom/Chip/Chip';
 import { Button } from '../../../components/atom/Button/Button';
@@ -13,7 +14,6 @@ import { Field } from '../../../components/molecule/Field/Field';
 import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { SessionCalendar } from '../../../components/organism/SessionCalendar/SessionCalendar';
 import { canvasSpecs } from '../specs';
-import { useAllSessionsJoined, useMyBookings } from '../hooks';
 import { PageHead } from '../ui';
 import { useActions } from '../../../actions';
 import { sessionUnavailableReason } from '../../../data/sessionAvailability';
@@ -55,11 +55,20 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
   const [filters, setFilters] = useState<Filters>(loadFilters);
   useEffect(() => { try { sessionStorage.setItem(FKEY, JSON.stringify(filters)); } catch { /* ignore */ } }, [filters]);
 
-  const all = useAllSessionsJoined();
-  const { rows: modalities } = useTable<ModalityRow>('modalities', { where: { active: true } });
+  const sessions = useCustomerRows<ClassSessionRow>('class_sessions', { orderBy: { column: 'starts_at' } });
+  const mods = useCustomerRows<ModalityRow>('modalities');
+  const team = useCustomerRows<TeacherRow>('teachers');
+  const rooms = useCustomerRows<RoomRow>('rooms');
+  const templates = useCustomerRows<BaseRow & { active: boolean }>('class_templates');
+  const bookingsRead = useCustomerRows<BookingRow>('bookings', { where: { user_id: user.id } });
+  const reads = [sessions, mods, team, rooms, templates, bookingsRead];
+  const error = reads.some(r => r.error), loading = reads.some(r => r.loading);
+  const retry = () => reads.forEach(r => r.retry());
+  const all = useMemo(() => sessions.rows.map(session => ({ session, modality: mods.rows.find(m => m.id === session.modality_id), teacher: team.rows.find(te => te.id === session.teacher_id), room: rooms.rows.find(r => r.id === session.room_id), templateActive: templates.rows.find(r => r.id === session.template_id)?.active })), [sessions.rows, mods.rows, team.rows, rooms.rows, templates.rows]);
+  const modalities = mods.rows.filter(m => m.active);
   const visibleMods = modalities;
-  const { rows: teachers } = useTable<TeacherRow>('teachers', { where: { active: true } });
-  const { rows: myBookings } = useMyBookings();
+  const teachers = team.rows.filter(te => te.active);
+  const myBookings = bookingsRead.rows;
   const mine = useMemo(() => new Set(myBookings.filter((b) => b.status === 'booked').map((b) => b.session_id)), [myBookings]);
 
   const matches = (x: (typeof all)[number]) => {
@@ -75,7 +84,7 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
   const filtered = useMemo(() => all.filter(matches), [all, filters]);
 
   // WebMCP (0025): app.reserve opens checkout for a session id; the id must be a bookable session in the schedule.
-  const allRef = useRef(all); allRef.current = all;
+  const allRef = useRef(all); allRef.current = error || loading ? [] : all;
   const navHandlers = useAppNavHandlers();
   const handlers = useMemo(() => ({
     ...navHandlers,
@@ -119,7 +128,9 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
 
   return (
     <div className="container page cust-page">
-      {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
+      {error && <Notice tone="danger" action={<Button onClick={retry}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice>}
+      {loading && <p role="status">{t('core.common.loading')}</p>}
+      {!error && !loading && sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
       {user.role === 'public' && null}
       <Drawer open={sheet} onClose={() => setSheet(false)} title={t('customer.schedule.filters')} side="bottom"
         footer={<><Button variant="ghost" onClick={() => setFilters(DEFAULT)}>{t('customer.schedule.clearFilters')}</Button><Button onClick={() => setSheet(false)}>{t('customer.schedule.apply')}</Button></>}>

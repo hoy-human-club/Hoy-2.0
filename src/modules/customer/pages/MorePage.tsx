@@ -1,3 +1,4 @@
+import { customerDirections } from '../directions';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -67,7 +68,7 @@ export function MorePage() {
           <ListRow icon="policies" title={t('customer.rules.title')} subtitle={t('customer.more.rules.sub')} to="/app/rules" />
           <ListRow icon="whatsapp" title={t('customer.more.whatsapp')} subtitle={`${wa.display('support', lang)} · ${support.note ? bi(support.note) : bi(policy.replyWindow)}`} href={wa.link('support', t('customer.more.whatsapp.text', { name: name.split(' ')[0] }))} />
           <ListRow icon="mail" title={t('customer.more.email')} subtitle={`${contact.email}${pendingSuffix(contact, 'email', lang)}`} href={`mailto:${contact.email}`} />
-          <ListRow icon="map-pin" title={t('customer.more.visit')} subtitle={`${contact.address}, ${contact.city}${pendingSuffix(contact, 'address', lang)}`} href={contact.location.link ?? `https://www.google.com/maps/search/?api=1&query=${contact.location.lat},${contact.location.lng}`} />
+          <ListRow icon="map-pin" title={t('customer.more.visit')} subtitle={`${contact.address}, ${contact.city}${pendingSuffix(contact, 'address', lang)}`} href={customerDirections(contact)} />
           <ListRow icon="clock" title={t('customer.more.hours')} subtitle={<><span>{bi(hours.sentence)}</span><br /><strong className="xs" data-testid="more-today">{bi(hours.today)}</strong></>} />
         </ListGroup>
 

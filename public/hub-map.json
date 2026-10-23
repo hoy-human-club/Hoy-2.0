@@ -1,6 +1,6 @@
 {
   "schema": "hoy.hub-map/1",
-  "generatedAt": "2026-10-22T00:00:00.000Z",
+  "generatedAt": "2026-10-23T00:00:00.000Z",
   "product": {
     "id": "hoy",
     "name": {
@@ -360,6 +360,7 @@
         "C-02",
         "C-11",
         "C-25",
+        "C-37",
         "C-02b",
         "C-03",
         "C-04",
@@ -5543,6 +5544,45 @@
           "en": "Front desk"
         },
         "order": 10
+      }
+    },
+    {
+      "code": "C-37",
+      "route": "/app/voucher-gifts",
+      "name": {
+        "es": "Regalar clases · prueba",
+        "en": "Give classes · demo"
+      },
+      "purpose": {
+        "es": "Ensayar transferencia, enlace y canje único sin efectos operativos.",
+        "en": "Rehearse transfer, link and single redemption without operational effects."
+      },
+      "surface": "customer",
+      "roles": [
+        "super_admin",
+        "admin",
+        "customer"
+      ],
+      "experienceId": "app",
+      "device": "phone",
+      "status": "built",
+      "actions": [],
+      "shots": {
+        "thumbs": {},
+        "full": {
+          "es-390": "hub-map/shots/C-37/es-390.jpg",
+          "en-390": "hub-map/shots/C-37/en-390.jpg",
+          "es-1280": "hub-map/shots/C-37/es-1280.jpg",
+          "en-1280": "hub-map/shots/C-37/en-1280.jpg"
+        }
+      },
+      "group": {
+        "id": "pay",
+        "label": {
+          "es": "Pagar",
+          "en": "Pay"
+        },
+        "order": 20
       }
     },
     {

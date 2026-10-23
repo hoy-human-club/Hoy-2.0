@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "es/390: production bundle boot + customer route smoke (day/week, rules, both FAQ pages, teachers, missing booking), no missing translation keys or horizontal overflow; finance role denied schedule",
+    "es/1280: production bundle boot + customer route smoke (day/week, rules, both FAQ pages, teachers, missing booking), no missing translation keys or horizontal overflow; finance role denied schedule",
+    "en/390: production bundle boot + customer route smoke (day/week, rules, both FAQ pages, teachers, missing booking), no missing translation keys or horizontal overflow; finance role denied schedule",
+    "en/1280: production bundle boot + customer route smoke (day/week, rules, both FAQ pages, teachers, missing booking), no missing translation keys or horizontal overflow; finance role denied schedule"
+  ],
+  "errors": [],
+  "scope": "Local production bundle, fictional seeded session; no backend or auth integration."
+}
