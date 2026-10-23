@@ -2,7 +2,7 @@ import{TeacherQueue}from'../profile-review/TeacherQueue';
 import{reviewer}from'../profile-review/contracts';
 import { SharedImageField } from '../../components/organism/SharedImageField/SharedImageField';
 import { ClassPayRulesPanel } from '../../components/organism/ClassPayRulesPanel/ClassPayRulesPanel';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { previewRecurrence } from '../../data/classRecurrence';
 import { formatDateTime, dateKey } from '../../i18n/format';
@@ -26,7 +26,8 @@ import { Card } from '../../components/molecule/Card/Card';
 import { ClassRow } from '../../components/molecule/ClassRow/ClassRow';
 import { TeacherCard } from '../../components/organism/TeacherCard/TeacherCard';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
-import { useAudit } from '../staff/audit';
+import { writeContent } from './contentRecovery';
+import { useContentRecovery } from './useContentRecovery';
 import { ContentSubNav } from './contentNav';
 import './admin.css';
 
@@ -88,13 +89,15 @@ export function ContentPage() {
   const data = useData();
   const { can, role, user } = useSession();
   const [params] = useSearchParams();
-  const audit = useAudit('admin');
+  const recovery = useContentRecovery();
+  const write = (intent: Parameters<typeof writeContent>[2], after?: (id: string) => void) => recovery.run(async request => { const id = await writeContent(data, { id: user.id, role }, intent, request); after?.(id); });
   const [entity, setEntity] = useState<Entity>(() => { const e = params.get('entity'); return e && e in FIELDS ? e as Entity : 'class_templates'; });
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<string | null>(params.get('row'));
   const [checked, setChecked] = useState<string[]>([]);
   const [bulkField, setBulkField] = useState('active'), [bulkValue, setBulkValue] = useState('false');
   const [preview, setPreview] = useState<ContentChange[] | null>(null), [undo, setUndo] = useState<ContentChange[] | null>(null);
+  const bulkLock = useRef(false);
   const [bulkBusy, setBulkBusy] = useState(false), [bulkError, setBulkError] = useState('');
   const [view, setView] = useState<'table' | 'list'>('table');
   useEffect(() => { const e = params.get('entity'); if (e && e in FIELDS) { setEntity(e as Entity); setSelected(params.get('row')); setChecked([]); setPreview(null); setUndo(null); } }, [params]);
@@ -113,8 +116,8 @@ export function ContentPage() {
   const chosenField = bulkFields.find(f => f.name === bulkField) ?? bulkFields[0];
   const resetBulk = () => { setChecked([]); setPreview(null); setUndo(null); setBulkError(''); setBulkField(entity === 'rooms' ? 'heated' : 'active'); setBulkValue('false'); };
   const bulk = async (action: 'preview' | 'apply' | 'undo') => {
-    if (bulkBusy || !canWrite || !data.contentBatch) return;
-    setBulkBusy(true); setBulkError('');
+    if (bulkLock.current || recovery.busy || !canWrite || !data.contentBatch) return;
+    bulkLock.current = true; setBulkBusy(true); setBulkError('');
     try {
       if (action === 'preview') {
         const value = chosenField.kind === 'bool' ? bulkValue === 'true' : chosenField.kind === 'int' || chosenField.name === 'weekday' ? Number(bulkValue) : bulkValue;
@@ -129,7 +132,7 @@ export function ContentPage() {
         setUndo(action === 'undo' ? null : result.changes); setPreview(null); setChecked([]);
         setBulkError(action === 'undo' ? 'bulk.undone' : 'bulk.saved');
       }
-    } catch { setPreview(null); setBulkError('bulk.error'); } finally { setBulkBusy(false); }
+    } catch { if (action === 'preview') setPreview(null); setBulkError('bulk.error'); } finally { bulkLock.current = false; setBulkBusy(false); }
   };
   const row = rows.find((r) => r.id === selected) ?? null;
 
@@ -147,24 +150,15 @@ export function ContentPage() {
         if (typeof v === 'boolean') return v ? '✓' : '·';
         return v == null || v === '' ? <span className="muted">—</span> : String(v);
       } })),
-      { key: 'active', label: t('admin.content.published'), width: 120, render: (r) => <span onClick={(e) => e.stopPropagation()}><Toggle size="sm" checked={!!r.active} disabled={!canWrite} onChange={(on) => publish(r, on)} /></span> },
+      ...(entity !== 'rooms' ? [{ key: 'active', label: t('admin.content.published'), width: 120, render: (r) => <span onClick={(e) => e.stopPropagation()}><Toggle size="sm" checked={!!r.active} disabled={!canWrite || recovery.busy || bulkBusy} onChange={(on) => publish(r, on)} /></span> } as DataTableColumn<BaseRow>] : []),
     ];
-  }, [entity, bi, refs, canWrite, checked, bulkBusy, fields]);
+  }, [entity, bi, refs, canWrite, checked, bulkBusy, fields, recovery.busy]);
 
-  const publish = async (r: BaseRow, on: boolean) => {
-    await data.update(entity, r.id, { active: on });
-    await audit(on ? 'content.publish' : 'content.unpublish', entity, r.id, { before: !!r.active, after: on });
-  };
-  const add = async () => {
-    const created = await data.insert(entity, BLANK[entity]);
-    await audit('content.create', entity, created.id, { after: BLANK[entity] });
-    setSelected(created.id);
-  };
-  const remove = async (r: BaseRow) => {
+  const publish = (r: BaseRow, on: boolean) => write({ kind: 'update', table: entity, before: r, patch: { active: on } });
+  const add = () => write({ kind: 'create', table: entity, patch: structuredClone(BLANK[entity]) }, setSelected);
+  const remove = (r: BaseRow) => {
     if (!confirm(t('admin.content.deleteConfirm'))) return;
-    await data.remove(entity, r.id);
-    await audit('content.delete', entity, r.id, { before: r });
-    setSelected(null);
+    return write({ kind: 'delete', table: entity, before: r }, () => setSelected(null));
   };
 
   return (
@@ -173,13 +167,14 @@ export function ContentPage() {
         <div><h1>{t('admin.content.title')}</h1><p className="muted small">{t('admin.content.subtitle')}</p></div>
         <div className="row wrap">
           <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('core.common.search')} style={{ width: 220 }} aria-label={t('core.common.search')} />
-          {canWrite && <Button size="sm" onClick={add}>{t('admin.content.add')}</Button>}
+          {canWrite && <Button size="sm" disabled={recovery.busy || bulkBusy} onClick={add}>{t('admin.content.add')}</Button>}
         </div>
       </div>
       <ContentSubNav current="entities" />
+      {!row && recovery.notice}
       {entity==='teachers'&&reviewer(role)&&<TeacherQueue/>}
       <div className="row wrap" role="tablist">
-        {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={() => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
+        {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={recovery.blocked ? undefined : () => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
         <span className="xs muted">{t('admin.content.pricingNote')}</span>
       </div>
       <div className="row wrap"><Link to="/admin/class-schedule">{t('schedule.title')}</Link>{(['table', 'list'] as const).map(v => <Button key={v} variant={view === v ? 'primary' : 'secondary'} aria-pressed={view === v} onClick={() => setView(v)}>{t(`schedule.${v}`)}</Button>)}</div>
@@ -191,30 +186,33 @@ export function ContentPage() {
         {preview && <div className="stack"><strong>{t('bulk.preview')}</strong>{preview.map(c => { const key = Object.keys(c.patch)[0]; const f = bulkFields.find(x => x.name === key); const display = (v: unknown) => f?.ref ? refLabel(f.ref, v) : String(v); return <p key={c.id}>{String(c.before[FIELDS[entity][0].name])}: {bi(f?.label ?? { es: key, en: key })} · {display(c.before[key])} → {display(c.patch[key])}</p>; })}<div className="row wrap"><Button loading={bulkBusy} onClick={() => bulk('apply')}>{t('bulk.apply')}</Button><Button variant="secondary" disabled={bulkBusy} onClick={() => setPreview(null)}>{t('core.common.cancel')}</Button></div></div>}
         {undo && <Button variant="secondary" loading={bulkBusy} onClick={() => bulk('undo')}>{t('bulk.undo')}</Button>}{bulkError && <p role="status">{t(bulkError)}</p>}
       </div></Card>}
-      {loading && rows.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.content.empty')} body={t('admin.content.empty.body')} action={canWrite && <Button size="sm" onClick={add}>{t('admin.content.add')}</Button>} /> : (
+      {loading && rows.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.content.empty')} body={t('admin.content.empty.body')} action={canWrite && <Button size="sm" disabled={recovery.busy || bulkBusy} onClick={add}>{t('admin.content.add')}</Button>} /> : (
         view === 'list' ? <div className="grid grid-2">{visibleRows.map(r => <Card key={r.id} title={String(r[FIELDS[entity][0].name])} actions={<Button onClick={() => setSelected(r.id)}>{t('core.common.edit')}</Button>}><div className="stack-sm">{canWrite && <label><input type="checkbox" checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /> {t('bulk.select')}</label>}{fields.slice(1, 5).filter(f => f.kind !== 'bi' && f.kind !== 'list').map(f => <p key={f.name} className="small">{bi(f.label)}: {f.ref ? refLabel(f.ref, r[f.name]) : String(r[f.name] ?? '—')}</p>)}</div></Card>)}</div> : <DataTable columns={columns} rows={visibleRows} rowKey={(r) => r.id} search={search} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense />
       )}
       <Drawer open={!!row} onClose={() => setSelected(null)} width={520} title={<div className="row wrap"><span>{t(`admin.content.tab.${entity}`)}</span>{row && <Badge tone={row.active ? 'success' : 'warn'}>{row.active ? t('admin.content.published') : t('admin.content.draft')}</Badge>}</div>}
-        footer={row && canWrite ? <div className="row-between"><Button variant="danger" size="sm" onClick={() => remove(row)}>{t('core.common.delete')}</Button><Toggle size="sm" checked={!!row.active} label={t('admin.content.published')} onChange={(on) => publish(row, on)} /></div> : undefined}>
-        {row && <Editor key={row.id} entity={entity} row={row} fields={fields} refs={refs} modalities={modalities} readOnly={!canWrite} lang={lang} onSave={async (patch) => { await data.update(entity, row.id, patch); await audit('content.update', entity, row.id, { before: Object.fromEntries(Object.keys(patch).map((k) => [k, row[k]])), after: patch }); }} />}
+        footer={row && canWrite ? <div className="row-between"><Button variant="danger" size="sm" disabled={recovery.busy || bulkBusy} onClick={() => remove(row)}>{t('core.common.delete')}</Button>{entity !== 'rooms' && <Toggle size="sm" checked={!!row.active} label={t('admin.content.published')} disabled={recovery.busy || bulkBusy} onChange={(on) => publish(row, on)} />}</div> : undefined}>
+        {row && recovery.notice}
+        {row && <Editor key={row.id} entity={entity} row={row} fields={fields} refs={refs} modalities={modalities} readOnly={!canWrite} busy={recovery.busy || bulkBusy} lang={lang} onSave={async (patch, basis) => { if (!await write({ kind: 'update', table: entity, before: basis, patch })) throw Error('content_save_failed'); }} />}
       </Drawer>
     </div>
   );
 }
 
-function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave }: { entity: Entity; row: BaseRow; fields: FieldDef[]; refs: Record<'modalities' | 'teachers' | 'rooms', { id: string; label: string }[]>; modalities: ModalityRow[]; readOnly: boolean; lang: string; onSave: (patch: Record<string, unknown>) => Promise<void> }) {
+function Editor({ entity, row, fields, refs, modalities, readOnly, busy, lang, onSave }: { entity: Entity; row: BaseRow; fields: FieldDef[]; refs: Record<'modalities' | 'teachers' | 'rooms', { id: string; label: string }[]>; modalities: ModalityRow[]; readOnly: boolean; busy: boolean; lang: string; onSave: (patch: Record<string, unknown>, basis: BaseRow) => Promise<void> }) {
   const { t, bi, lang: currentLang } = useI18n();
   const data = useData(); const { role, user } = useSession();
   const [recurrencePreview, setRecurrencePreview] = useState<ReturnType<typeof previewRecurrence> | null>(null);
   const [recurrenceMessage, setRecurrenceMessage] = useState('');
   const [draft, setDraft] = useState<Record<string, unknown>>(() => Object.fromEntries(fields.map((f) => [f.name, row[f.name]])));
   const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState(false);
-  useEffect(() => { setDraft(Object.fromEntries(fields.map((f) => [f.name, row[f.name]]))); }, [row.updated_at]);
+  const basis = useRef(row);
+  // Row refreshes (including publish) must not erase an unsaved draft.
+  const saveLock = useRef(false);
   const dirty = fields.some((f) => JSON.stringify(draft[f.name]) !== JSON.stringify(row[f.name]));
+  useEffect(() => { if (!dirty) basis.current = row; }, [row, dirty]);
   const errors = fields.filter((f) => f.required && !String(draft[f.name] ?? '').trim()).map((f) => f.name);
   const set = (k: string, v: unknown) => setDraft((d) => ({ ...d, [k]: v }));
-  const save = async () => { setSaving(true); setSaveError(false); try { await onSave(draft); } catch { setSaveError(true); } finally { setSaving(false); } };
+  const save = async () => { if (saveLock.current || readOnly) return; saveLock.current = true; setSaving(true); try { await onSave(structuredClone(Object.fromEntries(Object.entries(draft).filter(([key, value]) => JSON.stringify(value) !== JSON.stringify(basis.current[key])))), basis.current); } catch { /* Page retains the retry operation and draft. */ } finally { saveLock.current = false; setSaving(false); } };
   const d = draft as Record<string, string | number | boolean | Bi | string[] | null>;
   return (
     <div className="stack">
@@ -223,25 +221,24 @@ function Editor({ entity, row, fields, refs, modalities, readOnly, lang, onSave 
           <Field key={f.name} label={bi(f.label)} required={f.required} hint={f.hint ? bi(f.hint) : undefined} error={errors.includes(f.name) ? t('admin.content.required') : undefined}>
             {(id) => {
               const v = draft[f.name];
-              if (f.kind === 'image') return <SharedImageField value={v as string | null} disabled={readOnly || saving} label={bi(f.label)} onChange={url => set(f.name, url)} />;
-              if (f.kind === 'bool') return <Toggle checked={!!v} disabled={readOnly} onChange={(on) => set(f.name, on)} />;
-              if (f.kind === 'int') return <Input id={id} type="number" disabled={readOnly} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' ? null : Number(e.target.value))} />;
-              if (f.kind === 'date') return <Input id={id} type="date" disabled={readOnly} value={String(v ?? '')} onChange={e => set(f.name, e.target.value || null)} />;
-              if (f.kind === 'time') return <Input id={id} type="time" disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)} />;
-              if (f.kind === 'select') return <Select id={id} disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, f.name === 'weekday' ? Number(e.target.value) : e.target.value)}>{f.options!.map((o) => <option key={o} value={o}>{f.name === 'weekday' ? bi(WEEKDAYS[Number(o)]) : o}</option>)}</Select>;
-              if (f.kind === 'ref' && f.ref) return <Select id={id} disabled={readOnly} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)}><option value="">—</option>{refs[f.ref].map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}</Select>;
-              if (f.kind === 'bi') { const b = (v as Bi | null) ?? { es: '', en: '' }; return <div className="stack-sm"><textarea id={id} className="input adm-textarea" disabled={readOnly} placeholder="ES" value={b.es} onChange={(e) => set(f.name, { ...b, es: e.target.value })} /><textarea className="input adm-textarea" disabled={readOnly} placeholder="EN" value={b.en} onChange={(e) => set(f.name, { ...b, en: e.target.value })} aria-label={`${bi(f.label)} EN`} /></div>; }
-              if (f.kind === 'tone') return <div className="row wrap" id={id} role="group">{TONES.map((k) => <Chip key={k} tone={k} dot selected={v === k} onClick={readOnly ? undefined : () => set(f.name, k)}>{k}</Chip>)}</div>;
-              if (f.kind === 'list') { const list = (v as string[]) ?? []; return <div className="row wrap">{modalities.map((m) => <Chip key={m.id} tone={m.tone} dot selected={list.includes(m.id)} onClick={readOnly ? undefined : () => set(f.name, list.includes(m.id) ? list.filter((x) => x !== m.id) : [...list, m.id])}>{bi({ es: m.name_es, en: m.name_en })}</Chip>)}</div>; }
-              return <Input id={id} disabled={readOnly} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' && f.name !== 'title' ? null : e.target.value)} />;
+              if (f.kind === 'image') return <SharedImageField value={v as string | null} disabled={readOnly || saving || busy} label={bi(f.label)} onChange={url => set(f.name, url)} />;
+              if (f.kind === 'bool') return <Toggle checked={!!v} disabled={readOnly || saving || busy} onChange={(on) => set(f.name, on)} />;
+              if (f.kind === 'int') return <Input id={id} type="number" disabled={readOnly || saving || busy} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' ? null : Number(e.target.value))} />;
+              if (f.kind === 'date') return <Input id={id} type="date" disabled={readOnly || saving || busy} value={String(v ?? '')} onChange={e => set(f.name, e.target.value || null)} />;
+              if (f.kind === 'time') return <Input id={id} type="time" disabled={readOnly || saving || busy} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)} />;
+              if (f.kind === 'select') return <Select id={id} disabled={readOnly || saving || busy} value={String(v ?? '')} onChange={(e) => set(f.name, f.name === 'weekday' ? Number(e.target.value) : e.target.value)}>{f.options!.map((o) => <option key={o} value={o}>{f.name === 'weekday' ? bi(WEEKDAYS[Number(o)]) : o}</option>)}</Select>;
+              if (f.kind === 'ref' && f.ref) return <Select id={id} disabled={readOnly || saving || busy} value={String(v ?? '')} onChange={(e) => set(f.name, e.target.value)}><option value="">—</option>{refs[f.ref].map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}</Select>;
+              if (f.kind === 'bi') { const b = (v as Bi | null) ?? { es: '', en: '' }; return <div className="stack-sm"><textarea id={id} className="input adm-textarea" disabled={readOnly || saving || busy} placeholder="ES" value={b.es} onChange={(e) => set(f.name, { ...b, es: e.target.value })} /><textarea className="input adm-textarea" disabled={readOnly || saving || busy} placeholder="EN" value={b.en} onChange={(e) => set(f.name, { ...b, en: e.target.value })} aria-label={`${bi(f.label)} EN`} /></div>; }
+              if (f.kind === 'tone') return <div className="row wrap" id={id} role="group">{TONES.map((k) => <Chip key={k} tone={k} dot selected={v === k} onClick={readOnly || saving || busy ? undefined : () => set(f.name, k)}>{k}</Chip>)}</div>;
+              if (f.kind === 'list') { const list = (v as string[]) ?? []; return <div className="row wrap">{modalities.map((m) => <Chip key={m.id} tone={m.tone} dot selected={list.includes(m.id)} onClick={readOnly || saving || busy ? undefined : () => set(f.name, list.includes(m.id) ? list.filter((x) => x !== m.id) : [...list, m.id])}>{bi({ es: m.name_es, en: m.name_en })}</Chip>)}</div>; }
+              return <Input id={id} disabled={readOnly || saving || busy} value={v == null ? '' : String(v)} onChange={(e) => set(f.name, e.target.value === '' && f.name !== 'title' ? null : e.target.value)} />;
             }}
           </Field>
         ))}
       </div>
-      {saveError && <p role="alert">{t('bulk.saveError')}</p>}
-      {!readOnly && <div className="row-between wrap"><span className="xs muted">{dirty ? t('admin.content.unsaved') : t('admin.content.upToDate')}</span><Button size="sm" disabled={!dirty || errors.length > 0} loading={saving} onClick={save}>{t('core.common.save')}</Button></div>}
+      {!readOnly && <div className="row-between wrap"><span className="xs muted">{dirty ? t('admin.content.unsaved') : t('admin.content.upToDate')}</span><Button size="sm" disabled={busy || !dirty || errors.length > 0} loading={saving} onClick={save}>{t('core.common.save')}</Button></div>}
       {entity === 'class_templates' && <ClassPayRulesPanel templateId={row.id} />}
-      {entity === 'class_templates' && <Card title={t('recurrence.title')}><div className="stack"><p className="small muted">{t('recurrence.explain')}</p><p>{t('recurrence.defaults')}</p><Button variant="secondary" disabled={dirty || readOnly || saving || !data.generateRecurrence} onClick={() => { setRecurrencePreview(previewRecurrence(row)); setRecurrenceMessage(''); }}>{t('recurrence.preview')}</Button>{recurrencePreview && <><ol>{recurrencePreview.map(o => <li key={o.starts_at}>{formatDateTime(o.starts_at, currentLang)} · {Number(row.duration_min)} min</li>)}</ol>{!recurrencePreview.length && <p>{t('recurrence.empty')}</p>}<Button disabled={!row.active || !recurrencePreview.length || dirty || readOnly} loading={saving} onClick={async () => { setSaving(true); try { const result = await data.generateRecurrence!({ template: row, occurrences: recurrencePreview, role, actorId: user.id }); setRecurrenceMessage(t('recurrence.done', { n:result.created, skipped:result.skipped })); setRecurrencePreview(null); } catch { setRecurrenceMessage(t('recurrence.error')); } finally { setSaving(false); } }}>{t('recurrence.generate')}</Button>{!row.active && <p>{t('recurrence.publishFirst')}</p>}</>}{recurrenceMessage && <p role="status">{recurrenceMessage}</p>}</div></Card>}
+      {entity === 'class_templates' && <Card title={t('recurrence.title')}><div className="stack"><p className="small muted">{t('recurrence.explain')}</p><p>{t('recurrence.defaults')}</p><Button variant="secondary" disabled={dirty || readOnly || saving || busy || !data.generateRecurrence} onClick={() => { setRecurrencePreview(previewRecurrence(row)); setRecurrenceMessage(''); }}>{t('recurrence.preview')}</Button>{recurrencePreview && <><ol>{recurrencePreview.map(o => <li key={o.starts_at}>{formatDateTime(o.starts_at, currentLang)} · {Number(row.duration_min)} min</li>)}</ol>{!recurrencePreview.length && <p>{t('recurrence.empty')}</p>}<Button disabled={!row.active || !recurrencePreview.length || dirty || readOnly || busy} loading={saving} onClick={async () => { setSaving(true); try { const result = await data.generateRecurrence!({ template: row, occurrences: recurrencePreview, role, actorId: user.id }); setRecurrenceMessage(t('recurrence.done', { n:result.created, skipped:result.skipped })); setRecurrencePreview(null); } catch { setRecurrenceMessage(t('recurrence.error')); } finally { setSaving(false); } }}>{t('recurrence.generate')}</Button>{!row.active && <p>{t('recurrence.publishFirst')}</p>}</>}{recurrenceMessage && <p role="status">{recurrenceMessage}</p>}</div></Card>}
       <Card tone="muted" eyebrow={t('admin.content.preview')} padding="sm">
         {entity === 'class_templates' && <ClassRow title={String(d.title ?? '')} teacher={refs.teachers.find((x) => x.id === d.teacher_id)?.label ?? ''} startsAt={`2026-01-05T${String(d.start_time ?? '07:00')}:00`} durationMin={Number(d.duration_min ?? tenant.classDefaults.durationMin)} tone={modalities.find((m) => m.id === d.modality_id)?.tone ?? 'river'} booked={0} capacity={Number(d.capacity ?? 0)} />}
         {entity === 'teachers' && <TeacherCard name={String(d.display_name ?? '')} bio={(d.bio as Bi) ?? { es: '', en: '' }} photo={d.photo_url as string | null} rating={row.rating_avg as number | null} specialties={((d.specialties as string[]) ?? []).map((id) => modalities.find((m) => m.id === id)).filter(Boolean).map((m) => ({ label: bi({ es: m!.name_es, en: m!.name_en }), tone: m!.tone }))} />}
