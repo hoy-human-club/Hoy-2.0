@@ -7,3 +7,5 @@ rejected: Deleting old invoices, inventing VAT policy, repricing old purchases o
 files: src/data/launchReceipts.ts; src/data/{MockProvider,schema}.ts; src/modules/{customer,staff,transfers,launch-receipts}; src/components/organism/{Receipt,LaunchPaymentReceipt}; scripts/*launch-receipts*; .github/workflows/launch-receipts-qa.yml
 
 [Bounded PG-08 behavior, regression contract and remaining decisions](../frontend-completion/launch-payment-receipts.md). No whole-row or backend completion claim.
+
+- Shared paid-event checkout retains its payment/audit/RSVP rollback contract with receipt-only assertions and matching truthful preview copy.

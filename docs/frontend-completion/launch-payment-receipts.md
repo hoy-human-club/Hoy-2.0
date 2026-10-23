@@ -12,6 +12,7 @@ The optional `payments.frontend_receipt` JSON is immutable in the mock provider 
 - `test-desk-sale-ui.mjs`: actual S-04 sale, consent, grant/debit/check-in, rollback and stronger no-invoice/no-outbox assertions.
 - `test-launch-receipts-ui.mjs`: production C-11 in ES/EN, 390/1280, light/dark; retained wording, charged/received, print, historical/pending/inconsistent states, own scope and no writes/overflow.
 - `test-launch-receipts-states.mjs`: actual C-11 payment/invoice/catalog read failures and retry in ES/EN.
+- `test-paid-event-audit-ui.mjs`: the shared checkout event path retains audit/RSVP rollback and requires one receipt with no invoice/outbox.
 - Existing transfer, desk settlement, trial, audit, signup consent, profile and reporting regressions remain applicable. Dedicated exact-head CI and independent final review gate release.
 
 ## Remaining decisions and backend work
