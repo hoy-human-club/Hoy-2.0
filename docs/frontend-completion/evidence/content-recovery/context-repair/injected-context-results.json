@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:5217",
+  "checks": [
+    "en/role/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/role/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/actor-admin/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/actor-admin/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/actor-coordinator/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/actor-coordinator/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/role/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/role/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/actor-admin/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/actor-admin/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/actor-coordinator/quota: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "es/actor-coordinator/lost: failure/uncertain-ack handled; changed-context retry blocked with identical DB; draft retained; original-context retry commits once with correct actor/role;390/1280",
+    "en/unmount: switch to denied front-desk route while queued; no data or audit mutation",
+    "es/unmount: switch to denied front-desk route while queued; no data or audit mutation"
+  ],
+  "errors": [],
+  "limits": [
+    "Fictional local SessionProvider and MockProvider only; no real authentication or server guarantees."
+  ]
+}

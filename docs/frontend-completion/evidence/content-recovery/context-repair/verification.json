@@ -1,0 +1,37 @@
+{
+  "baseHead": "9427338a60d31f3034c3233a3f35add14ca1f8f2",
+  "initialReproduction": {
+    "against": "built initial PR82 bundle",
+    "scenario": "quota-failed teacher payroll save; view as coordinator; clear quota fault; retry",
+    "expectedRate": 90000,
+    "actualRate": 90111,
+    "regressionOutcome": "failed old head with AssertionError: 90111 !== 90000"
+  },
+  "finalChecks": {
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "spacing": "60 values; unchanged baseline 60",
+    "contentRecoveryDomain": "58 groups passed; no assertions removed",
+    "contextDomain": "22 groups passed",
+    "existingContentBatchDomain": "passed",
+    "productionContextBrowser": "6 EN/ES role/actor cases at390/1280; zero page errors",
+    "injectedContextBrowser": "12 EN/ES role/actor quota/lost-ack cases plus2 queued denied-route unmount cases; zero page errors",
+    "existingBrowserSuites": "production and injected suites passed; EN/ES390/1280",
+    "ciHandoff": "git apply --check passed; isolated temporary tree application and package JSON script parse passed; not applied to shared files or run in GitHub CI"
+  },
+  "sha256": {
+    "src/modules/admin/ContentPage.tsx": "a1ec16026bc731dcfe772ac11223ee4e6f378d1916a69ec3b99bc63b0e5dcc86",
+    "src/modules/admin/FaqAdminPage.tsx": "cb6800895dd068e727031edc576c47119511db4272239ce43f073c8b7f015049",
+    "src/modules/admin/contentRecovery.ts": "2f2822553f04961dec40e80bf0cdc146624563d02273021272a6dde3988f2189",
+    "src/modules/admin/useContentRecovery.tsx": "4fd3851eee013be26efaf885f556b9856066767cc3ec9562aa5334ff9dd542bc",
+    "scripts/test-content-recovery.mjs": "63890036b89211fcce768cc4942dab136c96a1836fa98b70a233a3964366f166",
+    "scripts/test-content-recovery-ui.mjs": "8078023483e7b88bc700c904194a397dd3003f7777eac84c089a5a5afa466820",
+    "scripts/test-content-recovery-context.mjs": "fe986e2f0077f9ed0b0abaff6ce690c2e0b2b5badf0650163543253c589d0441",
+    "scripts/test-content-recovery-context-ui.mjs": "1e3456f2033058d18d21d22052edac333989eecf21a75a591d8145b8b5d1c0aa"
+  },
+  "limits": [
+    "Frontend/local mock context checks only; no real authentication/server acceptance",
+    "Full AD-01 PL-07 PL-10 remain partial",
+    "Integration owner must apply and run separate CI patch"
+  ]
+}

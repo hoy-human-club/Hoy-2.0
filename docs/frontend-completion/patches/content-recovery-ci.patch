@@ -1,0 +1,87 @@
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -30,7 +30,9 @@
+     "test:promotions": "node --experimental-strip-types scripts/test-promotions.mjs",
+     "test:vouchers": "node --experimental-strip-types scripts/test-vouchers.mjs",
+     "media-catalog": "node scripts/gen-media-catalog.mjs",
+-    "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs"
++    "test:subscriptions": "node --experimental-strip-types scripts/test-subscriptions.mjs && node scripts/test-subscription-expenses.mjs",
++    "test:content-recovery": "node scripts/test-content-recovery.mjs && node scripts/test-content-recovery-context.mjs && node scripts/test-content-batch.mjs",
++    "test:content-recovery:ui": "node scripts/test-content-recovery-ui.mjs && node scripts/test-content-recovery-context-ui.mjs"
+   },
+   "dependencies": {
+     "@dnd-kit/core": "^6.1.0",
+diff --git a/.github/workflows/content-recovery-qa.yml b/.github/workflows/content-recovery-qa.yml
+new file mode 100644
+--- /dev/null
++++ b/.github/workflows/content-recovery-qa.yml
+@@ -0,0 +1,68 @@
++name: Content recovery QA
++on:
++  pull_request:
++    paths:
++      - 'src/modules/admin/ContentPage.tsx'
++      - 'src/modules/admin/FaqAdminPage.tsx'
++      - 'src/modules/admin/contentRecovery.ts'
++      - 'src/modules/admin/useContentRecovery.tsx'
++      - 'src/modules/admin/contentNav.tsx'
++      - 'src/auth/**'
++      - 'src/data/**'
++      - 'scripts/test-content-recovery*.mjs'
++      - 'scripts/test-content-batch.mjs'
++      - 'package.json'
++      - 'package-lock.json'
++      - '.github/workflows/content-recovery-qa.yml'
++permissions:
++  contents: read
++concurrency:
++  group: content-recovery-${{ github.event.pull_request.number }}
++  cancel-in-progress: true
++jobs:
++  verify:
++    runs-on: ubuntu-latest
++    timeout-minutes: 20
++    env:
++      CHROMIUM_PATH: /usr/bin/google-chrome
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          ref: ${{ github.event.pull_request.head.sha }}
++      - uses: actions/setup-node@v4
++        with:
++          node-version: 22
++          cache: npm
++      - run: npm ci
++      - run: npm run test:content-recovery
++      - run: npm run build
++      - name: Verify built EN/ES content and actor-change recovery
++        run: |
++          npm run preview -- --host 127.0.0.1 --port 5218 > /tmp/hoy-content-preview.log 2>&1 &
++          ready=0
++          for i in $(seq 1 30); do if curl -fsS http://127.0.0.1:5218/ >/dev/null; then ready=1; break; fi; sleep 1; done
++          test "$ready" = 1
++          npm run test:content-recovery:ui
++        env:
++          QA_BASE: http://127.0.0.1:5218
++          QA_OUTPUT: qa/content-recovery/production
++      - name: Verify staged failure and lost-acknowledgement injections
++        run: |
++          npm run dev -- --host 127.0.0.1 --port 5217 > /tmp/hoy-content-dev.log 2>&1 &
++          ready=0
++          for i in $(seq 1 30); do if curl -fsS http://127.0.0.1:5217/ >/dev/null; then ready=1; break; fi; sleep 1; done
++          test "$ready" = 1
++          npm run test:content-recovery:ui
++        env:
++          QA_BASE: http://127.0.0.1:5217
++          QA_OUTPUT: qa/content-recovery/injected
++          QA_INJECT: '1'
++      - uses: actions/upload-artifact@v4
++        if: always()
++        with:
++          name: content-recovery-${{ github.event.pull_request.head.sha }}
++          path: |
++            qa/content-recovery/
++            /tmp/hoy-content-preview.log
++            /tmp/hoy-content-dev.log
++          retention-days: 7

@@ -1,0 +1,25 @@
+{
+  "base": "455843fda97c7a0c9979b3331d11690d9653f5e7",
+  "checks": {
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "spacing": "60 raw values; unchanged baseline 60",
+    "contentRecoveryDomain": "58 groups passed",
+    "existingContentBatchDomain": "passed",
+    "productionBrowser": "EN/ES, 390/1280, zero page errors; see production-browser-results.json",
+    "injectedBrowser": "second-write rollback and lost acknowledgement EN/ES; see injected-browser-results.json"
+  },
+  "sha256": {
+    "src/modules/admin/ContentPage.tsx": "133e39446fcfea657b44459baeecf3c6b746fdee5f0032684c21f2b1976dab7d",
+    "src/modules/admin/FaqAdminPage.tsx": "cf5e2ec596c7e84b8c13067400232f9a9dbf948cac9f7a3a85c8f5182a73fbcb",
+    "src/modules/admin/contentRecovery.ts": "254bb90809e74981b82c5f49b46f014e8ead89229a1252a1191c9a61bf56151a",
+    "src/modules/admin/useContentRecovery.tsx": "19ce674c95999d7c54f3246b3e642bb2addb37aa099cf3b507fcc7e113243101",
+    "scripts/test-content-recovery.mjs": "bb7a3f3a59242db12f4f22b21f10e5aba073a86a082ac5e885e56e06d189a0b5",
+    "scripts/test-content-recovery-ui.mjs": "6d8ca3b96a681f70fd1695902f49ea5444d0cc28a43d405155510c327f8ce2b7"
+  },
+  "limits": [
+    "Mock/local only; full AD-01 PL-07 PL-10 remain partial",
+    "No server/cross-tab guarantees or owner acceptance",
+    "No deployment or merge"
+  ]
+}
