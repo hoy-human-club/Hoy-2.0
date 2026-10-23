@@ -76,8 +76,8 @@ for (const t of tables) {
     sql += '-- DEFAULT DENY: private compensation needs authenticated tenant-scoped admin/super_admin/finance read and append-only RPCs. No client UPDATE/DELETE.\n\n';
     continue;
   }
-  if (['vouchers', 'voucher_bookings', 'voucher_events', 'promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(t.name)) {
-    sql += '-- DEFAULT DENY: no client policies until authenticated transactional voucher/promotion RPCs and scoped read policies exist.\n\n';
+  if (['email_change_previews', 'teacher_profile_proposals', 'vouchers', 'voucher_bookings', 'voucher_events', 'promotion_campaigns', 'promotion_shares', 'promotion_claims', 'promotion_events'].includes(t.name)) {
+    sql += '-- DEFAULT DENY: private demo contracts need authenticated scoped RPCs and read policies before client access.\n\n';
     continue;
   }
   sql += `create policy "${t.name}: tenant read" on public.${t.name} for select using (tenant_id = public.current_tenant_id());\n`;
@@ -148,5 +148,5 @@ md += `\n## Seed data (\`src/data/seed/\`)
 3. \`npm run sql\` → regenerates \`supabase/schema.sql\` and this file.
 4. Reference it in the page's \`PageSpec.data\` so the inspector links to it.
 `;
-writeFileSync(new URL('../docs/data-model.md', import.meta.url), md);
+writeFileSync(new URL('../docs/data-model.md', import.meta.url), md.replace(/[ \t]+\n/g, '\n'));
 console.log(`wrote supabase/schema.sql (${tables.length} tables) and docs/data-model.md`);

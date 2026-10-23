@@ -40,7 +40,8 @@ import { need } from './actions';
 import './tables.css';
 
 // Private compensation is available only through its guarded dedicated page.
-const tables = allTables.filter(table => table.name !== 'class_pay_rules');
+const privateReviewTables=['class_pay_rules','email_change_previews','teacher_profile_proposals'];
+const tables = allTables.filter(table => !privateReviewTables.includes(table.name));
 
 /** Re-renders on every change event of any table (row counts, FK titles, the resolver). */
 function useDbVersion(data: DataProvider): number {
@@ -52,7 +53,7 @@ function useDbVersion(data: DataProvider): number {
 /** Lazy id → row maps per table from the provider's synchronous snapshot, rebuilt when anything changes. */
 function makeResolver(data: DataProvider) {
   const cache = new Map<string, Map<string, BaseRow>>();
-  const rowsOf = (table: string): BaseRow[] => table === 'class_pay_rules' ? [] : data.peek?.(table) ?? [];
+  const rowsOf = (table: string): BaseRow[] => privateReviewTables.includes(table) ? [] : data.peek?.(table) ?? [];
   const byCol = new Map<string, Map<string, BaseRow>>();
   const resolve: RowResolver = (table: string, id: string) => {
     let m = cache.get(table);
@@ -97,7 +98,7 @@ export function TablesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data, version]);
   const counts = useMemo(() => Object.fromEntries(tables.map((x) => [x.name, rowsOf(x.name).length])), [rowsOf]);
-  const def: Def | undefined = table && table !== 'class_pay_rules' ? tableRegistry[table] : undefined;
+  const def: Def | undefined = table && !privateReviewTables.includes(table) ? tableRegistry[table] : undefined;
   const hasDate = def ? !!dateColumnOf(def.name) : false;
   const { rows } = useTable<BaseRow>(def?.name ?? 'tenants');
   const { rows: allViews } = useTable<TableViewRow>('table_views');

@@ -304,6 +304,47 @@ _Asignación de roles; un usuario puede tener varios._
 | `role` | enum (super_admin \| admin \| coordinator \| front_desk \| finance \| teacher \| maintenance \| marketing \| developer \| customer) |  |
 | `granted_by` | uuid, null | → `users`  |
 
+#### `email_change_previews`
+Private local preview. No delivery or identity verification.
+_Prueba local privada. No envía mensajes ni verifica identidad._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `user_id` | uuid | → `users`  |
+| `previous_email` | text |  |
+| `next_email` | text |  |
+| `changed_at` | timestamptz |  |
+| `status` | enum (preview) |  |
+
+**Who may read / write**
+- Default deny until authenticated own-account RPC and scoped reads exist. Browser mock only; never a mail queue.
+
+#### `teacher_profile_proposals`
+Private proposed edit until review. Demo contract only.
+_Edición propuesta privada hasta revisión. Solo contrato demo._
+
+| column | type | notes |
+| --- | --- | --- |
+| `id` | uuid | Primary key |
+| `tenant_id` | uuid | → `tenants` Owning studio (multi-tenant) |
+| `created_at` | timestamptz |  |
+| `updated_at` | timestamptz |  |
+| `teacher_id` | uuid | → `teachers`  |
+| `submitted_by` | uuid | → `users`  |
+| `expected` | text |  |
+| `proposed` | json |  |
+| `status` | enum (pending \| approved \| rejected \| cancelled) |  |
+| `reviewed_by` | uuid, null | → `users`  |
+| `reviewed_at` | timestamptz, null |  |
+| `reason` | text, null |  |
+
+**Who may read / write**
+- Default deny until authenticated teacher-own submission and admin/coordinator review RPCs exist. No client grants.
+
 #### `teachers`
 Public and contractual profile of each teacher.
 _Perfil público y contractual de cada profesor._
@@ -1540,23 +1581,3 @@ _Orden de secciones por página guardado desde el editor drag-and-drop._
 2. Seed it in `src/data/seed/index.ts`.
 3. `npm run sql` → regenerates `supabase/schema.sql` and this file.
 4. Reference it in the page's `PageSpec.data` so the inspector links to it.
-
-
-## 0063 · Timetable and reception-hour provenance
-
-`tenants.settings.openingHoursConfirmed` is an optional persisted boolean, default false. The existing weekly opening-hour values remain demo settings until staff explicitly saves M-08a. Class timetable entries do not establish reception hours. Unconfirmed hours are not published as structured opening-hour data. No table or column was added.
-
-The demo timetable uses stable `tpl_fixed_<weekday>_<HHMM>` identifiers. Historical booked sessions can keep their retired legacy template reference; migration never reassigns those bookings.
-
-
-## 0065 · Media catalog projection
-
-No new database table. `mediaLibrary.ts` projects the build-generated public-file manifest and the existing provider tables `media_assets`, `teachers`, `modalities` and `events`. Assets own variants and provenance; placements own live/draft/archived/inactive status and a route. A single asset can have mixed states. Provider changes are reactive through `useTable`; packaged asset changes are indexed at build time. The existing mock provider persists only in the current browser. A future storage backend must replace file ingestion and provide canonical asset IDs, original/variant lineage, rights metadata and placement records, while retaining this read-model contract. Original binary files and private source identifiers are not copied into the public catalog.
-
-## Portable subscription directory (M-09d)
-AppDependency → Subscription → ActualCharge is a versioned browser-local contract in `src/shared/subscriptions/model.ts`, keyed by workspaceId. It is intentionally not a Supabase table or MockProvider seed. No SQL migration is claimed; see `docs/pages/M-09d.md` for future production constraints.
-
-
-### Browser-private photo copies (0074)
-
-`hoy.local-media.v1` IndexedDB `photos` stores tenant-filtered optimized WebP copies with ID, tenantId, name, dimensions and creation timestamp. Mock-provider photo URL fields may reference these browser-local data URLs; remote providers cannot import/select them. No server table is introduced and no originals or private captures enter repository/build catalogs. Clearing browser data removes local copies.

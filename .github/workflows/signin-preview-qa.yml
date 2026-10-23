@@ -1,0 +1,53 @@
+name: Fictional sign-in QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/customer/auth/SignInPage.tsx'
+      - 'src/modules/customer/auth/mockSignIn.ts'
+      - 'src/modules/customer/auth/useMockSignIn.ts'
+      - 'src/modules/customer/auth/signInPreviewStrings.ts'
+      - 'src/modules/customer/strings.ts'
+      - 'src/components/organism/DemoSignInPanel/**'
+      - 'scripts/test-signin-preview*.mjs'
+      - '.github/workflows/signin-preview-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-signin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify memory-only lifecycle and prior signup/recovery/audit/report contracts
+        run: |
+          node scripts/test-signin-preview.mjs
+          node scripts/test-signup-consent.mjs
+          node scripts/test-recovery.mjs
+          node scripts/test-sensitive-audit.mjs
+          node scripts/test-reporting.mjs
+      - run: npm run build
+      - name: Exercise actual fictional sign-in and preserved demo entry
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5335 > /tmp/hoy-signin-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5335/ >/dev/null && break; sleep 1; done
+          node scripts/test-signin-preview-ui.mjs
+          node scripts/test-signin-preview-library.mjs
+          QA_OUTPUT=qa/signin-preview/customer-return node scripts/test-customer-return-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5335
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fictional-signin-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            qa/signin-preview/
+            /tmp/hoy-signin-preview.log

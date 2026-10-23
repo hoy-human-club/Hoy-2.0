@@ -1,0 +1,2 @@
+import{useTeacherReview}from'./useTeacherReview';import{TeacherReviewPanel}from'../../components/organism/TeacherReviewPanel/TeacherReviewPanel';
+export function TeacherQueue(){const state=useTeacherReview();return <TeacherReviewPanel status={state.status} proposals={state.value?.proposals??[]} teachers={state.value?.teachers??[]} modalities={state.value?.modalities??[]} busy={state.busy} error={state.error} saved={state.saved} retry={state.retry} onCancelRequest={state.cancelRequest} onDecision={(proposalId,kind,reason)=>void state.command({proposalId,kind,reason})}/>;}
