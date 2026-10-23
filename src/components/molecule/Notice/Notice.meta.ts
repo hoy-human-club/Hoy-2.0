@@ -12,7 +12,7 @@ export default defineMeta({
     { name: 'action', type: 'ReactNode', description: { es: 'Botón o enlace a la derecha.', en: 'Button or link on the right.' } },
     { name: 'icon', type: 'IconName | ReactNode', description: { es: 'Sustituye el glifo del tono (info, check, alert, circle-alert).', en: 'Replaces the tone glyph (info, check, alert, circle-alert).' } },
   ],
-  states: ['info', 'success', 'warn', 'danger', 'with action', 'pending demo payment: no active classes or capacity hold'],
+  states: ['customer scoped read failure / retry', 'info', 'success', 'warn', 'danger', 'with action', 'pending demo payment: no active classes or capacity hold'],
   usages: [{ title: { es: 'Cuatro tonos', en: 'Four tones' }, render: () => h('div', { className: 'stack-sm' },
     h(Notice, { tone: 'info', title: 'Pago con Wompi' }, 'Integración pendiente: este botón simula una aprobación.'),
     h(Notice, { tone: 'success', title: 'Reserva demo guardada' }, 'Solo en este navegador. No se enviaron mensajes.'),
@@ -21,5 +21,5 @@ export default defineMeta({
     h(Notice, { tone: 'danger', title: 'El estudio canceló esta clase', action: h(Button, { size: 'sm', variant: 'secondary' }, 'Ver alternativas') }, 'La clase ya volvió a tu paquete.'),
   ) }],
   a11y: [{ es: 'role=alert en warn/danger, role=status en info/success; el tono nunca es solo color (icono + texto).', en: 'role=alert for warn/danger, role=status for info/success; tone is never colour alone (glyph + text).' }],
-  usedBy: ['S-04', 'M-08a', 'C-23', 'M-09a', 'M-09b', 'M-04', 'C-24', 'S-03', 'C-19', 'C-21', 'C-26', 'A-02', 'A-03', 'M-18', 'QuoteNotice', 'MaintenanceWorkbench', 'ProblemReport', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'M-13', 'C-28', 'C-03', 'C-04', 'C-05', 'C-08', 'C-20', 'C-22', 'E-02', 'E-03', 'E-04', 'M-08g', 'M-10', 'M-10a', 'D-07'],
+  usedBy: ['C-02', 'C-02b', 'C-13', 'C-14', 'C-15', 'C-18', 'S-04', 'M-08a', 'C-23', 'M-09a', 'M-09b', 'M-04', 'C-24', 'S-03', 'C-19', 'C-21', 'C-26', 'A-02', 'A-03', 'M-18', 'QuoteNotice', 'MaintenanceWorkbench', 'ProblemReport', 'S-09', 'S-07', 'S-08', 'C-29', 'M-15', 'P-02', 'M-13', 'C-28', 'C-03', 'C-04', 'C-05', 'C-08', 'C-20', 'C-22', 'E-02', 'E-03', 'E-04', 'M-08g', 'M-10', 'M-10a', 'D-07'],
 });

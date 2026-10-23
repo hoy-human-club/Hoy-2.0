@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "es/390: day/week, method filter/clear, spots/full waitlist navigation, started/inactive disabled, Bogota midnight visible in Tokyo browser, empty results",
+    "es/390: booking date/time/room/teacher, configured map target, exact linked confirmed/pending/released status, unlinked unknown, missing booking",
+    "es/390: rules/FAQ/teachers content, empty, failed read/retry; inactive teacher deep link hidden; responsive overflow checks",
+    "es/1280: day/week, method filter/clear, spots/full waitlist navigation, started/inactive disabled, Bogota midnight visible in Tokyo browser, empty results",
+    "es/1280: booking date/time/room/teacher, configured map target, exact linked confirmed/pending/released status, unlinked unknown, missing booking",
+    "es/1280: rules/FAQ/teachers content, empty, failed read/retry; inactive teacher deep link hidden; responsive overflow checks",
+    "en/390: day/week, method filter/clear, spots/full waitlist navigation, started/inactive disabled, Bogota midnight visible in Tokyo browser, empty results",
+    "en/390: booking date/time/room/teacher, configured map target, exact linked confirmed/pending/released status, unlinked unknown, missing booking",
+    "en/390: rules/FAQ/teachers content, empty, failed read/retry; inactive teacher deep link hidden; responsive overflow checks",
+    "en/1280: day/week, method filter/clear, spots/full waitlist navigation, started/inactive disabled, Bogota midnight visible in Tokyo browser, empty results",
+    "en/1280: booking date/time/room/teacher, configured map target, exact linked confirmed/pending/released status, unlinked unknown, missing booking",
+    "en/1280: rules/FAQ/teachers content, empty, failed read/retry; inactive teacher deep link hidden; responsive overflow checks"
+  ],
+  "errors": [],
+  "fixtureTime": "2026-10-23T15:00Z",
+  "browserTimezone": "Asia/Tokyo",
+  "scope": "Actual page components, fictional MockProvider fixtures; no backend or payments executed."
+}

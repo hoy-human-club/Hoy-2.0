@@ -1,3 +1,4 @@
+import { supportStrings } from './supportStrings';
 import{profileReviewStrings}from'../profile-review/strings';
 import {signInPreviewStrings} from './auth/signInPreviewStrings';
 import {signupLegalStrings} from './auth/signupLegalStrings';
@@ -6,6 +7,7 @@ import type { StringTable } from '../../i18n/types';
 
 /** Every user-facing string of the customer app (C-xx, A-xx, E-xx). Spanish first; English always present. */
 export const strings: StringTable = {
+  ...supportStrings,
   ...signupLegalStrings,
   ...signInPreviewStrings,
   ...profileReviewStrings,
