@@ -10,6 +10,7 @@
 // Usage: npm run actions   (also a step of npm run build, right after npm run hub-map)
 /** @typedef {import('../src/actions/manifest.types').ActionsManifest} ActionsManifest */
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
 
 const ROOT = new URL('../', import.meta.url);
@@ -26,7 +27,7 @@ function generatedAt() {
 }
 
 const server = await createServer({
-  root: ROOT.pathname, logLevel: 'error', appType: 'custom', configFile: new URL('vite.config.ts', ROOT).pathname,
+  root: fileURLToPath(ROOT), logLevel: 'error', appType: 'custom', configFile: fileURLToPath(new URL('vite.config.ts', ROOT)),
   server: { middlewareMode: true, hmr: false, watch: null }, optimizeDeps: { noDiscovery: true, include: [] },
 });
 /** @type {ActionsManifest} */

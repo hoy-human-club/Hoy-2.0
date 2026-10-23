@@ -7,10 +7,11 @@
 // Usage: npm run capture-dates   (also a step of npm run build)
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = new URL('../', import.meta.url);
 const OUT = new URL('src/app/captureDates.ts', ROOT);
-const git = (...args) => execFileSync('git', args, { cwd: ROOT.pathname, encoding: 'utf8' }).trim();
+const git = (...args) => execFileSync('git', args, { cwd: fileURLToPath(ROOT), encoding: 'utf8' }).trim();
 
 let shallow = true;
 try { shallow = git('rev-parse', '--is-shallow-repository') === 'true'; } catch { /* not a git checkout */ }

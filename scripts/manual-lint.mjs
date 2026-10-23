@@ -22,8 +22,9 @@
 //        node scripts/manual-lint.mjs --json     machine-readable rows (used by docs/qa/manual-*.md)
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('../', import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
 const REPORT = args.includes('--report');
 const JSON_OUT = args.includes('--json');

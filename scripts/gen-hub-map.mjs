@@ -9,6 +9,7 @@
 // validated against the contract before it is written; any problem exits 1 and fails the build.
 // Usage: npm run hub-map   (also the first step of npm run build)
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
 import { planShots, SHOTS_DIR, PRIVATE_CAPTURE_CODES } from './lib/hubShots.mjs';
 
@@ -55,7 +56,7 @@ function matches(pattern, path) {
 }
 
 const server = await createServer({
-  root: ROOT.pathname, logLevel: 'error', appType: 'custom', configFile: new URL('vite.config.ts', ROOT).pathname,
+  root: fileURLToPath(ROOT), logLevel: 'error', appType: 'custom', configFile: fileURLToPath(new URL('vite.config.ts', ROOT)),
   server: { middlewareMode: true, hmr: false, watch: null }, optimizeDeps: { noDiscovery: true, include: [] },
 });
 let map, problems = [], plan;
