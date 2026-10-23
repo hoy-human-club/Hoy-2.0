@@ -69,6 +69,11 @@ const toDate = (v: string | Date): Date => (typeof v === 'string' ? (DATE_KEY.te
 export function formatCOP(amount: number, lang: Lang = 'es'): string {
   return new Intl.NumberFormat(localeOf(lang), { style: 'currency', currency: 'COP', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0 }).format(amount);
 }
+/** COP for a KPI tile: compact from a million up (`$ 8 M` · `$8M`), one decimal below ten million; full `formatCOP` under that. */
+export function formatCOPCompact(amount: number, lang: Lang = 'es'): string {
+  if (Math.abs(amount) < 1_000_000) return formatCOP(amount, lang);
+  return new Intl.NumberFormat(localeOf(lang), { style: 'currency', currency: 'COP', currencyDisplay: 'narrowSymbol', notation: 'compact', maximumFractionDigits: Math.abs(amount) < 10_000_000 ? 1 : 0 }).format(amount);
+}
 export function formatDate(iso: string | Date, lang: Lang = 'es', opts: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric', month: 'short' }): string {
   return new Intl.DateTimeFormat(localeOf(lang), { ...opts, timeZone: STUDIO_TIMEZONE }).format(toDate(iso));
 }

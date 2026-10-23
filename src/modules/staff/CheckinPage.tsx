@@ -227,7 +227,7 @@ export function CheckinPage() {
         {[...new Map(todayAll.map((x) => [x.teacher?.id ?? x.session.teacher_id, x])).values()].map(({ session: s, teacher: te }) => (
           <div key={s.id} className="row-between checkin-teacher">
             <span className="small">{te?.display_name ?? s.teacher_id}</span>
-            <span className="row"><span className="xs muted mono">{formatTime(s.starts_at, lang)}</span><Badge tone={new Date(s.starts_at).getTime() - 15 * MS.min <= now ? 'success' : 'neutral'}>{new Date(s.starts_at).getTime() - 15 * MS.min <= now ? t('staff.checkin.teacher.arrived') : t('staff.checkin.teacher.expected')}</Badge></span>
+            <span className="row"><span className="xs muted mono time">{formatTime(s.starts_at, lang)}</span><Badge tone={new Date(s.starts_at).getTime() - 15 * MS.min <= now ? 'success' : 'neutral'}>{new Date(s.starts_at).getTime() - 15 * MS.min <= now ? t('staff.checkin.teacher.arrived') : t('staff.checkin.teacher.expected')}</Badge></span>
           </div>
         ))}
       </Card>

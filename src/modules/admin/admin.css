@@ -70,11 +70,12 @@
 .hours-badges { gap: var(--gap-inline); flex-wrap: nowrap; }
 .hours-day-why { display: inline-flex; align-items: center; gap: var(--stack-tight); overflow-wrap: anywhere; }
 /* M-01 today at a glance */
-.adm-today { display: grid; grid-template-columns: 4.75rem minmax(0, 1fr) auto; gap: var(--sp-md); align-items: center; padding: var(--sp-sm) 0; border-bottom: 1px solid var(--color-border); }
+/* The time column sizes to its widest entry ("10:10 a. m."); a time never breaks across lines (es-CO puts a plain space inside "a. m."). */
+.adm-today { display: grid; grid-template-columns: minmax(4.75rem, max-content) minmax(0, 1fr) auto; gap: var(--sp-md); align-items: center; padding: var(--sp-sm) 0; border-bottom: 1px solid var(--color-border); }
 .adm-today:last-child { border-bottom: 0; }
-.adm-today-time { font-family: var(--font-heading); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; }
+.adm-today-time { font-family: var(--font-heading); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .adm-today-what { min-width: 0; overflow-wrap: anywhere; }
-@media (max-width: 480px) { .adm-today { grid-template-columns: 4rem minmax(0, 1fr); } }
+@media (max-width: 480px) { .adm-today { grid-template-columns: max-content minmax(0, 1fr); } }
 @media (max-width: 800px) { .settings { grid-template-columns: minmax(0, 1fr); } .settings-rail { position: static; flex-direction: row; flex-wrap: wrap; } .settings-day { grid-template-columns: var(--sp-3xl) minmax(0, 1fr) auto minmax(0, 1fr); } .settings-day > :nth-child(2) { grid-column: 2 / -1; } .settings-day > :nth-child(3) { grid-column: 2; } }
 
 /* 0012 · M-09a/b payouts, M-02a–d content sub-pages */

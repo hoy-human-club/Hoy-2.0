@@ -84,6 +84,28 @@ artboard. Nothing invents a value off this file.
 | radii 4 · 8 · 11 · 16 · 18 · 24 · 32 · 34 | — | `--r-xs … --r-phone` | — |
 | `@keyframes breathe` 7 s, `spin` 1.1 s | — | `--dur-breath`, `--dur-spin` | A-01 rings, spinners |
 
+## Between Gigs bridge (0153)
+HoyOS is being polished on the **Between Gigs** design system: its component structure, roles and rules, with every
+value kept Hoy's. `bridge` in `tokens.ts` emits the Between Gigs semantic names as aliases of the tokens above, so new
+and reworked components can read `--surface`, `--ink-muted`, `--action`, `--line`, `--info-soft` … and themes, skins and
+the wireframe pass re-colour them through what they point at. The aliases add no pixel; the `--color-*` names stay valid.
+
+| Between Gigs | HoyOS token | Use |
+| --- | --- | --- |
+| `bg` · `surface` · `surface-raised` · `surface-sunken` | `color-bg` · `color-surface` · `color-surface-elevated` · `color-surface-2` | page → card → floating → recessed (inputs, filter bars) |
+| `surface-brand` | `brand-deepBlue` | hub/site heroes, sign-in; a dark-theme island in both themes |
+| `ink` · `ink-body` · `ink-muted` · `ink-subtle` · `ink-brand` | `color-ink` · `color-text` · `color-text-muted` · `color-text-faint` · `color-primary` | headings · body · secondary · captions · eyebrows and checked controls |
+| `action` · `on-action` · `action-strong` · `action-danger` | `color-accent-fill` · `color-text-on-primary` · `color-ink` · `color-danger` | one primary per view · decisive step ("Confirmar pago") · destructive |
+| `highlight` · `on-highlight` | `color-highlight` · `color-on-highlight` | the sun marker and celebrations only — never a banner ground |
+| `line` · `line-strong` · `focus` · `scrim` | `color-border` · `color-border-strong` · `color-focus` · `color-scrim` | hairlines · control borders · focus ring · overlays |
+| `success` `warning` `danger` `info` (+ `-soft`) | `color-success` `color-warn` `color-danger` `color-info` (+ `-soft`) | status ink and its badge/banner ground; `info` is new (river ink `#2C4A6B` / `#9BC0E4`) |
+| `neutral-soft` | `color-surface-3` | Not started, Archived, Cancelada |
+| `cat-1 … cat-7` | `tone-<moss…plum>-dot` | class types and chart series, always with a label |
+
+Open, not changed here: dark `action` stays `#35597D` (light blue `#9BC0E4` with an ink label is proposed, it nearly
+merges with the dark page today); `ink-subtle` is translucent and ≈ 4.3:1 on `surface-sunken`, so captions stay on
+`bg`/`surface` until it becomes a solid colour.
+
 ## Themes and skins
 `<html data-theme="light|dark" data-skin="styled|wireframe">`. Dark re-maps the surfaces to the canvas's dark hoy
 values (frame `#1B2E44`, tiles `#22384F`, lane `#16263A`, ground `#101C29`, ink `#F1E7D2`, dim `#A3B3C5`) and never

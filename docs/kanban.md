@@ -4,6 +4,17 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 # HoyOS kanban
 
+## UI polish on Between Gigs (2026-10-23)
+
+### Done
+
+- 0153 stage 0 + launch fixes on `ui-polish/phase-0-1`: D-01 Between Gigs bridge (aliases, `info`, soft status grounds); M-01 KPI fit after font load and compact revenue; one-line times on M-01 / S-02; narrow GlobalSearch drops its placeholder; C-01 / E-01 package nudge as an info Notice. Local build and browser check at 800 / 1100 px.
+
+### Next
+
+- Stage 1: Hoy status vocabulary on booking and payment views (awaiting Jas / Justin), Combobox for the S-02 class picker, CRM tabs with counts, dev controls out of product chrome.
+- Owner decisions: dark `action` colour, solid `ink-subtle`, SiteVersionSelect visibility for visitors, HOY vs Human Club, dropping Inter for app titles.
+
 ## Payment reporting repair (2026-10-23)
 
 - PR84 availability follow-up: reproduce prior zero/empty Finance displays on source75538481; gate dependent KPIs/balance/charts/history until reads succeed. Expanded EN/ES390/1280 fault, empty-success/recovery and retry checks; independent payroll retained. Shared provider/schema and release ownership remain separate.

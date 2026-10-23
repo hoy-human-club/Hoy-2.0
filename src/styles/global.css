@@ -69,6 +69,8 @@ pre, table, img, svg, video, canvas, iframe { max-width: 100%; }
 .small { font-size: var(--fs-sm); }
 .xs { font-size: var(--fs-xs); }
 .mono { font-family: var(--font-mono); }
+/* 0153 — a clock time ("7:00 a. m.") stays on one line: es-CO puts a plain space inside "a. m.", so a narrow column split it. */
+.time { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .eyebrow { font-family: var(--font-body); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: var(--ls-eyebrow); color: var(--color-text-faint); font-weight: var(--fw-semibold); }
 .grid { display: grid; gap: var(--grid-gap); }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

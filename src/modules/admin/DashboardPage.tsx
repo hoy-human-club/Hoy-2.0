@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useTable } from '../../data/DataContext';
 import type { BookingRow, MembershipRow, PaymentRow } from '../../data/schema';
-import { formatCOP, formatDate, formatTime, isSameDay, MS, addDays } from '../../i18n/format';
+import { formatCOP, formatCOPCompact, formatDate, formatTime, isSameDay, MS, addDays } from '../../i18n/format';
 import { useLayout } from '../../layout/useLayout';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
@@ -60,7 +60,7 @@ export function DashboardPage() {
     'KPIRow ×4': () => (
       <div className="grid grid-4">
         <StatTile label={t('admin.dashboard.members')} value={memberships.length} trend="up" />
-        <StatTile label={t('admin.dashboard.revenue')} value={formatCOP(revenue, lang)} />
+        <StatTile label={t('admin.dashboard.revenue')} value={<span title={formatCOP(revenue, lang)}>{formatCOPCompact(revenue, lang)}</span>} />
         <StatTile label={t('admin.dashboard.occupancy')} value={`${occ}%`} trend={occ > 70 ? 'up' : 'flat'} />
         <StatTile label={t('admin.dashboard.arrivals')} value={todayBookings.length} hint={t('admin.dashboard.arrivals.hint', { n: todayIds.length })} />
       </div>

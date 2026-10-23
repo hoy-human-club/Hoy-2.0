@@ -13,3 +13,7 @@
 .gsearch-hint { margin-left: auto; flex: 0 0 auto; font-family: var(--font-mono); font-size: var(--fs-2xs); color: var(--color-text-faint); }
 .gsearch-empty { padding: var(--sp-md); }
 @media (max-width: 720px) { .gsearch { max-width: none; } .gsearch-kbd { display: none; } }
+/* 0153 — between the shell breakpoint and a wide desktop the top bar can squeeze the field to ~5rem: rather than a
+   clipped "Buscar páginas y persona", the field keeps the glyph (its sr-only label names it) and drops hint and key. */
+.gsearch { container-type: inline-size; }
+@container (max-width: 15rem) { .gsearch-input::placeholder { color: transparent; } .gsearch-kbd { display: none; } }

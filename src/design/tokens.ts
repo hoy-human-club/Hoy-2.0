@@ -111,6 +111,11 @@ export const semantic = {
     'color-success': '#4F7D5A',
     'color-warn': '#8A6A1E',
     'color-danger': '#7E3B2C',       // --dg
+    'color-info': '#2C4A6B',         // 0153 · river tone ink · "Pago por confirmar", "En curso" (8.5:1 on paper)
+    'color-success-soft': 'var(--tone-moss-bg)',  // 0153 · status grounds behind badges and banners
+    'color-warn-soft': 'var(--tone-sun-bg)',
+    'color-danger-soft': 'var(--tone-clay-bg)',
+    'color-info-soft': 'var(--tone-river-bg)',
     'color-focus': '#5F85B1',
     'gradient-frame': 'linear-gradient(170deg,#FBF7EF,#F6EFE2)', // phone / desktop frame fill (.surf paper, warmed toward the bottom)
     'gradient-tile': 'linear-gradient(150deg,#F5EEE1,#EDE4D4)',   // C-01 prompt tile
@@ -144,12 +149,56 @@ export const semantic = {
     'color-success': '#7FB08A',
     'color-warn': '#D8C24A',
     'color-danger': '#E0A08F',       // --dg dark
+    'color-info': '#9BC0E4',
+    'color-success-soft': 'rgba(127,176,138,.16)',
+    'color-warn-soft': 'rgba(216,194,74,.16)',
+    'color-danger-soft': 'rgba(224,160,143,.16)',
+    'color-info-soft': 'rgba(155,192,228,.16)',
     'color-focus': '#9BC0E4',
     'gradient-frame': 'linear-gradient(170deg,#1D3148,#1B2E44)',
     'gradient-tile': 'linear-gradient(150deg,#22384F,#1B2E44)',
     'color-scrim': 'rgba(0,0,0,.5)',
   },
 } as const;
+
+/**
+ * 0153 — Between Gigs bridge. The Between Gigs design system's semantic names, each an alias of a HoyOS token above,
+ * so components can be written against the shared vocabulary (bg → surface → surface-raised, ink / ink-muted,
+ * action / action-strong, line, status + soft ground, cat-1…7) while every value stays Hoy's. Aliases only: themes and
+ * the wireframe skin re-colour them through the tokens they point at, and adding the bridge changes no pixel.
+ * Mapping and the open questions (dark `action`, solid `ink-subtle`) are in docs/design-system.md.
+ */
+export const bridge = {
+  'bg': 'var(--color-bg)',
+  'surface': 'var(--color-surface)',
+  'surface-raised': 'var(--color-surface-elevated)',
+  'surface-sunken': 'var(--color-surface-2)',
+  'surface-brand': 'var(--brand-deepBlue)',   // a dark-theme island in both themes: set data-theme="dark" on the band
+  'ink': 'var(--color-ink)',
+  'ink-body': 'var(--color-text)',
+  'ink-muted': 'var(--color-text-muted)',
+  'ink-subtle': 'var(--color-text-faint)',    // ≈ 4.3:1 on surface-sunken — captions on bg/surface only until it is made solid
+  'ink-brand': 'var(--color-primary)',
+  'ink-on-brand': 'var(--color-text-on-inverse)',
+  'action': 'var(--color-accent-fill)',
+  'action-hover': 'var(--color-accent-fill-hover)',
+  'on-action': 'var(--color-text-on-primary)',
+  'action-strong': 'var(--color-ink)',
+  'on-action-strong': 'var(--color-bg)',
+  'action-danger': 'var(--color-danger)',
+  'highlight': 'var(--color-highlight)',      // Hoy's sun plays Between Gigs' lime: markers and celebrations, never a banner
+  'on-highlight': 'var(--color-on-highlight)',
+  'line': 'var(--color-border)',
+  'line-strong': 'var(--color-border-strong)',
+  'focus': 'var(--color-focus)',
+  'scrim': 'var(--color-scrim)',
+  'success': 'var(--color-success)', 'success-soft': 'var(--color-success-soft)',
+  'warning': 'var(--color-warn)', 'warning-soft': 'var(--color-warn-soft)',
+  'danger': 'var(--color-danger)', 'danger-soft': 'var(--color-danger-soft)',
+  'info': 'var(--color-info)', 'info-soft': 'var(--color-info-soft)',
+  'neutral-soft': 'var(--color-surface-3)',
+  ...Object.fromEntries(TONES.map((id, i) => [`cat-${i + 1}`, `var(--tone-${id}-dot)`])),
+} as Record<string, string>;
 
 /**
  * Depth — the canvas Detail layer "Depth" (multi-layer physical shadows), verbatim, written against the
@@ -365,7 +414,7 @@ export const UI_SCALE: readonly { minWidth: number; ui: number; minText: number 
   { minWidth: BREAKPOINTS.hd, ui: 1.125, minText: 16 }, { minWidth: BREAKPOINTS.qhd, ui: 1.375, minText: 16 }, { minWidth: BREAKPOINTS.uhd, ui: 1.75, minText: 16 },
 ];
 
-export const tokens = { brand, palette, rgb, classTones, semantic, shadows, textures, materials, surfaces, hues, type, spacing, spacingLegacy, spacingSemantic, radii, motion, icons, layout: layoutTokens, breakpoints: breakpointVars };
+export const tokens = { brand, palette, rgb, classTones, semantic, bridge, shadows, textures, materials, surfaces, hues, type, spacing, spacingLegacy, spacingSemantic, radii, motion, icons, layout: layoutTokens, breakpoints: breakpointVars };
 
 function vars(obj: Record<string, string>): string {
   return Object.entries(obj).map(([k, v]) => `  --${k}: ${v};`).join('\n');
@@ -406,6 +455,7 @@ ${vars(breakpointVars)}
   --ui: 1;
 ${vars(rgb.light)}
 ${vars(semantic.light)}
+${vars(bridge)}
 ${vars(shadows)}
 ${vars(textures)}
 ${hueVars}
@@ -467,6 +517,8 @@ ${vars(semantic.dark)}
   --color-success: #5E5E5E;
   --color-warn: #5E5E5E;
   --color-danger: #5E5E5E;
+  --color-info: #5E5E5E;
+  --color-success-soft: #EDEBE5; --color-warn-soft: #EDEBE5; --color-danger-soft: #EDEBE5; --color-info-soft: #EDEBE5;
   --gradient-frame: linear-gradient(#FFFFFF,#FFFFFF);
   --gradient-tile: linear-gradient(#FFFFFF,#FFFFFF);
   --shadow-highlight: none; --shadow-contact: none; --shadow-soft: none; --shadow-card: none; --shadow-raised: none;
@@ -485,6 +537,7 @@ ${vars(semantic.dark)}
   --color-text: #DCD3C0; --color-ink: #F4EEE0; --color-text-muted: #B2A794; --color-text-faint: #8F8677;
   --color-primary: #DCD3C0; --color-primary-hover: #F4EEE0; --color-accent-fill: #DCD3C0; --color-accent-fill-hover: #F4EEE0; --color-accent: #B2A794; --color-highlight: #272419; --color-on-highlight: #EDE5D2;
   --color-border: #3A362C; --color-border-strong: #4A4536; --color-card-border: #3A362C; --color-text-on-primary: #161511; --color-text-on-inverse: #EDE5D2;
+  --color-success-soft: #272419; --color-warn-soft: #272419; --color-danger-soft: #272419; --color-info-soft: #272419;
   --gradient-frame: linear-gradient(#161511,#161511); --gradient-tile: linear-gradient(#1C1A15,#1C1A15);
   --tex-ph: repeating-linear-gradient(45deg,#1F1D17,#1F1D17 5px,#2A2720 5px,#2A2720 10px);
 }

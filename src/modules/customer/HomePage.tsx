@@ -11,6 +11,7 @@ import { formatDate, isSameDay, fromDateKey } from '../../i18n/format';
 import { useLayout } from '../../layout/useLayout';
 import { canvasSpecs } from './specs';
 import { Card } from '../../components/molecule/Card/Card';
+import { Notice } from '../../components/molecule/Notice/Notice';
 import { Button } from '../../components/atom/Button/Button';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { ClassRow } from '../../components/molecule/ClassRow/ClassRow';
@@ -64,7 +65,7 @@ export function CustomerHomePage() {
     // 0051: the nudge reads the package (no membership at launch); a member with classes left sees nothing here.
     'MembershipNudge (if no plan)': () => membership
       ? <p className="small muted">{t('customer.home.membership.active', { date: formatDate(membership.renews_at ?? membership.starts_at, lang) })}</p>
-      : ent.pkg.left > 0 ? null : <Card tone="highlight" className="row-between wrap"><span className="small">{t('customer.home.membership.nudge')}</span><Link to="/app/plans"><Button size="sm" variant="secondary">{t('customer.home.membership.cta')}</Button></Link></Card>,
+      : ent.pkg.left > 0 ? null : <Notice tone="info" action={<Link to="/app/plans"><Button size="sm" variant="secondary">{t('customer.home.membership.cta')}</Button></Link>}>{t('customer.home.membership.nudge')}</Notice>,
     'AnnouncementCard (if active)': () => <Card tone="muted" eyebrow={t('customer.home.announcement')}><p className="small">{t('customer.home.announcement.body')}</p></Card>,
     'NextClassCard + countdown': () => (
       <section className="stack-sm">

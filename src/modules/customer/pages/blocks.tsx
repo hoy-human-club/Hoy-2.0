@@ -112,7 +112,7 @@ export function EmptyHomeBlock() {
           secondary={<Link to="/app/rules" className="small">{t('customer.empty.tour')} →</Link>} />
       </Card>
       <Card tone="muted" eyebrow={t('customer.empty.stats')}><p className="small muted">{t('customer.empty.stats.body')}</p></Card>
-      <Card tone="highlight" className="row-between wrap"><span className="small">{t('customer.home.membership.nudge')}</span><Link to="/app/passes"><Button size="sm" variant="secondary">{t('customer.empty.trial')}</Button></Link></Card>
+      <Notice tone="info" action={<Link to="/app/passes"><Button size="sm" variant="secondary">{t('customer.empty.trial')}</Button></Link>}>{t('customer.home.membership.nudge')}</Notice>
       <Card tone="muted" eyebrow={t('customer.home.announcement')}><p className="small">{t('customer.home.announcement.body')}</p></Card>
     </div>
   );

@@ -26,10 +26,14 @@ export function StatTile({ label, value, hint, trend }: { label: string; value: 
       if (available > 0 && needed > available) row.style.setProperty('--stat-fit', String(Math.max(MIN_SCALE, available / needed)));
     };
     fit();
-    if (typeof ResizeObserver === 'undefined') return;
+    // The heading face loads after first paint and is wider than its metric fallback: re-fit once it lands,
+    // or a value measured against the fallback ellipsises ("$ 8.020.0…") in the real font.
+    let live = true;
+    document.fonts?.ready.then(() => { if (live) fit(); });
+    if (typeof ResizeObserver === 'undefined') return () => { live = false; };
     const ro = new ResizeObserver(fit);
     ro.observe(row.parentElement ?? row);
-    return () => ro.disconnect();
+    return () => { live = false; ro.disconnect(); };
   }, [value, trend]);
 
   return (
