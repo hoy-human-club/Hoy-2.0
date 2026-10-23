@@ -23,6 +23,7 @@ import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { ClassCard } from '../../../components/organism/ClassCard/ClassCard';
 import { ClassRow } from '../../../components/molecule/ClassRow/ClassRow';
 import { CountdownRing } from '../../../components/molecule/CountdownRing/CountdownRing';
+import '../pulso.css';
 import { EmptyState } from '../../../components/molecule/EmptyState/EmptyState';
 import { Skeleton } from '../../../components/atom/Skeleton/Skeleton';
 import { ListGroup, ListRow } from '../../../components/molecule/ListRow/ListRow';
@@ -116,11 +117,26 @@ export function BookedPage({ change = false }: { change?: boolean }) {
         </Card>
       );
       return (
-        <div className="cust-center stack-sm">
+        <div className="stack">
+          {/* 0157 · Pulso: the booking as a tile in the class tone — the moment members share. "Tu clase", not
+              "confirmada": a transfer booking can still be waiting for its payment (the payment card says which). */}
+          {active && !started && (
+            <section className="cust-booked-card tone-tile" data-tone={toneOf(joined)} aria-labelledby="cust-booked-card-title">
+              <span className="eyebrow">{t('customer.booked.card.eyebrow')} · {s.title}</span>
+              <h2 id="cust-booked-card-title">{t('customer.booked.card.title', { day: formatDate(s.starts_at, lang, { weekday: 'long' }), time: formatTime(s.starts_at, lang) })}</h2>
+              <p className="small">{teacherName(joined)} · {roomName(joined)}{booking.mat_number ? ` · ${t('site.mat.confirmed', { n: booking.mat_number })}` : ''}</p>
+              <div className="cust-booked-card-actions">
+                <Button size="sm" icon="share" onClick={share}>{t('customer.class.share')}</Button>
+                <Button size="sm" icon="calendar-plus" onClick={addToCalendar}>{t('customer.booked.addToCalendar')}</Button>
+              </div>
+            </section>
+          )}
+          <div className="cust-center stack-sm">
           {started
             ? <Card tone="primary" className="cust-center" padding="lg"><strong>{t('customer.booked.inProgress')}</strong></Card>
             : <CountdownRing until={s.starts_at} from={booking.created_at} size={180} tone={checkinOpen ? 'success' : 'primary'} label={checkinOpen ? t('customer.booked.checkin') : t('customer.booked.startsIn')} />}
           {checkinOpen && <p className="small muted">{t('customer.booked.checkin.body')}</p>}
+          </div>
         </div>
       );
     },
@@ -161,7 +177,7 @@ export function BookedPage({ change = false }: { change?: boolean }) {
   };
 
   return (
-    <div className="container page cust-page">
+    <div className="container page cust-page cust-pulso">
       {changeSheet}
       <PageHead back="/app" title={<span className="sr-only">{s.title}</span>} />
       {flash && <Notice tone={flash.tone}>{flash.text}</Notice>}

@@ -25,6 +25,7 @@ import { PACKAGE_IDS, PASS_IDS, priceOf, useBookingActions, useEntitlements, use
 import { PAYMENT_METHODS, activatePaidPackage, recordPayment, wompiCheckout, type ElectronicMethod, type PayMethod, type WompiResult } from '../payments';
 import { policy } from '../policy';
 import { PageHead, durationMin, toneOf, roomName, teacherName } from '../ui';
+import '../pulso.css';
 import { MatPicker } from '../../../components/organism/MatPicker/MatPicker';
 import { usesMats, occupiesMat, chooseMat } from '../../../data/mats';
 import { tenant } from '../../../tenant/tenant';
@@ -202,7 +203,7 @@ export function CheckoutPage() {
 
   if (!joined) {
     return (
-      <div className="container page cust-page">
+      <div className="container page cust-page cust-pulso">
         <PageHead back="/app/schedule" title={t('customer.checkout.title')} />
         {loading ? <Skeleton shape="rect" height={160} /> : <EmptyState title={t('customer.class.notFound')} action={<Link to="/app/schedule"><Button>{t('customer.class.backToSchedule')}</Button></Link>} />}
       </div>
@@ -266,7 +267,7 @@ export function CheckoutPage() {
   };
 
   return (
-    <div className="container page cust-page">
+    <div className="container page cust-page cust-pulso">
       <PageHead back={`/app/class/${s.id}`} title={t('customer.checkout.title')} sub={claimId ? t('customer.checkout.claiming') : undefined} />
       <Notice tone="info">{t('customer.checkout.demo')}</Notice>
       {isPass(kind)&&<QuoteNotice catalog={catalog} review={review}/>}

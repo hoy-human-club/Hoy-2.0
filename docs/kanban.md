@@ -16,9 +16,12 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0156 Direction C "Pulso" on `ui-polish/direction-c-pulso` (chosen from the three directions on the design canvas): W-11 rebuilt as a bento of rounded tiles (blue hero, sun date, approved studio photo, the seven classes in their tones); C-01 Home skinned with the same tiles (`pulso.css`, scoped). test-website-preview passes (ES/EN, 344–3840); C-01 text ≥ 4.5:1 in light and dark.
 
+- 0157 Pulso first week on `ui-polish/pulso-booking-flow`: E-01 welcome with the seven classes, C-03 title tile in the class tone, C-08 shareable "Nos vemos el …" tile, C-02 / C-04 in scope; shared `.tone-tile`; ClassRow time, calendar title case and dark neutral badge fixed. Contrast ≥ 4.5:1 light and dark on all five pages.
+
 ### Next
 
-- Pulso on the rest of the member app (schedule, class detail, plans) and the public site.
+- Pulso on plans, passes, history and practice; then the public site (`/site`).
+- Class filter link from the E-01 class tiles (schedule needs a class parameter).
 - W-11: lead capture as the main action (needs a decision on what it collects), the load sequence, the address once verified.
 - Hoy status vocabulary on booking and payment views (awaiting Jas / Justin).
 - Owner decisions: dark `action` colour, solid `ink-subtle`, SiteVersionSelect visibility for visitors, HOY vs Human Club, dropping Inter for app titles.

@@ -1,21 +1,25 @@
-/* 0156 · Direction C "Pulso" for C-01 Home: the same sections and components, restyled as rounded tiles in the
-   class tones. Scoped to .cust-home so no other customer page changes. Text on a tone tile is the deep ink (≥ 4.5:1
-   on river, clay and sun) or paper on moss, the same pairs as the W-11 class tiles. */
-.cust-home { --pulso-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); --pulso-paper: var(--brand-white); }
+/* 0156 / 0157 · Direction C "Pulso" for the member app: the same sections and components, restyled as rounded tiles in
+   the class tones. Scoped to .cust-home (C-01, E-01) and .cust-pulso (C-02 schedule, C-03 class, C-04 checkout,
+   C-08 booking) so no other customer page changes. Text on a tone tile follows `.tone-tile` (global.css): the deep
+   ink on river, clay, sun, sage and slate, paper on moss and the deepened plum. */
+:is(.cust-home, .cust-pulso) { --pulso-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); --pulso-paper: var(--brand-white); }
 
-/* greeting in the editorial face, as the landing headline */
-.cust-home .cust-greeting { font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2.5rem, 7vw, 3.5rem); line-height: 1; letter-spacing: var(--ls-tight); }
+/* greeting and page titles in the editorial face, as the landing headline */
+:is(.cust-home, .cust-pulso) :is(.cust-greeting, h1.cust-title) { font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2.5rem, 7vw, 3.5rem); line-height: 1; letter-spacing: var(--ls-tight); }
+.cust-pulso .cust-h2 { font-family: var(--font-editorial); font-weight: 500; font-size: var(--fs-2xl); }
 
 /* every container becomes a tile */
-.cust-home .card { border-radius: var(--r-xl); border-color: transparent; box-shadow: none; }
-.cust-home .card-muted { background-color: var(--color-surface-2); }
+:is(.cust-home, .cust-pulso) .card { border-radius: var(--r-xl); border-color: transparent; box-shadow: none; }
+:is(.cust-home, .cust-pulso) .card-muted { background-color: var(--color-surface-2); }
+.cust-pulso .calendar-window { border-radius: var(--r-xl); border-color: transparent; box-shadow: none; }
+.cust-pulso .class-thumbnail, .cust-pulso .cust-class-hero { border-radius: var(--r-xl); overflow: hidden; }
 
-/* next class: the blue hero tile, with the breathing rings and a sun action */
-.cust-home .card-primary { position: relative; overflow: hidden; isolation: isolate; box-shadow: none; }
-.cust-home .card-primary::after { content: ""; position: absolute; z-index: -1; right: calc(-1 * var(--sp-4xl)); top: calc(-1 * var(--sp-4xl)); width: 14rem; height: 14rem; border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 22%, transparent); box-shadow: 0 0 0 1.75rem color-mix(in srgb, var(--brand-white) 5%, transparent), 0 0 0 3.5rem color-mix(in srgb, var(--brand-white) 3.5%, transparent); animation: pulso-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
+/* the blue hero tile, with the breathing rings and a sun action (next class, first-time welcome) */
+:is(.cust-home, .cust-pulso) .card-primary { position: relative; overflow: hidden; isolation: isolate; box-shadow: none; }
+:is(.cust-home, .cust-pulso) .card-primary::after { content: ""; position: absolute; z-index: -1; right: calc(-1 * var(--sp-4xl)); top: calc(-1 * var(--sp-4xl)); width: 14rem; height: 14rem; border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 22%, transparent); box-shadow: 0 0 0 1.75rem color-mix(in srgb, var(--brand-white) 5%, transparent), 0 0 0 3.5rem color-mix(in srgb, var(--brand-white) 3.5%, transparent); animation: pulso-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
 @keyframes pulso-breathe { from { transform: scale(1); } to { transform: scale(1.08); } }
-.cust-home .card-primary .classcard-time { font-family: var(--font-body); font-weight: var(--fw-bold); font-size: clamp(2.5rem, 9vw, 3.25rem); letter-spacing: -0.03em; }
-.cust-home .card-primary .btn { background: var(--brand-yellow); color: var(--brand-ink); border-color: transparent; }
+:is(.cust-home, .cust-pulso) .card-primary .classcard-time { font-family: var(--font-body); font-weight: var(--fw-bold); font-size: clamp(2.5rem, 9vw, 3.25rem); letter-spacing: -0.03em; }
+:is(.cust-home, .cust-pulso) .card-primary .btn { background: var(--brand-yellow); color: var(--brand-ink); border-color: transparent; }
 
 /* quick actions: four tone tiles */
 .cust-home .cust-quick { gap: var(--sp-md); }
@@ -34,4 +38,36 @@
 .cust-home .cust-practice-tiles > .stat:last-child:not(.cust-practice-streak) { background: var(--tone-sun-dot); color: var(--pulso-ink); }
 .cust-home .cust-practice-tiles > :is(.cust-practice-streak, .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint) { color: inherit; }
 
-@media (prefers-reduced-motion: reduce) { .cust-home .card-primary::after { animation: none; } }
+/* E-01 · the first-time welcome: blue hero tile, then the seven classes as tone tiles */
+.cust-welcome { display: flex; flex-direction: column; gap: var(--stack-loose); }
+.cust-welcome h2 { margin: 0; font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1.02; color: inherit; text-wrap: balance; }
+.cust-welcome p { margin: 0; max-width: 34ch; color: color-mix(in srgb, var(--color-text-on-inverse) 88%, transparent); }
+.cust-welcome-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-control); }
+.cust-welcome-actions a:not(.btn) { color: var(--color-text-on-inverse); }
+.cust-classes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-md); }
+.cust-classes-title { grid-column: 1 / -1; }
+.cust-class-tile { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--sp-2xs); min-height: 7.5rem; padding: var(--card-pad); border-radius: var(--r-lg); text-decoration: none; transition: transform var(--dur-base) var(--ease-out); }
+.cust-class-tile:hover { text-decoration: none; transform: translateY(-2px); }
+.cust-class-tile strong { font-family: var(--font-editorial); font-weight: 500; font-size: var(--fs-2xl); line-height: 1; }
+.cust-class-tile span { font-size: var(--fs-xs); line-height: 1.35; }
+.cust-class-tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 900px) { .cust-classes { grid-template-columns: repeat(4, minmax(0, 1fr)); } .cust-class-tile:last-child:nth-child(odd) { grid-column: auto; } }
+
+/* C-03 · the title block sits on a tile in the class's own tone */
+.cust-class-tile-head { display: flex; flex-direction: column; gap: var(--stack); padding: var(--card-pad-lg); border-radius: var(--r-xl); }
+.cust-class-tile-head .badge { background: color-mix(in srgb, var(--brand-white) 72%, transparent); color: var(--brand-ink); }
+.cust-class-tile-head :is(.cust-class-meta, .cust-class-meta strong) { color: inherit; }
+.cust-class-tile-head .cust-class-meta { margin: 0; }
+
+/* C-08 · "see you on Thursday": the booking as a shareable tile in the class tone */
+.cust-booked-card { display: flex; flex-direction: column; gap: var(--stack); padding: var(--card-pad-lg); border-radius: var(--r-xl); position: relative; overflow: hidden; isolation: isolate; }
+.cust-booked-card::after { content: ""; position: absolute; z-index: -1; right: calc(-1 * var(--sp-3xl)); bottom: calc(-1 * var(--sp-3xl)); width: 11rem; height: 11rem; border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, currentColor 24%, transparent); box-shadow: 0 0 0 1.5rem color-mix(in srgb, currentColor 6%, transparent); animation: pulso-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
+.cust-booked-card h2 { margin: 0; font-family: var(--font-editorial); font-weight: 400; font-size: clamp(2rem, 7vw, 2.75rem); line-height: 1.02; text-wrap: balance; }
+.cust-booked-card p { margin: 0; }
+.cust-booked-card-actions { display: flex; flex-wrap: wrap; gap: var(--gap-control); margin-top: var(--sp-xs); }
+.cust-booked-card-actions .btn { background: var(--brand-white); color: var(--brand-ink); border-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.cust-home, .cust-pulso) .card-primary::after, .cust-booked-card::after { animation: none; }
+  .cust-class-tile { transition: none; }
+}

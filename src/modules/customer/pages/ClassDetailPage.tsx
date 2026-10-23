@@ -21,6 +21,7 @@ import { policy } from '../policy';
 import {  PageHead, durationMin, roomName, shareText } from '../ui';
 import { ClassThumbnail } from '../../../components/molecule/ClassThumbnail/ClassThumbnail';
 import { StudioCancelledBlock } from './blocks';
+import '../pulso.css';
 
 const spec = canvasSpecs['C-03'];
 
@@ -78,10 +79,11 @@ export function ClassDetailPage() {
 
   const SECTIONS: Record<string, () => ReactNode> = {
     'HeroImage (placeholder)': () => (
-      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 'var(--r-lg)' }}><ClassThumbnail modality={m}/></div>
+      <div className="cust-class-hero" style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 'var(--r-lg)' }}><ClassThumbnail modality={m}/></div>
     ),
+    // 0157 · Pulso: the title block is a tile in the class's own tone (Fuego clay, Ligereza river…).
     'TitleBlock (time, duration, room)': () => (
-      <div className="stack-sm">
+      <div className="cust-class-tile-head tone-tile" data-tone={m?.tone ?? 'river'}>
         <div className="row wrap">
           <span className="eyebrow">{formatDate(s.starts_at, lang, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
           {cancelled && <Badge tone="danger">{t('customer.schedule.cancelled')}</Badge>}
@@ -139,7 +141,7 @@ export function ClassDetailPage() {
   };
 
   return (
-    <div className="container page cust-page cust-has-sticky">
+    <div className="container page cust-page cust-has-sticky cust-pulso">
       <PageHead back="/app/schedule" title={<span className="sr-only">{s.title}</span>} />
       {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
       {!cancelled && !past && full && <p className="xs muted" style={{ textAlign: 'center' }}>{t('customer.class.fullNote', { min: policy.claimWindowMinutes })}</p>}

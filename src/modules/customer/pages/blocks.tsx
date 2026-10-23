@@ -9,6 +9,8 @@ import { useSession } from '../../../auth/SessionProvider';
 import type { BookingRow } from '../../../data/schema';
 import { formatCOP, formatDate, formatTime, isSameDay } from '../../../i18n/format';
 import { tenant } from '../../../tenant/tenant';
+import { classes as brandClasses, type ClassSlug } from '../../../tenant/brand';
+import '../pulso.css';
 import { Card } from '../../../components/molecule/Card/Card';
 import { Button } from '../../../components/atom/Button/Button';
 import { Notice } from '../../../components/molecule/Notice/Notice';
@@ -100,17 +102,30 @@ export function DeclinedBlock({ state, amount, onRetry, onRelease, onExpired }: 
 
 /** E-01 — home on day one: teach the next step instead of empty containers. */
 export function EmptyHomeBlock() {
-  const { t } = useI18n();
+  const { t, bi } = useI18n();
   const nav = useNavigate();
   const { user } = useSession();
   return (
     <div className="stack cust-home">
       <h1 className="cust-greeting">{t('customer.home.greeting', { name: user.name.split(' ')[0] })}</h1>
-      <Card padding="sm">
-        <EmptyState icon="sun" title={t('customer.empty.title')} body={t('customer.empty.body', { name: tenant.name })}
-          action={<Button size="lg" onClick={() => nav('/app/schedule')}>{t('customer.empty.cta')}</Button>}
-          secondary={<Link to="/app/rules" className="small">{t('customer.empty.tour')} →</Link>} />
+      {/* 0157 · Pulso: the welcome is the blue hero tile, then the seven classes as tone tiles to explore. */}
+      <Card tone="primary" padding="lg" className="cust-welcome">
+        <h2>{t('customer.empty.title')}</h2>
+        <p>{t('customer.empty.body', { name: tenant.name })}</p>
+        <div className="cust-welcome-actions">
+          <Button size="lg" onClick={() => nav('/app/schedule')}>{t('customer.empty.cta')}</Button>
+          <Link to="/app/rules" className="small">{t('customer.empty.tour')} →</Link>
+        </div>
       </Card>
+      <section className="cust-classes" aria-labelledby="cust-classes-title">
+        <h2 id="cust-classes-title" className="eyebrow cust-classes-title">{t('customer.empty.classes', { n: Object.keys(brandClasses).length })}</h2>
+        {(Object.keys(brandClasses) as ClassSlug[]).map((slug) => (
+          <Link key={slug} to="/app/schedule" className="cust-class-tile tone-tile" data-tone={brandClasses[slug].tone}>
+            <strong>{bi(brandClasses[slug].name)}</strong>
+            <span>{bi(brandClasses[slug].tagline)}</span>
+          </Link>
+        ))}
+      </section>
       <Card tone="muted" eyebrow={t('customer.empty.stats')}><p className="small muted">{t('customer.empty.stats.body')}</p></Card>
       <Notice tone="info" action={<Link to="/app/passes"><Button size="sm" variant="secondary">{t('customer.empty.trial')}</Button></Link>}>{t('customer.home.membership.nudge')}</Notice>
       <Card tone="muted" eyebrow={t('customer.home.announcement')}><p className="small">{t('customer.home.announcement.body')}</p></Card>

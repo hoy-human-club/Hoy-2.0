@@ -251,6 +251,7 @@ export const strings: StringTable = {
   'customer.empty.cta': { es: 'Ver clases de hoy', en: 'See today’s classes' },
   'customer.empty.tour': { es: 'Tour del estudio', en: 'Studio tour' },
   'customer.empty.stats': { es: 'Tus estadísticas', en: 'Your stats' },
+  'customer.empty.classes': { es: '{n} clases para elegir', en: '{n} classes to choose from' },
   'customer.empty.stats.body': { es: 'Después de tu primera clase verás aquí las clases tomadas este mes, tus semanas seguidas cumpliendo tu meta y las clases que te quedan en tu plan.', en: 'After your first class you will see the classes you attended this month, your weeks in a row on your goal and the classes left on your plan here.' },
   'customer.empty.trial': { es: 'Clase de prueba', en: 'Trial class' },
 
@@ -373,6 +374,8 @@ export const strings: StringTable = {
   'customer.booked.change': { es: 'Reprogramar o cancelar', en: 'Reschedule or cancel' },
   'customer.booked.addToCalendar': { es: 'Añadir al calendario', en: 'Add to calendar' },
   'customer.booked.shareText': { es: 'Voy a {title} el {when} en {name}. ¿Vienes?', en: 'I am going to {title} on {when} at {name}. Coming?' },
+  'customer.booked.card.eyebrow': { es: 'Tu clase', en: 'Your class' },
+  'customer.booked.card.title': { es: 'Nos vemos el {day}, {time}', en: 'See you {day}, {time}' },
   'customer.booked.policy.outside': { es: 'Cancela o cambia gratis hasta las {time} ({h} h antes)', en: 'Cancel or change free until {time} ({h} h before)' },
   'customer.booked.policy.inside': { es: 'Dentro de la ventana de {h} h: cancelar usa la clase', en: 'Inside the {h} h window: cancelling uses the class' },
   'customer.booked.paidWith': { es: 'pagada con {with}', en: 'paid with {with}' },

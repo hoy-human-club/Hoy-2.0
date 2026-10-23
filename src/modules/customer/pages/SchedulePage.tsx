@@ -15,6 +15,7 @@ import { Drawer } from '../../../components/organism/Drawer/Drawer';
 import { SessionCalendar } from '../../../components/organism/SessionCalendar/SessionCalendar';
 import { canvasSpecs } from '../specs';
 import { PageHead } from '../ui';
+import '../pulso.css';
 import { useActions } from '../../../actions';
 import { sessionUnavailableReason } from '../../../data/sessionAvailability';
 import { need, useAppNavHandlers } from '../actions';
@@ -127,7 +128,7 @@ export function SchedulePage({ view: routeView }: SchedulePageProps) {
   };
 
   return (
-    <div className="container page cust-page">
+    <div className="container page cust-page cust-pulso">
       {error && <Notice tone="danger" action={<Button onClick={retry}>{t('customer.support.retry')}</Button>}>{t('customer.support.readError')}</Notice>}
       {loading && <p role="status">{t('core.common.loading')}</p>}
       {!error && !loading && sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
