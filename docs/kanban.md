@@ -2,6 +2,20 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 # HoyOS kanban
 
+## Payments · isolated frontend batch (2026-10-23)
+
+### Done
+
+- S-09 receipt-free front-desk demo settlement: retained class terms, exact amount, method/staff attribution, atomic fulfillment/audit and replay safeguards; bilingual responsive/error/empty checks and existing queue/transfer domain regressions pass. [Evidence](frontend-completion/payment-desk-settlement.md). Bounded PG-07/09 slices only; source base c2c0f37 preserves PR77 consent.
+
+### Doing
+
+- Draft PR/integration handoff and exact-head CI. No independent merge or deployment.
+
+### Backlog
+
+- PC-01/PC-02 timing decisions; retained booking intent/capacity/release model; authenticated server idempotency/settlement and receipt email. Configurable timing projection defaults are unresolved. Permanent no-refunds and all original phases/owner acceptance gates remain.
+
 ## Active frontend program (2026-10-22)
 
 - Verified live: PR70, checked `4c062d9`, merged `50449d0` / v0.25.0. All 12 workflows / 34 jobs and Pages `39748513571` exact-source hosted verification passed. See `frontend-completion/evidence/release-pr70.json`. Earlier release and pending entries below are historical.

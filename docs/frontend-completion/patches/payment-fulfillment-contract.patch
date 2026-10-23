@@ -1,0 +1,49 @@
+--- a/src/data/types.ts
++++ b/src/data/types.ts
+@@ -1,3 +1,4 @@
++import type { ManualPurchaseIntent, ManualPurchaseResult, SettledFulfillmentCommand, SettledFulfillmentResult } from './paymentFulfillmentContract';
+ import type { AppendClassPayRuleCommand, ClassPayRuleRow } from './classPayRules';
+ import type { GenerateRecurrence } from './classRecurrence';
+ import type { SessionEdit } from './sessionEditorial';
+@@ -26,6 +27,10 @@
+  * same interface, so pages never know which one is behind useData().
+  */
+ export interface DataProvider {
++  /** Integration proposal only: authenticated server derives tenant/buyer, validates retained terms and deduplicates requestId. */
++  beginManualPurchase?(intent: ManualPurchaseIntent): Promise<ManualPurchaseResult>;
++  /** Server verifies settlement and fulfills retained intent once; never called from demo confirmation or advanceGift. */
++  fulfillSettledPayment?(command: SettledFulfillmentCommand): Promise<SettledFulfillmentResult>;
+   /** Optional local-demo fixture refresh; production providers never synthesize bookings. */
+   prepareDemoSamples?: () => void;
+   readonly name: string;
+--- /dev/null
++++ b/src/data/paymentFulfillmentContract.ts
+@@ -0,0 +1,28 @@
++/** PROPOSAL FOR INTEGRATION OWNER — not implemented by this payment batch.
++ * Client intent is untrusted. Server derives tenant/buyer, re-quotes and retains the resulting terms.
++ * No durations, voucher expiry, refund rules or real delivery outcomes are chosen here.
++ */
++export type ManualPurchaseIntent = {
++  clientRequestId: string; quotedItemId: string; quoteSourceKey: string; classes: number; amountCop: number;
++} & (
++  | { kind: 'class'; booking: { sessionId: string; matNumber: number | null } | null }
++  | { kind: 'gift'; recipientEmail: string }
++);
++export interface ManualPurchaseResult {
++  purchaseId: string; paymentId: string; state: 'pending' | 'rejected' | 'settled'; reference: string;
++}
++/** Retained server intent supplies customer/recipient/session/quote; browser must not substitute them at fulfillment. */
++export interface SettledFulfillmentCommand { requestId: string; paymentId: string }
++export type SettledFulfillmentResult = { paymentId: string; receiptOutboxId: string | null } & (
++  | { kind: 'class'; purchaseLedgerId: string; bookingId: string | null }
++  | { kind: 'gift'; voucherId: string }
++);
++/** Atomic server transaction needs:
++ * 1. authenticated staff/bank evidence and unique payment settlement identity;
++ * 2. retained immutable class or gift intent plus frozen server-reviewed terms;
++ * 3. payment status/amount/method/staff, grant and optional capacity/mat recheck + booking;
++ * 4. alternatively purchased_gift issuance using canonical PurchasedGiftBridge with unique settlementKey;
++ * 5. immutable audit and idempotent receipt/fulfillment outbox, never a DIAN invoice;
++ * 6. all-or-nothing rollback and same-result replay across tabs/devices.
++ * Recipient claim/token issuance and verified email delivery remain owned integration work.
++ */

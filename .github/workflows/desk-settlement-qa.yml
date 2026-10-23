@@ -1,0 +1,47 @@
+name: Demo front-desk settlement QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/transfers/**'
+      - 'src/components/organism/DeskPaymentSettlement/**'
+      - 'scripts/test-desk-settlement*.mjs'
+      - '.github/workflows/desk-settlement-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-desk-settlement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Verify settlement and retained payment regressions
+        run: |
+          node scripts/test-desk-settlement.mjs
+          node scripts/test-pending-payments.mjs
+          node scripts/test-transfer-receipts.mjs
+      - name: Verify production payment UI with fictional fixtures
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5187 > /tmp/hoy-desk-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5187/ >/dev/null && break; sleep 1; done
+          node scripts/test-desk-settlement-ui.mjs
+          node scripts/test-pending-payments-ui.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5187
+          QA_OUTPUT: qa/desk-settlement
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desk-settlement-${{ github.event.pull_request.head.sha }}
+          path: |
+            qa/desk-settlement/
+            /tmp/hoy-desk-preview.log
+          retention-days: 7
