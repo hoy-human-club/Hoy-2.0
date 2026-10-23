@@ -37,7 +37,7 @@ try {
     const before = snapshot(); await assert.rejects(settleAtDesk(data, { ...cmd('qa_pending'), ...patch })); assert.equal(snapshot(), before);
   }
   await assert.rejects(settleAtDesk({ ...data, name: 'supabase' }, cmd('qa_pending')), /disconnected/);
-  for (const failAfterWrites of [1, 2, 3]) {
+  for (const failAfterWrites of [1, 2, 3, 4]) {
     data.atomic = (action, options) => atomic(action, { ...options, failAfterWrites });
     const before = snapshot(); await assert.rejects(settleAtDesk(data, cmd('qa_pending')), /mock_injected/); assert.equal(snapshot(), before);
   }
@@ -101,5 +101,5 @@ try {
     await assert.rejects(settleAtDesk(data, cmd(payment.id)), /settlement_conflict/, `${label}: changed fulfillment cannot be acknowledged`);
     assert.equal(snapshot(), beforeReplay, `${label}: replay cannot repair or regrant`);
   }
-  console.log('PASS desk settlement: cash/card-terminal/transfer, exact amount and note validation, denied roles/provider/tenant/customer/missing terms/expired terms/linked receipts, 3 write rollback points, quota rollback, cancellation, retained terms after repricing, concurrent replay, lost acknowledgement reconciliation, 10 changed/missing fulfillment replay rejections, trial guard; no booking/invoice/message effects');
+  console.log('PASS desk settlement: cash/card-terminal/transfer, exact amount and note validation, denied roles/provider/tenant/customer/missing terms/expired terms/linked receipts, 4 write rollback points, quota rollback, cancellation, retained terms after repricing, concurrent replay, lost acknowledgement reconciliation, 10 changed/missing fulfillment replay rejections, trial guard; no booking/invoice/message effects');
 } finally { await rm(dir, { recursive: true, force: true }); }

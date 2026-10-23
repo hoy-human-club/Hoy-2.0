@@ -1,3 +1,4 @@
+import { LaunchPaymentReceipt } from '../../components/organism/LaunchPaymentReceipt/LaunchPaymentReceipt';
 import {useTrialAssessment} from '../customer/useTrialAssessment';
 import {trialErrorKey} from '../../data/trialEligibility';
 import {useEffect,useState} from 'react';
@@ -41,7 +42,7 @@ export function TransferQueuePage(){
  function open(r:TransferReceiptRow){setParams({receipt:r.id});setAmount('');setReason('');setCompared(false);setError(null);}
  async function decide(decision:'approved'|'rejected'){if(!selected||!ready)return;setBusy(true);setError(null);try{await reviewTransfer(data,{id:selected.id,actorId:user.id,role,decision,amount:amount.trim()===''?NaN:Number(amount),reason,compared});setParams({});setRevision(n=>n+1);}catch(e){setError(trialErrorKey(e)??'transfers.reviewError');}finally{setBusy(false);}}
  const boundary=<div className="stack-sm"><Notice tone="warn">{t('transfers.boundary')}</Notice><Notice>{t('transfers.queueTiming')}</Notice></div>;
- const content=<section className="stack">{settled&&settled.context===settlementContext&&<Notice tone="success">{t('transfers.desk.saved',{id:settled.payment.id,amount:formatCOP(settled.payment.amount,lang),name:settled.actor})}</Notice>}<label className="stack-sm"><span>{t('transfers.filter')}</span><Select value={filter} onChange={e=>setFilter(e.target.value)}>{['pending','approved','rejected','all'].map(s=><option key={s} value={s}>{t(`transfers.${s}`)}</option>)}</Select></label>
+ const content=<section className="stack">{settled&&settled.context===settlementContext&&<><Notice tone="success">{t('transfers.desk.saved',{id:settled.payment.id,amount:formatCOP(settled.payment.amount,lang),name:settled.actor})}</Notice><LaunchPaymentReceipt payment={settled.payment} customer={t('transfers.unknownCustomer')} /></>}<label className="stack-sm"><span>{t('transfers.filter')}</span><Select value={filter} onChange={e=>setFilter(e.target.value)}>{['pending','approved','rejected','all'].map(s=><option key={s} value={s}>{t(`transfers.${s}`)}</option>)}</Select></label>
   {loading?<p role="status">{t('core.common.loading')}</p>:readError?<Notice tone="danger" action={<Button onClick={()=>setRevision(n=>n+1)}>{t('transfers.retry')}</Button>}>{t('transfers.readError')}</Notice>:<>
   {entries.filter(e=>entryMatches(e,filter)).length===0&&<p>{t('transfers.empty')}</p>}
   {(params.has('receipt')&&!selected||params.has('payment')&&!detail)&&<Notice tone="warn" action={<Button onClick={()=>setParams({})}>{t('transfers.close')}</Button>}>{t('transfers.unavailable')}</Notice>}

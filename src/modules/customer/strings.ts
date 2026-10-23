@@ -207,7 +207,7 @@ export const strings: StringTable = {
   'customer.checkout.subtotal': { es: 'Subtotal', en: 'Subtotal' },
   'customer.checkout.iva': { es: 'IVA', en: 'IVA' },
   'customer.checkout.total': { es: 'Total', en: 'Total' },
-  'customer.checkout.receiptNote': { es: 'Precios con IVA incluido. Recibo electrónico (DIAN) por email y WhatsApp al aprobar.', en: 'Prices include IVA. Electronic receipt (DIAN) by email and WhatsApp on approval.' },
+  'customer.checkout.receiptNote': { es: 'Al confirmar se guarda un recibo demo. No se emite factura ni se envía email.', en: 'Confirmation saves a demo receipt. No invoice is issued and no email is sent.' },
   'customer.checkout.confirm': { es: 'Confirmar reserva', en: 'Confirm booking' },
   'customer.checkout.payWompi': { es: 'Pagar {amount} con Wompi', en: 'Pay {amount} with Wompi' },
   'customer.checkout.confirmManual': { es: 'Solicitar pago demo de {amount} en recepción', en: 'Request demo desk payment of {amount}' },
@@ -649,7 +649,7 @@ export const strings: StringTable = {
 
   'customer.events.mock': { es: 'Demo FICTICIA solo en este navegador. No envía emails ni WhatsApp; no se comparte entre dispositivos.', en: 'FICTIONAL demo in this browser only. No email or WhatsApp is sent; no cross-device sharing.' },
   'customer.events.localGoing': { es: 'Inscripción ficticia registrada localmente. No se enviaron mensajes.', en: 'Fictional RSVP recorded locally. No messages were sent.' },
-  'customer.events.paidPartial': { es: 'Pago, factura, actividad e inscripción ficticios se guardan juntos en este navegador. No se realiza un cobro real. La política de cancelación pagada sigue pendiente de confirmación.', en: 'Fictional payment, invoice, activity and RSVP save together in this browser. No real charge occurs. Paid cancellation policy still awaits confirmation.' },
+  'customer.events.paidPartial': { es: 'Pago, recibo demo, actividad e inscripción ficticios se guardan juntos en este navegador. No se emite factura ni se envía email. No se realiza un cobro real. La política de cancelación pagada sigue pendiente de confirmación.', en: 'Fictional payment, demo receipt, activity and RSVP save together in this browser. No invoice is issued and no email is sent. No real charge occurs. Paid cancellation policy still awaits confirmation.' },
   'customer.events.readError': { es: 'No se pudieron leer los eventos. Reintenta; no se muestran datos anteriores.', en: 'Could not read events. Retry; previous data is hidden.' },
   'customer.events.joinPreview': { es: 'Inscripción ficticia sin pago', en: 'Fictional RSVP with no payment' },
   'customer.events.cancelPreview': { es: 'Cancelar inscripción ficticia sin pago', en: 'Cancel fictional RSVP with no payment' },

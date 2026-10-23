@@ -1,3 +1,5 @@
+import { captureLaunchReceipt, receiptReference } from '../../data/launchReceipts';
+import { LaunchPaymentReceipt } from '../../components/organism/LaunchPaymentReceipt/LaunchPaymentReceipt';
 import {DailyCountDraft} from '../../components/organism/DailyCountDraft/DailyCountDraft';
 import {useTrialAssessment} from '../customer/useTrialAssessment';
 import {trialErrorKey} from '../../data/trialEligibility';
@@ -10,7 +12,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../i18n/I18nProvider';
 import { useSession } from '../../auth/SessionProvider';
 import { useData, useTable } from '../../data/DataContext';
-import type { ClassSessionRow, MessageLogRow, PaymentRow, ProfileRow, RoomRow, SpaceBookingKind, SpaceBookingRow, SpecialChargeRow, TeacherRow, UserRow } from '../../data/schema';
+import type { ClassSessionRow, PaymentRow, ProfileRow, RoomRow, SpaceBookingKind, SpaceBookingRow, SpecialChargeRow, TeacherRow, UserRow } from '../../data/schema';
 import { formatCOP, formatTime } from '../../i18n/format';
 import { tenant } from '../../tenant/tenant';
 import { FAMILY_LABEL, priceItem, pricing, type PlanFamily, type PriceItem } from '../../tenant/pricing';
@@ -23,7 +25,6 @@ import { Badge } from '../../components/atom/Badge/Badge';
 import { Toggle } from '../../components/atom/Toggle/Toggle';
 import { Avatar } from '../../components/atom/Avatar/Avatar';
 import { PriceRow } from '../../components/molecule/PriceRow/PriceRow';
-import { Receipt } from '../../components/organism/Receipt/Receipt';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
 import { useTodaySessions } from '../website/hooks';
 import { splitTax, useSettings } from '../admin/settings';
@@ -168,10 +169,10 @@ export function RegisterPage() {
       const db = METHOD_DB[method];
       const pending = method === 'wompi';
       if(frozen?.itemId==='trial'&&userId)await assertTrialAvailable(data,userId);
-      const payment = await data.insert<PaymentRow>('payments', { ...(frozen?{frontend_quote:structuredClone(frozen)}:{}),user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
-      const number = `${tenant.invoicePrefix}-${1000 + (await data.list('invoices')).length + 1}`;
-      await data.insert('invoices', { payment_id: payment.id, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, issued_at: now.toISOString(), pdf_url: null, dian_cufe: null });
-      await audit('payment.take', 'payments', payment.id, { amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, method, item: item.id, invoice: number, status: payment.status, contact: mode === 'contact' ? contactName.trim() : undefined });
+      let payment = await data.insert<PaymentRow>('payments', { ...(frozen?{frontend_quote:structuredClone(frozen)}:{}),user_id: userId, plan_id: special.on ? null : `plan_${item.id}`, amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, currency: tenant.currency, method: db.method, provider: db.provider, provider_ref: pending ? fakeRef('wmp_link') : null, status: pending ? 'pending' : 'approved', paid_at: pending ? null : now.toISOString(), taken_by: user.id } as Partial<PaymentRow>);
+      const number = receiptReference(payment.id);
+      if (!pending) payment = await captureLaunchReceipt(data, payment, { source: 'desk-sale', item: item.name, recordedTax: totals, previewChannels: [receipt.email ? 'email' as const : null, receipt.wa ? 'whatsapp' as const : null].filter((c): c is 'email' | 'whatsapp' => c !== null) });
+      await audit('payment.take', 'payments', payment.id, { amount: totals.total, amount_paid: amountPaid, note: paidDiffers ? note.trim() : null, method, item: item.id, receipt_reference: number, status: payment.status, contact: mode === 'contact' ? contactName.trim() : undefined });
 
       // Especial: the room window (new or the one S-05 sent us) and the special_charges row that joins money in, teacher payout and booking.
       let bookingTitle: string | undefined;
@@ -212,9 +213,6 @@ export function RegisterPage() {
         await audit('booking.checkin', 'bookings', b.id, { after: 'checked_in', session_id: session.session.id, user_id: userId, source_sale: payment.id });
         checkedIn = `${session.session.title} · ${formatTime(session.session.starts_at, lang)}`;
       }
-      for (const ch of [receipt.wa ? 'whatsapp' : null, receipt.email ? 'email' : null] as const) {
-        if (ch && userId) await data.insert<MessageLogRow>('message_log', { user_id: userId, channel: ch, direction: 'outbound', source: 'system', template_key: 'receipt', automation_id: null, subject: ch === 'email' ? `${tenant.name} · ${number}` : null, body: `${number} · ${formatCOP(totals.total, 'es')}`, status: 'queued', sent_at: null, sent_by: user.id, read_at: null, read_by: null, external_id: null, payload: { invoice: number, amount: totals.total } });
-      }
       const contact = mode === 'existing' ? maskPhone(person?.phone) : mode === 'contact' ? '—' : maskPhone(form.phone);
       return { payment, number, subtotal: totals.subtotal, tax: totals.tax, total: totals.total, customer: displayName, contact, item, checkedIn, isNew, booking: bookingTitle, payout: payoutDone };
       }, { idempotencyKey: saleKey.current });
@@ -231,7 +229,7 @@ export function RegisterPage() {
       <div className="stack">
         <div className="page-head"><div><h1>{t('staff.register.done')}</h1><p className="muted small">{done.isNew ? t('staff.register.done.new', { name: done.customer }) : t('staff.register.done.existing', { name: done.customer })}{done.checkedIn ? ` · ${t('staff.register.done.checkedIn', { cls: done.checkedIn })}` : ''}{done.booking ? ` · ${t('staff.register.done.booking', { title: done.booking })}` : ''}{done.payout ? ` · ${t('staff.register.done.payout', { name: done.payout.name, amount: formatCOP(done.payout.amount, lang) })}` : ''}</p></div></div>
         <div className="register-done">
-          <Receipt studio={tenant.legalName} number={done.number} issuedAt={done.payment.created_at} customer={done.customer} contact={done.contact} lines={[{ label: bi(done.item.name), amount: done.total }]} subtotal={done.subtotal} tax={done.tax} taxLabel={t('staff.register.iva', { pct: settings.tax.ivaPct })} total={done.total} method={t(`staff.register.method.${method}`)} status={done.payment.status} takenBy={`${user.name}`} dianRef={null} note={`${t('staff.booking.mock')}${done.checkedIn ? ` · ${t('staff.register.done.checkedIn', { cls: done.checkedIn })}` : done.booking ? ` · ${t('staff.register.done.booking', { title: done.booking })}` : ''}`} printLabel={t('staff.register.print')} />
+          <LaunchPaymentReceipt payment={done.payment} customer={done.customer} />
           <div className="stack-sm">
             {done.payment.status === 'pending' && <Card tone="highlight"><p className="small">{t('staff.register.wompi.pending')}</p></Card>}
             <Button onClick={reset} icon="sell">{t('staff.register.newSale')}</Button>
@@ -347,8 +345,8 @@ export function RegisterPage() {
             </div>
             {method === 'wompi' && <p className="xs muted" style={{ marginTop: 'var(--sp-sm)' }}>{t('staff.register.wompi.note')}</p>}
             <div className="row wrap" style={{ marginTop: 'var(--sp-lg)' }}>
-              <Toggle size="sm" checked={receipt.wa} onChange={(on) => setReceipt({ ...receipt, wa: on })} label={t('staff.register.receipt.wa')} />
-              <Toggle size="sm" checked={receipt.email} onChange={(on) => setReceipt({ ...receipt, email: on })} label={t('staff.register.receipt.email')} />
+              <Toggle size="sm" checked={receipt.wa} onChange={(on) => setReceipt({ ...receipt, wa: on })} label={t('launchReceipt.whatsapp')} />
+              <Toggle size="sm" checked={receipt.email} onChange={(on) => setReceipt({ ...receipt, email: on })} label={t('launchReceipt.email')} />
             </div>
           </Card>
         </div>

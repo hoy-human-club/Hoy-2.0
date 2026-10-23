@@ -1,3 +1,4 @@
+import { captureLaunchReceipt, readLaunchReceipt } from '../../data/launchReceipts';
 import {receiptDigest,assertReceiptOwner,ownedReceipt,insertAlertIntent,verifyUploadIntent} from './receiptAlert';
 import { type FrozenSaleQuote } from '../../data/operationalQuotes';
 import type { DataProvider } from '../../data/types';
@@ -60,7 +61,12 @@ export async function reviewTransfer(data:DataProvider,input:{id:string;actorId:
   return data.atomic(async tx=>{
     const receipt=await tx.get<TransferReceiptRow>('transfer_receipts',input.id);
     if(!receipt||receipt.tenant_id!==tenant.id)throw Error('missing');
-    if(receipt.status!=='pending'){if(receipt.status===input.decision)return receipt;throw Error('already_reviewed');}
+    if(receipt.status!=='pending'){
+      if(receipt.status!==input.decision)throw Error('already_reviewed');
+      const prior=await tx.get<PaymentRow>('payments',receipt.payment_id);
+      if(!prior||prior.tenant_id!==tenant.id||prior.user_id!==receipt.user_id||prior.plan_id!==receipt.product_id||prior.status!==(input.decision==='approved'?'approved':'declined')||prior.frontend_receipt&&!readLaunchReceipt(prior))throw Error('receipt_conflict');
+      return receipt;
+    }
     const payment=await tx.get<PaymentRow>('payments',receipt.payment_id);
     if(!payment||payment.tenant_id!==tenant.id||payment.status!=='pending'||payment.user_id!==receipt.user_id||payment.plan_id!==receipt.product_id)throw Error('payment_state');
     if(!Number.isInteger(input.amount)||input.amount<0||!input.compared||!input.reason.trim())throw Error('review_required');
@@ -70,13 +76,13 @@ export async function reviewTransfer(data:DataProvider,input:{id:string;actorId:
       await assertTrialAvailable(tx,receipt.user_id,payment.id);
     }
     const now=new Date().toISOString();let booking:BookingRow|null=null;
-    await tx.update('payments',payment.id,{status:input.decision==='approved'?'approved':'declined',amount_paid:input.amount,note:input.reason.trim(),taken_by:input.actorId,paid_at:input.decision==='approved'?now:null});
+    const reviewedPayment = await tx.update<PaymentRow>('payments',payment.id,{status:input.decision==='approved'?'approved':'declined',amount_paid:input.amount,note:input.reason.trim(),taken_by:input.actorId,paid_at:input.decision==='approved'?now:null});
     if(input.decision==='approved'){
       await activatePaidPackage(tx,{paymentId:payment.id,userId:receipt.user_id,planId:receipt.product_id,classes:receipt.classes,expiresAt:receipt.expires_at});
       if(receipt.session_id)booking=await bookWithPackage(tx,{userId:receipt.user_id,sessionId:receipt.session_id,status:'booked',paymentId:payment.id,paidWith:receipt.product_id==='plan_trial'?'trial':receipt.classes>1?'package':'single'});
       if(booking&&receipt.mat_number!=null)await tx.update('bookings',booking.id,{mat_number:receipt.mat_number});
       const {subtotal,tax}=splitIva(payment.amount,policy.ivaRate);
-      await tx.insert('invoices',{payment_id:payment.id,number:`DEMO-TRANSFER-${receipt.id}`,subtotal,tax,total:payment.amount,issued_at:now,pdf_url:null,dian_cufe:null});
+      await captureLaunchReceipt(tx, reviewedPayment, { source: 'transfer-review', item: receipt.product_name, recordedTax: { subtotal, tax, total: payment.amount } });
     }
     if(booking)await tx.insert('audit_log',{actor_id:input.actorId,action:'booking.create',entity:'bookings',entity_id:booking.id,ip:null,diff:{role:input.role,source:'fictional-transfer-review',session_id:booking.session_id,payment_id:payment.id}});
     await tx.insert('audit_log',{actor_id:input.actorId,action:`payment.transfer.${input.decision}`,entity:'transfer_receipts',entity_id:receipt.id,diff:{role:input.role,source:'fictional-transfer-review',payment_id:payment.id},ip:null});

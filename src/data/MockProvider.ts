@@ -242,6 +242,7 @@ export class MockProvider implements DataProvider {
   async get<T extends BaseRow>(table: string, id: string): Promise<T | null> { return structuredClone((this.rows(table).find((r) => r.id === id) as T) ?? null); }
 
   async insert<T extends BaseRow>(table: string, row: Partial<T>): Promise<T> {
+    if (table === 'payments' && row.id && this.rows(table).some(r => r.id === row.id && r.frontend_receipt)) throw new Error('receipt_immutable');
     if (table === 'legal_documents' && row.id && this.rows(table).some(r=>r.id===row.id)) throw new Error('legal_document_duplicate');
     if (table === 'email_change_previews' && this.rows(table).some(r=>r.id===row.id)) throw new Error('email_preview_append_only');
     if (table === 'legal_acceptances' && this.rows(table).some(r=>r.id===row.id)) throw new Error('legal_acceptance_append_only');
@@ -275,6 +276,7 @@ export class MockProvider implements DataProvider {
     const rows = this.rows(table);
     const i = rows.findIndex((r) => r.id === id);
     if (i < 0) throw new Error(`${table}/${id} not found`);
+    if (table === 'payments' && rows[i].frontend_receipt && Object.prototype.hasOwnProperty.call(patch, 'frontend_receipt') && JSON.stringify(patch.frontend_receipt) !== JSON.stringify(rows[i].frontend_receipt)) throw new Error('receipt_immutable');
     // Preserve the existing paid-history rule; clearing the marker must not enable a later delete.
     if (table === 'expenses' && rows.some(r => r.id === id && r.paid_on) && Object.prototype.hasOwnProperty.call(patch, 'paid_on') && !patch.paid_on) throw new Error('expense_paid_history_protected');
     if (table === 'class_templates' || table === 'rooms') {
@@ -297,6 +299,7 @@ export class MockProvider implements DataProvider {
     return next;
   }
   async remove(table: string, id: string): Promise<void> {
+    if (table === 'payments' && this.rows(table).some(r => r.id === id && r.frontend_receipt)) throw new Error('receipt_immutable');
     if (table === 'legal_documents' && this.rows(table).some(r=>r.id===id&&r.status==='published')) throw new Error('legal_document_immutable');
     if(table==='email_change_previews')throw Error('email_preview_append_only');
     if (table === 'legal_acceptances') throw new Error('legal_acceptance_append_only');

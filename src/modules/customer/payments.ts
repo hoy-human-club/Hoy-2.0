@@ -1,3 +1,4 @@
+import { captureLaunchReceipt } from '../../data/launchReceipts';
 /**
  * ============================================================================
  * INTEGRATION SEAM — Wompi (payments, Colombia)
@@ -19,7 +20,6 @@ import { checkSaleQuote, readPaymentQuote, type FrozenSaleQuote } from '../../da
 import type { DataProvider } from '../../data/types';
 import type { ClassLedgerRow, PaymentRow } from '../../data/schema';
 import { splitIva } from '../../data/tax';
-import { tenant } from '../../tenant/tenant';
 import type { IconName } from '../../components/atom/Icon/Icon';
 
 export type ElectronicMethod = 'card' | 'pse' | 'qr';
@@ -63,20 +63,20 @@ export async function wompiCheckout(input: { amount: number; method: ElectronicM
   return { status: 'approved', ref: ref() };
 }
 
-/** Writes the payment (+ invoice on approval) the way the seed does, so history and admin agree. */
+/** Records a demo payment; confirmed launch payments retain a receipt preview, never an invoice. */
 export async function recordPayment(data: DataProvider, input: { userId: string; planId: string | null; amount: number; method: PayMethod; result?: WompiResult; takenBy?: string | null; ivaRate: number; quote?: FrozenSaleQuote }): Promise<PaymentRow> {
   if(input.quote){await checkSaleQuote(data,input.quote);if(input.quote.planId!==input.planId||input.quote.chargedAmount!==input.amount)throw Error('quote_scope');}
   const manual = input.method === 'transfer' || input.method === 'cash';
   const status = manual ? 'pending' : input.result?.status === 'approved' ? 'approved' : 'declined';
   if(input.planId==='plan_trial'&&status!=='declined')await assertTrialAvailable(data,input.userId);
   const now = new Date().toISOString();
-  const payment = await data.insert<PaymentRow>('payments', {
+  let payment = await data.insert<PaymentRow>('payments', {
     ...(input.quote?{frontend_quote:structuredClone(input.quote)}:{}), user_id: input.userId, plan_id: input.planId, amount: input.amount, amount_paid: status === 'approved' ? input.amount : null, note: null, currency: 'COP', method: input.method,
     provider: manual ? 'manual' : 'wompi', provider_ref: input.result?.ref ?? null, status, paid_at: status === 'approved' ? now : null, taken_by: input.takenBy ?? null,
   } as Partial<PaymentRow>);
   if (status === 'approved') {
     const { subtotal, tax } = splitIva(input.amount, input.ivaRate);
-    await data.insert('invoices', { payment_id: payment.id, number: `${tenant.invoicePrefix}-${Date.now().toString().slice(-6)}`, subtotal, tax, total: input.amount, issued_at: now, pdf_url: null, dian_cufe: null });
+    payment = await captureLaunchReceipt(data, payment, { source: 'checkout', recordedTax: { subtotal, tax, total: input.amount } });
   }
   if (data.name === 'mock') await data.insert('audit_log', { actor_id: input.takenBy ?? input.userId, action: `payment.mock.${status}`, entity: 'payments', entity_id: payment.id, ip: null,
     diff: { source: 'fictional-payment-checkout', simulated: true, method: input.method, status } });
