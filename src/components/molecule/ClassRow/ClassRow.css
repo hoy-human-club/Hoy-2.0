@@ -4,6 +4,9 @@
 .classrow-dot { width: 0.625rem; height: 0.625rem; border-radius: 50%; flex: 0 0 auto; background: var(--t-dot, var(--tone-river-dot)); } /* --t-dot from the .tone-<id> hook (tokens.css) */
 .classrow-full { flex: 0 0 auto; }
 .classrow-time { display: flex; flex-direction: column; min-width: 3.5rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+/* 0157 · "6:00 a. m." never splits: es-CO puts a plain space inside "a. m." */
+.classrow-time { flex: 0 0 auto; }
+.classrow-time > strong { white-space: nowrap; }
 .classrow-title { font-family: var(--font-heading); font-weight: var(--fw-medium); }
 .classrow-cancelled .classrow-title, .classrow-completed .classrow-title { color: var(--color-text-muted); text-decoration: line-through; }
 .classrow-completed .classrow-title { text-decoration: none; }

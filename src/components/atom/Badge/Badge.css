@@ -1,5 +1,7 @@
 .badge { display: inline-flex; align-items: center; padding: var(--sp-2xs) var(--sp-sm); border-radius: var(--r-full); font-size: var(--fs-xs); font-weight: var(--fw-medium); line-height: 1.5; white-space: nowrap; letter-spacing: .01em; }
 .badge-neutral { background: var(--color-surface-3); color: var(--color-text-muted); }
+/* 0157 · dark muted on dark surface-3 was 3.9:1; the body ink holds ≈ 6:1 ("Completada", "Estado del pago no disponible") */
+:root[data-theme="dark"] .badge-neutral { color: var(--color-text); }
 .badge-primary { background: rgba(var(--m-primary), .15); color: var(--color-primary); }
 .badge-success { background: color-mix(in srgb, var(--color-success) 16%, transparent); color: var(--color-success); }
 .badge-warn { background: color-mix(in srgb, var(--color-warn) 18%, transparent); color: var(--color-warn); }
