@@ -1,0 +1,65 @@
+name: Profile email and teacher review QA
+on:
+  pull_request:
+    paths:
+      - 'src/modules/profile-review/**'
+      - 'src/modules/customer/pages/ProfilePage.tsx'
+      - 'src/modules/teacher/ProfilePage.tsx'
+      - 'src/modules/admin/ContentPage.tsx'
+      - 'src/modules/admin/TablesPage.tsx'
+      - 'src/components/organism/EmailChangePanel/**'
+      - 'src/components/organism/TeacherReviewPanel/**'
+      - 'src/data/MockProvider.ts'
+      - 'src/data/schema.ts'
+      - 'scripts/test-profile-review*.mjs'
+      - 'scripts/profile-review-harness.tsx'
+      - '.github/workflows/profile-review-qa.yml'
+permissions:
+  contents: read
+jobs:
+  fictional-profile-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify atomic own-account and teacher review contracts
+        run: |
+          node scripts/test-profile-review.mjs
+          node scripts/test-signup-consent.mjs
+          node scripts/test-signin-preview.mjs
+          node scripts/test-sensitive-audit.mjs
+          node scripts/test-reporting.mjs
+      - run: npm run build
+      - name: Verify actual role flows and component states
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5336 > /tmp/hoy-profile-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5336/ >/dev/null && break; sleep 1; done
+          node scripts/test-profile-review-ui.mjs
+          node scripts/test-profile-review-library.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5336
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Verify read failures, delayed cancel/unmount and lost acknowledgements
+        run: |
+          npm run dev -- --host 127.0.0.1 --strictPort --port 5337 > /tmp/hoy-profile-dev.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5337/ >/dev/null && break; sleep 1; done
+          node scripts/test-profile-review-states.mjs
+        env:
+          QA_BASE: http://127.0.0.1:5337
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: profile-review-${{ github.event.pull_request.head.sha }}
+          retention-days: 14
+          path: |
+            qa/profile-review/
+            /tmp/hoy-profile-preview.log
+            /tmp/hoy-profile-dev.log

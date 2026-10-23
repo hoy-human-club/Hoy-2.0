@@ -1,3 +1,5 @@
+import{profileReviewStrings}from'../profile-review/strings';
+import {signInPreviewStrings} from './auth/signInPreviewStrings';
 import {signupLegalStrings} from './auth/signupLegalStrings';
 import {cancellationStrings} from './cancellationStrings';
 import type { StringTable } from '../../i18n/types';
@@ -5,6 +7,8 @@ import type { StringTable } from '../../i18n/types';
 /** Every user-facing string of the customer app (C-xx, A-xx, E-xx). Spanish first; English always present. */
 export const strings: StringTable = {
   ...signupLegalStrings,
+  ...signInPreviewStrings,
+  ...profileReviewStrings,
   ...cancellationStrings,
   'customer.profile.atomic.loading': {es: 'Cargando tus datos…', en: 'Loading your details…'},
   'customer.profile.atomic.readError': {es: 'No pudimos cargar tus dos registros. No se puede editar todavía.', en: 'We could not load both of your records. Editing is unavailable.'},

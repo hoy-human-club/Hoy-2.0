@@ -1,3 +1,5 @@
+import{useEmailChange}from'../../profile-review/useEmailChange';
+import{EmailChangePanel}from'../../../components/organism/EmailChangePanel/EmailChangePanel';
 import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -34,6 +36,7 @@ export function ProfilePage() {
   const contact = useContact();
   const nav = useNavigate();
   const data = useData();
+  const emailChange=useEmailChange();
   const { user, role, switchUser } = useSession();
   const { sections, isVisible } = useLayout(spec);
   const own = useOwnProfile(data,user.id);
@@ -166,6 +169,8 @@ export function ProfilePage() {
       <div className="stack">
         {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
       </div>
+
+      <EmailChangePanel {...emailChange}/>
 
       <Drawer open={edit} onClose={closeEdit} side="bottom" title={t('customer.profile.edit')} footer={<><Button variant="ghost" onClick={closeEdit}>{t('core.common.cancel')}</Button><Button disabled={busy} onClick={()=>void save()}>{t('core.common.save')}</Button></>}>
         <div className="stack" aria-busy={busy}>

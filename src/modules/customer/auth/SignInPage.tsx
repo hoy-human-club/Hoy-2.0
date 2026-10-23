@@ -1,3 +1,6 @@
+import {useData} from '../../../data/DataContext';
+import {useMockSignIn} from './useMockSignIn';
+import {DemoSignInPanel} from '../../../components/organism/DemoSignInPanel/DemoSignInPanel';
 import { useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -31,6 +34,7 @@ export function SignInPage() {
   const { t, bi } = useI18n();
   const nav = useNavigate();
   const { switchUser } = useSession();
+  const data=useData();
   const [params] = useSearchParams();
   const next = params.get('next');
   const [email, setEmail] = useState('');
@@ -41,6 +45,8 @@ export function SignInPage() {
   const people = demoUsers.filter((u) => u.role !== 'public');
 
   const enterAs = (id: string) => { const u = demoUsers.find((x) => x.id === id)!; switchUser(u.id); try { sessionStorage.removeItem(ATTEMPTS_KEY); } catch { /* ignore */ } nav(u.role === 'customer' && customerReturn(next) ? customerReturn(next)! : ROLE_HOME[u.role]); };
+
+  const preview=useMockSignIn(()=>enterAs('usr_cust'),data.name==='mock');
 
   // WebMCP (0025): auth.signIn enters as a demo user and follows ?next= exactly like a tap on the picker.
   const enterRef = useRef(enterAs); enterRef.current = enterAs;
@@ -78,6 +84,7 @@ export function SignInPage() {
       <div className="auth-col">
         <div className="stack-sm auth-intro"><h1 className="cust-title">{t('customer.signin.title')}</h1><p className="muted small">{t('customer.signin.sub')}</p></div>
 
+        <DemoSignInPanel {...preview}/>
         <ListGroup title={t('customer.signin.demo')}>
           {people.map((u) => <ListRow key={u.id} icon={<Avatar name={u.name} initials={u.initials} size={32} />} title={u.name} subtitle={bi(u.blurb)} trailing={<Badge tone={u.role === 'customer' ? 'primary' : 'neutral'}>{bi(ROLE_LABEL[u.role])}</Badge>} onClick={() => enterAs(u.id)} />)}
         </ListGroup>
