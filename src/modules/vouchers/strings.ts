@@ -1,5 +1,15 @@
 import type { StringTable } from '../../i18n/types';
 export const strings: StringTable = {
+ "vouchers.invalidExpiry":{es:'Fecha de vencimiento inválida',en:'Invalid expiry date'},
+ "vouchers.expiredReason":{es:'Este bono ha vencido. No se puede activar ni reservar con él.',en:'This voucher has expired. It cannot be activated or used for bookings.'},
+ "vouchers.revokedReason":{es:'Este bono fue revocado. No se puede activar ni reservar con él.',en:'This voucher was revoked. It cannot be activated or used for bookings.'},
+ "vouchers.exhaustedReason":{es:'Este bono no tiene saldo disponible. No se puede volver a usar mientras su saldo sea cero.',en:'This voucher has no available balance. It cannot be used again while its balance is zero.'},
+ "vouchers.unavailableReason":{es:'El bono ha vencido o fue revocado. Actualiza la página para ver su estado.',en:'The voucher has expired or was revoked. Refresh the page to see its status.'},
+ "vouchers.capError":{es:'Se excedió el límite de participantes. Reduce el grupo.',en:'Participant limit exceeded. Reduce the group.'},
+ "vouchers.expiryError":{es:'Elige una fecha de vencimiento futura válida.',en:'Choose a valid future expiry date.'},
+ "vouchers.fullError":{es:'La clase se llenó. Elige otra clase; no se descontó saldo.',en:'The class is full. Choose another class; no balance was deducted.'},
+ "vouchers.sessionError":{es:'Esta clase ya no está disponible o está fuera de la vigencia del bono. Elige otra.',en:'This class is no longer available or is outside voucher validity. Choose another.'},
+ "vouchers.activeError":{es:'Cancela las reservas activas del bono antes de revocarlo.',en:'Cancel active voucher bookings before revoking it.'},
   "vouchers.total": {"es":"Total: {total} · Disponible: {balance}","en":"Total: {total} · Available: {balance}"},
   "vouchers.insufficient": {"es":"El saldo no alcanza para este grupo. El límite de participantes no garantiza que el saldo cubra a todos. Reduce el grupo o solicita otro beneficio; no se cobran diferencias.","en":"The balance does not cover this group. The participant limit does not guarantee enough balance for everyone. Reduce the group or request another benefit; no top-up is charged."},
   "vouchers.giftSimulated": {"es":"Compra simulada guardada como borrador: {code}. Nada cobrado ni enviado. Activación de tarjetas compradas pendiente de integración.","en":"Simulated purchase saved as draft: {code}. Nothing charged or sent. Purchased-card activation awaits integration."},
