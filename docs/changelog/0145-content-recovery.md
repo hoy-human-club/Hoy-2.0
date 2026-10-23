@@ -9,3 +9,11 @@ version: 0.25.0
 - Alternative rejected: sequential writes with compensating rollback can leave partial rows/audit and repeat an acknowledged reorder. Resetting drafts on updated_at loses edits when publication changes.
 - Files: ContentPage.tsx, FaqAdminPage.tsx, contentRecovery.ts, useContentRecovery.tsx; focused domain/browser scripts and scoped receipt/evidence.
 - Verification and limitations: [receipt](../frontend-completion/content-recovery.md). Original feature phases/source acceptance stay unchanged; full rows remain partial. Shared kanban/readiness update belongs to integration owner.
+
+## PR82 review repair — retained actor context
+
+- Reproduced initial-head P1: quota-failed payroll edit retries as super admin after the live effective role changes to coordinator (`90111 !== 90000`).
+- Require a live SessionProvider actor accessor in the local command; check current actor/role/permission before retries, queued work, awaited reads/writes and acknowledgement. Preserve the original command/nonce/draft without reattributing it to a new actor.
+- Add 22 domain context groups and EN/ES responsive actual-page role/actor/lost-ack regression cases without removing existing assertions. Make the existing browser executable path configurable for CI.
+- Prepare package/workflow wiring in a separate un-applied patch for the integration owner. Shared files remain untouched.
+- [Repair evidence and CI handoff](../frontend-completion/content-recovery-context-repair.md). Browser-local only; whole feature rows and real server authorization remain unaccepted.

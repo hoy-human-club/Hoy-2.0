@@ -3,7 +3,7 @@ import {chromium} from 'playwright-core';
 import {mkdir,writeFile} from 'node:fs/promises';
 const base=process.env.QA_BASE??'http://127.0.0.1:5217',out=process.env.QA_OUTPUT??'/tmp/hoy-content-recovery',checks=[],errors=[];
 await mkdir(out,{recursive:true});
-const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});let debug;
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});let debug;
 try{for(const lang of ['en','es']){
  const en=lang==='en',ctx=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/,r=>r.abort());

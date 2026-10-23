@@ -10,7 +10,7 @@ let checks=0;
 try {
  const file=join(dir,'test.mjs');await build({stdin:{contents:"export {MockProvider} from './src/data/MockProvider';export {writeContent} from './src/modules/admin/contentRecovery';",resolveDir:process.cwd()},bundle:true,format:'esm',platform:'node',outfile:file});
  const {MockProvider,writeContent}=await import(pathToFileURL(file));const actor={id:'usr_super',role:'super_admin'},fresh=()=>{storage.clear();return new MockProvider();},snap=async d=>JSON.stringify(Object.fromEntries(await Promise.all(['class_templates','teachers','modalities','rooms','faq_entries','audit_log'].map(async t=>[t,await d.list(t)]))));
- const write=(d,i,key='qa',opts={})=>writeContent(d,actor,i,key,opts);
+ const write=(d,i,key='qa',opts={})=>writeContent(d,actor,i,key,{currentActor:()=>actor,...opts});
  for(const table of ['class_templates','teachers','modalities','rooms','faq_entries']){
   let d=fresh(),row=(await d.list(table))[0],field={class_templates:'title',teachers:'display_name',modalities:'name_es',rooms:'name',faq_entries:'question'}[table],value=table==='faq_entries'?{es:'<script>window.qaExecuted=1</script>',en:'FICTIONAL EN & symbols'}:'<script>window.qaExecuted=1</script>',intent={kind:'update',table,before:row,patch:{[field]:value}},before=await snap(d);let events=0;d.subscribe('*',()=>events++);
   for(const failAfterWrites of [1,2]){await assert.rejects(write(d,intent,'failed',{failAfterWrites}));assert.equal(await snap(d),before);assert.equal(events,0);checks++;}
@@ -32,7 +32,7 @@ try {
  for(const table of ['teachers','modalities','faq_entries']){
   d=fresh();const row=d.peek(table)[0],flag=table==='faq_entries'?'published':'active',intent={kind:'update',table,before:row,patch:{[flag]:!row[flag]}},before=await snap(d);await assert.rejects(write(d,intent,'pub',{failAfterWrites:2}));assert.equal(await snap(d),before);await write(d,intent,'pub');const committed=await snap(d);await write(d,intent,'pub');assert.equal(await snap(d),committed);checks++;
  }
- for(const role of ['front_desk','customer','developer','finance']){d=fresh();await assert.rejects(writeContent(d,{id:'usr_super',role},draft,'denied'),/denied/);checks++;}
+ for(const role of ['front_desk','customer','developer','finance']){d=fresh();await assert.rejects(writeContent(d,{id:'usr_super',role},draft,'denied',{currentActor:()=>({id:'usr_super',role})}),/denied/);checks++;}
  d=fresh();let room=d.peek('rooms')[0];await assert.rejects(write(d,{kind:'update',table:'rooms',before:{...room,tenant_id:'foreign'},patch:{name:'X'}},'foreign'),/conflict/);await assert.rejects(write(d,{kind:'update',table:'rooms',before:room,patch:{name:'x'.repeat(501)}},'length'),/invalid/);checks+=2;
  // Tied legacy positions get a deterministic, atomic order.
  d=fresh();entries=d.peek('faq_entries').filter(e=>e.group_key===d.peek('faq_entries')[0].group_key);for(const e of entries)await d.update('faq_entries',e.id,{sort:1});entries=(await d.list('faq_entries')).filter(e=>e.group_key===entries[0].group_key).sort((a,b)=>a.id.localeCompare(b.id));await write(d,{kind:'reorder',table:'faq_entries',entries,id:entries[0].id,dir:1},'ties');assert.equal((await d.list('faq_entries',{orderBy:{column:'sort'}})).filter(e=>e.group_key===entries[0].group_key)[1].id,entries[0].id);checks++;

@@ -90,7 +90,7 @@ export function ContentPage() {
   const { can, role, user } = useSession();
   const [params] = useSearchParams();
   const recovery = useContentRecovery();
-  const write = (intent: Parameters<typeof writeContent>[2], after?: (id: string) => void) => recovery.run(async request => { const id = await writeContent(data, { id: user.id, role }, intent, request); after?.(id); });
+  const write = (intent: Parameters<typeof writeContent>[2], after?: (id: string) => void) => recovery.run(async request => { const id = await writeContent(data, { id: user.id, role }, intent, request, { currentActor: recovery.currentActor }); after?.(id); });
   const [entity, setEntity] = useState<Entity>(() => { const e = params.get('entity'); return e && e in FIELDS ? e as Entity : 'class_templates'; });
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<string | null>(params.get('row'));

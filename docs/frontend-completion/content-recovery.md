@@ -1,5 +1,7 @@
 # Content recovery — scoped frontend evidence
 
+Initial PR82 evidence below is supplemented by the [retained-actor repair and CI handoff](content-recovery-context-repair.md). The initial head allowed a changed-context retry; the repair receipt and its source hashes govern the current implementation.
+
 Basis: fresh remote main `455843fda97c7a0c9979b3331d11690d9653f5e7` (includes PR81). Owner scope: M-02 `ContentPage.tsx`, M-02b `FaqAdminPage.tsx`, local command/hook and focused tests. No AGENTS.md or .agents/skills exists in this checkout; CLAUDE.md and .claude/skills/ui-spacing/SKILL.md were read. No schema/provider/package/workflow changes.
 
 | Requirement | Scoped result | Acceptance boundary |

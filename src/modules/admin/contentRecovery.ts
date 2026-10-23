@@ -11,6 +11,24 @@ export type ContentIntent =
   | { kind: 'update' | 'delete'; table: Table; before: BaseRow; patch?: Record<string, unknown> }
   | { kind: 'reorder'; table: 'faq_entries'; entries: FaqEntryRow[]; id: string; dir: -1 | 1 };
 export interface ContentActor { id: string; role: Role }
+export interface ContentExecution {
+  /** Live SessionProvider context, never the retained action closure's actor. */
+  currentActor: () => ContentActor;
+  failAfterWrites?: number;
+}
+export function assertContentActor(expected: ContentActor, current: ContentActor) {
+  if (expected.id !== current.id || expected.role !== current.role) throw Error('content_context_changed');
+  if (!current.id || !roleCan(current.role, 'content.write')) throw Error('content_denied');
+}
+/** Check both sides of every awaited read/write so a context change aborts the detached stage. */
+function withCurrentContext(data: DataProvider, check: () => void): DataProvider {
+  return new Proxy({} as DataProvider, { get(_target, key) {
+    const value = Reflect.get(data, key);
+    if (typeof value !== 'function') return value;
+    if (!['get','list','insert','update','remove'].includes(String(key))) return value.bind(data);
+    return async (...args: unknown[]) => { check(); const result = await value.apply(data, args); check(); return result; };
+  } });
+}
 const allowed: Record<Table, string[]> = {
   class_templates: ['generation_mode','start_date','end_date','title','theme','description','modality_id','teacher_id','room_id','weekday','start_time','duration_min','capacity','level','active'],
   teachers: ['user_id','display_name','bio','photo_url','specialties','certifications','rate_per_class','active','rating_avg'],
@@ -46,12 +64,24 @@ async function current(data: DataProvider, table: Table, before: BaseRow) {
   if (!row || row.tenant_id !== tenant.id || before.tenant_id !== tenant.id || !same(row, before)) throw Error('content_conflict');
   return row;
 }
-export async function writeContent(data: DataProvider, actor: ContentActor, intent: ContentIntent, requestId: string, options: { failAfterWrites?: number } = {}) {
+export async function writeContent(data: DataProvider, actor: ContentActor, intent: ContentIntent, requestId: string, options: ContentExecution) {
   actor = { ...actor }; intent = structuredClone(intent);
+  const check = () => assertContentActor(actor, options.currentActor());
+  check();
+  data = withCurrentContext(data, check);
   await actorGuard(data, actor);
+  check();
+  // Replays bypass the staged callback; permission checks must run before receipt lookup too.
+  if (intent.kind === 'update') {
+    validate(intent.table, intent.patch ?? {}, actor);
+    if ('rate_per_class' in (intent.patch ?? {}) && !roleCan(actor.role, 'payroll.write')) throw Error('content_denied');
+  }
   if (!/^[a-zA-Z0-9_-]{1,128}$/.test(requestId) || !allowed[intent.table]) throw Error('content_invalid');
   const fingerprint = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify([actor, intent])))), b => b.toString(16).padStart(2, '0')).join('');
-  const result = await data.atomic!(async stage => {
+  check();
+  const result = await data.atomic!(async suppliedStage => {
+    check();
+    const stage = withCurrentContext(suppliedStage, check);
     await actorGuard(stage, actor);
     const table = intent.table;
     const audit = async (action: string, id: string, ids: string[], fields: string[]) => {
@@ -96,8 +126,10 @@ export async function writeContent(data: DataProvider, actor: ContentActor, inte
         await audit(Object.keys(patch).length === 1 && flag in patch ? patch[flag] ? 'content.publish' : 'content.unpublish' : 'content.update', id, ids, Object.keys(patch));
       }
     }
+    check();
     return { id, fingerprint };
-  }, { idempotencyKey: `content_v1_${requestId}`, ...options });
+  }, { idempotencyKey: `content_v1_${requestId}`, failAfterWrites: options.failAfterWrites });
+  check();
   if (result.fingerprint !== fingerprint) throw Error('content_request_mismatch');
   return result.id;
 }

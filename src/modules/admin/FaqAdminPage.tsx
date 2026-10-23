@@ -30,7 +30,7 @@ export function FaqAdminPage() {
   const { data, canWrite } = useContentEditing();
   const { user, role } = useSession();
   const recovery = useContentRecovery();
-  const write = (intent: Parameters<typeof writeContent>[2], after?: (id: string) => void) => recovery.run(async request => { const id = await writeContent(data, { id: user.id, role }, intent, request); after?.(id); });
+  const write = (intent: Parameters<typeof writeContent>[2], after?: (id: string) => void) => recovery.run(async request => { const id = await writeContent(data, { id: user.id, role }, intent, request, { currentActor: recovery.currentActor }); after?.(id); });
   const { rows, loading } = useTable<FaqEntryRow>('faq_entries', { orderBy: { column: 'sort' } });
   const [selected, setSelected] = useState<string | null>(null);
   const [page, setPage] = useState<1 | 2 | 0>(0);

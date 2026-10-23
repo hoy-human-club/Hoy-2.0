@@ -11,3 +11,11 @@
 ## Response
 
 Implemented local atomic commands and retained draft/retry state for M-02/M-02b, with scoped domain and actual-page browser checks. See [receipt](../frontend-completion/content-recovery.md). Full requirement rows remain partial; integration owner owns shared tracker updates and release.
+
+## Follow-up delegation
+
+> Independent integration review reproduced a P1 in PR82: retry after switching from super-admin to coordinator can commit a payroll edit using old privileges and audit identity. Repair this in your owned content-command scope now; recheck current actor and authorization at execution/retry time and preserve draft safely without committing stale privileges. Add regression tests for role change, actor change, lost acknowledgement and retry, without weakening assertions. Integration owner also says new tests need CI wiring: prepare the precise workflow/package wiring as a separate patch for integration owner rather than editing its owned shared files. Read PR82 review/evidence if available; if reproduction details are missing, reproduce based on the scenario and report the needed specifics. Push the scoped fix to the existing PR82 branch, verify remote head and applicable checks. Do not merge/deploy. This is a repair within Justin's approved overnight frontend work, not a change to real account security settings.
+
+### Follow-up response
+
+Independently reproduced and repaired retained-actor retries; added command and actual-page context regressions. A separate un-applied patch contains the exact CI wiring for the integration owner. See [repair receipt](../frontend-completion/content-recovery-context-repair.md).

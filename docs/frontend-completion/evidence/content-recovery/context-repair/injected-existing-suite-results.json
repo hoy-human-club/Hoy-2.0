@@ -1,0 +1,21 @@
+{
+  "base": "http://127.0.0.1:5217",
+  "checks": [
+    "en/rooms: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "en/teachers: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "en/modalities: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "en/class_templates: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "en/FAQ: actual-page second-write rollback and lost acknowledgement exact retry",
+    "en/FAQ: atomic reorder and section recovery, literal text, failed create/retry one draft, EN/ES 390/1280",
+    "es/rooms: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "es/teachers: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "es/modalities: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "es/class_templates: quota rollback, retained literal draft, retry one audit; publication refresh retains draft and stale save rejected where available",
+    "es/FAQ: actual-page second-write rollback and lost acknowledgement exact retry",
+    "es/FAQ: atomic reorder and section recovery, literal text, failed create/retry one draft, EN/ES 390/1280"
+  ],
+  "errors": [],
+  "limits": [
+    "Browser-local demo only; no server, cross-tab or owner acceptance."
+  ]
+}
