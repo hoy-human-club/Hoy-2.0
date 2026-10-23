@@ -1,0 +1,391 @@
+{
+  "base": "c2c0f37fe5cb4e3ebb4abfba9d1f87759c661748",
+  "mode": "http://127.0.0.1:5174, injected fictional fixture",
+  "results": [
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 390,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "expired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "invalidExpiry",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "unclaimedExpired",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "exhausted",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "revoked",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "state": "other",
+      "activationHidden": true,
+      "bookingHidden": true,
+      "noOverflow": true
+    }
+  ],
+  "pageErrors": []
+}

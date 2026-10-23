@@ -1,0 +1,142 @@
+{
+  "base": "c2c0f37fe5cb4e3ebb4abfba9d1f87759c661748",
+  "mode": "http://127.0.0.1:5174, fictional memory only",
+  "results": [
+    {
+      "lang": "es",
+      "width": 390,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "es",
+      "width": 768,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "es",
+      "width": 1280,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "es",
+      "width": 3840,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    },
+    {
+      "lang": "en",
+      "width": 3840,
+      "checks": [
+        "invalid recipient",
+        "quote pack12",
+        "pending transfer",
+        "simulated confirmation",
+        "recipient mismatch",
+        "single redemption",
+        "email previews",
+        "no provider mutation",
+        "no overflow",
+        "reload missing link"
+      ],
+      "pageErrors": []
+    }
+  ]
+}

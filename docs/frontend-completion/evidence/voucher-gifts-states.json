@@ -1,0 +1,24 @@
+{
+  "base": "http://127.0.0.1:5174",
+  "results": [
+    {
+      "theme": "light",
+      "empty": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "empty": true,
+      "noOverflow": true
+    },
+    {
+      "quoteUnavailable": true,
+      "prepareDisabled": true
+    },
+    {
+      "libraryUsages": 7,
+      "expiredPreview": true
+    }
+  ],
+  "pageErrors": []
+}
