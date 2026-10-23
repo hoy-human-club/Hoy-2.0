@@ -1,5 +1,13 @@
 # PG-10 confirmed-payment export repair
 
+## Finance summary correctness follow-up
+
+Reproduced locally from PR84 source `75538481412fe476a29d2b340138c3567ca24b83`: held initial reads and a rejected special-concept read rendered zero payment KPIs, “No activity” charts and a balance deficit calculated from unloaded revenue. Baseline screenshots/observations are in ignored `qa/reporting/summary-baseline/`; no evidence from another executor was needed.
+
+Finance now renders payment-dependent summary/counts, balance and revenue charts only after the report reads succeed. Existing D-02 EmptyState loading/unavailable variants describe pending/failed loads; no new shared component or variant was introduced. Summary retry uses the same report-local reader as the CSV widget. Payment history and status-filtered invoices also show unavailable/loading rather than false empty results. Independent payroll figures and unfiltered invoice data retain their existing behavior.
+
+The actual dev fault suite now covers EN/ES at390/1280: initial held reads; both payment and concept failures; absent KPI/balance values and absent empty-period chart labels during unavailable states; genuine zero/empty rendering after a successful empty read; restored nonzero figures/charts on recovery; retry from both summary and widget; independent payroll still visible; stale/unmounted completion and export guards unchanged. These are bounded frontend availability checks, not validation of separate payroll/expense/backend reads. Local source remains free of shared provider/schema edits. Captures stay in the reporting CI artifact.
+
 Base: remote main `455843fda97c7a0c9979b3331d11690d9653f5e7`. Branch: `codex/pg10-export-repair-20261023`. Two reproduced frontend defects, fictional fixtures only. No shared provider/schema or PG-08 receipt/settlement source changes.
 
 ## Behavior
