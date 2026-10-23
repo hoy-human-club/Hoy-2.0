@@ -1,6 +1,6 @@
 # Customer schedule, booking detail and support slice — 2026-10-23
 
-Base: `94fe5259ba03519931afd7ce1b96abf31c9e5672` (PR78), fetched and verified at task start. Branch: `codex/schedule-booking-support-20261023`. Integration/merge owner: `01a165c4-48d8-717d-930c-99f658dec031`. Draft only; no independent merge or live release.
+Base: `94fe5259ba03519931afd7ce1b96abf31c9e5672` (PR78), fetched and verified at task start. Branch: `codex/schedule-booking-support-20261023`. Integration/merge owner: `01a165c4-48d8-717d-930c-99f658dec031`. Draft PR: [#80](https://github.com/imagine-os/hoy/pull/80). No independent merge or live release. Main advanced to `7834d655` (PR79) after the starting baseline; a read-only merge-tree check identified only competing appended kanban notes. This branch moved its own note to a dedicated section, preserving the voucher owner's content and leaving integration to the designated owner.
 
 Source: [HOY Front End Dev Log](https://docs.google.com/spreadsheets/d/19SWDF957P55Iw5QEPyVtoPDS50-eor0k76djVv1YyNU/edit#gid=105), live-read `Feature Specs!A35:J55` on 2026-10-23. Relevant rows: RS-01 row39, RS-08 row46, RS-13 row51. All remain source status **Not verified**. No spreadsheet writes or full-row completion claims.
 
