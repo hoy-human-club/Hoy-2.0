@@ -30,7 +30,7 @@ try {
     return data.insert('payments', { id, user_id: customer.id, plan_id: quote.planId, amount: quote.chargedAmount, amount_paid: null, currency: 'COP', method: 'cash', provider: 'manual', status: 'pending', paid_at: null, note: null, frontend_quote: quote, ...patch });
   }
   const cmd = id => ({ paymentId: id, actorId: 'usr_desk', role: 'front_desk', method: 'cash', amount: quote.chargedAmount, note: 'FICTIONAL collection' });
-  const snapshot = () => JSON.stringify(['payments', 'class_ledger', 'bookings', 'invoices', 'audit_log'].map(table => data.peek(table)));
+  const snapshot = () => JSON.stringify(['users', 'payments', 'class_ledger', 'bookings', 'invoices', 'audit_log', 'transfer_receipts'].map(table => data.peek(table)));
   await request('qa_pending');
   assert(canSettleAtDesk(await data.get('payments', 'qa_pending')));
   for (const patch of [{ role: 'finance' }, { role: 'customer' }, { amount: quote.chargedAmount - 1 }, { amount: quote.chargedAmount + 1 }, { amount: NaN }, { amount: 1.5 }, { amount: 0 }, { method: 'wompi' }, { note: ' ' }, { note: 'x'.repeat(501) }, { actorId: 'missing' }]) {
@@ -78,5 +78,28 @@ try {
   const giftBefore = snapshot(); await assert.rejects(settleAtDesk(data, { ...cmd('qa_gift'), amount: giftQuote.chargedAmount }), /payment_state/); assert.equal(snapshot(), giftBefore, 'voucher-owned gift fulfillment stays separate');
   await request('qa_granted'); await data.insert('class_ledger', { id: 'qa_existing_grant', user_id: customer.id, payment_id: 'qa_granted', delta: quote.classes, reason: 'purchase', expires_at: quote.entitlementExpiresAt });
   const granted = snapshot(); await assert.rejects(settleAtDesk(data, cmd('qa_granted')), /fulfillment_scope/); assert.equal(snapshot(), granted);
-  console.log('PASS desk settlement: cash/card-terminal/transfer, exact amount and note validation, denied roles/provider/tenant/customer/missing terms/expired terms/linked receipts, 3 write rollback points, quota rollback, cancellation, retained terms after repricing, concurrent replay, lost acknowledgement reconciliation, trial guard; no booking/invoice/message effects');
+  // A replay acknowledges the recorded fulfillment, never repairs changed history.
+  const otherCustomer = await data.insert('users', { id: 'qa_desk_other', email: 'other@example.invalid', status: 'active' });
+  const replayChanges = {
+    customer: async (payment, grant) => data.update('payments', payment.id, { user_id: otherCustomer.id }),
+    quote: async (payment, grant) => data.update('payments', payment.id, { frontend_quote: { ...quote, classes: 1 } }),
+    missingGrant: async (payment, grant) => data.remove('class_ledger', grant.id),
+    grantAmount: async (payment, grant) => data.update('class_ledger', grant.id, { delta: 1 }),
+    grantCustomer: async (payment, grant) => data.update('class_ledger', grant.id, { user_id: otherCustomer.id }),
+    grantTerms: async (payment, grant) => data.update('class_ledger', grant.id, { expires_at: '2035-01-01' }),
+    grantQuote: async (payment, grant) => data.update('class_ledger', grant.id, { frontend_quote: { ...quote, classes: 1 } }),
+    duplicateGrant: async (payment, grant) => data.insert('class_ledger', { ...grant, id: `duplicate_${grant.id}` }),
+    paidAt: async (payment, grant) => data.update('payments', payment.id, { paid_at: '2000-01-01T00:00:00Z' }),
+    receipt: async (payment, grant) => data.insert('transfer_receipts', { id: `late_receipt_${payment.id}`, payment_id: payment.id }),
+  };
+  for (const [label, mutate] of Object.entries(replayChanges)) {
+    await request(`qa_replay_${label}`);
+    const payment = await settleAtDesk(data, cmd(`qa_replay_${label}`));
+    const grant = data.peek('class_ledger').find(row => row.payment_id === payment.id);
+    await mutate(payment, grant);
+    const beforeReplay = snapshot();
+    await assert.rejects(settleAtDesk(data, cmd(payment.id)), /settlement_conflict/, `${label}: changed fulfillment cannot be acknowledged`);
+    assert.equal(snapshot(), beforeReplay, `${label}: replay cannot repair or regrant`);
+  }
+  console.log('PASS desk settlement: cash/card-terminal/transfer, exact amount and note validation, denied roles/provider/tenant/customer/missing terms/expired terms/linked receipts, 3 write rollback points, quota rollback, cancellation, retained terms after repricing, concurrent replay, lost acknowledgement reconciliation, 10 changed/missing fulfillment replay rejections, trial guard; no booking/invoice/message effects');
 } finally { await rm(dir, { recursive: true, force: true }); }

@@ -9,6 +9,12 @@ export const DESK_METHODS = ['cash', 'card', 'transfer'] as const;
 export type DeskMethod = typeof DESK_METHODS[number];
 export interface DeskSettlement { paymentId: string; actorId: string; role: string; method: DeskMethod; amount: number; note: string }
 const roles = ['super_admin', 'admin', 'front_desk'];
+interface Fulfillment { version: 1; customerId: string; grantId: string; paymentHash: string; grantHash: string }
+const paymentState = (p: PaymentRow) => [p.id, p.tenant_id, p.user_id, p.plan_id, p.currency, p.amount, p.amount_paid, p.method, p.provider, p.status, p.note, p.taken_by, p.paid_at, readPaymentQuote(p)];
+const grantState = (g: ClassLedgerRow) => [g.id, g.tenant_id, g.user_id, g.plan_id, g.payment_id, g.delta, g.reason, g.expires_at, g.frozen_from ?? null, g.frozen_until ?? null, g.frontend_quote];
+async function digest(value: unknown) {
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify(value))))].map(n => n.toString(16).padStart(2, '0')).join('');
+}
 
 /** Only receipt-free pending desk requests with retained, supported terms can be fulfilled here. */
 export function canSettleAtDesk(payment: PaymentRow | null): boolean {
@@ -37,10 +43,22 @@ export async function settleAtDesk(data: DataProvider, command: DeskSettlement, 
     const previous = await tx.get<BaseRow>('audit_log', auditId); check();
     // Reconcile a committed but unacknowledged operation before assessing current eligibility or dates.
     if (previous) {
-      const diff = previous.diff as { fingerprint?: string } | null;
+      const diff = previous.diff as { fingerprint?: string; fulfillment?: Fulfillment } | null;
       if (previous.tenant_id !== tenant.id || previous.entity !== 'payments' || previous.entity_id !== payment.id || previous.actor_id !== input.actorId
         || previous.action !== 'payment.desk.approved' || diff?.fingerprint !== fingerprint || payment.status !== 'approved' || payment.provider !== 'manual'
         || payment.taken_by !== input.actorId || payment.amount !== input.amount || payment.amount_paid !== input.amount || payment.method !== input.method || payment.note !== input.note) throw Error('settlement_conflict');
+      const recorded = diff.fulfillment;
+      if (recorded?.version !== 1 || payment.user_id !== recorded.customerId || !recorded.grantId) throw Error('settlement_conflict');
+      const [customer, grants, receipts] = await Promise.all([
+        tx.get<UserRow>('users', recorded.customerId),
+        tx.list<ClassLedgerRow>('class_ledger', { where: { tenant_id: tenant.id, payment_id: payment.id } }),
+        tx.list('transfer_receipts', { where: { tenant_id: tenant.id, payment_id: payment.id } }),
+      ]); check();
+      if (!customer || customer.id !== recorded.customerId || customer.tenant_id !== tenant.id || customer.status !== 'active'
+        || receipts.length || grants.length !== 1 || grants[0].id !== recorded.grantId || grants[0].user_id !== recorded.customerId
+        || grants[0].tenant_id !== tenant.id || grants[0].payment_id !== payment.id
+        || await digest(paymentState(payment)) !== recorded.paymentHash || await digest(grantState(grants[0])) !== recorded.grantHash) throw Error('settlement_conflict');
+      check();
       return payment;
     }
     if (!canSettleAtDesk(payment) || input.amount !== payment.amount) throw Error('payment_state');
@@ -58,13 +76,15 @@ export async function settleAtDesk(data: DataProvider, command: DeskSettlement, 
       status: 'approved', amount_paid: input.amount, method: input.method, taken_by: input.actorId,
       note: input.note, paid_at: new Date().toISOString(),
     }); check();
-    await tx.insert<ClassLedgerRow>('class_ledger', {
+    const grant = await tx.insert<ClassLedgerRow>('class_ledger', {
       user_id: payment.user_id!, plan_id: payment.plan_id, payment_id: payment.id, frontend_quote: structuredClone(quote),
       delta: quote.classes, reason: 'purchase', expires_at: quote.entitlementExpiresAt, frozen_from: null, frozen_until: null,
     }); check();
+    const fulfillment: Fulfillment = { version: 1, customerId: payment.user_id!, grantId: grant.id, paymentHash: await digest(paymentState(approved)), grantHash: await digest(grantState(grant)) };
+    check();
     await tx.insert('audit_log', {
       id: auditId, actor_id: input.actorId, action: 'payment.desk.approved', entity: 'payments', entity_id: payment.id, ip: null,
-      diff: { source: 'fictional-desk-settlement', role: input.role, fingerprint, receiptDelivery: 'disconnected', booking: 'no-retained-booking-intent' },
+      diff: { source: 'fictional-desk-settlement', role: input.role, fingerprint, fulfillment, receiptDelivery: 'disconnected', booking: 'no-retained-booking-intent' },
     }); check();
     return approved;
   });
