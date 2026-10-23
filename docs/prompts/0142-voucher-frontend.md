@@ -8,4 +8,4 @@ Public-safe scope record: implement a disjoint voucher frontend batch with ficti
 
 ## Response
 
-Added class-gift transfer/link/redemption rehearsal C-37 and improved invitation C-28 expiry, exhausted balance, other-account and command-error states. No real delivery, payment or account effects. See [row-specific scope and contracts](../frontend-completion/voucher-gifts-integration.md) and [changelog](../changelog/0140-voucher-frontend.md). No row-wide acceptance claim.
+Added class-gift transfer/link/redemption rehearsal C-37 and improved invitation C-28 expiry, exhausted balance, other-account and command-error states. No real delivery, payment or account effects. See [row-specific scope and contracts](../frontend-completion/voucher-gifts-integration.md) and [changelog](../changelog/0142-voucher-frontend.md). No row-wide acceptance claim.

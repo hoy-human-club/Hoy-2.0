@@ -4,6 +4,7 @@
   "sourceFiles": {
     "src/components/organism/VoucherGiftDemo/VoucherGiftDemo.meta.ts": "8eb2141fd955beeeb13546d630ca31a9d476928ad3ff8eb8b798c96e0640e639",
     "src/components/organism/VoucherGiftDemo/VoucherGiftDemo.tsx": "1fcc69ccf0aec2d6a1b5d0a2d3b6776fcaf8ee0a30048f8f39a3982fadfd57f5",
+    "src/components/template/AppShell/AppShell.css": "17631c3712b137b9d88c806ebabb651c42168e3ee257d1954b51931a9e6e22b0",
     "src/hub/hubMap.data.ts": "7d88784c99339016be33472b1faee0138a99a30efc104cba52b2d7d22139d43f",
     "src/modules/voucher-gifts/index.ts": "987a58d3a70ddc35da6012acd58938d11de17bcdd2d99855ca3733863d1c13d8",
     "src/modules/voucher-gifts/model.ts": "ff74f2dee34070e120b943496ac99a4ffeec0fe5fae0dfb58cef738e64d36aa3",
@@ -28,7 +29,8 @@
     "test-voucher-ui.mjs (development)",
     "test-voucher-gifts-ui.mjs (production preview, 8 combinations)",
     "test-voucher-availability-ui.mjs (production preview, 48 combinations)",
-    "test-voucher-gifts-states.mjs (production preview)"
+    "test-voucher-gifts-states.mjs (production preview)",
+    "test-voucher-responsive-ui.mjs (12 held forward/reverse transitions)"
   ],
   "remaining": [
     "Payment settlement and bank receipt integration",
@@ -36,5 +38,6 @@
     "Secure durable links and email delivery",
     "Studio approval of gift expiry and benefit-transfer terms"
   ],
-  "ownerAcceptance": false
+  "ownerAcceptance": false,
+  "repair": "CSS stale-navbar/dock guards; strict-port production CI for all new suites; documentation renumber0142"
 }

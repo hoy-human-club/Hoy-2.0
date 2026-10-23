@@ -13,3 +13,7 @@
   .appshell-main .container { padding-left: var(--gutter); padding-right: var(--gutter); }
   .appshell .topbar { padding-inline: var(--gutter); min-height: calc(var(--h-topbar) + var(--sp-sm)); }
 }
+/* The media query applies before React receives matchMedia's change event. Keep stale desktop navigation
+   out of the phone layout during resize; the inverse guard avoids a stale dock on the way back up. */
+@media (max-width: 899.98px) { .appshell .topbar-nav { display: none; } }
+@media (min-width: 900px) { .appshell-dock { display: none; } }

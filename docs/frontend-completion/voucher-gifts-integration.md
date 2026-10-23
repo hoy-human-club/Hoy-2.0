@@ -39,3 +39,15 @@ No refunds is the supplied approved policy. Voucher expiry, ownership transfer a
 - Final `npm run build` passed (TypeScript, spacing report, hub/action/media catalogs, manual lint, Vite, screenshot budget). Existing Rollup circular-chunk and chunk-size warnings remain; these are not a zero-warning claim. Production tests use local preview port5174; no hosted deployment was performed.
 
 The first build stopped at the hub catalog gate because the new route lacked its group and captures; both were added. Initial npm install could not write its default cache; a task-local `/tmp` cache succeeded. No approval denial or credential access occurred. Expanded invalid-expiry rendering initially failed because the date formatter threw; the screen now renders an explicit invalid-date label and expired state. D-02 harness initially reset the developer session on navigation; fixture initialization/full document navigation were corrected. The final receipts record passing reruns; earlier failures are not counted as passes.
+
+
+## PR79 integration-review repair
+
+- Renumbered this batch's prompt/changelog0140→0142; PR78's0140/0141 files are not changed.
+- AppShell CSS media guards hide the stale desktop navbar/dock on opposite sides of the existing900px breakpoint without waiting for React. Existing nav and future features are retained.
+- `scripts/test-voucher-responsive-ui.mjs` holds shell matchMedia callbacks to assert the actual stale DOM, immediate full-document width, settled width and reverse transition.12 ES/EN ×2 routes ×3 resize sequences pass. [Receipt](evidence/voucher-responsive-ui.json).
+- Voucher CI now watches dedicated modules/components and shell changes, runs the gift domain test and all gift/availability/library/resize suites, and uploads their JSON/screenshots. Strict ports prevent accidental testing against a different server.
+- Independent read-only reviewer found no blocking issues and separately measured stale desktop DOM at390px with hidden nav and document width390px. This review precedes final commit/CI; exact-head CI status is reported in the integration handoff.
+- Previous head2ebeb0d9 had9 workflows pass and Frontend continuation QA fail (operational-quotes job120183456834). Other original passing workflows do not erase that failure. The repaired job and exact-head rerun remain required.
+
+- Repaired local production rerun passed the entire previously failing operational-quotes job's UI sequence: operational quotes, catalog publication, pending package and desk sale. All gift/availability/library/resize production suites also passed after repair. Runtime CSS was built before these checks; later edits are CI/docs/evidence only.

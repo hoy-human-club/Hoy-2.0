@@ -4,6 +4,9 @@ on:
     paths:
       - 'src/data/**'
       - 'src/modules/vouchers/**'
+      - 'src/modules/voucher-gifts/**'
+      - 'src/components/organism/VoucherGiftDemo/**'
+      - 'src/components/template/AppShell/**'
       - 'src/modules/customer/pages/GiftPage.tsx'
       - 'scripts/test-voucher*.mjs'
       - '.github/workflows/voucher-qa.yml'
@@ -27,14 +30,26 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run test:vouchers
+      - run: node --experimental-strip-types scripts/test-voucher-gifts.mjs
       - name: Verify sandbox lifecycle and capture real screens
         run: |
-          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          npm run dev -- --host 127.0.0.1 --strictPort > /tmp/vite.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5173/ >/dev/null && break; sleep 1; done
           node scripts/test-voucher-ui.mjs
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
       - run: npm run build
+      - name: Verify production gift, availability, library and resize boundaries
+        run: |
+          npm run preview -- --host 127.0.0.1 --strictPort --port 5174 > /tmp/voucher-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5174/ >/dev/null && break; sleep 1; done
+          node scripts/test-voucher-gifts-ui.mjs
+          node scripts/test-voucher-availability-ui.mjs
+          node scripts/test-voucher-gifts-states.mjs
+          node scripts/test-voucher-responsive-ui.mjs
+        env:
+          HOY_TEST_URL: http://127.0.0.1:5174
+          CHROMIUM_PATH: /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -42,3 +57,7 @@ jobs:
           path: |
             docs/screenshots/M-13/*.jpg
             docs/screenshots/C-28/*.jpg
+            docs/screenshots/C-37/*.jpg
+            docs/frontend-completion/evidence/voucher-*.json
+            /tmp/voucher-preview.log
+            /tmp/vite.log

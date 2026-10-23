@@ -1,0 +1,162 @@
+{
+  "base": "http://127.0.0.1:5174",
+  "results": [
+    {
+      "lang": "es",
+      "route": "/app/vouchers",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "es",
+      "route": "/app/vouchers",
+      "width": 899,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 899,
+        "scroll": 899
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "es",
+      "route": "/app/vouchers",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "es",
+      "route": "/app/voucher-gifts",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "es",
+      "route": "/app/voucher-gifts",
+      "width": 899,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 899,
+        "scroll": 899
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "es",
+      "route": "/app/voucher-gifts",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/vouchers",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/vouchers",
+      "width": 899,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 899,
+        "scroll": 899
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/vouchers",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/voucher-gifts",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/voucher-gifts",
+      "width": 899,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 899,
+        "scroll": 899
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    },
+    {
+      "lang": "en",
+      "route": "/app/voucher-gifts",
+      "width": 390,
+      "stale": {
+        "wide": true,
+        "nav": "none",
+        "viewport": 390,
+        "scroll": 390
+      },
+      "phoneSettled": true,
+      "reverseTransition": true
+    }
+  ],
+  "pageErrors": []
+}
