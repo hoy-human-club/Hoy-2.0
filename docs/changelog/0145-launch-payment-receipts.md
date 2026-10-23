@@ -9,3 +9,4 @@ files: src/data/launchReceipts.ts; src/data/{MockProvider,schema}.ts; src/module
 [Bounded PG-08 behavior, regression contract and remaining decisions](../frontend-completion/launch-payment-receipts.md). No whole-row or backend completion claim.
 
 - Shared paid-event checkout retains its payment/audit/RSVP rollback contract with receipt-only assertions and matching truthful preview copy.
+- CI teacher-state harness now prepares dependencies before browser startup and rejects unexpected document reloads. Original ownership/read/actor assertions remain; the earlier execution-context loss is retained as evidence, without a proven root-cause claim.

@@ -44,7 +44,7 @@ jobs:
           CHROMIUM_PATH: /usr/bin/google-chrome
       - name: Verify teacher loading and ownership changes
         run: |
-          npm run dev -- --host 127.0.0.1 --port 5188 > /tmp/hoy-teacher-dev.log 2>&1 &
+          QA_PORT=5188 QA_VITE_FORCE=1 node scripts/qa-pending-payments-dev.mjs > /tmp/hoy-teacher-dev.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5188/ >/dev/null && break; sleep 1; done
           node scripts/test-teacher-ownership-states.mjs
         env:
@@ -57,6 +57,7 @@ jobs:
           path: |
             docs/screenshots/D-07/*api-fixture*
             docs/screenshots/S-03/*ownership*
+            /tmp/hoy-teacher-dev.log
           retention-days: 7
   pending-payments:
     runs-on: ubuntu-latest
