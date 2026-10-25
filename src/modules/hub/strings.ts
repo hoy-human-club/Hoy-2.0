@@ -39,6 +39,16 @@ export const strings: StringTable = {
   'hub.report.saveFailed': { es: 'No se guardó el borrador. El texto sigue aquí; reintenta el guardado local.', en: 'The draft was not saved. Your text is still here; retry the local save.' },
   'hub.devHint': { es: 'Modo dev: cada página muestra su chip de spec y Ctrl + . abre el inspector.', en: 'Dev mode: every page shows its spec chip and Ctrl + . opens the inspector.' },
   'hub.wireframe': { es: 'Wireframe', en: 'Wireframe' },
+  // 0161 · bento hub (layout B)
+  'hub.bento.label': { es: 'Hub de pruebas', en: 'Testing hub' },
+  'hub.bento.one': { es: 'Un sistema,', en: 'One system,' },
+  'hub.bento.every': { es: 'cada puesto', en: 'every seat' },
+  'hub.bento.at': { es: 'del', en: 'at the' },
+  'hub.bento.studio': { es: 'estudio', en: 'studio' },
+  'hub.bento.lead': { es: 'Elige a quién estás probando y abre su inicio, o entra directo a cualquier pantalla de abajo. Todo son datos ficticios.', en: 'Pick who you are testing as and open their home, or go straight into any screen below. Everything is fictional data.' },
+  'hub.bento.openHome': { es: 'Abrir el inicio de {name}', en: 'Open {name}’s home' },
+  'hub.bento.opening': { es: 'Día de apertura', en: 'Opening day' },
+  'hub.bento.daysLeft': { es: 'Abrimos en {n} días', en: 'Opening in {n} days' },
 
   // Bands
   'hub.band.promotions.eyebrow': { es: 'Aprender y practicar', en: 'Learn and practise' },

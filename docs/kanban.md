@@ -24,8 +24,11 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0160 Studio look on `ui-polish/studio-ui`: the staff workspace in Pulso — D-01 `studio` tokens on `:root[data-look="studio"]` (set by DesktopShell), river sidebar tile with the sun pill, tone stat tiles, serif titles, pill tabs, ink toasts, sun info notices. Contrast clean on 11 pages light and dark; booking suite and sidebar test pass.
 
+- 0161 HUB-01 as a bento on `ui-polish/hub-bento` (layout B of the hub layouts canvas): river hero with the session bar, sun opening-day tile, training banner, class-tone member tiles, paper seat tiles, ink build tile, tool pills and stats; previews dropped. Hub tests pass.
+
 ### Next
 
+- Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
 - IA phase 2: merge related pages into tabs (Mensajes, Caja, Miembros, Nómina, Gastos, Salas, Ventas) with redirects from the old URLs; shared PageTabs pattern in D-02.
 - IA phase 3: customer dock Inicio · Reservar · Mis clases · Perfil, Perfil grouped, Inicio quick actions trimmed.

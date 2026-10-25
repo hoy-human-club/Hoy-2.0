@@ -4658,8 +4658,8 @@
         "en": "Testing hub"
       },
       "purpose": {
-        "es": "El hub público de pruebas en /hub: enseña el sistema entero de un vistazo y deja entrar a cualquier puesto del estudio con su usuario demo. Cada tarjeta muestra la pantalla real (captura, y la página en vivo cuando cabe), su estado y su ruta; abajo, el sistema en números y el hub de pruebas (lienzo, simulador, specs, tablas, componentes, tokens, decisiones, capturas).",
-        "en": "The public testing hub at /hub: it shows the whole system at once and lets a tester enter any seat at the studio as its demo user. Every card shows the real screen (a capture, and the running page when there is room), its status and its route; below, the system in numbers and the testing hub (canvas, simulator, specs, tables, components, tokens, decisions, captures)."
+        "es": "El hub público de pruebas en /hub, como un bento (0161): un vistazo al sistema entero y una entrada a cualquier puesto del estudio con su usuario demo. Arriba, a quién estás probando y su inicio; luego lo que ve un miembro en mosaicos de color de clase, los puestos del equipo, cómo se opera y construye, las herramientas y el sistema en números.",
+        "en": "The public testing hub at /hub, as a bento (0161): the whole system at a glance and a way into any seat at the studio as its demo user. At the top, who you are testing as and their home; then what a member sees as class-tone tiles, the team’s seats, how it is run and built, the tools and the system in numbers."
       },
       "surface": "public",
       "roles": [
