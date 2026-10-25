@@ -90,12 +90,15 @@ export function EmailsPage() {
         <div><h1>{t('admin.emails.title')}</h1><p className="muted small">{t('admin.emails.subtitle')}</p></div>
         {canWrite && missing.length > 0 && <Button size="sm" variant="secondary" disabled={!readsReady} onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>}
       </div>
-      <Notice>{t('admin.emails.local.notice')}</Notice>
+      {/* 0166 · the two standing notes sit side by side instead of stacking two full-width boxes */}
+      <div className="emails-notes">
+        <Notice>{t('admin.emails.local.notice')}</Notice>
+        {templates.length > 0 && <Notice title={t('admin.emails.suggested.title')}>{t('admin.emails.suggested.body')}</Notice>}
+      </div>
       {readError&&<Notice tone="danger">{t('admin.emails.local.readError')} <Button variant="ghost" onClick={()=>reads.forEach(r=>r.retry())}>{t('admin.emails.local.retry')}</Button></Notice>}
       {!readError&&!readsReady&&<Notice>{t('admin.emails.local.loading')}</Notice>}
       {loading && templates.length === 0 && <EmptyState tone="loading" title={t('core.common.loading')} />}
       {!loading && templates.length === 0 && <EmptyState title={t('admin.emails.empty')} body={t('admin.emails.empty.body')} action={canWrite && <Button size="sm" disabled={!readsReady} onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>} />}
-      {templates.length > 0 && <Notice title={t('admin.emails.suggested.title')}>{t('admin.emails.suggested.body')}</Notice>}
       {templates.length > 0 && (
         <div className="stack-sm">
           <div className="row wrap" role="tablist" aria-label={t('admin.emails.f.audience')}>

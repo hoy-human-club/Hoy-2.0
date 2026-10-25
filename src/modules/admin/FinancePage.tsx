@@ -87,10 +87,13 @@ export function FinancePage() {
 
   return (
     <div className="stack">
-      <Link to="/admin/finance/subscriptions">{t('admin.subscriptions.nav')} →</Link>
       <div className="page-head">
         <div><h1>{t('admin.finance.title')}</h1><p className="muted small">{t('admin.finance.subtitle')}</p></div>
-        <div className="row wrap" role="tablist">{(['7d', '15d', '30d', '90d', 'all'] as Range[]).map((r) => <Chip key={r} selected={range === r} onClick={() => setRange(r)}>{t(`admin.finance.range.${r}`)}</Chip>)}</div>
+        {/* 0166 · the subscriptions link joined the range chips instead of a row of its own above the page */}
+        <div className="finance-head-actions">
+          <div className="row wrap" role="tablist">{(['7d', '15d', '30d', '90d', 'all'] as Range[]).map((r) => <Chip key={r} selected={range === r} onClick={() => setRange(r)}>{t(`admin.finance.range.${r}`)}</Chip>)}</div>
+          <Link to="/admin/finance/subscriptions" className="small">{t('admin.subscriptions.nav')} →</Link>
+        </div>
       </div>
       <section className="finance-payment-summary" aria-label={t('admin.reporting.paymentSummary')}>
       {paymentReady ? <div className="grid grid-4">
@@ -114,7 +117,7 @@ export function FinancePage() {
         <Card title={t('admin.finance.byProduct')}>{paymentReady ? <BarList items={byProduct} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}</Card>
         <Card title={t('admin.finance.byMethod')}>{paymentReady ? <BarList items={byMethod} format={(v) => formatCOP(v, lang)} emptyText={t('admin.finance.emptyRange')} /> : paymentReadState()}</Card>
       </section>
-      <Card tone="muted" title={t('admin.finance.payouts')} eyebrow="M-09a"
+      <Card tone="muted" title={t('admin.finance.payouts')}
         actions={<div className="row wrap"><Badge tone="warn">{t('admin.payouts.simulated')}</Badge><Link to="/admin/finance/payouts"><Button size="sm" variant="ghost">{t('admin.finance.payouts.open')}</Button></Link></div>}>
         <div className="grid grid-3">
           <StatTile label={t('admin.finance.payouts.next')} value={formatCOP(nextRun?.total ?? 0, lang)} hint={nextRun ? t('admin.finance.payouts.next.hint', { period: formatDate(nextRun.period_start, lang, { month: 'long' }), n: new Set(linesOf(nextRun.id).map((l) => l.teacher_id)).size }) : t('admin.finance.payouts.next.none')} />

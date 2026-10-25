@@ -244,9 +244,8 @@ export function RegisterPage() {
   return (
     <div className="stack">
       <div className="page-head"><div><h1>{t('staff.register.title')}</h1><p className="muted small">{t('staff.register.subtitle')}</p></div></div>
-      <p className="xs muted">{t('staff.booking.mock')}</p>
-      <DailyCountDraft/>
-      {!special.on&&<QuoteNotice catalog={catalog} review={review}/>}
+      {/* 0166 · one quiet bar for the demo note and the count draft; the quote notice moved into the summary rail */}
+      <div className="register-bar"><p className="xs muted">{t('staff.booking.mock')}</p><DailyCountDraft/></div>
       <div className="register">
         <div className="register-steps">
           <Card eyebrow={t('staff.register.step1')} title={t('staff.register.who')} actions={<div className="row wrap" role="tablist"><Chip selected={mode === 'new'} onClick={() => setMode('new')}>{t('staff.register.new')}</Chip><Chip selected={mode === 'existing'} onClick={() => setMode('existing')}>{t('staff.register.existing')}</Chip><Chip selected={mode === 'contact'} disabled={!special.on} title={special.on ? undefined : t('staff.register.contact.only')} onClick={() => setMode('contact')}>{t('staff.register.contact')}</Chip></div>}>
@@ -379,6 +378,7 @@ export function RegisterPage() {
               <p className="xs muted">{t('staff.register.audit', { staff: user.name })}</p>
             </div>
           </Card>
+          {!special.on&&<QuoteNotice catalog={catalog} review={review}/>}
         </aside>
       </div>
     </div>

@@ -34,6 +34,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0165 shell and dashboards on `ui-polish/shell-dashboards`: menu always on screen (rail 600–1023 px, drawer only on phones), no scrollbar (fade + chevron), in-page titles visually hidden, S-01 / M-01 / S-03 homes in equal-height paired rows, resting depth on tiles and cards and a 4° tilt. Shell, staff, admin and teacher tests pass.
 
+- 0166 team-seat pages on `ui-polish/seat-pages`: inbox pane fills the screen, POS bar + sticky rail below the top bar, CRM tabs + search bar, email template list in its own scroll column (page about 4,300 → 1,700 px), finance head links, marketing calendar beside campaigns. 15 page tests pass.
+
 ### Next
 
 - Hub: optional "journey" tab (layout D) for client demos.
