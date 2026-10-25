@@ -159,6 +159,8 @@ export const coreStrings: StringTable = {
   'core.shell.collapseHint': { es: 'Atajo: [', en: 'Shortcut: [' },
   'core.shell.menu': { es: 'Menú', en: 'Menu' },
   'core.shell.closeMenu': { es: 'Cerrar menú', en: 'Close menu' },
+  'core.shell.moreUp': { es: 'Ver opciones de arriba', en: 'Show items above' },
+  'core.shell.moreDown': { es: 'Ver más opciones', en: 'Show more items' },
   'core.shell.sections': { es: 'Secciones', en: 'Sections' },
   'core.shell.group.collapse': { es: 'Plegar {group}', en: 'Collapse {group}' },
   'core.shell.group.expand': { es: 'Desplegar {group}', en: 'Expand {group}' },

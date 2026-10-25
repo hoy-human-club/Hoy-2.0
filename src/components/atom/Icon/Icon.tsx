@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import {
   Activity, AppWindow, ArrowDown, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUp, ArrowUpDown, AtSign, Banknote, Bell,
   BellRing, BookOpen, BookOpenCheck, Building2, Cake, Calendar, CalendarCheck, CalendarClock, CalendarDays, CalendarPlus,
-  Camera, ChartColumn, Check, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleArrowUp, CircleCheck,
+  Camera, ChartColumn, Check, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, CircleAlert, CircleArrowUp, CircleCheck,
   CircleEllipsis, CircleHelp, CircleUser, CircleX, ClipboardCheck, Clock, Code, Coins, Component, Contact, CreditCard,
   DoorOpen, Download, Ellipsis, FileLock, FingerprintPattern, FileText, Flag, Flame, Frame, Funnel, Gauge, Gift, Globe, HandCoins, HeartPulse,
   History, House, IdCard, Image, Inbox, Info, Landmark, Languages, Layers, LayoutDashboard, LayoutGrid, Library, Link,
@@ -36,7 +36,7 @@ const ICONS = {
   download: Download, 'calendar-plus': CalendarPlus, share: Share2, link: Link, 'log-out': LogOut, trash: Trash2, close: X,
   pause: Pause, undo: Undo2, edit: SquarePen, play: Play, 'arrow-right': ArrowRight, 'arrow-left': ArrowLeft,
   'arrow-up': ArrowUp, 'arrow-down': ArrowDown, sort: ArrowUpDown, 'chevron-right': ChevronRight, 'chevron-left': ChevronLeft,
-  'chevron-down': ChevronDown, 'list-plus': ListPlus, waitlist: ListOrdered, qr: QrCode,
+  'chevron-down': ChevronDown, 'chevron-up': ChevronUp, 'list-plus': ListPlus, waitlist: ListOrdered, qr: QrCode,
   // 0041: copy a value, reveal / hide a secret, rotate a key
   copy: Copy, eye: Eye, 'eye-off': EyeOff, 'refresh-cw': RefreshCw,
   // settings groups and sections (M-08)

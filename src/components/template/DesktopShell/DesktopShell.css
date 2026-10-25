@@ -62,7 +62,8 @@
 
 @media (max-width: 1439.98px) { .deskshell-col .gsearch-kbd { display: none; } }
 @media (max-width: 720px) { .deskshell-devtoggle .toggle-label { display: none; } .deskshell-demolabel { display: none; } }
-@media (max-width: 900px) {
+/* 0165 · only a phone hides the menu behind the ☰ (was every width up to 900 px; tablets now keep the rail) */
+@media (max-width: 599.98px) {
   .deskshell, .deskshell.is-rail { grid-template-columns: 1fr; }
   .deskshell-side { position: fixed; inset: 0 auto 0 0; width: min(20rem, 85vw); z-index: 50; transform: translateX(-100%); transition: transform var(--dur-base) var(--ease-out); box-shadow: var(--shadow-raised); }
   /* the drawer is always the full column, never the rail */
@@ -134,8 +135,36 @@
 .deskshell-col .topbar-page { font-family: var(--font-editorial); font-size: var(--fs-xl); font-weight: var(--fw-medium); }
 .deskshell-col .topbar-page::before { display: none; }
 .deskshell-iconbtn { border-color: transparent; background: var(--color-surface); box-shadow: none; }
-@media (max-width: 900px) {
+@media (max-width: 599.98px) {
   .deskshell-side { margin: 0; top: 0; height: 100vh; border-radius: 0 var(--r-lg) var(--r-lg) 0; }
   @supports (height: 100dvh) { .deskshell-side { height: 100dvh; } }
-}.deskshell.is-rail { grid-template-columns: calc(var(--w-rail) + var(--sp-md)) minmax(0, 1fr); }
-@media (max-width: 900px) { .deskshell.is-rail { grid-template-columns: 1fr; } }.deskshell-nav { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--brand-white) 30%, transparent) transparent; }
+}
+.deskshell.is-rail { grid-template-columns: calc(var(--w-rail) + var(--sp-md)) minmax(0, 1fr); }
+@media (max-width: 599.98px) { .deskshell.is-rail { grid-template-columns: 1fr; } }
+
+/* 0165 · tablet (600–1023 px): the rail stays in its column; the ☰ lays the full menu over the page with a scrim */
+@media (min-width: 600px) and (max-width: 1023.98px) {
+  .deskshell.is-tablet { grid-template-columns: calc(var(--w-rail) + var(--sp-md)) minmax(0, 1fr); }
+  .deskshell.is-tablet .deskshell-col { grid-column: 2; }
+  .deskshell.is-tablet .deskshell-collapse { display: none; }
+  .deskshell.is-tablet.is-open .deskshell-side { position: fixed; top: 0; left: 0; z-index: 50; width: min(20rem, 85vw); box-shadow: var(--shadow-raised); }
+  .deskshell.is-tablet.is-open .deskshell-scrim { display: block; position: fixed; inset: 0; background: var(--color-scrim); z-index: 40; }
+}
+
+/* 0165 · the top bar already names the page, so the in-page title and its subtitle leave the screen (they stay for
+   screen readers and the heading outline). A page head that also holds actions keeps them, right-aligned; one with
+   nothing else becomes fully visually hidden, so it takes no space and no gap. */
+.deskshell-main .page-head :is(h1, h1 + p, h1 ~ p.muted) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.deskshell-main .page-head { justify-content: flex-end; margin-bottom: 0; }
+.deskshell-main .page-head:not(:has(button, a[href], select, input, [role="tablist"], .badge)) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+/* 0165 · the menu scrolls without a scrollbar: a fade and a chevron show only at an edge that hides more items */
+.deskshell-navwrap { position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.deskshell-nav { scrollbar-width: none; overflow-x: hidden; }
+.deskshell-nav::-webkit-scrollbar { display: none; }
+.deskshell-navwrap.has-down .deskshell-nav { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--sp-3xl)), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - var(--sp-3xl)), transparent); }
+.deskshell-navwrap.has-up .deskshell-nav { -webkit-mask-image: linear-gradient(to top, #000 calc(100% - var(--sp-3xl)), transparent); mask-image: linear-gradient(to top, #000 calc(100% - var(--sp-3xl)), transparent); }
+.deskshell-navwrap.has-up.has-down .deskshell-nav { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--sp-3xl), #000 calc(100% - var(--sp-3xl)), transparent); mask-image: linear-gradient(to bottom, transparent, #000 var(--sp-3xl), #000 calc(100% - var(--sp-3xl)), transparent); }
+.deskshell-more { position: absolute; left: 50%; z-index: 2; display: inline-grid; place-items: center; inline-size: var(--sp-2xl); block-size: var(--sp-2xl); padding: 0; border: 0; border-radius: var(--r-full); background: color-mix(in srgb, var(--brand-white) 16%, transparent); color: var(--brand-white); cursor: pointer; transform: translateX(-50%); transition: background-color var(--dur-fast); }
+.deskshell-more:hover { background: color-mix(in srgb, var(--brand-white) 26%, transparent); }
+.deskshell-more.is-up { top: var(--sp-2xs); }
+.deskshell-more.is-down { bottom: var(--sp-2xs); }

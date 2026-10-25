@@ -59,11 +59,13 @@ try {
  }
  for(const lang of ['es','en'])for(const width of [390,768,1280,1920,3840]) {
   const {page,ctx}=await start('usr_super',lang,width);
+  // 0165: a tablet keeps the icon rail on screen (visible before any click); only a phone hides the menu.
+  if(width>=600&&width<1024){assert(await page.locator('.deskshell').evaluate(el=>el.classList.contains('is-rail')));assert((await page.locator('.deskshell-side').boundingBox()).x>=0);assert(!await page.locator('.deskshell-side').evaluate(el=>el.inert));}
   if(width<=900)await page.locator('.topbar-lead').click();
   const bounds=await page.locator('.deskshell-grouplabel').evaluateAll(els=>els.map(el=>({h:el.getBoundingClientRect().height,w:el.getBoundingClientRect().width,scroll:el.scrollWidth,client:el.clientWidth})));
   assert(bounds.every(b=>b.h>=44 && b.w>=44 && b.scroll<=b.client));
   await page.waitForTimeout(350);
-  if(width<=900)assert.equal(Math.round((await page.locator('.deskshell-side').boundingBox()).x),0);
+  if(width<=900){const x=Math.round((await page.locator('.deskshell-side').boundingBox()).x);assert(x>=0&&x<=16,`open menu at the left edge (${x})`);}
   const file=`docs/screenshots/M-01/sidebar-${lang}-${width}.jpg`;await page.screenshot({animations:'disabled',path:file,quality:85});
   if(width===1280){await page.locator('.deskshell-iconbtn').click();await page.screenshot({animations:'disabled',path:`docs/screenshots/M-01/sidebar-${lang}-${width}-dark.jpg`,quality:85});}
   checks.push(`${lang} ${width}: targets, label fit, capture`);await ctx.close();
