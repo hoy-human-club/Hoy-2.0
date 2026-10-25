@@ -57,7 +57,13 @@ section.home-cell > :last-child { flex: 1 1 auto; }
 /* S-04 register & take payment */
 .register { display: grid; grid-template-columns: minmax(0, 1fr) 21.25rem; gap: var(--block); align-items: start; }
 .register-steps { display: flex; flex-direction: column; gap: var(--sp-lg); min-width: 0; }
-.register-rail { position: sticky; top: var(--sp-xl); }
+/* 0166 · the summary rail sticks below the sticky top bar (it slid under it at --sp-xl) and stacks the quote notice */
+.register-rail { position: sticky; top: calc(var(--h-topbar) + var(--sp-lg)); display: flex; flex-direction: column; gap: var(--sp-md); }
+.register-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+.register-bar > p { margin: 0; }
+.register-bar > .stack:not(:has(input, select, table)) { flex-direction: row; align-items: center; gap: var(--sp-sm); }
+/* the opened count draft takes the whole bar */
+.register-bar > :has(input, select, table) { flex: 1 1 100%; }
 .register-form .field { min-width: 0; }
 .register-consent { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--sp-xs); padding-top: var(--sp-sm); border-top: 1px solid var(--color-border); }
 .register-found { display: flex; align-items: center; gap: var(--sp-md); padding: var(--sp-md); border-radius: var(--r-md); background: var(--color-surface-2); }
@@ -125,6 +131,13 @@ section.home-cell > :last-child { flex: 1 1 auto; }
 .inbox-name { font-family: var(--font-heading); font-size: var(--fs-lg); }
 .inbox-compose { padding: var(--sp-md); border-top: 1px solid var(--color-border); }
 .inbox-empty { min-height: 20rem; display: flex; align-items: center; justify-content: center; }
+/* 0166 · the reading pane fills the screen beside the list and stays put while the list scrolls, so a short pane
+   ("pick a conversation", a short thread) never leaves a blank column under it */
+@media (min-width: 900.02px) {
+  .inbox-pane { position: sticky; top: calc(var(--h-topbar) + var(--sp-lg)); align-self: start; height: calc(100dvh - var(--h-topbar) - var(--sp-4xl)); display: flex; flex-direction: column; }
+  .inbox-pane > .card { flex: 1 1 auto; min-height: 0; }
+  .inbox-thread .thread.is-scroll { flex: 1 1 auto; max-height: none; min-height: 0; }
+}
 @media (max-width: 900px) {
   .inbox { grid-template-columns: 1fr; }
   .inbox.has-thread .inbox-list { display: none; }
