@@ -8,3 +8,7 @@
 .emptystate-action { margin-top: var(--sp-sm); display: flex; flex-direction: column; align-items: center; gap: var(--sp-sm); }
 .emptystate-spinner { width: var(--sp-lg); height: var(--sp-lg); border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: emptystate-spin .8s linear infinite; display: block; }
 @keyframes emptystate-spin { to { transform: rotate(360deg); } }
+
+/* 0160 · Studio look: a soft paper tile with an italic serif line, like the Pulso Luxe asides. */
+:root[data-look="studio"] .emptystate { border: 0; }
+:root[data-look="studio"] .emptystate-title { font-family: var(--font-editorial); font-style: italic; font-weight: var(--fw-regular); font-size: var(--fs-xl); }

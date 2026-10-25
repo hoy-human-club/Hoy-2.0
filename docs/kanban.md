@@ -22,8 +22,11 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0159 IA phase 1 on `ui-polish/ia-phase-1`: one Studio menu grouped by job (Hoy en el estudio · Personas · Ventas · Finanzas · Estudio · Reportes · Administración) with one Inicio per role; Beta/Demo badges instead of status in labels; Studio/Build switcher for super admin and developer; wordmark → home, avatar → profile, spec codes only in dev mode, gift trial out of the dock. test-sidebar-groups and the booking-flow suite pass.
 
+- 0160 Studio look on `ui-polish/studio-ui`: the staff workspace in Pulso — D-01 `studio` tokens on `:root[data-look="studio"]` (set by DesktopShell), river sidebar tile with the sun pill, tone stat tiles, serif titles, pill tabs, ink toasts, sun info notices. Contrast clean on 11 pages light and dark; booking suite and sidebar test pass.
+
 ### Next
 
+- Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
 - IA phase 2: merge related pages into tabs (Mensajes, Caja, Miembros, Nómina, Gastos, Salas, Ventas) with redirects from the old URLs; shared PageTabs pattern in D-02.
 - IA phase 3: customer dock Inicio · Reservar · Mis clases · Perfil, Perfil grouped, Inicio quick actions trimmed.
 - IA phase 4: role-aware Inicio per staff role, Ctrl K command bar, the /no-access flash on reload, one page-header pattern.

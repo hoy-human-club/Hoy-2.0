@@ -14,7 +14,8 @@ export default defineMeta({
     { name: 'action / secondary', type: 'ReactNode', description: { es: 'Botón opcional y enlace secundario debajo.', en: 'Optional button and a secondary link under it.' } },
     { name: 'compact', type: 'boolean', default: 'false', description: { es: 'Menos padding para paneles.', en: 'Less padding for panels.' } },
   ],
-  states: ['empty', 'error', 'loading', 'compact', 'with secondary link'],
+  states: [
+    'studio look (0160): borderless paper tile, italic serif title','empty', 'error', 'loading', 'compact', 'with secondary link'],
   usages: [
     { title: { es: 'Vacío con acción', en: 'Empty with action' }, render: () => h(EmptyState, { title: 'Nadie en la lista de espera', body: 'Cuando alguien se anote aparecerá aquí.', action: h(Button, { size: 'sm', variant: 'secondary' }, 'Abrir horario') }) },
     { title: { es: 'Primer día (E-01)', en: 'Day one (E-01)' }, render: () => h(EmptyState, { icon: 'sun', title: 'Tu primera clase te espera', body: 'Aún no tienes reservas. Mira qué hay hoy en el club.', action: h(Button, null, 'Ver clases de hoy'), secondary: h('a', { href: '#' }, 'Tour del estudio →') }) },

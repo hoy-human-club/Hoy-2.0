@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useId, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useId, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, matchPath, useLocation } from 'react-router-dom';
 import type { RouteDef, Surface, NavBadge } from '../../../specs/types';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -100,6 +100,14 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
   const collapsedKey = `${preferenceScope}.collapsed`;
   const groupId = useId();
   const groupsKey = `${preferenceScope}.groups`;
+
+  // 0160 · the Studio look (Pulso for staff, D-01 `studio`) lives on <html> so drawers and toasts portalled to <body>
+  // follow it; set before paint, removed when the person leaves for the member app or the website.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    root.dataset.look = 'studio';
+    return () => { delete root.dataset.look; };
+  }, []);
 
   const [collapsed, setCollapsed] = usePreference(collapsedKey, false);
   const [folded, setFolded] = usePreference(groupsKey, DEFAULT_FOLDED);
@@ -214,7 +222,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     <div className={`deskshell ${rail ? 'is-rail' : ''} ${drawer ? 'is-open' : ''}`}>
       <aside ref={sideRef} className="deskshell-side" aria-hidden={narrow && !drawer ? true : undefined} aria-label={t('core.shell.sections')}>
         <div className="deskshell-brand">
-          <Link to={homeTo} className="deskshell-mark" title={t('core.nav.home')}><Wordmark height={rail ? 15 : 26} /></Link>
+          <Link to={homeTo} className="deskshell-mark" title={t('core.nav.home')}><Wordmark height={rail ? 15 : 26} variant="cream" /></Link>
           {!rail && !(canBuild && canStudio) && <span className="deskshell-title">{title}</span>}
         </div>
         {canBuild && canStudio && !rail && (

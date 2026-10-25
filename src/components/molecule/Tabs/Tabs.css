@@ -11,3 +11,11 @@
 .tabs-count { min-width: var(--sp-xl); padding: 0 var(--sp-xs); border-radius: var(--r-full); background: var(--neutral-soft); color: var(--ink-muted); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; text-align: center; line-height: 1.5; }
 .tabs-tab.is-active .tabs-count { background: var(--info-soft); color: var(--ink-brand); }
 @media (prefers-reduced-motion: reduce) { .tabs-tab, .tabs-tab::after { transition: none; } }
+
+/* 0160 · Studio look: tabs are a pill track with the active tab as the ink pill (Pulso's language toggle). */
+:root[data-look="studio"] .tabs { gap: var(--sp-2xs); padding: var(--sp-xs); border-bottom: 0; border-radius: var(--r-full); background: var(--color-surface-3); width: fit-content; max-width: 100%; }
+:root[data-look="studio"] .tabs-tab { min-height: var(--h-ctl-sm); padding: 0 var(--sp-md); border-radius: var(--r-full); font-weight: var(--fw-semibold); }
+:root[data-look="studio"] .tabs-tab::after { display: none; }
+:root[data-look="studio"] .tabs-tab.is-active { background: var(--color-accent-fill); color: var(--color-text-on-primary); }
+:root[data-look="studio"] .tabs-tab.is-active .tabs-count { background: color-mix(in srgb, var(--color-text-on-primary) 22%, transparent); color: inherit; }
+:root[data-look="studio"] .tabs-tab:focus-visible { border-radius: var(--r-full); }

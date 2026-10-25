@@ -100,3 +100,42 @@
 .deskshell-link.is-active .deskshell-badge { background: rgba(255, 255, 255, .2); color: inherit; border-color: transparent; }
 .deskshell-foot a .icon { margin-right: var(--sp-xs); }
 .deskshell-hublink { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: var(--h-ctl-sm); font-size: var(--fs-xs); font-weight: var(--fw-semibold); white-space: nowrap; }
+
+/* 0160 · Studio look (Pulso for staff): the sidebar is the coming-soon blue tile floating on the cream ground, with the
+   breathing rings, cream text and the active item as the sun pill; the top bar sits on the ground with a serif page name. */
+.deskshell { background: var(--color-bg); }
+.deskshell-side { margin: var(--sp-md) 0 var(--sp-md) var(--sp-md); top: var(--sp-md); height: calc(100vh - 2 * var(--sp-md)); border-radius: var(--r-lg); background-color: var(--brand-deepBlue); background-image: none; box-shadow: none; color: var(--brand-white); isolation: isolate; }
+:root[data-theme="dark"] .deskshell-side { background-color: color-mix(in srgb, var(--brand-deepBlue) 62%, #000); }
+.deskshell-side::after { content: ""; position: absolute; z-index: -1; left: calc(-1 * var(--sp-5xl)); bottom: calc(-1 * var(--sp-5xl)); width: calc(var(--sp-5xl) * 2.2); height: calc(var(--sp-5xl) * 2.2); border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 14%, transparent); box-shadow: 0 0 0 var(--sp-2xl) color-mix(in srgb, var(--brand-white) 4%, transparent), 0 0 0 var(--sp-4xl) color-mix(in srgb, var(--brand-white) 2.5%, transparent); pointer-events: none; }
+@supports (height: 100dvh) { .deskshell-side { height: calc(100dvh - 2 * var(--sp-md)); } }
+.deskshell-title { color: color-mix(in srgb, var(--brand-white) 70%, transparent); }
+.deskshell-grouplabel, .deskshell-grouplabel:hover { color: color-mix(in srgb, var(--brand-white) 62%, transparent); }
+.deskshell-grouplabel:hover { background: color-mix(in srgb, var(--brand-white) 8%, transparent); }
+.deskshell-link { border-radius: var(--r-full); color: color-mix(in srgb, var(--brand-white) 86%, transparent); }
+.deskshell-link:hover { background: color-mix(in srgb, var(--brand-white) 10%, transparent); color: var(--brand-white); }
+.deskshell-link.is-active { background-color: var(--brand-yellow); background-image: none; color: var(--brand-ink); font-weight: var(--fw-semibold); box-shadow: none; }
+.deskshell-code { color: color-mix(in srgb, var(--brand-white) 60%, transparent); }
+.deskshell-sep { border-top-color: color-mix(in srgb, var(--brand-white) 18%, transparent); }
+.deskshell-side .deskshell-badge.badge-warn { background: var(--brand-yellow); color: var(--brand-ink); }
+.deskshell-side .deskshell-badge.badge-primary { background: color-mix(in srgb, var(--brand-white) 18%, transparent); color: var(--brand-white); }
+.deskshell-side .deskshell-link.is-active .deskshell-badge { background: color-mix(in srgb, var(--brand-ink) 14%, transparent); color: var(--brand-ink); }
+.deskshell-workspace { background: color-mix(in srgb, var(--brand-white) 12%, transparent); border-radius: var(--r-full); }
+.deskshell-ws { border-radius: var(--r-full); color: color-mix(in srgb, var(--brand-white) 80%, transparent); }
+.deskshell-ws:hover { color: var(--brand-white); }
+.deskshell-ws.is-on { background: var(--brand-yellow); color: var(--brand-ink); box-shadow: none; }
+.deskshell-foot { box-shadow: inset 0 1px 0 color-mix(in srgb, var(--brand-white) 16%, transparent); }
+.deskshell-foot, .deskshell-foot a, .deskshell-foot .muted { color: color-mix(in srgb, var(--brand-white) 82%, transparent); }
+.deskshell-foot a:hover { color: var(--brand-white); }
+.deskshell-collapse { color: color-mix(in srgb, var(--brand-white) 70%, transparent); border-radius: var(--r-full); }
+.deskshell-collapse:hover { background: color-mix(in srgb, var(--brand-white) 10%, transparent); color: var(--brand-white); }
+.deskshell-side :focus-visible { outline-color: var(--brand-yellow); }
+.deskshell-demobar { background: transparent; border-bottom: 0; }
+.deskshell-col .topbar { background: color-mix(in srgb, var(--color-bg) 88%, transparent); border-bottom: 0; }
+.deskshell-col .topbar-page { font-family: var(--font-editorial); font-size: var(--fs-xl); font-weight: var(--fw-medium); }
+.deskshell-col .topbar-page::before { display: none; }
+.deskshell-iconbtn { border-color: transparent; background: var(--color-surface); box-shadow: none; }
+@media (max-width: 900px) {
+  .deskshell-side { margin: 0; top: 0; height: 100vh; border-radius: 0 var(--r-lg) var(--r-lg) 0; }
+  @supports (height: 100dvh) { .deskshell-side { height: 100dvh; } }
+}.deskshell.is-rail { grid-template-columns: calc(var(--w-rail) + var(--sp-md)) minmax(0, 1fr); }
+@media (max-width: 900px) { .deskshell.is-rail { grid-template-columns: 1fr; } }.deskshell-nav { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--brand-white) 30%, transparent) transparent; }

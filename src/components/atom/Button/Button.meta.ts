@@ -12,7 +12,8 @@ export default defineMeta({
     { name: 'block', type: 'boolean', default: 'false', description: { es: 'Ancho completo.', en: 'Full width.' } },
     { name: 'icon', type: 'IconName | ReactNode', description: { es: 'Icono a la izquierda: un nombre del set Icon o un nodo. Decorativo; la etiqueta nombra la acción.', en: 'Leading icon: an Icon set name or a node. Decorative; the label names the action.' } },
   ],
-  states: ['default', 'hover', 'active', 'focus', 'disabled', 'loading'],
+  states: [
+    'studio look (0160): primary is the ink pill (light) / river pill (dark), secondary a soft cream pill; on a primary card the action turns sun','default', 'hover', 'active', 'focus', 'disabled', 'loading'],
   usages: [
     { title: { es: 'Variantes', en: 'Variants' }, render: () => h('div', { className: 'row wrap' }, h(Button, null, 'Reservar'), h(Button, { variant: 'secondary' }, 'Ver horario'), h(Button, { variant: 'ghost' }, 'Cancelar'), h(Button, { variant: 'danger' }, 'Eliminar')) },
     { title: { es: 'Tamaños y estados', en: 'Sizes and states' }, render: () => h('div', { className: 'row wrap' }, h(Button, { size: 'sm' }, 'Pequeño'), h(Button, { size: 'lg' }, 'Grande'), h(Button, { loading: true }, 'Guardando'), h(Button, { disabled: true }, 'Deshabilitado')) },

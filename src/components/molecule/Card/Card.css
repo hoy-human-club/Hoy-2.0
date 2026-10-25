@@ -25,3 +25,14 @@
 .card-head.has-icon { align-items: center; flex-wrap: nowrap; }
 .card-head.has-icon > .grow { flex: 1 1 auto; }
 .card-icon { flex: 0 0 auto; width: var(--icon-tile); height: var(--icon-tile); border-radius: var(--r-ctl); display: inline-flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface-2)); color: var(--color-primary); }
+
+/* 0160 · Studio look: cards are flat paper tiles with serif titles; the primary card is the coming-soon blue hero with its
+   breathing rings and a sun action. */
+:root[data-look="studio"] .card-title { font-family: var(--font-editorial); font-weight: var(--fw-medium); font-size: var(--fs-xl); letter-spacing: -0.01em; }
+:root[data-look="studio"] .card-primary { background-color: var(--brand-deepBlue); color: var(--brand-white); overflow: hidden; isolation: isolate; }
+:root[data-look="studio"][data-theme="dark"] .card-primary { background-color: color-mix(in srgb, var(--brand-deepBlue) 70%, #000); }
+:root[data-look="studio"] .card-primary::after { content: ""; position: absolute; z-index: -1; right: calc(-1 * var(--sp-4xl)); top: calc(-1 * var(--sp-4xl)); width: calc(var(--sp-5xl) * 2.4); height: calc(var(--sp-5xl) * 2.4); border-radius: var(--r-full); border: 1.5px solid color-mix(in srgb, var(--brand-white) 22%, transparent); box-shadow: 0 0 0 var(--sp-2xl) color-mix(in srgb, var(--brand-white) 5%, transparent), 0 0 0 var(--sp-4xl) color-mix(in srgb, var(--brand-white) 3.5%, transparent); animation: studio-breathe var(--dur-breath) var(--ease-in-out) infinite alternate; pointer-events: none; }
+@keyframes studio-breathe { from { transform: scale(1); } to { transform: scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { :root[data-look="studio"] .card-primary::after { animation: none; } }
+:root[data-look="studio"] .card-primary .btn-primary { background-color: var(--brand-yellow); color: var(--brand-ink); }
+:root[data-look="studio"] .card-primary .btn-primary:hover:not(:disabled) { background-color: var(--brand-white); }

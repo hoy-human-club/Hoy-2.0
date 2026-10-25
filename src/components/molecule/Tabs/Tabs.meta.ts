@@ -21,7 +21,8 @@ export default defineMeta({
     { name: 'ariaLabel', type: 'string', required: true, description: { es: 'Nombre de la lista de pestañas.', en: 'Names the tab list.' } },
     { name: 'panelId', type: 'string', description: { es: 'id de la región que cambian (aria-controls).', en: 'id of the region they switch (aria-controls).' } },
   ],
-  states: ['default', 'active', 'hover', 'focus', 'with count', 'zero count', 'overflow (scrolls, never wraps)'],
+  states: [
+    'studio look (0160): pill track, active tab is the ink pill','default', 'active', 'hover', 'focus', 'with count', 'zero count', 'overflow (scrolls, never wraps)'],
   usages: [{ title: { es: 'Segmentos del CRM', en: 'CRM segments' }, render: () => h(Demo) }],
   a11y: [
     { es: 'role=tablist con role=tab y aria-selected; tabindex itinerante: Tab entra a la pestaña activa, ←/→, Inicio y Fin se mueven.', en: 'role=tablist with role=tab and aria-selected; roving tabindex: Tab lands on the active tab, ←/→, Home and End move.' },

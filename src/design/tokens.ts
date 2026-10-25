@@ -414,7 +414,35 @@ export const UI_SCALE: readonly { minWidth: number; ui: number; minText: number 
   { minWidth: BREAKPOINTS.hd, ui: 1.125, minText: 16 }, { minWidth: BREAKPOINTS.qhd, ui: 1.375, minText: 16 }, { minWidth: BREAKPOINTS.uhd, ui: 1.75, minText: 16 },
 ];
 
-export const tokens = { brand, palette, rgb, classTones, semantic, bridge, shadows, textures, materials, surfaces, hues, type, spacing, spacingLegacy, spacingSemantic, radii, motion, icons, layout: layoutTokens, breakpoints: breakpointVars };
+/**
+ * 0160 · Studio look — Pulso for the staff workspace. DesktopShell sets `data-look="studio"` on <html> while it is
+ * mounted, so every staff, admin and build page (and the drawers and toasts they portal to <body>) renders on the
+ * coming-soon materials: cream ground, paper tiles, flat (no grain, no stone shadows), ink pills for primary actions,
+ * larger radii. The member app and the website never set it. Only existing palette values are used; the wireframe skin
+ * still wins (every selector excludes it), and the semantic aliases re-resolve because they are declared on :root.
+ */
+export const studio = {
+  light: {
+    'color-bg': palette.c20, 'color-surface': brand.white, 'color-surface-elevated': '#FFFCF6', 'color-surface-2': palette.c19,
+    'color-surface-3': palette.c17, 'color-surface-4': palette.c16, 'color-card-border': 'transparent',
+    'color-accent-fill': brand.ink, 'color-accent-fill-hover': palette.c2, 'color-text-on-primary': brand.white,
+  },
+  dark: {
+    'color-bg': '#101C29', 'color-surface': '#1B2E44', 'color-surface-elevated': '#22384F', 'color-surface-2': '#22384F',
+    // The dark accent stays the base dark one (river fill, cream text): --color-text-on-primary also sits on blue
+    // surfaces (room blocks, the next-class card), so inverting it to navy would break them.
+    'color-surface-3': '#2A4159', 'color-surface-4': '#31506E', 'color-card-border': 'transparent',
+  },
+  /** Theme-independent: Pulso's shapes and flat surfaces; numbers and controls in DM Sans (titles go serif in global.css). */
+  shape: {
+    'r-ctl': '0.875rem', 'r-md': '1.5rem', 'r-lg': '2rem', 'font-heading': type['font-body'],
+    'shadow-card': '0 1px 2px rgba(var(--m-shade),.05)', 'shadow-raised': '0 24px 60px -24px rgba(var(--m-shade),.45)',
+    'shadow-accent': 'none', 'shadow-highlight': 'none', 'shadow-contact': 'none', 'shadow-pressed': 'none', 'shadow-inverse': 'none',
+    'tex-lane-on': 'none', 'tex-surf-on': 'none', 'tex-accent-on': 'none',
+  },
+} as const;
+
+export const tokens = { brand, palette, rgb, classTones, semantic, bridge, shadows, textures, materials, surfaces, hues, type, spacing, spacingLegacy, spacingSemantic, radii, motion, icons, layout: layoutTokens, breakpoints: breakpointVars, studio };
 
 function vars(obj: Record<string, string>): string {
   return Object.entries(obj).map(([k, v]) => `  --${k}: ${v};`).join('\n');
@@ -487,6 +515,16 @@ ${vars(semantic.dark)}
   --tex-surf-on: none;
   --color-card-border: rgba(241,231,210,.06);
   color-scheme: dark;
+}
+/* 0160 · Studio look (Pulso for the staff workspace), set by DesktopShell */
+:root[data-look="studio"]:not([data-skin="wireframe"]):not([data-theme="dark"]) {
+${vars(studio.light)}
+}
+:root[data-look="studio"][data-theme="dark"]:not([data-skin="wireframe"]) {
+${vars(studio.dark)}
+}
+:root[data-look="studio"]:not([data-skin="wireframe"]) {
+${vars(studio.shape)}
 }
 :root[data-skin="wireframe"] {
   --color-ground: #F6F5F2;

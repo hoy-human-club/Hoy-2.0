@@ -1,6 +1,6 @@
 import { useI18n } from '../../i18n/I18nProvider';
 import { useTheme } from '../../design/ThemeProvider';
-import { brand, classTones, icons, materials, motion, palette, radii, rgb, semantic, shadows, spacing, spacingSemantic, surfaces, textures, type as typeTokens } from '../../design/tokens';
+import { brand, classTones, icons, materials, motion, palette, radii, rgb, semantic, shadows, spacing, spacingSemantic, studio, surfaces, textures, type as typeTokens } from '../../design/tokens';
 import { Card } from '../../components/molecule/Card/Card';
 import { Toggle } from '../../components/atom/Toggle/Toggle';
 import { Icon } from '../../components/atom/Icon/Icon';
@@ -20,6 +20,10 @@ export function TokensPage() {
       <Card title={t('dev.tokens.brand')} eyebrow="HOY 2026 · p8-1"><div className="tok-swatches">{Object.entries(brand).map(([k, v]) => <Swatch key={k} name={`brand-${k}`} value={v} />)}</div></Card>
       <Card title={t('dev.tokens.palette')} eyebrow="canvas --c1 … --c26 · data-brand=&quot;hoy&quot;"><div className="tok-swatches tok-swatches-dense">{Object.entries(palette).map(([k, v]) => <Swatch key={k} name={`hoy-${k}`} value={v} small />)}</div></Card>
       <Card title={t('dev.tokens.semantic', { theme })}><div className="tok-swatches">{Object.entries(sem).filter(([k]) => k.startsWith('color-')).map(([k, v]) => <Swatch key={k} name={k} value={v} live />)}</div></Card>
+      <Card title={t('dev.tokens.studio')} eyebrow={`:root[data-look="studio"] · ${theme}`}>
+        <div className="tok-swatches">{Object.entries(studio[theme]).map(([k, v]) => <Swatch key={k} name={k} value={v} live />)}</div>
+        <div className="tok-grid">{Object.entries(studio.shape).map(([k, v]) => <div key={k} className="tok-row"><code>--{k}</code><span className="xs muted">{v}</span></div>)}</div>
+      </Card>
       <Card title={t('dev.tokens.rgb')} eyebrow="canvas --m1 … --m10"><div className="tok-grid">{Object.entries(triplets).map(([k, v]) => <div key={k} className="tok-row"><span className="tok-dot" style={{ background: `rgb(${v})`, width: 16, height: 16 }} /><code>--{k}</code><span className="xs muted">{v}</span></div>)}</div></Card>
       <Card title={t('dev.tokens.tones')} eyebrow="--tone-<id>-fg · -dot · -bg"><div className="tok-swatches">{Object.entries(classTones).map(([k, m]) => <div key={k} className="tok-tone" style={{ background: m.bg, color: m.fg }}><span className="tok-dot" style={{ background: m.dot }} />{k}<code className="xs">{m.dot}</code></div>)}</div></Card>
 

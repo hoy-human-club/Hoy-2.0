@@ -45,3 +45,6 @@
   .roomgrid-block { padding: var(--sp-2xs) var(--sp-sm); }
   .roomgrid-block-sub { display: none; }
 }
+
+/* 0160 · Studio look: on the darker Studio paper the muted time on a translucent tone block fell to 3.2:1; it takes the body ink. */
+:root[data-look="studio"] .roomgrid-block-time { color: var(--color-text); }:root[data-theme="dark"] .roomgrid-now span { color: var(--color-bg); }

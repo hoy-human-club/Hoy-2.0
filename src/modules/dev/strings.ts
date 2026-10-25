@@ -4,6 +4,7 @@ export const strings: StringTable = {
   'dev.tokens.body': { es: 'La única fuente de verdad es src/design/tokens.ts. Todo lo que ves aquí se lee en vivo de las variables CSS.', en: 'The single source of truth is src/design/tokens.ts. Everything here reads live from the CSS variables.' },
   'dev.tokens.brand': { es: 'Marca', en: 'Brand' },
   'dev.tokens.semantic': { es: 'Roles semánticos ({theme})', en: 'Semantic roles ({theme})' },
+  'dev.tokens.studio': { es: 'Aspecto Estudio · Pulso para el equipo', en: 'Studio look · Pulso for staff' },
   'dev.tokens.tones': { es: 'Tonos de clase', en: 'Class tones' },
   'dev.tokens.type': { es: 'Tipografía', en: 'Typography' },
   'dev.tokens.spacing': { es: 'Escala de espaciado (base 4 px)', en: 'Spacing scale (4 px base)' },

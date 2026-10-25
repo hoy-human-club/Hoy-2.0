@@ -3,3 +3,6 @@
 .bell.has-unread { color: var(--color-primary); }
 .bell-glyph { display: inline-flex; line-height: 0; }
 .bell-badge { position: absolute; top: -3px; right: -3px; min-width: var(--sp-lg); height: var(--sp-lg); padding: 0 var(--sp-xs); border-radius: var(--r-full); background: var(--color-danger); color: var(--color-text-on-primary); font-family: var(--font-body); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); line-height: 16px; text-align: center; }
+
+/* 0160 · in dark the danger fill is a light coral, so the count takes the dark ground (cream on coral was 1.9:1). */
+:root[data-theme="dark"] .bell-badge { color: var(--color-bg); }

@@ -7,3 +7,13 @@
 /* Label and hint: one or two lines, then an ellipsis — never a third line pushing the tile taller than its neighbours. */
 .stat-label, .stat-hint { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; }
 .stat-up { color: var(--color-primary); } .stat-down { color: var(--color-danger); } .stat-flat { color: var(--color-text-muted); }
+
+/* 0160 · Studio look: KPI rows become class-tone tiles (river, sun, clay, moss), as on the coming-soon class tiles.
+   Deep ink on river, sun and clay; paper on moss; every child inherits so labels, hints and trends stay legible. */
+:root[data-look="studio"] .stat-value { font-weight: var(--fw-bold); letter-spacing: -0.03em; }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat { --stat-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); background-color: var(--stat-tile, var(--color-surface)); color: var(--stat-ink); }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat:nth-child(4n+1) { --stat-tile: var(--tone-river-dot); }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat:nth-child(4n+2) { --stat-tile: var(--tone-sun-dot); }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat:nth-child(4n+3) { --stat-tile: var(--tone-clay-dot); }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat:nth-child(4n+4) { --stat-tile: var(--tone-moss-dot); --stat-ink: var(--brand-white); }
+:root[data-look="studio"] :is(.grid, .grid-4, .grid-3, .grid-2) > .stat :is(.stat-label, .stat-hint, .stat-value, .stat-trend, .stat-up, .stat-down, .muted, .eyebrow, .small) { color: inherit; }
