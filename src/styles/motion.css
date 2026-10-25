@@ -1,0 +1,59 @@
+/* ===========================================================================
+   0163 · Motion — calm, physical, never in the way. D-01 motion tokens only (--dur-*, --ease-*).
+   1. Depth: the surfaces people choose from tilt at most 2.5° toward a mouse pointer, lift 3 px and catch a soft light
+      (src/design/depth.ts sets --depth-rx / --depth-ry / --depth-mx / --depth-my and .is-depth; the selector list
+      below is the same list as DEPTH_SELECTOR there).
+   2. Entrances: a page's sections rise in once, 40 ms apart, capped at the eighth.
+   3. Press: buttons, pills and tiles give a little under a click.
+   Everything is off under prefers-reduced-motion, and touch never tilts.
+   =========================================================================== */
+
+/* 1 · depth ---------------------------------------------------------------- */
+/* The transform exists only while a pointer is over the surface (.is-depth), so at rest nothing becomes a containing
+   block for fixed-position children (menus, popovers); leaving eases back to flat. */
+:is([data-depth], .hub-tile:not(.is-row), .card.is-interactive, .stat, .classcard, .cust-quick-btn) {
+  position: relative;
+  transition: transform var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
+}
+/* :hover keeps this above component hover rules such as .card.is-interactive:hover (the class only exists on hover) */
+:is([data-depth], .hub-tile, .card.is-interactive, .stat, .classcard, .cust-quick-btn).is-depth:hover {
+  transform: perspective(60rem) rotateX(var(--depth-rx, 0deg)) rotateY(var(--depth-ry, 0deg)) translateY(var(--depth-lift, -3px));
+  transition: transform var(--dur-fast) linear, box-shadow var(--dur-slow) var(--ease-out);
+  box-shadow: 0 18px 36px -22px rgba(var(--m-shade), .45);
+}
+:root[data-theme="dark"] :is([data-depth], .hub-tile, .card.is-interactive, .stat, .classcard, .cust-quick-btn).is-depth:hover { box-shadow: 0 18px 36px -20px rgba(var(--m-shade), .7); }
+/* the soft light that follows the pointer: a faint wash over the surface, never over-bright on text */
+:is([data-depth], .hub-tile:not(.is-row), .card.is-interactive, .stat, .classcard, .cust-quick-btn)::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--depth-mx, 50%) var(--depth-my, 0%), rgba(255, 255, 255, .14), transparent 55%);
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+.is-depth::before { opacity: 1; }
+:root[data-theme="dark"] .is-depth::before { background: radial-gradient(circle at var(--depth-mx, 50%) var(--depth-my, 0%), rgba(255, 255, 255, .06), transparent 55%); }
+
+/* 2 · entrances -------------------------------------------------------------- */
+@keyframes motion-rise { from { opacity: 0; transform: translateY(var(--sp-sm)); } to { opacity: 1; transform: none; } }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > *,
+.hub-main > * {
+  animation: motion-rise var(--dur-slow) var(--ease-out) both;
+}
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(2), .hub-main > :nth-child(2) { animation-delay: 40ms; }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(3), .hub-main > :nth-child(3) { animation-delay: 80ms; }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(4), .hub-main > :nth-child(4) { animation-delay: 120ms; }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(5), .hub-main > :nth-child(5) { animation-delay: 160ms; }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(6), .hub-main > :nth-child(6) { animation-delay: 200ms; }
+:is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > :nth-child(n+7), .hub-main > :nth-child(n+7) { animation-delay: 240ms; }
+
+/* 3 · press ------------------------------------------------------------------ */
+.btn { transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.btn:active:not(:disabled) { transform: translateY(1px) scale(.98); }
+:is(.chip, .tabs-tab, .segmented-btn, .deskshell-link, .navbar-item):active { transform: scale(.97); }
+:is(.chip, .tabs-tab, .segmented-btn, .deskshell-link, .navbar-item) { transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
+.is-depth:active { --depth-lift: -1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  :is([data-depth], .hub-tile, .card.is-interactive, .stat, .classcard, .cust-quick-btn) { transform: none !important; transition: none !important; }
+  :is([data-depth], .hub-tile, .card.is-interactive, .stat, .classcard, .cust-quick-btn)::before { display: none; }
+  :is(.deskshell-main, .appshell-main) > :is(.stack, .container, .page) > *, .hub-main > * { animation: none; }
+  .btn:active:not(:disabled), :is(.chip, .tabs-tab, .segmented-btn, .deskshell-link, .navbar-item):active { transform: none; }
+}
