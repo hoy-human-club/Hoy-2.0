@@ -69,6 +69,8 @@ export function TeacherHomePage() {
       {!me&&!canChoose&&<EmptyState tone="error" title={t('teacher.access.unlinked')}/>}
       {me && (
         <>
+          {/* 0165 · from 900 px the next class sits beside the three headline numbers, and today beside the specials */}
+          <div className="teach-pair is-lead">
           <section className="stack-sm">
             <div className="eyebrow">{t('teacher.home.next')}</div>
             {next
@@ -76,14 +78,16 @@ export function TeacherHomePage() {
               : <EmptyState compact title={t('teacher.home.noNext')} body={t('teacher.home.noNext.body')} />}
           </section>
 
-          <div className="grid grid-3">
+          <div className="grid grid-3 teach-lead-stats">
             <StatTile label={t('teacher.home.today')} value={today.length} />
             <StatTile label={t('teacher.home.taughtMonth')} value={monthTaught} />
             <StatTile label={t('teacher.home.payroll')} value={formatCOP(monthTaught * rateFor(me.id, (me.specialties as string[] | undefined)?.[0] ?? null, [me], homeSettings.payroll.rateCard), lang)} hint={t('teacher.home.payroll.hint')} />
           </div>
+          </div>
 
           <MyNumbers teacherId={me.id} />
 
+          <div className="teach-pair">
           <section className="stack-sm">
             <div className="row-between"><div className="eyebrow">{t('core.common.today')}</div><span className="xs muted">{formatDate(now.toISOString(), lang)}</span></div>
             <Card padding="sm">
@@ -115,6 +119,7 @@ export function TeacherHomePage() {
             </Card>
             <p className="xs muted">{t('teacher.home.specials.hint')}</p>
           </section>
+          </div>
 
           <section className="stack-sm">
             <div className="row-between"><div className="eyebrow">{t('teacher.home.week')}</div><Button size="sm" variant="ghost" onClick={sub.openDrawer}>{t('teacher.home.sub')}</Button></div>
@@ -166,7 +171,7 @@ function MyNumbers({ teacherId }: { teacherId: string }) {
         <div className="eyebrow" id="teach-numbers">{t('teacher.numbers.title')}</div>
         <span className="xs muted">{me.classesTaught === 1 ? t('teacher.numbers.classes.one') : t('teacher.numbers.classes', { n: me.classesTaught })}</span>
       </div>
-      <div className="grid grid-3">
+      <div className="grid grid-3 teach-numbers">
         <StatTile label={t('teacher.numbers.fill')} value={`${me.fillRate}%`} hint={t('teacher.numbers.fill.hint', { n: studio.fillRate })} />
         <StatTile label={t('teacher.numbers.avg')} value={t('teacher.numbers.avg.value', { n: nf.format(me.avgAttendance) })} hint={t('teacher.numbers.avg.hint', { n: nf.format(studioAvg) })} />
         <StatTile label={t('teacher.numbers.noShow')} value={`${me.noShowRate}%`} hint={t('teacher.numbers.noShow.hint', { n: studio.noShowRate })} />

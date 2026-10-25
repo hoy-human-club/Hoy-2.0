@@ -15,6 +15,25 @@
 .checkin-teacher { padding: var(--sp-sm) var(--sp-sm); border-bottom: 1px solid var(--color-border); }
 .checkin-teacher:last-child { border-bottom: 0; }
 @media (max-width: 1000px) { .checkin { grid-template-columns: 1fr; } }
+/* 0165 · S-01 home in paired rows: each row's two cells share a height, so no column runs long while the other ends */
+.home-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
+.home-cell { min-width: 0; }
+section.home-cell { display: flex; flex-direction: column; }
+section.home-cell > :last-child { flex: 1 1 auto; }
+.home-cell.is-wide { grid-column: 1 / -1; }
+.home-fill { display: grid; place-items: center; }
+.home-fill .emptystate { background: none; box-shadow: none; border: 0; }
+.home-quick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: var(--sp-md); }
+.home-quick-tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.home-quick-tile { display: flex; align-items: center; gap: var(--sp-md); min-height: 4.5rem; padding: var(--card-pad); border-radius: var(--r-lg); background: var(--color-surface); color: var(--color-text); font-size: var(--fs-sm); font-weight: var(--fw-semibold); line-height: 1.3; text-decoration: none; }
+.home-quick-tile:hover { text-decoration: none; color: var(--color-text); }
+.home-quick-icon { flex: 0 0 auto; display: inline-grid; place-items: center; inline-size: var(--icon-tile); block-size: var(--icon-tile); border-radius: var(--r-md); background: var(--tone-river-bg); color: var(--tone-river-fg); }
+.home-quick-tile:first-child { --q-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); background: var(--tone-river-dot); color: var(--q-ink); }
+.home-quick-tile:first-child:hover { color: var(--q-ink); }
+.home-quick-tile:first-child .home-quick-icon { background: color-mix(in srgb, var(--brand-white) 45%, transparent); color: var(--q-ink); }
+.home-quick-tile:focus-visible { outline: var(--sp-2xs) solid var(--color-accent); outline-offset: var(--sp-2xs); }
+@media (max-width: 1100px) { .home-rows { grid-template-columns: minmax(0, 1fr); } }
+
 /* 0164 · S-02 calm pass: one head line for the strip and the booking picker, secondary row actions on hover/focus,
    quiet notes with an icon, the walk-in explanation behind "How it works", the demo note as a footnote. */
 .checkin-todayhead { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }

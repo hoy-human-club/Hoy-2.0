@@ -95,16 +95,22 @@ export function DashboardPage() {
       </Card>
     ),
     'AuditTrail': () => (
-      <Card title={t('admin.dashboard.audit')} actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
+      <Card className="is-wide" title={t('admin.dashboard.audit')} actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
         <Timeline items={trail} limit={8} />
       </Card>
     ),
   };
 
+  const KPI = 'KPIRow ×4';
+  const visible = sections.filter(isVisible).filter((name) => SECTIONS[name]);
   return (
     <div className="stack">
       <div className="page-head"><h1>{t('admin.dashboard.title')}</h1></div>
-      {sections.filter(isVisible).map((name) => SECTIONS[name] ? <Fragment key={name}>{SECTIONS[name]()}</Fragment> : null)}
+      {/* 0165 · the KPI row runs across; the other sections pair into equal-height rows (layout-editor order kept) */}
+      {visible.filter((n) => n === KPI).map((name) => <Fragment key={name}>{SECTIONS[name]()}</Fragment>)}
+      <div className="adm-rows">
+        {visible.filter((n) => n !== KPI).map((name) => <Fragment key={name}>{SECTIONS[name]()}</Fragment>)}
+      </div>
     </div>
   );
 }

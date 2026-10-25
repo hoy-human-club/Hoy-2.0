@@ -8,7 +8,8 @@
 export const DEPTH_SELECTOR = [
   '[data-depth]', '.hub-tile:not(.is-row)', '.card.is-interactive', '.stat', '.classcard', '.cust-quick-btn',
 ].join(', ');
-const DEPTH_MAX_DEG = 2.5;
+// 0165: 2.5° read as flat on wide dashboard tiles; 4° is visible without pulling attention.
+const DEPTH_MAX_DEG = 4;
 
 let installed = false;
 
