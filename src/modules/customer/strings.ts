@@ -34,6 +34,7 @@ export const strings: StringTable = {
   'customer.home.next.cta': { es: 'Reserva tu primera clase', en: 'Book your first class' },
   'customer.home.today': { es: 'Hoy en el club', en: 'Today at the club' },
   'customer.home.today.empty': { es: 'Hoy descansamos.', en: 'We rest today.' },
+  'customer.home.comingUp': { es: 'Lo que viene', en: 'Coming up' },
   // C-01 practice block (0040): every label says what is counted; "racha" never stands alone as a headline (research §5.8).
   'customer.home.stats.title': { es: 'Tu práctica', en: 'Your practice' },
   'customer.home.stats.classes': { es: 'Clases tomadas este mes', en: 'Classes attended this month' },

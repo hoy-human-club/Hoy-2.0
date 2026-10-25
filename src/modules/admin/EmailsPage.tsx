@@ -100,7 +100,7 @@ export function EmailsPage() {
       {loading && templates.length === 0 && <EmptyState tone="loading" title={t('core.common.loading')} />}
       {!loading && templates.length === 0 && <EmptyState title={t('admin.emails.empty')} body={t('admin.emails.empty.body')} action={canWrite && <Button size="sm" disabled={!readsReady} onClick={createMissing}>{t('admin.emails.createMissing', { n: missing.length })}</Button>} />}
       {templates.length > 0 && (
-        <div className="stack-sm">
+        <div className="stack-sm emails-filters">
           <div className="row wrap" role="tablist" aria-label={t('admin.emails.f.audience')}>
             {EMAIL_AUDIENCES.map((a) => <Chip key={a} selected={audience === a} onClick={() => { setAudience(a); setSelected(null); }}>{t(`admin.emails.audience.${a}`)} · {templates.filter((x) => audienceOf(x) === a).length}</Chip>)}
           </div>

@@ -27,6 +27,12 @@
 /* 0167 · the standing demo notes are quiet paper lines, not two bright banners competing with the editor */
 :root .deskshell-main :is(.emails-notes .notice, .emails-side .notice-info) { padding: var(--sp-sm) var(--sp-md); border: 0; background: var(--color-surface-2); box-shadow: none; font-size: var(--fs-xs); color: var(--color-text); }
 :root .deskshell-main :is(.emails-notes, .emails-side) .notice .notice-title { font-size: var(--fs-sm); }
+/* 0168 · the notes read in two lines (the rest on hover or focus) and both filter rows share one line, so the
+   workspace starts above the fold */
+.emails-notes .notice-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.emails-notes .notice:is(:hover, :focus-within) .notice-text { -webkit-line-clamp: unset; }
+.emails-filters { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-sm) var(--sp-xl); }
+.emails-filters > .row-between { flex: 1 1 28rem; }
 /* 0167 · three columns, one height: the list, the preview and the editor each scroll inside their own column
    (no scrollbars, a fade at the foot), so the workspace is one screen tall and no column ends early */
 @media (min-width: 1200.02px) {
@@ -100,7 +106,10 @@
 /* 0165 · M-01 below the KPI row: two equal-height columns; a wide card or a lone last card spans both */
 .adm-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
 .adm-rows > * { min-width: 0; }
-.adm-rows > .is-wide, .adm-rows > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+.adm-rows > .is-wide { grid-column: 1 / -1; }
+/* 0168 · today leads across the full width (the day comes first and its rows are short); the occupancy chart and the
+   last five audit entries pair below at matching heights — no half-empty card */
+.adm-rows > .adm-today-card { order: -1; grid-column: 1 / -1; }
 @media (max-width: 1100px) { .adm-rows { grid-template-columns: minmax(0, 1fr); } }
 .adm-today { display: grid; grid-template-columns: minmax(4.75rem, max-content) minmax(0, 1fr) auto; gap: var(--sp-md); align-items: center; padding: var(--sp-sm) 0; border-bottom: 1px solid var(--color-border); }
 .adm-today:last-child { border-bottom: 0; }

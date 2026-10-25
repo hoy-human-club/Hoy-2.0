@@ -14,6 +14,16 @@ const pages = [
   ['finance', 'usr_fin', '/admin/finance'],
   ['marketing', 'usr_mkt', '/admin/marketing'],
   ['hub', 'usr_super', '/hub'],
+  // 0168 · every role's home
+  ['home-desk', 'usr_desk', '/staff'],
+  ['home-coord', 'usr_coord', '/staff'],
+  ['home-maint', 'usr_maint', '/staff'],
+  ['home-admin', 'usr_admin', '/admin'],
+  ['home-finance', 'usr_fin', '/admin'],
+  ['home-marketing', 'usr_mkt', '/admin/content'],
+  ['home-dev', 'usr_dev', '/dev'],
+  ['home-teacher', 'usr_teach', '/teach'],
+  ['home-member', 'usr_cust', '/app'],
 ];
 const only = process.env.ONLY ? process.env.ONLY.split(',') : null;
 await mkdir(out, { recursive: true });
@@ -31,7 +41,7 @@ try {
     }, { userId });
     const page = await ctx.newPage();
     await page.goto(`${base}/#${route}`);
-    await page.locator(name === 'hub' ? '.hub-bento-bottom' : '.deskshell-main').waitFor();
+    await page.locator(name === 'hub' ? '.hub-bento-bottom' : 'main').first().waitFor();
     await page.waitForTimeout(1500);
     if (name === 'hub') {
       await page.locator('.hub-bento-bottom').screenshot({ path: `${out}/hub-bottom-1440.png`, animations: 'disabled' });

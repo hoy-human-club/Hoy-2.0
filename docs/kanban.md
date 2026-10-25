@@ -38,8 +38,11 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0167 seat pages, visual pass on `ui-polish/seat-pages-visual`: rebuilt against real 1440 screenshots (`scripts/capture-seats.mjs`, `docs/screenshots/seats/`). Check-in top band + side-by-side roster, one-screen inbox, POS step 3 beside the summary, equal-height email workspace, finance head + no inner table scroll, marketing calendar + split side cards, hub build list + tool grid. 26 tests pass.
 
+- 0168 honest balance on `ui-polish/honest-balance`: no padded empty cards anywhere; quiet info notices; inbox triage pane; check-in masonry roster; emails compact notes + one filter row; marketing brand refs in the side column; desk / admin / teacher / member / maintenance homes rebuilt around real content. Screenshots of all role homes. 27 tests pass.
+
 ### Next
 
+- Content (marketing home): four stacked control rows above a wide table with mostly empty columns — needs its own pass.
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
 - IA phase 2: merge related pages into tabs (Mensajes, Caja, Miembros, Nómina, Gastos, Salas, Ventas) with redirects from the old URLs; shared PageTabs pattern in D-02.

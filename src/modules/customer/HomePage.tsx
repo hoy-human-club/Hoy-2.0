@@ -60,6 +60,7 @@ export function CustomerHomePage() {
     return all.filter((x) => isSameDay(x.session.starts_at, new Date()) && x.session.status === 'scheduled' && new Date(x.session.ends_at).getTime() > now);
   }, [all, now]);
   const membership = memberships[0];
+  const comingUp = useMemo(() => all.filter((x) => x.session.status === 'scheduled' && new Date(x.session.starts_at).getTime() > now && !isSameDay(x.session.starts_at, new Date())).sort((a, b) => a.session.starts_at.localeCompare(b.session.starts_at)).slice(0, 4), [all, now]);
 
   const book = (sessionId: string) => nav(`/app/checkout/${sessionId}`);
 
@@ -95,8 +96,13 @@ export function CustomerHomePage() {
     'TodayList': () => (
       <section className="stack-sm cust-home-block">
         <div className="eyebrow">{t('customer.home.today')}</div>
-        <Card padding="sm" className={`cust-today ${today.length === 0 ? 'is-empty' : ''}`}>
-          {today.length === 0 && <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('customer.home.today.empty')}</p>}
+        <Card padding="sm" className="cust-today">
+          {today.length === 0 && <p className="muted small cust-today-empty">{t('customer.home.today.empty')}</p>}
+          {/* 0168 · a rest day shows what is coming up instead of an empty card */}
+          {today.length === 0 && comingUp.length > 0 && <div className="eyebrow cust-today-next">{t('customer.home.comingUp')}</div>}
+          {today.length === 0 && comingUp.map(({ session: s, modality: m, teacher: te }) => (
+            <ClassRow key={s.id} title={s.title} teacher={`${formatDate(s.starts_at, lang, { weekday: 'short', day: 'numeric', month: 'short' })} · ${te?.display_name ?? ''}`} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} booked_by_me={activeBookingIds.has(s.id)} onClick={() => (activeBookingIds.has(s.id) ? nav(`/app/class/${s.id}`) : s.booked_count >= s.capacity ? nav(`/app/waitlist/${s.id}`) : book(s.id))} />
+          ))}
           {today.map(({ session: s, modality: m, teacher: te }) => (
             <ClassRow key={s.id} title={s.title} teacher={te?.display_name ?? ''} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} booked_by_me={activeBookingIds.has(s.id)} onClick={() => (activeBookingIds.has(s.id) ? nav(`/app/class/${s.id}`) : s.booked_count >= s.capacity ? nav(`/app/waitlist/${s.id}`) : book(s.id))} />
           ))}

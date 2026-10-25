@@ -17,12 +17,17 @@
 .mkt-actions { align-items: center; }
 .mkt-actions > .mkt-empty { margin: 0 0 0 auto; }
 .mkt-side { display: flex; flex-direction: column; gap: var(--block); min-width: 0; }
-.mkt-side > .card { flex: 1 1 0; }
-.mkt-assets .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
-.mkt-assets .marketing-brand { height: var(--sp-5xl); width: 100%; }
+/* 0168 · cards keep their natural height (no stretched empty cards); empty lines read as quiet hints */
+.mkt-side .card p:only-of-type { color: var(--color-text-muted); font-size: var(--fs-sm); }
+.mkt-assets .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--sp-md); }
+.mkt-assets .card { padding: var(--sp-md); }
+.mkt-assets .card p { margin: 0; font-size: var(--fs-sm); }
+.mkt-assets .marketing-brand { height: var(--sp-4xl); width: 100%; }
 @media (min-width: 1100px) {
-  .mkt-board { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 1fr); align-items: stretch; }
+  /* 0168 · brand references join the side column under the two draft cards, so the side carries real content beside
+     the calendar instead of two stretched empty cards */
+  .mkt-board { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(20rem, 1fr); grid-auto-flow: row dense; align-items: start; }
   .mkt-board > * { grid-column: 1 / -1; min-width: 0; }
-  .mkt-board > .mkt-calendar { grid-column: 1; }
-  .mkt-board > .mkt-side { grid-column: 2; }
+  .mkt-board > .mkt-calendar { grid-column: 1; grid-row: span 2; }
+  .mkt-board > .mkt-side, .mkt-board > .mkt-assets { grid-column: 2; }
 }

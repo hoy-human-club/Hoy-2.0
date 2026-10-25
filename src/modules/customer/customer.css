@@ -11,7 +11,8 @@
 .cust-announce-icon { display: inline-grid; place-items: center; inline-size: var(--sp-xl); block-size: var(--sp-xl); border-radius: 50%; background: var(--tone-sun-dot); color: var(--brand-ink); flex: 0 0 auto; }
 .cust-announce-label { font-weight: var(--fw-semibold); }
 .cust-announce-body { color: var(--color-text-muted); min-width: 0; }
-.cust-today.is-empty { display: grid; place-items: center; }
+.cust-today-empty { margin: 0; padding: var(--sp-sm) var(--sp-md) 0; }
+.cust-today-next { margin: 0; padding: var(--sp-md) var(--sp-md) var(--sp-xs); }
 
 /* shared page scaffolding */
 .cust-page { display: flex; flex-direction: column; gap: var(--sp-lg); padding-top: var(--sp-lg); }
