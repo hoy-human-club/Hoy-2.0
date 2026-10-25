@@ -12,13 +12,14 @@ import { ConversationList } from '../../components/organism/ConversationList/Con
 import { MessageThread } from '../../components/organism/MessageThread/MessageThread';
 import { MessageComposer } from '../../components/molecule/MessageComposer/MessageComposer';
 import { maskPhone, usePeople } from './people';
+import { formatRelative } from '../../i18n/format';
 import './staff.css';
 import { Icon } from '../../components/atom/Icon/Icon';
 
 /** S-06 front-desk inbox: every customer conversation on the left, the selected thread and the reply box on the right. */
 export function InboxPage() {
   const { id } = useParams();
-  const { t, bi } = useI18n();
+  const { t, bi, lang } = useI18n();
   const { can, user } = useSession();
   const { conversations, loading } = useConversations();
   const { sendComposed, markConversationRead, quietUntil } = useMessaging('front_desk');
@@ -26,6 +27,8 @@ export function InboxPage() {
   const { byId } = usePeople();
   const summaries = useMemo(() => conversations.map(toSummary), [conversations]);
   const unread = conversations.reduce((a, c) => a + c.unread, 0);
+  // Triage: unread threads, the longest wait first.
+  const waiting = useMemo(() => summaries.filter((s) => s.unread > 0).sort((a, b) => a.lastAt.localeCompare(b.lastAt)), [summaries]);
   const selected = id ? conversations.find((c) => c.userId === id) : undefined;
   // A member with no messages yet (opened from M-06) still gets a pane: an empty thread and the composer to start one.
   const person = selected?.person ?? (id ? byId.get(id) : undefined);
@@ -47,7 +50,34 @@ export function InboxPage() {
           {loading && conversations.length === 0 ? <EmptyState compact tone="loading" title={t('core.common.loading')} /> : <ConversationList conversations={summaries} selectedKey={id} linkTo={(k) => `/staff/inbox/${k}`} />}
         </aside>
         <section className="inbox-pane" aria-live="polite">
-          {!id && <Card className="inbox-empty"><EmptyState icon="inbox" title={t('staff.inbox.select')} body={t('staff.inbox.select.body')} /></Card>}
+          {/* 0168 · with no thread open the pane is a triage view (who has waited longest), not an empty void */}
+          {!id && (waiting.length === 0
+            ? <Card className="inbox-empty"><EmptyState icon="inbox" title={t('staff.inbox.triage.done')} body={t('staff.inbox.select.body')} /></Card>
+            : <Card padding="none" className="inbox-triage">
+                <header className="inbox-triage-head">
+                  <div className="inbox-triage-title">
+                    <h2 className="inbox-name">{t('staff.inbox.triage.title')}</h2>
+                    <p className="small muted">{t('staff.inbox.triage.body')}</p>
+                  </div>
+                  <div className="row wrap"><Badge tone="warn">{t('staff.inbox.triage.unread', { n: unread })}</Badge><Badge>{t('staff.inbox.triage.threads', { n: waiting.length })}</Badge></div>
+                </header>
+                <ol className="inbox-triage-list">
+                  {waiting.map((c) => (
+                    <li key={c.key}>
+                      <Link to={`/staff/inbox/${c.key}`} className="inbox-triage-row">
+                        <Avatar name={c.name} initials={c.initials} size={40} />
+                        <span className="inbox-triage-who">
+                          <strong>{c.name}</strong>
+                          <span className="xs muted"><Icon name={c.channel === 'email' ? 'mail' : 'whatsapp'} size="xs" /> {t('staff.inbox.triage.waiting', { when: formatRelative(c.lastAt, lang) })}</span>
+                          <span className="small inbox-triage-snippet">{c.snippet}</span>
+                        </span>
+                        <span className="inbox-triage-go"><Badge tone="primary">{c.unread}</Badge><span className="small">{t('staff.inbox.triage.open')}</span><Icon name="arrow-right" size="sm" /></span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+                <p className="xs muted inbox-triage-foot">{t('staff.inbox.select')} · {t('staff.inbox.select.body')}</p>
+              </Card>)}
           {id && !person && <Card className="inbox-empty"><EmptyState tone={loading ? 'loading' : 'empty'} title={loading ? t('core.common.loading') : t('staff.inbox.notFound')} body={loading ? undefined : t('staff.inbox.notFound.body')} action={<Link to="/staff/inbox"><Button size="sm" variant="secondary">{t('staff.inbox.back')}</Button></Link>} /></Card>}
           {id && person && (
             <Card padding="none" className="inbox-thread">

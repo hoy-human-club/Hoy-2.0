@@ -71,7 +71,7 @@ export function DashboardPage() {
       </Card>
     ),
     'TodayAtAGlance': () => (
-      <Card title={t('admin.dashboard.today')} eyebrow={t('admin.dashboard.today.eyebrow')} actions={can('checkin.write') ? <Link to="/staff/checkin" className="small">{t('core.nav.checkin')}</Link> : undefined}>
+      <Card className="adm-today-card" title={t('admin.dashboard.today')} eyebrow={t('admin.dashboard.today.eyebrow')} actions={can('checkin.write') ? <Link to="/staff/checkin" className="small">{t('core.nav.checkin')}</Link> : undefined}>
         {today.length === 0 ? <EmptyState compact title={t('admin.dashboard.today.empty')} /> : (
           <div>
             {today.map(({ session, modality, teacher }) => {
@@ -95,8 +95,8 @@ export function DashboardPage() {
       </Card>
     ),
     'AuditTrail': () => (
-      <Card className="is-wide" title={t('admin.dashboard.audit')} actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
-        <Timeline items={trail} limit={8} />
+      <Card title={t('admin.dashboard.audit')} actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
+        <Timeline items={trail} limit={5} />
       </Card>
     ),
   };

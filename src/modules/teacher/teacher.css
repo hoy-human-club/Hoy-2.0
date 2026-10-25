@@ -23,6 +23,16 @@
 /* 0165 Â· S-03 balance: from 900 px the next class pairs with the three headline numbers (stacked beside it) and today
    pairs with the specials; seven "my numbers" tiles in three columns let the last one span the row instead of a hole. */
 .teach-numbers > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+/* 0168 · from 900 px: seven numbers as 4 + 3 with the last spanning two columns (a full-width tile read as empty);
+   the three headline numbers are compact so the next-class card beside them is not stretched */
+@media (min-width: 900px) {
+  .teach-numbers { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .teach-numbers > :last-child:nth-child(3n + 1) { grid-column: auto; }
+  .teach-numbers > :last-child:nth-child(7) { grid-column: span 2; }
+  .teach-pair.is-lead .teach-lead-stats { gap: var(--sp-sm); }
+  .teach-pair.is-lead .teach-lead-stats .stat { padding: var(--sp-sm) var(--sp-lg); min-height: 0; }
+  .teach-pair.is-lead .teach-lead-stats .stat-value { font-size: var(--fs-xl); }
+}
 @media (min-width: 900px) {
   .teach-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
   .teach-pair.is-lead { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); align-items: stretch; }

@@ -13,3 +13,5 @@
 .timeline-title { font-size: var(--fs-sm); font-family: var(--font-heading); font-weight: var(--fw-medium); }
 .timeline-body { margin-top: var(--sp-2xs); white-space: pre-wrap; }
 .timeline-empty { padding: var(--sp-md) 0; }
+/* 0168 · the timestamp reads in the body face with even digits (the code mono made every feed look like a log) */
+.timeline-head .mono { font-family: var(--font-body); font-variant-numeric: tabular-nums; letter-spacing: 0; white-space: nowrap; }
