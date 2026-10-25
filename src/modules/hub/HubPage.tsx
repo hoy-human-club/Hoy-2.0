@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useMemo, useRef, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pkg from '../../../package.json';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -10,7 +10,6 @@ import { tenant } from '../../tenant/tenant';
 import { taglines } from '../../tenant/brand';
 import { getRoutes } from '../../app/registry';
 import { routeManifest } from '../../app/manifest';
-import { liveFramesAllowed } from '../../app/frameSession';
 import { componentCount, manualChapterCount } from '../../app/counts';
 import { tableRegistry } from '../../data/schema';
 import { listActions, useActions } from '../../actions';
@@ -24,8 +23,6 @@ import { Placeholder } from '../../components/atom/Placeholder/Placeholder';
 import { LangToggle } from '../../components/molecule/LangToggle/LangToggle';
 import { RoleSwitcher } from '../../components/molecule/RoleSwitcher/RoleSwitcher';
 import { ProblemReport } from '../../components/organism/ProblemReport/ProblemReport';
-import { BreathingRings } from '../../components/organism/BreathingRings/BreathingRings';
-import { LivePreviewBudget, PagePreview } from '../../components/organism/PagePreview/PagePreview';
 import { hubSpec, HUB_SURFACES, HUB_TOOLS, type HubSurfaceKey, type HubToolKey } from './specs';
 import { useUiScale } from './useUiScale';
 import { HUB_EXPERIENCES, HUB_TOOL_LIST } from '../../hub/hubMap.data';
@@ -112,94 +109,85 @@ const TOOL_UI: Record<HubToolKey, { icon: IconName; isNew?: boolean }> = {
 const TOOLS: ToolCard[] = HUB_TOOL_LIST.map((x) => ({ key: x.id as HubToolKey, to: x.route, ...TOOL_UI[x.id as HubToolKey] }));
 
 type Status = 'built' | 'stub' | 'planned';
+type TileKind = 'tone' | 'seat' | 'row' | 'training';
 
-/** One surface card: medallion, status, preview, and the one button that enters it. */
-function SurfaceTile({ card, order, status, here, live, ui, onEnter }: {
-  card: SurfaceCard; order: number; status: Status; here: boolean; live: boolean; ui: number;
-  onEnter: (card: SurfaceCard) => void;
+/**
+ * 0161 · bento hub (layout B): members' experiences are whole class-tone tiles, the team's seats paper tiles with a tone
+ * dot, the build experiences rows on the ink tile. Tone ids are D-01 class tones; ink is deep on every tone but moss.
+ */
+const TILE_TONE: Partial<Record<HubSurfaceKey, string>> = {
+  app: 'river', site: 'sun', 'coming-soon': 'clay', teacher: 'moss',
+  desk: 'river', inbox: 'sage', pos: 'sun', admin: 'clay', crm: 'plum', messages: 'slate', finance: 'moss', marketing: 'plum',
+};
+
+/** One experience tile: what it is, its status, the one button that enters it, its route. Live previews were dropped
+ *  for the bento (0161): the tile names the screen and the button opens it. */
+function HubTile({ card, kind, status, here, onEnter }: {
+  card: SurfaceCard; kind: TileKind; status: Status; here: boolean; onEnter: (card: SurfaceCard) => void;
 }) {
   const { t, bi } = useI18n();
   const { devMode } = useSession();
   const name = t(`hub.card.${card.key}`);
   const person = card.role ? demoUserByRole(card.role) : undefined;
-  const tone = status === 'built' ? 'success' : status === 'stub' ? 'warn' : 'neutral';
+  const tone = TILE_TONE[card.key];
+  const who = card.key === 'promotions' ? t('hub.training.everyone') : card.role ? bi(ROLE_LABEL[card.role]) : bi(ROLE_LABEL.public);
+  const enterLabel = card.key === 'promotions' ? t('hub.training.open') : person ? t('hub.enterAs', { name: person.name.split(' ')[0] }) : t('hub.open');
 
   return (
-    <article className={`hub-card ${card.featured ? 'is-featured' : ''} ${card.comingSoon ? 'is-soon' : ''}`} style={{ ['--hue' as string]: `var(--hue-${card.hue ?? card.key})` }}>
-      <div className="hub-card-body">
-        <div className="hub-card-top">
-          <span className="hub-medallion" aria-hidden><Icon name={card.icon} size={Math.round(22 * ui)} /></span>
-          <div className="hub-card-badges">
-            {card.key === 'promotions' ? <Badge tone="highlight">{t('hub.training.preview')}</Badge> : card.comingSoon ? <Badge tone="highlight">{t('hub.status.soon')}</Badge> : <Badge tone={tone}>{t(`hub.status.${status}`)}</Badge>}
-            {here && !card.comingSoon && <Badge tone="primary">{t('hub.here')}</Badge>}
-          </div>
-        </div>
-        <h3 className="hub-card-title">{name}</h3>
-        <p className="hub-card-lead muted">{t(`hub.card.${card.key}.body`)}</p>
-        <div className="hub-card-foot">
-          {card.comingSoon ? (
-            <>
-              <Placeholder what={name}><Button variant="secondary" icon="sparkle">{t('hub.soon.cta')}</Button></Placeholder>
-              <Link className="hub-card-secondary small" to={card.to} onClick={(e) => { e.preventDefault(); onEnter({ ...card, comingSoon: false }); }}>{t('hub.soon.today', { code: card.code })}</Link>
-            </>
-          ) : (
-            <Button variant="secondary" onClick={() => onEnter(card)}>
-              {card.key === 'promotions' ? t('hub.training.open') : person ? t('hub.enterAs', { name: person.name.split(' ')[0] }) : t('hub.open')}
-            </Button>
-          )}
-          {card.secondary && (
-            <Link
-              className="hub-card-secondary small" to={card.secondary.to}
-              onClick={card.secondary.asRole ? (e) => { e.preventDefault(); onEnter({ ...card, to: card.secondary!.to }); } : undefined}
-            >{t(card.secondary.key)}</Link>
-          )}
-        </div>
-        <p className="hub-card-meta xs">
-          <span>{card.key === 'promotions' ? t('hub.training.everyone') : card.role ? bi(ROLE_LABEL[card.role]) : bi(ROLE_LABEL.public)}</span>
-          <span aria-hidden> · </span>
-          <code>{card.to}</code>
-          {devMode && <code className="hub-card-code">{card.code}</code>}
-        </p>
+    <article className={`hub-card hub-tile is-${kind} ${card.comingSoon ? 'is-soon' : ''}`} data-tone={tone}>
+      <div className="hub-tile-top">
+        {kind === 'seat' && <span className="hub-tile-dot" aria-hidden />}
+        {kind !== 'row' && <span className="hub-tile-eyebrow">{kind === 'seat' && devMode ? card.code : who}</span>}
+        <span className="hub-tile-badges">
+          {card.key === 'promotions' && <Badge tone="highlight">{t('hub.training.preview')}</Badge>}
+          {card.comingSoon && <Badge tone="highlight">{t('hub.status.soon')}</Badge>}
+          {!card.comingSoon && card.key !== 'promotions' && status !== 'built' && <Badge tone={status === 'stub' ? 'warn' : 'neutral'}>{t(`hub.status.${status}`)}</Badge>}
+          {here && !card.comingSoon && <Badge tone="primary">{t('hub.here')}</Badge>}
+        </span>
       </div>
-      <div className="hub-card-preview">
-        <PagePreview
-          code={card.code} route={card.to} name={name} shape={card.shape ?? 'desktop'}
-          as={card.role} live={live && !card.comingSoon} order={order} maxScale={card.shape === 'phone' ? ui : 1}
-        />
+      <div className="hub-tile-text">
+        <h3 className="hub-tile-title">{name}</h3>
+        <p className="hub-tile-body">{t(`hub.card.${card.key}.body`)}</p>
+      </div>
+      <div className="hub-tile-foot">
+        {card.comingSoon ? (
+          <>
+            <Placeholder what={name}><Button variant="secondary" size="sm" icon="sparkle">{t('hub.soon.cta')}</Button></Placeholder>
+            <Link className="hub-tile-link" to={card.to} onClick={(e) => { e.preventDefault(); onEnter({ ...card, comingSoon: false }); }}>{t('hub.soon.today', { code: card.code })}</Link>
+          </>
+        ) : (
+          <Button variant="secondary" size="sm" onClick={() => onEnter(card)}>{enterLabel}</Button>
+        )}
+        {card.secondary && (
+          <Link
+            className="hub-tile-link" to={card.secondary.to}
+            onClick={card.secondary.asRole ? (e) => { e.preventDefault(); onEnter({ ...card, to: card.secondary!.to }); } : undefined}
+          >{t(card.secondary.key)}</Link>
+        )}
+        <code className="hub-tile-route">{card.to}</code>
       </div>
     </article>
   );
 }
 
-/** A band: 3fr header on the left, the card grid on the right. */
-function Band({ id, eyebrow, title, body, tint, children }: {
-  id: string; eyebrow: string; title: string; body: string; tint?: boolean; children: ReactNode;
-}) {
+/** A bento section: a serif heading with a short line beside it, then its tiles. */
+function Section({ id, title, aside, children }: { id: string; title: string; aside: string; children: ReactNode }) {
   return (
-    <section className={`hub-band-row ${tint ? 'is-tinted' : ''}`} aria-labelledby={id}>
-      <div className="hub-wrap hub-band-inner">
-        <header className="hub-band-head">
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 id={id}>{title}</h2>
-          <p className="muted hub-band-body">{body}</p>
-        </header>
-        <div className="hub-band-content">{children}</div>
-      </div>
+    <section className="hub-section" aria-labelledby={id}>
+      <header className="hub-section-head"><h2 id={id}>{title}</h2><p>{aside}</p></header>
+      {children}
     </section>
   );
 }
 
 /** HUB-01 — the front door of the whole system. */
 export function HubPage() {
-  const { t, bi, setLang } = useI18n();
+  const { t, bi, lang, setLang } = useI18n();
   const nav = useNavigate();
-  const { role, isSuperAdmin, canDevMode, devMode, setDevMode, switchUser } = useSession();
+  const { user, role, isSuperAdmin, canDevMode, devMode, setDevMode, switchUser } = useSession();
   const { theme, toggleTheme, skin, toggleSkin } = useTheme();
   const root = useRef<HTMLDivElement>(null);
   const ui = useUiScale(root);
-
-  // Live frames: never inside a frame, never with live=0 in the URL. Decided once per mount.
-  const [live] = useState(() => liveFramesAllowed());
 
   const routes = useMemo(() => getRoutes(), []);
   const manifest = useMemo(() => routeManifest(routes), [routes]);
@@ -264,109 +252,97 @@ export function HubPage() {
   }), [enter, nav, setDevMode, devMode, setLang, toggleTheme, theme, toggleSkin, skin, isSuperAdmin, canDevMode]);
   useActions(hubSpec, handlers);
 
-  // Document order decides who gets one of the six live frames first.
-  const tile = (card: SurfaceCard) => (
-    <SurfaceTile
-      key={card.key} card={card} order={ALL_CARDS.indexOf(card)} status={statusOf(card.to)}
-      here={ROLE_HOME[role] === card.to} live={live} ui={ui} onEnter={enter}
-    />
+  const tile = (kind: TileKind) => (card: SurfaceCard) => (
+    <HubTile key={card.key} card={card} kind={kind} status={statusOf(card.to)} here={ROLE_HOME[role] === card.to} onEnter={enter} />
   );
+  const opens = useMemo(() => new Date(`${tenant.opensOn}T12:00:00`), []);
+  const daysLeft = Math.ceil((opens.getTime() - Date.now()) / 86400000);
+  const month = opens.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-CO', { month: 'long' });
+  const firstName = user.name.split(' ')[0];
 
   return (
-    <LivePreviewBudget max={6}>
-      <div className="hub" ref={root}>
-        <div className="hub-brandband">
-          <div className="hub-wrap">
-            <header className="hub-head">
-              <div className="hub-head-brand">
-                <Link to="/hub" aria-label={t('core.nav.hub')}><Wordmark height={Math.round(30 * ui)} variant="cream" /></Link>
-                <Badge tone="highlight">{t('hub.version', { v: pkg.version })}</Badge>
-              </div>
-              <div className="hub-head-tools">
-                <LangToggle />
-                <button type="button" className="hub-iconbtn ctl-round" onClick={toggleTheme} aria-label={t('core.theme.toggle')} title={t('core.theme.toggle')}>
-                  <Icon name={theme === 'dark' ? 'moon' : 'sun'} size={20} />
-                </button>
-                {isSuperAdmin && <Toggle size="sm" checked={skin === 'wireframe'} onChange={toggleSkin} label={t('hub.wireframe')} />}
-                {canDevMode && <Toggle size="sm" checked={devMode} onChange={setDevMode} label={t('core.dev.mode')} />}
-              </div>
-            </header>
-
-            <section className="hub-hero">
-              <div className="hub-hero-text">
-                <p className="eyebrow">{tenant.legalName} · {tenant.city}</p>
-                <h1>{t('hub.title')}</h1>
-                <p className="hub-hero-lead">{t('hub.lead')}</p>
-                <p className="hub-hero-tagline">{bi(taglines.start)}</p>
-              </div>
-              <div className="hub-hero-art" aria-hidden>
-                <BreathingRings size={Math.round(340 * ui)} />
-              </div>
-            </section>
+    <div className="hub hub-bento" ref={root}>
+      <div className="hub-wrap">
+        <header className="hub-head">
+          <div className="hub-head-brand">
+            <Link to="/hub" aria-label={t('core.nav.hub')}><Wordmark height={Math.round(28 * ui)} /></Link>
+            <span className="hub-head-label">{t('hub.bento.label')}</span>
+            <Badge tone="highlight">{t('hub.version', { v: pkg.version })}</Badge>
           </div>
-        </div>
-
-        <div className="hub-wrap">
-          <div className="hub-sessionbar">
-            <span className="eyebrow hub-sessionbar-label">{t('hub.session')}</span>
-            <RoleSwitcher />
+          <div className="hub-head-tools">
             <ProblemReport />
-            {devMode && <p className="small hub-devhint">{t('hub.devHint')}</p>}
+            <LangToggle />
+            <button type="button" className="hub-iconbtn ctl-round" onClick={toggleTheme} aria-label={t('core.theme.toggle')} title={t('core.theme.toggle')}>
+              <Icon name={theme === 'dark' ? 'moon' : 'sun'} size={20} />
+            </button>
+            {isSuperAdmin && <Toggle size="sm" checked={skin === 'wireframe'} onChange={toggleSkin} label={t('hub.wireframe')} />}
+            {canDevMode && <Toggle size="sm" checked={devMode} onChange={setDevMode} label={t('core.dev.mode')} />}
           </div>
-        </div>
+        </header>
 
         <main className="hub-main">
-          <Band id="hub-band-promotions" eyebrow={t('hub.band.promotions.eyebrow')} title={t('hub.band.promotions.title')} body={t('hub.band.promotions.body')}>
-            <div className="hub-grid hub-promotions-preview">{BAND_PROMOTIONS.map(tile)}</div>
-          </Band>
+          <div className="hub-bento-top">
+            <section className="hub-hero" aria-labelledby="hub-title">
+              <p className="hub-hero-eyebrow">{tenant.legalName} · {tenant.city}</p>
+              <h1 id="hub-title">
+                {t('hub.bento.one')} <br /><em>{t('hub.bento.every')}</em> {t('hub.bento.at')} <span className="hub-mark">{t('hub.bento.studio')}</span>.
+              </h1>
+              <p className="hub-hero-lead">{t('hub.bento.lead')}</p>
+              <div className="hub-sessionbar">
+                <span className="hub-sessionbar-label">{t('hub.session')}</span>
+                <RoleSwitcher />
+                <button type="button" className="hub-sun-btn" onClick={() => nav(ROLE_HOME[role])}>{t('hub.bento.openHome', { name: firstName })} <span aria-hidden>→</span></button>
+              </div>
+              {devMode && <p className="small hub-devhint">{t('hub.devHint')}</p>}
+            </section>
+            <section className="hub-date" aria-label={t('hub.bento.opening')}>
+              <p className="hub-hero-eyebrow">{daysLeft > 0 ? t('hub.bento.daysLeft', { n: daysLeft }) : t('hub.bento.opening')}</p>
+              <p className="hub-date-day"><span>{opens.getDate()}</span> <em>{month}</em></p>
+              <p className="hub-date-meta">{bi(taglines.start)}</p>
+            </section>
+          </div>
 
-          <Band id="hub-band-outside" eyebrow={t('hub.band.outside.eyebrow')} title={t('hub.band.outside.title')} body={t('hub.band.outside.body')}>
-            <div className="hub-grid hub-grid-outside">{BAND_OUTSIDE.map(tile)}</div>
-          </Band>
+          <div className="hub-promotions-preview">{BAND_PROMOTIONS.map(tile('training'))}</div>
 
-          <Band id="hub-band-team" eyebrow={t('hub.band.team.eyebrow')} title={t('hub.band.team.title')} body={t('hub.band.team.body')}>
-            <div className="hub-grid hub-grid-team">{BAND_TEAM.map(tile)}</div>
-          </Band>
+          <Section id="hub-band-outside" title={t('hub.band.outside.title')} aside={t('hub.band.outside.eyebrow')}>
+            <div className="hub-grid-outside">{BAND_OUTSIDE.map(tile('tone'))}</div>
+          </Section>
 
-          <Band id="hub-band-build" eyebrow={t('hub.band.build.eyebrow')} title={t('hub.band.build.title')} body={t('hub.band.build.body')} tint>
-            <div className="hub-grid hub-grid-build">{BAND_BUILD.map(tile)}</div>
-          </Band>
+          <Section id="hub-band-team" title={t('hub.band.team.title')} aside={t('hub.band.team.eyebrow')}>
+            <div className="hub-grid-team">{BAND_TEAM.map(tile('seat'))}</div>
+          </Section>
 
-          <Band id="hub-band-tools" eyebrow={t('hub.band.tools.eyebrow')} title={t('hub.band.tools.title')} body={t('hub.band.tools.body')}>
-            <ul className="hub-tools">
-              {TOOLS.map((tool) => (
-                <li key={tool.key}>
-                  <Link className="hub-tool" to={tool.to} style={{ ['--hue' as string]: 'var(--hue-dev)' }}>
-                    <span className="hub-tool-icon" aria-hidden><Icon name={tool.icon} size={Math.round(20 * ui)} /></span>
-                    <span className="hub-tool-text">
-                      <span className="hub-tool-title">
-                        {t(`hub.tool.${tool.key}`)}
-                        {tool.isNew && <Badge tone="highlight">{t('hub.new')}</Badge>}
-                      </span>
-                      <span className="hub-tool-body muted xs">{t(`hub.tool.${tool.key}.body`)}</span>
-                    </span>
-                    <span className="hub-tool-go" aria-hidden><Icon name="arrow-right" size={18} /></span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Band>
+          <div className="hub-bento-bottom">
+            <section className="hub-build" aria-labelledby="hub-band-build">
+              <h2 id="hub-band-build">{t('hub.band.build.title')}</h2>
+              <div className="hub-build-rows">{BAND_BUILD.map(tile('row'))}</div>
+            </section>
+            <section className="hub-toolbox" aria-labelledby="hub-band-tools">
+              <h2 id="hub-band-tools">{t('hub.band.tools.title')}</h2>
+              <ul className="hub-tools">
+                {TOOLS.map((tool) => (
+                  <li key={tool.key}>
+                    <Link className="hub-tool" to={tool.to} title={t(`hub.tool.${tool.key}.body`)}>
+                      <Icon name={tool.icon} size={16} />{t(`hub.tool.${tool.key}`)}
+                      {tool.isNew && <Badge tone="highlight">{t('hub.new')}</Badge>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <dl className="hub-stats" aria-label={t('hub.stats.label')}>
+                {stats.map((s) => (
+                  <div key={s.key} className="hub-stat">
+                    <dt className="hub-stat-key">{t(`hub.stat.${s.key}`)}</dt>
+                    <dd className="hub-stat-value">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          </div>
         </main>
 
-        <footer className="hub-foot">
-          <div className="hub-wrap">
-            <dl className="hub-stats" aria-label={t('hub.stats.label')}>
-              {stats.map((s) => (
-                <div key={s.key} className="hub-stat">
-                  <dt className="eyebrow">{t(`hub.stat.${s.key}`)}</dt>
-                  <dd className="hub-stat-value">{s.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="muted xs hub-footline">{t('hub.footer', { v: pkg.version })}</p>
-          </div>
-        </footer>
+        <footer className="hub-foot"><p className="xs hub-footline">{t('hub.footer', { v: pkg.version })}</p></footer>
       </div>
-    </LivePreviewBudget>
+    </div>
   );
 }
