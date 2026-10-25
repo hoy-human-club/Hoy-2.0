@@ -71,6 +71,11 @@
 .hours-day-why { display: inline-flex; align-items: center; gap: var(--stack-tight); overflow-wrap: anywhere; }
 /* M-01 today at a glance */
 /* The time column sizes to its widest entry ("10:10 a. m."); a time never breaks across lines (es-CO puts a plain space inside "a. m."). */
+/* 0165 · M-01 below the KPI row: two equal-height columns; a wide card or a lone last card spans both */
+.adm-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
+.adm-rows > * { min-width: 0; }
+.adm-rows > .is-wide, .adm-rows > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 1100px) { .adm-rows { grid-template-columns: minmax(0, 1fr); } }
 .adm-today { display: grid; grid-template-columns: minmax(4.75rem, max-content) minmax(0, 1fr) auto; gap: var(--sp-md); align-items: center; padding: var(--sp-sm) 0; border-bottom: 1px solid var(--color-border); }
 .adm-today:last-child { border-bottom: 0; }
 .adm-today-time { font-family: var(--font-heading); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; white-space: nowrap; }

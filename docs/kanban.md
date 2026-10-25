@@ -32,6 +32,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0164 C-01 and S-02 balance on `ui-polish/home-checkin-balance`: home blocks paired into aligned rows (subgrid), one-line announcement, week dots inside the streak tile; check-in head line with the booking picker, secondary row actions on hover/focus, no redundant badges or hints, walk-in "How it works". Check-in and customer tests pass.
 
+- 0165 shell and dashboards on `ui-polish/shell-dashboards`: menu always on screen (rail 600–1023 px, drawer only on phones), no scrollbar (fade + chevron), in-page titles visually hidden, S-01 / M-01 / S-03 homes in equal-height paired rows, resting depth on tiles and cards and a 4° tilt. Shell, staff, admin and teacher tests pass.
+
 ### Next
 
 - Hub: optional "journey" tab (layout D) for client demos.

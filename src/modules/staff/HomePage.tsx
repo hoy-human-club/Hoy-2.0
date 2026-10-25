@@ -8,7 +8,7 @@ import type { BaseRow, BookingRow, PaymentRow } from '../../data/schema';
 import { isSameDay, formatCOP } from '../../i18n/format';
 import { StatTile } from '../../components/molecule/StatTile/StatTile';
 import { Card } from '../../components/molecule/Card/Card';
-import { Button } from '../../components/atom/Button/Button';
+import { Icon } from '../../components/atom/Icon/Icon';
 import { ClassRow } from '../../components/molecule/ClassRow/ClassRow';
 import { ClassCard } from '../../components/organism/ClassCard/ClassCard';
 import { Timeline, type TimelineItem } from '../../components/organism/Timeline/Timeline';
@@ -58,40 +58,43 @@ export function StaffHomePage() {
           ? <StatTile label={t('staff.home.unread')} value={unreadMsgs} hint={unreadThreads ? t('staff.home.unread.hint', { n: unreadThreads }) : undefined} trend={unreadMsgs > 0 ? 'down' : 'flat'} />
           : <StatTile label={t('staff.home.waitlist')} value={waitlist.length} />}
       </div>
-      <div className="grid grid-2">
-        <div className="stack">
-          <section className="stack-sm">
-            <div className="eyebrow">{t('staff.home.next')}</div>
-            {next
-              ? <ClassCard variant="next" title={next.session.title} teacher={next.teacher?.display_name ?? ''} startsAt={next.session.starts_at} endsAt={next.session.ends_at} tone={next.modality?.tone ?? 'river'} booked={next.session.booked_count} capacity={next.session.capacity} cta={can('checkin.write') ? { label: t('staff.home.openCheckin'), onClick: () => nav(`/staff/checkin?session=${next.session.id}`) } : undefined} />
-              : <EmptyState compact title={t('staff.home.next.empty')} />}
-          </section>
-          <Card title={t('staff.home.todayClasses')} padding="sm">
-            {todayAll.length === 0 && <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('staff.home.todayClasses.empty')}</p>}
-            {todayAll.map(({ session: s, modality: m, teacher: te }) => <ClassRow key={s.id} title={s.title} teacher={te?.display_name ?? ''} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} onClick={can('checkin.write') ? () => nav(`/staff/checkin?session=${s.id}`) : undefined} />)}
+      {/* 0165 · paired rows, each pair the same height: next class beside the quick actions, today's classes beside the
+          messages (or the activity when the role cannot read members); the activity runs full width under them. */}
+      <div className="home-rows">
+        <section className="home-cell stack-sm">
+          <div className="eyebrow">{t('staff.home.next')}</div>
+          {next
+            ? <ClassCard variant="next" title={next.session.title} teacher={next.teacher?.display_name ?? ''} startsAt={next.session.starts_at} endsAt={next.session.ends_at} tone={next.modality?.tone ?? 'river'} booked={next.session.booked_count} capacity={next.session.capacity} cta={can('checkin.write') ? { label: t('staff.home.openCheckin'), onClick: () => nav(`/staff/checkin?session=${next.session.id}`) } : undefined} />
+            : <Card className="home-fill" padding="md"><EmptyState compact title={t('staff.home.next.empty')} /></Card>}
+        </section>
+        <section className="home-cell stack-sm" aria-labelledby="home-quick">
+          <div className="eyebrow" id="home-quick">{t('staff.home.quick')}</div>
+          <nav className="home-quick" aria-labelledby="home-quick">
+            {([
+              ['checkin.write', '/staff/checkin', 'checkin', 'staff.home.openCheckin'],
+              ['payments.write', '/staff/register', 'register', 'staff.home.openRegister'],
+              ['bookings.write_any', '/staff/rooms', 'rooms', 'staff.home.openRooms'],
+              ['members.read', '/staff/inbox', 'inbox', 'staff.home.openInbox'],
+              ['members.read', '/admin/crm', 'crm', 'staff.home.openCrm'],
+              ['tables.read', '/admin/tables', 'table', 'staff.home.openTables'],
+            ] as const).filter(([perm]) => can(perm)).map(([, to, icon, key]) => (
+              <Link key={to} to={to} className="home-quick-tile" data-depth><span className="home-quick-icon" aria-hidden><Icon name={icon} size="md" /></span><span>{t(key)}</span></Link>
+            ))}
+          </nav>
+        </section>
+        <Card title={t('staff.home.todayClasses')} padding="sm" className="home-cell">
+          {todayAll.length === 0 && <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('staff.home.todayClasses.empty')}</p>}
+          {todayAll.map(({ session: s, modality: m, teacher: te }) => <ClassRow key={s.id} title={s.title} teacher={te?.display_name ?? ''} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} onClick={can('checkin.write') ? () => nav(`/staff/checkin?session=${s.id}`) : undefined} />)}
+        </Card>
+        {can('members.read') && (
+          <Card title={t('staff.home.messages')} padding="sm" className="home-cell home-msgs" actions={<Link to="/staff/inbox" className="small">{t('core.common.viewAll')}</Link>}>
+            {recent.length === 0 ? <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('staff.home.messages.empty')}</p> : <ConversationList compact limit={5} conversations={recent} linkTo={(k) => `/staff/inbox/${k}`} />}
           </Card>
-        </div>
-        <div className="stack">
-          <Card title={t('staff.home.quick')}>
-            <div className="stack-sm">
-              {can('checkin.write') && <Link to="/staff/checkin"><Button block icon="checkin">{t('staff.home.openCheckin')}</Button></Link>}
-              {can('payments.write') && <Link to="/staff/register"><Button block variant="secondary" icon="register">{t('staff.home.openRegister')}</Button></Link>}
-              {can('bookings.write_any') && <Link to="/staff/rooms"><Button block variant="secondary" icon="rooms">{t('staff.home.openRooms')}</Button></Link>}
-              {can('members.read') && <Link to="/staff/inbox"><Button block variant="secondary" icon="inbox">{t('staff.home.openInbox')}</Button></Link>}
-              {can('members.read') && <Link to="/admin/crm"><Button block variant="ghost" icon="crm">{t('staff.home.openCrm')}</Button></Link>}
-              {can('tables.read') && <Link to="/admin/tables"><Button block variant="ghost" icon="table">{t('staff.home.openTables')}</Button></Link>}
-            </div>
-          </Card>
-          {can('members.read') && (
-            <Card title={t('staff.home.messages')} padding="sm" className="home-msgs" actions={<Link to="/staff/inbox" className="small">{t('core.common.viewAll')}</Link>}>
-              {recent.length === 0 ? <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('staff.home.messages.empty')}</p> : <ConversationList compact limit={5} conversations={recent} linkTo={(k) => `/staff/inbox/${k}`} />}
-            </Card>
-          )}
-          <Card title={t('staff.home.activity')} padding="sm" actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
-            <div style={{ padding: '0 var(--sp-sm)' }}><Timeline items={activity} limit={6} /></div>
-            <p className="xs muted" style={{ padding: 'var(--sp-sm)' }}>{t('staff.home.activity.note')}</p>
-          </Card>
-        </div>
+        )}
+        <Card title={t('staff.home.activity')} padding="sm" className={`home-cell ${can('members.read') ? 'is-wide' : ''}`} actions={can('audit.read') ? <Link to="/admin/activity" className="small">{t('core.common.viewAll')}</Link> : undefined}>
+          <div style={{ padding: '0 var(--sp-sm)' }}><Timeline items={activity} limit={6} /></div>
+          <p className="xs muted" style={{ padding: 'var(--sp-sm)' }}>{t('staff.home.activity.note')}</p>
+        </Card>
       </div>
     </div>
   );

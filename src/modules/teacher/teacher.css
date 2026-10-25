@@ -10,12 +10,23 @@
 .teach-payline:last-child { border-bottom: 0; }
 .teach textarea.input { min-height: 4.5rem; resize: vertical; }
 
-/* 0012 · S-03 payroll statement */
+/* 0012 Â· S-03 payroll statement */
 .teach-neg { color: var(--color-danger); }
 @media print {
   .teach .teach-h1 + div, .teach a[href^="https://wa.me"] { display: none; }
 }
 
-/* 0026 · from 900 px the teacher pages are lists (rosters, statement lines, a form): they read best in a 60rem column, not the
+/* 0026 Â· from 900 px the teacher pages are lists (rosters, statement lines, a form): they read best in a 60rem column, not the
    75rem app container the two-column customer pages use, so `--w-teach` caps them (it still grows with the --ui band). */
 @media (min-width: 900px) { .appshell-main > .teach.container { max-width: var(--w-teach); } }
+
+/* 0165 Â· S-03 balance: from 900 px the next class pairs with the three headline numbers (stacked beside it) and today
+   pairs with the specials; seven "my numbers" tiles in three columns let the last one span the row instead of a hole. */
+.teach-numbers > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+@media (min-width: 900px) {
+  .teach-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
+  .teach-pair.is-lead { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); align-items: stretch; }
+  .teach-pair.is-lead .teach-lead-stats { grid-template-columns: minmax(0, 1fr); }
+  .teach-pair > section { display: flex; flex-direction: column; }
+  .teach-pair > section > .card { flex: 1 1 auto; }
+}

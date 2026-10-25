@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useId, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useId, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Link, NavLink, matchPath, useLocation } from 'react-router-dom';
 import type { RouteDef, Surface, NavBadge } from '../../../specs/types';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -68,16 +68,51 @@ const DEFAULT_FOLDED: Record<string, boolean> = {
 };
 const BADGE_TONE: Record<NavBadge, 'primary' | 'warn'> = { beta: 'primary', preview: 'warn' };
 
-/** True while the viewport is narrower than the drawer breakpoint (900 px). */
-function useNarrow() {
-  const [narrow, setNarrow] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false));
+function useMedia(query: string) {
+  const [match, setMatch] = useState(() => (typeof window !== 'undefined' ? window.matchMedia(query).matches : false));
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 900px)');
-    const on = () => setNarrow(mq.matches);
+    const mq = window.matchMedia(query);
+    const on = () => setMatch(mq.matches);
+    on();
     mq.addEventListener('change', on);
     return () => mq.removeEventListener('change', on);
-  }, []);
-  return narrow;
+  }, [query]);
+  return match;
+}
+
+/**
+ * 0165 · the menu never leaves the screen on a tablet or a laptop: below 1024 px it is the icon rail (the ☰ opens the
+ * full column over the page); only a phone (< 600 px) hides it behind the ☰ as a drawer.
+ */
+function useShellMode() {
+  const phone = useMedia('(max-width: 599.98px)');
+  const compact = useMedia('(max-width: 1023.98px)');
+  return { phone, tablet: compact && !phone, overlay: compact };
+}
+
+/**
+ * 0165 · no scrollbar on the menu, in any state: the list still scrolls (wheel, touch, keyboard focus) and a soft fade
+ * plus a small chevron appear only at an edge that hides more items; the chevron scrolls one page that way.
+ */
+function useScrollEdges(ref: RefObject<HTMLElement>, deps: unknown[]) {
+  const [edges, setEdges] = useState({ up: false, down: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const up = el.scrollTop > 2, down = el.scrollTop + el.clientHeight < el.scrollHeight - 2;
+      setEdges((p) => (p.up === up && p.down === down ? p : { up, down }));
+    };
+    measure();
+    el.addEventListener('scroll', measure, { passive: true });
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    for (const child of el.children) ro.observe(child);
+    return () => { el.removeEventListener('scroll', measure); ro.disconnect(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+  const page = useCallback((dir: 1 | -1) => ref.current?.scrollBy({ top: dir * ref.current.clientHeight * 0.7, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }), [ref]);
+  return { edges, page };
 }
 
 /**
@@ -94,7 +129,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
   const { user, role, canDevMode, devMode, setDevMode, hasRole, can } = useSession();
   const { theme, toggleTheme } = useTheme();
   const { pathname } = useLocation();
-  const narrow = useNarrow();
+  const { phone, tablet, overlay } = useShellMode();
   const surfaceKey = surfaces[0] ?? 'desktop';
   const preferenceScope = `${KEY}.v2.${encodeURIComponent(user.id)}.${role}.${surfaceKey}`;
   const collapsedKey = `${preferenceScope}.collapsed`;
@@ -117,13 +152,14 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
 
   useEffect(() => { setDrawer(false); }, [pathname]);
 
-  const rail = collapsed && !narrow;
+  // A tablet shows the rail until the ☰ opens the full column over the page; a phone shows nothing until then.
+  const rail = tablet ? !drawer : collapsed && !phone;
 
   useEffect(() => {
     const side = sideRef.current;
     if (!side) return;
-    side.inert = narrow && !drawer;
-    if (!narrow || !drawer) return;
+    side.inert = phone && !drawer;
+    if (!overlay || !drawer) return;
     const focusable = () => [...side.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.getClientRects().length);
     focusable()[0]?.focus();
     const onKey = (event: KeyboardEvent) => {
@@ -137,11 +173,11 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     };
     side.addEventListener('keydown', onKey);
     return () => side.removeEventListener('keydown', onKey);
-  }, [narrow, drawer]);
+  }, [phone, overlay, drawer]);
 
   const toggleSidebar = useCallback(() => {
-    if (narrow) setDrawer((o) => !o); else setCollapsed((c) => !c);
-  }, [narrow, setCollapsed]);
+    if (overlay) setDrawer((o) => !o); else setCollapsed((c) => !c);
+  }, [overlay, setCollapsed]);
 
   // `[` collapses and expands the column (ignored while typing).
   useEffect(() => {
@@ -151,11 +187,11 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
       const tag = el?.tagName.toLowerCase();
       if (tag === 'input' || tag === 'textarea' || tag === 'select' || el?.isContentEditable) return;
       e.preventDefault();
-      if (narrow) setDrawer((o) => !o); else setCollapsed((c) => !c);
+      if (overlay) setDrawer((o) => !o); else setCollapsed((c) => !c);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [narrow, setCollapsed]);
+  }, [overlay, setCollapsed]);
 
   // 0159: running the studio and building the product are two workspaces. The Build workspace (dev surface) lists only
   // the design-system routes; super admins and developers move between them with the switcher at the top of the sidebar.
@@ -216,11 +252,13 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
   const inboxItems = useMemo(() => inbox.conversations.map(toSummary), [inbox.conversations]);
   const hasInbox = allowed.some((r) => r.path === '/staff/inbox');
 
-  const sidebarLabel = narrow ? (drawer ? t('core.shell.closeMenu') : t('core.shell.menu')) : collapsed ? t('core.shell.expand') : t('core.shell.collapse');
+  const sidebarLabel = overlay ? (drawer ? t('core.shell.closeMenu') : t('core.shell.menu')) : collapsed ? t('core.shell.expand') : t('core.shell.collapse');
+  const navRef = useRef<HTMLElement>(null);
+  const { edges, page } = useScrollEdges(navRef, [rail, drawer, folded, items.length]);
 
   return (
-    <div className={`deskshell ${rail ? 'is-rail' : ''} ${drawer ? 'is-open' : ''}`}>
-      <aside ref={sideRef} className="deskshell-side" aria-hidden={narrow && !drawer ? true : undefined} aria-label={t('core.shell.sections')}>
+    <div className={`deskshell ${rail ? 'is-rail' : ''} ${drawer ? 'is-open' : ''} ${tablet ? 'is-tablet' : ''}`}>
+      <aside ref={sideRef} className="deskshell-side" aria-hidden={phone && !drawer ? true : undefined} aria-label={t('core.shell.sections')}>
         <div className="deskshell-brand">
           <Link to={homeTo} className="deskshell-mark" title={t('core.nav.home')}><Wordmark height={rail ? 15 : 26} variant="cream" /></Link>
           {!rail && !(canBuild && canStudio) && <span className="deskshell-title">{title}</span>}
@@ -231,7 +269,9 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
             <Link to="/dev" className={`deskshell-ws ${inBuild ? 'is-on' : ''}`} aria-current={inBuild ? 'page' : undefined}>{t('core.workspace.build')}</Link>
           </nav>
         )}
-        <nav className="deskshell-nav" aria-label={t('core.shell.sections')}>
+        <div className={`deskshell-navwrap ${edges.up ? 'has-up' : ''} ${edges.down ? 'has-down' : ''}`}>
+        {edges.up && <button type="button" className="deskshell-more is-up" onClick={() => page(-1)} aria-label={t('core.shell.moreUp')} title={t('core.shell.moreUp')}><Icon name="chevron-up" size="sm" /></button>}
+        <nav ref={navRef} className="deskshell-nav" aria-label={t('core.shell.sections')}>
           {groups.map((g) => {
             const open = !g || !folded[g];
             const panelId = `${groupId}-${g.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
@@ -271,6 +311,8 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
             );
           })}
         </nav>
+        {edges.down && <button type="button" className="deskshell-more is-down" onClick={() => page(1)} aria-label={t('core.shell.moreDown')} title={t('core.shell.moreDown')}><Icon name="chevron-down" size="sm" /></button>}
+        </div>
         <div className="deskshell-foot">
           <button
             type="button" className="deskshell-collapse" onClick={() => setCollapsed((c) => !c)}
@@ -308,7 +350,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
         <TopBar
           brand homeTo={homeTo} title={current ? (current.nav ? t(items.find((i) => i.route === current)?.labelKey ?? current.nav.labelKey) : bi(current.spec.name)) : title}
           code={devMode ? current?.spec.code : undefined}
-          leading={<button ref={menuRef} type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={narrow ? drawer : !rail} title={sidebarLabel}>☰</button>}
+          leading={<button ref={menuRef} type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={overlay ? drawer : !rail} title={sidebarLabel}>☰</button>}
           center={<GlobalSearch items={searchItems} />}
           actions={
             <>
