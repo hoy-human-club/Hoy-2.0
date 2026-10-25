@@ -20,6 +20,7 @@ export default defineMeta({
     'nav item with badge: Beta (primary) / Demo (warn, demo data or prototype); the title explains it; in the rail it moves into the tooltip',
     'workspace switcher: Estudio active / Desarrollo active (only when the role can open both; hidden in the rail)',
     'home: exactly one “Inicio” at the top — M-01 for admin and finance, S-01 for the desk roles',
+    'studio look (0160): sets data-look="studio" on <html> while mounted; the sidebar is the river tile with breathing rings floating on the cream ground, the active item the sun pill, the page name serif',
   ],
   usages: [{ title: { es: 'Ver en vivo', en: 'See it live' }, render: () => h('p', { className: 'muted small' }, 'Se usa en /#/staff, /#/admin, /#/dev y /#/docs. Colapsa con “[” o el chevron del pie; los grupos se pliegan con su caret.') }],
   a11y: [

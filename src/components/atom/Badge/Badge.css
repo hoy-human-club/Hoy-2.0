@@ -8,3 +8,7 @@
 .badge-danger { background: color-mix(in srgb, var(--color-danger) 14%, transparent); color: var(--color-danger); }
 /* the pricing badge: light yellow ground, olive ink — the one badge no theme repaints */
 .badge-highlight { background: var(--color-highlight); color: var(--color-on-highlight); font-weight: var(--fw-semibold); }
+
+/* 0160 · Studio look: on the lighter paper tiles the success and warn inks deepen a step to keep 4.5:1. */
+:root[data-look="studio"]:not([data-theme="dark"]) .badge-success { color: color-mix(in srgb, var(--color-success) 82%, #000); }
+:root[data-look="studio"]:not([data-theme="dark"]) .badge-warn { color: color-mix(in srgb, var(--color-warn) 85%, #000); }

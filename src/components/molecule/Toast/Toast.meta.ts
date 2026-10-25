@@ -13,7 +13,8 @@ export default defineMeta({
     { name: 'max', type: 'number', default: '4', description: { es: 'Cuántos avisos se ven a la vez.', en: 'How many notices show at once.' } },
     { name: 'toast(text, tone, ttl)', type: "(string, 'neutral' | 'success' | 'warn' | 'danger', number) => string", description: { es: 'La función del bus, no una prop: la llama quien quiera avisar.', en: 'The bus function, not a prop: anything that needs to notify calls it.' } },
   ],
-  states: ['neutral', 'success', 'warn', 'danger', 'vacío (no renderiza nada)'],
+  states: [
+    'studio look (0160): dark ink tile, status kept on the left edge','neutral', 'success', 'warn', 'danger', 'vacío (no renderiza nada)'],
   usages: [
     { title: { es: 'Los cuatro tonos', en: 'The four tones' }, render: () => h('div', { className: 'row wrap' },
       h(Button, { size: 'sm', variant: 'secondary', onClick: () => toast('Guardado') }, 'neutral'),

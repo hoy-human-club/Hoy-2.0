@@ -13,3 +13,9 @@
 .notice-danger { border-color: color-mix(in srgb, var(--color-danger) 40%, transparent); background: color-mix(in srgb, var(--color-danger) 10%, var(--color-surface)); }
 .notice-danger .notice-icon { background: var(--color-danger); color: var(--color-text-on-primary); }
 @media (max-width: 480px) { .notice { flex-wrap: wrap; } .notice-action { width: 100%; justify-content: flex-end; } }
+
+/* 0160 · Studio look: an info notice is the sun tile (Pulso's date tile); warning and danger keep their tints. */
+:root[data-look="studio"] .notice { border-color: transparent; }
+:root[data-look="studio"] .notice-info { background: var(--color-highlight); color: var(--color-on-highlight); }
+:root[data-look="studio"] .notice-info :is(.notice-text, .notice-title) { color: inherit; }
+:root[data-look="studio"] .notice-info .notice-icon { background: var(--brand-ink); color: var(--brand-yellow); }

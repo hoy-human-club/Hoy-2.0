@@ -12,7 +12,8 @@ export default defineMeta({
     { name: 'action', type: 'ReactNode', description: { es: 'Botón o enlace a la derecha.', en: 'Button or link on the right.' } },
     { name: 'icon', type: 'IconName | ReactNode', description: { es: 'Sustituye el glifo del tono (info, check, alert, circle-alert).', en: 'Replaces the tone glyph (info, check, alert, circle-alert).' } },
   ],
-  states: ['customer scoped read failure / retry', 'info', 'success', 'warn', 'danger', 'with action', 'pending demo payment: no active classes or capacity hold'],
+  states: [
+    'studio look (0160): info is the sun tile; warn and danger keep their tints','customer scoped read failure / retry', 'info', 'success', 'warn', 'danger', 'with action', 'pending demo payment: no active classes or capacity hold'],
   usages: [{ title: { es: 'Cuatro tonos', en: 'Four tones' }, render: () => h('div', { className: 'stack-sm' },
     h(Notice, { tone: 'info', title: 'Pago con Wompi' }, 'Integración pendiente: este botón simula una aprobación.'),
     h(Notice, { tone: 'success', title: 'Reserva demo guardada' }, 'Solo en este navegador. No se enviaron mensajes.'),

@@ -376,6 +376,44 @@ html { font-size: calc(100% * var(--ui)); }
   --color-card-border: rgba(241,231,210,.06);
   color-scheme: dark;
 }
+/* 0160 · Studio look (Pulso for the staff workspace), set by DesktopShell */
+:root[data-look="studio"]:not([data-skin="wireframe"]):not([data-theme="dark"]) {
+  --color-bg: #EDE4D4;
+  --color-surface: #FBF7EF;
+  --color-surface-elevated: #FFFCF6;
+  --color-surface-2: #F5EEE1;
+  --color-surface-3: #EFE7DA;
+  --color-surface-4: #E3DBCB;
+  --color-card-border: transparent;
+  --color-accent-fill: #1C2E42;
+  --color-accent-fill-hover: #24384F;
+  --color-text-on-primary: #FBF7EF;
+}
+:root[data-look="studio"][data-theme="dark"]:not([data-skin="wireframe"]) {
+  --color-bg: #101C29;
+  --color-surface: #1B2E44;
+  --color-surface-elevated: #22384F;
+  --color-surface-2: #22384F;
+  --color-surface-3: #2A4159;
+  --color-surface-4: #31506E;
+  --color-card-border: transparent;
+}
+:root[data-look="studio"]:not([data-skin="wireframe"]) {
+  --r-ctl: 0.875rem;
+  --r-md: 1.5rem;
+  --r-lg: 2rem;
+  --font-heading: 'DM Sans', 'DM Sans Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --shadow-card: 0 1px 2px rgba(var(--m-shade),.05);
+  --shadow-raised: 0 24px 60px -24px rgba(var(--m-shade),.45);
+  --shadow-accent: none;
+  --shadow-highlight: none;
+  --shadow-contact: none;
+  --shadow-pressed: none;
+  --shadow-inverse: none;
+  --tex-lane-on: none;
+  --tex-surf-on: none;
+  --tex-accent-on: none;
+}
 :root[data-skin="wireframe"] {
   --color-ground: #F6F5F2;
   --color-bg: #FFFFFF;

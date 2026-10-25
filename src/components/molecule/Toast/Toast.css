@@ -22,3 +22,7 @@
 }
 .toast-close:hover { color: var(--color-ink); background: var(--color-surface-3); }
 @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* 0160 · Studio look: the toast is the dark ink tile of the coming-soon chips; the status keeps its left edge. */
+:root[data-look="studio"] .toast { background: var(--color-ink); color: var(--color-bg); border-top-color: transparent; border-right-color: transparent; border-bottom-color: transparent; border-left-width: 4px; border-radius: var(--r-md); }
+:root[data-look="studio"] .toast-close { color: inherit; opacity: .75; }

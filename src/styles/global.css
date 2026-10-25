@@ -114,3 +114,9 @@ pre, table, img, svg, video, canvas, iframe { max-width: 100%; }
 /* Shown while a lazily-loaded module (docs, manual, dev tooling) fetches its chunk. Kept invisible: the chunk is
    local and arrives in milliseconds; the page keeps its background instead of flashing a spinner. */
 .lazy-fallback { min-height: 40vh; }
+
+/* 0160 · Studio look (Pulso for staff, D-01 `studio`): titles in the editorial serif like the coming-soon page;
+   numbers, labels and controls stay in DM Sans. */
+:root[data-look="studio"] :is(h1, h2) { font-family: var(--font-editorial); font-weight: var(--fw-medium); letter-spacing: -0.01em; }
+:root[data-look="studio"] h1 { font-size: calc(var(--fs-3xl) * 1.15); font-weight: var(--fw-regular); line-height: 1; }
+:root[data-look="studio"] .eyebrow { letter-spacing: .16em; }
