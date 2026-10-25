@@ -30,6 +30,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0163 depth and motion (same branch): ≤2.5° pointer tilt, lift and soft light on cards and tiles (`src/design/depth.ts`), staggered page entrances and press feedback (`src/styles/motion.css`); off for touch and reduced motion.
 
+- 0164 C-01 and S-02 balance on `ui-polish/home-checkin-balance`: home blocks paired into aligned rows (subgrid), one-line announcement, week dots inside the streak tile; check-in head line with the booking picker, secondary row actions on hover/focus, no redundant badges or hints, walk-in "How it works". Check-in and customer tests pass.
+
 ### Next
 
 - Hub: optional "journey" tab (layout D) for client demos.

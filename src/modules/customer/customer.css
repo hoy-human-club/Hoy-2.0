@@ -6,6 +6,12 @@
 .cust-quick-btn:hover { text-decoration: none; box-shadow: var(--shadow-card); }
 .cust-quick-btn:active { transform: translateY(1px); }
 .cust-quick-icon { display: inline-flex; line-height: 0; color: var(--color-primary); }
+/* 0164 · the studio announcement is one quiet line under the greeting, not a card competing with the next class */
+.cust-announce { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-xs) var(--sp-sm); margin: 0; padding: var(--sp-sm) var(--sp-md); border-radius: var(--r-lg); background: var(--color-surface-2); font-size: var(--fs-sm); line-height: 1.35; align-self: flex-start; max-width: 100%; }
+.cust-announce-icon { display: inline-grid; place-items: center; inline-size: var(--sp-xl); block-size: var(--sp-xl); border-radius: 50%; background: var(--tone-sun-dot); color: var(--brand-ink); flex: 0 0 auto; }
+.cust-announce-label { font-weight: var(--fw-semibold); }
+.cust-announce-body { color: var(--color-text-muted); min-width: 0; }
+.cust-today.is-empty { display: grid; place-items: center; }
 
 /* shared page scaffolding */
 .cust-page { display: flex; flex-direction: column; gap: var(--sp-lg); padding-top: var(--sp-lg); }
@@ -172,7 +178,19 @@
 .cust-plan.is-preselected { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 @media (min-width: 900px) {
   .cust-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); gap: var(--sp-2xl); align-items: start; }
-  .cust-home-split { grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr); }
+  /* 0164 · C-01 pairs its blocks into rows instead of two independent columns: next class beside the quick actions,
+     today beside the practice block. Each block is a head + body subgrid, so the eyebrows share a line and the
+     bodies share a height. Dense placement keeps the main blocks in column 1 and the side blocks in column 2. */
+  .cust-home-split { grid-template-columns: minmax(0, 1.4fr) minmax(20rem, 1fr); grid-auto-flow: row dense; column-gap: var(--sp-2xl); row-gap: var(--block); align-items: stretch; }
+  .cust-home-split > :is(.cust-split-main, .cust-split-side) { display: contents; }
+  .cust-home-split > .cust-split-main > * { grid-column: 1; }
+  .cust-home-split > .cust-split-side > * { grid-column: 2; }
+  /* the container sits on the practice body, not the block: containment would turn the block's subgrid off */
+  .cust-home-split .cust-practice-body { container: app / inline-size; }
+  .cust-home-split .cust-home-block { grid-row: span 2; display: grid; grid-template-rows: subgrid; row-gap: var(--sp-sm); }
+  .cust-home-split .cust-home-block > * { min-width: 0; }
+  .cust-home-split .cust-home-quick > .cust-quick { grid-row: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+  .cust-home-split .cust-home-quick .cust-quick-btn { flex-direction: row; justify-content: flex-start; gap: var(--sp-sm); padding: var(--sp-md) var(--sp-lg); font-size: var(--fs-sm); }
   .cust-split-main, .cust-split-side { gap: var(--block); }
   /* the aside is its own `app` container so grid utilities (StatsRow) collapse to its width, not the page's */
   .cust-split-side { container: app / inline-size; }
@@ -189,6 +207,11 @@
 .cust-practice-link:hover { text-decoration: underline; }
 .cust-practice > .row-between > .eyebrow { margin: 0; }
 .cust-practice-streak { justify-content: flex-start; }
+/* 0164 · the streak tile carries this week's dots: count on the left, the week on the right, wrapping under on a narrow column */
+.cust-practice-body > .cust-practice-streak { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-md) var(--sp-lg); }
+.cust-practice-streak-main { display: flex; flex-direction: column; gap: var(--sp-xs); min-width: 0; }
+.cust-practice-week.is-inline { flex: 0 1 auto; min-width: 0; }
+.cust-practice-week.is-inline .weekdots-caption { text-align: end; }
 .cust-practice-q { font-family: var(--font-heading); font-size: var(--fs-md); font-weight: var(--fw-semibold); line-height: 1.3; margin: 0; }
 .cust-practice-weekhead { display: flex; align-items: center; gap: var(--block); flex-wrap: wrap; }
 .cust-practice-weekhead > .grow { min-width: min(100%, 14rem); }

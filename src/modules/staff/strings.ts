@@ -91,7 +91,8 @@ export const strings: StringTable = {
 
   // S-02
   'staff.checkin.future.label': { es: 'Reservar para un cliente · clase programada', en: 'Book for a customer · scheduled class' },
-  'staff.checkin.future.choose': { es: 'Elige una clase', en: 'Choose a class' },
+  'staff.checkin.future.choose': { es: 'Reservar otra clase…', en: 'Book another class…' },
+  'staff.checkin.walkin.how': { es: 'Cómo funciona', en: 'How it works' },
   'staff.checkin.package.demo': { es: 'Demostración local con datos ficticios. Las reservas y los pagos no son de producción.', en: 'Local demonstration with fictional data. Bookings and payments are non-production.' },
   'staff.checkin.package.balance': { es: '{n} clases disponibles', en: '{n} classes available' },
   'staff.checkin.package.expires': { es: 'vence {date}', en: 'expires {date}' },
@@ -123,7 +124,6 @@ export const strings: StringTable = {
   'staff.checkin.title': { es: 'Check-in', en: 'Check-in' },
   'staff.checkin.subtitle': { es: 'Quién se espera, quién llegó, y vender un cupo en el momento.', en: 'Who is expected, who arrived, and sell a drop-in on the spot.' },
   'staff.checkin.today': { es: 'Clases de hoy', en: 'Today’s classes' },
-  'staff.checkin.strip.hint': { es: 'Toca una clase para ver su lista', en: 'Tap a class to see its roster' },
   'staff.checkin.phase.now': { es: 'Ahora', en: 'Now' },
   'staff.checkin.phase.next': { es: 'Después', en: 'Later' },
   'staff.checkin.phase.past': { es: 'Terminó', en: 'Done' },
