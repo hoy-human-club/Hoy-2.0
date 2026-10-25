@@ -46,6 +46,8 @@ export interface PageSpec {
 /** A retired path that keeps resolving: the router sends `from` to `to` (replace, query string dropped). No spec, no shell, not in the manifest. */
 export interface RedirectDef { from: string; to: string; /** Why it moved, for the changelog and the inspector. */ reason: string }
 
+export type NavBadge = 'beta' | 'preview';
+
 export interface RouteDef {
   path: string;
   element: ReactNode;
@@ -57,8 +59,12 @@ export interface RouteDef {
    * When set, the surface's shell shows this route in its navigation (label is an i18n key).
    * `group` is an i18n key too when the dictionary has it, else it renders verbatim.
    * `to` overrides the link target (used when the nav entry should open a parameterised route).
+   * `badge` marks a page that is not finished (beta: works, still changing; preview: demo data or a future prototype) —
+   * status lives here, never in the label (IA phase 1, 0159).
+   * `home` marks a role home candidate (S-01, M-01): the sidebar shows exactly one, the one matching ROLE_HOME, at the top
+   * as “Inicio”; the others stay in their group (or hide when they have none).
    */
-  nav?: { labelKey: string; icon: IconName; order: number; group?: string; to?: string };
+  nav?: { labelKey: string; icon: IconName; order: number; group?: string; to?: string; badge?: NavBadge; home?: boolean };
 }
 
 /** Marks a spec as complete enough for the specs index badge. */

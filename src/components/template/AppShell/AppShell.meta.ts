@@ -8,6 +8,7 @@ export default defineMeta({
     { name: 'surface', type: 'Surface', required: true, description: { es: 'Filtra las rutas de la nav.', en: 'Filters nav routes.' } },
     { name: 'routes', type: 'RouteDef[]', required: true, description: { es: 'Normalmente getRoutes().', en: 'Usually getRoutes().' } },
     { name: 'homeTo', type: 'string', required: true, description: { es: 'Destino del logo.', en: 'Wordmark destination.' } },
+    { name: 'profileTo', type: 'string', description: { es: 'Destino del avatar: el perfil de la persona (cliente /app/more, profesor /teach/profile). Nunca el hub (0159).', en: 'Avatar destination: the person’s own profile (customer /app/more, teacher /teach/profile). Never the hub (0159).' } },
     { name: 'bare', type: 'boolean', description: { es: 'Sin barra superior propia (el dock sigue bajo 900 px).', en: 'Without its own top bar (the dock stays below 900 px).' } },
   ],
   states: ['narrow (< 900 px: column + dock)', 'wide (≥ 900 px: top-bar nav, full viewport)'],

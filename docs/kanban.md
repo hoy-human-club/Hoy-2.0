@@ -20,7 +20,14 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0158 Pulso Luxe on `ui-polish/pulso-luxe`: E-01 invitation-style welcome with a class index, the brand-book intention leading C-03, new C-28 member card (`MemberCard`). Contrast ≥ 4.5:1 light and dark.
 
+- 0159 IA phase 1 on `ui-polish/ia-phase-1`: one Studio menu grouped by job (Hoy en el estudio · Personas · Ventas · Finanzas · Estudio · Reportes · Administración) with one Inicio per role; Beta/Demo badges instead of status in labels; Studio/Build switcher for super admin and developer; wordmark → home, avatar → profile, spec codes only in dev mode, gift trial out of the dock. test-sidebar-groups and the booking-flow suite pass.
+
 ### Next
+
+- IA phase 2: merge related pages into tabs (Mensajes, Caja, Miembros, Nómina, Gastos, Salas, Ventas) with redirects from the old URLs; shared PageTabs pattern in D-02.
+- IA phase 3: customer dock Inicio · Reservar · Mis clases · Perfil, Perfil grouped, Inicio quick actions trimmed.
+- IA phase 4: role-aware Inicio per staff role, Ctrl K command bar, the /no-access flash on reload, one page-header pattern.
+- Names for Caja / Mensajes / Miembros / Clases y profesores (awaiting Jas / Justin).
 
 - Pulso Luxe on plans, passes, history and practice; then the public site (`/site`).
 - Class glyphs (designer), a member number field, a wallet pass (integration).

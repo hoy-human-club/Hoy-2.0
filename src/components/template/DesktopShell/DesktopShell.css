@@ -86,3 +86,17 @@
 .deskshell-grouplabel:focus-visible { outline: var(--sp-2xs) solid var(--color-accent); outline-offset: var(--sp-2xs); }
 .deskshell-grouplabel:hover { background: rgba(var(--m-shade), .06); }
 @supports (height: 100dvh) { .deskshell-side { height: 100dvh; } }
+
+/* 0159 · IA phase 1 — Studio / Build switcher, status badges on nav items, the hub link in the demo strip */
+.deskshell-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xs); margin: 0 var(--sp-lg) var(--sp-md); padding: var(--sp-2xs); border-radius: var(--r-ctl); background: rgba(var(--m-shade), .06); flex-shrink: 0; }
+.deskshell-ws { display: inline-flex; align-items: center; justify-content: center; min-height: var(--h-ctl-sm); padding: 0 var(--sp-sm); border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--color-text-muted); text-decoration: none; }
+.deskshell-ws:hover { color: var(--color-text); text-decoration: none; }
+.deskshell-ws.is-on { background: var(--surface); color: var(--color-text); box-shadow: var(--shadow-card); }
+.deskshell-ws:focus-visible { outline: var(--sp-2xs) solid var(--color-accent); outline-offset: var(--sp-2xs); }
+.deskshell-badge { margin-left: auto; flex: 0 0 auto; font-size: var(--fs-2xs); padding-inline: var(--sp-xs); }
+/* A badged label wraps to a second line rather than truncating (“Pending payments” + Demo in 240 px). */
+.deskshell-link:has(.deskshell-badge) .deskshell-linktext { white-space: normal; line-height: 1.2; }
+.deskshell-badge + .deskshell-code { margin-left: var(--sp-xs); }
+.deskshell-link.is-active .deskshell-badge { background: rgba(255, 255, 255, .2); color: inherit; border-color: transparent; }
+.deskshell-foot a .icon { margin-right: var(--sp-xs); }
+.deskshell-hublink { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: var(--h-ctl-sm); font-size: var(--fs-xs); font-weight: var(--fw-semibold); white-space: nowrap; }

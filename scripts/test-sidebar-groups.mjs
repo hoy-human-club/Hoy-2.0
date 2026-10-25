@@ -17,12 +17,25 @@ async function group(page,name){return page.locator('.deskshell-grouplabel').fil
 async function expanded(button){return await button.getAttribute('aria-expanded')==='true';}
 try {
  const {page:p,ctx}=await start();
- const labels=await p.locator('.deskshell-grouplabel').allTextContents();assert.deepEqual(labels,['Overview','Operations','Community','Content','Finance','Administration','Design system']);
- const overview=await group(p,'Overview');assert(await expanded(overview));await overview.click();assert(!await expanded(overview));await overview.focus();await p.keyboard.press('Space');assert(await expanded(overview));
- const community=await group(p,'Community');await community.click();assert(await expanded(community));await p.reload();assert(await expanded(await group(p,'Community')));
- await (await group(p,'Community')).click();await p.evaluate(()=>location.hash='/admin/crm/deletions');await p.locator('.deskshell-link.is-active').filter({hasText:'Deletion'}).waitFor();assert(await expanded(await group(p,'Community')));assert.equal(await p.locator('.deskshell-link.is-active').count(),1);
- await (await group(p,'Community')).click();assert(!await expanded(await group(p,'Community')));
- await p.evaluate(()=>location.hash='/admin');await p.waitForTimeout(200);await p.goBack();await p.waitForTimeout(200);assert(await expanded(await group(p,'Community')));
+ // 0159 · IA phase 1: Studio is grouped by job; design tools moved to the Build workspace.
+ const labels=await p.locator('.deskshell-grouplabel').allTextContents();assert.deepEqual(labels,['Today at the studio','People','Sales','Finance','Studio','Reports','Administration']);
+ const today=await group(p,'Today at the studio');assert(await expanded(today));await today.click();assert(!await expanded(today));await today.focus();await p.keyboard.press('Space');assert(await expanded(today));
+ const sales=await group(p,'Sales');assert(!await expanded(sales));await sales.click();assert(await expanded(sales));await p.reload();assert(await expanded(await group(p,'Sales')));
+ await (await group(p,'People')).click();await p.evaluate(()=>location.hash='/admin/crm/deletions');await p.locator('.deskshell-link.is-active').filter({hasText:'Deletion'}).waitFor();assert(await expanded(await group(p,'People')));assert.equal(await p.locator('.deskshell-link.is-active').count(),1);
+ await (await group(p,'People')).click();assert(!await expanded(await group(p,'People')));
+ await p.evaluate(()=>location.hash='/admin');await p.waitForTimeout(200);await p.goBack();await p.waitForTimeout(200);assert(await expanded(await group(p,'People')));
+ // One home at the top, the wordmark goes home (never the hub), no spec code with dev mode off, no build status in any label.
+ await p.evaluate(()=>location.hash='/admin');await p.waitForTimeout(200);
+ assert.equal(await p.locator('.deskshell-link').filter({hasText:/^Home$/}).count(),1);
+ assert.equal(await p.locator('.deskshell-mark').getAttribute('href'),'#/admin');assert.equal(await p.locator('.topbar-code').count(),0);
+ for(const text of await p.locator('.deskshell-linktext').allTextContents())assert(!/demo|prototype|local drafts|trial/i.test(text),`status in label: ${text}`);
+ assert.equal(await p.locator('.deskshell-badge').count(),3);assert.equal(await p.locator('.deskshell-hublink').getAttribute('href'),'#/hub');
+ // Studio / Build switcher: the Build workspace lists only the design-system routes.
+ assert.deepEqual(await p.locator('.deskshell-ws').allTextContents(),['Studio','Build']);
+ await p.locator('.deskshell-ws').filter({hasText:'Build'}).click();await p.waitForURL(/#\/dev$/);await p.locator('.deskshell-ws.is-on').filter({hasText:'Build'}).waitFor();
+ assert.deepEqual(await p.locator('.deskshell-grouplabel').allTextContents(),['Design system']);
+ await p.locator('.deskshell-ws').filter({hasText:'Studio'}).click();await p.waitForURL(/#\/admin$/);
+ checks.push('one Home, wordmark home, no codes or status in labels, three badges, Studio/Build switcher');
  await p.evaluate(()=>location.hash='/dev/layout/M-01');await p.waitForTimeout(300);assert(await expanded(await group(p,'Design system')));
  await p.evaluate(()=>location.hash='/admin');await p.waitForTimeout(300);
  // Change actual users and effective roles in the mounted shell; no reload may hide stale callbacks.
@@ -36,9 +49,11 @@ try {
  await p.setViewportSize({width:390,height:844});await p.locator('.topbar-lead').click();assert.equal(await p.locator('.deskshell-grouplabel:visible').count(),7);assert(!(await p.locator('.deskshell').evaluate(el=>el.classList.contains('is-rail'))));
  await p.keyboard.press('Escape');assert(!await p.locator('.deskshell').evaluate(el=>el.classList.contains('is-open')));assert(await p.locator('.topbar-lead').evaluate(el=>el===document.activeElement));assert(await p.locator('.deskshell-side').evaluate(el=>el.inert));
  checks.push('desktop rail to mobile full drawer, Escape and hidden drawer inert');await ctx.close();
- for(const [user,route,absent] of [['usr_admin','/admin',['Design system']],['usr_coord','/admin',['Finance','Design system']],['usr_fin','/admin',['Content','Design system']],['usr_desk','/staff',['Overview','Finance','Administration','Design system']],['usr_mkt','/admin/content',['Overview','Finance','Administration','Design system']],['usr_dev','/dev/specs',['Overview','Community','Finance','Content']],['usr_maint','/staff',['Overview','Community','Finance','Content','Administration','Design system']]]) {
+ for(const [user,route,absent,switcher] of [['usr_admin','/admin',['Design system'],false],['usr_coord','/admin',['Finance','Design system'],false],['usr_fin','/admin',['Studio','Design system'],false],['usr_desk','/staff',['Reports','Finance','Administration','Design system'],false],['usr_mkt','/admin/content',['Reports','Finance','Administration','Design system'],false],['usr_dev','/dev/specs',['Today at the studio','People','Finance','Studio'],true],['usr_maint','/staff',['Reports','People','Sales','Finance','Administration','Design system'],false]]) {
   const {page,ctx}=await start(user,'en',1280,route);const names=await page.locator('.deskshell-grouplabel').allTextContents();for(const label of absent)assert(!names.includes(label),`${user}: no ${label}`);
   for(const el of await page.locator('.deskshell-groupitems').all())assert(await el.locator('a').count()>0);
+  assert.equal(await page.locator('.deskshell-workspace').count(),switcher?1:0,`${user}: workspace switcher`);
+  if(!route.startsWith('/dev'))assert.equal(await page.locator('.deskshell-link').filter({hasText:/^Home$/}).count(),1,`${user}: one Home`);
   await page.screenshot({animations:'disabled',path:`docs/screenshots/M-01/sidebar-${user}-en-1280.jpg`,quality:85});
   checks.push(`${user}: filtered, nonempty categories`);await ctx.close();
  }
