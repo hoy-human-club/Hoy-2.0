@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, type ReactNode } from 'react';
+import { useCallback, useId, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pkg from '../../../package.json';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -58,8 +58,8 @@ const CARD_UI: Record<HubSurfaceKey, { icon: IconName; shape?: ThumbShape; hue?:
   app: { icon: 'smartphone', shape: 'phone' },
   site: { icon: 'globe' },
   'coming-soon': { icon: 'sparkle', hue: 'site' },
-  teacher: { icon: 'sparkle' },
-  desk: { icon: 'check' },
+  teacher: { icon: 'classes' },
+  desk: { icon: 'checkin' },
   inbox: { icon: 'inbox' },
   pos: { icon: 'receipt' },
   admin: { icon: 'gauge' },
@@ -120,51 +120,70 @@ const TILE_TONE: Partial<Record<HubSurfaceKey, string>> = {
   desk: 'river', inbox: 'sage', pos: 'sun', admin: 'clay', crm: 'plum', messages: 'slate', finance: 'moss', marketing: 'plum',
 };
 
-/** One experience tile: what it is, its status, the one button that enters it, its route. Live previews were dropped
- *  for the bento (0161): the tile names the screen and the button opens it. */
+/**
+ * One experience tile, in two layers (0162, progressive disclosure): at rest it shows only what you need to choose —
+ * the icon, the name, who it is for and the one button that enters it, always in the same place. The description,
+ * the route and any second link live in a reserved details area that appears on hover, on keyboard focus anywhere in
+ * the tile, or with the ⓘ toggle (touch). The details are always in the DOM (screen readers and search read them);
+ * the tile never changes size, so nothing around it moves.
+ */
 function HubTile({ card, kind, status, here, onEnter }: {
   card: SurfaceCard; kind: TileKind; status: Status; here: boolean; onEnter: (card: SurfaceCard) => void;
 }) {
   const { t, bi } = useI18n();
   const { devMode } = useSession();
+  const [open, setOpen] = useState(false);
+  const detailsId = useId();
   const name = t(`hub.card.${card.key}`);
   const person = card.role ? demoUserByRole(card.role) : undefined;
   const tone = TILE_TONE[card.key];
   const who = card.key === 'promotions' ? t('hub.training.everyone') : card.role ? bi(ROLE_LABEL[card.role]) : bi(ROLE_LABEL.public);
   const enterLabel = card.key === 'promotions' ? t('hub.training.open') : person ? t('hub.enterAs', { name: person.name.split(' ')[0] }) : t('hub.open');
+  // One quiet flag at most, in priority order.
+  const flag = card.comingSoon ? t('hub.status.soon') : card.key === 'promotions' ? t('hub.training.preview')
+    : status !== 'built' ? t(`hub.status.${status}`) : here ? t('hub.here') : null;
+  const disclose = kind !== 'training';
 
   return (
-    <article className={`hub-card hub-tile is-${kind} ${card.comingSoon ? 'is-soon' : ''}`} data-tone={tone}>
-      <div className="hub-tile-top">
-        {kind === 'seat' && <span className="hub-tile-dot" aria-hidden />}
-        {kind !== 'row' && <span className="hub-tile-eyebrow">{kind === 'seat' && devMode ? card.code : who}</span>}
-        <span className="hub-tile-badges">
-          {card.key === 'promotions' && <Badge tone="highlight">{t('hub.training.preview')}</Badge>}
-          {card.comingSoon && <Badge tone="highlight">{t('hub.status.soon')}</Badge>}
-          {!card.comingSoon && card.key !== 'promotions' && status !== 'built' && <Badge tone={status === 'stub' ? 'warn' : 'neutral'}>{t(`hub.status.${status}`)}</Badge>}
-          {here && !card.comingSoon && <Badge tone="primary">{t('hub.here')}</Badge>}
-        </span>
+    <article className={`hub-card hub-tile is-${kind} ${open ? 'is-open' : ''} ${card.comingSoon ? 'is-soon' : ''}`} data-tone={tone}>
+      <div className="hub-tile-head">
+        <span className="hub-tile-icon" aria-hidden><Icon name={card.icon} size={20} /></span>
+        {flag && <span className={`hub-tile-flag ${here && flag === t('hub.here') ? 'is-here' : ''}`}>{flag}</span>}
       </div>
       <div className="hub-tile-text">
         <h3 className="hub-tile-title">{name}</h3>
-        <p className="hub-tile-body">{t(`hub.card.${card.key}.body`)}</p>
+        {kind === 'training'
+          ? <p className="hub-tile-body">{t(`hub.card.${card.key}.body`)}</p>
+          : <p className="hub-tile-who">{who}{devMode && <code> · {card.code}</code>}</p>}
       </div>
+      {disclose && (
+        <div className="hub-tile-details" id={detailsId}>
+          <p className="hub-tile-body">{t(`hub.card.${card.key}.body`)}</p>
+          <p className="hub-tile-meta">
+            <code>{card.to}</code>
+            {card.comingSoon && (
+              <Link className="hub-tile-link" to={card.to} onClick={(e) => { e.preventDefault(); onEnter({ ...card, comingSoon: false }); }}>{t('hub.soon.today', { code: card.code })}</Link>
+            )}
+            {card.secondary && (
+              <Link
+                className="hub-tile-link" to={card.secondary.to}
+                onClick={card.secondary.asRole ? (e) => { e.preventDefault(); onEnter({ ...card, to: card.secondary!.to }); } : undefined}
+              >{t(card.secondary.key)}</Link>
+            )}
+          </p>
+        </div>
+      )}
       <div className="hub-tile-foot">
-        {card.comingSoon ? (
-          <>
-            <Placeholder what={name}><Button variant="secondary" size="sm" icon="sparkle">{t('hub.soon.cta')}</Button></Placeholder>
-            <Link className="hub-tile-link" to={card.to} onClick={(e) => { e.preventDefault(); onEnter({ ...card, comingSoon: false }); }}>{t('hub.soon.today', { code: card.code })}</Link>
-          </>
-        ) : (
-          <Button variant="secondary" size="sm" onClick={() => onEnter(card)}>{enterLabel}</Button>
+        {card.comingSoon
+          ? <Placeholder what={name}><Button variant="secondary" size="sm" icon="sparkle">{t('hub.soon.cta')}</Button></Placeholder>
+          : <Button variant="secondary" size="sm" className="hub-tile-enter" onClick={() => onEnter(card)}>{enterLabel}<span className="hub-tile-arrow" aria-hidden><Icon name="arrow-right" size={14} /></span></Button>}
+        {disclose && (
+          <button
+            type="button" className="hub-tile-info" aria-expanded={open} aria-controls={detailsId}
+            aria-label={t(open ? 'hub.details.hide' : 'hub.details.show', { name })} title={t(open ? 'hub.details.hide' : 'hub.details.show', { name })}
+            onClick={() => setOpen((o) => !o)}
+          ><Icon name={open ? 'close' : 'info'} size={16} /></button>
         )}
-        {card.secondary && (
-          <Link
-            className="hub-tile-link" to={card.secondary.to}
-            onClick={card.secondary.asRole ? (e) => { e.preventDefault(); onEnter({ ...card, to: card.secondary!.to }); } : undefined}
-          >{t(card.secondary.key)}</Link>
-        )}
-        <code className="hub-tile-route">{card.to}</code>
       </div>
     </article>
   );

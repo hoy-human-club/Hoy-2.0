@@ -46,6 +46,8 @@ export const strings: StringTable = {
   'hub.bento.at': { es: 'del', en: 'at the' },
   'hub.bento.studio': { es: 'estudio', en: 'studio' },
   'hub.bento.lead': { es: 'Elige a quién estás probando y abre su inicio, o entra directo a cualquier pantalla de abajo. Todo son datos ficticios.', en: 'Pick who you are testing as and open their home, or go straight into any screen below. Everything is fictional data.' },
+  'hub.details.show': { es: 'Ver detalles de {name}', en: 'Show details: {name}' },
+  'hub.details.hide': { es: 'Ocultar detalles de {name}', en: 'Hide details: {name}' },
   'hub.bento.openHome': { es: 'Abrir el inicio de {name}', en: 'Open {name}’s home' },
   'hub.bento.opening': { es: 'Día de apertura', en: 'Opening day' },
   'hub.bento.daysLeft': { es: 'Abrimos en {n} días', en: 'Opening in {n} days' },
