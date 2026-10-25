@@ -40,9 +40,9 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0168 honest balance on `ui-polish/honest-balance`: no padded empty cards anywhere; quiet info notices; inbox triage pane; check-in masonry roster; emails compact notes + one filter row; marketing brand refs in the side column; desk / admin / teacher / member / maintenance homes rebuilt around real content. Screenshots of all role homes. 27 tests pass.
 
-### Next
+- 0169 Content (M-02) on `ui-polish/content-page`: two control rows instead of five, progressive bulk editor, empty columns hidden, notes as footnote; table starts at ~260 px. Content tests pass.
 
-- Content (marketing home): four stacked control rows above a wide table with mostly empty columns — needs its own pass.
+### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
 - IA phase 2: merge related pages into tabs (Mensajes, Caja, Miembros, Nómina, Gastos, Salas, Ventas) with redirects from the old URLs; shared PageTabs pattern in D-02.

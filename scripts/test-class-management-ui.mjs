@@ -22,6 +22,8 @@ try{
  await page.getByRole('button',{name:'List',exact:true}).click();
  await page.getByRole('button',{name:'Table',exact:true}).click();
  await page.goto(`${base}/#/admin/content?entity=modalities`);
+ // 0169: the bulk editor is progressive — open it from its toolbar button first.
+ await page.getByRole('button',{name:'Bulk update',exact:true}).click();
  await page.getByRole('button',{name:'Select search results',exact:true}).click();
  await page.getByLabel('Field',{exact:true}).selectOption('heated');
  await page.getByLabel('New value',{exact:true}).selectOption('true');
