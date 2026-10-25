@@ -32,11 +32,11 @@
 .cust-home .cust-quick-btn:hover { box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--brand-ink) 55%, transparent); }
 
 /* practice tiles: classes on paper, the streak on clay, the plan balance on sun */
-.cust-home .cust-practice-tiles .stat { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; }
+.cust-home :is(.cust-practice-tiles .stat, .cust-practice-streak) { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; }
 .cust-home .cust-practice-tiles .stat .stat-value { font-family: var(--font-body); font-weight: var(--fw-bold); letter-spacing: -0.03em; }
-.cust-home .cust-practice-tiles > .cust-practice-streak { background: var(--tone-clay-dot); color: var(--pulso-ink); }
-.cust-home .cust-practice-tiles > .stat:last-child:not(.cust-practice-streak) { background: var(--tone-sun-dot); color: var(--pulso-ink); }
-.cust-home .cust-practice-tiles > :is(.cust-practice-streak, .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint) { color: inherit; }
+.cust-home .cust-practice-body > .cust-practice-streak { background: var(--tone-clay-dot); color: var(--pulso-ink); }
+.cust-home .cust-practice-tiles > .stat:last-child { background: var(--tone-sun-dot); color: var(--pulso-ink); }
+.cust-home :is(.cust-practice-streak, .cust-practice-tiles > .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint, .weekdots-initial, .weekdots-caption) { color: inherit; }
 
 /* 0158 · Pulso Luxe — restraint: paper, ink and hairlines, one tone per screen, the brand's serif set like an
    invitation (light weight, italics, old-style figures) and labels in widely tracked small capitals. Theme tokens only,

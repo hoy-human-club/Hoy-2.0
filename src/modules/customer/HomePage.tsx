@@ -29,7 +29,10 @@ import './pulso.css';
 import { Icon } from '../../components/atom/Icon/Icon';
 
 const spec = canvasSpecs['C-01'];
-const HOME_SIDE = new Set(['MembershipNudge (if no plan)', 'AnnouncementCard (if active)', 'QuickActions ×4', 'StatsRow ×3', 'FeedbackPrompt (conditional)']);
+// 0164: the greeting, the announcement and the plan nudge run across the top; below, the split pairs into balanced
+// rows — next class beside the quick actions, today beside the practice block (customer.css, .cust-home-split).
+const HOME_FULL = new Set(['TopBar (logo, avatar, bell)', 'MembershipNudge (if no plan)', 'AnnouncementCard (if active)']);
+const HOME_SIDE = new Set(['QuickActions ×4', 'StatsRow ×3', 'FeedbackPrompt (conditional)']);
 
 /** C-01 Home. Sections come from the layout editor order; each block is independently toggleable later via feature_flags. */
 export function CustomerHomePage() {
@@ -67,9 +70,15 @@ export function CustomerHomePage() {
     'MembershipNudge (if no plan)': () => membership
       ? <p className="small muted">{t('customer.home.membership.active', { date: formatDate(membership.renews_at ?? membership.starts_at, lang) })}</p>
       : ent.pkg.left > 0 ? null : <Notice tone="info" action={<Link to="/app/plans"><Button size="sm" variant="secondary">{t('customer.home.membership.cta')}</Button></Link>}>{t('customer.home.membership.nudge')}</Notice>,
-    'AnnouncementCard (if active)': () => <Card tone="muted" eyebrow={t('customer.home.announcement')}><p className="small">{t('customer.home.announcement.body')}</p></Card>,
+    'AnnouncementCard (if active)': () => (
+      <p className="cust-announce" role="note">
+        <span className="cust-announce-icon" aria-hidden><Icon name="bell" size="sm" /></span>
+        <span className="cust-announce-label">{t('customer.home.announcement')}</span>
+        <span className="cust-announce-body">{t('customer.home.announcement.body')}</span>
+      </p>
+    ),
     'NextClassCard + countdown': () => (
-      <section className="stack-sm">
+      <section className="stack-sm cust-home-block">
         <div className="eyebrow">{t('customer.home.next')}</div>
         {next
           ? <ClassCard variant="next" title={next.session.title} teacher={next.teacher?.display_name ?? ''} room="Sala principal" startsAt={next.session.starts_at} endsAt={next.session.ends_at} tone={next.modality?.tone ?? 'river'} booked={next.session.booked_count} capacity={next.session.capacity} cta={{ label: t('customer.home.view'), onClick: () => nav(`/app/class/${next.session.id}`) }} />
@@ -77,14 +86,16 @@ export function CustomerHomePage() {
       </section>
     ),
     'QuickActions ×4': () => (
-      <div className="cust-quick">
-        {([['/app/schedule', 'schedule', 'schedule'], ['/app/schedule', 'calendar-plus', 'book'], ['/app/plans', 'ticket', 'plans'], ['/app/invite', 'invite', 'invite']] as const).map(([to, icon, k]) => <Link key={k} to={to} className="cust-quick-btn"><span className="cust-quick-icon" aria-hidden><Icon name={icon} size="lg" /></span><span>{t(`customer.home.quick.${k}`)}</span></Link>)}
-      </div>
+      <section className="cust-home-block cust-home-quick">
+        <div className="cust-quick">
+          {([['/app/schedule', 'schedule', 'schedule'], ['/app/schedule', 'calendar-plus', 'book'], ['/app/plans', 'ticket', 'plans'], ['/app/invite', 'invite', 'invite']] as const).map(([to, icon, k]) => <Link key={k} to={to} className="cust-quick-btn"><span className="cust-quick-icon" aria-hidden><Icon name={icon} size="lg" /></span><span className="cust-quick-label">{t(`customer.home.quick.${k}`)}</span></Link>)}
+        </div>
+      </section>
     ),
     'TodayList': () => (
-      <section className="stack-sm">
+      <section className="stack-sm cust-home-block">
         <div className="eyebrow">{t('customer.home.today')}</div>
-        <Card padding="sm">
+        <Card padding="sm" className={`cust-today ${today.length === 0 ? 'is-empty' : ''}`}>
           {today.length === 0 && <p className="muted small" style={{ padding: 'var(--sp-md)' }}>{t('customer.home.today.empty')}</p>}
           {today.map(({ session: s, modality: m, teacher: te }) => (
             <ClassRow key={s.id} title={s.title} teacher={te?.display_name ?? ''} startsAt={s.starts_at} durationMin={m?.duration_min ?? 60} tone={m?.tone ?? 'river'} booked={s.booked_count} capacity={s.capacity} booked_by_me={activeBookingIds.has(s.id)} onClick={() => (activeBookingIds.has(s.id) ? nav(`/app/class/${s.id}`) : s.booked_count >= s.capacity ? nav(`/app/waitlist/${s.id}`) : book(s.id))} />
@@ -104,7 +115,7 @@ export function CustomerHomePage() {
     <div className="container page cust-home">
       {/* ≥ 900 px: greeting across, next class + today on the left, membership / notice / quick actions / stats on the right. */}
       <SplitSections className="cust-home-split" names={sections.filter(isVisible)} render={(n) => SECTIONS[n]?.() ?? null}
-        full={(n) => n === 'TopBar (logo, avatar, bell)'} side={(n) => HOME_SIDE.has(n)} />
+        full={(n) => HOME_FULL.has(n)} side={(n) => HOME_SIDE.has(n)} />
     </div>
   );
 }
@@ -130,33 +141,42 @@ function PracticeBlock({ stats, goal }: { stats: PracticeStats; goal: PracticeGo
       : <StatTile label={t('customer.home.stats.package')} value={ent.pkg.left}
           hint={ent.pkg.frozen && ent.pkg.frozenUntil ? t('customer.home.stats.frozenUntil', { date: formatDate(ent.pkg.frozenUntil, lang, { day: 'numeric', month: 'short' }) }) : ent.pkg.left > 0 && ent.nextExpiry ? t('customer.home.stats.expires', { date: formatDate(ent.nextExpiry, lang, { day: 'numeric', month: 'short' }) }) : ent.pkg.left === 0 && !m ? t('customer.home.stats.noPlan') : undefined} />;
 
+  const week = (
+    <WeekDots days={stats.thisWeek.days} target={stats.target} attended={stats.thisWeek.attended} labels={weekInitials(t)} size="sm">
+      {stats.hasGoal ? t('customer.home.stats.week', { attended: stats.thisWeek.attended, target: stats.target }) : plural(t, 'customer.home.stats.weekNoGoal', stats.thisWeek.attended)}
+    </WeekDots>
+  );
+
+  // 0164: with a goal, the streak is the wide tile and carries the week dots (one place for "this week"); the two
+  // counts share the row below. Without one, the goal question and the week sit under the two counts.
   return (
-    <section className="stack-sm cust-practice" aria-labelledby="cust-practice-title">
-      <div className="row-between wrap">
+    <section className="stack-sm cust-practice cust-home-block" aria-labelledby="cust-practice-title">
+      <div className="row-between wrap cust-practice-head">
         <h2 className="eyebrow" id="cust-practice-title">{t('customer.home.stats.title')}</h2>
         <Link to="/app/practice" className="cust-practice-link">{t('customer.home.stats.more')} <Icon name="arrow-right" size="xs" /></Link>
       </div>
-      <div className={`grid cust-practice-tiles ${stats.hasGoal ? '' : 'is-two'}`}>
-        <StatTile label={t('customer.home.stats.classes')} value={stats.attendedThisMonth} hint={upcoming} />
+      <div className="stack-sm cust-practice-body">
         {stats.hasGoal && (
           <div className="stat cust-practice-streak">
-            <div className="eyebrow stat-label">{t('customer.home.stats.streak')}</div>
-            <PracticeStreak stats={stats} />
+            <div className="cust-practice-streak-main">
+              <div className="eyebrow stat-label">{t('customer.home.stats.streak')}</div>
+              <PracticeStreak stats={stats} />
+            </div>
+            <div className="cust-practice-week is-inline">{week}</div>
           </div>
         )}
-        {planTile}
+        <div className="grid cust-practice-tiles is-two">
+          <StatTile label={t('customer.home.stats.classes')} value={stats.attendedThisMonth} hint={upcoming} />
+          {planTile}
+        </div>
+        {!asked && (
+          <Card tone="highlight" padding="md" className="stack-sm">
+            <h3 className="cust-practice-q">{t('customer.home.goal.title')}</h3>
+            <PracticeGoalPicker value={null} suggested={stats.suggestedTarget} onPick={(n) => { void save(n); }} />
+          </Card>
+        )}
+        {!stats.hasGoal && <Card padding="sm" className="cust-practice-week">{week}</Card>}
       </div>
-      {!asked && (
-        <Card tone="highlight" padding="md" className="stack-sm">
-          <h3 className="cust-practice-q">{t('customer.home.goal.title')}</h3>
-          <PracticeGoalPicker value={null} suggested={stats.suggestedTarget} onPick={(n) => { void save(n); }} />
-        </Card>
-      )}
-      <Card padding="sm" className="cust-practice-week">
-        <WeekDots days={stats.thisWeek.days} target={stats.target} attended={stats.thisWeek.attended} labels={weekInitials(t)} size="sm">
-          {stats.hasGoal ? t('customer.home.stats.week', { attended: stats.thisWeek.attended, target: stats.target }) : plural(t, 'customer.home.stats.weekNoGoal', stats.thisWeek.attended)}
-        </WeekDots>
-      </Card>
     </section>
   );
 }
