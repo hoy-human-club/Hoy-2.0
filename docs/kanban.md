@@ -26,6 +26,10 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0161 HUB-01 as a bento on `ui-polish/hub-bento` (layout B of the hub layouts canvas): river hero with the session bar, sun opening-day tile, training banner, class-tone member tiles, paper seat tiles, ink build tile, tool pills and stats; previews dropped. Hub tests pass.
 
+- 0162 HUB-01 progressive tiles on `ui-polish/hub-progressive`: resting layer (icon, name, who, enter) plus a details layer on hover / focus / ⓘ toggle, fixed tile heights so rows align; 4 → 2 → 1 columns. Hub tests pass.
+
+- 0163 depth and motion (same branch): ≤2.5° pointer tilt, lift and soft light on cards and tiles (`src/design/depth.ts`), staggered page entrances and press feedback (`src/styles/motion.css`); off for touch and reduced motion.
+
 ### Next
 
 - Hub: optional "journey" tab (layout D) for client demos.

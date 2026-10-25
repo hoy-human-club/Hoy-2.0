@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './design/tokens.css';
 import './styles/global.css';
+import './styles/motion.css';
 import { installFrameSession } from './app/frameSession';
+import { installDepth } from './design/depth';
 import { App } from './app/App';
 import { enterCleanHub } from './app/cleanHubEntry';
 
@@ -11,6 +13,7 @@ import { enterCleanHub } from './app/cleanHubEntry';
 // useState initialisers, so this has to happen first.
 if (!enterCleanHub()) {
 installFrameSession();
+installDepth();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
