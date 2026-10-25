@@ -21,17 +21,23 @@ export const CONTENT_TABS = [
 
 export type ContentTab = typeof CONTENT_TABS[number]['key'];
 
-/** Shared sub-navigation of M-02 — the same row on all five pages. */
-export function ContentSubNav({ current }: { current: ContentTab }) {
+/**
+ * Shared sub-navigation of M-02 — the same row on all five pages. 0169: the page's actions (search, create…) ride on
+ * the right of this row instead of a header row of their own.
+ */
+export function ContentSubNav({ current, actions }: { current: ContentTab; actions?: ReactNode }) {
   const { t } = useI18n();
   return (
-    <nav className="adm-subnav" aria-label={t('admin.content.title')}>
-      {CONTENT_TABS.map((tab) => (
-        <Link key={tab.key} to={tab.to} aria-current={tab.key === current ? 'page' : undefined}>
-          <Chip selected={tab.key === current}>{t(`admin.content.nav.${tab.key}`)}</Chip>
-        </Link>
-      ))}
-    </nav>
+    <div className="adm-subnav-bar">
+      <nav className="adm-subnav" aria-label={t('admin.content.title')}>
+        {CONTENT_TABS.map((tab) => (
+          <Link key={tab.key} to={tab.to} aria-current={tab.key === current ? 'page' : undefined}>
+            <Chip selected={tab.key === current}>{t(`admin.content.nav.${tab.key}`)}</Chip>
+          </Link>
+        ))}
+      </nav>
+      {actions && <div className="adm-subnav-actions">{actions}</div>}
+    </div>
   );
 }
 
@@ -67,9 +73,8 @@ export function ContentHead({ current, title, subtitle, actions }: { current: Co
     <>
       <div className="page-head">
         <div><h1>{title}</h1><p className="muted small">{subtitle}</p></div>
-        {actions && <div className="row wrap">{actions}</div>}
       </div>
-      <ContentSubNav current={current} />
+      <ContentSubNav current={current} actions={actions} />
     </>
   );
 }

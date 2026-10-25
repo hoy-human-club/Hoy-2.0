@@ -100,6 +100,10 @@ export function ContentPage() {
   const bulkLock = useRef(false);
   const [bulkBusy, setBulkBusy] = useState(false), [bulkError, setBulkError] = useState('');
   const [view, setView] = useState<'table' | 'list'>('table');
+  // 0169: the bulk editor is progressive — it opens from its toolbar button or as soon as a row is ticked, and stays
+  // open while a preview, an undo or a result message needs it.
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const bulkShown = bulkOpen || checked.length > 0 || !!preview || !!undo || !!bulkError;
   useEffect(() => { const e = params.get('entity'); if (e && e in FIELDS) { setEntity(e as Entity); setSelected(params.get('row')); setChecked([]); setPreview(null); setUndo(null); } }, [params]);
   const { rows, loading } = useTable<BaseRow>(entity, { orderBy: { column: FIELDS[entity][0].name } });
   const { rows: modalities } = useTable<ModalityRow>('modalities');
@@ -137,9 +141,12 @@ export function ContentPage() {
   const row = rows.find((r) => r.id === selected) ?? null;
 
   const columns = useMemo<DataTableColumn<BaseRow>[]>(() => {
-    const first = fields.slice(0, entity === 'class_templates' ? 6 : 4);
+    // 0169: a column that is empty on every record (e.g. default theme / description before anyone writes them) is
+    // left out of the table; the drawer still edits it.
+    const blank = (v: unknown) => v == null || v === '' || (Array.isArray(v) && v.length === 0) || (typeof v === 'object' && !Array.isArray(v) && !((v as Bi).es || (v as Bi).en));
+    const first = fields.slice(0, entity === 'class_templates' ? 6 : 4).filter((f, i) => i === 0 || rows.length === 0 || rows.some((r) => !blank(r[f.name])));
     return [
-      ...(canWrite ? [{ key: 'select', label: t('bulk.select'), render: (r: BaseRow) => <span onClick={e => e.stopPropagation()}><input type="checkbox" aria-label={`${t('bulk.select')} ${String(r[FIELDS[entity][0].name])}`} checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /></span> }] : []),
+      ...(canWrite ? [{ key: 'select', label: t('bulk.select'), width: '4.5rem', render: (r: BaseRow) => <span onClick={e => e.stopPropagation()}><input type="checkbox" aria-label={`${t('bulk.select')} ${String(r[FIELDS[entity][0].name])}`} checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /></span> }] : []),
       ...first.map<DataTableColumn<BaseRow>>((f) => ({ key: f.name, label: bi(f.label), render: (r) => {
         const v = r[f.name];
         if (f.kind === 'ref' && f.ref) return refLabel(f.ref, v);
@@ -152,7 +159,7 @@ export function ContentPage() {
       } })),
       ...(entity !== 'rooms' ? [{ key: 'active', label: t('admin.content.published'), width: 120, render: (r) => <span onClick={(e) => e.stopPropagation()}><Toggle size="sm" checked={!!r.active} disabled={!canWrite || recovery.busy || bulkBusy} onChange={(on) => publish(r, on)} /></span> } as DataTableColumn<BaseRow>] : []),
     ];
-  }, [entity, bi, refs, canWrite, checked, bulkBusy, fields, recovery.busy]);
+  }, [entity, bi, refs, canWrite, checked, bulkBusy, fields, recovery.busy, rows]);
 
   const publish = (r: BaseRow, on: boolean) => write({ kind: 'update', table: entity, before: r, patch: { active: on } });
   const add = () => write({ kind: 'create', table: entity, patch: structuredClone(BLANK[entity]) }, setSelected);
@@ -165,21 +172,25 @@ export function ContentPage() {
     <div className="stack">
       <div className="page-head">
         <div><h1>{t('admin.content.title')}</h1><p className="muted small">{t('admin.content.subtitle')}</p></div>
-        <div className="row wrap">
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('core.common.search')} style={{ width: 220 }} aria-label={t('core.common.search')} />
-          {canWrite && <Button size="sm" disabled={recovery.busy || bulkBusy} onClick={add}>{t('admin.content.add')}</Button>}
-        </div>
       </div>
-      <ContentSubNav current="entities" />
+      {/* 0169 · two control rows instead of five: sections + search/create, then records + view/bulk/schedule */}
+      <ContentSubNav current="entities" actions={<>
+        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('core.common.search')} className="content-search" aria-label={t('core.common.search')} />
+        {canWrite && <Button size="sm" disabled={recovery.busy || bulkBusy} onClick={add}>{t('admin.content.add')}</Button>}
+      </>} />
       {!row && recovery.notice}
       {entity==='teachers'&&reviewer(role)&&<TeacherQueue/>}
-      <div className="row wrap" role="tablist">
-        {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={recovery.blocked ? undefined : () => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
-        <span className="xs muted">{t('admin.content.pricingNote')}</span>
+      <div className="content-tools">
+        <div className="row wrap" role="tablist">
+          {(Object.keys(FIELDS) as Entity[]).map((e) => <Chip key={e} selected={entity === e} onClick={recovery.blocked ? undefined : () => { setEntity(e); setSelected(null); setSearch(''); resetBulk(); setBulkField(e === 'rooms' ? 'heated' : 'active'); }}>{t(`admin.content.tab.${e}`)}</Chip>)}
+        </div>
+        <div className="content-tools-right">
+          <div className="segmented content-view" role="group" aria-label={t('schedule.title')}>{(['table', 'list'] as const).map(v => <Button key={v} size="sm" variant={view === v ? 'primary' : 'ghost'} aria-pressed={view === v} onClick={() => setView(v)}>{t(`schedule.${v}`)}</Button>)}</div>
+          {canWrite && data.contentBatch && <Button size="sm" variant="secondary" icon="edit" aria-expanded={bulkShown} onClick={() => setBulkOpen(o => !o)}>{t('bulk.title')}</Button>}
+          <Link to="/admin/class-schedule" className="small">{t('schedule.title')} →</Link>
+        </div>
       </div>
-      <div className="row wrap"><Link to="/admin/class-schedule">{t('schedule.title')}</Link>{(['table', 'list'] as const).map(v => <Button key={v} variant={view === v ? 'primary' : 'secondary'} aria-pressed={view === v} onClick={() => setView(v)}>{t(`schedule.${v}`)}</Button>)}</div>
-      <p className="small muted">{t('schedule.demo')}</p>
-      {canWrite && data.contentBatch && <Card title={t('bulk.title')}><div className="stack">
+      {canWrite && data.contentBatch && bulkShown && <Card title={t('bulk.title')} className="content-bulk"><div className="stack">
         <p className="small muted">{t('bulk.scope')}</p>
         <div className="row wrap"><Button variant="secondary" disabled={bulkBusy} onClick={() => { setChecked(visibleRows.map(r => r.id)); setPreview(null); }}>{t('bulk.selectVisible')}</Button><Button variant="ghost" disabled={bulkBusy} onClick={() => { setChecked([]); setPreview(null); }}>{t('bulk.clear')}</Button><span>{t('bulk.count', { n: checked.length })}</span></div>
         <div className="row wrap"><label>{t('bulk.field')}<Select aria-label={t('bulk.field')} value={chosenField.name} disabled={bulkBusy} onChange={e => { setBulkField(e.target.value); setBulkValue(''); setPreview(null); }}>{bulkFields.map(f => <option key={f.name} value={f.name}>{bi(f.label)}</option>)}</Select></label><label>{t('bulk.value')}{chosenField.kind === 'bool' ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option><option value="true">{t('admin.tables.yes')}</option><option value="false">{t('admin.tables.no')}</option></Select> : chosenField.kind === 'ref' && chosenField.ref ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option>{refs[chosenField.ref].map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</Select> : chosenField.kind === 'select' || chosenField.kind === 'tone' ? <Select aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} onChange={e => { setBulkValue(e.target.value); setPreview(null); }}><option value="">—</option>{(chosenField.options ?? TONES).map(v => <option key={v} value={v}>{chosenField.name === 'weekday' ? bi(WEEKDAYS[Number(v)]) : v}</option>)}</Select> : <Input aria-label={t('bulk.value')} value={bulkValue} disabled={bulkBusy} type={chosenField.kind === 'int' ? 'number' : chosenField.kind === 'time' ? 'time' : 'text'} onChange={e => { setBulkValue(e.target.value); setPreview(null); }} />}</label><Button disabled={!checked.length || bulkValue === '' || bulkBusy} onClick={() => bulk('preview')}>{t('bulk.preview')}</Button></div>
@@ -189,6 +200,7 @@ export function ContentPage() {
       {loading && rows.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.content.empty')} body={t('admin.content.empty.body')} action={canWrite && <Button size="sm" disabled={recovery.busy || bulkBusy} onClick={add}>{t('admin.content.add')}</Button>} /> : (
         view === 'list' ? <div className="grid grid-2">{visibleRows.map(r => <Card key={r.id} title={String(r[FIELDS[entity][0].name])} actions={<Button onClick={() => setSelected(r.id)}>{t('core.common.edit')}</Button>}><div className="stack-sm">{canWrite && <label><input type="checkbox" checked={checked.includes(r.id)} disabled={bulkBusy} onChange={e => { setChecked(ids => e.target.checked ? [...ids, r.id] : ids.filter(id => id !== r.id)); setPreview(null); }} /> {t('bulk.select')}</label>}{fields.slice(1, 5).filter(f => f.kind !== 'bi' && f.kind !== 'list').map(f => <p key={f.name} className="small">{bi(f.label)}: {f.ref ? refLabel(f.ref, r[f.name]) : String(r[f.name] ?? '—')}</p>)}</div></Card>)}</div> : <DataTable columns={columns} rows={visibleRows} rowKey={(r) => r.id} search={search} onRowClick={(r) => setSelected(r.id)} selectedKey={selected} dense />
       )}
+      <p className="xs muted">{t('schedule.demo')} {t('admin.content.pricingNote')}</p>
       <Drawer open={!!row} onClose={() => setSelected(null)} width={520} title={<div className="row wrap"><span>{t(`admin.content.tab.${entity}`)}</span>{row && <Badge tone={row.active ? 'success' : 'warn'}>{row.active ? t('admin.content.published') : t('admin.content.draft')}</Badge>}</div>}
         footer={row && canWrite ? <div className="row-between"><Button variant="danger" size="sm" disabled={recovery.busy || bulkBusy} onClick={() => remove(row)}>{t('core.common.delete')}</Button>{entity !== 'rooms' && <Toggle size="sm" checked={!!row.active} label={t('admin.content.published')} disabled={recovery.busy || bulkBusy} onChange={(on) => publish(row, on)} />}</div> : undefined}>
         {row && recovery.notice}

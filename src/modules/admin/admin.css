@@ -96,6 +96,19 @@
 .hours-day-why { display: inline-flex; align-items: center; gap: var(--stack-tight); overflow-wrap: anywhere; }
 /* M-01 today at a glance */
 /* The time column sizes to its widest entry ("10:10 a. m."); a time never breaks across lines (es-CO puts a plain space inside "a. m."). */
+/* 0169 · M-02 content family: the sub-navigation carries the page actions on its right; the entities page puts its
+   record tabs and view / bulk / schedule controls on one second row */
+.adm-subnav-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+.adm-subnav-bar > .adm-subnav { margin: 0; }
+.adm-subnav-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-sm); }
+/* section chips are the same size as the record tabs below them (they were smaller, inverting the hierarchy) */
+.adm-subnav a { text-decoration: none; }
+.adm-subnav a .chip { min-height: var(--h-ctl); display: inline-flex; align-items: center; padding-inline: var(--sp-md); }
+.content-search { width: 16rem; max-width: 100%; }
+.content-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+.content-tools-right { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-md); }
+.content-view { display: inline-flex; gap: var(--sp-2xs); padding: var(--sp-2xs); border-radius: var(--r-full); background: var(--color-surface-2); }
+
 /* 0166 · M-03 CRM: segment tabs and the search on one bar */
 .crm-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
 .crm-bar > .tabs { flex: 1 1 auto; min-width: 0; }
