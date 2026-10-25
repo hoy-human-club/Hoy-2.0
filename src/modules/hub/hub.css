@@ -119,10 +119,14 @@
 .hub-tile.is-training .btn { background: var(--brand-yellow); color: var(--brand-ink); }
 
 /* ---------------------------------------------------------------- bottom row: ink build tile + tools */
-.hub-bento-bottom { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--sp-lg); }
+.hub-bento-bottom { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sp-lg); align-items: stretch; }
 .hub-build { display: flex; flex-direction: column; gap: var(--sp-sm); padding: var(--card-pad); border-radius: var(--r-xl); background: var(--hub-night); color: var(--brand-white); }
 .hub-build h2, .hub-toolbox h2 { margin: 0; font-family: var(--font-editorial); font-weight: var(--fw-medium); font-size: var(--fs-2xl); color: inherit; }
-.hub-build-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 0 var(--sp-xl); }
+/* 0167 · one clean list (was two ragged columns that left a hole and broke "knowledgebase" mid-word); rows share the
+   tile height so the list ends level with the tools card */
+.hub-build-rows { flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; gap: 0; }
+.hub-tile.is-row .hub-tile-title { overflow-wrap: normal; word-break: normal; hyphens: manual; }
+.hub-build-rows > .hub-tile.is-row:last-child { border-bottom: 0; }
 /* rows: icon · name and who · button and ⓘ on one line; details open below only on an explicit ⓘ */
 .hub-tile.is-row { --tile-icon-bg: color-mix(in srgb, var(--brand-white) 12%, transparent); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "head text foot" "details details details"; align-items: center; gap: 0 var(--sp-md); padding: var(--sp-md) 0; border-radius: 0; border-bottom: 1px solid color-mix(in srgb, var(--brand-white) 14%, transparent); background: none; color: inherit; }
 .hub-tile.is-row .hub-tile-head { grid-area: head; }
@@ -138,8 +142,13 @@
 .hub-build :focus-visible { outline: 2px solid var(--brand-yellow); outline-offset: 2px; }
 
 .hub-toolbox { display: flex; flex-direction: column; gap: var(--sp-md); padding: var(--card-pad); border-radius: var(--r-xl); background: var(--hub-paper); color: var(--hub-ink); }
-.hub-tools { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-sm); }
-.hub-tool { display: inline-flex; align-items: center; gap: var(--sp-xs); min-height: var(--h-ctl-sm); padding: 0 var(--sp-md); border-radius: var(--r-full); background: var(--hub-paper-2); color: var(--hub-ink); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; transition: background-color var(--dur-fast), transform var(--dur-base) var(--ease-out); }
+/* 0167 · the nine tools as an even 2-column grid of tiles instead of ragged pills */
+.hub-tools { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-sm); }
+.hub-tools > li { min-width: 0; display: flex; }
+.hub-tools > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.hub-tool .badge { margin-left: auto; }
+.hub-tool > span:not(.badge) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hub-tool { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: var(--sp-sm); min-height: var(--h-ctl); padding: 0 var(--sp-md); border-radius: var(--r-md); background: var(--hub-paper-2); color: var(--hub-ink); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; transition: background-color var(--dur-fast), transform var(--dur-base) var(--ease-out); }
 .hub-tool:hover { background: var(--hoy-c17); text-decoration: none; transform: translateY(-1px); }
 :root[data-theme="dark"] .hub-tool:hover { background: var(--color-surface-3); }
 .hub-stats { margin: auto 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-md); padding-top: var(--sp-md); border-top: 1px solid var(--hub-line); }

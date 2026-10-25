@@ -29,6 +29,7 @@ import { type Lang } from '../../i18n/types';
 interface WaitlistRow extends BaseRow { user_id: string; session_id: string; position: number; status: string }
 
 const MAIN = new Set(['TodayStrip (now / next / later)', 'MemberSearch + CapacityMeter', 'RosterList (expected / checked in / waitlist)']);
+const ROSTER = 'RosterList (expected / checked in / waitlist)';
 
 /** S-02 — the door board: today's strip, one roster, one search box, one-tap check-in, walk-ins and waitlist promotion. */
 export function CheckinPage() {
@@ -208,7 +209,7 @@ export function CheckinPage() {
       </Card>
     ) : null,
     'RosterList (expected / checked in / waitlist)': () => selected ? (
-      <div className="stack">
+      <div className="checkin-groups">
         {error && <EmptyState compact tone="error" title={t('core.common.error')} body={error} action={<Button size="sm" variant="secondary" onClick={() => setError(null)}>{t('core.common.retry')}</Button>} />}
         {loading && bookings.length === 0 && <EmptyState compact tone="loading" title={t('core.common.loading')} />}
         {!loading && roster.length === 0 && waitlist.length === 0 && <EmptyState compact title={q ? t('staff.checkin.noMatch') : t('staff.checkin.emptyRoster')} body={q ? t('staff.checkin.noMatch.body') : undefined} />}
@@ -263,10 +264,13 @@ export function CheckinPage() {
   return (
     <div className="stack">
       <div className="page-head"><div><h1>{t('staff.checkin.title')}</h1><p className="muted small">{t('staff.checkin.subtitle')}</p></div></div>
+      {/* 0167 · a balanced top band (today's classes + the door search | teachers + walk-in), then the roster across
+          the full width with its groups side by side, so neither column runs on alone */}
       <div className="checkin">
-        <div className="checkin-main">{visible.filter((s) => MAIN.has(s)).map((s) => <Fragment key={s}>{SECTIONS[s]()}</Fragment>)}</div>
+        <div className="checkin-main">{visible.filter((s) => MAIN.has(s) && s !== ROSTER).map((s) => <Fragment key={s}>{SECTIONS[s]()}</Fragment>)}</div>
         <aside className="checkin-side">{visible.filter((s) => !MAIN.has(s)).map((s) => <Fragment key={s}>{SECTIONS[s]()}</Fragment>)}</aside>
       </div>
+      {visible.includes(ROSTER) && SECTIONS[ROSTER]()}
       <p className="xs muted checkin-footnote">{t('staff.checkin.package.demo')}</p>
     </div>
   );

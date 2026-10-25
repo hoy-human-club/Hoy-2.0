@@ -337,7 +337,11 @@ export function RegisterPage() {
               </div>
             </Card>
           )}
+        </div>
 
+        {/* 0167 · step 3 (how they pay) sits with the summary and the pay button: who + what on the left, how + total
+            on the right, so the two columns carry equal weight */}
+        <aside className="register-rail">
           <Card eyebrow={t('staff.register.step3')} title={t('staff.register.how')}>
             <div className="register-methods" role="radiogroup">
               {METHODS.map((m) => <button key={m} type="button" role="radio" aria-checked={method === m} className={`register-method ${method === m ? 'is-selected' : ''}`} onClick={() => setMethod(m)}><strong className="small">{t(`staff.register.method.${m}`)}</strong><span className="xs muted">{t(`staff.register.method.${m}.hint`)}</span></button>)}
@@ -348,9 +352,6 @@ export function RegisterPage() {
               <Toggle size="sm" checked={receipt.email} onChange={(on) => setReceipt({ ...receipt, email: on })} label={t('launchReceipt.email')} />
             </div>
           </Card>
-        </div>
-
-        <aside className="register-rail">
           <Card title={t('staff.register.summary')} raised>
             <div className="stack-sm">
               <div className="row-between"><span className="small">{displayName || <span className="muted">{t('staff.register.summary.noone')}</span>}</span>{mode === 'new' && form.first && <Badge tone="primary">{t('core.common.new')}</Badge>}</div>

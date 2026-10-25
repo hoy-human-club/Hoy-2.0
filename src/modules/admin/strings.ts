@@ -898,7 +898,7 @@ export const strings: StringTable = {
   'admin.finance.provider.manual': { es: 'manual', en: 'manual' },
   'admin.finance.payouts': { es: 'Nómina de profesores', en: 'Teacher payroll' },
   'admin.finance.payouts.next': { es: 'Próxima corrida', en: 'Next run' },
-  'admin.finance.payouts.body': { es: 'Las corridas se aprueban y se pagan en Nómina (M-09a). La cuenta de dispersión y el entorno de Wompi viven en', en: 'Runs are approved and paid in Payroll (M-09a). The dispersion account and the Wompi environment live in' },
+  'admin.finance.payouts.body': { es: 'Las corridas se aprueban y se pagan en Nómina. La cuenta de dispersión y el entorno de Wompi viven en', en: 'Runs are approved and paid in Payroll. The dispersion account and the Wompi environment live in' },
   'admin.finance.payments': { es: 'Pagos', en: 'Payments' },
   'admin.finance.refund': { es: 'Reembolsar', en: 'Refund' },
   'admin.finance.refund.confirm': { es: '¿Reembolsar {amount}? El pago pasa a “refunded” y queda en el registro.', en: 'Refund {amount}? The payment becomes “refunded” and is logged.' },
@@ -1258,8 +1258,8 @@ export const strings: StringTable = {
   'admin.finance.balance.result': { es: 'Balance', en: 'Balance' },
   'admin.finance.balance.margin': { es: 'margen {pct} % sobre ingresos', en: '{pct} % margin on revenue' },
   'admin.finance.balance.noRevenue': { es: 'sin ingresos en el rango', en: 'no revenue in the range' },
-  'admin.finance.balance.openPayroll': { es: 'Nómina (M-09a)', en: 'Payroll (M-09a)' },
-  'admin.finance.balance.openExpenses': { es: 'Gastos (M-09c)', en: 'Expenses (M-09c)' },
+  'admin.finance.balance.openPayroll': { es: 'Nómina', en: 'Payroll' },
+  'admin.finance.balance.openExpenses': { es: 'Gastos', en: 'Expenses' },
   'admin.finance.balance.body': { es: 'Ingresos son los pagos aprobados del rango. Nómina toma cada corrida cuyo periodo mensual cruza el rango, al total actual (el borrador cuenta: las clases ya se dictaron). Gastos son los fijos y variables con fecha en el rango, pagados o no.', en: 'Revenue is the approved payments in the range. Payroll takes every run whose monthly period overlaps the range, at its current total (a draft counts: the classes were taught). Expenses are the fixed and variable rows dated in the range, paid or not.' },
 
   // M-11 deletion requests (0019)
