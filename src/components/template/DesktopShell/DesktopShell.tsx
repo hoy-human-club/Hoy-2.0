@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useId, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, matchPath, useLocation } from 'react-router-dom';
-import type { RouteDef, Surface } from '../../../specs/types';
+import type { RouteDef, Surface, NavBadge } from '../../../specs/types';
 import { useI18n } from '../../../i18n/I18nProvider';
 import { useSession } from '../../../auth/SessionProvider';
 import { useTheme } from '../../../design/ThemeProvider';
 import { useTable } from '../../../data/DataContext';
 import type { ProfileRow } from '../../../data/schema';
 import { toSummary, useUnreadInbound } from '../../../data/comms';
-import { ROLE_LABEL } from '../../../auth/roles';
+import { DEV_MODE_ROLES, ROLE_HOME, ROLE_LABEL } from '../../../auth/roles';
+import { Badge } from '../../atom/Badge/Badge';
 import { openInspector } from '../../../dev/inspectorBus';
 import { Wordmark } from '../../atom/Wordmark/Wordmark';
 import { LangToggle } from '../../molecule/LangToggle/LangToggle';
@@ -50,20 +51,22 @@ function write(key: string, value: unknown) {
 function usePreference<T>(key: string, fallback: T) {
   const [stored, setStored] = useState(() => ({ key, value: read(key, fallback) }));
   const value = stored.key === key ? stored.value : read(key, fallback);
+  // The updater stays pure (StrictMode runs it twice in dev; writing storage inside it made the first toggle after a
+  // user switch undo itself). Persisting happens in the effect below, only for the current key.
   const update = useCallback((change: (previous: T) => T) => {
-    setStored((previous) => {
-      const next = change(previous.key === key ? previous.value : read(key, fallback));
-      write(key, next);
-      return { key, value: next };
-    });
+    setStored((previous) => ({ key, value: change(previous.key === key ? previous.value : read(key, fallback)) }));
   }, [key]);
+  const dirty = useRef(false);
+  useEffect(() => { if (dirty.current && stored.key === key) write(key, stored.value); dirty.current = true; }, [stored]);
   return [value, update] as const;
 }
+// 0159 · IA phase 1: groups by job. Today and People start open (the desk uses them all day); the rest start folded.
+const GROUP_ORDER = ['today', 'people', 'sales', 'finance', 'studio', 'reports', 'system', 'design'].map((key) => `core.nav.group.${key}`);
 const DEFAULT_FOLDED: Record<string, boolean> = {
-  'core.nav.group.staff': true,
-  'core.nav.group.publishing': true, 'core.nav.group.community': true,
-  'core.nav.group.finance': true, 'core.nav.group.system': true, 'core.nav.group.design': true,
+  'core.nav.group.sales': true, 'core.nav.group.finance': true, 'core.nav.group.studio': true,
+  'core.nav.group.reports': true, 'core.nav.group.system': true,
 };
+const BADGE_TONE: Record<NavBadge, 'primary' | 'warn'> = { beta: 'primary', preview: 'warn' };
 
 /** True while the viewport is narrower than the drawer breakpoint (900 px). */
 function useNarrow() {
@@ -88,7 +91,7 @@ function useNarrow() {
 export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopShellProps) {
   const { t, bi, dict } = useI18n();
   const title = t(titleKey);
-  const { user, role, isSuperAdmin, canDevMode, devMode, setDevMode, hasRole, can } = useSession();
+  const { user, role, canDevMode, devMode, setDevMode, hasRole, can } = useSession();
   const { theme, toggleTheme } = useTheme();
   const { pathname } = useLocation();
   const narrow = useNarrow();
@@ -146,21 +149,27 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     return () => window.removeEventListener('keydown', onKey);
   }, [narrow, setCollapsed]);
 
-  // A super admin sees the design-system (dev) routes from the staff and admin sidebars too.
-  const shown = useMemo<Surface[]>(
-    () => (isSuperAdmin && surfaces.includes('admin') && !surfaces.includes('dev') ? [...surfaces, 'dev'] : surfaces),
-    [isSuperAdmin, surfaces],
-  );
+  // 0159: running the studio and building the product are two workspaces. The Build workspace (dev surface) lists only
+  // the design-system routes; super admins and developers move between them with the switcher at the top of the sidebar.
+  const inBuild = surfaces.includes('dev');
   const allowed = useMemo(() => routes.filter((r) => hasRole(r.roles)), [routes, hasRole]);
-  const items = useMemo(() => allowed
-    .filter((r) => shown.includes(r.surface) && r.nav)
-    .map((r) => ({ to: r.nav!.to ?? r.path, route: r, group: r.nav!.group ?? '' }))
-    .sort((a, b) => (shown.indexOf(a.route.surface) - shown.indexOf(b.route.surface)) || (a.route.nav!.order - b.route.nav!.order)),
-  [allowed, shown]);
-  const groups = useMemo(() => {
-    const order = ['overview', 'staff', 'community', 'publishing', 'finance', 'system', 'design'].map((key) => `core.nav.group.${key}`);
-    return [...new Set(items.map((i) => i.group))].sort((a, b) => (order.indexOf(a) < 0 ? order.length : order.indexOf(a)) - (order.indexOf(b) < 0 ? order.length : order.indexOf(b)));
-  }, [items]);
+  const canBuild = DEV_MODE_ROLES.includes(role) && allowed.some((r) => r.surface === 'dev' && r.nav);
+  const canStudio = useMemo(() => allowed.some((r) => (r.surface === 'staff' || r.surface === 'admin') && r.nav), [allowed]);
+  const rank = (g: string) => (g === '' ? -1 : GROUP_ORDER.indexOf(g) < 0 ? GROUP_ORDER.length : GROUP_ORDER.indexOf(g));
+  const { items, homeTo } = useMemo(() => {
+    const all = allowed
+      .filter((r) => surfaces.includes(r.surface) && r.nav)
+      .map((r) => ({ to: r.nav!.to ?? r.path, route: r, group: r.nav!.group ?? '', labelKey: r.nav!.labelKey }));
+    // Exactly one “Inicio”: the home candidate that is this role's landing page (ROLE_HOME), else the ungrouped one (S-01).
+    const homes = all.filter((i) => i.route.nav!.home);
+    const home = homes.find((i) => i.route.path === ROLE_HOME[role]) ?? homes.find((i) => !i.group);
+    const list = all
+      .filter((i) => !i.route.nav!.home || i === home || i.group)
+      .map((i) => (i === home ? { ...i, group: '', labelKey: 'core.nav.home' } : i))
+      .sort((a, b) => (rank(a.group) - rank(b.group)) || (a.route.nav!.order - b.route.nav!.order));
+    return { items: list, homeTo: inBuild ? '/dev' : home?.to ?? ROLE_HOME[role] };
+  }, [allowed, surfaces, role, inBuild]);
+  const groups = useMemo(() => [...new Set(items.map((i) => i.group))].sort((a, b) => rank(a) - rank(b)), [items]);
   const label = useCallback((g: string) => (dict[g] ? t(g) : g), [dict, t]);
 
   const isRoot = (to: string) => to.split('/').filter(Boolean).length <= 1;
@@ -205,9 +214,15 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
     <div className={`deskshell ${rail ? 'is-rail' : ''} ${drawer ? 'is-open' : ''}`}>
       <aside ref={sideRef} className="deskshell-side" aria-hidden={narrow && !drawer ? true : undefined} aria-label={t('core.shell.sections')}>
         <div className="deskshell-brand">
-          <Link to="/hub" className="deskshell-mark" title={t('core.nav.hub')}><Wordmark height={rail ? 15 : 26} /></Link>
-          {!rail && <span className="deskshell-title">{title}</span>}
+          <Link to={homeTo} className="deskshell-mark" title={t('core.nav.home')}><Wordmark height={rail ? 15 : 26} /></Link>
+          {!rail && !(canBuild && canStudio) && <span className="deskshell-title">{title}</span>}
         </div>
+        {canBuild && canStudio && !rail && (
+          <nav className="deskshell-workspace" aria-label={t('core.workspace.switch')}>
+            <Link to={inBuild ? ROLE_HOME[role].startsWith('/dev') ? '/staff' : ROLE_HOME[role] : homeTo} className={`deskshell-ws ${inBuild ? '' : 'is-on'}`} aria-current={inBuild ? undefined : 'page'}>{t('core.workspace.studio')}</Link>
+            <Link to="/dev" className={`deskshell-ws ${inBuild ? 'is-on' : ''}`} aria-current={inBuild ? 'page' : undefined}>{t('core.workspace.build')}</Link>
+          </nav>
+        )}
         <nav className="deskshell-nav" aria-label={t('core.shell.sections')}>
           {groups.map((g) => {
             const open = !g || !folded[g];
@@ -226,19 +241,23 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
                 )}
                 {g && rail && <hr className="deskshell-sep" aria-hidden />}
                 <div id={panelId} className="deskshell-groupitems" hidden={!open && !rail}>
-                {items.filter((i) => i.group === g).map(({ to, route: r }) => (
-                  <NavLink
-                    key={`${r.path}-${to}`} to={to} end={isRoot(to)} aria-current={to === activeTo ? 'page' : false}
-                    className={() => `deskshell-link ${to === activeTo ? 'is-active' : ''}`}
-                    title={rail ? t(r.nav!.labelKey) : undefined}
-                    onClick={() => setDrawer(false)}
-                  >
-                    <span className="deskshell-icon" aria-hidden><Icon name={r.nav!.icon} size="md" /></span>
-                    <span className="deskshell-linktext">{t(r.nav!.labelKey)}</span>
-                    {devMode && !rail && <code className="deskshell-code">{r.spec.code}</code>}
-                    {rail && <span className="deskshell-tip" aria-hidden>{t(r.nav!.labelKey)}</span>}
-                  </NavLink>
-                ))}
+                {items.filter((i) => i.group === g).map(({ to, route: r, labelKey }) => {
+                  const badge = r.nav!.badge;
+                  return (
+                    <NavLink
+                      key={`${r.path}-${to}`} to={to} end={isRoot(to)} aria-current={to === activeTo ? 'page' : false}
+                      className={() => `deskshell-link ${to === activeTo ? 'is-active' : ''}`}
+                      title={rail ? t(labelKey) : badge ? t(`core.nav.badge.${badge}.hint`) : undefined}
+                      onClick={() => setDrawer(false)}
+                    >
+                      <span className="deskshell-icon" aria-hidden><Icon name={r.nav!.icon} size="md" /></span>
+                      <span className="deskshell-linktext">{t(labelKey)}</span>
+                      {badge && !rail && <Badge tone={BADGE_TONE[badge]} className="deskshell-badge">{t(`core.nav.badge.${badge}`)}</Badge>}
+                      {devMode && !rail && <code className="deskshell-code">{r.spec.code}</code>}
+                      {rail && <span className="deskshell-tip" aria-hidden>{t(labelKey)}{badge ? ` · ${t(`core.nav.badge.${badge}`)}` : ''}</span>}
+                    </NavLink>
+                  );
+                })}
                 </div>
               </div>
             );
@@ -254,11 +273,12 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
             {!rail && <span className="small">{t('core.shell.collapse')}</span>}
           </button>
           {rail ? (
-            <Link to="/hub" title={user.name} className="deskshell-me"><Avatar name={user.name} initials={user.initials} size={28} /></Link>
+            <Link to={homeTo} title={user.name} className="deskshell-me"><Avatar name={user.name} initials={user.initials} size={28} /></Link>
           ) : (
             <>
               <div className="row"><Avatar name={user.name} initials={user.initials} size={32} /><div className="grow small"><div className="deskshell-who">{user.name}</div><div className="xs muted">{bi(ROLE_LABEL[role])}</div></div></div>
-              <Link to="/hub" className="small">← {t('core.nav.hub')}</Link>
+              {/* 0159: the product links to help, not to the testing hub (that lives in the demo strip). */}
+              <Link to="/manual" className="small"><Icon name="manual" size="sm" /> {t('core.nav.help')}</Link>
             </>
           )}
         </div>
@@ -268,6 +288,7 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
             (search, language, theme, inbox) and a production build can drop the demo controls in this one place (HALL-16). */}
         <div className="deskshell-demobar" role="region" aria-label={t('core.demo.bar')}>
           <span className="deskshell-demolabel"><span className="deskshell-specdot" aria-hidden />{t('core.demo.bar')}</span>
+          <Link to="/hub" className="deskshell-hublink">{t('core.nav.hub')}</Link>
           <div className="deskshell-rs"><RoleSwitcher compact /></div>
           {canDevMode && <span className="deskshell-devtoggle" title={t('core.dev.mode')}><Toggle size="sm" checked={devMode} onChange={setDevMode} label={t('core.dev.mode')} /></span>}
           {devMode && current && (
@@ -277,7 +298,8 @@ export function DesktopShell({ surfaces, routes, titleKey, children }: DesktopSh
           )}
         </div>
         <TopBar
-          brand homeTo="/hub" title={current ? (current.nav ? t(current.nav.labelKey) : bi(current.spec.name)) : title} code={current?.spec.code}
+          brand homeTo={homeTo} title={current ? (current.nav ? t(items.find((i) => i.route === current)?.labelKey ?? current.nav.labelKey) : bi(current.spec.name)) : title}
+          code={devMode ? current?.spec.code : undefined}
           leading={<button ref={menuRef} type="button" className="topbar-lead" onClick={toggleSidebar} aria-label={sidebarLabel} aria-expanded={narrow ? drawer : !rail} title={sidebarLabel}>☰</button>}
           center={<GlobalSearch items={searchItems} />}
           actions={

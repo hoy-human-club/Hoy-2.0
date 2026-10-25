@@ -1,0 +1,17 @@
+# 0159 — IA phase 1: one Studio menu grouped by job, status badges, a Build workspace
+
+date: 2026-10-25
+version: 0.25.0
+prompt: docs/prompts/0159-ia-phase-1.md
+
+- Trigger: the UX architecture review (published as "HoyOS Navigation Architecture") found the staff menus mirror the modules: two homes (Panel + Inicio), messages in three places, build status inside labels, design tools in the studio menu, the avatar and wordmark linking members to the testing hub. Phase 1 is menu configuration only, before opening day.
+- Decision:
+  - Staff and admin are one "Estudio" workspace with the same menu on every page, grouped by job: Hoy en el estudio · Personas · Ventas · Finanzas · Estudio · Reportes · Administración. Items sort by group, then `nav.order` (they used to sort by surface first, so the order changed between /staff and /admin pages). Today and People start open; the rest start folded.
+  - One "Inicio" per role: new `nav.home` marks S-01 and M-01 as home candidates; the shell shows the one matching ROLE_HOME at the top (M-01 for admin, finance and super admin; S-01 for the desk roles and marketing). M-01 stays under Reportes as "Panel" for a coordinator.
+  - Status is a badge, not a label: new `nav.badge` (`beta` → "Beta", `preview` → "Demo", with a tooltip explaining it). "Pagos demo pendientes" → "Pagos pendientes" (Demo), "Mantenimiento · prototipo futuro" → "Mantenimiento" (Demo), "Marketing · borradores locales" → "Marketing" (Beta). Page headings keep their honest titles and notices.
+  - Build workspace: the design-system routes leave the studio sidebar. Super admins and developers get an Estudio / Desarrollo switcher at the top of the sidebar; /dev pages show only the design-system group.
+  - Doors: the DesktopShell wordmark and top-bar brand go to the role's home; the footer "← Hub" becomes "Ayuda" (→ /manual); the hub link moves into the demo strip. The AppShell avatar opens the person's profile (customer /app/more, teacher /teach/profile) instead of /hub. Spec codes in the top bar only show in dev mode. The gift trial (/app/voucher-gifts) leaves the member dock (still reachable from /app/vouchers).
+  - Fixed on the way: the sidebar preference updater wrote localStorage inside a React state updater, so under StrictMode (dev) the first sidebar toggle after a demo user switch undid itself. The updater is pure now and persisting happens in an effect.
+- Rejected: renaming items (Caja, Mensajes, Miembros, Clases y profesores) — needs Jas and Justin, like the status vocabulary; merging pages into tabs — Phase 2; a role-aware admin home replacing M-01 — Phase 4; "Vista previa" as the badge text — it truncated "Pagos pendientes" in a 240 px sidebar.
+- Checks: test-sidebar-groups updated and passing (group order, one Home per role, wordmark → home, no codes or status words in labels, three badges, Studio/Build switcher only for super admin and developer, rail/drawer, 390–3840 ES/EN captures). Booking-flow suite: 7/7 (two on the dev server, five on a production preview). `npm run build` passes (spacing lint at baseline 60).
+- Files: src/specs/types.ts, src/i18n/core.ts, src/app/shells.tsx, src/components/template/DesktopShell/{DesktopShell.tsx,DesktopShell.css,DesktopShell.meta.ts}, src/components/template/AppShell/{AppShell.tsx,AppShell.meta.ts}, src/modules/{staff,admin,classSchedule,transfers,vouchers,products,promotions,maintenance,marketing,voucher-gifts}/index.ts, scripts/test-sidebar-groups.mjs, generated public/hub-map.json, docs/screenshots/M-01/sidebar-*, docs/kanban.md.
