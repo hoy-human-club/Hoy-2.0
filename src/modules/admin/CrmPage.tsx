@@ -100,10 +100,12 @@ export function CrmPage() {
     <div className="stack">
       <div className="page-head">
         <div><h1>{t('admin.crm.title')}</h1><p className="muted small">{t('admin.crm.subtitle')}</p></div>
-        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.crm.search')} style={{ width: 260 }} aria-label={t('core.common.search')} />
       </div>
-      <p className="small muted">{t('admin.crm.demo')}</p>
-      <Tabs<Segment> ariaLabel={t('admin.crm.segments')} panelId="crm-members" value={seg} onChange={setSeg} items={SEGMENTS.map((s) => ({ value: s, label: t(`admin.crm.seg.${s}`), count: counts[s] }))} />
+      {/* 0166 · segments and search share one bar; the demo note moved to a footnote under the list */}
+      <div className="crm-bar">
+        <Tabs<Segment> ariaLabel={t('admin.crm.segments')} panelId="crm-members" value={seg} onChange={setSeg} items={SEGMENTS.map((s) => ({ value: s, label: t(`admin.crm.seg.${s}`), count: counts[s] }))} />
+        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('admin.crm.search')} className="crm-search" aria-label={t('core.common.search')} />
+      </div>
       <div id="crm-members" role="tabpanel" aria-label={t(`admin.crm.seg.${seg}`)}>
       {loading && customers.length === 0 ? <EmptyState tone="loading" title={t('core.common.loading')} /> : rows.length === 0 ? <EmptyState title={t('admin.crm.emptySeg')} body={t(`admin.crm.seg.${seg}.body`)} /> : (
         desktop ? <DataTable<Row> columns={columns} rows={rows} rowKey={(r) => r.id} onRowClick={(r) => nav(`/admin/crm/${r.id}`)} dense /> :
@@ -115,6 +117,7 @@ export function CrmPage() {
         </Card></Link>)}</div>
       )}
       </div>
+      <p className="xs muted">{t('admin.crm.demo')}</p>
     </div>
   );
 }

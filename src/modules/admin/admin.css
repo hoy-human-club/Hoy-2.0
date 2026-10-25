@@ -16,6 +16,14 @@
 .emails-version:last-child { border-bottom: 0; }
 @media (max-width: 1200px) { .emails { grid-template-columns: 13.75rem minmax(0, 1fr); } .emails-side { grid-column: 1 / -1; } }
 @media (max-width: 800px) { .emails { grid-template-columns: 1fr; } }
+/* 0166 · M-10: the ~70-template list scrolls inside its own column beside the editor (no scrollbar, a fade at the
+   foot), so the page ends with the editor instead of running 3,000 px past it; the two standing notes pair up */
+@media (min-width: 800.02px) {
+  .emails-list { position: sticky; top: calc(var(--h-topbar) + var(--sp-lg)); max-height: calc(100dvh - var(--h-topbar) - var(--sp-4xl)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; padding-bottom: var(--sp-2xl); -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--sp-2xl)), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - var(--sp-2xl)), transparent); }
+  .emails-list::-webkit-scrollbar { display: none; }
+}
+.emails-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--sp-md); align-items: stretch; }
+.emails-notes:empty { display: none; }
 
 /* M-05 whatsapp */
 .wa { display: grid; grid-template-columns: minmax(0, 1fr) 21.25rem; gap: var(--block); align-items: start; }
@@ -71,6 +79,13 @@
 .hours-day-why { display: inline-flex; align-items: center; gap: var(--stack-tight); overflow-wrap: anywhere; }
 /* M-01 today at a glance */
 /* The time column sizes to its widest entry ("10:10 a. m."); a time never breaks across lines (es-CO puts a plain space inside "a. m."). */
+/* 0166 · M-03 CRM: segment tabs and the search on one bar */
+.crm-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+.crm-bar > .tabs { flex: 1 1 auto; min-width: 0; }
+.crm-search { flex: 0 1 16.25rem; min-width: min(100%, 12rem); }
+/* 0166 · M-09 finance: the subscriptions link rides the head row with the range chips */
+.finance-head-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+
 /* 0165 · M-01 below the KPI row: two equal-height columns; a wide card or a lone last card spans both */
 .adm-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--block); align-items: stretch; }
 .adm-rows > * { min-width: 0; }
