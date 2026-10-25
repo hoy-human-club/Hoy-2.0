@@ -14,6 +14,7 @@ import { Badge } from '../../components/atom/Badge/Badge';
 import { CapacityMeter } from '../../components/molecule/CapacityMeter/CapacityMeter';
 import { RosterRow } from '../../components/molecule/RosterRow/RosterRow';
 import { EmptyState } from '../../components/molecule/EmptyState/EmptyState';
+import { Icon } from '../../components/atom/Icon/Icon';
 import { useSessionsJoined } from '../website/hooks';
 import { useSettings } from '../admin/settings';
 import { receptionUndoEligible, setReceptionAttendance } from '../../data/receptionAttendance';
@@ -167,9 +168,12 @@ export function CheckinPage() {
   const SECTIONS: Record<string, () => ReactNode> = {
     'TodayStrip (now / next / later)': () => (
       <section className="stack-sm">
-        <div className="stack-sm"><label htmlFor="checkin-future-class" className="small">{t('staff.checkin.future.label')}</label><Combobox id="checkin-future-class" ariaLabel={t('staff.checkin.future.label')} placeholder={t('staff.checkin.future.choose')} value={selectedId ?? ''} onChange={(id) => setParams({ session: id })} options={futureOptions} /></div>
-        <p className="xs muted">{t('staff.checkin.package.demo')}</p>
-        <div className="row-between wrap"><div className="eyebrow">{t('staff.checkin.today')}</div><span className="xs muted">{t('staff.checkin.strip.hint')}</span></div>
+        {/* 0164: one head line — today's classes on the left, the picker for booking any later class on the right
+            (its visible label became the accessible name; the strip hint and the demo note left this spot). */}
+        <div className="checkin-todayhead">
+          <div className="eyebrow">{t('staff.checkin.today')}</div>
+          <div className="checkin-future"><label htmlFor="checkin-future-class" className="sr-only">{t('staff.checkin.future.label')}</label><Combobox id="checkin-future-class" ariaLabel={t('staff.checkin.future.label')} placeholder={t('staff.checkin.future.choose')} value={selectedId ?? ''} onChange={(id) => setParams({ session: id })} options={futureOptions} /></div>
+        </div>
         {todayAll.length === 0 ? <EmptyState compact title={t('staff.checkin.noClasses')} body={t('staff.checkin.noClasses.body')} /> : (
           <div className="checkin-strip" role="tablist" aria-label={t('staff.checkin.today')}>
             {todayAll.map(({ session: s, teacher: te, modality: m }) => {
@@ -210,12 +214,12 @@ export function CheckinPage() {
         {!loading && roster.length === 0 && waitlist.length === 0 && <EmptyState compact title={q ? t('staff.checkin.noMatch') : t('staff.checkin.emptyRoster')} body={q ? t('staff.checkin.noMatch.body') : undefined} />}
         <Group title={t('staff.checkin.expected')} n={expected.length}>
           {expected.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={planLabel(p, b, lang, t)} status="booked" showStatus={false} flag={p?.notes ?? undefined}
-            actions={canWrite && <><Button size="sm" variant="tonal" disabled={!!busy} loading={busy === b.id} onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button><Button size="sm" variant="outline" disabled={!!busy} onClick={() => setStatus(b, 'no_show')} icon="user-x">{t('staff.checkin.noShow')}</Button></>} />)}
+            actions={canWrite && <><Button size="sm" variant="outline" className="checkin-secondary" disabled={!!busy} onClick={() => setStatus(b, 'no_show')} icon="user-x">{t('staff.checkin.noShow')}</Button><Button size="sm" variant="tonal" disabled={!!busy} loading={busy === b.id} onClick={() => setStatus(b, 'checked_in')} icon="check">{t('staff.checkin.checkin')}</Button></>} />)}
         </Group>
         <Group title={t('staff.checkin.arrived')} n={arrived.length}>
-          {canWrite && arrived.length > 0 && !receptionUndoEligible(selected.session) && <p className="xs muted" role="status">{t('staff.checkin.undoPolicy')}</p>}
-          {arrived.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={planLabel(p, b, lang, t)} status="checked_in" late={isLate(b)} time={b.checked_in_at ? formatTime(b.checked_in_at, lang) : undefined} flag={p?.notes ?? undefined}
-            actions={canWrite && <Button size="sm" variant="outline" disabled={!!busy || !receptionUndoEligible(selected.session)} title={!receptionUndoEligible(selected.session) ? t('staff.checkin.undoPolicy') : undefined} onClick={() => setStatus(b, 'booked')} icon="undo">{t('staff.checkin.undo')}</Button>} />)}
+          {canWrite && arrived.length > 0 && !receptionUndoEligible(selected.session) && <p className="checkin-note" role="status"><Icon name="info" size="sm" /><span>{t('staff.checkin.undoPolicy')}</span></p>}
+          {arrived.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} phone={maskPhone(p?.phone)} plan={planLabel(p, b, lang, t)} status="checked_in" showStatus={false} late={isLate(b)} time={b.checked_in_at ? formatTime(b.checked_in_at, lang) : undefined} flag={p?.notes ?? undefined}
+            actions={canWrite && <Button size="sm" variant="outline" className="checkin-secondary" disabled={!!busy || !receptionUndoEligible(selected.session)} title={!receptionUndoEligible(selected.session) ? t('staff.checkin.undoPolicy') : undefined} onClick={() => setStatus(b, 'booked')} icon="undo">{t('staff.checkin.undo')}</Button>} />)}
         </Group>
         {missed.length > 0 && <Group title={t('staff.checkin.missed')} n={missed.length}>
           {missed.map(({ b, p }) => <RosterRow key={b.id} name={p?.name ?? b.user_id} initials={p?.initials} plan={planLabel(p, b, lang, t)} status={b.status as 'no_show' | 'late_cancel'}
@@ -241,7 +245,7 @@ export function CheckinPage() {
     'QuickSell (walk-in)': () => (
       <Card title={t('staff.checkin.walkin')} padding="sm">
         <div className="stack-sm" style={{ padding: 'var(--sp-xs)' }}>
-          <p className="xs muted">{t('staff.checkin.walkin.body')}</p>
+          <details className="checkin-how"><summary><Icon name="info" size="sm" /><span>{t('staff.checkin.walkin.how')}</span></summary><p className="xs muted">{t('staff.checkin.walkin.body')}</p></details>
           {q.trim().length >= 2 && walkIns.length === 0 && <p className="small muted">{t('staff.checkin.walkin.none')}</p>}
           {walkIns.map((p) => <div key={p.id} className="stack-sm">
             <RosterRow name={p.name} initials={p.initials} phone={maskPhone(p.phone)} status="booked" showStatus={false} />
@@ -263,6 +267,7 @@ export function CheckinPage() {
         <div className="checkin-main">{visible.filter((s) => MAIN.has(s)).map((s) => <Fragment key={s}>{SECTIONS[s]()}</Fragment>)}</div>
         <aside className="checkin-side">{visible.filter((s) => !MAIN.has(s)).map((s) => <Fragment key={s}>{SECTIONS[s]()}</Fragment>)}</aside>
       </div>
+      <p className="xs muted checkin-footnote">{t('staff.checkin.package.demo')}</p>
     </div>
   );
 }

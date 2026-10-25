@@ -15,6 +15,25 @@
 .checkin-teacher { padding: var(--sp-sm) var(--sp-sm); border-bottom: 1px solid var(--color-border); }
 .checkin-teacher:last-child { border-bottom: 0; }
 @media (max-width: 1000px) { .checkin { grid-template-columns: 1fr; } }
+/* 0164 · S-02 calm pass: one head line for the strip and the booking picker, secondary row actions on hover/focus,
+   quiet notes with an icon, the walk-in explanation behind "How it works", the demo note as a footnote. */
+.checkin-todayhead { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); }
+.checkin-todayhead > .eyebrow { margin: 0; }
+.checkin-future { flex: 0 1 20rem; min-width: min(100%, 15rem); }
+.checkin-note { display: flex; align-items: flex-start; gap: var(--sp-xs); margin: 0 0 var(--sp-xs); padding: 0 var(--sp-xs); font-size: var(--fs-xs); line-height: 1.4; color: var(--color-text-muted); }
+.checkin-note .icon, .checkin-how summary .icon { flex: 0 0 auto; margin-top: 1px; }
+.checkin-how summary { display: inline-flex; align-items: center; gap: var(--sp-xs); min-height: var(--h-ctl-sm); font-size: var(--fs-sm); font-weight: var(--fw-medium); color: var(--color-text-muted); cursor: pointer; list-style: none; }
+.checkin-how summary::-webkit-details-marker { display: none; }
+.checkin-how summary:hover, .checkin-how[open] summary { color: var(--color-text); }
+.checkin-how > p { margin: 0 0 var(--sp-xs); }
+.checkin-footnote { margin: 0; }
+/* desk speed: "Check in" stays put on the right of every row; "No-show" and "Undo" appear when the row is pointed at
+   or focused (always shown on touch screens, where nothing hovers) */
+@media (hover: hover) and (pointer: fine) {
+  .checkin .rosterrow .checkin-secondary { opacity: 0; transition: opacity var(--dur-base) var(--ease-out); }
+  .checkin .rosterrow:is(:hover, :focus-within) .checkin-secondary { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .checkin .rosterrow .checkin-secondary { transition: none; } }
 
 /* S-04 register & take payment */
 .register { display: grid; grid-template-columns: minmax(0, 1fr) 21.25rem; gap: var(--block); align-items: start; }
