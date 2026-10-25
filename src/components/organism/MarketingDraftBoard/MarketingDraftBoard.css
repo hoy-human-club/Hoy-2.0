@@ -9,13 +9,20 @@
 .marketing-date-marker{font-size:var(--fs-xl);line-height:1;color:var(--color-primary)}
 .marketing-brand.is-light-reference{background:var(--brand-deepBlue)}
 
-/* 0166 · balanced board from 1100 px: the month calendar on the left, campaigns and undated drafts stacked beside it,
-   brand references full width below; the workspace line sits on the actions row */
+/* 0167 · the board: one header row (boundary note + who), one toolbar (actions + empty state), then the month calendar
+   beside a side column whose two cards split the calendar's height; brand references in one row of four */
+.mkt-head { display: flex; align-items: center; gap: var(--sp-md) var(--sp-xl); flex-wrap: wrap; }
+.mkt-head > .notice { flex: 1 1 32rem; padding: var(--sp-sm) var(--sp-md); }
+.mkt-head > .mkt-who { margin: 0; white-space: nowrap; }
+.mkt-actions { align-items: center; }
+.mkt-actions > .mkt-empty { margin: 0 0 0 auto; }
+.mkt-side { display: flex; flex-direction: column; gap: var(--block); min-width: 0; }
+.mkt-side > .card { flex: 1 1 0; }
+.mkt-assets .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+.mkt-assets .marketing-brand { height: var(--sp-5xl); width: 100%; }
 @media (min-width: 1100px) {
-  .mkt-board { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 1fr); grid-auto-flow: row dense; align-items: start; }
+  .mkt-board { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 1fr); align-items: stretch; }
   .mkt-board > * { grid-column: 1 / -1; min-width: 0; }
-  .mkt-board > .mkt-calendar { grid-column: 1; grid-row: span 2; }
-  .mkt-board > .mkt-campaigns, .mkt-board > .mkt-undated { grid-column: 2; }
-  .mkt-board > .mkt-undated { align-self: stretch; }
+  .mkt-board > .mkt-calendar { grid-column: 1; }
+  .mkt-board > .mkt-side { grid-column: 2; }
 }
-.mkt-board > .mkt-who { margin: 0; }

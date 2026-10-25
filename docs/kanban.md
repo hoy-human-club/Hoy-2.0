@@ -36,6 +36,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0166 team-seat pages on `ui-polish/seat-pages`: inbox pane fills the screen, POS bar + sticky rail below the top bar, CRM tabs + search bar, email template list in its own scroll column (page about 4,300 → 1,700 px), finance head links, marketing calendar beside campaigns. 15 page tests pass.
 
+- 0167 seat pages, visual pass on `ui-polish/seat-pages-visual`: rebuilt against real 1440 screenshots (`scripts/capture-seats.mjs`, `docs/screenshots/seats/`). Check-in top band + side-by-side roster, one-screen inbox, POS step 3 beside the summary, equal-height email workspace, finance head + no inner table scroll, marketing calendar + split side cards, hub build list + tool grid. 26 tests pass.
+
 ### Next
 
 - Hub: optional "journey" tab (layout D) for client demos.
