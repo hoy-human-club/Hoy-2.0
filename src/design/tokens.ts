@@ -461,14 +461,16 @@ function vars(obj: Record<string, string>): string {
  */
 export const TONE_HOOKS = ['chip', 'tone', 'tonecard', 'mediaslot', 'cust-media', 'cust-week', 'adm-tone'] as const;
 function toneHooksCss(): string {
-  return TONES.map((id) => `${[...TONE_HOOKS.map((h) => `.${h}-${id}`), `[data-tone="${id}"]`].join(', ')} { --t-fg: var(--tone-${id}-fg); --t-dot: var(--tone-${id}-dot); --t-bg: var(--tone-${id}-bg); }`).join('\n');
+  return TONES.map((id) => `${[...TONE_HOOKS.map((h) => `.${h}-${id}`), `[data-tone="${id}"]`].join(', ')} { --t-fg: var(--tone-${id}-fg); --t-dot: var(--tone-${id}-dot); --t-bg: var(--tone-${id}-bg); --t-wash: var(--tone-${id}-wash); }`).join('\n');
 }
 
 /** Builds the full tokens stylesheet. Themes via [data-theme], skins via [data-skin]. */
 export function buildTokensCss(): string {
   const brandVars = vars(Object.fromEntries(Object.entries(brand).map(([k, v]) => [`brand-${k}`, v])));
   const paletteVars = vars(Object.fromEntries(Object.entries(palette).map(([k, v]) => [`hoy-${k}`, v])));
-  const tone = Object.entries(classTones).flatMap(([k, m]) => [[`tone-${k}-fg`, m.fg], [`tone-${k}-dot`, m.dot], [`tone-${k}-bg`, m.bg]]);
+  // 0171 · wash = the tone as limewash: the pigment softened toward the plaster (light) or a warm stone grey (dark),
+  // for large fills (KPI, quick and hub tiles). The full-strength dot stays for dots, bars and small markers.
+  const tone = Object.entries(classTones).flatMap(([k, m]) => [[`tone-${k}-fg`, m.fg], [`tone-${k}-dot`, m.dot], [`tone-${k}-bg`, m.bg], [`tone-${k}-wash`, `color-mix(in srgb, ${m.dot} var(--tone-wash-pigment), var(--tone-wash-base))`]]);
   const mat = Object.fromEntries(Object.entries(materials).map(([k, m]) => [`mat-${k}`, m.fill]));
   const hueVars = vars(Object.fromEntries(Object.entries(hues).map(([k, v]) => [`hue-${k}`, String(v)])));
   return `/* GENERATED from src/design/tokens.ts — do not edit by hand */
@@ -476,6 +478,8 @@ export function buildTokensCss(): string {
 ${brandVars}
 ${paletteVars}
 ${vars(Object.fromEntries(tone))}
+  --tone-wash-pigment: 64%;
+  --tone-wash-base: #F4EDE0;
 ${vars(mat)}
 ${vars(type)}
 ${vars(spacing)}
@@ -509,6 +513,8 @@ html { font-size: calc(100% * var(--ui)); }
 :root[data-theme="dark"] {
 ${vars(rgb.dark)}
 ${vars(semantic.dark)}
+  --tone-wash-pigment: 66%;
+  --tone-wash-base: #B8B0A0;
   --shadow-highlight: inset 0 1px 0 rgba(255,255,255,.06);
   --shadow-card: inset 0 1px 0 rgba(255,255,255,.06), 0 1px 2px rgba(0,0,0,.55), 0 10px 30px rgba(0,0,0,.4);
   --shadow-raised: inset 0 1px 0 rgba(255,255,255,.08), 0 2px 4px rgba(0,0,0,.55), 0 24px 60px -20px rgba(0,0,0,.7);

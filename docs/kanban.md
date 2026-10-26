@@ -44,6 +44,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0170 Pulso Materia on `ui-polish/materials` (client feedback: "missing the stone, textures, cloth, materials"): limestone plaster ground with leaf light, blue plaster menu, paper + linen cards, travertine tiles, linen notes; procedural stone in dark; D-01 `--tex-grain` / `--tex-stone` / `--tex-linen`. Contrast clean light/dark; before/after in docs/screenshots/materials.
 
+- 0171 tactile buttons + limewash tones on `ui-polish/buttons-tones`: secondary buttons / chips / option tiles as paper pills again, primary lift; D-01 `--tone-*-wash` for large tiles (dots stay full strength), no stone noise on colour. Contrast 6.5–11.8:1.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.

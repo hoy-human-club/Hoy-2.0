@@ -94,8 +94,8 @@
 .hub-tile :focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 /* members: whole class-tone tiles, deep ink (paper on moss) */
-.hub-tile.is-tone { --tile-h: 18rem; --tile-icon-bg: color-mix(in srgb, var(--brand-white) 34%, transparent); background: var(--t-dot); color: var(--hub-deep); }
-.hub-tile.is-tone[data-tone="moss"] { --tile-icon-bg: color-mix(in srgb, var(--brand-white) 18%, transparent); color: var(--brand-white); }
+.hub-tile.is-tone { --tile-h: 18rem; --tile-icon-bg: color-mix(in srgb, var(--brand-white) 34%, transparent); background: var(--t-wash, var(--t-dot)); color: var(--hub-deep); }
+.hub-tile.is-tone[data-tone="moss"] { --tile-icon-bg: color-mix(in srgb, var(--brand-white) 30%, transparent); }
 .hub-tile.is-tone[data-tone="moss"] :is(.hub-tile-who, .hub-tile-meta code) { opacity: 1; }
 .hub-tile.is-tone .hub-tile-title { font-size: var(--fs-2xl); }
 .hub-tile.is-tone .btn { background: color-mix(in srgb, var(--brand-white) 60%, transparent); color: var(--brand-ink); }
