@@ -48,6 +48,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0172 HOY Design System for the client: interactive artifact (brand book, light/dark tokens, Button / Chip / Card / StatTile / Notice / Materials cards, cover, logo and material assets); snapshot and rendered previews in docs/review/design-system.
 
+- 0173 design system showcase on `ui-polish/design-system-showcase`: presentation page at `/design-system/` (hero, principles, colour, type, materials, components, foundations; light/dark, phone) and the GitHub README redesigned as a visual landing page.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
