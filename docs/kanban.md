@@ -50,6 +50,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0173 design system showcase on `ui-polish/design-system-showcase`: presentation page at `/design-system/` (hero, principles, colour, type, materials, components, foundations; light/dark, phone) and the GitHub README redesigned as a visual landing page.
 
+- 0174 HTML/CSS build view on `ui-polish/design-system-build-view`: tokens and components in `public/design-system/hoy.css`; chapter 07 with a live preview, HTML/CSS tabs read from hoy.css, copy and download, for ten components.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
