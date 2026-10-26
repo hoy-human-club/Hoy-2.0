@@ -1,0 +1,97 @@
+/* ===========================================================================
+   0170 · Pulso Materia — the studio's materials in the product. The brand is tactile (travertine, sun-washed
+   limestone plaster, leaf shadows, linen); the workspace was flat colour. This layer puts the materials back
+   behind the content, never on top of text:
+   · ground   the limestone plaster photograph under a cream veil, with a faint leaf-shadow wash from the window
+   · menu     the river-blue tile as blue plaster (the blue plaster photograph multiplied into deep blue)
+   · paper    cards, tables and panels carry a fine paper tooth and a linen weave (D-01 --tex-grain, --tex-linen)
+   · stone    tone tiles, heroes and quick tiles carry travertine mottling + grain (D-01 --tex-stone)
+   · cloth    notes and drawers carry the linen weave
+   Dark mode swaps the photographs for procedural stone so nothing light glows through. Text contrast is unchanged
+   (the veils keep every ground within a few % of its flat colour).
+   =========================================================================== */
+
+/* ---------------------------------------------------------------- ground: staff workspace, hub, apps */
+:root[data-look="studio"] .deskshell,
+:root .hub-bento,
+:root .appshell {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-bg) 84%, transparent), color-mix(in srgb, var(--color-bg) 84%, transparent)),
+    url('../../public/images/sanctuary/texture-limestone.webp');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
+}
+:root .hub-bento { background-color: var(--hub-ground); background-image: linear-gradient(color-mix(in srgb, var(--hub-ground) 82%, transparent), color-mix(in srgb, var(--hub-ground) 82%, transparent)), url('../../public/images/sanctuary/texture-limestone.webp'); }
+/* the window: leaf shadows falling across the top-right of the room */
+:root[data-look="studio"] .deskshell::after,
+.hub-bento::before,
+.appshell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('../../public/images/sanctuary/texture-sunlight.webp') no-repeat right -8vw top -18vh / min(64vw, 58rem) auto;
+  opacity: .18;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(120% 90% at 100% 0%, #000 35%, transparent 75%);
+  mask-image: radial-gradient(120% 90% at 100% 0%, #000 35%, transparent 75%);
+}
+/* the top bar is frosted over the plaster */
+:root[data-look="studio"] .deskshell-col .topbar { -webkit-backdrop-filter: blur(10px) saturate(1.05); backdrop-filter: blur(10px) saturate(1.05); }
+
+/* ---------------------------------------------------------------- menu: blue plaster */
+:root[data-look="studio"] .deskshell-side {
+  background-color: var(--brand-deepBlue);
+  background-image: url('../../public/images/sanctuary/texture-blue.webp');
+  background-size: cover;
+  background-position: 30% 20%;
+  background-blend-mode: multiply;
+}
+.hub-bento .hub-hero {
+  background-color: var(--hub-river);
+  background-image: url('../../public/images/sanctuary/texture-blue.webp');
+  background-size: cover;
+  background-position: 60% 40%;
+  background-blend-mode: multiply;
+}
+
+/* ---------------------------------------------------------------- paper: cards, tables, panels */
+:root[data-look="studio"] :is(.deskshell-main, .appshell-main) :is(.card:not(.card-primary):not(.card-highlight), .datatable, .stat:not(:is(.grid, .grid-4, .grid-3, .grid-2) > .stat)),
+.appshell-main :is(.card:not(.card-primary):not(.card-highlight), .datatable),
+.hub-bento :is(.hub-tile.is-seat, .hub-tile.is-training, .hub-toolbox, .hub-date) {
+  background-image: var(--tex-grain), var(--tex-linen);
+}
+
+/* ---------------------------------------------------------------- stone: tone tiles, heroes, quick tiles */
+:root[data-look="studio"] .deskshell-main :is(.grid, .grid-4, .grid-3, .grid-2) > .stat:nth-child(n),
+:root[data-look="studio"] .deskshell-main .home-quick-tile:first-child,
+:is(.deskshell-main, .appshell-main) .card-primary,
+.appshell-main :is(.cust-quick-btn, .cust-practice-streak, .cust-practice-tiles > .stat:last-child),
+.hub-bento :is(.hub-tile.is-tone, .hub-build) {
+  background-image: var(--tex-stone), var(--tex-grain);
+  background-size: 420px 420px, 180px 180px;
+}
+
+/* ---------------------------------------------------------------- cloth: notes, drawers */
+:root[data-look="studio"] :is(.notice, .drawer-panel, .drawer) { background-image: var(--tex-linen); }
+
+/* ---------------------------------------------------------------- dark: procedural stone, no light photographs */
+:root[data-theme="dark"]:is([data-look="studio"]) .deskshell,
+:root[data-theme="dark"] :is(.hub-bento, .appshell) {
+  background-image: var(--tex-stone), var(--tex-grain);
+  background-size: 420px 420px, 180px 180px;
+  background-attachment: fixed;
+}
+:root[data-theme="dark"]:is([data-look="studio"]) .deskshell::after,
+:root[data-theme="dark"] :is(.hub-bento, .appshell)::before { display: none; }
+:root[data-theme="dark"][data-look="studio"] .deskshell-side { background-color: color-mix(in srgb, var(--brand-deepBlue) 62%, #000); }
+:root[data-theme="dark"] .hub-bento .hub-hero { background-color: var(--hub-river); }
+
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-look="studio"] .deskshell-col .topbar { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}

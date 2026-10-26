@@ -52,6 +52,7 @@ section.home-cell > .home-quick { flex: 0 0 auto; }
 .home-quick-tile:first-child { --q-ink: color-mix(in srgb, var(--brand-ink) 50%, #000); background: var(--tone-river-dot); color: var(--q-ink); }
 .home-quick-tile:first-child:hover { color: var(--q-ink); }
 .home-quick-tile:first-child .home-quick-icon { background: color-mix(in srgb, var(--brand-white) 45%, transparent); color: var(--q-ink); }
+:root[data-theme="dark"] .home-quick-tile:not(:first-child) .home-quick-icon { background: color-mix(in srgb, var(--brand-white) 12%, transparent); color: var(--color-text); }
 .home-quick-tile:focus-visible { outline: var(--sp-2xs) solid var(--color-accent); outline-offset: var(--sp-2xs); }
 @media (max-width: 1100px) { .home-rows { grid-template-columns: minmax(0, 1fr); } }
 

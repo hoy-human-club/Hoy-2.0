@@ -6,6 +6,8 @@
 .classcard-meta { font-size: var(--fs-sm); opacity: .85; }
 .classcard.is-next .capmeter { color: color-mix(in srgb, var(--color-text-on-primary) 80%, transparent); }
 .classcard.is-next .capmeter-bar { background: color-mix(in srgb, var(--color-text-on-primary) 25%, transparent); }
+/* 0170 · on the blue hero a full class reads as a sun "Full" label (the danger red was 1.1:1 on river blue) */
+.classcard.is-next .capmeter-full .capmeter-label { color: var(--brand-yellow); font-weight: var(--fw-semibold); }
 .classcard.is-next .chip-tone { background: color-mix(in srgb, var(--color-text-on-primary) 18%, transparent); color: var(--color-text-on-primary); }
 /* 0037 · the meter grows in the card footer: a zero-width bar left an 8 px gap before "7 cupos" / "Sin cupos" */
 .classcard .capmeter { flex: 1 1 auto; max-width: 15rem; }

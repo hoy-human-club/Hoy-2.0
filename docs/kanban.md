@@ -42,6 +42,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0169 Content (M-02) on `ui-polish/content-page`: two control rows instead of five, progressive bulk editor, empty columns hidden, notes as footnote; table starts at ~260 px. Content tests pass.
 
+- 0170 Pulso Materia on `ui-polish/materials` (client feedback: "missing the stone, textures, cloth, materials"): limestone plaster ground with leaf light, blue plaster menu, paper + linen cards, travertine tiles, linen notes; procedural stone in dark; D-01 `--tex-grain` / `--tex-stone` / `--tex-linen`. Contrast clean light/dark; before/after in docs/screenshots/materials.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.

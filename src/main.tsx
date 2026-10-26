@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './design/tokens.css';
 import './styles/global.css';
 import './styles/motion.css';
+import './styles/materials.css';
 import { installFrameSession } from './app/frameSession';
 import { installDepth } from './design/depth';
 import { App } from './app/App';
