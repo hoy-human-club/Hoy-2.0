@@ -9,44 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hoy.css">
 <style>
 /* HOY Design System showcase (0173). Every value is a snapshot of D-01 (src/design/tokens.ts, Studio look) and
    src/styles/materials.css — nothing here is a new design value. */
-:root {
-  --brand-deepBlue: #35597d; --brand-midBlue: #5f85b1; --brand-yellow: #f7f3b2; --brand-cream: #f1e7d2; --brand-ink: #1c2e42; --brand-sand: #e7dcc6; --brand-white: #fbf7ef;
-  --bg: #ede4d4; --surface: #fbf7ef; --surface-el: #fffcf6; --surface-2: #f5eee1; --surface-3: #efe7da;
-  --ink: #1c2e42; --text: #24384f; --muted: #4c5d70; --faint: rgba(36,56,79,.72); --primary: #35597d;
-  --fill: #1c2e42; --fill-hover: #24384f; --on-fill: #fbf7ef; --accent: #5f85b1; --highlight: #f7f3b2; --on-highlight: #4a4212;
-  --border: rgba(36,56,79,.12); --border-strong: rgba(53,89,125,.28); --focus: #5f85b1;
-  --success: #4f7d5a; --warn: #8a6a1e; --danger: #7e3b2c;
-  --river: #5f85b1; --sun: #d8c24a; --clay: #c4704f; --moss: #5a7355; --sage: #7e9c88; --slate: #848f9b; --plum: #9e6e8f;
-  --river-w: #95aac2; --sun-w: #e2d180; --clay-w: #d59d83; --moss-w: #919f87; --sage-w: #a8b9a8; --slate-w: #acb1b4; --plum-w: #bd9cac;
-  --stat-ink: #0e1721; --shade: 36,56,79; --veil: 84%;
-  --sh-card: 0 1px 2px rgba(var(--shade),.05);
-  --sh-raised: 0 24px 60px -24px rgba(var(--shade),.45);
-  --sh-pill: inset 0 1px 0 rgba(255,255,255,.8), 0 1px 1.5px rgba(var(--shade),.12), 0 4px 10px -6px rgba(var(--shade),.28);
-  --sh-pill-hover: inset 0 1px 0 rgba(255,255,255,.85), 0 2px 3px rgba(var(--shade),.12), 0 10px 18px -10px rgba(var(--shade),.38);
-  --sh-ink: inset 0 1px 0 rgba(255,255,255,.14), 0 2px 4px rgba(var(--shade),.2), 0 10px 20px -10px rgba(var(--shade),.5);
-  --r-sm: .5rem; --r-ctl: .875rem; --r-md: 1.5rem; --r-lg: 2rem; --r-full: 999px;
-  --sp-xs: .25rem; --sp-sm: .5rem; --sp-md: .75rem; --sp-lg: 1rem; --sp-xl: 1.5rem; --sp-2xl: 2rem; --sp-3xl: 3rem; --sp-4xl: 4rem; --sp-5xl: 6rem;
-  --serif: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
-  --ease: cubic-bezier(.2,.7,.2,1);
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .21 0 0 0 0 .19 0 0 0 0 .15 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --stone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .022' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .14 0 0 0 0 .12 0 0 0 0 .09 0 0 0 .16 -.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
-  --linen: repeating-linear-gradient(0deg, rgba(var(--shade),.028) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(var(--shade),.022) 0 1px, transparent 1px 3px);
-  color-scheme: light;
-}
-:root[data-theme="dark"] {
-  --bg: #101c29; --surface: #1b2e44; --surface-el: #22384f; --surface-2: #22384f; --surface-3: #2a4159;
-  --ink: #f1e7d2; --text: #e4dac6; --muted: #a3b3c5; --faint: rgba(228,218,198,.72); --primary: #9bc0e4;
-  --fill: #35597d; --fill-hover: #4a6e93; --on-fill: #f5eee1; --on-highlight: #3a3410;
-  --border: rgba(241,231,210,.12); --border-strong: #31506e; --focus: #9bc0e4;
-  --success: #7fb08a; --warn: #d8c24a; --danger: #e0a08f;
-  --river-w: #7d94ab; --sun-w: #cdbc67; --clay-w: #c0866b; --moss-w: #7a886f; --sage-w: #92a390; --slate-w: #969a9d; --plum-w: #a78495;
-  --shade: 0,0,0;
-  --sh-pill: inset 0 1px 0 rgba(255,255,255,.06), 0 1px 2px rgba(0,0,0,.4), 0 6px 14px -8px rgba(0,0,0,.6);
-  color-scheme: dark;
-}
+:root { --veil: 84%; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
@@ -66,7 +33,6 @@ p { margin: 0; }
 .wrap { width: min(76rem, 100% - 2rem); margin-inline: auto; }
 .eyebrow { font-size: .6875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .serif { font-family: var(--serif); font-weight: 500; letter-spacing: -.01em; }
-.paper { background-color: var(--surface); background-image: var(--grain), var(--linen); border-radius: var(--r-md); box-shadow: var(--sh-card); }
 .mono { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: .8125rem; }
 
 /* ---------------------------------------------------------------- nav */
@@ -106,37 +72,9 @@ p { margin: 0; }
 @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .hero-art { max-width: 22rem; } }
 
 /* ---------------------------------------------------------------- buttons, chips (the 0171 tactile pills) */
-.btn { min-height: 2.75rem; padding: 0 var(--sp-lg); display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-sm); border: 1px solid transparent; border-radius: var(--r-full);
-  font: 600 .875rem/1 var(--sans); letter-spacing: -.005em; white-space: nowrap; cursor: pointer; text-decoration: none; transition: background-color 120ms var(--ease), box-shadow 120ms, transform 120ms, border-color 120ms; }
-.btn:active { transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(var(--shade),.18); }
-.btn-lg { min-height: 3rem; padding: 0 var(--sp-xl); font-size: 1rem; }
-.btn-primary { background-color: var(--fill); color: var(--on-fill); box-shadow: var(--sh-ink); }
-.btn-primary:hover { background-color: var(--fill-hover); }
-.btn-secondary { background-color: var(--surface); background-image: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0) 60%); color: var(--text); border-color: rgba(var(--shade),.12); box-shadow: var(--sh-pill); }
-.btn-secondary:hover { border-color: rgba(var(--shade),.18); box-shadow: var(--sh-pill-hover); }
-:root[data-theme="dark"] .btn-secondary { background-image: none; border-color: rgba(255,255,255,.1); }
-.btn-outline { background-color: color-mix(in srgb, var(--surface) 70%, transparent); color: var(--text); border-color: rgba(var(--shade),.22); }
-:root[data-theme="dark"] .btn-outline { border-color: var(--border-strong); }
-.btn-tonal { background: color-mix(in srgb, var(--accent) 24%, transparent); color: var(--primary); }
-.btn-ghost { background: transparent; color: var(--primary); }
-.btn-danger { background: var(--danger); color: var(--surface); }
 .btn-sun { background: var(--brand-yellow); color: var(--brand-ink); box-shadow: var(--sh-ink); }
 .btn-glass { background: rgba(251,247,239,.12); color: var(--brand-cream); border-color: rgba(241,231,210,.3); }
 .btn-glass:hover { background: rgba(251,247,239,.2); }
-.chip { display: inline-flex; align-items: center; gap: var(--sp-sm); min-height: 2.75rem; padding: var(--sp-xs) var(--sp-md); border-radius: var(--r-full); border: 1px solid rgba(var(--shade),.12);
-  background-color: var(--surface); background-image: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0) 60%); color: var(--text); font: 500 .875rem/1.2 var(--sans); box-shadow: var(--sh-pill); cursor: pointer; }
-:root[data-theme="dark"] .chip { background-image: none; border-color: rgba(255,255,255,.1); }
-.chip.is-on { background: var(--fill); color: var(--on-fill); border-color: transparent; box-shadow: var(--sh-ink); }
-.tchip { display: inline-flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-xs) var(--sp-md); border-radius: var(--r-full); font: 500 .875rem/1.2 var(--sans); box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
-.tchip i { width: .5rem; height: .5rem; border-radius: 50%; }
-.tchip.river { background: rgba(95,133,177,.24); color: #2c4a6b; } .tchip.river i { background: var(--river); }
-.tchip.sun { background: rgba(216,194,74,.32); color: #5e5312; } .tchip.sun i { background: var(--sun); }
-.tchip.clay { background: rgba(196,112,79,.26); color: #7a3f27; } .tchip.clay i { background: var(--clay); }
-.tchip.moss { background: rgba(90,115,85,.24); color: #3a4c36; } .tchip.moss i { background: var(--moss); }
-:root[data-theme="dark"] .tchip.river { color: color-mix(in srgb, var(--river) 30%, var(--ink)); }
-:root[data-theme="dark"] .tchip.sun { color: color-mix(in srgb, var(--sun) 30%, var(--ink)); }
-:root[data-theme="dark"] .tchip.clay { color: color-mix(in srgb, var(--clay) 30%, var(--ink)); }
-:root[data-theme="dark"] .tchip.moss { color: color-mix(in srgb, var(--moss) 30%, var(--ink)); }
 
 /* ---------------------------------------------------------------- sections */
 .section { padding-block: clamp(4rem, 9vw, 7rem) 0; }
@@ -228,39 +166,8 @@ p { margin: 0; }
 /* components */
 .desk { padding: clamp(1rem, 3vw, 2rem); border-radius: var(--r-lg); background: color-mix(in srgb, var(--bg) 70%, transparent); border: 1px solid var(--border); display: grid; gap: var(--sp-lg); }
 .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-lg); }
-.stat { border-radius: var(--r-md); padding: var(--sp-lg); display: flex; flex-direction: column; gap: var(--sp-xs); color: var(--stat-ink); box-shadow: var(--sh-card);
-  background-image: radial-gradient(120% 90% at 20% 0%, rgba(255,255,255,.28), transparent 60%), var(--grain); background-size: auto, 180px 180px; transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
-.stat:hover { transform: translateY(-2px); box-shadow: var(--sh-raised); }
-.stat .l { font-size: .6875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
-.stat .v { font: 700 1.75rem/1.1 var(--sans); letter-spacing: -.03em; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: var(--sp-sm); }
-.stat .v small { font-size: .875rem; font-weight: 400; letter-spacing: 0; }
-.stat .h { font-size: .8125rem; }
 .desk-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-lg); align-items: start; }
-.next { border-radius: var(--r-md); padding: var(--sp-xl); color: var(--on-fill); background-color: var(--brand-deepBlue); background-image: var(--stone), var(--grain); background-size: 420px 420px, 180px 180px; box-shadow: var(--sh-card); display: grid; gap: var(--sp-md); }
-.next .eyebrow { color: rgba(245,238,225,.82); }
-.next h3 { font-family: var(--serif); font-weight: 500; font-size: 2rem; line-height: 1.05; color: inherit; }
-.next .bar { height: 6px; border-radius: 99px; background: rgba(245,238,225,.25); overflow: hidden; } .next .bar i { display: block; height: 100%; width: 72%; background: var(--brand-yellow); }
-.next-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-md); font-size: .875rem; flex-wrap: wrap; }
-.list { padding: var(--sp-sm) var(--sp-xl); }
-.list-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) auto; gap: var(--sp-md); align-items: center; padding: var(--sp-md) 0; border-top: 1px solid var(--border); font-size: .875rem; }
-.list-row:first-child { border-top: 0; }
-.list-row b { color: var(--ink); font-size: .9375rem; }
-.list-row .muted { color: var(--muted); }
 .quick { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
-.qt { display: flex; align-items: center; gap: var(--sp-md); padding: var(--sp-lg); border-radius: var(--r-md); min-height: 4.5rem; font-weight: 500; color: var(--text); text-decoration: none;
-  background-color: var(--surface); background-image: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0) 60%); border: 1px solid rgba(var(--shade),.12); box-shadow: var(--sh-pill); transition: box-shadow 120ms, transform 120ms; }
-.qt:hover { box-shadow: var(--sh-pill-hover); transform: translateY(-1px); }
-:root[data-theme="dark"] .qt { background-image: none; border-color: rgba(255,255,255,.1); }
-.qt.first { background-color: var(--river-w); color: var(--stat-ink); border-color: transparent; }
-.qt .ic { width: 2.25rem; height: 2.25rem; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--surface-3) 80%, transparent); flex: 0 0 auto; }
-.qt.first .ic { background: rgba(255,255,255,.4); }
-.qt svg { width: 1.125rem; height: 1.125rem; }
-.notice { display: flex; gap: var(--sp-md); align-items: flex-start; padding: var(--sp-md) var(--sp-lg); border-radius: var(--r-md); background-color: var(--surface-2); background-image: var(--linen); font-size: .875rem; }
-.notice .ni { width: 1.5rem; height: 1.5rem; border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center; font-size: .75rem; font-weight: 700; }
-.notice b { display: block; color: var(--ink); font-weight: 500; } .notice span { color: var(--muted); }
-.notice.info { box-shadow: inset 3px 0 0 var(--brand-yellow); } .notice.info .ni { background: var(--highlight); color: var(--on-highlight); }
-.notice.ok { background-color: color-mix(in srgb, var(--success) 10%, var(--surface)); } .notice.ok .ni { background: var(--success); color: var(--surface); }
-.notice.warn { background-color: color-mix(in srgb, var(--warn) 12%, var(--surface)); } .notice.warn .ni { background: var(--warn); color: var(--surface); }
 .comp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-lg); margin-top: var(--sp-lg); }
 .comp { padding: var(--sp-xl); display: grid; gap: var(--sp-lg); align-content: start; }
 .comp-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-md); }
@@ -295,6 +202,48 @@ p { margin: 0; }
 @keyframes breath { 50% { transform: scale(1.25); background: var(--river-w); } }
 @media (max-width: 960px) { .trio { grid-template-columns: 1fr; } }
 
+/* build view: the HTML/CSS handoff */
+.build { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 0; overflow: hidden; }
+.build-side { padding: var(--sp-lg); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-lg); }
+.build-list { display: grid; gap: 2px; }
+.build-list button { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-sm); min-height: 2.75rem; padding: 0 var(--sp-md); border-radius: var(--r-ctl); font: 500 .9375rem/1.2 var(--sans); color: var(--text); transition: background-color 120ms; }
+.build-list button:hover { background: var(--surface-3); }
+.build-list button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.build-list button[aria-selected="true"] { background: var(--fill); color: var(--on-fill); box-shadow: var(--sh-ink); }
+.build-list small { font-size: .6875rem; opacity: .7; }
+.dl { margin-top: auto; padding: var(--sp-lg); border-radius: var(--r-md); background: var(--surface-2); background-image: var(--linen); display: grid; gap: var(--sp-sm); }
+.dl b { color: var(--ink); font-size: .9375rem; }
+.dl span { font-size: .8125rem; color: var(--muted); }
+.dl .btn { margin-top: var(--sp-xs); }
+.build-main { display: grid; grid-template-rows: auto auto; min-width: 0; }
+.stage { min-height: 15rem; padding: var(--sp-2xl); display: grid; place-items: center; background-color: var(--bg); background-image: var(--grain); position: relative; }
+.stage-in { width: 100%; max-width: 34rem; display: flex; flex-wrap: wrap; gap: var(--sp-md); justify-content: center; }
+.stage-in > .stat, .stage-in > .next, .stage-in > .paper, .stage-in > .notice, .stage-in > .qt, .stage-in > .grid2 { flex: 1 1 100%; }
+.stage-in .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
+.stage-tag { position: absolute; top: var(--sp-md); left: var(--sp-lg); }
+.tok-row { display: flex; flex-wrap: wrap; gap: var(--sp-sm); justify-content: center; }
+.tok { display: grid; gap: 4px; justify-items: center; font-size: .6875rem; color: var(--muted); width: 4.5rem; text-align: center; }
+.tok i { width: 2.75rem; height: 2.75rem; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(36,56,79,.12), var(--sh-card); }
+.code { background: #142231; color: #e4dac6; min-width: 0; }
+.code-bar { display: flex; align-items: center; gap: var(--sp-xs); padding: var(--sp-sm) var(--sp-sm) 0; border-bottom: 1px solid rgba(241,231,210,.1); }
+.code-bar [role="tab"] { all: unset; box-sizing: border-box; cursor: pointer; padding: 0 var(--sp-lg); min-height: 2.75rem; display: inline-flex; align-items: center; font: 600 .8125rem/1 var(--sans); letter-spacing: .04em; color: rgba(228,218,198,.7); border-bottom: 2px solid transparent; }
+.code-bar [role="tab"][aria-selected="true"] { color: #f1e7d2; border-bottom-color: #f7f3b2; }
+.code-bar [role="tab"]:focus-visible { outline: 2px solid #9bc0e4; outline-offset: -2px; }
+.code-bar .needs { margin-left: auto; font-size: .75rem; color: rgba(228,218,198,.7); padding-right: var(--sp-sm); }
+.copy { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: var(--sp-xs); min-height: 2.25rem; padding: 0 var(--sp-md); margin-bottom: var(--sp-xs); border-radius: var(--r-full); font: 600 .8125rem/1 var(--sans); color: #1c2e42; background: #f7f3b2; }
+.copy:focus-visible { outline: 2px solid #9bc0e4; outline-offset: 2px; }
+.code pre { margin: 0; padding: var(--sp-lg) var(--sp-xl) var(--sp-xl); max-height: 24rem; overflow: auto; font: 400 .8125rem/1.65 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; tab-size: 2; scrollbar-width: thin; scrollbar-color: rgba(241,231,210,.25) transparent; }
+.code .t { color: #9bc0e4; } .code .a { color: #e2d180; } .code .q { color: #e8b49c; } .code .c { color: #8fa2b5; font-style: italic; } .code .s { color: #b7d3a8; } .code .p { color: #9bc0e4; }
+@media (max-width: 860px) {
+  .build { grid-template-columns: minmax(0, 1fr); }
+  .build-side { min-width: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+  .dl { grid-template-columns: minmax(0, 1fr); }
+  .build-list { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; scrollbar-width: none; }
+  .build-list small { display: none; }
+  .stage { padding: var(--sp-2xl) var(--sp-lg); }
+  .code-bar .needs { display: none; }
+}
+
 /* footer */
 .foot { margin: clamp(4rem, 9vw, 7rem) 0 var(--sp-xl); border-radius: var(--r-lg); padding: clamp(2rem, 5vw, 4rem); color: var(--brand-cream);
   background-color: var(--brand-ink); background-image: url('../images/sanctuary/texture-blue.webp'); background-size: cover; background-blend-mode: multiply;
@@ -322,7 +271,7 @@ p { margin: 0; }
     <div class="nav-in">
       <a class="nav-brand" href="#top"><img class="mark-light" src="../brand/hoy-blue.png" alt="hoy"><img class="mark-dark" src="../brand/hoy-cream.png" alt="hoy"><span>Design System</span></a>
       <div class="nav-links">
-        <a href="#principles">Principles</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#materials">Materials</a><a href="#components">Components</a><a href="#foundations">Foundations</a>
+        <a href="#principles">Principles</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#materials">Materials</a><a href="#components">Components</a><a href="#foundations">Foundations</a><a href="#build">Build</a>
       </div>
       <button class="theme" id="theme" type="button" aria-label="Switch light or dark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -599,6 +548,36 @@ p { margin: 0; }
     </div>
   </section>
 
+  <!-- 07 build -->
+  <section class="section" id="build">
+    <div class="sec-head rv">
+      <div><div class="num">07</div><h2>HTML/CSS build</h2></div>
+      <p>Every component on this page is plain HTML and one stylesheet, <code class="mono">hoy.css</code>. Pick a component to see it live, then copy its markup and styles, or download the stylesheet with all the tokens and components.</p>
+    </div>
+    <div class="paper build rv">
+      <div class="build-side">
+        <div class="build-list" role="tablist" aria-label="Components" id="build-list"></div>
+        <div class="dl">
+          <b>hoy.css</b>
+          <span>All tokens and components · light and dark · <span id="css-size">plain CSS</span></span>
+          <a class="btn btn-primary" href="hoy.css" download="hoy.css">Download hoy.css</a>
+        </div>
+      </div>
+      <div class="build-main">
+        <div class="stage"><span class="eyebrow stage-tag" id="stage-tag">Preview</span><div class="stage-in" id="stage"></div></div>
+        <div class="code">
+          <div class="code-bar">
+            <button role="tab" aria-selected="true" data-tab="html" id="tab-html">HTML</button>
+            <button role="tab" aria-selected="false" data-tab="css" id="tab-css">CSS</button>
+            <span class="needs" id="needs"></span>
+            <button class="copy" type="button" id="copy">Copy</button>
+          </div>
+          <pre><code id="code"></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="foot rv">
     <div>
       <h2>See it at the studio.</h2>
@@ -628,6 +607,159 @@ p { margin: 0; }
     const b = e.target.closest('.chip'); if (!b) return;
     for (const c of e.currentTarget.children) c.classList.toggle('is-on', c === b);
   });
+  // ---------------------------------------------------------------- build view: one entry per component; the CSS
+  // shown is read from hoy.css itself (its @component blocks), so the code is exactly what renders above.
+  const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 2h6v4H9zM9 13l2 2 4-4"/></svg>';
+  const fonts = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap';
+  const items = [
+    { id: 'starter', name: 'Page starter', hint: 'fonts + hoy.css', css: ['Tokens'], needs: [],
+      html: `<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="${fonts}">
+  <link rel="stylesheet" href="https://hoy-human-club.github.io/Hoy-2.0/design-system/hoy.css">
+</head>
+<body style="margin:0; background:var(--bg); color:var(--text); font-family:var(--sans);">
+  <!-- components go here -->
+  <a class="btn btn-primary" href="#">Reservar clase</a>
+</body>
+</html>`,
+      preview: '<a class="btn btn-primary" href="#build">Reservar clase</a><a class="btn btn-secondary" href="#build">Ver horario</a>' },
+    { id: 'button', name: 'Button', hint: '6 variants', css: ['Button'], needs: ['Tokens'],
+      html: `<a class="btn btn-primary" href="#">Reservar clase</a>
+<button class="btn btn-secondary" type="button">Ver horario</button>
+<button class="btn btn-outline" type="button">Exportar</button>
+<button class="btn btn-tonal" type="button">Añadir nota</button>
+<button class="btn btn-ghost" type="button">Cancelar</button>
+<button class="btn btn-danger" type="button">Anular pago</button>` },
+    { id: 'chip', name: 'Chip', hint: 'filters', css: ['Chip'], needs: ['Tokens'],
+      html: `<div role="group" aria-label="Día">
+  <button class="chip is-on" type="button" aria-pressed="true">Hoy</button>
+  <button class="chip" type="button" aria-pressed="false">Mañana</button>
+  <button class="chip" type="button" aria-pressed="false">Esta semana</button>
+</div>` },
+    { id: 'tchip', name: 'Class tone chip', hint: '4 tones', css: ['Class tone chip'], needs: ['Tokens'],
+      html: `<span class="tchip river"><i></i>Hatha</span>
+<span class="tchip sun"><i></i>Vinyasa</span>
+<span class="tchip clay"><i></i>Hot yoga</span>
+<span class="tchip moss"><i></i>Meditación</span>` },
+    { id: 'stat', name: 'KPI tile', hint: 'limewash', css: ['KPI tile'], needs: ['Tokens'],
+      html: `<div class="grid2">
+  <div class="stat river">
+    <span class="l">Check-ins hoy</span>
+    <span class="v">128 <small>+12%</small></span>
+    <span class="h">vs. martes pasado</span>
+  </div>
+  <div class="stat sun">
+    <span class="l">Ocupación</span>
+    <span class="v">86%</span>
+    <span class="h">6 clases llenas</span>
+  </div>
+</div>`,
+      note: 'Tones: river, sun, clay, moss — in that order across a row.' },
+    { id: 'next', name: 'Next-class card', hint: 'stone hero', css: ['Next-class card'], needs: ['Tokens', 'Button'],
+      html: `<div class="next">
+  <span class="eyebrow">Próxima clase · en 20 min</span>
+  <h3>Vinyasa al amanecer</h3>
+  <span>09:30 · Sala Río · con Carolina</span>
+  <div class="bar"><i style="width:72%"></i></div>
+  <div class="next-foot">
+    <span>13 de 18 cupos</span>
+    <a class="btn btn-secondary" href="#">Abrir check-in</a>
+  </div>
+</div>` },
+    { id: 'paper', name: 'Paper card', hint: 'list', css: ['Paper card', 'Class tone chip'], needs: ['Tokens'],
+      html: `<div class="paper list">
+  <div class="list-row"><b>07:00</b><span>Hatha <span class="muted">· Paula</span></span><span class="tchip river"><i></i>14 / 16</span></div>
+  <div class="list-row"><b>12:15</b><span>Hot yoga <span class="muted">· Daniel</span></span><span class="tchip clay"><i></i>16 / 16</span></div>
+  <div class="list-row"><b>18:00</b><span>Vinyasa <span class="muted">· Isabela</span></span><span class="tchip sun"><i></i>9 / 16</span></div>
+</div>` },
+    { id: 'qt', name: 'Quick action', hint: 'tactile tile', css: ['Quick action'], needs: ['Tokens'],
+      html: `<div class="grid2">
+  <a class="qt first" href="#"><span class="ic">${icon}</span>Abrir check-in</a>
+  <a class="qt" href="#"><span class="ic">${icon}</span>Registrar y cobrar</a>
+</div>` },
+    { id: 'notice', name: 'Notice', hint: 'info · ok · warn', css: ['Notice'], needs: ['Tokens'],
+      html: `<div class="notice info"><span class="ni">i</span><div><b>Clase sustituida</b><span>Daniel guía el Hatha de las 7:00.</span></div></div>
+<div class="notice ok"><span class="ni">✓</span><div><b>Pago confirmado</b><span>Plan mensual activo hasta el 26 de noviembre.</span></div></div>
+<div class="notice warn"><span class="ni">!</span><div><b>Quedan 2 cupos</b><span>Vinyasa 18:00 está casi lleno.</span></div></div>` },
+    { id: 'tokens', name: 'Tokens', hint: 'light + dark', css: ['Tokens'], needs: [],
+      html: `<!-- Use the custom properties anywhere in your own CSS -->
+<div style="background:var(--surface); color:var(--ink); border-radius:var(--r-md);
+            padding:var(--sp-xl); box-shadow:var(--sh-card);">
+  Paper, ink, a 24 px corner and the card shadow.
+</div>`,
+      preview: '<div class="tok-row">' + [['--brand-deepBlue', 'deep blue'], ['--brand-yellow', 'sun'], ['--brand-cream', 'cream'], ['--ink', 'ink'], ['--surface', 'paper'], ['--river-w', 'river'], ['--sun-w', 'sun wash'], ['--clay-w', 'clay'], ['--moss-w', 'moss']].map(([v, n]) => `<span class="tok"><i style="background:var(${v})"></i>${n}</span>`).join('') + '</div>' },
+  ];
+
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hlHtml = (s) => esc(s)
+    .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '\u0001$1\u0002')
+    .replace(/(&lt;\/?)([a-zA-Z0-9!]+)([\s\S]*?)(\/?&gt;)/g, (m, o, t, attrs, c, at, str) => str[at - 1] === '\u0001' ? m :
+      `<span class="t">${o}${t}</span>${attrs.replace(/([a-z:-]+)(=)("[^"]*")/g, '<span class="a">$1</span>$2<span class="q">$3</span>')}<span class="t">${c}</span>`)
+    .replace(/\u0001([\s\S]*?)\u0002/g, '<span class="c">$1</span>');
+  const hlCss = (s) => esc(s).split(/(\/\*[\s\S]*?\*\/)/).map((part) => part.startsWith('/*') ? `<span class="c">${part}</span>` :
+    part.replace(/([^{}]+)\{([^}]*)\}/g, (m, sel, body) => `<span class="s">${sel}</span>{${body.replace(/(^|;|\s)(--?[a-z][a-z0-9-]*)(\s*:)/g, '$1<span class="p">$2</span>$3')}}`)).join('');
+
+  // hoy.css keeps one rule per line; the code view expands each rule to one declaration per line
+  const pretty = (css) => css.replace(/([^{}]+)\{([^}]*)\}/g, (m, sel, body) => {
+    const decls = []; let depth = 0, q = null, cur = '';
+    for (const ch of body) {
+      if (q) { if (ch === q) q = null; } else if (ch === '"' || ch === "'") q = ch; else if (ch === '(') depth++; else if (ch === ')') depth--;
+      if (ch === ';' && !q && depth === 0) { if (cur.trim()) decls.push(cur.trim()); cur = ''; } else cur += ch;
+    }
+    if (cur.trim()) decls.push(cur.trim());
+    return `${sel.trim()} {\n${decls.map((d) => `  ${d.replace(/\s*\n\s*/g, ' ')};`).join('\n')}\n}\n`;
+  }).trim();
+  const list = document.getElementById('build-list'), stage = document.getElementById('stage'), code = document.getElementById('code');
+  const tabs = [document.getElementById('tab-html'), document.getElementById('tab-css')];
+  let blocks = null, current = items[1], tab = 'html';
+  const cssFor = (it) => {
+    if (!blocks) return '/* hoy.css is loading — or download it with the button on the left. */';
+    const head = it.needs.length ? `/* Also needs: ${it.needs.join(', ')} (in hoy.css) */\n\n` : '';
+    return head + it.css.map((n) => `/* ${n} */\n${pretty(blocks[n] || '')}`).join('\n\n');
+  };
+  const text = () => (tab === 'html' ? current.html : cssFor(current));
+  const paint = () => {
+    code.innerHTML = tab === 'html' ? hlHtml(current.html) + (current.note ? `\n\n${hlHtml('<!-- ' + current.note + ' -->')}` : '') : hlCss(cssFor(current));
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === tab)));
+    document.getElementById('needs').textContent = current.needs.length ? `Needs ${current.needs.join(' · ')}` : '';
+  };
+  const select = (it, focus) => {
+    current = it;
+    list.querySelectorAll('button').forEach((b) => { const on = b.dataset.id === it.id; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+    stage.innerHTML = it.preview || it.html;
+    document.getElementById('stage-tag').textContent = `${it.name} · live`;
+    paint();
+  };
+  items.forEach((it) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.id = it.id;
+    b.innerHTML = `<span>${it.name}</span><small>${it.hint}</small>`;
+    b.addEventListener('click', () => select(it));
+    list.appendChild(b);
+  });
+  list.addEventListener('keydown', (e) => {
+    const i = items.indexOf(current), step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    if (step) { e.preventDefault(); select(items[(i + step + items.length) % items.length], true); }
+  });
+  tabs.forEach((t) => t.addEventListener('click', () => { tab = t.dataset.tab; paint(); }));
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    try { await navigator.clipboard.writeText(text()); btn.textContent = 'Copied'; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents(code); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selected — press Ctrl+C'; }
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+  });
+  fetch('hoy.css').then((r) => r.text()).then((css) => {
+    blocks = {};
+    css.replace(/\r\n/g, '\n').split(/\/\* @component (.+?) \*\/\n/).forEach((v, i, a) => { if (i % 2) blocks[v] = a[i + 1].trim(); });
+    document.getElementById('css-size').textContent = `${(css.length / 1024).toFixed(1)} KB`;
+    paint();
+  }).catch(() => {});
+  select(current);
+
   const els = document.querySelectorAll('.rv');
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { els.forEach((el) => el.classList.add('in')); return; }
   const io = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });

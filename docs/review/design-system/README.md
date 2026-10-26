@@ -84,13 +84,27 @@ Soft corners (24 px cards, 32 px heroes, pills for controls) and paper that lies
 
 <br>
 
+## 07 · HTML/CSS build
+
+<a href="https://hoy-human-club.github.io/Hoy-2.0/design-system/#build"><img src="showcase/build.jpg" alt="The HTML/CSS build view" width="100%"></a>
+
+Every component is plain HTML plus one stylesheet, [**hoy.css**](https://hoy-human-club.github.io/Hoy-2.0/design-system/hoy.css), which holds all the tokens and components in light and dark. The [build view](https://hoy-human-club.github.io/Hoy-2.0/design-system/#build) shows each component live alongside its HTML and CSS, with copy buttons and a page starter.
+
+```html
+<link rel="stylesheet" href="https://hoy-human-club.github.io/Hoy-2.0/design-system/hoy.css">
+<a class="btn btn-primary" href="#">Reservar clase</a>
+```
+
+<br>
+
 ---
 
 ### What's in this folder
 
 | | |
 |---|---|
-| [**Design system page**](https://hoy-human-club.github.io/Hoy-2.0/design-system/) | The presentation: an interactive page with a light/dark switch (source: [`public/design-system/index.html`](../../../public/design-system/index.html)) |
+| [**Design system page**](https://hoy-human-club.github.io/Hoy-2.0/design-system/) | The presentation: an interactive page with a light/dark switch and the HTML/CSS build view (source: [`public/design-system/index.html`](../../../public/design-system/index.html)) |
+| [`hoy.css`](../../../public/design-system/hoy.css) | The stylesheet for HTML/CSS builds: tokens plus every component, light and dark |
 | [`project/README.md`](project/README.md) | The brand book: principles, voice, colour, type, materials, depth, spacing, motion, accessibility, icons, logo |
 | [`project/tokens.json`](project/tokens.json) | Colour (light + dark), type, spacing, radius, shadow and motion tokens, each with a usage note |
 | [`project/components/`](project/components/) | Button, Chip, Card, StatTile, Notice and Materials guidelines and previews |
