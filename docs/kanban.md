@@ -52,6 +52,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0174 HTML/CSS build view on `ui-polish/design-system-build-view`: tokens and components in `public/design-system/hoy.css`; chapter 07 with a live preview, HTML/CSS tabs read from hoy.css, copy and download, for ten components.
 
+- 0175 design system alignment pass on `ui-polish/design-system-alignment`: one lead column (752–1328) for every chapter and sub-heading, ruled chapter markers, top-aligned principles with limewash numerals, balanced desk / controls / depth cards; README images refreshed.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.

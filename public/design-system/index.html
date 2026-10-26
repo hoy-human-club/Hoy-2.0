@@ -78,20 +78,31 @@ p { margin: 0; }
 
 /* ---------------------------------------------------------------- sections */
 .section { padding-block: clamp(4rem, 9vw, 7rem) 0; }
-.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--sp-xl) var(--sp-4xl); align-items: end; margin-bottom: var(--sp-3xl); }
-.sec-head .num { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--primary); }
-.sec-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem, 5.5vw, 4.25rem); line-height: .98; letter-spacing: -.02em; margin-top: var(--sp-sm); }
-.sec-head p { font-size: 1.0625rem; line-height: 1.6; color: var(--muted); max-width: 36rem; }
-@media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; } }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-xl) var(--sp-4xl); align-items: end; margin-bottom: var(--sp-3xl); padding-top: var(--sp-xl); border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+.sec-head .num { display: flex; align-items: center; gap: var(--sp-sm);
+  font: 600 .6875rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--primary); }
+.sec-head .num::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--brand-yellow); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent); }
+.sec-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem, 5.5vw, 4.25rem); line-height: .98; letter-spacing: -.02em; margin-top: var(--sp-xl); }
+.sec-head p { font-size: 1.0625rem; line-height: 1.6; color: var(--muted); padding-bottom: .35rem; }
+@media (max-width: 860px) { .sec-head, .sub { grid-template-columns: minmax(0, 1fr); } .sec-head h2 { margin-top: var(--sp-lg); } }
 
 /* principles */
 .principles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--sp-lg); }
-.principle { padding: var(--sp-xl); display: flex; flex-direction: column; gap: var(--sp-md); min-height: 15rem; }
-.principle .n { font-family: var(--serif); font-size: 3rem; line-height: 1; color: var(--primary); font-style: italic; }
-.principle h3 { font-family: var(--sans); font-size: 1.125rem; font-weight: 600; letter-spacing: -.02em; margin-top: auto; }
+.principle { padding: var(--sp-xl); display: grid; grid-template-rows: auto minmax(2.6em, auto) 1fr; align-content: start; gap: var(--sp-md); transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
+.principle:hover { transform: translateY(-2px); box-shadow: var(--sh-raised); }
+.principle .n { width: 3.25rem; height: 3.25rem; border-radius: 50%; display: grid; place-items: center; margin-bottom: var(--sp-lg); font: italic 500 1.5rem/1 var(--serif); color: var(--stat-ink);
+  background-color: var(--river-w); background-image: radial-gradient(120% 90% at 20% 0%, rgba(255,255,255,.35), transparent 60%); box-shadow: var(--sh-card); }
+.principle:nth-child(2) .n { background-color: var(--sun-w); } .principle:nth-child(3) .n { background-color: var(--clay-w); }
+.principle:nth-child(4) .n { background-color: var(--moss-w); } .principle:nth-child(5) .n { background-color: var(--sage-w); }
+.principle h3 { font-family: var(--sans); font-size: 1.125rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; align-self: end; }
 .principle p { font-size: .9375rem; color: var(--muted); }
 @media (max-width: 1100px) { .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .principle:first-child { grid-column: 1 / -1; } }
-@media (max-width: 560px) { .principles { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .principles { grid-template-columns: 1fr; }
+  .principle { grid-template-columns: 3.25rem minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--sp-lg); row-gap: var(--sp-xs); }
+  .principle .n { grid-row: 1 / 3; margin: 0; }
+  .principle h3 { align-self: end; }
+}
 
 /* colour */
 .brand-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: repeat(2, minmax(11rem, auto)); gap: var(--sp-lg); }
@@ -108,9 +119,9 @@ p { margin: 0; }
 :root[data-theme="dark"] .sw-ink { box-shadow: inset 0 0 0 1px rgba(241,231,210,.16), var(--sh-card); }
 @media (max-width: 760px) { .brand-grid { grid-template-columns: 1fr 1fr; } .sw-deep { grid-column: 1 / -1; grid-row: auto; min-height: 16rem; } }
 
-.sub { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-lg); margin: var(--sp-3xl) 0 var(--sp-lg); flex-wrap: wrap; }
-.sub h3 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; }
-.sub p { color: var(--muted); font-size: .9375rem; max-width: 34rem; }
+.sub { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-sm) var(--sp-4xl); align-items: end; margin: var(--sp-3xl) 0 var(--sp-lg); }
+.sub h3 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.1; }
+.sub p { color: var(--muted); font-size: .9375rem; }
 
 .surfaces { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--sh-card); }
 .surfaces div { padding: var(--sp-xl) var(--sp-lg); min-height: 8rem; display: flex; flex-direction: column; justify-content: flex-end; font-size: .875rem; color: var(--text); }
@@ -166,7 +177,8 @@ p { margin: 0; }
 /* components */
 .desk { padding: clamp(1rem, 3vw, 2rem); border-radius: var(--r-lg); background: color-mix(in srgb, var(--bg) 70%, transparent); border: 1px solid var(--border); display: grid; gap: var(--sp-lg); }
 .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-lg); }
-.desk-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-lg); align-items: start; }
+.desk-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-lg); align-items: stretch; }
+.desk-row > div { align-content: space-between; }
 .quick { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
 .comp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-lg); margin-top: var(--sp-lg); }
 .comp { padding: var(--sp-xl); display: grid; gap: var(--sp-lg); align-content: start; }
@@ -184,10 +196,13 @@ p { margin: 0; }
 .fd h3 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; }
 .radii { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-md); }
 .radii div { aspect-ratio: 1; background: var(--river-w); display: flex; align-items: flex-end; padding: var(--sp-sm) var(--sp-md); font-size: .75rem; font-weight: 600; color: var(--stat-ink); }
-.shadows { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); }
-.shadows div { height: 4.5rem; border-radius: var(--r-ctl); background: var(--surface); display: flex; align-items: flex-end; padding: var(--sp-sm) var(--sp-md); font-size: .75rem; font-weight: 600; color: var(--muted); }
+.radii div.round { justify-content: center; align-items: center; padding: 0; }
+.shadows { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg) var(--sp-lg); }
+.shadows div { height: 4.25rem; border-radius: var(--r-ctl); background: var(--surface); display: flex; align-items: flex-end; padding: var(--sp-sm) var(--sp-md); font-size: .75rem; font-weight: 600; color: var(--muted); }
 .space { display: grid; gap: var(--sp-sm); }
-.space div { display: grid; grid-template-columns: 4rem 1fr 3rem; align-items: center; gap: var(--sp-md); font-size: .75rem; color: var(--muted); }
+.space { gap: .55rem; }
+.space div { display: grid; grid-template-columns: 3.5rem 1fr 2rem; align-items: center; gap: var(--sp-md); font-size: .75rem; color: var(--muted); }
+.space div span:last-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
 .space i { height: .625rem; border-radius: 99px; background: var(--brand-deepBlue); display: block; }
 :root[data-theme="dark"] .space i { background: var(--brand-midBlue); }
 @media (max-width: 960px) { .foundations { grid-template-columns: 1fr; } }
@@ -198,7 +213,8 @@ p { margin: 0; }
 .trio h3 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; }
 .trio ul { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--sp-sm); font-size: .9375rem; color: var(--muted); }
 .trio q { font-family: var(--serif); font-style: italic; font-size: 1.5rem; line-height: 1.2; color: var(--ink); quotes: "“" "”"; }
-.breath { width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--sun-w); animation: breath 7s ease-in-out infinite; box-shadow: var(--sh-card); }
+.trio-h { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-md); }
+.breath { width: 2.75rem; height: 2.75rem; flex: 0 0 auto; border-radius: 50%; background: var(--sun-w); animation: breath 7s ease-in-out infinite; box-shadow: var(--sh-card); }
 @keyframes breath { 50% { transform: scale(1.25); background: var(--river-w); } }
 @media (max-width: 960px) { .trio { grid-template-columns: 1fr; } }
 
@@ -216,7 +232,7 @@ p { margin: 0; }
 .dl span { font-size: .8125rem; color: var(--muted); }
 .dl .btn { margin-top: var(--sp-xs); }
 .build-main { display: grid; grid-template-rows: auto auto; min-width: 0; }
-.stage { min-height: 15rem; padding: var(--sp-2xl); display: grid; place-items: center; background-color: var(--bg); background-image: var(--grain); position: relative; }
+.stage { min-height: 17rem; padding: var(--sp-3xl) var(--sp-2xl) var(--sp-2xl); display: grid; place-items: center; background-color: var(--bg); background-image: var(--grain); position: relative; }
 .stage-in { width: 100%; max-width: 34rem; display: flex; flex-wrap: wrap; gap: var(--sp-md); justify-content: center; }
 .stage-in > .stat, .stage-in > .next, .stage-in > .paper, .stage-in > .notice, .stage-in > .qt, .stage-in > .grid2 { flex: 1 1 100%; }
 .stage-in .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
@@ -314,7 +330,7 @@ p { margin: 0; }
   <!-- 01 principles -->
   <section class="section" id="principles">
     <div class="sec-head rv">
-      <div><div class="num">01</div><h2>Five principles</h2></div>
+      <div><div class="num">01 · Principles</div><h2>Five principles</h2></div>
       <p>Every screen, from the front-desk check-in to the member app, is judged against these. When two choices are equally valid, the one closer to the studio wins.</p>
     </div>
     <div class="principles">
@@ -329,12 +345,12 @@ p { margin: 0; }
   <!-- 02 colour -->
   <section class="section" id="colour">
     <div class="sec-head rv">
-      <div><div class="num">02</div><h2>Colour</h2></div>
+      <div><div class="num">02 · Colour</div><h2>Colour</h2></div>
       <p>Deep blue is the identity; cream, sun yellow and ink complete it. Surfaces are warm paper over plaster, and seven class tones name the practices — at full pigment for marks, as limewash for tiles.</p>
     </div>
     <div class="brand-grid rv">
       <div class="sw sw-deep"><img src="../brand/hoy-cream.png" alt=""><b>Deep blue</b><span>The menu, heroes and the wordmark</span><span class="mono">#35597D · brand-deepBlue</span></div>
-      <div class="sw sw-yellow"><b>Sun</b><span>Highlights and markers — never a banner</span><span class="mono">#F7F3B2</span></div>
+      <div class="sw sw-yellow"><b>Sun</b><span>Highlights and markers only</span><span class="mono">#F7F3B2</span></div>
       <div class="sw sw-cream"><b>Cream</b><span>Wordmark and text on deep blue</span><span class="mono">#F1E7D2</span></div>
       <div class="sw sw-ink"><b>Ink</b><span>Headings and the primary pill</span><span class="mono">#1C2E42</span></div>
       <div class="sw sw-sand"><b>Sand</b><span>The ground behind frames</span><span class="mono">#E7DCC6</span></div>
@@ -372,7 +388,7 @@ p { margin: 0; }
   <!-- 03 type -->
   <section class="section" id="type">
     <div class="sec-head rv">
-      <div><div class="num">03</div><h2>Typography</h2></div>
+      <div><div class="num">03 · Typography</div><h2>Typography</h2></div>
       <p>An invitation-style serif for greetings and titles, a warm geometric sans for everything people read and tap. One display line per screen.</p>
     </div>
     <div class="type-grid">
@@ -405,7 +421,7 @@ p { margin: 0; }
   <!-- 04 materials -->
   <section class="section" id="materials">
     <div class="sec-head rv">
-      <div><div class="num">04</div><h2>Materials</h2></div>
+      <div><div class="num">04 · Materials</div><h2>Materials</h2></div>
       <p>Pulso Materia sits behind content, never on top of text, and keeps every ground within a few percent of its flat colour — so the room is felt and the words stay sharp. Dark mode trades the photographs for procedural stone.</p>
     </div>
     <div class="materials rv">
@@ -421,7 +437,7 @@ p { margin: 0; }
   <!-- 05 components -->
   <section class="section" id="components">
     <div class="sec-head rv">
-      <div><div class="num">05</div><h2>Components</h2></div>
+      <div><div class="num">05 · Components</div><h2>Components</h2></div>
       <p>The front-desk home, built from the system: limewash KPI tiles, the stone hero, paper lists and tactile quick actions. Hover anything — it responds the way the real app does.</p>
     </div>
     <div class="desk rv">
@@ -444,7 +460,6 @@ p { margin: 0; }
             <div class="list-row"><b>07:00</b><span>Hatha <span class="muted">· Paula</span></span><span class="tchip river"><i></i>14 / 16</span></div>
             <div class="list-row"><b>12:15</b><span>Hot yoga <span class="muted">· Daniel</span></span><span class="tchip clay"><i></i>16 / 16</span></div>
             <div class="list-row"><b>18:00</b><span>Vinyasa <span class="muted">· Isabela</span></span><span class="tchip sun"><i></i>9 / 16</span></div>
-            <div class="list-row"><b>19:30</b><span>Meditación <span class="muted">· Andrés</span></span><span class="tchip moss"><i></i>6 / 20</span></div>
           </div>
         </div>
         <div style="display:grid;gap:var(--sp-lg)">
@@ -482,7 +497,7 @@ p { margin: 0; }
         <div class="row">
           <span class="tchip river"><i></i>Hatha</span><span class="tchip sun"><i></i>Vinyasa</span><span class="tchip clay"><i></i>Hot yoga</span><span class="tchip moss"><i></i>Meditación</span>
         </div>
-        <ul class="rules"><li>The selected filter becomes the ink pill; try them.</li><li>Tone chips name the class, never the tone.</li></ul>
+        <ul class="rules"><li>The selected filter becomes the ink pill — try them.</li><li>Tone chips name the class, never the tone.</li><li>44 px tall when they can be tapped.</li></ul>
       </div>
     </div>
   </section>
@@ -490,7 +505,7 @@ p { margin: 0; }
   <!-- 06 foundations -->
   <section class="section" id="foundations">
     <div class="sec-head rv">
-      <div><div class="num">06</div><h2>Shape, depth &amp; space</h2></div>
+      <div><div class="num">06 · Foundations</div><h2>Shape, depth &amp; space</h2></div>
       <p>Soft corners, paper that lies almost flat, controls you can feel, and one 4 px rhythm that scales with the screen — up to a 4K display at the reception.</p>
     </div>
     <div class="foundations">
@@ -501,8 +516,8 @@ p { margin: 0; }
           <div style="border-radius:var(--r-ctl)">14 · inputs</div>
           <div style="border-radius:var(--r-md)">24 · cards</div>
           <div style="border-radius:var(--r-lg)">32 · heroes</div>
-          <div style="border-radius:50%;background:var(--sun-w)">pill</div>
-          <div style="border-radius:999px 999px .25rem .25rem;background:var(--clay-w)">arch</div>
+          <div class="round" style="border-radius:50%;background:var(--sun-w)">pill · disc</div>
+          <div class="round" style="border-radius:999px 999px .25rem .25rem;background:var(--clay-w);align-items:flex-end;padding-bottom:var(--sp-sm)">arch</div>
         </div>
       </div>
       <div class="paper fd rv">
@@ -512,6 +527,8 @@ p { margin: 0; }
           <div style="box-shadow:var(--sh-raised)">Raised · drawer</div>
           <div style="box-shadow:var(--sh-pill);border:1px solid rgba(var(--shade),.12)">Paper pill</div>
           <div style="box-shadow:var(--sh-ink);background:var(--fill);color:var(--on-fill)">Ink lift</div>
+          <div style="box-shadow:inset 0 2px 4px rgba(var(--shade),.2);background:var(--surface-3)">Pressed</div>
+          <div style="background-color:var(--brand-deepBlue);background-image:var(--stone),var(--grain);background-size:420px 420px,180px 180px;color:var(--brand-cream);box-shadow:var(--sh-card)">Stone hero</div>
         </div>
       </div>
       <div class="paper fd rv">
@@ -537,8 +554,7 @@ p { margin: 0; }
         <ul><li>Spanish first, tú form, warm and brief.</li><li>Sentence case; eyebrows are the only capitals.</li><li>Colombian numbers: $1.284.000 · 07:00.</li></ul>
       </div>
       <div class="paper rv">
-        <h3>Motion</h3>
-        <div class="breath" aria-hidden="true"></div>
+        <div class="trio-h"><h3>Motion</h3><div class="breath" aria-hidden="true"></div></div>
         <ul><li>Controls answer in 120 ms; cards lift in 200 ms.</li><li>Tiles reveal gently as you arrive; nothing loops but light and breath.</li><li>All of it rests when reduced motion is on.</li></ul>
       </div>
       <div class="paper rv">
@@ -551,7 +567,7 @@ p { margin: 0; }
   <!-- 07 build -->
   <section class="section" id="build">
     <div class="sec-head rv">
-      <div><div class="num">07</div><h2>HTML/CSS build</h2></div>
+      <div><div class="num">07 · Build</div><h2>HTML/CSS build</h2></div>
       <p>Every component on this page is plain HTML and one stylesheet, <code class="mono">hoy.css</code>. Pick a component to see it live, then copy its markup and styles, or download the stylesheet with all the tokens and components.</p>
     </div>
     <div class="paper build rv">
