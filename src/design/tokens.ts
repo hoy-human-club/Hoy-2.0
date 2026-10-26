@@ -232,6 +232,12 @@ export const textures = {
   'tex-accent': 'repeating-linear-gradient(101deg,rgba(0,0,0,.06) 0 1px,transparent 1px 3px), repeating-linear-gradient(13deg,rgba(0,0,0,.045) 0 1px,transparent 1px 5px), radial-gradient(120% 90% at 25% 10%,rgba(var(--m-light),.15),transparent 58%)',
   'tex-paper': 'radial-gradient(rgba(var(--m-shade),.16) 1.1px,transparent 1.3px) 0 0/13px 13px',
   'tex-ph': 'repeating-linear-gradient(45deg,var(--color-surface-3),var(--color-surface-3) 5px,var(--color-surface-4) 5px,var(--color-surface-4) 10px)',
+  // 0170 · Pulso Materia — the studio's materials for the workspace (procedural, no image files):
+  // grain = heavy paper tooth (fine fractal noise); stone = travertine mottling (low-frequency noise);
+  // linen = a cloth weave of two hairline grids.
+  'tex-grain': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .21 0 0 0 0 .19 0 0 0 0 .15 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+  'tex-stone': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .022' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .14 0 0 0 0 .12 0 0 0 0 .09 0 0 0 .16 -.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E")`,
+  'tex-linen': 'repeating-linear-gradient(0deg,rgba(var(--m-shade),.028) 0 1px,transparent 1px 3px), repeating-linear-gradient(90deg,rgba(var(--m-shade),.022) 0 1px,transparent 1px 3px)',
 } as const;
 
 /** D-01 materials (canvas `tokens.textures` for the hoy brand) — decorative fills for hero art, gift cards, empty art. */
