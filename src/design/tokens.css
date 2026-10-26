@@ -38,24 +38,33 @@
   --tone-moss-fg: #3A4C36;
   --tone-moss-dot: #5A7355;
   --tone-moss-bg: rgba(90,115,85,.24);
+  --tone-moss-wash: color-mix(in srgb, #5A7355 var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-river-fg: #2C4A6B;
   --tone-river-dot: #5F85B1;
   --tone-river-bg: rgba(95,133,177,.24);
+  --tone-river-wash: color-mix(in srgb, #5F85B1 var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-clay-fg: #7A3F27;
   --tone-clay-dot: #C4704F;
   --tone-clay-bg: rgba(196,112,79,.26);
+  --tone-clay-wash: color-mix(in srgb, #C4704F var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-sun-fg: #5E5312;
   --tone-sun-dot: #D8C24A;
   --tone-sun-bg: rgba(216,194,74,.32);
+  --tone-sun-wash: color-mix(in srgb, #D8C24A var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-sage-fg: #34483D;
   --tone-sage-dot: #7E9C88;
   --tone-sage-bg: rgba(126,156,136,.26);
+  --tone-sage-wash: color-mix(in srgb, #7E9C88 var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-slate-fg: #323F4C;
   --tone-slate-dot: #848F9B;
   --tone-slate-bg: rgba(132,143,155,.26);
+  --tone-slate-wash: color-mix(in srgb, #848F9B var(--tone-wash-pigment), var(--tone-wash-base));
   --tone-plum-fg: #57344F;
   --tone-plum-dot: #9E6E8F;
   --tone-plum-bg: rgba(158,110,143,.24);
+  --tone-plum-wash: color-mix(in srgb, #9E6E8F var(--tone-wash-pigment), var(--tone-wash-base));
+  --tone-wash-pigment: 64%;
+  --tone-wash-base: #F4EDE0;
   --mat-sand: linear-gradient(150deg,#F5EEE1,#E7DCC6);
   --mat-light: linear-gradient(150deg,#FBF9DC,#F7F3B2);
   --mat-sky: linear-gradient(150deg,#A7BFDA,#5F85B1);
@@ -305,13 +314,13 @@
   --color-card-border: transparent;
   color-scheme: light;
 }
-.chip-moss, .tone-moss, .tonecard-moss, .mediaslot-moss, .cust-media-moss, .cust-week-moss, .adm-tone-moss, [data-tone="moss"] { --t-fg: var(--tone-moss-fg); --t-dot: var(--tone-moss-dot); --t-bg: var(--tone-moss-bg); }
-.chip-river, .tone-river, .tonecard-river, .mediaslot-river, .cust-media-river, .cust-week-river, .adm-tone-river, [data-tone="river"] { --t-fg: var(--tone-river-fg); --t-dot: var(--tone-river-dot); --t-bg: var(--tone-river-bg); }
-.chip-clay, .tone-clay, .tonecard-clay, .mediaslot-clay, .cust-media-clay, .cust-week-clay, .adm-tone-clay, [data-tone="clay"] { --t-fg: var(--tone-clay-fg); --t-dot: var(--tone-clay-dot); --t-bg: var(--tone-clay-bg); }
-.chip-sun, .tone-sun, .tonecard-sun, .mediaslot-sun, .cust-media-sun, .cust-week-sun, .adm-tone-sun, [data-tone="sun"] { --t-fg: var(--tone-sun-fg); --t-dot: var(--tone-sun-dot); --t-bg: var(--tone-sun-bg); }
-.chip-sage, .tone-sage, .tonecard-sage, .mediaslot-sage, .cust-media-sage, .cust-week-sage, .adm-tone-sage, [data-tone="sage"] { --t-fg: var(--tone-sage-fg); --t-dot: var(--tone-sage-dot); --t-bg: var(--tone-sage-bg); }
-.chip-slate, .tone-slate, .tonecard-slate, .mediaslot-slate, .cust-media-slate, .cust-week-slate, .adm-tone-slate, [data-tone="slate"] { --t-fg: var(--tone-slate-fg); --t-dot: var(--tone-slate-dot); --t-bg: var(--tone-slate-bg); }
-.chip-plum, .tone-plum, .tonecard-plum, .mediaslot-plum, .cust-media-plum, .cust-week-plum, .adm-tone-plum, [data-tone="plum"] { --t-fg: var(--tone-plum-fg); --t-dot: var(--tone-plum-dot); --t-bg: var(--tone-plum-bg); }
+.chip-moss, .tone-moss, .tonecard-moss, .mediaslot-moss, .cust-media-moss, .cust-week-moss, .adm-tone-moss, [data-tone="moss"] { --t-fg: var(--tone-moss-fg); --t-dot: var(--tone-moss-dot); --t-bg: var(--tone-moss-bg); --t-wash: var(--tone-moss-wash); }
+.chip-river, .tone-river, .tonecard-river, .mediaslot-river, .cust-media-river, .cust-week-river, .adm-tone-river, [data-tone="river"] { --t-fg: var(--tone-river-fg); --t-dot: var(--tone-river-dot); --t-bg: var(--tone-river-bg); --t-wash: var(--tone-river-wash); }
+.chip-clay, .tone-clay, .tonecard-clay, .mediaslot-clay, .cust-media-clay, .cust-week-clay, .adm-tone-clay, [data-tone="clay"] { --t-fg: var(--tone-clay-fg); --t-dot: var(--tone-clay-dot); --t-bg: var(--tone-clay-bg); --t-wash: var(--tone-clay-wash); }
+.chip-sun, .tone-sun, .tonecard-sun, .mediaslot-sun, .cust-media-sun, .cust-week-sun, .adm-tone-sun, [data-tone="sun"] { --t-fg: var(--tone-sun-fg); --t-dot: var(--tone-sun-dot); --t-bg: var(--tone-sun-bg); --t-wash: var(--tone-sun-wash); }
+.chip-sage, .tone-sage, .tonecard-sage, .mediaslot-sage, .cust-media-sage, .cust-week-sage, .adm-tone-sage, [data-tone="sage"] { --t-fg: var(--tone-sage-fg); --t-dot: var(--tone-sage-dot); --t-bg: var(--tone-sage-bg); --t-wash: var(--tone-sage-wash); }
+.chip-slate, .tone-slate, .tonecard-slate, .mediaslot-slate, .cust-media-slate, .cust-week-slate, .adm-tone-slate, [data-tone="slate"] { --t-fg: var(--tone-slate-fg); --t-dot: var(--tone-slate-dot); --t-bg: var(--tone-slate-bg); --t-wash: var(--tone-slate-wash); }
+.chip-plum, .tone-plum, .tonecard-plum, .mediaslot-plum, .cust-media-plum, .cust-week-plum, .adm-tone-plum, [data-tone="plum"] { --t-fg: var(--tone-plum-fg); --t-dot: var(--tone-plum-dot); --t-bg: var(--tone-plum-bg); --t-wash: var(--tone-plum-wash); }
 @media (min-width: 768px) { :root { --card-pad: var(--sp-xl); --card-pad-lg: var(--sp-2xl); --section: var(--sp-4xl); --section-hero: var(--sp-5xl); --gutter: var(--sp-xl); --grid-gap: var(--sp-xl); } }
 @media (min-width: 1280px) { :root { --gutter: var(--sp-2xl); } }
 @media (min-width: 1920px) { :root { --ui: 1.125; --fs-floor: 16px; } }
@@ -366,6 +375,8 @@ html { font-size: calc(100% * var(--ui)); }
   --gradient-frame: linear-gradient(170deg,#1D3148,#1B2E44);
   --gradient-tile: linear-gradient(150deg,#22384F,#1B2E44);
   --color-scrim: rgba(0,0,0,.5);
+  --tone-wash-pigment: 66%;
+  --tone-wash-base: #B8B0A0;
   --shadow-highlight: inset 0 1px 0 rgba(255,255,255,.06);
   --shadow-card: inset 0 1px 0 rgba(255,255,255,.06), 0 1px 2px rgba(0,0,0,.55), 0 10px 30px rgba(0,0,0,.4);
   --shadow-raised: inset 0 1px 0 rgba(255,255,255,.08), 0 2px 4px rgba(0,0,0,.55), 0 24px 60px -20px rgba(0,0,0,.7);

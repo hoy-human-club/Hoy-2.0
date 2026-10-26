@@ -25,17 +25,17 @@
 .cust-home .cust-quick { gap: var(--sp-md); }
 .cust-home .cust-quick-btn { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; background: var(--q-bg); color: var(--q-ink); font-weight: var(--fw-medium); }
 .cust-home .cust-quick-btn .cust-quick-icon { color: inherit; }
-.cust-home .cust-quick-btn:nth-child(1) { --q-bg: var(--tone-river-dot); --q-ink: var(--pulso-ink); }
-.cust-home .cust-quick-btn:nth-child(2) { --q-bg: var(--tone-sun-dot); --q-ink: var(--pulso-ink); }
-.cust-home .cust-quick-btn:nth-child(3) { --q-bg: var(--tone-clay-dot); --q-ink: var(--pulso-ink); }
-.cust-home .cust-quick-btn:nth-child(4) { --q-bg: var(--tone-moss-dot); --q-ink: var(--pulso-paper); }
+.cust-home .cust-quick-btn:nth-child(1) { --q-bg: var(--tone-river-wash); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(2) { --q-bg: var(--tone-sun-wash); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(3) { --q-bg: var(--tone-clay-wash); --q-ink: var(--pulso-ink); }
+.cust-home .cust-quick-btn:nth-child(4) { --q-bg: var(--tone-moss-wash); --q-ink: var(--pulso-ink); }
 .cust-home .cust-quick-btn:hover { box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--brand-ink) 55%, transparent); }
 
 /* practice tiles: classes on paper, the streak on clay, the plan balance on sun */
 .cust-home :is(.cust-practice-tiles .stat, .cust-practice-streak) { border-radius: var(--r-lg); border-color: transparent; box-shadow: none; }
 .cust-home .cust-practice-tiles .stat .stat-value { font-family: var(--font-body); font-weight: var(--fw-bold); letter-spacing: -0.03em; }
-.cust-home .cust-practice-body > .cust-practice-streak { background: var(--tone-clay-dot); color: var(--pulso-ink); }
-.cust-home .cust-practice-tiles > .stat:last-child { background: var(--tone-sun-dot); color: var(--pulso-ink); }
+.cust-home .cust-practice-body > .cust-practice-streak { background: var(--tone-clay-wash); color: var(--pulso-ink); }
+.cust-home .cust-practice-tiles > .stat:last-child { background: var(--tone-sun-wash); color: var(--pulso-ink); }
 .cust-home :is(.cust-practice-streak, .cust-practice-tiles > .stat:last-child) :is(.stat-label, .stat-hint, .stat-value, .muted, .eyebrow, .streak-count, .streak-unit, .streak-hint, .weekdots-initial, .weekdots-caption) { color: inherit; }
 
 /* 0158 · Pulso Luxe — restraint: paper, ink and hairlines, one tone per screen, the brand's serif set like an
