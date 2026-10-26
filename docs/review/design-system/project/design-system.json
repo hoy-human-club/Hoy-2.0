@@ -1,0 +1,36 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": { "v": 1, "at": "2026-10-26T12:00:00Z" },
+  "title": "HOY Design System",
+  "namespace": "Hoy",
+  "libraries": [],
+  "sections": {},
+  "groups": ["Logos", "Materials"],
+  "assetGroups": {
+    "Logos": {
+      "name": "Logos",
+      "tile": "m",
+      "order": ["hoy-wordmark.svg", "hoy-blue.png", "hoy-cream.png", "hoy-yellow.png"],
+      "files": {
+        "hoy-wordmark.svg": { "name": "hoy-wordmark.svg", "blob": "72a216edc3b1112395931d99a0e022ee", "size": 3340, "type": "image/svg+xml" },
+        "hoy-blue.png": { "name": "hoy-blue.png", "blob": "10a0454fb97db9f0cb703c0067d7df71", "size": 119564, "type": "image/png" },
+        "hoy-cream.png": { "name": "hoy-cream.png", "blob": "bcc74041b6a4a3b50704eb6d6b3aa7e7", "size": 122835, "type": "image/png" },
+        "hoy-yellow.png": { "name": "hoy-yellow.png", "blob": "183ca0b34b3b1faeb8940f89ff22cd20", "size": 120369, "type": "image/png" }
+      }
+    },
+    "Materials": {
+      "name": "Materials",
+      "tile": "l",
+      "order": ["texture-limestone.webp", "texture-blue.webp", "texture-sunlight.webp"],
+      "files": {
+        "texture-limestone.webp": { "name": "texture-limestone.webp", "blob": "f4ca2549d5251d05168c69b179fc0747", "size": 202882, "type": "image/webp" },
+        "texture-blue.webp": { "name": "texture-blue.webp", "blob": "d7235240430dea30a1e2abb0174134f6", "size": 189146, "type": "image/webp" },
+        "texture-sunlight.webp": { "name": "texture-sunlight.webp", "blob": "f01f72ef4eee900294369fa3035d1b50", "size": 115220, "type": "image/webp" }
+      }
+    }
+  },
+  "blobs": {},
+  "docs": { "readme": "project/README.md", "sections": [] },
+  "lastChange": { "by": "Anowar Hossain", "at": "2026-10-26T12:00:00Z", "via": "Claude Code · hoy-human-club/Hoy-2.0@ui-polish/buttons-tones", "note": "First release from D-01 tokens, Pulso Materia materials and the 0171 tactile buttons and limewash tones." }
+}
