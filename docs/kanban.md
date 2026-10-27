@@ -54,6 +54,8 @@ Current 2026-10-22: PR71 merged checkedfeaff4e9 (17 workflows/41 jobs), deployme
 
 - 0175 design system alignment pass on `ui-polish/design-system-alignment`: one lead column (752–1328) for every chapter and sub-heading, ruled chapter markers, top-aligned principles with limewash numerals, balanced desk / controls / depth cards; README images refreshed.
 
+- 0176 review pages on `ui-polish/artifact-pages`: Before and After, Studio UI, Navigation Architecture and the UI Polish Plan copied from claude.ai into `public/artifacts/`, served on Pages at `/Hoy-2.0/artifacts/<page>/`. The board, design system, bold directions and hub layouts stay on claude.ai.
+
 ### Next
 - Hub: optional "journey" tab (layout D) for client demos.
 - Studio look, next pass: GlobalSearch as a pill, DataTable row density and serif names, the check-in roster and register in tiles, the inbox thread.
