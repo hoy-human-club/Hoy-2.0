@@ -30,6 +30,7 @@ export function TokensPage() {
       <Card title={t('dev.tokens.surfaces')} eyebrow={t('dev.tokens.surfaces.eyebrow')}>
         <div className="tok-surfaces">
           {Object.entries(surfaces).map(([k, s]) => <div key={k} className="tok-swatch"><div className="tok-surface" style={{ background: s.fill, boxShadow: s.shadow, color: k === 'inverse' ? 'var(--color-text-on-inverse)' : undefined }}>{s.label}</div><code className="xs">surfaces.{k}</code><span className="xs muted">{s.fill}</span></div>)}
+          <div className="tok-swatch"><div className="tok-surface" style={{background:'var(--gradient-site-footer)',color:'var(--brand-cream)'}}><code>--gradient-site-footer</code></div><code className="xs">--gradient-site-footer</code><span className="xs muted">{sem['gradient-site-footer']}</span></div>
           <div className="tok-swatch"><div className="tok-frame"><span className="xs muted">{t('dev.tokens.frame')}</span></div><code className="xs">--gradient-frame · --r-phone · --shadow-frame</code><span className="xs muted">{sem['gradient-frame']}</span></div>
         </div>
       </Card>

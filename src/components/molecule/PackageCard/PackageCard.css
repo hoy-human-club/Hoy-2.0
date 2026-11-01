@@ -31,3 +31,6 @@
 .site[data-edition=sanctuary] .site-panel{box-shadow:var(--shadow-window),var(--shadow-frame)}
 @media(max-width:760px){.plans-packages,.plans-secondary,.plans-onrequest{grid-template-columns:1fr}.package-card{padding:var(--sp-lg)}.package-object{padding:var(--card-pad)}.plans-visit{flex-direction:column;align-items:flex-start}.plans-pass{padding:var(--card-pad)}.plans-pass h3{font-size:1.125rem}.plans-pass-price{font-size:1.5rem}}
 @media(max-width:350px){.plans-pass-grid{grid-template-columns:1fr}}
+
+/* Decorative source preserves its full composition; copy is not faded. */
+.package-object-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.2;z-index:-1;pointer-events:none}
