@@ -1,5 +1,9 @@
 # 0176 · Reconstructed verified website artwork slices
 
+date: 2026-11-01
+version: 0.25.0
+prompt: docs/prompts/0176-reconstructed-website-artwork.md
+
 Local reconstruction on Hoy-2.0 main fa7fabd591d141f54212346aed84b8d9230300bb. This replaces lost temporary implementation files, not missing original screenshot bytes.
 
 ## Approved bounded behavior
