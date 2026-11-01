@@ -1373,16 +1373,46 @@
     ],
     "usages": [
       {
+        "label": "PackageCard sample",
+        "path": "/dev/components",
+        "state": "live",
+        "evidence": "src/components/molecule/PackageCard/PackageCard.meta.ts: optional decorative photo example at20%."
+      },
+      {
+        "label": "Standard 12-class package",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
+      },
+      {
         "label": "Home",
         "path": "/site?version=photos",
         "state": "draft",
         "evidence": "src/modules/website/pages/HomePage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
       },
       {
+        "label": "Standard 12-class package",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
+      },
+      {
+        "label": "Standard 12-class package",
+        "path": "/site/plans",
+        "state": "live",
+        "evidence": "src/modules/website/pages/PlansPage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
+      },
+      {
         "label": "Plans",
         "path": "/site/plans?version=photos",
         "state": "draft",
         "evidence": "src/modules/website/pages/PlansPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers."
+      },
+      {
+        "label": "Standard 12-class package",
+        "path": "/site/plans?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/PlansPage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
       },
       {
         "label": "Schedule",

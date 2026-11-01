@@ -3,7 +3,7 @@ import { useTable } from '../../../data/DataContext';
 import { quotePublishedProduct } from '../../../data/catalogPublication';
 import type { CatalogPlan } from '../../../data/productCatalog';
 import { useSiteEdition } from '../edition';
-import { studioPhoto } from '../photography';
+import { studioPhoto, studioPhotoProps } from '../photography';
 import { Fragment, type ReactNode } from 'react';
 import { Link, useNavigate } from '../links';
 import { useI18n } from '../../../i18n/I18nProvider';
@@ -28,7 +28,7 @@ import { siteSpecs } from '../specs';
 export function PlansPage() {
   const {rows:catalogRows}=useTable<CatalogPlan>('plans');
   const localPublished=catalogRows.filter(p=>p.tenant_id===tenant.id&&p.frontend_publication&&!p.frontend_publication.withdrawnAt);
-  const { photoEdition } = useSiteEdition();
+  const { photoEdition, version } = useSiteEdition();
   const { t, bi, lang } = useI18n();
   // 0047: private classes, the space rental and corporate experiences are a `specials` handoff (M-08a contacts).
   const wa = useWhatsappLink();
@@ -66,6 +66,7 @@ export function PlansPage() {
         <div className="plans-packages">
           {pricingByFamily('paquetes').map((p, i, all) => (
             <PackageCard key={p.id} item={p} index={i + 1} total={all.length} tone={p.audience ? 'moss' : 'river'}
+              photo={p.id === 'pack12' && (version === 'latest' || version === 'photos') ? studioPhotoProps('pricing-duo') : undefined}
               eyebrow={p.audience ? bi(p.audience) : bi(FAMILY_RATIONALE.paquetes.role)} objectLabel={t('site.plans.package.objectLabel')}
               benefits={p.audience ? [...packageRules, t('site.plans.package.affiliates')] : packageRules}
               ctaLabel={t('site.plans.package.cta')} onSelect={() => buy(p.id)} />

@@ -336,3 +336,17 @@
  .studio-hero-image { object-position:58% center; }
  .site .studio-hero .sanctuary-hero-wash { background:linear-gradient(90deg,color-mix(in srgb,var(--brand-ink) 86%,transparent),color-mix(in srgb,var(--brand-ink) 43%,transparent)),linear-gradient(0deg,color-mix(in srgb,var(--brand-ink) 85%,transparent),transparent 90%); }
 }
+
+/* 0176 reconstructed visual slice: historical editions keep their presentation. */
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .sanctuary-plan.is-blue { position:relative; isolation:isolate; overflow:hidden; }
+.sanctuary-plan-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.2; z-index:-1; pointer-events:none; }
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot {
+  background:var(--gradient-site-footer); color:var(--brand-cream);
+  --color-text:var(--brand-cream); --color-text-muted:var(--brand-cream); --color-text-faint:var(--brand-cream);
+  --color-ink:var(--brand-cream); --color-primary:var(--brand-cream);
+  --color-border:color-mix(in srgb,var(--brand-cream) 24%,transparent);
+}
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot .wordmark-vector { color:var(--brand-cream); }
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot a:hover { color:var(--brand-yellow); }
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot a:focus-visible { outline-color:var(--brand-yellow); }
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot .site-footer-brand:hover .wordmark-vector { color:var(--brand-yellow); }

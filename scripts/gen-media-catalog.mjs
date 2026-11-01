@@ -126,6 +126,10 @@ for(const archived of [false,true]) {
       }
       if(code.includes('teacherStudioPhoto(te.id)'))teacherPhotos.forEach(n=>names.add(n));
       if(code.includes('studioPhotoProps(name'))for(const m of code.matchAll(/\['(facility-[^']+)'/g))names.add(m[1]);
+      // Verified standard-package artwork: only these exact Latest/Photos placements are added.
+      if(names.has('pricing-duo') && ((page==='HomePage' && code.includes('className="sanctuary-plan-photo"')) || (page==='PlansPage' && code.includes("p.id === 'pack12'")))) {
+        for(const preview of [false,true])add('images/studio-2026/pricing-duo-960.webp','Standard 12-class package',path+(preview?'?version=photos':''),preview?'draft':'live',`${file}: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval.`);
+      }
       for(const name of names)add(`images/studio-2026/${name}-960.webp`,label,path+'?version=photos','draft',`${file}; ${website}/photography.ts; ${website}/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers.${teacherPhotoIds.has(name)?` teachers:${teacherPhotoIds.get(name)}:fallback`:''}${page==='AboutPage'&&name==='facility-studio'?' media_slots:site.about:fallback':''}`);
     }
     if(archived&&code.includes('siteImage(slug)'))for(const name of classNames){concept(name);concept(name,true);}
@@ -148,6 +152,7 @@ for(const [file,label,path] of [
   for(const a of catalog)for(const url of a.variants)if(code.includes(url))add(url,label,path,'live',`${file}: literal asset reference. This is a code placement, not a runtime visibility guarantee.`);
 }
 for(const [url,path,label] of [['brand/hoy-wordmark.svg','/site','Website wordmark'],['brand/hoy-blue.png','/site?version=classic','Classic wordmark (light)'],['brand/hoy-cream.png','/site?version=classic','Classic wordmark (dark)']])add(url,label,path,'live',`${website}/SiteShell.tsx uses Wordmark; src/components/atom/Wordmark/Wordmark.tsx selects tenant.brand vector or theme-dependent raster.`);
+if((await read('src/components/molecule/PackageCard/PackageCard.meta.ts')).includes("studioPhotoProps('pricing-duo')"))add('images/studio-2026/pricing-duo-960.webp','PackageCard sample','/dev/components','live','src/components/molecule/PackageCard/PackageCard.meta.ts: optional decorative photo example at20%.');
 // Equipment pairs are opt-in About placements, preserving both color originals.
 for (const name of ['barre-blue','barre-warm','heater-blue','heater-warm']) add(`images/studio-2026/${name}-960.webp`,'Studio light','/site/about?version=photos','draft','src/modules/website/pages/AboutPage.tsx: SlowPhotoPair; 40-second dissolve, pause and reduced motion.');
 // Associate a poster only when an actual still exists; never invent thumbnails for videos.
