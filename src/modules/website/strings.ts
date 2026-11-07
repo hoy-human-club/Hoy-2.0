@@ -92,6 +92,7 @@ export const strings: StringTable = {
   'site.plans.visitTitle': { es: "Aquí hay un lugar para ti.", en: "There is a place for you here." },
   'site.plans.visitBody': { es: "Un salón con {n} mats. Encuentra tu clase y elige dónde quieres estar.", en: "A studio with {n} mats. Find your class and choose where you want to be." },
 
+  'site.new.trialCardTitle': { es: 'Para empezar', en: 'To begin' },
   'site.new.planLabel0': { es: 'Empieza aquí', en: 'Start here' },
   'site.new.planLabel1': { es: 'Tu constancia', en: 'Your consistency' },
   'site.new.planLabel2': { es: 'A tu medida', en: 'Made for you' },

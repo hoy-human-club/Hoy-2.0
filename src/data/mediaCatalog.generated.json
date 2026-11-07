@@ -1382,7 +1382,7 @@
         "label": "Standard 12-class package",
         "path": "/site",
         "state": "live",
-        "evidence": "src/modules/website/pages/HomePage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
+        "evidence": "src/modules/website/pages/HomePage.tsx: approved pricing-duo full-opacity Home standard package card; Latest and Photos only. Source placement, not deployment approval."
       },
       {
         "label": "Home",
@@ -1394,7 +1394,7 @@
         "label": "Standard 12-class package",
         "path": "/site?version=photos",
         "state": "draft",
-        "evidence": "src/modules/website/pages/HomePage.tsx: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval."
+        "evidence": "src/modules/website/pages/HomePage.tsx: approved pricing-duo full-opacity Home standard package card; Latest and Photos only. Source placement, not deployment approval."
       },
       {
         "label": "Standard 12-class package",
@@ -1660,6 +1660,40 @@
         "path": "/site/teachers?version=photos",
         "state": "draft",
         "evidence": "src/modules/website/pages/TeachersPage.tsx; src/modules/website/photography.ts; src/modules/website/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers. teachers:tea_tatiana:fallback"
+      }
+    ]
+  },
+  {
+    "id": "images/studio-2026/warrior-blue.webp",
+    "url": "images/studio-2026/warrior-blue-960.webp",
+    "thumbnail": "images/studio-2026/warrior-blue-480.webp",
+    "name": "Warrior blue",
+    "source": "studio",
+    "kind": "image",
+    "orientation": "portrait",
+    "width": 960,
+    "height": 1440,
+    "variants": [
+      "images/studio-2026/warrior-blue-480.webp",
+      "images/studio-2026/warrior-blue-960.webp"
+    ],
+    "tags": [
+      "studio",
+      "warrior",
+      "blue"
+    ],
+    "usages": [
+      {
+        "label": "Home trial class",
+        "path": "/site",
+        "state": "live",
+        "evidence": "src/modules/website/pages/HomePage.tsx: approved warrior-blue full-opacity Home trial card; Latest and Photos only. Source placement, not deployment approval."
+      },
+      {
+        "label": "Home trial class",
+        "path": "/site?version=photos",
+        "state": "draft",
+        "evidence": "src/modules/website/pages/HomePage.tsx: approved warrior-blue full-opacity Home trial card; Latest and Photos only. Source placement, not deployment approval."
       }
     ]
   },

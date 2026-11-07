@@ -350,3 +350,19 @@
 .site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot a:hover { color:var(--brand-yellow); }
 .site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot a:focus-visible { outline-color:var(--brand-yellow); }
 .site:is([data-site-version="latest"],[data-site-version="photos"]) .site-foot .site-footer-brand:hover .wordmark-vector { color:var(--brand-yellow); }
+
+/* Home-only photo presentation; historical editions and the private card retain their styling. */
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .sanctuary-plan.is-photo {
+  position:relative; isolation:isolate; overflow:hidden; color:var(--brand-white);
+}
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .sanctuary-plan.is-photo .sanctuary-plan-photo {
+  opacity:1; object-fit:cover; z-index:-2;
+}
+.site:is([data-site-version="latest"],[data-site-version="photos"]) .sanctuary-plan.is-photo::before {
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--brand-ink) 68%,transparent),color-mix(in srgb,var(--brand-ink) 52%,transparent) 45%,color-mix(in srgb,var(--brand-ink) 90%,transparent));
+}
+.site[data-edition="sanctuary"] .sanctuary-plan.is-photo h3,
+.site[data-edition="sanctuary"] .sanctuary-plan.is-photo .eyebrow {
+  color:var(--brand-white);
+}
