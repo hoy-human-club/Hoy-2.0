@@ -126,8 +126,15 @@ for(const archived of [false,true]) {
       }
       if(code.includes('teacherStudioPhoto(te.id)'))teacherPhotos.forEach(n=>names.add(n));
       if(code.includes('studioPhotoProps(name'))for(const m of code.matchAll(/\['(facility-[^']+)'/g))names.add(m[1]);
-      // Verified standard-package artwork: only these exact Latest/Photos placements are added.
-      if(names.has('pricing-duo') && ((page==='HomePage' && code.includes('className="sanctuary-plan-photo"')) || (page==='PlansPage' && code.includes("p.id === 'pack12'")))) {
+      // Home's approved ternary chooses trial/standard photos; do not infer other placements.
+      const fullPhotoHome=page==='HomePage' && code.includes("studioPhotoProps(i === 0 ? 'warrior-blue' : 'pricing-duo')") && code.includes("? 'is-photo' : ''");
+      if(fullPhotoHome)for(const preview of [false,true]) {
+        const target=path+(preview?'?version=photos':''),state=preview?'draft':'live';
+        add('images/studio-2026/warrior-blue-960.webp','Home trial class',target,state,`${file}: approved warrior-blue full-opacity Home trial card; Latest and Photos only. Source placement, not deployment approval.`);
+        add('images/studio-2026/pricing-duo-960.webp','Standard 12-class package',target,state,`${file}: approved pricing-duo full-opacity Home standard package card; Latest and Photos only. Source placement, not deployment approval.`);
+      }
+      // Plans keeps its existing 20% decorative layer; Home's legacy condition is retained for older source.
+      if(!fullPhotoHome && names.has('pricing-duo') && ((page==='HomePage' && code.includes('className="sanctuary-plan-photo"')) || (page==='PlansPage' && code.includes("p.id === 'pack12'")))) {
         for(const preview of [false,true])add('images/studio-2026/pricing-duo-960.webp','Standard 12-class package',path+(preview?'?version=photos':''),preview?'draft':'live',`${file}: verified decorative pricing-duo layer at20%, standard pack12 only; Latest and Photos. Source placement, not deployment approval.`);
       }
       for(const name of names)add(`images/studio-2026/${name}-960.webp`,label,path+'?version=photos','draft',`${file}; ${website}/photography.ts; ${website}/edition.ts. Opt-in photos edition only; teacher entries are conditional fallbacks for matching active teachers.${teacherPhotoIds.has(name)?` teachers:${teacherPhotoIds.get(name)}:fallback`:''}${page==='AboutPage'&&name==='facility-studio'?' media_slots:site.about:fallback':''}`);
