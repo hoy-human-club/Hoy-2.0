@@ -1,6 +1,7 @@
 import { chromium } from 'playwright-core';
 import assert from 'node:assert/strict';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+const studioNames=JSON.parse(await readFile(new URL('../src/data/mediaCatalog.generated.json',import.meta.url),'utf8')).filter(a=>a.source==='studio').map(a=>a.name).sort();
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-gpu']});
 const page=await browser.newPage({viewport:{width:1280,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const base=process.env.QA_BASE||'http://127.0.0.1:5187';
@@ -16,7 +17,7 @@ try {
  await page.getByLabel('Search name, tag or placement').fill('teacher leandro');assert.equal(await page.locator('.media-library-grid>.card').count(),1);
  await page.locator('.media-library summary').click();assert(await page.locator('.media-library-use a[href*="version=photos"]').count()>0);
  await page.getByLabel('Usage status').selectOption('live');assert.equal(await page.locator('.media-library-grid>.card').count(),0);
- await page.getByRole('button',{name:'Reset filters'}).first().click();await page.getByLabel('Source',{exact:true}).selectOption('studio');assert.equal(await page.locator('.media-library-grid>.card').count(),18);
+ await page.getByRole('button',{name:'Reset filters'}).first().click();await page.getByLabel('Source',{exact:true}).selectOption('studio');assert.deepEqual((await page.locator('.media-library-grid>.card h3').allTextContents()).sort(),studioNames,'studio filter must show the exact generated catalogue, including approved Home artwork');
  await page.getByLabel('Search name, tag or placement').fill('heater blue');await page.locator('.media-library summary').click();await page.locator('.media-library-grid>.card').screenshot({path:'docs/screenshots/M-02d/library-placement-detail.png'});
  await page.getByLabel('Search name, tag or placement').fill('no-matching-file');assert.equal(await page.locator('.media-library-grid>.card').count(),0);
  await page.getByRole('button',{name:'Placements & briefs'}).click();await page.locator('.adm-media').waitFor();assert(await page.locator('.adm-media>.card').count()>0);
